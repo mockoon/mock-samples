@@ -20,6 +20,13 @@ Branches naming convention:
 - features and enhancements: `feature/name-or-issue-number`
 - bug fixes: `fix/name-or-issue-number`
 
+## Create a new mock sample
+
+- Create the new mock sample using Mockoon.
+- Test the new mock API and ensure that generated JSON bodies are valid. 
+- Export it using the menu `Import/export -> Mockoon's format -> Export current environment to a file (JSON)`.
+- Add the file to the `samples` directory.
+
 ## Open a pull request
 
 Open a pull request to be merge in the `main` branch. All branches should start from `main` and must be merged into `main`.
