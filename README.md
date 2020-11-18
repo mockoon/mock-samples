@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://mockoon.com" alt="mockoon logo">
-    <img width="200" height="200" src="https://mockoon.com/images/logo-square-mock-samples.png">
+    <img width="200" height="200" src="https://mockoon.com/images/logo-square-mock-api-samples.png">
   </a>
   <br>
   <a href="https://mockoon.com/#download"><img src="https://img.shields.io/badge/Download%20app-Go-green.svg?style=flat-square&colorB=1997c6"/></a>
@@ -9,7 +9,7 @@
   <a href="https://twitter.com/GetMockoon"><img src="https://img.shields.io/badge/Twitter_@GetMockoon-follow-blue.svg?style=flat-square&colorB=1da1f2"/></a>
   <br>
   <br>
-  <h1>@Mockoon/commons</h1>
+  <h1>Mockoon's mock samples</h1>
 </div>
 
 Welcome to Mockoon's mock API samples repository. You will find in the [`samples`](/samples) folder many mock samples from popular APIs (Open Weather, Giphy, etc.). We will be adding more samples from time to time. 
@@ -27,7 +27,7 @@ To import the samples in Mockoon application, you have two possibilities:
 2. Download the sample JSON file and click in the application menu `Import/export -> Mockoon's format -> Import from a file (JSON)`.
    ![Import from file](/docs/import-file.png)
 
-In both cases, a new environment will be created and ready to use after running it by pressing the green play button. 
+In both cases, a new environment will be created and ready to use after running it by pressing the green "play" button. 
    ![Import from file](/docs/run-api.png)
 
 ## Support/feedback
