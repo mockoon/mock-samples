@@ -20,12 +20,12 @@ Welcome to Mockoon's mock API samples repository. You will find in the [`samples
 
 To import the samples in Mockoon application, you have two possibilities: 
 
-1. Copy the sample file content from this repository to the clipboard and click in the application menu `Import/export -> Mockoon's format -> Import from clipboard`. 
+1. Copy the sample file content from this repository to the clipboard and open the `Import/export` application menu and choose `Mockoon's format -> Import from clipboard`. 
    
    ![Import from clipboard](/docs/import-clipboard.png)
    
 
-2. Download the sample JSON file and click in the application menu `Import/export -> Mockoon's format -> Import from a file (JSON)`. 
+2. Download the sample JSON file and open the `Import/export` application menu and choose `Mockoon's format -> Import from a file (JSON)`. 
    
    ![Import from file](/docs/import-file.png)
 
