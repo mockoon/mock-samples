@@ -1,0 +1,180 @@
+{
+  "source": "mockoon:1.11.0",
+  "data": [
+    {
+      "type": "environment",
+      "item": {
+        "uuid": "",
+        "lastMigration": 13,
+        "name": "Tutorial - Generate mock data",
+        "endpointPrefix": "",
+        "latency": 0,
+        "port": 3001,
+        "routes": [
+          {
+            "uuid": "",
+            "documentation": "Get a list of posts (JSON)",
+            "method": "get",
+            "endpoint": "posts",
+            "responses": [
+              {
+                "uuid": "",
+                "body": "[\r\n  {{#repeat (queryParam 'total' '5')}}\r\n  {\r\n    \"id\": {{@index}},\r\n    \"title\": \"{{faker 'lorem.sentence'}}\",\r\n    \"content\": \"{{faker 'lorem.sentences'}}\",\r\n    \"media\": \"{{faker 'image.nature'}}\",\r\n    \"author\": {\r\n      \"name\": \"{{faker 'name.firstName'}} {{faker 'name.firstName'}}\",\r\n      \"avatar\": \"{{faker 'image.avatar'}}\"\r\n    },\r\n    \"comments\": [\r\n      {{#repeat (faker 'random.number' 5)}}\r\n      {\r\n        \"id\": \"{{faker 'random.uuid'}}\",\r\n        \"content\": \"{{faker 'lorem.sentence'}}\",\r\n        \"author\": {\r\n          \"name\": \"{{faker 'name.firstName'}} {{faker 'name.firstName'}}\",\r\n          \"avatar\": \"{{faker 'image.avatar'}}\"\r\n        }\r\n      }\r\n      {{/repeat}}\r\n    ],\r\n    \"likes\": {{faker 'random.number' 100}},\r\n    \"shares\": {{faker 'random.number' 100}},\r\n    \"location\": {\r\n      \"lat\": {{faker 'address.latitude'}},\r\n      \"long\": {{faker 'address.longitude'}}\r\n    },\r\n    \"archived\": {{faker 'random.boolean'}}\r\n  }\r\n  {{/repeat}}\r\n]",
+                "latency": 0,
+                "statusCode": 200,
+                "label": "Success",
+                "headers": [
+                  {
+                    "key": "",
+                    "value": ""
+                  }
+                ],
+                "filePath": "",
+                "sendFileAsBody": false,
+                "rules": [],
+                "rulesOperator": "OR",
+                "disableTemplating": false
+              }
+            ],
+            "enabled": true,
+            "randomResponse": false
+          },
+          {
+            "uuid": "",
+            "documentation": "Get a list of location (CSV)",
+            "method": "get",
+            "endpoint": "geoData",
+            "responses": [
+              {
+                "uuid": "",
+                "body": "city,state,address,latitude,longitude,timezone\r\n{{#repeat 5000}}\r\n{{faker 'address.city'}},{{faker 'address.stateAbbr'}},{{faker 'address.streetAddress'}},{{faker 'address.latitude'}},{{faker 'address.longitude'}},{{faker 'address.timeZone'}}\r\n{{/repeat}}",
+                "latency": 0,
+                "statusCode": 200,
+                "label": "Success",
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "text/csv"
+                  }
+                ],
+                "filePath": "",
+                "sendFileAsBody": false,
+                "rules": [],
+                "rulesOperator": "OR",
+                "disableTemplating": false
+              }
+            ],
+            "enabled": true,
+            "randomResponse": false
+          },
+          {
+            "uuid": "",
+            "documentation": "Get a list of products (XML)",
+            "method": "get",
+            "endpoint": "products",
+            "responses": [
+              {
+                "uuid": "",
+                "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<PRODUCTS>\r\n  {{# repeat 50}}\r\n  <PRODUCT>\r\n    <UUID>{{faker 'random.uuid'}}</UUID>\r\n    <NAME>{{faker 'commerce.product'}}</NAME>\r\n    <PRICE>{{faker 'commerce.price'}}</PRICE>\r\n    <COLOR>{{faker 'commerce.color'}}</COLOR>\r\n    <INVENTORY>{{faker 'random.number' 50}}</INVENTORY>\r\n  </PRODUCT>\r\n  {{/ repeat}}\r\n</PRODUCTS>",
+                "latency": 0,
+                "statusCode": 200,
+                "label": "",
+                "headers": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/xml"
+                  }
+                ],
+                "filePath": "",
+                "sendFileAsBody": false,
+                "rules": [],
+                "rulesOperator": "OR",
+                "disableTemplating": false
+              }
+            ],
+            "enabled": true,
+            "randomResponse": false
+          },
+          {
+            "uuid": "",
+            "documentation": "Create a user",
+            "method": "post",
+            "endpoint": "users",
+            "responses": [
+              {
+                "uuid": "",
+                "body": "{\r\n  \"id\": \"{{faker 'random.uuid'}}\",\r\n  \"firstname\": \"{{body 'firstname'}}\",\r\n  \"lastname\": \"{{body 'lastname'}}\",\r\n  \"birthdate\": \"{{body 'birthdate'}}\",\r\n  \"email\": \"{{body 'email'}}\",\r\n  \"createdAt\": \"{{now}}\"\r\n}",
+                "latency": 0,
+                "statusCode": 201,
+                "label": "Created",
+                "headers": [
+                  {
+                    "key": "",
+                    "value": ""
+                  }
+                ],
+                "filePath": "",
+                "sendFileAsBody": false,
+                "rules": [],
+                "rulesOperator": "OR",
+                "disableTemplating": false
+              }
+            ],
+            "enabled": true,
+            "randomResponse": false
+          },
+          {
+            "uuid": "",
+            "documentation": "Get a list of products or materials",
+            "method": "get",
+            "endpoint": "inventory/:type",
+            "responses": [
+              {
+                "uuid": "",
+                "body": "[\r\n  {{#repeat (queryParam 'total' '5')}}\r\n  {\r\n    \"id\": \"{{faker 'random.uuid'}}\",\r\n    {{# switch (urlParam 'type')}}\r\n    {{# case 'products'}}\r\n    \"name\": \"{{faker 'commerce.product'}}\",\r\n    \"price\": \"{{faker 'commerce.price'}} EUR\"\r\n    {{/ case}}\r\n    {{# case 'materials'}}\r\n    \"name\": \"{{faker 'commerce.productMaterial'}}\",\r\n    \"quantity\": \"{{faker 'random.number' 50}}\"\r\n    {{/ case}}\r\n    {{/ switch}}\r\n  }\r\n  {{/repeat}}\r\n]",
+                "latency": 0,
+                "statusCode": 200,
+                "label": "Success",
+                "headers": [
+                  {
+                    "key": "",
+                    "value": ""
+                  }
+                ],
+                "filePath": "",
+                "sendFileAsBody": false,
+                "rules": [],
+                "rulesOperator": "OR",
+                "disableTemplating": false
+              }
+            ],
+            "enabled": true,
+            "randomResponse": false
+          }
+        ],
+        "proxyMode": false,
+        "proxyHost": "",
+        "https": false,
+        "cors": true,
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "proxyReqHeaders": [
+          {
+            "key": "",
+            "value": ""
+          }
+        ],
+        "proxyResHeaders": [
+          {
+            "key": "",
+            "value": ""
+          }
+        ]
+      }
+    }
+  ]
+}
