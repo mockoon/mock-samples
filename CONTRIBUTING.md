@@ -24,7 +24,6 @@ Branches naming convention:
 
 - Create the new mock sample using Mockoon.
 - Test the new mock API and ensure that generated JSON bodies are valid. 
-- Export it using the menu `Import/export -> Mockoon's format -> Export current environment to a file (JSON)`.
 - Add the file to the `samples` directory.
 
 ## Open a pull request

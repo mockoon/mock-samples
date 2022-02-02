@@ -13,26 +13,33 @@
   <h1>Mockoon's mock samples</h1>
 </div>
 
-Welcome to Mockoon's mock API samples repository. You will find in the [`samples`](/samples) folder many mock samples from popular APIs (Open Weather, Giphy, etc.). We will be adding more samples from time to time. 
+Welcome to Mockoon's mock API samples repository. You will find in the [`apis`](/apis) folder many mock samples from popular APIs (Open Weather, Giphy, etc.). We will be adding more samples from time to time.
+
+You will find the full list of sample mock APIs on our website too: https://mockoon.com/mock-samples/
 
 ---
 
-## How to import the samples in Mockoon application
+## How to open the samples in Mockoon
 
-To import the samples in Mockoon application, you have two possibilities: 
+To open the samples in Mockoon application, you have two possibilities:
 
-1. Copy the sample file content from this repository to the clipboard and open the `Import/export` application menu and choose `Mockoon's format -> Import from clipboard`. 
-   
-   ![Import from clipboard](/docs/import-clipboard.png)
-   
+1. Download the sample JSON file and click on the open button:
 
-2. Download the sample JSON file and open the `Import/export` application menu and choose `Mockoon's format -> Import from a file (JSON)`. 
-   
-   ![Import from file](/docs/import-file.png)
+   ![open environment](/docs/open-environment.png)
 
-In both cases, a new environment will be created and ready to use after running it by pressing the green "play" button. 
-   
-   ![Import from file](/docs/run-api.png)
+1. Copy the sample file content from this repository to the clipboard and open the `File` menu and choose `New environment from clipboard`:
+
+   ![new environment from clipboard](/docs/new-environment-from-clipboard.png)
+
+In both cases, a new environment will be created and ready to use after running it by pressing the green "play" button.
+
+![Run the mock API](/docs/run-api.png)
+
+## How to use the samples with Mockoon CLI
+
+To run the mock samples with the [CLI](https://github.com/mockoon/cli) you can diractly run the following command using the sample raw file GitHub URL: 
+
+`mockoon-cli start --data https://raw.githubusercontent.com/mockoon/mock-samples/main/apis/giphy.json`
 
 ## Support/feedback
 
