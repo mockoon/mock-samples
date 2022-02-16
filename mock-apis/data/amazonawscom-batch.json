@@ -1,0 +1,1329 @@
+{
+  "uuid": "4f93980c-b9eb-4ccd-9bf3-ae00f481424c",
+  "lastMigration": 19,
+  "name": "AWS Batch",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "06c36d8f-e669-415f-b550-073f54294375",
+      "documentation": "Cancels a job in an Batch job queue. Jobs that are in the <code>SUBMITTED</code>, <code>PENDING</code>, or <code>RUNNABLE</code> state are canceled. Jobs that have progressed to <code>STARTING</code> or <code>RUNNING</code> aren't canceled, but the API operation still succeeds, even if no job is canceled. These jobs must be terminated with the <a>TerminateJob</a> operation.",
+      "method": "post",
+      "endpoint": "v1/canceljob",
+      "responses": [
+        {
+          "uuid": "74a750d2-3f17-4c8a-8007-dbcaf2c2e615",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "29a00fa8-5cfd-4943-a041-1f918cf00d3b",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3ef60daa-6d17-4668-a9f4-a08baf5b229e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "733edc73-b037-4c29-a2a5-10011c08a6a9",
+      "documentation": "<p>Creates an Batch compute environment. You can create <code>MANAGED</code> or <code>UNMANAGED</code> compute environments. <code>MANAGED</code> compute environments can use Amazon EC2 or Fargate resources. <code>UNMANAGED</code> compute environments can only use EC2 resources.</p> <p>In a managed compute environment, Batch manages the capacity and instance types of the compute resources within the environment. This is based on the compute resource specification that you define or the <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html\">launch template</a> that you specify when you create the compute environment. Either, you can choose to use EC2 On-Demand Instances and EC2 Spot Instances. Or, you can use Fargate and Fargate Spot capacity in your managed compute environment. You can optionally set a maximum price so that Spot Instances only launch when the Spot Instance price is less than a specified percentage of the On-Demand price.</p> <note> <p>Multi-node parallel jobs aren't supported on Spot Instances.</p> </note> <p>In an unmanaged compute environment, you can manage your own EC2 compute resources and have a lot of flexibility with how you configure your compute resources. For example, you can use custom AMIs. However, you must verify that each of your AMIs meet the Amazon ECS container instance AMI specification. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container_instance_AMIs.html\">container instance AMIs</a> in the <i>Amazon Elastic Container Service Developer Guide</i>. After you created your unmanaged compute environment, you can use the <a>DescribeComputeEnvironments</a> operation to find the Amazon ECS cluster that's associated with it. Then, launch your container instances into that Amazon ECS cluster. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html\">Launching an Amazon ECS container instance</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.</p> <note> <p>Batch doesn't upgrade the AMIs in a compute environment after the environment is created. For example, it doesn't update the AMIs when a newer version of the Amazon ECS optimized AMI is available. Therefore, you're responsible for managing the guest operating system (including its updates and security patches) and any additional application software or utilities that you install on the compute resources. To use a new AMI for your Batch jobs, complete these steps:</p> <ol> <li> <p>Create a new compute environment with the new AMI.</p> </li> <li> <p>Add the compute environment to an existing job queue.</p> </li> <li> <p>Remove the earlier compute environment from your job queue.</p> </li> <li> <p>Delete the earlier compute environment.</p> </li> </ol> </note>",
+      "method": "post",
+      "endpoint": "v1/createcomputeenvironment",
+      "responses": [
+        {
+          "uuid": "2116d261-8bb7-4b5f-a454-bd0912fbccd6",
+          "body": "{\n  \"computeEnvironmentArn\": \"arn:aws:batch:us-east-1:012345678910:compute-environment/M4Spot\",\n  \"computeEnvironmentName\": \"M4Spot\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8f42b793-12d5-408a-8dd3-1550eab4c21b",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9d33c91c-7e11-4c4b-825f-4e0ad57c643c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f7ad7317-59cb-461c-85bf-fdd8343d0d9d",
+      "documentation": "<p>Creates an Batch job queue. When you create a job queue, you associate one or more compute environments to the queue and assign an order of preference for the compute environments.</p> <p>You also set a priority to the job queue that determines the order that the Batch scheduler places jobs onto its associated compute environments. For example, if a compute environment is associated with more than one job queue, the job queue with a higher priority is given preference for scheduling jobs to that compute environment.</p>",
+      "method": "post",
+      "endpoint": "v1/createjobqueue",
+      "responses": [
+        {
+          "uuid": "ceaa4b24-9897-4834-b804-6297af872e6e",
+          "body": "{\n  \"jobQueueArn\": \"arn:aws:batch:us-east-1:012345678910:job-queue/HighPriority\",\n  \"jobQueueName\": \"HighPriority\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8cda6e11-7275-499b-a252-452f545df9bf",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3e184c90-cdfd-4188-9721-0baabaf467af",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3f127bf3-3fa7-40cd-867e-44bed1649528",
+      "documentation": "<p>Deletes an Batch compute environment.</p> <p>Before you can delete a compute environment, you must set its state to <code>DISABLED</code> with the <a>UpdateComputeEnvironment</a> API operation and disassociate it from any job queues with the <a>UpdateJobQueue</a> API operation. Compute environments that use Fargate resources must terminate all active jobs on that compute environment before deleting the compute environment. If this isn't done, the compute environment enters an invalid state.</p>",
+      "method": "post",
+      "endpoint": "v1/deletecomputeenvironment",
+      "responses": [
+        {
+          "uuid": "e4cddc16-35e3-4273-92d2-983433b0c03f",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "28806804-28c1-43a4-b6be-a505f3593b42",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "016f156c-f122-47b1-92de-6aecc22e86d1",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "dd670ce5-0291-4220-a5be-e9af4a4a23a9",
+      "documentation": "<p>Deletes the specified job queue. You must first disable submissions for a queue with the <a>UpdateJobQueue</a> operation. All jobs in the queue are eventually terminated when you delete a job queue. The jobs are terminated at a rate of about 16 jobs each second.</p> <p>It's not necessary to disassociate compute environments from a queue before submitting a <code>DeleteJobQueue</code> request.</p>",
+      "method": "post",
+      "endpoint": "v1/deletejobqueue",
+      "responses": [
+        {
+          "uuid": "57b53268-1bd2-4335-8817-15849cdbd755",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "904c6a6c-2a80-4483-b6d2-00b225904440",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "883a029b-affb-4b8e-88b5-931045440fac",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b55b3da6-7797-414f-8723-ce20cf4e301b",
+      "documentation": "Deregisters an Batch job definition. Job definitions are permanently deleted after 180 days.",
+      "method": "post",
+      "endpoint": "v1/deregisterjobdefinition",
+      "responses": [
+        {
+          "uuid": "a722ff84-c89d-4e78-ae7e-fa7d199680a6",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "488dc66a-4b5c-48c8-8a67-a9061dbad643",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e8af5a47-3367-4a1c-8e18-8135caaca2c1",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "eff64181-a14d-4d79-9165-b86e2d46e139",
+      "documentation": "<p>Describes one or more of your compute environments.</p> <p>If you're using an unmanaged compute environment, you can use the <code>DescribeComputeEnvironment</code> operation to determine the <code>ecsClusterArn</code> that you should launch your Amazon ECS container instances into.</p>",
+      "method": "post",
+      "endpoint": "v1/describecomputeenvironments",
+      "responses": [
+        {
+          "uuid": "da278bbe-6784-4f40-bb58-59ad3df79edb",
+          "body": "{\n  \"computeEnvironments\": [\n    {\n      \"type\": \"MANAGED\",\n      \"computeEnvironmentArn\": \"arn:aws:batch:us-east-1:012345678910:compute-environment/P2OnDemand\",\n      \"computeEnvironmentName\": \"P2OnDemand\",\n      \"computeResources\": {\n        \"type\": \"EC2\",\n        \"desiredvCpus\": 48,\n        \"ec2KeyPair\": \"id_rsa\",\n        \"instanceRole\": \"ecsInstanceRole\",\n        \"instanceTypes\": [\n          \"p2\"\n        ],\n        \"maxvCpus\": 128,\n        \"minvCpus\": 0,\n        \"securityGroupIds\": [\n          \"sg-cf5093b2\"\n        ],\n        \"subnets\": [\n          \"subnet-220c0e0a\",\n          \"subnet-1a95556d\",\n          \"subnet-978f6dce\"\n        ],\n        \"tags\": {\n          \"Name\": \"Batch Instance - P2OnDemand\"\n        }\n      },\n      \"ecsClusterArn\": \"arn:aws:ecs:us-east-1:012345678910:cluster/P2OnDemand_Batch_2c06f29d-d1fe-3a49-879d-42394c86effc\",\n      \"serviceRole\": \"arn:aws:iam::012345678910:role/AWSBatchServiceRole\",\n      \"state\": \"ENABLED\",\n      \"status\": \"VALID\",\n      \"statusReason\": \"ComputeEnvironment Healthy\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9cbb14f9-dfdd-43e3-8a12-f70b76289b97",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b495d5c0-1ac2-4f6a-865e-dde9c474d3ad",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "91670008-e121-431d-b00c-83e32e8fbe17",
+      "documentation": "Describes a list of job definitions. You can specify a <code>status</code> (such as <code>ACTIVE</code>) to only return job definitions that match that status.",
+      "method": "post",
+      "endpoint": "v1/describejobdefinitions",
+      "responses": [
+        {
+          "uuid": "e13c43ae-e0b1-422e-8f65-4ebf275c4a53",
+          "body": "{\n  \"jobDefinitions\": [\n    {\n      \"type\": \"container\",\n      \"containerProperties\": {\n        \"command\": [\n          \"sleep\",\n          \"60\"\n        ],\n        \"environment\": [],\n        \"image\": \"busybox\",\n        \"memory\": 128,\n        \"mountPoints\": [],\n        \"ulimits\": [],\n        \"vcpus\": 1,\n        \"volumes\": []\n      },\n      \"jobDefinitionArn\": \"arn:aws:batch:us-east-1:012345678910:job-definition/sleep60:1\",\n      \"jobDefinitionName\": \"sleep60\",\n      \"revision\": 1,\n      \"status\": \"ACTIVE\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1117313f-b337-468f-8946-d9e6bcbd5660",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d8347d13-2ff5-4f33-8888-a33ae638836e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "dfb7d9cb-2cd1-4302-bb42-59614e6a56f7",
+      "documentation": "Describes one or more of your job queues.",
+      "method": "post",
+      "endpoint": "v1/describejobqueues",
+      "responses": [
+        {
+          "uuid": "838eb1ea-bd99-47a9-8b46-d18db9b880d4",
+          "body": "{\n  \"jobQueues\": [\n    {\n      \"computeEnvironmentOrder\": [\n        {\n          \"computeEnvironment\": \"arn:aws:batch:us-east-1:012345678910:compute-environment/C4OnDemand\",\n          \"order\": 1\n        }\n      ],\n      \"jobQueueArn\": \"arn:aws:batch:us-east-1:012345678910:job-queue/HighPriority\",\n      \"jobQueueName\": \"HighPriority\",\n      \"priority\": 1,\n      \"state\": \"ENABLED\",\n      \"status\": \"VALID\",\n      \"statusReason\": \"JobQueue Healthy\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e06d5006-01af-4935-ae00-a0e40f2bd275",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "51919fc0-e751-48a2-b400-5678c4ebcd3c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b40becaa-9eb6-446d-b6c7-3efd04486db4",
+      "documentation": "Describes a list of Batch jobs.",
+      "method": "post",
+      "endpoint": "v1/describejobs",
+      "responses": [
+        {
+          "uuid": "466424b0-73b8-4bb2-bf51-78ead68e2ded",
+          "body": "{\n  \"jobs\": [\n    {\n      \"container\": {\n        \"command\": [\n          \"sleep\",\n          \"60\"\n        ],\n        \"containerInstanceArn\": \"arn:aws:ecs:us-east-1:012345678910:container-instance/5406d7cd-58bd-4b8f-9936-48d7c6b1526c\",\n        \"environment\": [],\n        \"exitCode\": 0,\n        \"image\": \"busybox\",\n        \"memory\": 128,\n        \"mountPoints\": [],\n        \"ulimits\": [],\n        \"vcpus\": 1,\n        \"volumes\": []\n      },\n      \"createdAt\": 1480460782010,\n      \"dependsOn\": [],\n      \"jobDefinition\": \"sleep60\",\n      \"jobId\": \"24fa2d7a-64c4-49d2-8b47-f8da4fbde8e9\",\n      \"jobName\": \"example\",\n      \"jobQueue\": \"arn:aws:batch:us-east-1:012345678910:job-queue/HighPriority\",\n      \"parameters\": {},\n      \"startedAt\": 1480460816500,\n      \"status\": \"SUCCEEDED\",\n      \"stoppedAt\": 1480460880699\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7d18378f-6b28-4d63-8c2f-7569985a7800",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "161e6782-2419-4e71-b786-1e49d8028013",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "62da532e-33f6-4582-b6b1-baffb90ed87c",
+      "documentation": "<p>Returns a list of Batch jobs.</p> <p>You must specify only one of the following items:</p> <ul> <li> <p>A job queue ID to return a list of jobs in that job queue</p> </li> <li> <p>A multi-node parallel job ID to return a list of nodes for that job</p> </li> <li> <p>An array job ID to return a list of the children for that job</p> </li> </ul> <p>You can filter the results by job status with the <code>jobStatus</code> parameter. If you don't specify a status, only <code>RUNNING</code> jobs are returned.</p>",
+      "method": "post",
+      "endpoint": "v1/listjobs",
+      "responses": [
+        {
+          "uuid": "3b324771-eebe-41e6-be30-990a05ab26a6",
+          "body": "{\n  \"jobSummaryList\": [\n    {\n      \"jobId\": \"68f0c163-fbd4-44e6-9fd1-25b14a434786\",\n      \"jobName\": \"example\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ab7517d1-a507-4459-8355-359380207a38",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f390175e-1ed2-452e-bdfb-7e546a4bebf8",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "abf9a4bc-807b-41a0-be20-39a95a5c44f8",
+      "documentation": "Lists the tags for an Batch resource. Batch resources that support tags are compute environments, jobs, job definitions, and job queues. ARNs for child jobs of array and multi-node parallel (MNP) jobs are not supported.",
+      "method": "get",
+      "endpoint": "v1/tags/:resourceArn",
+      "responses": [
+        {
+          "uuid": "03a6b96a-0b70-4c92-ab70-756f46d3e466",
+          "body": "{\n  \"tags\": {\n    \"Department\": \"Engineering\",\n    \"Stage\": \"Alpha\",\n    \"User\": \"JaneDoe\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8a1d8d08-d5b1-4eff-95a5-460a875e3f2e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "24a1079e-bcf6-425a-95a9-4520461a9c8e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "120e6182-9363-4a0e-9f73-f8395730a45c",
+      "documentation": "Associates the specified tags to a resource with the specified <code>resourceArn</code>. If existing tags on a resource aren't specified in the request parameters, they aren't changed. When a resource is deleted, the tags that are associated with that resource are deleted as well. Batch resources that support tags are compute environments, jobs, job definitions, and job queues. ARNs for child jobs of array and multi-node parallel (MNP) jobs are not supported.",
+      "method": "post",
+      "endpoint": "v1/tags/:resourceArn",
+      "responses": [
+        {
+          "uuid": "319b6058-763f-4530-83c1-bf7bce102c37",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ee1b9f84-5b6a-4f36-999f-ec36dde595fe",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0b7bd754-dfc0-4715-9aaf-38d637ae3e26",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b809b232-8d1f-4db4-a2b8-158eb5025867",
+      "documentation": "Registers an Batch job definition.",
+      "method": "post",
+      "endpoint": "v1/registerjobdefinition",
+      "responses": [
+        {
+          "uuid": "65cfac27-6212-44ab-a153-605b7befba47",
+          "body": "{\n  \"jobDefinitionArn\": \"arn:aws:batch:us-east-1:012345678910:job-definition/sleep30:1\",\n  \"jobDefinitionName\": \"sleep30\",\n  \"revision\": 1\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b743fd01-0689-48c9-aeda-05ec9a2c190e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fa0653da-d830-424e-8d68-cb64a551c42e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "34754bc5-6787-46e1-aaf9-e6d80f331985",
+      "documentation": "<p>Submits an Batch job from a job definition. Parameters that are specified during <a>SubmitJob</a> override parameters defined in the job definition. vCPU and memory requirements that are specified in the <code>ResourceRequirements</code> objects in the job definition are the exception. They can't be overridden this way using the <code>memory</code> and <code>vcpus</code> parameters. Rather, you must specify updates to job definition parameters in a <code>ResourceRequirements</code> object that's included in the <code>containerOverrides</code> parameter.</p> <important> <p>Jobs that run on Fargate resources can't be guaranteed to run for more than 14 days. This is because, after 14 days, Fargate resources might become unavailable and job might be terminated.</p> </important>",
+      "method": "post",
+      "endpoint": "v1/submitjob",
+      "responses": [
+        {
+          "uuid": "af996852-a762-48a1-84e6-736c2bd41db0",
+          "body": "{\n  \"jobId\": \"876da822-4198-45f2-a252-6cea32512ea8\",\n  \"jobName\": \"example\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3fe1a784-e5cf-4921-8efc-53a3305551d7",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "066899f5-8057-4033-b717-d10d68aa9ac0",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "06c6ecc2-c248-4f6d-9de2-5ad62302d6ed",
+      "documentation": "Terminates a job in a job queue. Jobs that are in the <code>STARTING</code> or <code>RUNNING</code> state are terminated, which causes them to transition to <code>FAILED</code>. Jobs that have not progressed to the <code>STARTING</code> state are cancelled.",
+      "method": "post",
+      "endpoint": "v1/terminatejob",
+      "responses": [
+        {
+          "uuid": "8dc7b8ac-4870-41f8-8d5b-ccb9b1fadf58",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c3b69e50-6857-4a66-aaec-25b79e6ad389",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d3600d82-abd0-49c9-ae66-6ecea0c5718a",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f3046414-b02e-461a-b7c2-947f83619463",
+      "documentation": "Deletes specified tags from an Batch resource.",
+      "method": "delete",
+      "endpoint": "v1/tags/:resourceArn#tagKeys",
+      "responses": [
+        {
+          "uuid": "9bebe874-6d31-4aba-be87-46725f49dc3b",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3048211a-3065-477e-82bc-873816564c5d",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8f42795a-22b2-40b4-8f88-e6dcbf6b8089",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d542a096-c4ea-4cf9-b689-eaf89c690850",
+      "documentation": "Updates an Batch compute environment.",
+      "method": "post",
+      "endpoint": "v1/updatecomputeenvironment",
+      "responses": [
+        {
+          "uuid": "d5e1d117-7718-4e92-bebc-77efbbc1d626",
+          "body": "{\n  \"computeEnvironmentArn\": \"arn:aws:batch:us-east-1:012345678910:compute-environment/P2OnDemand\",\n  \"computeEnvironmentName\": \"P2OnDemand\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b5d8aa51-3864-404b-95bb-f47ddbeeb480",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "447717a4-b428-4520-9b6c-9f0dc0500043",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6c59ea48-dcd0-4d8b-856c-3bfddd1a17b4",
+      "documentation": "Updates a job queue.",
+      "method": "post",
+      "endpoint": "v1/updatejobqueue",
+      "responses": [
+        {
+          "uuid": "4c46e724-bcb5-45c7-89ad-b819f188553e",
+          "body": "{\n  \"jobQueueArn\": \"arn:aws:batch:us-east-1:012345678910:job-queue/GPGPU\",\n  \"jobQueueName\": \"GPGPU\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "151f1cc3-610c-4343-9f86-ae5daa6ba465",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7b8c8013-c2ac-4055-82ae-10fa48881723",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

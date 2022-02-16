@@ -1,0 +1,307 @@
+{
+  "uuid": "ee823bcb-832d-4ac0-a595-7550f5678fc4",
+  "lastMigration": 19,
+  "name": "Payments Reseller Subscription API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "20292147-f2fc-43f5-8669-d8792ee1356a",
+      "documentation": "Used by partners to get a subscription by id. It should be called directly by the partner using service accounts.",
+      "method": "get",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "c13e5c9a-ed48-428e-a552-25e484fafe15",
+          "body": "{\n  \"cancellationDetails\": {\n    \"reason\": \"{{oneOf (array 'CANCELLATION_REASON_UNSPECIFIED' 'CANCELLATION_REASON_FRAUD' 'CANCELLATION_REASON_REMORSE' 'CANCELLATION_REASON_ACCIDENTAL_PURCHASE' 'CANCELLATION_REASON_PAST_DUE' 'CANCELLATION_REASON_ACCOUNT_CLOSED' 'CANCELLATION_REASON_UPGRADE_DOWNGRADE' 'CANCELLATION_REASON_USER_DELINQUENCY' 'CANCELLATION_REASON_OTHER')}}\"\n  },\n  \"createTime\": \"\",\n  \"cycleEndTime\": \"\",\n  \"endUserEntitled\": {{faker 'random.boolean'}},\n  \"freeTrialEndTime\": \"\",\n  \"name\": \"\",\n  \"partnerUserToken\": \"\",\n  \"processingState\": \"{{oneOf (array 'PROCESSING_STATE_UNSPECIFIED' 'PROCESSING_STATE_CANCELLING' 'PROCESSING_STATE_RECURRING')}}\",\n  \"products\": [\n    \"\"\n  ],\n  \"promotions\": [\n    \"\"\n  ],\n  \"redirectUri\": \"\",\n  \"renewalTime\": \"\",\n  \"serviceLocation\": {\n    \"postalCode\": \"\",\n    \"regionCode\": \"\"\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'STATE_CREATED' 'STATE_ACTIVE' 'STATE_CANCELLED' 'STATE_IN_GRACE_PERIOD' 'STATE_CANCEL_AT_END_OF_CYCLE')}}\",\n  \"updateTime\": \"\",\n  \"upgradeDowngradeDetails\": {\n    \"billingCycleSpec\": \"{{oneOf (array 'BILLING_CYCLE_SPEC_UNSPECIFIED' 'BILLING_CYCLE_SPEC_ALIGN_WITH_PREVIOUS_SUBSCRIPTION' 'BILLING_CYCLE_SPEC_START_IMMEDIATELY')}}\",\n    \"previousSubscriptionId\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8e869e52-606a-4cab-8a2a-15381d15758b",
+      "documentation": "Used by partners to cancel a subscription service either immediately or by the end of the current billing cycle for their customers. It should be called directly by the partner using service accounts.",
+      "method": "post",
+      "endpoint": "v1/:name:cancel",
+      "responses": [
+        {
+          "uuid": "8a4357b8-e1f0-4d92-9808-9160c060c1d2",
+          "body": "{\n  \"subscription\": {\n    \"cancellationDetails\": {\n      \"reason\": \"{{oneOf (array 'CANCELLATION_REASON_UNSPECIFIED' 'CANCELLATION_REASON_FRAUD' 'CANCELLATION_REASON_REMORSE' 'CANCELLATION_REASON_ACCIDENTAL_PURCHASE' 'CANCELLATION_REASON_PAST_DUE' 'CANCELLATION_REASON_ACCOUNT_CLOSED' 'CANCELLATION_REASON_UPGRADE_DOWNGRADE' 'CANCELLATION_REASON_USER_DELINQUENCY' 'CANCELLATION_REASON_OTHER')}}\"\n    },\n    \"createTime\": \"\",\n    \"cycleEndTime\": \"\",\n    \"endUserEntitled\": {{faker 'random.boolean'}},\n    \"freeTrialEndTime\": \"\",\n    \"name\": \"\",\n    \"partnerUserToken\": \"\",\n    \"processingState\": \"{{oneOf (array 'PROCESSING_STATE_UNSPECIFIED' 'PROCESSING_STATE_CANCELLING' 'PROCESSING_STATE_RECURRING')}}\",\n    \"products\": [\n      \"\"\n    ],\n    \"promotions\": [\n      \"\"\n    ],\n    \"redirectUri\": \"\",\n    \"renewalTime\": \"\",\n    \"serviceLocation\": {\n      \"postalCode\": \"\",\n      \"regionCode\": \"\"\n    },\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'STATE_CREATED' 'STATE_ACTIVE' 'STATE_CANCELLED' 'STATE_IN_GRACE_PERIOD' 'STATE_CANCEL_AT_END_OF_CYCLE')}}\",\n    \"updateTime\": \"\",\n    \"upgradeDowngradeDetails\": {\n      \"billingCycleSpec\": \"{{oneOf (array 'BILLING_CYCLE_SPEC_UNSPECIFIED' 'BILLING_CYCLE_SPEC_ALIGN_WITH_PREVIOUS_SUBSCRIPTION' 'BILLING_CYCLE_SPEC_START_IMMEDIATELY')}}\",\n      \"previousSubscriptionId\": \"\"\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bbee3818-28e9-46b9-b30b-bed10696081b",
+      "documentation": "Used by partners to entitle a previously provisioned subscription to the current end user. The end user identity is inferred from the authorized credential of the request. This API must be authorized by the end user using OAuth.",
+      "method": "post",
+      "endpoint": "v1/:name:entitle",
+      "responses": [
+        {
+          "uuid": "0ae967e3-b86f-43bf-a2e9-a3742ccea946",
+          "body": "{\n  \"subscription\": {\n    \"cancellationDetails\": {\n      \"reason\": \"{{oneOf (array 'CANCELLATION_REASON_UNSPECIFIED' 'CANCELLATION_REASON_FRAUD' 'CANCELLATION_REASON_REMORSE' 'CANCELLATION_REASON_ACCIDENTAL_PURCHASE' 'CANCELLATION_REASON_PAST_DUE' 'CANCELLATION_REASON_ACCOUNT_CLOSED' 'CANCELLATION_REASON_UPGRADE_DOWNGRADE' 'CANCELLATION_REASON_USER_DELINQUENCY' 'CANCELLATION_REASON_OTHER')}}\"\n    },\n    \"createTime\": \"\",\n    \"cycleEndTime\": \"\",\n    \"endUserEntitled\": {{faker 'random.boolean'}},\n    \"freeTrialEndTime\": \"\",\n    \"name\": \"\",\n    \"partnerUserToken\": \"\",\n    \"processingState\": \"{{oneOf (array 'PROCESSING_STATE_UNSPECIFIED' 'PROCESSING_STATE_CANCELLING' 'PROCESSING_STATE_RECURRING')}}\",\n    \"products\": [\n      \"\"\n    ],\n    \"promotions\": [\n      \"\"\n    ],\n    \"redirectUri\": \"\",\n    \"renewalTime\": \"\",\n    \"serviceLocation\": {\n      \"postalCode\": \"\",\n      \"regionCode\": \"\"\n    },\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'STATE_CREATED' 'STATE_ACTIVE' 'STATE_CANCELLED' 'STATE_IN_GRACE_PERIOD' 'STATE_CANCEL_AT_END_OF_CYCLE')}}\",\n    \"updateTime\": \"\",\n    \"upgradeDowngradeDetails\": {\n      \"billingCycleSpec\": \"{{oneOf (array 'BILLING_CYCLE_SPEC_UNSPECIFIED' 'BILLING_CYCLE_SPEC_ALIGN_WITH_PREVIOUS_SUBSCRIPTION' 'BILLING_CYCLE_SPEC_START_IMMEDIATELY')}}\",\n      \"previousSubscriptionId\": \"\"\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "10d491fb-77fd-49d5-a05d-15789468cb81",
+      "documentation": "Used by partners to extend a subscription service for their customers on an ongoing basis for the subscription to remain active and renewable. It should be called directly by the partner using service accounts.",
+      "method": "post",
+      "endpoint": "v1/:name:extend",
+      "responses": [
+        {
+          "uuid": "240e9e63-e86a-4b65-ab3e-4b49d2eb21f4",
+          "body": "{\n  \"cycleEndTime\": \"\",\n  \"freeTrialEndTime\": \"\",\n  \"renewalTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "84574d0c-02fe-4266-9e40-f9c58d5227ed",
+      "documentation": "Used by partners to revoke the pending cancellation of a subscription, which is currently in `STATE_CANCEL_AT_END_OF_CYCLE` state. If the subscription is already cancelled, the request will fail. It should be called directly by the partner using service accounts.",
+      "method": "post",
+      "endpoint": "v1/:name:undoCancel",
+      "responses": [
+        {
+          "uuid": "444c25df-ccac-497e-a192-b8d6d2239a5c",
+          "body": "{\n  \"subscription\": {\n    \"cancellationDetails\": {\n      \"reason\": \"{{oneOf (array 'CANCELLATION_REASON_UNSPECIFIED' 'CANCELLATION_REASON_FRAUD' 'CANCELLATION_REASON_REMORSE' 'CANCELLATION_REASON_ACCIDENTAL_PURCHASE' 'CANCELLATION_REASON_PAST_DUE' 'CANCELLATION_REASON_ACCOUNT_CLOSED' 'CANCELLATION_REASON_UPGRADE_DOWNGRADE' 'CANCELLATION_REASON_USER_DELINQUENCY' 'CANCELLATION_REASON_OTHER')}}\"\n    },\n    \"createTime\": \"\",\n    \"cycleEndTime\": \"\",\n    \"endUserEntitled\": {{faker 'random.boolean'}},\n    \"freeTrialEndTime\": \"\",\n    \"name\": \"\",\n    \"partnerUserToken\": \"\",\n    \"processingState\": \"{{oneOf (array 'PROCESSING_STATE_UNSPECIFIED' 'PROCESSING_STATE_CANCELLING' 'PROCESSING_STATE_RECURRING')}}\",\n    \"products\": [\n      \"\"\n    ],\n    \"promotions\": [\n      \"\"\n    ],\n    \"redirectUri\": \"\",\n    \"renewalTime\": \"\",\n    \"serviceLocation\": {\n      \"postalCode\": \"\",\n      \"regionCode\": \"\"\n    },\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'STATE_CREATED' 'STATE_ACTIVE' 'STATE_CANCELLED' 'STATE_IN_GRACE_PERIOD' 'STATE_CANCEL_AT_END_OF_CYCLE')}}\",\n    \"updateTime\": \"\",\n    \"upgradeDowngradeDetails\": {\n      \"billingCycleSpec\": \"{{oneOf (array 'BILLING_CYCLE_SPEC_UNSPECIFIED' 'BILLING_CYCLE_SPEC_ALIGN_WITH_PREVIOUS_SUBSCRIPTION' 'BILLING_CYCLE_SPEC_START_IMMEDIATELY')}}\",\n      \"previousSubscriptionId\": \"\"\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "456c215f-122e-4b82-9ff0-cddb8f29f5de",
+      "documentation": "Used by partners to list products that can be resold to their customers. It should be called directly by the partner using service accounts.",
+      "method": "get",
+      "endpoint": "v1/:parent/products",
+      "responses": [
+        {
+          "uuid": "51972ca8-2fbd-4346-a168-ad9fda917dcd",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"products\": [\n    {\n      \"name\": \"\",\n      \"regionCodes\": [\n        \"\"\n      ],\n      \"subscriptionBillingCycleDuration\": {\n        \"count\": {{faker 'random.number'}},\n        \"unit\": \"{{oneOf (array 'UNIT_UNSPECIFIED' 'MONTH' 'DAY')}}\"\n      },\n      \"titles\": [\n        {\n          \"languageCode\": \"\",\n          \"text\": \"\"\n        }\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "26ed7c09-c56a-439f-a28e-0a68d373d16a",
+      "documentation": "Used by partners to list promotions, such as free trial, that can be applied on subscriptions. It should be called directly by the partner using service accounts.",
+      "method": "get",
+      "endpoint": "v1/:parent/promotions",
+      "responses": [
+        {
+          "uuid": "b21520ec-1e7f-4e46-b17c-98516c3b4a9a",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"promotions\": [\n    {\n      \"applicableProducts\": [\n        \"\"\n      ],\n      \"endTime\": \"\",\n      \"freeTrialDuration\": {\n        \"count\": {{faker 'random.number'}},\n        \"unit\": \"{{oneOf (array 'UNIT_UNSPECIFIED' 'MONTH' 'DAY')}}\"\n      },\n      \"introductoryPricingDetails\": {\n        \"introductoryPricingSpecs\": [\n          {\n            \"recurrenceCount\": {{faker 'random.number'}}\n          }\n        ]\n      },\n      \"name\": \"\",\n      \"promotionType\": \"{{oneOf (array 'PROMOTION_TYPE_UNSPECIFIED' 'PROMOTION_TYPE_FREE_TRIAL' 'PROMOTION_TYPE_INTRODUCTORY_PRICING')}}\",\n      \"regionCodes\": [\n        \"\"\n      ],\n      \"startTime\": \"\",\n      \"titles\": [\n        {\n          \"languageCode\": \"\",\n          \"text\": \"\"\n        }\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "579ce40d-c5d1-4062-9992-02356c1a98d5",
+      "documentation": "Used by partners to create a subscription for their customers. The created subscription is associated with the end user inferred from the end user credentials. This API must be authorized by the end user using OAuth.",
+      "method": "post",
+      "endpoint": "v1/:parent/subscriptions",
+      "responses": [
+        {
+          "uuid": "2fc6114e-a52e-4cf3-8c70-f2dad811bbc1",
+          "body": "{\n  \"cancellationDetails\": {\n    \"reason\": \"{{oneOf (array 'CANCELLATION_REASON_UNSPECIFIED' 'CANCELLATION_REASON_FRAUD' 'CANCELLATION_REASON_REMORSE' 'CANCELLATION_REASON_ACCIDENTAL_PURCHASE' 'CANCELLATION_REASON_PAST_DUE' 'CANCELLATION_REASON_ACCOUNT_CLOSED' 'CANCELLATION_REASON_UPGRADE_DOWNGRADE' 'CANCELLATION_REASON_USER_DELINQUENCY' 'CANCELLATION_REASON_OTHER')}}\"\n  },\n  \"createTime\": \"\",\n  \"cycleEndTime\": \"\",\n  \"endUserEntitled\": {{faker 'random.boolean'}},\n  \"freeTrialEndTime\": \"\",\n  \"name\": \"\",\n  \"partnerUserToken\": \"\",\n  \"processingState\": \"{{oneOf (array 'PROCESSING_STATE_UNSPECIFIED' 'PROCESSING_STATE_CANCELLING' 'PROCESSING_STATE_RECURRING')}}\",\n  \"products\": [\n    \"\"\n  ],\n  \"promotions\": [\n    \"\"\n  ],\n  \"redirectUri\": \"\",\n  \"renewalTime\": \"\",\n  \"serviceLocation\": {\n    \"postalCode\": \"\",\n    \"regionCode\": \"\"\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'STATE_CREATED' 'STATE_ACTIVE' 'STATE_CANCELLED' 'STATE_IN_GRACE_PERIOD' 'STATE_CANCEL_AT_END_OF_CYCLE')}}\",\n  \"updateTime\": \"\",\n  \"upgradeDowngradeDetails\": {\n    \"billingCycleSpec\": \"{{oneOf (array 'BILLING_CYCLE_SPEC_UNSPECIFIED' 'BILLING_CYCLE_SPEC_ALIGN_WITH_PREVIOUS_SUBSCRIPTION' 'BILLING_CYCLE_SPEC_START_IMMEDIATELY')}}\",\n    \"previousSubscriptionId\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d3eb8a5f-ae9e-41a6-b3f3-87252a78313d",
+      "documentation": "Used by partners to provision a subscription for their customers. This creates a subscription without associating it with the end user account. EntitleSubscription must be called separately using OAuth in order for the end user account to be associated with the subscription. It should be called directly by the partner using service accounts.",
+      "method": "post",
+      "endpoint": "v1/:parent/subscriptions:provision",
+      "responses": [
+        {
+          "uuid": "5e328326-e13d-4631-a153-ff8a3b6ff936",
+          "body": "{\n  \"cancellationDetails\": {\n    \"reason\": \"{{oneOf (array 'CANCELLATION_REASON_UNSPECIFIED' 'CANCELLATION_REASON_FRAUD' 'CANCELLATION_REASON_REMORSE' 'CANCELLATION_REASON_ACCIDENTAL_PURCHASE' 'CANCELLATION_REASON_PAST_DUE' 'CANCELLATION_REASON_ACCOUNT_CLOSED' 'CANCELLATION_REASON_UPGRADE_DOWNGRADE' 'CANCELLATION_REASON_USER_DELINQUENCY' 'CANCELLATION_REASON_OTHER')}}\"\n  },\n  \"createTime\": \"\",\n  \"cycleEndTime\": \"\",\n  \"endUserEntitled\": {{faker 'random.boolean'}},\n  \"freeTrialEndTime\": \"\",\n  \"name\": \"\",\n  \"partnerUserToken\": \"\",\n  \"processingState\": \"{{oneOf (array 'PROCESSING_STATE_UNSPECIFIED' 'PROCESSING_STATE_CANCELLING' 'PROCESSING_STATE_RECURRING')}}\",\n  \"products\": [\n    \"\"\n  ],\n  \"promotions\": [\n    \"\"\n  ],\n  \"redirectUri\": \"\",\n  \"renewalTime\": \"\",\n  \"serviceLocation\": {\n    \"postalCode\": \"\",\n    \"regionCode\": \"\"\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'STATE_CREATED' 'STATE_ACTIVE' 'STATE_CANCELLED' 'STATE_IN_GRACE_PERIOD' 'STATE_CANCEL_AT_END_OF_CYCLE')}}\",\n  \"updateTime\": \"\",\n  \"upgradeDowngradeDetails\": {\n    \"billingCycleSpec\": \"{{oneOf (array 'BILLING_CYCLE_SPEC_UNSPECIFIED' 'BILLING_CYCLE_SPEC_ALIGN_WITH_PREVIOUS_SUBSCRIPTION' 'BILLING_CYCLE_SPEC_START_IMMEDIATELY')}}\",\n    \"previousSubscriptionId\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

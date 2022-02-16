@@ -1,0 +1,928 @@
+{
+  "uuid": "b8114127-ca95-4e50-8f68-03f419e3bee0",
+  "lastMigration": 19,
+  "name": "StorageManagementClient",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "0b4d1ce9-941f-47ba-bee9-87b23d629116",
+      "documentation": "Lists all of the available Storage Rest API operations.",
+      "method": "get",
+      "endpoint": "providers/Microsoft.Storage/operations",
+      "responses": [
+        {
+          "uuid": "9c4ac17e-3b44-4a80-b8c4-5175b29139cf",
+          "body": "{\n  \"value\": [\n    {\n      \"display\": {\n        \"description\": \"\",\n        \"operation\": \"\",\n        \"provider\": \"\",\n        \"resource\": \"\"\n      },\n      \"name\": \"\",\n      \"origin\": \"\",\n      \"properties\": {\n        \"serviceSpecification\": {\n          \"metricSpecifications\": [\n            {\n              \"aggregationType\": \"\",\n              \"category\": \"\",\n              \"dimensions\": [\n                {\n                  \"displayName\": \"\",\n                  \"name\": \"\"\n                }\n              ],\n              \"displayDescription\": \"\",\n              \"displayName\": \"\",\n              \"fillGapWithZero\": {{faker 'random.boolean'}},\n              \"name\": \"\",\n              \"resourceIdDimensionNameOverride\": \"\",\n              \"unit\": \"\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK. The request has succeeded.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2752df9f-0c45-49a2-9521-419730b96db6",
+      "documentation": "Checks that the storage account name is valid and is not already in use.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Storage/checkNameAvailability",
+      "responses": [
+        {
+          "uuid": "bfa818af-8157-4cde-9e82-856c1a9d5098",
+          "body": "{\n  \"message\": \"\",\n  \"nameAvailable\": {{faker 'random.boolean'}},\n  \"reason\": \"{{oneOf (array 'AccountNameInvalid' 'AlreadyExists')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- Operation to check the storage account name availability was successful.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7ca78fe1-f691-457a-962f-ddcf22722ac7",
+      "documentation": "Gets the current usage count and the limit for the resources of the location under the subscription.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Storage/locations/:location/usages",
+      "responses": [
+        {
+          "uuid": "a8d22876-5076-4fb9-867e-826159d4e239",
+          "body": "{\n  \"value\": [\n    {\n      \"currentValue\": {{faker 'random.number'}},\n      \"limit\": {{faker 'random.number'}},\n      \"name\": {\n        \"localizedValue\": \"\",\n        \"value\": \"\"\n      },\n      \"unit\": \"{{oneOf (array 'Count' 'Bytes' 'Seconds' 'Percent' 'CountsPerSecond' 'BytesPerSecond')}}\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- current usage count and limit retrieved and returned successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8a8c286b-7ce3-4b3c-bbd5-8a12fd569772",
+      "documentation": "Lists the available SKUs supported by Microsoft.Storage for given subscription.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Storage/skus",
+      "responses": [
+        {
+          "uuid": "c7fbb06a-09d0-43e8-a595-473f9ebfe8a2",
+          "body": "{\n  \"value\": [\n    {\n      \"capabilities\": [\n        {\n          \"name\": \"\",\n          \"value\": \"\"\n        }\n      ],\n      \"kind\": \"{{oneOf (array 'Storage' 'StorageV2' 'BlobStorage' 'FileStorage' 'BlockBlobStorage')}}\",\n      \"locations\": [\n        \"\"\n      ],\n      \"name\": \"{{oneOf (array 'Standard_LRS' 'Standard_GRS' 'Standard_RAGRS' 'Standard_ZRS' 'Premium_LRS' 'Premium_ZRS' 'Standard_GZRS' 'Standard_RAGZRS')}}\",\n      \"resourceType\": \"\",\n      \"restrictions\": [\n        {\n          \"reasonCode\": \"{{oneOf (array 'QuotaId' 'NotAvailableForSubscription')}}\",\n          \"type\": \"\",\n          \"values\": [\n            \"\"\n          ]\n        }\n      ],\n      \"tier\": \"{{oneOf (array 'Standard' 'Premium')}}\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- List of storage SKUs in the given subscription retrieved and returned successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ef7d057e-096e-44fb-b21c-e94231bfd267",
+      "documentation": "Lists all the storage accounts available under the subscription. Note that storage keys are not returned; use the ListKeys operation for this.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Storage/storageAccounts",
+      "responses": [
+        {
+          "uuid": "13e16c13-cba8-4ab9-99ee-683473fe7cc9",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"location\": \"\",\n      \"tags\": {}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- List of storage accounts was retrieved and returned successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1d7afb90-5a52-4a96-85af-0821b9b7e41f",
+      "documentation": "Lists all the storage accounts available under the given resource group. Note that storage keys are not returned; use the ListKeys operation for this.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts",
+      "responses": [
+        {
+          "uuid": "e7a5a307-ded7-4e4d-acec-05aedb7b256d",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"location\": \"\",\n      \"tags\": {}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- List of storage accounts in the given resource group retrieved and returned successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "db308a7c-8961-4881-90e5-c13766827413",
+      "documentation": "Deletes a storage account in Microsoft Azure.",
+      "method": "delete",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName",
+      "responses": [
+        {
+          "uuid": "c2925b27-17c8-46fc-8219-063afe8f7a49",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- storage account deleted successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3225c4e5-abfd-4135-bc7b-999e45a3bbd3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "NoContent -- account does not exist in the subscription.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ce51be11-5ec3-475f-a8cd-dfdd817db1f8",
+      "documentation": "Returns the properties for the specified storage account including but not limited to name, SKU name, location, and account status. The ListKeys operation should be used to retrieve storage keys.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName",
+      "responses": [
+        {
+          "uuid": "54d19cc8-5282-4e40-a1a2-ad054bc4506b",
+          "body": "{\n  \"location\": \"\",\n  \"tags\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- properties retrieved successfully for the storage account.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0df8dec2-ac5a-4f46-84ba-6f1a093e077c",
+      "documentation": "The update operation can be used to update the SKU, encryption, access tier, or tags for a storage account. It can also be used to map the account to a custom domain. Only one custom domain is supported per storage account; the replacement/change of custom domain is not supported. In order to replace an old custom domain, the old value must be cleared/unregistered before a new value can be set. The update of multiple properties is supported. This call does not change the storage keys for the account. If you want to change the storage account keys, use the regenerate keys operation. The location and name of the storage account cannot be changed after creation.",
+      "method": "patch",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName",
+      "responses": [
+        {
+          "uuid": "c469b1ec-4c99-418e-bfa1-2cf10f550fe9",
+          "body": "{\n  \"location\": \"\",\n  \"tags\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- storage account properties updated successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "512cec36-7133-4e9e-8b6b-2ec6772b8928",
+      "documentation": "Asynchronously creates a new storage account with the specified parameters. If an account is already created and a subsequent create request is issued with different properties, the account properties will be updated. If an account is already created and a subsequent create or update request is issued with the exact same set of properties, the request will succeed.",
+      "method": "put",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName",
+      "responses": [
+        {
+          "uuid": "82392e04-cd1b-454f-98f0-d7af3604ef9b",
+          "body": "{\n  \"location\": \"\",\n  \"tags\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- returned when the storage account was already created from a previous request with the same properties specified in the request body.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "258ea3b7-a0c5-480e-93f8-54511f258fef",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Accepted -- Create or update request accepted; operation will complete asynchronously.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c988b737-1691-43a2-9b3c-8e4cd29d6fab",
+      "documentation": "List SAS credentials of a storage account.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/ListAccountSas",
+      "responses": [
+        {
+          "uuid": "fe2794b6-454d-4c7d-afed-07a6513866b2",
+          "body": "{\n  \"accountSasToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- returned the account SAS created for the storage account requested.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e06c1989-a098-4899-9475-1106e85e467b",
+      "documentation": "List service SAS credentials of a specific resource.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/ListServiceSas",
+      "responses": [
+        {
+          "uuid": "78f76c41-31d6-4f83-8411-d4a529fb135f",
+          "body": "{\n  \"serviceSasToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- returned the service SAS created for the storage service requested.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9fdaa4fe-6a5c-4e24-89be-e4aaf5d880fd",
+      "documentation": "Failover request can be triggered for a storage account in case of availability issues. The failover occurs from the storage account's primary cluster to secondary cluster for RA-GRS accounts. The secondary cluster will become primary after failover.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/failover",
+      "responses": [
+        {
+          "uuid": "5a5f53dc-bb23-453b-9818-74fb7b341142",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- Returned when the storage account failover is completed, and the secondary cluster has become primary.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bc20233e-46d6-4bff-ad05-5a55eec65f64",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Accepted -- Failover request accepted; operation will complete asynchronously.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9195d237-9c39-4765-9a87-2d7fbe8fb58c",
+      "documentation": "Lists the access keys or Kerberos keys (if active directory enabled) for the specified storage account.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/listKeys",
+      "responses": [
+        {
+          "uuid": "24d8b240-6650-4919-b52b-0edad8d10ead",
+          "body": "{\n  \"keys\": [\n    {\n      \"keyName\": \"\",\n      \"permissions\": \"{{oneOf (array 'Read' 'Full')}}\",\n      \"value\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- list of keys retrieved and returned successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2809d335-2635-4844-b51f-6b942c448e83",
+      "documentation": "Deletes the managementpolicy associated with the specified storage account.",
+      "method": "delete",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/managementPolicies/:managementPolicyName",
+      "responses": [
+        {
+          "uuid": "3208cef7-37fe-413c-9563-d591a43b52d6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- Delete the managementpolicy successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5399c200-b23c-4d1c-ade6-70aeb6a345eb",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content -- The managementpolicy does not exist.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "43eee991-6aef-4fc5-b157-3262a06fbd63",
+      "documentation": "Gets the managementpolicy associated with the specified storage account.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/managementPolicies/:managementPolicyName",
+      "responses": [
+        {
+          "uuid": "eebb8314-30c2-4ad5-aa14-f807d957f5d6",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- Get the managementpolicy successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ac00eca9-5d5c-4e80-8a95-95c1bbc17332",
+      "documentation": "Sets the managementpolicy to the specified storage account.",
+      "method": "put",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/managementPolicies/:managementPolicyName",
+      "responses": [
+        {
+          "uuid": "7050716b-e715-4231-98ce-398415a0ff62",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- Put managementpolicy successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f6537934-6e05-4a5e-9926-9816bd7be21a",
+      "documentation": "Deletes the specified private endpoint connection associated with the storage account.",
+      "method": "delete",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/privateEndpointConnections/:privateEndpointConnectionName",
+      "responses": [
+        {
+          "uuid": "99530e41-0cfd-4aaf-8d27-c3d72849c751",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- Delete the private endpoint connection successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ac085fdb-4d24-4ce2-bc3d-e59ea8923775",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content -- The private endpoint connection does not exist.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d02399b9-c601-4a09-980b-0bdd2042fbb3",
+          "body": "{\n  \"code\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e773e032-0d6f-4c4d-be61-3ca186014794",
+      "documentation": "Gets the specified private endpoint connection associated with the storage account.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/privateEndpointConnections/:privateEndpointConnectionName",
+      "responses": [
+        {
+          "uuid": "6d376cb3-495e-4201-b64b-2ead4610656d",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- Get the private endpoint connection properties successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d7e1bc9d-0918-4ce7-ac4a-a1080726305b",
+          "body": "{\n  \"code\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5f9c1676-b7f6-4534-9f3b-b546f53ee4a5",
+      "documentation": "Update the state of specified private endpoint connection associated with the storage account.",
+      "method": "put",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/privateEndpointConnections/:privateEndpointConnectionName",
+      "responses": [
+        {
+          "uuid": "88d6af0c-aeb8-44a3-8d13-f3d1dc50b9e7",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- Update the private endpoint connection properties successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b361faa9-77af-4492-b219-a7b0e0bea47b",
+          "body": "{\n  \"code\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d2c78819-b264-41eb-8c0b-bb8892ebd9ce",
+      "documentation": "Gets the private link resources that need to be created for a storage account.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/privateLinkResources",
+      "responses": [
+        {
+          "uuid": "91fe5eb4-b0d1-4773-91b6-1cbf22c7d07c",
+          "body": "{\n  \"value\": [\n    {\n      \"id\": \"\",\n      \"name\": \"\",\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successfully retrieved private link resources.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cb1285c6-b727-4891-afa1-8e993d246aa6",
+      "documentation": "Regenerates one of the access keys or Kerberos keys for the specified storage account.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/regenerateKey",
+      "responses": [
+        {
+          "uuid": "bc407e47-ed1a-43bb-bf26-bd9618de4c38",
+          "body": "{\n  \"keys\": [\n    {\n      \"keyName\": \"\",\n      \"permissions\": \"{{oneOf (array 'Read' 'Full')}}\",\n      \"value\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- specified key regenerated successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "976f6476-5d51-4e28-9235-749be72d3c2c",
+      "documentation": "Restore blobs in the specified blob ranges",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/restoreBlobRanges",
+      "responses": [
+        {
+          "uuid": "ea5529b6-3795-4ef7-8212-9ca9fdd0fe00",
+          "body": "{\n  \"failureReason\": \"\",\n  \"parameters\": {\n    \"blobRanges\": [\n      {\n        \"endRange\": \"\",\n        \"startRange\": \"\"\n      }\n    ],\n    \"timeToRestore\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"restoreId\": \"\",\n  \"status\": \"{{oneOf (array 'InProgress' 'Complete' 'Failed')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- returned when blob ranges are restored completely with the same properties specified in the request body.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "903ca178-a385-4e85-b579-8b9ef4c42b1b",
+          "body": "{\n  \"failureReason\": \"\",\n  \"parameters\": {\n    \"blobRanges\": [\n      {\n        \"endRange\": \"\",\n        \"startRange\": \"\"\n      }\n    ],\n    \"timeToRestore\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"restoreId\": \"\",\n  \"status\": \"{{oneOf (array 'InProgress' 'Complete' 'Failed')}}\"\n}",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Accepted -- Blob restore request accepted; operation will complete asynchronously.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bbe7dc85-e864-4d3b-b3be-41d5a28f8b1a",
+      "documentation": "Revoke user delegation keys.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Storage/storageAccounts/:accountName/revokeUserDelegationKeys",
+      "responses": [
+        {
+          "uuid": "61d8e8a0-df26-48f9-9051-02719066d2e0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK -- revoke user delegation keys succeeded.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,482 @@
+{
+  "uuid": "fef70ad4-be06-482b-87ec-e759443ca346",
+  "lastMigration": 19,
+  "name": "Computer Vision",
+  "endpointPrefix": "vision/v1.0",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "04aa6301-461c-433b-845f-f74dcd1abdf6",
+      "documentation": "This operation extracts a rich set of visual features based on the image content. Two input methods are supported -- (1) Uploading an image or (2) specifying an image URL.  Within your request, there is an optional parameter to allow you to choose which features to return.  By default, image categories are returned in the response.",
+      "method": "post",
+      "endpoint": "analyze",
+      "responses": [
+        {
+          "uuid": "58d58595-afab-47d7-80c9-ff59f64b6a0f",
+          "body": "{\n  \"adult\": {\n    \"adultScore\": {{faker 'random.float'}},\n    \"isAdultContent\": {{faker 'random.boolean'}},\n    \"isRacyContent\": {{faker 'random.boolean'}},\n    \"racyScore\": {{faker 'random.float'}}\n  },\n  \"categories\": [\n    {\n      \"detail\": {\n        \"celebrities\": [\n          {\n            \"confidence\": {{faker 'random.float'}},\n            \"faceRectangle\": {\n              \"height\": {{faker 'random.number'}},\n              \"left\": {{faker 'random.number'}},\n              \"top\": {{faker 'random.number'}},\n              \"width\": {{faker 'random.number'}}\n            },\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"name\": \"\",\n      \"score\": {{faker 'random.float'}}\n    }\n  ],\n  \"color\": {\n    \"accentColor\": \"\",\n    \"dominantColorBackground\": \"\",\n    \"dominantColorForeground\": \"\",\n    \"dominantColors\": [\n      \"\"\n    ],\n    \"isBWImg\": {{faker 'random.boolean'}}\n  },\n  \"description\": {\n    \"captions\": [\n      {\n        \"confidence\": {{faker 'random.float'}},\n        \"text\": \"\"\n      }\n    ],\n    \"metadata\": {\n      \"format\": \"\",\n      \"height\": {{faker 'random.number'}},\n      \"width\": {{faker 'random.number'}}\n    },\n    \"requestId\": \"\",\n    \"tags\": [\n      \"\"\n    ]\n  },\n  \"faces\": [\n    {\n      \"age\": {{faker 'random.number'}},\n      \"faceRectangle\": {\n        \"height\": {{faker 'random.number'}},\n        \"left\": {{faker 'random.number'}},\n        \"top\": {{faker 'random.number'}},\n        \"width\": {{faker 'random.number'}}\n      },\n      \"gender\": \"{{oneOf (array 'Male' 'Female')}}\"\n    }\n  ],\n  \"imageType\": {\n    \"clipArtType\": {{faker 'random.number'}},\n    \"lineDrawingType\": {{faker 'random.number'}}\n  },\n  \"metadata\": {\n    \"format\": \"\",\n    \"height\": {{faker 'random.number'}},\n    \"width\": {{faker 'random.number'}}\n  },\n  \"requestId\": \"\",\n  \"tags\": [\n    {\n      \"confidence\": {{faker 'random.float'}},\n      \"name\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The response include the extracted features in JSON format.Here is the definitions for enumeration typesClipartTypeNon-clipart = 0,  ambiguous = 1, normal-clipart = 2, good-clipart = 3.LineDrawingTypeNon-LineDrawing = 0,LineDrawing = 1.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "37d1319f-4683-412b-896b-d9c694013d3e",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageUrl' 'InvalidImageFormat' 'InvalidImageSize' 'NotSupportedVisualFeature' 'NotSupportedImage' 'InvalidDetails' 'NotSupportedLanguage' 'BadArgument' 'FailedToProcess' 'Timeout' 'InternalServerError' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4f272ede-a55f-42c9-9bd5-0bb2af9af31b",
+      "documentation": "This operation generates a description of an image in human readable language with complete sentences.  The description is based on a collection of content tags, which are also returned by the operation. More than one description can be generated for each image.  Descriptions are ordered by their confidence score. All descriptions are in English. Two input methods are supported -- (1) Uploading an image or (2) specifying an image URL.A successful response will be returned in JSON.  If the request failed, the response will contain an error code and a message to help understand what went wrong.",
+      "method": "post",
+      "endpoint": "describe",
+      "responses": [
+        {
+          "uuid": "f4504c55-e2c3-4379-9b71-14f4051e5c7f",
+          "body": "{\n  \"description\": {\n    \"captions\": [\n      {\n        \"confidence\": {{faker 'random.float'}},\n        \"text\": \"\"\n      }\n    ],\n    \"metadata\": {\n      \"format\": \"\",\n      \"height\": {{faker 'random.number'}},\n      \"width\": {{faker 'random.number'}}\n    },\n    \"requestId\": \"\",\n    \"tags\": [\n      \"\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Image description object.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "653fd0e0-087b-4541-a47f-9089dbcb00d9",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageUrl' 'InvalidImageFormat' 'InvalidImageSize' 'NotSupportedVisualFeature' 'NotSupportedImage' 'InvalidDetails' 'NotSupportedLanguage' 'BadArgument' 'FailedToProcess' 'Timeout' 'InternalServerError' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "52412103-9630-4e0c-843c-1c5cf7c0c2aa",
+      "documentation": "This operation generates a thumbnail image with the user-specified width and height. By default, the service analyzes the image, identifies the region of interest (ROI), and generates smart cropping coordinates based on the ROI. Smart cropping helps when you specify an aspect ratio that differs from that of the input image. A successful response contains the thumbnail image binary. If the request failed, the response contains an error code and a message to help determine what went wrong.",
+      "method": "post",
+      "endpoint": "generateThumbnail",
+      "responses": [
+        {
+          "uuid": "54e2d34d-abfd-4cdf-b102-a2c14c187b1f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The generated thumbnail in binary format.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/octet-stream"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "23483222-50fa-45c6-a3a7-8f53f4a03f01",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/octet-stream"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9e50421e-26e3-462c-b1a5-a6d1b2444e8b",
+      "documentation": "This operation returns the list of domain-specific models that are supported by the Computer Vision API.  Currently, the API only supports one domain-specific model: a celebrity recognizer. A successful response will be returned in JSON.  If the request failed, the response will contain an error code and a message to help understand what went wrong.",
+      "method": "get",
+      "endpoint": "models",
+      "responses": [
+        {
+          "uuid": "d13a0e43-b3bf-492b-aeae-a5505d3ca983",
+          "body": "{\n  \"models\": [\n    {\n      \"categories\": [\n        \"\"\n      ],\n      \"name\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List of available domain models.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ff92231e-2879-40c5-847c-f63e138f55d5",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageUrl' 'InvalidImageFormat' 'InvalidImageSize' 'NotSupportedVisualFeature' 'NotSupportedImage' 'InvalidDetails' 'NotSupportedLanguage' 'BadArgument' 'FailedToProcess' 'Timeout' 'InternalServerError' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "fedecca4-e11a-4a4f-a46b-7af49f6bc204",
+      "documentation": "This operation recognizes content within an image by applying a domain-specific model.  The list of domain-specific models that are supported by the Computer Vision API can be retrieved using the /models GET request.  Currently, the API only provides a single domain-specific model: celebrities. Two input methods are supported -- (1) Uploading an image or (2) specifying an image URL. A successful response will be returned in JSON.  If the request failed, the response will contain an error code and a message to help understand what went wrong.",
+      "method": "post",
+      "endpoint": "models/:model/analyze",
+      "responses": [
+        {
+          "uuid": "7ce0c0a3-167c-4115-865d-363d772712a6",
+          "body": "{\n  \"metadata\": {\n    \"format\": \"\",\n    \"height\": {{faker 'random.number'}},\n    \"width\": {{faker 'random.number'}}\n  },\n  \"requestId\": \"\",\n  \"result\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Analysis result based on the domain model",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f4a411f7-a1dd-47f0-9503-c8b7cec3f340",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageUrl' 'InvalidImageFormat' 'InvalidImageSize' 'NotSupportedVisualFeature' 'NotSupportedImage' 'InvalidDetails' 'NotSupportedLanguage' 'BadArgument' 'FailedToProcess' 'Timeout' 'InternalServerError' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "05c31605-7329-4280-951f-ce7da49c2ae1",
+      "documentation": "Optical Character Recognition (OCR) detects printed text in an image and extracts the recognized characters into a machine-usable character stream.   Upon success, the OCR results will be returned. Upon failure, the error code together with an error message will be returned. The error code can be one of InvalidImageUrl, InvalidImageFormat, InvalidImageSize, NotSupportedImage,  NotSupportedLanguage, or InternalServerError.",
+      "method": "post",
+      "endpoint": "ocr",
+      "responses": [
+        {
+          "uuid": "038ebbe7-bb8c-4058-96aa-5449fd28baba",
+          "body": "{\n  \"language\": \"\",\n  \"orientation\": \"\",\n  \"regions\": [\n    {\n      \"boundingBox\": \"\",\n      \"lines\": [\n        {\n          \"boundingBox\": \"\",\n          \"words\": [\n            {\n              \"boundingBox\": \"\",\n              \"text\": \"\"\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"textAngle\": {{faker 'random.float'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The OCR results in the hierarchy of region/line/word. The results include text, bounding box for regions, lines and words.textAngleThe angle, in degrees, of the detected text with respect to the closest horizontal or vertical direction. After rotating the input image clockwise by this angle, the recognized text lines become horizontal or vertical. In combination with the orientation property it can be used to overlay recognition results correctly on the original image, by rotating either the original image or recognition results by a suitable angle around the center of the original image. If the angle cannot be confidently detected, this property is not present. If the image contains text at different angles, only part of the text will be recognized correctly.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c0aebf64-476c-4318-a1fa-d7f9ed64af6d",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageUrl' 'InvalidImageFormat' 'InvalidImageSize' 'NotSupportedVisualFeature' 'NotSupportedImage' 'InvalidDetails' 'NotSupportedLanguage' 'BadArgument' 'FailedToProcess' 'Timeout' 'InternalServerError' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e8999c0e-69da-4e74-a498-4a3f5a8ffc0d",
+      "documentation": "Recognize Text operation. When you use the Recognize Text interface, the response contains a field called 'Operation-Location'. The 'Operation-Location' field contains the URL that you must use for your Get Handwritten Text Operation Result operation.",
+      "method": "post",
+      "endpoint": "recognizeText",
+      "responses": [
+        {
+          "uuid": "14654471-1c6a-4559-8991-ae1c47d96584",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "The service has accepted the request and will start processing later. It will return Accepted immediately and include an Operation-Location header. Client side should further query the operation status using the URL specified in this header. The operation ID will expire in 48 hours.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Operation-Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "98fc787e-0816-40bd-886f-5cb9f0f1eaf0",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageUrl' 'InvalidImageFormat' 'InvalidImageSize' 'NotSupportedVisualFeature' 'NotSupportedImage' 'InvalidDetails' 'NotSupportedLanguage' 'BadArgument' 'FailedToProcess' 'Timeout' 'InternalServerError' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8a15d634-3f05-466d-8401-6d29a1e94167",
+      "documentation": "This operation generates a list of words, or tags, that are relevant to the content of the supplied image. The Computer Vision API can return tags based on objects, living beings, scenery or actions found in images. Unlike categories, tags are not organized according to a hierarchical classification system, but correspond to image content. Tags may contain hints to avoid ambiguity or provide context, for example the tag 'cello' may be accompanied by the hint 'musical instrument'. All tags are in English.",
+      "method": "post",
+      "endpoint": "tag",
+      "responses": [
+        {
+          "uuid": "b44995bb-26bb-499a-8a1e-ca280515f6a8",
+          "body": "{\n  \"metadata\": {\n    \"format\": \"\",\n    \"height\": {{faker 'random.number'}},\n    \"width\": {{faker 'random.number'}}\n  },\n  \"requestId\": \"\",\n  \"tags\": [\n    {\n      \"confidence\": {{faker 'random.float'}},\n      \"name\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Image tags object.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "942c5531-b588-460b-9d54-caec6aa247a3",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageUrl' 'InvalidImageFormat' 'InvalidImageSize' 'NotSupportedVisualFeature' 'NotSupportedImage' 'InvalidDetails' 'NotSupportedLanguage' 'BadArgument' 'FailedToProcess' 'Timeout' 'InternalServerError' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d9ca674e-91ff-4fdd-94c0-f691a04d89c7",
+      "documentation": "This interface is used for getting text operation result. The URL to this interface should be retrieved from 'Operation-Location' field returned from Recognize Text interface.",
+      "method": "get",
+      "endpoint": "textOperations/:operationId",
+      "responses": [
+        {
+          "uuid": "66efade7-2d05-4bed-9146-1e7f6af3a057",
+          "body": "{\n  \"recognitionResult\": {\n    \"lines\": [\n      {\n        \"boundingBox\": [\n          {{faker 'random.number'}}\n        ],\n        \"text\": \"\",\n        \"words\": [\n          {\n            \"boundingBox\": [\n              {{faker 'random.number'}}\n            ],\n            \"text\": \"\"\n          }\n        ]\n      }\n    ]\n  },\n  \"status\": \"{{oneOf (array 'Not Started' 'Running' 'Failed' 'Succeeded')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the operation status.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a353c05c-7b06-4d82-ab82-cd69fabb376c",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageUrl' 'InvalidImageFormat' 'InvalidImageSize' 'NotSupportedVisualFeature' 'NotSupportedImage' 'InvalidDetails' 'NotSupportedLanguage' 'BadArgument' 'FailedToProcess' 'Timeout' 'InternalServerError' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

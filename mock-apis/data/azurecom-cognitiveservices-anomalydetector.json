@@ -1,0 +1,184 @@
+{
+  "uuid": "dd1356c7-62f5-4bfc-a8fe-7c8a1b57ab74",
+  "lastMigration": 19,
+  "name": "Anomaly Detector Client",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "71b98bc3-e361-4ee1-b998-59c9b707b8b7",
+      "documentation": "Detect change point for the entire series",
+      "method": "post",
+      "endpoint": "timeseries/changePoint/detect",
+      "responses": [
+        {
+          "uuid": "3f110b4b-40d0-4a67-97be-31cd18fd1e9d",
+          "body": "{\n  \"confidenceScores\": [\n    {{faker 'random.float'}}\n  ],\n  \"isChangePoint\": [\n    {{faker 'random.boolean'}}\n  ],\n  \"period\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful operation.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b0bced20-52df-452f-9018-19383e765cc9",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidCustomInterval' 'BadArgument' 'InvalidGranularity' 'InvalidPeriod' 'InvalidModelArgument' 'InvalidSeries' 'InvalidJsonFormat' 'RequiredGranularity' 'RequiredSeries')}}\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5af392fb-75dc-4be8-8d4c-cf6526d896f9",
+      "documentation": "Detect anomalies for the entire series in batch.",
+      "method": "post",
+      "endpoint": "timeseries/entire/detect",
+      "responses": [
+        {
+          "uuid": "4bdffac3-e799-4b07-955b-62df026d457c",
+          "body": "{\n  \"expectedValues\": [\n    {{faker 'random.float'}}\n  ],\n  \"isAnomaly\": [\n    {{faker 'random.boolean'}}\n  ],\n  \"isNegativeAnomaly\": [\n    {{faker 'random.boolean'}}\n  ],\n  \"isPositiveAnomaly\": [\n    {{faker 'random.boolean'}}\n  ],\n  \"lowerMargins\": [\n    {{faker 'random.float'}}\n  ],\n  \"period\": {{faker 'random.number'}},\n  \"upperMargins\": [\n    {{faker 'random.float'}}\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful operation.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e2fe21c6-01bb-423f-8d52-58951781bf12",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidCustomInterval' 'BadArgument' 'InvalidGranularity' 'InvalidPeriod' 'InvalidModelArgument' 'InvalidSeries' 'InvalidJsonFormat' 'RequiredGranularity' 'RequiredSeries')}}\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6465140b-229a-410d-9d45-b3bc96314f20",
+      "documentation": "Detect anomaly status of the latest point in time series.",
+      "method": "post",
+      "endpoint": "timeseries/last/detect",
+      "responses": [
+        {
+          "uuid": "2d316b95-d87e-400b-86e5-75c5d43e3e87",
+          "body": "{\n  \"expectedValue\": {{faker 'random.float'}},\n  \"isAnomaly\": {{faker 'random.boolean'}},\n  \"isNegativeAnomaly\": {{faker 'random.boolean'}},\n  \"isPositiveAnomaly\": {{faker 'random.boolean'}},\n  \"lowerMargin\": {{faker 'random.float'}},\n  \"period\": {{faker 'random.number'}},\n  \"suggestedWindow\": {{faker 'random.number'}},\n  \"upperMargin\": {{faker 'random.float'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful operation.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "59db60e4-880e-401b-86a3-7702be361499",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidCustomInterval' 'BadArgument' 'InvalidGranularity' 'InvalidPeriod' 'InvalidModelArgument' 'InvalidSeries' 'InvalidJsonFormat' 'RequiredGranularity' 'RequiredSeries')}}\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

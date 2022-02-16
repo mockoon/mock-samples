@@ -1,0 +1,211 @@
+{
+  "uuid": "0db8461f-37e1-4bc6-8957-d76539b69f45",
+  "lastMigration": 19,
+  "name": "Negotiation API",
+  "endpointPrefix": "sell/negotiation/v1",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "4d3bd36a-f1e8-4621-afc4-603c05533193",
+      "documentation": "This method evaluates a seller's current listings and returns the set of IDs that are eligible for a seller-initiated discount offer to a buyer. A listing ID is returned only when one or more buyers have shown an &quot;interest&quot; in the listing. If any buyers have shown interest in a listing, the seller can initiate a &quot;negotiation&quot; with them by calling sendOfferToInterestedBuyers, which sends all interested buyers a message that offers the listing at a discount. For details about how to create seller offers to buyers, see Sending offers to buyers.",
+      "method": "get",
+      "endpoint": "find_eligible_items",
+      "responses": [
+        {
+          "uuid": "16901a63-4b44-4e68-9c91-86cbf563165d",
+          "body": "{\n  \"eligibleItems\": [\n    {\n      \"listingId\": \"\"\n    }\n  ],\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"total\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3d360eee-b7fe-46a1-8bb0-bfd7819f7afb",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c8651f97-ddab-4dcd-b3ca-3573fb07725e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "57b2474a-4804-4556-8115-22383e460ddb",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ba472b85-140f-422f-8aa5-1d7e3a59521e",
+      "documentation": "This method sends eligible buyers offers to purchase items in a listing at a discount. When a buyer has shown interest in a listing, they become &quot;eligible&quot; to receive a seller-initiated offer to purchase the item(s). Sellers use findEligibleItems to get the set of listings that have interested buyers. If a listing has interested buyers, sellers can use this method (sendOfferToInterestedBuyers) to send an offer to the buyers who are interested in the listing. The offer gives buyers the ability to purchase the associated listings at a discounted price. For details about how to create seller offers to buyers, see Sending offers to buyers.",
+      "method": "post",
+      "endpoint": "send_offer_to_interested_buyers",
+      "responses": [
+        {
+          "uuid": "36cfcf59-dbe8-4403-9158-222960acc9e3",
+          "body": "{\n  \"offers\": [\n    {\n      \"allowCounterOffer\": {{faker 'random.boolean'}},\n      \"buyer\": {\n        \"maskedUsername\": \"\"\n      },\n      \"creationDate\": \"\",\n      \"initiatedBy\": \"\",\n      \"lastModifiedDate\": \"\",\n      \"message\": \"\",\n      \"offerDuration\": {\n        \"unit\": \"\",\n        \"value\": {{faker 'random.number'}}\n      },\n      \"offerId\": \"\",\n      \"offerStatus\": \"\",\n      \"offerType\": \"\",\n      \"offeredItems\": [\n        {\n          \"discountPercentage\": \"\",\n          \"listingId\": \"\",\n          \"price\": {\n            \"currency\": \"\",\n            \"value\": \"\"\n          },\n          \"quantity\": {{faker 'random.number'}}\n        }\n      ],\n      \"revision\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c254be79-5037-4889-8358-e6ce8e87ba09",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3f3dbdcd-46ac-4da1-b528-f440f5104217",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "23de5ba6-204b-4262-ab2e-3302e7e9ea29",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

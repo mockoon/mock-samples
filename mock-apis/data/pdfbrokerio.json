@@ -1,0 +1,627 @@
+{
+  "uuid": "cabf5eee-da20-453a-9374-f68604d16358",
+  "lastMigration": 19,
+  "name": "PdfBroker.io API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "951753ca-5547-46f1-8632-afa1151d8ccb",
+      "documentation": "Basic method to verify api is up and running",
+      "method": "get",
+      "endpoint": "api/pdf",
+      "responses": [
+        {
+          "uuid": "175244ad-eabe-43d3-8ed3-5c8a84aee7d6",
+          "body": "{\n  \"Description\": \"\",\n  \"ErrorMessage\": \"\",\n  \"StatusCode\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "If any error occurs parsing input",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ba96ad85-c089-46cd-aab4-d9aa5aa14dc1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 415,
+          "label": "If content-type of request is not set to multipart/form-data or application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c479814f-5e5b-48ee-bbac-82b3babf8fc8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "If you reach the monthly request limit for your subscription plan",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d07f6038-36f1-41c2-90c3-ddc5f15c3c0c",
+      "documentation": "Concatenate multiple pdf files into single pdf file..",
+      "method": "post",
+      "endpoint": "api/pdf/pdfconcat",
+      "responses": [
+        {
+          "uuid": "6b59439b-3af8-4712-b1e3-8e568fdf807a",
+          "body": "{\n  \"ErrorMessage\": \"\",\n  \"PdfFileBase64String\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the newly created pdf file. Either the file directly or serialized as Json if Accept-header is set to application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a10872e0-01f0-4753-9517-e4bf8ac87518",
+          "body": "{\n  \"Description\": \"\",\n  \"ErrorMessage\": \"\",\n  \"StatusCode\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "If any error occurs parsing input",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2570ae71-e003-407b-8a62-5efeb9a6e2be",
+          "body": "",
+          "latency": 0,
+          "statusCode": 415,
+          "label": "If content-type of request is not set to multipart/form-data or application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8c3ccd2b-3dfc-49ef-ad87-0b03f6520f4e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "If you reach the monthly request limit for your subscription plan",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b49ee3ed-2ca5-4d7e-8a07-5b127183953a",
+      "documentation": "Generate an image of to provided pdf file",
+      "method": "post",
+      "endpoint": "api/pdf/pdftoimage",
+      "responses": [
+        {
+          "uuid": "4d912ee3-c0dc-49c5-bdca-dda58a7a3ce5",
+          "body": "{\n  \"ErrorMessage\": \"\",\n  \"ImageBase64String\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Generate an image of the provided pdf file. Either the image file directly or serialized as Json if Accept-header is set to application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "79bf649e-7319-4f4e-9cfc-085122d6bbc8",
+          "body": "{\n  \"Description\": \"\",\n  \"ErrorMessage\": \"\",\n  \"StatusCode\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "If any error occurs parsing input",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "539d12cc-aa12-4d95-8c17-d4e16327e700",
+          "body": "",
+          "latency": 0,
+          "statusCode": 415,
+          "label": "If content-type of request is not set to multipart/form-data or application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "96d5bc13-ee84-474e-9b29-28b0481a4792",
+          "body": "",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "If you reach the monthly request limit for your subscription plan",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "63a18f24-2f50-4031-9216-3365d733cb7d",
+      "documentation": "Write text on a page in a pdf document.",
+      "method": "post",
+      "endpoint": "api/pdf/pdfwritestring",
+      "responses": [
+        {
+          "uuid": "12ab613a-8baf-43b9-bd36-2cd83ed2f6e5",
+          "body": "{\n  \"ErrorMessage\": \"\",\n  \"PdfFileBase64String\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the newly created pdf file. Either the file directly or serialized as Json if Accept-header is set to application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dc7f6956-5a8b-4ebf-bd11-d69203371efa",
+          "body": "{\n  \"Description\": \"\",\n  \"ErrorMessage\": \"\",\n  \"StatusCode\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "If any error occurs parsing input",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2fa6dad6-9b83-45b3-b0d5-01987120ae18",
+          "body": "",
+          "latency": 0,
+          "statusCode": 415,
+          "label": "If content-type of request is not set to multipart/form-data or application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fd611ecb-d575-41bb-bd1b-994e1cea9941",
+          "body": "",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "If you reach the monthly request limit for your subscription plan",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e62f2a1f-9e00-42d3-abd9-8bc66d03eb37",
+      "documentation": "Generate pdf file from url using the excellent tool wkhtmltopdf.",
+      "method": "post",
+      "endpoint": "api/pdf/wkhtmltopdf",
+      "responses": [
+        {
+          "uuid": "f489326e-6017-4945-a21d-b33be6c0f2f0",
+          "body": "{\n  \"ErrorMessage\": \"\",\n  \"PdfFileBase64String\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the newly created pdf file. Either the file directly or serialized as Json if Accept-header is set to application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "eae3e4cb-e79b-4897-b01a-79e8b2cb32f0",
+          "body": "{\n  \"Description\": \"\",\n  \"ErrorMessage\": \"\",\n  \"StatusCode\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "If any error occurs executing request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2ef0bbcb-9f80-4c90-834b-d47fb964826b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 415,
+          "label": "If content-type of request is not set to application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "59c90ac7-5101-43be-9eed-6c5550d0991d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "If you reach the monthly request limit for your subscription plan",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3671204c-eabf-41a5-886b-f1fafd512ed9",
+      "documentation": "Create pdf-file from complete XSL-FO document.",
+      "method": "post",
+      "endpoint": "api/pdf/xslfo",
+      "responses": [
+        {
+          "uuid": "50fa9c17-a0c8-476e-84c3-278643d2111c",
+          "body": "{\n  \"ErrorMessage\": \"\",\n  \"PdfFileBase64String\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the newly created pdf file. Either the file directly or serialized as Json if Accept-header is set to application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "67102b7f-23b8-44dc-8302-1854ee40d863",
+          "body": "{\n  \"Description\": \"\",\n  \"ErrorMessage\": \"\",\n  \"StatusCode\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "If any error occurs parsing input",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b0ed2024-bcab-451d-9b00-3e07824e0d47",
+          "body": "",
+          "latency": 0,
+          "statusCode": 415,
+          "label": "If content-type of request is not set to multipart/form-data or application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ccbeaa45-02bc-4e1e-91b7-41d1e6d18270",
+          "body": "",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "If you reach the monthly request limit for your subscription plan",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "890a73e9-00db-4001-9a8e-084a85be4c9a",
+      "documentation": "Create pdf-file from transforming xml document with Xsl-Fo transform document.",
+      "method": "post",
+      "endpoint": "api/pdf/xslfowithtransform",
+      "responses": [
+        {
+          "uuid": "5626048e-737e-4c5b-afc0-e86158ec8276",
+          "body": "{\n  \"ErrorMessage\": \"\",\n  \"PdfFileBase64String\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the newly created pdf file. Either the file directly or serialized as Json if Accept-header is set to application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9dcc7b7f-efd4-4bab-9131-4a9ebde36be2",
+          "body": "{\n  \"Description\": \"\",\n  \"ErrorMessage\": \"\",\n  \"StatusCode\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "If any error occurs parsing input",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "32e719ca-9620-4064-8410-8a36d6f496e4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 415,
+          "label": "If content-type of request is not set to multipart/form-data or application/json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d6b7ae45-eda0-4429-82cf-385295867d01",
+          "body": "",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "If you reach the monthly request limit for your subscription plan",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

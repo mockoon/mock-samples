@@ -1,0 +1,527 @@
+{
+  "uuid": "2824d56d-0fc4-429c-9b4a-f98ff8f2a10f",
+  "lastMigration": 19,
+  "name": "MediaServicesManagementClient",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "ca0d24c7-f519-4702-b530-fca7286f26aa",
+      "documentation": "Lists all of the available Media Services REST API operations.",
+      "method": "get",
+      "endpoint": "providers/Microsoft.Media/operations",
+      "responses": [
+        {
+          "uuid": "c6a45d9d-894c-4256-b6be-960a5c80e66a",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"display\": {\n        \"operation\": \"\",\n        \"provider\": \"\",\n        \"resource\": \"\"\n      },\n      \"name\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success. Returns a list of operations.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9e2ef9e4-329a-4736-8121-c62f6facb6bc",
+      "documentation": "Checks whether the Media Service resource name is available. The name must be globally unique.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Media/CheckNameAvailability",
+      "responses": [
+        {
+          "uuid": "7b5b272d-c8a8-486d-9724-2384bebeb9de",
+          "body": "{\n  \"message\": \"\",\n  \"nameAvailable\": {{faker 'random.boolean'}},\n  \"reason\": \"{{oneOf (array 'None' 'Invalid' 'AlreadyExists')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success. Returns details about whether a Media Service resource name is available.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "248c5815-b03e-4747-b8ab-4356b0ec097a",
+          "body": "{\n  \"error\": {\n    \"code\": \"BadRequest\",\n    \"message\": \"Name availability check is not supported for type Microsoft.Media/mediaservices.\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "CheckNameAvailability of a Media Service failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "427723cf-8401-458c-8a64-9f691caf583a",
+      "documentation": "Lists all of the Media Services in a resource group.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Media/mediaservices",
+      "responses": [
+        {
+          "uuid": "48e6a386-5eb4-4845-962a-325a27f90979",
+          "body": "{\n  \"value\": [\n    {\n      \"location\": \"West US\",\n      \"properties\": {\n        \"storageAccounts\": [\n          {\n            \"id\": \"/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contosoresources/providers/Microsoft.Storage/storageAccounts/contosomedia\",\n            \"isPrimary\": true\n          }\n        ]\n      }\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success. Returns a list of all of the Media Services accounts in a resource group.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a1804caa-e898-4ac2-9713-37d253c12669",
+          "body": "{\n  \"error\": {\n    \"code\": \"BadRequest\",\n    \"message\": \"Name availability check is not supported for type Microsoft.Media/mediaservices.\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List Media Services failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6cf0c6b9-e6d4-46bc-a768-6dacc719f48f",
+      "documentation": "Deletes a Media Service.",
+      "method": "delete",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Media/mediaservices/:mediaServiceName",
+      "responses": [
+        {
+          "uuid": "47495362-6e45-4433-aba3-f024a46df713",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success. The Media Services account was deleted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9281c4fa-de9a-4bd0-8c1f-7699c3762632",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content. The account name does not exist.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4f3c6dec-e7e1-48dc-a84b-211988a84087",
+          "body": "{\n  \"error\": {\n    \"code\": \"BadRequest\",\n    \"message\": \"Name availability check is not supported for type Microsoft.Media/mediaservices.\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Delete Media Services failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c50063da-f08c-4a6f-88e6-7f16264ac07e",
+      "documentation": "Gets a Media Service.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Media/mediaservices/:mediaServiceName",
+      "responses": [
+        {
+          "uuid": "c623a253-9138-4bc1-87eb-528d8ffa7245",
+          "body": "{\n  \"location\": \"West US\",\n  \"properties\": {\n    \"storageAccounts\": [\n      {\n        \"id\": \"/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contosoresources/providers/Microsoft.Storage/storageAccounts/contosomedia\",\n        \"isPrimary\": true\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success. Returns the details of the Media Services account.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "90f4a8d5-583e-4526-a891-d5deefabace8",
+          "body": "{\n  \"error\": {\n    \"code\": \"BadRequest\",\n    \"message\": \"Name availability check is not supported for type Microsoft.Media/mediaservices.\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Get Media Services failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f4f6d740-b672-4d66-ab08-5650cd467752",
+      "documentation": "Updates a Media Service.",
+      "method": "patch",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Media/mediaservices/:mediaServiceName",
+      "responses": [
+        {
+          "uuid": "22451ccc-1156-49a6-8d84-6f6d56692553",
+          "body": "{\n  \"location\": \"West US\",\n  \"properties\": {\n    \"storageAccounts\": [\n      {\n        \"id\": \"/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contosoresources/providers/Microsoft.Storage/storageAccounts/contosomedia\",\n        \"isPrimary\": true\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success. The Media Services account was updated.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1391bbaa-185a-405e-8bfc-c13c5d94f045",
+          "body": "{\n  \"error\": {\n    \"code\": \"BadRequest\",\n    \"message\": \"Name availability check is not supported for type Microsoft.Media/mediaservices.\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Update Media Services failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7d65be08-a0a5-48f1-9fc1-230753ec1e04",
+      "documentation": "Creates a Media Service.",
+      "method": "put",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Media/mediaservices/:mediaServiceName",
+      "responses": [
+        {
+          "uuid": "19a3f1c6-502e-4c23-99b1-4fbdf783c0c9",
+          "body": "{\n  \"location\": \"West US\",\n  \"properties\": {\n    \"storageAccounts\": [\n      {\n        \"id\": \"/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contosoresources/providers/Microsoft.Storage/storageAccounts/contosomedia\",\n        \"isPrimary\": true\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Success. Returns the new Media Services account.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1b7e5a8a-3b06-4262-89ba-6d3fab96052c",
+          "body": "{\n  \"error\": {\n    \"code\": \"BadRequest\",\n    \"message\": \"Name availability check is not supported for type Microsoft.Media/mediaservices.\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Create Media Services failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "180b619c-6445-4b35-9a30-2bf53f78c0d3",
+      "documentation": "Lists the keys for a Media Service.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Media/mediaservices/:mediaServiceName/listKeys",
+      "responses": [
+        {
+          "uuid": "78cbbb2d-832a-48c5-a9be-011b2d05fe63",
+          "body": "{\n  \"primaryAuthEndpoint\": \"https://wamsprodglobal001acs.accesscontrol.windows.net/\",\n  \"primaryKey\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=\",\n  \"scope\": \"urn:windowsazuremediaservices\",\n  \"secondaryAuthEndpoint\": \"https://wamsprodglobal002acs.accesscontrol.windows.net/\",\n  \"secondaryKey\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success. The keys for the Media Services account were listed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3f9702b9-fc67-4e95-854a-44a8f3932a26",
+          "body": "{\n  \"error\": {\n    \"code\": \"BadRequest\",\n    \"message\": \"Name availability check is not supported for type Microsoft.Media/mediaservices.\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List Media Service keys failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "99f6e0e3-b465-49bc-b5cf-5f869016268b",
+      "documentation": "Regenerates a primary or secondary key for a Media Service.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Media/mediaservices/:mediaServiceName/regenerateKey",
+      "responses": [
+        {
+          "uuid": "d1d5944d-5a7b-4efe-af96-c032ffe1bcae",
+          "body": "{\n  \"key\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success. The Media Services key specified in the input was regenerated.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "62d56fd5-de80-4227-b31c-a08cc9345417",
+          "body": "{\n  \"error\": {\n    \"code\": \"BadRequest\",\n    \"message\": \"Name availability check is not supported for type Microsoft.Media/mediaservices.\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Regenerate Media Service key failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "eac98bc2-31b3-4876-8c49-032617a5308e",
+      "documentation": "Synchronizes storage account keys for a storage account associated with the Media Service account.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Media/mediaservices/:mediaServiceName/syncStorageKeys",
+      "responses": [
+        {
+          "uuid": "0ccbf8da-1304-47f7-89cb-586a259efcf5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success. The keys for the storage account were synchronized.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2697c394-b878-4fac-bc51-76947d913921",
+          "body": "{\n  \"error\": {\n    \"code\": \"BadRequest\",\n    \"message\": \"Name availability check is not supported for type Microsoft.Media/mediaservices.\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Synch Media Service storage keys failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

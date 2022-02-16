@@ -1,0 +1,1136 @@
+{
+  "uuid": "aecac12b-4089-4fc5-bc58-27fb9686e53b",
+  "lastMigration": 19,
+  "name": "Storage Cache Mgmt Client",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "6c1120cc-04fe-4193-bf4a-bc2444e23a93",
+      "documentation": "Lists all of the available Resource Provider operations.",
+      "method": "get",
+      "endpoint": "providers/Microsoft.StorageCache/operations",
+      "responses": [
+        {
+          "uuid": "4a675fce-5fd0-4888-9648-29c519891e19",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"display\": {\n        \"operation\": \"\",\n        \"provider\": \"\",\n        \"resource\": \"\"\n      },\n      \"name\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The list of available Resource Provider operations.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c260089d-5adf-464a-80dd-9b112927def5",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "59827d3a-bc82-4433-ba29-4af362967afa",
+      "documentation": "Returns all Caches the user has access to under a subscription.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.StorageCache/caches",
+      "responses": [
+        {
+          "uuid": "485ef233-c1ba-4392-a360-06c8bcfafa6f",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"id\": \"\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"cacheSizeGB\": {{faker 'random.number'}},\n        \"health\": {\n          \"state\": \"{{oneOf (array 'Unknown' 'Healthy' 'Degraded' 'Down' 'Transitioning' 'Stopping' 'Stopped' 'Upgrading' 'Flushing')}}\",\n          \"statusDescription\": \"\"\n        },\n        \"mountAddresses\": [\n          \"\"\n        ],\n        \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Creating' 'Deleting' 'Updating')}}\",\n        \"subnet\": \"\",\n        \"upgradeStatus\": {\n          \"currentFirmwareVersion\": \"\",\n          \"firmwareUpdateDeadline\": \"{{faker 'date.recent' 365}}\",\n          \"firmwareUpdateStatus\": \"{{oneOf (array 'available' 'unavailable')}}\",\n          \"lastFirmwareUpdate\": \"{{faker 'date.recent' 365}}\",\n          \"pendingFirmwareVersion\": \"\"\n        }\n      },\n      \"sku\": {\n        \"name\": \"\"\n      },\n      \"tags\": {},\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of Cache objects. Note that entity references might replace complete Cache objects, as described in http://docs.oasis-open.org/odata/odata-json-format/v4.01/cs01/odata-json-format-v4.01-cs01.html#sec_EntityReference",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "12173cf3-6923-43b8-9e19-cd14fb2baa7e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f4556d20-a7ce-43c5-a35e-0a3cb5c0d7f0",
+      "documentation": "Get the list of StorageCache.Cache SKUs available to this subscription.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.StorageCache/skus",
+      "responses": [
+        {
+          "uuid": "68b4ac11-4f94-4d93-98b1-9f04cfd4c0ee",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"capabilities\": [\n        {\n          \"name\": \"\",\n          \"value\": \"\"\n        }\n      ],\n      \"locationInfo\": [\n        {\n          \"location\": \"\",\n          \"zones\": [\n            \"\"\n          ]\n        }\n      ],\n      \"locations\": [\n        \"\"\n      ],\n      \"name\": \"\",\n      \"resourceType\": \"\",\n      \"restrictions\": [\n        {\n          \"reasonCode\": \"{{oneOf (array 'QuotaId' 'NotAvailableForSubscription')}}\",\n          \"type\": \"\",\n          \"values\": [\n            \"\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of SKU descriptors.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "332fe9ec-0684-4502-aeb1-5f3dc1ec3672",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a9cce9e1-84d0-4a60-b423-5cdb07067fae",
+      "documentation": "Get the list of Cache Usage Models available to this subscription.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.StorageCache/usageModels",
+      "responses": [
+        {
+          "uuid": "b51f998d-eede-4b3a-94e3-0be25e8e2b68",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"display\": {\n        \"description\": \"\"\n      },\n      \"modelName\": \"\",\n      \"targetType\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of UsageModel descriptors.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "81957958-81ae-4986-8de0-b4f78c3f3219",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "df1bc704-0de8-4076-9e77-1d63a9ee4bc3",
+      "documentation": "Returns all Caches the user has access to under a resource group.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches",
+      "responses": [
+        {
+          "uuid": "bea637cc-49a0-4e3c-b4b7-91b2d2f25ab9",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"id\": \"\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"cacheSizeGB\": {{faker 'random.number'}},\n        \"health\": {\n          \"state\": \"{{oneOf (array 'Unknown' 'Healthy' 'Degraded' 'Down' 'Transitioning' 'Stopping' 'Stopped' 'Upgrading' 'Flushing')}}\",\n          \"statusDescription\": \"\"\n        },\n        \"mountAddresses\": [\n          \"\"\n        ],\n        \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Creating' 'Deleting' 'Updating')}}\",\n        \"subnet\": \"\",\n        \"upgradeStatus\": {\n          \"currentFirmwareVersion\": \"\",\n          \"firmwareUpdateDeadline\": \"{{faker 'date.recent' 365}}\",\n          \"firmwareUpdateStatus\": \"{{oneOf (array 'available' 'unavailable')}}\",\n          \"lastFirmwareUpdate\": \"{{faker 'date.recent' 365}}\",\n          \"pendingFirmwareVersion\": \"\"\n        }\n      },\n      \"sku\": {\n        \"name\": \"\"\n      },\n      \"tags\": {},\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of Cache objects. Note that entity references might replace complete Cache objects, as described in http://docs.oasis-open.org/odata/odata-json-format/v4.01/cs01/odata-json-format-v4.01-cs01.html#sec_EntityReference",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "96594d96-4355-43c5-be04-6f173a551f76",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7f556562-ab28-44a8-aefc-dcc2aeed853f",
+      "documentation": "Schedules a Cache for deletion.",
+      "method": "delete",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches/:cacheName",
+      "responses": [
+        {
+          "uuid": "7ea07aa9-5387-4428-9fed-7691ea2b710f",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Cache deleted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1f6ee298-4417-4cf5-9b98-edc575cc3e7c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Started the Cache's transition to Deleted state. Poll the Cache to monitor.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8b774729-6d64-4e7e-96a6-dc0088c7abcd",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Cache deleted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "76293a3d-6390-4bc2-aa2f-84557ba51cec",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b6dc6c9a-c7b6-4f43-938b-78d85d72edb5",
+      "documentation": "Returns a Cache.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches/:cacheName",
+      "responses": [
+        {
+          "uuid": "7d531422-14b9-4915-a706-f37cced7af17",
+          "body": "{\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"cacheSizeGB\": {{faker 'random.number'}},\n    \"health\": {\n      \"state\": \"{{oneOf (array 'Unknown' 'Healthy' 'Degraded' 'Down' 'Transitioning' 'Stopping' 'Stopped' 'Upgrading' 'Flushing')}}\",\n      \"statusDescription\": \"\"\n    },\n    \"mountAddresses\": [\n      \"\"\n    ],\n    \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Creating' 'Deleting' 'Updating')}}\",\n    \"subnet\": \"\",\n    \"upgradeStatus\": {\n      \"currentFirmwareVersion\": \"\",\n      \"firmwareUpdateDeadline\": \"{{faker 'date.recent' 365}}\",\n      \"firmwareUpdateStatus\": \"{{oneOf (array 'available' 'unavailable')}}\",\n      \"lastFirmwareUpdate\": \"{{faker 'date.recent' 365}}\",\n      \"pendingFirmwareVersion\": \"\"\n    }\n  },\n  \"sku\": {\n    \"name\": \"\"\n  },\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the Cache object corresponding to cacheName.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6c4d8473-5758-49de-b644-444cf031f415",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d354fd79-a29f-43ce-9920-4af420f97063",
+      "documentation": "Update a Cache instance.",
+      "method": "patch",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches/:cacheName",
+      "responses": [
+        {
+          "uuid": "10f0ab32-0bc6-459c-bdc6-5252377dd3d2",
+          "body": "{\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"cacheSizeGB\": {{faker 'random.number'}},\n    \"health\": {\n      \"state\": \"{{oneOf (array 'Unknown' 'Healthy' 'Degraded' 'Down' 'Transitioning' 'Stopping' 'Stopped' 'Upgrading' 'Flushing')}}\",\n      \"statusDescription\": \"\"\n    },\n    \"mountAddresses\": [\n      \"\"\n    ],\n    \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Creating' 'Deleting' 'Updating')}}\",\n    \"subnet\": \"\",\n    \"upgradeStatus\": {\n      \"currentFirmwareVersion\": \"\",\n      \"firmwareUpdateDeadline\": \"{{faker 'date.recent' 365}}\",\n      \"firmwareUpdateStatus\": \"{{oneOf (array 'available' 'unavailable')}}\",\n      \"lastFirmwareUpdate\": \"{{faker 'date.recent' 365}}\",\n      \"pendingFirmwareVersion\": \"\"\n    }\n  },\n  \"sku\": {\n    \"name\": \"\"\n  },\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Updated the Cache.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d388b70b-716c-4c7a-9b42-564617b28275",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bcbffad3-9b2a-4203-a7cf-a3942a01f18a",
+      "documentation": "Create or update a Cache.",
+      "method": "put",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches/:cacheName",
+      "responses": [
+        {
+          "uuid": "a29fdca1-b4a7-46ee-9ebe-73c5a888b914",
+          "body": "{\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"cacheSizeGB\": {{faker 'random.number'}},\n    \"health\": {\n      \"state\": \"{{oneOf (array 'Unknown' 'Healthy' 'Degraded' 'Down' 'Transitioning' 'Stopping' 'Stopped' 'Upgrading' 'Flushing')}}\",\n      \"statusDescription\": \"\"\n    },\n    \"mountAddresses\": [\n      \"\"\n    ],\n    \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Creating' 'Deleting' 'Updating')}}\",\n    \"subnet\": \"\",\n    \"upgradeStatus\": {\n      \"currentFirmwareVersion\": \"\",\n      \"firmwareUpdateDeadline\": \"{{faker 'date.recent' 365}}\",\n      \"firmwareUpdateStatus\": \"{{oneOf (array 'available' 'unavailable')}}\",\n      \"lastFirmwareUpdate\": \"{{faker 'date.recent' 365}}\",\n      \"pendingFirmwareVersion\": \"\"\n    }\n  },\n  \"sku\": {\n    \"name\": \"\"\n  },\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Cache created or updated.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "543942f0-e2bc-4503-a6de-713f0b5f4211",
+          "body": "{\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"cacheSizeGB\": {{faker 'random.number'}},\n    \"health\": {\n      \"state\": \"{{oneOf (array 'Unknown' 'Healthy' 'Degraded' 'Down' 'Transitioning' 'Stopping' 'Stopped' 'Upgrading' 'Flushing')}}\",\n      \"statusDescription\": \"\"\n    },\n    \"mountAddresses\": [\n      \"\"\n    ],\n    \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Creating' 'Deleting' 'Updating')}}\",\n    \"subnet\": \"\",\n    \"upgradeStatus\": {\n      \"currentFirmwareVersion\": \"\",\n      \"firmwareUpdateDeadline\": \"{{faker 'date.recent' 365}}\",\n      \"firmwareUpdateStatus\": \"{{oneOf (array 'available' 'unavailable')}}\",\n      \"lastFirmwareUpdate\": \"{{faker 'date.recent' 365}}\",\n      \"pendingFirmwareVersion\": \"\"\n    }\n  },\n  \"sku\": {\n    \"name\": \"\"\n  },\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Cache creation or update has been initiated. Poll the new Cache's provisioningState property to monitor creation progress.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "03d5f2d5-8353-4d83-bed2-78b1b72ee490",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c05d646a-42ed-4739-ba32-71a6696210ed",
+      "documentation": "Tells a Cache to write all dirty data to the Storage Target(s). During the flush, clients will see errors returned until the flush is complete.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches/:cacheName/flush",
+      "responses": [
+        {
+          "uuid": "74123954-8ba1-4703-9f56-5a48987cd241",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "All cached data has been flushed to the Storage Target(s).",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a1689f2f-f195-4489-bc07-b524bcbe8dac",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Cache has started flushing to its Storage Target(s). Poll the Cache's state field to monitor.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9d2a5991-78f4-4336-843c-8f1d738eb89c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Cache flushed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b53d12f1-02d6-48e5-9acc-9fe2737db63b",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c2a882a2-9182-4a04-9e66-03c441c1a77d",
+      "documentation": "Tells a Stopped state Cache to transition to Active state.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches/:cacheName/start",
+      "responses": [
+        {
+          "uuid": "d1b5c532-3909-4858-ada5-a5b9ef6e0ff9",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Cache is Active.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7ea56736-d385-4a96-afe9-553835d5236d",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Cache has started the transition to Active. Poll the Cache's state field to monitor.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fe661225-61c5-4955-bfcd-205b3e77f3d8",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Restarted VMs associated with the cache.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "af7fa3a1-7cad-48fa-939b-6b6588ecedc4",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "04e09d13-84b1-4391-95bc-fc7f57b9953d",
+      "documentation": "Tells an Active Cache to transition to Stopped state.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches/:cacheName/stop",
+      "responses": [
+        {
+          "uuid": "b501857a-7c30-40a3-b1a2-bbee80ae1d33",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Cache is stopped.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4e0dc9a5-6a81-4e8f-8148-410eafb055b8",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Cache has started the transition to Stopped. Poll the Cache's state field to monitor.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "035d6838-4939-4d1e-b21d-c4f98662d90a",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Stopped VMs associated with the cache.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "275a084c-39ca-4fab-95ab-50fe55e05046",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "00c7e8a3-4448-4651-83f4-4946747c7861",
+      "documentation": "Returns a list of Storage Targets for the specified Cache.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches/:cacheName/storageTargets",
+      "responses": [
+        {
+          "uuid": "8dc25b8b-d490-48bf-b603-024e7643af43",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"clfs\": {\n          \"target\": \"\"\n        },\n        \"junctions\": [\n          {\n            \"namespacePath\": \"\",\n            \"nfsExport\": \"\",\n            \"targetPath\": \"\"\n          }\n        ],\n        \"nfs3\": {\n          \"target\": \"\",\n          \"usageModel\": \"\"\n        },\n        \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Creating' 'Deleting' 'Updating')}}\",\n        \"targetType\": \"{{oneOf (array 'nfs3' 'clfs' 'unknown')}}\",\n        \"unknown\": {\n          \"unknownMap\": {}\n        }\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the list of Storage Targets defined by cacheName.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "87b81740-6252-4627-b906-81abaf450d88",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ae326197-07b6-4c57-8f4e-42eab9b65677",
+      "documentation": "Removes a Storage Target from a Cache. This operation is allowed at any time, but if the Cache is down or unhealthy, the actual removal of the Storage Target may be delayed until the Cache is healthy again. Note that if the Cache has data to flush to the Storage Target, the data will be flushed before the Storage Target will be deleted.",
+      "method": "delete",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches/:cacheName/storageTargets/:storageTargetName",
+      "responses": [
+        {
+          "uuid": "d13f6d2b-900e-4ac5-8f37-0cb97af0099a",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Storage target deleted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fce3010d-c381-4810-989c-2ca06c9e2f83",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Started the Storage Target's deletion. Poll the Cache's Storage Targets to monitor.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "22771b73-b256-4bc9-8454-18c8bd704997",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Storage Target deleted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d8980340-d35c-4d35-a6ff-d543cec43c1c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f5e44e76-7110-4652-900c-4158fb68c577",
+      "documentation": "Returns a Storage Target from a Cache.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches/:cacheName/storageTargets/:storageTargetName",
+      "responses": [
+        {
+          "uuid": "aea04f87-d7cf-450e-a13a-f485fdfab850",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"clfs\": {\n      \"target\": \"\"\n    },\n    \"junctions\": [\n      {\n        \"namespacePath\": \"\",\n        \"nfsExport\": \"\",\n        \"targetPath\": \"\"\n      }\n    ],\n    \"nfs3\": {\n      \"target\": \"\",\n      \"usageModel\": \"\"\n    },\n    \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Creating' 'Deleting' 'Updating')}}\",\n    \"targetType\": \"{{oneOf (array 'nfs3' 'clfs' 'unknown')}}\",\n    \"unknown\": {\n      \"unknownMap\": {}\n    }\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the Storage Target object corresponding to storageTargetName.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "90df52ae-b844-4d82-a206-396ef298703e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "58cc5500-5e18-46ea-bd07-1e4938e095c1",
+      "documentation": "Create or update a Storage Target. This operation is allowed at any time, but if the Cache is down or unhealthy, the actual creation/modification of the Storage Target may be delayed until the Cache is healthy again.",
+      "method": "put",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches/:cacheName/storageTargets/:storageTargetName",
+      "responses": [
+        {
+          "uuid": "8cf8feee-267e-4f70-9163-fd00268bb39c",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"clfs\": {\n      \"target\": \"\"\n    },\n    \"junctions\": [\n      {\n        \"namespacePath\": \"\",\n        \"nfsExport\": \"\",\n        \"targetPath\": \"\"\n      }\n    ],\n    \"nfs3\": {\n      \"target\": \"\",\n      \"usageModel\": \"\"\n    },\n    \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Creating' 'Deleting' 'Updating')}}\",\n    \"targetType\": \"{{oneOf (array 'nfs3' 'clfs' 'unknown')}}\",\n    \"unknown\": {\n      \"unknownMap\": {}\n    }\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Storage Target has been created or updated.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0dccd4f2-bf08-4df2-9453-f430e32a8bc4",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"clfs\": {\n      \"target\": \"\"\n    },\n    \"junctions\": [\n      {\n        \"namespacePath\": \"\",\n        \"nfsExport\": \"\",\n        \"targetPath\": \"\"\n      }\n    ],\n    \"nfs3\": {\n      \"target\": \"\",\n      \"usageModel\": \"\"\n    },\n    \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Creating' 'Deleting' 'Updating')}}\",\n    \"targetType\": \"{{oneOf (array 'nfs3' 'clfs' 'unknown')}}\",\n    \"unknown\": {\n      \"unknownMap\": {}\n    }\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Storage Target creation or update has been initiated. Poll the new Storage Target's provisioningState property to monitor creation progress.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "40ad3cf0-d7aa-4d1e-87f5-615dee87c6f6",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "beef433c-d27a-4888-9d81-e208d760745f",
+      "documentation": "Upgrade a Cache's firmware if a new version is available. Otherwise, this operation has no effect.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourcegroups/:resourceGroupName/providers/Microsoft.StorageCache/caches/:cacheName/upgrade",
+      "responses": [
+        {
+          "uuid": "bbc5ab42-ae3e-4e70-a418-d359aa9402f1",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Cache firmware is up to date.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4284ff22-bd8b-407a-9054-0914ebdfe63c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Cache has started the upgrade. Poll the Cache's state field to monitor.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1607f1f2-de9d-401d-815f-fc0e5a598064",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Cache firmware is up to date.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "96048def-86cc-4ba6-a3dc-c38c8cd60cd7",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

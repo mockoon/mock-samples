@@ -1,0 +1,799 @@
+{
+  "uuid": "54852989-cdc2-4bab-80d9-a5cc9fd59b80",
+  "lastMigration": 19,
+  "name": "Azure Reservation",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "bf48bf71-7f43-476f-8140-5e3cb327306e",
+      "documentation": "Calculate price for a `ReservationOrder`.",
+      "method": "post",
+      "endpoint": "providers/Microsoft.Capacity/calculatePrice",
+      "responses": [
+        {
+          "uuid": "eb244050-3e59-45a6-9239-76a7774f3fa7",
+          "body": "{\n  \"properties\": {\n    \"billingCurrencyTotal\": {\n      \"amount\": {{faker 'random.number'}},\n      \"currencyCode\": \"\"\n    },\n    \"isBillingPartnerManaged\": {{faker 'random.boolean'}},\n    \"paymentSchedule\": [\n      {\n        \"billingAccount\": \"\",\n        \"billingCurrencyTotal\": {\n          \"amount\": {{faker 'random.float'}},\n          \"currencyCode\": \"\"\n        },\n        \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"extendedStatusInfo\": {\n          \"message\": \"\",\n          \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n        },\n        \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"pricingCurrencyTotal\": {\n          \"amount\": {{faker 'random.float'}},\n          \"currencyCode\": \"\"\n        },\n        \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n      }\n    ],\n    \"pricingCurrencyTotal\": {\n      \"amount\": {{faker 'random.number'}},\n      \"currencyCode\": \"\"\n    },\n    \"reservationOrderId\": \"\",\n    \"skuDescription\": \"\",\n    \"skuTitle\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Detailed price info for purchasing `ReservationOrder`",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "26f1f827-9f04-404c-9b4c-36940690b071",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "70d0a19b-1180-4eb4-861b-eb34adf9da65",
+      "documentation": "Get operations.",
+      "method": "get",
+      "endpoint": "providers/Microsoft.Capacity/operations",
+      "responses": [
+        {
+          "uuid": "66e24ec6-75b9-4703-a263-e8c5d1867446",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"display\": {\n        \"description\": \"\",\n        \"operation\": \"\",\n        \"provider\": \"\",\n        \"resource\": \"\"\n      },\n      \"name\": \"\",\n      \"origin\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List all the operations.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "edfa4317-2f36-46fd-b2d9-8bf5189a6668",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c8778ee7-5e15-4b85-a199-42a73afaed14",
+      "documentation": "Get all `ReservationOrder`s.",
+      "method": "get",
+      "endpoint": "providers/Microsoft.Capacity/reservationOrders",
+      "responses": [
+        {
+          "uuid": "55bd859a-07fe-4393-8bb4-824776cd5dca",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"etag\": {{faker 'random.number'}},\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n        \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"displayName\": \"\",\n        \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"originalQuantity\": {{faker 'random.number'}},\n        \"planInformation\": {\n          \"nextPaymentDueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'random.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"startDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"transactions\": [\n            {\n              \"billingAccount\": \"\",\n              \"billingCurrencyTotal\": {\n                \"amount\": {{faker 'random.float'}},\n                \"currencyCode\": \"\"\n              },\n              \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n              \"extendedStatusInfo\": {\n                \"message\": \"\",\n                \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n              },\n              \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n              \"pricingCurrencyTotal\": {\n                \"amount\": {{faker 'random.float'}},\n                \"currencyCode\": \"\"\n              },\n              \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n            }\n          ]\n        },\n        \"provisioningState\": \"\",\n        \"requestDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"reservations\": [\n          {\n            \"etag\": {{faker 'random.number'}},\n            \"id\": \"\",\n            \"location\": \"\",\n            \"name\": \"\",\n            \"properties\": {\n              \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n              \"appliedScopes\": [\n                \"\"\n              ],\n              \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n              \"billingScopeId\": \"\",\n              \"displayName\": \"\",\n              \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n              \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n              \"extendedStatusInfo\": {\n                \"message\": \"\",\n                \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n              },\n              \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n              \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n              \"mergeProperties\": {\n                \"mergeDestination\": \"\",\n                \"mergeSources\": [\n                  \"\"\n                ]\n              },\n              \"provisioningState\": \"\",\n              \"quantity\": {{faker 'random.number'}},\n              \"renew\": {{faker 'random.boolean'}},\n              \"renewDestination\": \"\",\n              \"renewProperties\": {\n                \"billingCurrencyTotal\": {\n                  \"amount\": {{faker 'random.number'}},\n                  \"currencyCode\": \"\"\n                },\n                \"pricingCurrencyTotal\": {\n                  \"amount\": {{faker 'random.number'}},\n                  \"currencyCode\": \"\"\n                },\n                \"purchaseProperties\": {\n                  \"location\": \"\",\n                  \"properties\": {\n                    \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n                    \"appliedScopes\": [\n                      \"\"\n                    ],\n                    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n                    \"billingScopeId\": \"\",\n                    \"displayName\": \"\",\n                    \"quantity\": {{faker 'random.number'}},\n                    \"renew\": {{faker 'random.boolean'}},\n                    \"reservedResourceProperties\": {\n                      \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n                    },\n                    \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n                    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n                  },\n                  \"sku\": {\n                    \"name\": \"\"\n                  }\n                }\n              },\n              \"renewSource\": \"\",\n              \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n              \"skuDescription\": \"\",\n              \"splitProperties\": {\n                \"splitDestinations\": [\n                  \"\"\n                ],\n                \"splitSource\": \"\"\n              },\n              \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n            },\n            \"sku\": {\n              \"name\": \"\"\n            },\n            \"type\": \"\"\n          }\n        ],\n        \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List of `ReservationOrder`s",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ffe21481-504b-46eb-b92a-07b87efa9fb5",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "79694f18-939c-4f2f-b287-69f3ffd88eb5",
+      "documentation": "Get a specific `ReservationOrder`.",
+      "method": "get",
+      "endpoint": "providers/Microsoft.Capacity/reservationOrders/:reservationOrderId",
+      "responses": [
+        {
+          "uuid": "d2c90f3f-3be3-45dc-b21c-7464764bb1e6",
+          "body": "{\n  \"etag\": {{faker 'random.number'}},\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"displayName\": \"\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"originalQuantity\": {{faker 'random.number'}},\n    \"planInformation\": {\n      \"nextPaymentDueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'random.float'}},\n        \"currencyCode\": \"\"\n      },\n      \"startDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"transactions\": [\n        {\n          \"billingAccount\": \"\",\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'random.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'random.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n        }\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"requestDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"reservations\": [\n      {\n        \"etag\": {{faker 'random.number'}},\n        \"id\": \"\",\n        \"location\": \"\",\n        \"name\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n          \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"mergeProperties\": {\n            \"mergeDestination\": \"\",\n            \"mergeSources\": [\n              \"\"\n            ]\n          },\n          \"provisioningState\": \"\",\n          \"quantity\": {{faker 'random.number'}},\n          \"renew\": {{faker 'random.boolean'}},\n          \"renewDestination\": \"\",\n          \"renewProperties\": {\n            \"billingCurrencyTotal\": {\n              \"amount\": {{faker 'random.number'}},\n              \"currencyCode\": \"\"\n            },\n            \"pricingCurrencyTotal\": {\n              \"amount\": {{faker 'random.number'}},\n              \"currencyCode\": \"\"\n            },\n            \"purchaseProperties\": {\n              \"location\": \"\",\n              \"properties\": {\n                \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n                \"appliedScopes\": [\n                  \"\"\n                ],\n                \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n                \"billingScopeId\": \"\",\n                \"displayName\": \"\",\n                \"quantity\": {{faker 'random.number'}},\n                \"renew\": {{faker 'random.boolean'}},\n                \"reservedResourceProperties\": {\n                  \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n                },\n                \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n                \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n              },\n              \"sku\": {\n                \"name\": \"\"\n              }\n            }\n          },\n          \"renewSource\": \"\",\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"skuDescription\": \"\",\n          \"splitProperties\": {\n            \"splitDestinations\": [\n              \"\"\n            ],\n            \"splitSource\": \"\"\n          },\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        },\n        \"type\": \"\"\n      }\n    ],\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Get the details of the `ReservationOrder`.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c5a7420a-3b97-487b-9325-079ab48f370e",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a49ffd47-8548-4477-b528-529c4056a5e2",
+      "documentation": "Purchase `ReservationOrder`",
+      "method": "put",
+      "endpoint": "providers/Microsoft.Capacity/reservationOrders/:reservationOrderId",
+      "responses": [
+        {
+          "uuid": "b9fff150-36f4-4d7d-8bcd-7b06ced39e91",
+          "body": "{\n  \"etag\": {{faker 'random.number'}},\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"displayName\": \"\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"originalQuantity\": {{faker 'random.number'}},\n    \"planInformation\": {\n      \"nextPaymentDueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'random.float'}},\n        \"currencyCode\": \"\"\n      },\n      \"startDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"transactions\": [\n        {\n          \"billingAccount\": \"\",\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'random.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'random.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n        }\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"requestDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"reservations\": [\n      {\n        \"etag\": {{faker 'random.number'}},\n        \"id\": \"\",\n        \"location\": \"\",\n        \"name\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n          \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"mergeProperties\": {\n            \"mergeDestination\": \"\",\n            \"mergeSources\": [\n              \"\"\n            ]\n          },\n          \"provisioningState\": \"\",\n          \"quantity\": {{faker 'random.number'}},\n          \"renew\": {{faker 'random.boolean'}},\n          \"renewDestination\": \"\",\n          \"renewProperties\": {\n            \"billingCurrencyTotal\": {\n              \"amount\": {{faker 'random.number'}},\n              \"currencyCode\": \"\"\n            },\n            \"pricingCurrencyTotal\": {\n              \"amount\": {{faker 'random.number'}},\n              \"currencyCode\": \"\"\n            },\n            \"purchaseProperties\": {\n              \"location\": \"\",\n              \"properties\": {\n                \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n                \"appliedScopes\": [\n                  \"\"\n                ],\n                \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n                \"billingScopeId\": \"\",\n                \"displayName\": \"\",\n                \"quantity\": {{faker 'random.number'}},\n                \"renew\": {{faker 'random.boolean'}},\n                \"reservedResourceProperties\": {\n                  \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n                },\n                \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n                \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n              },\n              \"sku\": {\n                \"name\": \"\"\n              }\n            }\n          },\n          \"renewSource\": \"\",\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"skuDescription\": \"\",\n          \"splitProperties\": {\n            \"splitDestinations\": [\n              \"\"\n            ],\n            \"splitSource\": \"\"\n          },\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        },\n        \"type\": \"\"\n      }\n    ],\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The resource has been created",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "65a5a983-bccc-4fc1-b0fe-276eed36bf5b",
+          "body": "{\n  \"etag\": {{faker 'random.number'}},\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"displayName\": \"\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"originalQuantity\": {{faker 'random.number'}},\n    \"planInformation\": {\n      \"nextPaymentDueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'random.float'}},\n        \"currencyCode\": \"\"\n      },\n      \"startDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"transactions\": [\n        {\n          \"billingAccount\": \"\",\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'random.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'random.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n        }\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"requestDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"reservations\": [\n      {\n        \"etag\": {{faker 'random.number'}},\n        \"id\": \"\",\n        \"location\": \"\",\n        \"name\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n          \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"mergeProperties\": {\n            \"mergeDestination\": \"\",\n            \"mergeSources\": [\n              \"\"\n            ]\n          },\n          \"provisioningState\": \"\",\n          \"quantity\": {{faker 'random.number'}},\n          \"renew\": {{faker 'random.boolean'}},\n          \"renewDestination\": \"\",\n          \"renewProperties\": {\n            \"billingCurrencyTotal\": {\n              \"amount\": {{faker 'random.number'}},\n              \"currencyCode\": \"\"\n            },\n            \"pricingCurrencyTotal\": {\n              \"amount\": {{faker 'random.number'}},\n              \"currencyCode\": \"\"\n            },\n            \"purchaseProperties\": {\n              \"location\": \"\",\n              \"properties\": {\n                \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n                \"appliedScopes\": [\n                  \"\"\n                ],\n                \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n                \"billingScopeId\": \"\",\n                \"displayName\": \"\",\n                \"quantity\": {{faker 'random.number'}},\n                \"renew\": {{faker 'random.boolean'}},\n                \"reservedResourceProperties\": {\n                  \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n                },\n                \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n                \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n              },\n              \"sku\": {\n                \"name\": \"\"\n              }\n            }\n          },\n          \"renewSource\": \"\",\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"skuDescription\": \"\",\n          \"splitProperties\": {\n            \"splitDestinations\": [\n              \"\"\n            ],\n            \"splitSource\": \"\"\n          },\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        },\n        \"type\": \"\"\n      }\n    ],\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "The request is accepted and is being processed. Operation result link is in location header.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7efd361b-ae3c-46fa-8d90-d8803ebada69",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e2195f49-145e-469d-8eaf-cb1634df84cc",
+      "documentation": "Merges two `Reservation`s.",
+      "method": "post",
+      "endpoint": "providers/Microsoft.Capacity/reservationOrders/:reservationOrderId/merge",
+      "responses": [
+        {
+          "uuid": "64c22bbb-4258-4e45-b46e-89a8614edec8",
+          "body": "[\n  {\n    \"etag\": {{faker 'random.number'}},\n    \"id\": \"\",\n    \"location\": \"\",\n    \"name\": \"\",\n    \"properties\": {\n      \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n      \"appliedScopes\": [\n        \"\"\n      ],\n      \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n      \"billingScopeId\": \"\",\n      \"displayName\": \"\",\n      \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"extendedStatusInfo\": {\n        \"message\": \"\",\n        \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n      },\n      \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n      \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"mergeProperties\": {\n        \"mergeDestination\": \"\",\n        \"mergeSources\": [\n          \"\"\n        ]\n      },\n      \"provisioningState\": \"\",\n      \"quantity\": {{faker 'random.number'}},\n      \"renew\": {{faker 'random.boolean'}},\n      \"renewDestination\": \"\",\n      \"renewProperties\": {\n        \"billingCurrencyTotal\": {\n          \"amount\": {{faker 'random.number'}},\n          \"currencyCode\": \"\"\n        },\n        \"pricingCurrencyTotal\": {\n          \"amount\": {{faker 'random.number'}},\n          \"currencyCode\": \"\"\n        },\n        \"purchaseProperties\": {\n          \"location\": \"\",\n          \"properties\": {\n            \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n            \"appliedScopes\": [\n              \"\"\n            ],\n            \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n            \"billingScopeId\": \"\",\n            \"displayName\": \"\",\n            \"quantity\": {{faker 'random.number'}},\n            \"renew\": {{faker 'random.boolean'}},\n            \"reservedResourceProperties\": {\n              \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n            },\n            \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n            \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n          },\n          \"sku\": {\n            \"name\": \"\"\n          }\n        }\n      },\n      \"renewSource\": \"\",\n      \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n      \"skuDescription\": \"\",\n      \"splitProperties\": {\n        \"splitDestinations\": [\n          \"\"\n        ],\n        \"splitSource\": \"\"\n      },\n      \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n    },\n    \"sku\": {\n      \"name\": \"\"\n    },\n    \"type\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the `Reservation` created after the merge.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4f3c9216-7a80-41dc-afab-5b086f3850d9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "The request is accepted and is being processed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e633b803-876e-4e98-856b-911aea6c3829",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "16d8f05e-f593-483e-97a8-3258845cc7f1",
+      "documentation": "Get `Reservation`s in a given reservation Order",
+      "method": "get",
+      "endpoint": "providers/Microsoft.Capacity/reservationOrders/:reservationOrderId/reservations",
+      "responses": [
+        {
+          "uuid": "fa905474-7ca7-4f80-89c1-3c3149d7ae29",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"etag\": {{faker 'random.number'}},\n      \"id\": \"\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n        \"appliedScopes\": [\n          \"\"\n        ],\n        \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n        \"billingScopeId\": \"\",\n        \"displayName\": \"\",\n        \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"extendedStatusInfo\": {\n          \"message\": \"\",\n          \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n        },\n        \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n        \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"mergeProperties\": {\n          \"mergeDestination\": \"\",\n          \"mergeSources\": [\n            \"\"\n          ]\n        },\n        \"provisioningState\": \"\",\n        \"quantity\": {{faker 'random.number'}},\n        \"renew\": {{faker 'random.boolean'}},\n        \"renewDestination\": \"\",\n        \"renewProperties\": {\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'random.number'}},\n            \"currencyCode\": \"\"\n          },\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'random.number'}},\n            \"currencyCode\": \"\"\n          },\n          \"purchaseProperties\": {\n            \"location\": \"\",\n            \"properties\": {\n              \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n              \"appliedScopes\": [\n                \"\"\n              ],\n              \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n              \"billingScopeId\": \"\",\n              \"displayName\": \"\",\n              \"quantity\": {{faker 'random.number'}},\n              \"renew\": {{faker 'random.boolean'}},\n              \"reservedResourceProperties\": {\n                \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n              },\n              \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n              \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n            },\n            \"sku\": {\n              \"name\": \"\"\n            }\n          }\n        },\n        \"renewSource\": \"\",\n        \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n        \"skuDescription\": \"\",\n        \"splitProperties\": {\n          \"splitDestinations\": [\n            \"\"\n          ],\n          \"splitSource\": \"\"\n        },\n        \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n      },\n      \"sku\": {\n        \"name\": \"\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List `Reservation`s within a single `ReservationOrder`.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2f83595c-ee7b-4f36-b8a5-5483a4583765",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2d76aa64-af7c-4159-8943-12a69f263dac",
+      "documentation": "Get `Reservation` details.",
+      "method": "get",
+      "endpoint": "providers/Microsoft.Capacity/reservationOrders/:reservationOrderId/reservations/:reservationId",
+      "responses": [
+        {
+          "uuid": "806a7a75-0835-4949-aca7-820d9c9e4b3e",
+          "body": "{\n  \"etag\": {{faker 'random.number'}},\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n    \"appliedScopes\": [\n      \"\"\n    ],\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"billingScopeId\": \"\",\n    \"displayName\": \"\",\n    \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"extendedStatusInfo\": {\n      \"message\": \"\",\n      \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n    },\n    \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n    \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"mergeProperties\": {\n      \"mergeDestination\": \"\",\n      \"mergeSources\": [\n        \"\"\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"quantity\": {{faker 'random.number'}},\n    \"renew\": {{faker 'random.boolean'}},\n    \"renewDestination\": \"\",\n    \"renewProperties\": {\n      \"billingCurrencyTotal\": {\n        \"amount\": {{faker 'random.number'}},\n        \"currencyCode\": \"\"\n      },\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'random.number'}},\n        \"currencyCode\": \"\"\n      },\n      \"purchaseProperties\": {\n        \"location\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"quantity\": {{faker 'random.number'}},\n          \"renew\": {{faker 'random.boolean'}},\n          \"reservedResourceProperties\": {\n            \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n          },\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        }\n      }\n    },\n    \"renewSource\": \"\",\n    \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n    \"skuDescription\": \"\",\n    \"splitProperties\": {\n      \"splitDestinations\": [\n        \"\"\n      ],\n      \"splitSource\": \"\"\n    },\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"sku\": {\n    \"name\": \"\"\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Get `Reservation` details.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1c9238ad-3116-4ff2-9df3-b68f9ac6d72b",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8bde5f32-c533-4928-9145-648b154e598a",
+      "documentation": "Updates a `Reservation`.",
+      "method": "patch",
+      "endpoint": "providers/Microsoft.Capacity/reservationOrders/:reservationOrderId/reservations/:reservationId",
+      "responses": [
+        {
+          "uuid": "9f5835d2-2815-4fae-965e-9b129a69e118",
+          "body": "{\n  \"etag\": {{faker 'random.number'}},\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n    \"appliedScopes\": [\n      \"\"\n    ],\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"billingScopeId\": \"\",\n    \"displayName\": \"\",\n    \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"extendedStatusInfo\": {\n      \"message\": \"\",\n      \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n    },\n    \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n    \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"mergeProperties\": {\n      \"mergeDestination\": \"\",\n      \"mergeSources\": [\n        \"\"\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"quantity\": {{faker 'random.number'}},\n    \"renew\": {{faker 'random.boolean'}},\n    \"renewDestination\": \"\",\n    \"renewProperties\": {\n      \"billingCurrencyTotal\": {\n        \"amount\": {{faker 'random.number'}},\n        \"currencyCode\": \"\"\n      },\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'random.number'}},\n        \"currencyCode\": \"\"\n      },\n      \"purchaseProperties\": {\n        \"location\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"quantity\": {{faker 'random.number'}},\n          \"renew\": {{faker 'random.boolean'}},\n          \"reservedResourceProperties\": {\n            \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n          },\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        }\n      }\n    },\n    \"renewSource\": \"\",\n    \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n    \"skuDescription\": \"\",\n    \"splitProperties\": {\n      \"splitDestinations\": [\n        \"\"\n      ],\n      \"splitSource\": \"\"\n    },\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"sku\": {\n    \"name\": \"\"\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the updated `Reservation`.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "461452f5-f1fe-471b-a8f0-c3d0138ec4b0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "The request is accepted and is being processed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f28b4dab-4a53-4c1c-a190-7f08de639a9d",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1f0617b4-9ce5-4f5c-9628-8f80c1af449f",
+      "documentation": "Get Available Scopes for `Reservation`.",
+      "method": "post",
+      "endpoint": "providers/Microsoft.Capacity/reservationOrders/:reservationOrderId/reservations/:reservationId/availableScopes",
+      "responses": [
+        {
+          "uuid": "1478a1fa-6414-44f3-867b-a648590aa20a",
+          "body": "{\n  \"properties\": {\n    \"scopes\": [\n      {\n        \"scope\": \"\",\n        \"valid\": {{faker 'random.boolean'}}\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List of `Subscription`s created after the filter.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "78cfdcd3-f24c-4084-a215-5cea7304ec8c",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d04c3f0e-7f05-4e81-be57-9f4c6a991632",
+      "documentation": "Get `Reservation` revisions.",
+      "method": "get",
+      "endpoint": "providers/Microsoft.Capacity/reservationOrders/:reservationOrderId/reservations/:reservationId/revisions",
+      "responses": [
+        {
+          "uuid": "dfc583ac-d66b-43db-982a-185a07ebb16e",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"etag\": {{faker 'random.number'}},\n      \"id\": \"\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n        \"appliedScopes\": [\n          \"\"\n        ],\n        \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n        \"billingScopeId\": \"\",\n        \"displayName\": \"\",\n        \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"extendedStatusInfo\": {\n          \"message\": \"\",\n          \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n        },\n        \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n        \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"mergeProperties\": {\n          \"mergeDestination\": \"\",\n          \"mergeSources\": [\n            \"\"\n          ]\n        },\n        \"provisioningState\": \"\",\n        \"quantity\": {{faker 'random.number'}},\n        \"renew\": {{faker 'random.boolean'}},\n        \"renewDestination\": \"\",\n        \"renewProperties\": {\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'random.number'}},\n            \"currencyCode\": \"\"\n          },\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'random.number'}},\n            \"currencyCode\": \"\"\n          },\n          \"purchaseProperties\": {\n            \"location\": \"\",\n            \"properties\": {\n              \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n              \"appliedScopes\": [\n                \"\"\n              ],\n              \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n              \"billingScopeId\": \"\",\n              \"displayName\": \"\",\n              \"quantity\": {{faker 'random.number'}},\n              \"renew\": {{faker 'random.boolean'}},\n              \"reservedResourceProperties\": {\n                \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n              },\n              \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n              \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n            },\n            \"sku\": {\n              \"name\": \"\"\n            }\n          }\n        },\n        \"renewSource\": \"\",\n        \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n        \"skuDescription\": \"\",\n        \"splitProperties\": {\n          \"splitDestinations\": [\n            \"\"\n          ],\n          \"splitSource\": \"\"\n        },\n        \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n      },\n      \"sku\": {\n        \"name\": \"\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List of all the revisions for the `Reservation`.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d7d3b884-c879-4025-9fed-e0d38a182ca3",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c585d528-63b6-4fea-a264-b4e5b6214536",
+      "documentation": "Split the `Reservation`.",
+      "method": "post",
+      "endpoint": "providers/Microsoft.Capacity/reservationOrders/:reservationOrderId/split",
+      "responses": [
+        {
+          "uuid": "a6800e5d-6936-446d-8786-de14553d03a6",
+          "body": "[\n  {\n    \"etag\": {{faker 'random.number'}},\n    \"id\": \"\",\n    \"location\": \"\",\n    \"name\": \"\",\n    \"properties\": {\n      \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n      \"appliedScopes\": [\n        \"\"\n      ],\n      \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n      \"billingScopeId\": \"\",\n      \"displayName\": \"\",\n      \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"extendedStatusInfo\": {\n        \"message\": \"\",\n        \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n      },\n      \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n      \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"mergeProperties\": {\n        \"mergeDestination\": \"\",\n        \"mergeSources\": [\n          \"\"\n        ]\n      },\n      \"provisioningState\": \"\",\n      \"quantity\": {{faker 'random.number'}},\n      \"renew\": {{faker 'random.boolean'}},\n      \"renewDestination\": \"\",\n      \"renewProperties\": {\n        \"billingCurrencyTotal\": {\n          \"amount\": {{faker 'random.number'}},\n          \"currencyCode\": \"\"\n        },\n        \"pricingCurrencyTotal\": {\n          \"amount\": {{faker 'random.number'}},\n          \"currencyCode\": \"\"\n        },\n        \"purchaseProperties\": {\n          \"location\": \"\",\n          \"properties\": {\n            \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n            \"appliedScopes\": [\n              \"\"\n            ],\n            \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n            \"billingScopeId\": \"\",\n            \"displayName\": \"\",\n            \"quantity\": {{faker 'random.number'}},\n            \"renew\": {{faker 'random.boolean'}},\n            \"reservedResourceProperties\": {\n              \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n            },\n            \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n            \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n          },\n          \"sku\": {\n            \"name\": \"\"\n          }\n        }\n      },\n      \"renewSource\": \"\",\n      \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n      \"skuDescription\": \"\",\n      \"splitProperties\": {\n        \"splitDestinations\": [\n          \"\"\n        ],\n        \"splitSource\": \"\"\n      },\n      \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n    },\n    \"sku\": {\n      \"name\": \"\"\n    },\n    \"type\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List of `Reservation`s created after the split operation.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a00b0f87-fb29-4c6d-9129-b24fe998a44b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "The request is accepted and is being processed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "613643ce-412c-4b32-95f7-ed2d36289ff8",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "76c8f0d0-5712-4ac4-9d8d-d71c77750c09",
+      "documentation": "Get list of applicable `Reservation`s.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Capacity/appliedReservations",
+      "responses": [
+        {
+          "uuid": "bd0d80a8-482c-4849-a475-46711a7f5b65",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"reservationOrderIds\": {\n      \"nextLink\": \"\",\n      \"value\": [\n        \"\"\n      ]\n    }\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Applicable `Reservation`s.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1b5621de-ac07-4a83-b7af-2cfe50ec442b",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "92928055-8c5c-4ac7-b65f-94b22c7f410e",
+      "documentation": "Get the regions and skus that are available for RI purchase for the specified Azure subscription.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Capacity/catalogs",
+      "responses": [
+        {
+          "uuid": "e0713950-3d51-44e8-8d4f-2f7c13ba644a",
+          "body": "[\n  {\n    \"billingPlans\": {},\n    \"locations\": [\n      \"\"\n    ],\n    \"name\": \"\",\n    \"resourceType\": \"\",\n    \"restrictions\": [\n      {\n        \"reasonCode\": \"\",\n        \"type\": \"\",\n        \"values\": [\n          \"\"\n        ]\n      }\n    ],\n    \"skuProperties\": [\n      {\n        \"name\": \"\",\n        \"value\": \"\"\n      }\n    ],\n    \"terms\": [\n      \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n    ]\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List of available resources",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4ed51f85-6aeb-4289-b351-8b7af4ebde3a",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array 'NotSpecified' 'InternalServerError' 'ServerTimeout' 'AuthorizationFailed' 'BadRequest' 'ClientCertificateThumbprintNotSet' 'InvalidRequestContent' 'OperationFailed' 'HttpMethodNotSupported' 'InvalidRequestUri' 'MissingTenantId' 'InvalidTenantId' 'InvalidReservationOrderId' 'InvalidReservationId' 'ReservationIdNotInReservationOrder' 'ReservationOrderNotFound' 'InvalidSubscriptionId' 'InvalidAccessToken' 'InvalidLocationId' 'UnauthenticatedRequestsThrottled' 'InvalidHealthCheckType' 'Forbidden' 'BillingScopeIdCannotBeChanged' 'AppliedScopesNotAssociatedWithCommerceAccount' 'PatchValuesSameAsExisting' 'RoleAssignmentCreationFailed' 'ReservationOrderCreationFailed' 'ReservationOrderNotEnabled' 'CapacityUpdateScopesFailed' 'UnsupportedReservationTerm' 'ReservationOrderIdAlreadyExists' 'RiskCheckFailed' 'CreateQuoteFailed' 'ActivateQuoteFailed' 'NonsupportedAccountId' 'PaymentInstrumentNotFound' 'MissingAppliedScopesForSingle' 'NoValidReservationsToReRate' 'ReRateOnlyAllowedForEA' 'OperationCannotBePerformedInCurrentState' 'InvalidSingleAppliedScopesCount' 'InvalidFulfillmentRequestParameters' 'NotSupportedCountry' 'InvalidRefundQuantity' 'PurchaseError' 'BillingCustomerInputError' 'BillingPaymentInstrumentSoftError' 'BillingPaymentInstrumentHardError' 'BillingTransientError' 'BillingError' 'FulfillmentConfigurationError' 'FulfillmentOutOfStockError' 'FulfillmentTransientError' 'FulfillmentError' 'CalculatePriceFailed')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,3985 @@
+{
+  "uuid": "91186dfc-1dba-49ea-a837-815e0b3a67f4",
+  "lastMigration": 19,
+  "name": "Gateway",
+  "endpointPrefix": "gateway",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "858275d7-0b17-4a9a-8df7-7877630953d5",
+      "documentation": "Get openid configuration",
+      "method": "get",
+      "endpoint": "v0.5/.well-known/openid-configuration",
+      "responses": [
+        {
+          "uuid": "78632d0b-d8e5-49cb-b71e-017c5ed5eb87",
+          "body": "{\n  \"jwks_uri\": \"https://ndhm-gateway/certs\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f7cb79f9-c9c5-46a0-bad9-35a30011e6f3",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "**Causes:**\n  * Invalid consent request id\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "615c36da-9574-40f8-9393-eb4962e8ac91",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "348decee-2d62-4558-aba5-99397cb11cc3",
+      "documentation": "Discover patient's accounts",
+      "method": "post",
+      "endpoint": "v0.5/care-contexts/discover",
+      "responses": [
+        {
+          "uuid": "a28c5d19-f15d-4ded-9960-7ead8c1271bd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0da42edc-d873-4589-8179-96453ddc039d",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Empty verified identifiers.\n  * Format mismatch of any of attributes.\n    | type   | Format/Allowed Values|\n    | ------- | ----------------    |\n    | gender  | M/F/O/U |\n    | MOBILE  | valid mobile number with proper country code |\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "10a0b78a-1f14-4512-ad12-27a062e6876b",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b3678ff9-4584-4433-b25e-c9c17c3e2da4",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f053cb44-ac61-42bf-8e28-978cde7e9a83",
+      "documentation": "Response to patient's account discovery request",
+      "method": "post",
+      "endpoint": "v0.5/care-contexts/on-discover",
+      "responses": [
+        {
+          "uuid": "e161e380-d490-4559-a1e1-d279ec30024a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1f7c070f-2ddf-40f1-8c19-a8ca42ffcf47",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Format mismatch of any of attributes.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "376fa52d-19af-402f-8442-60ace399aafa",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4e7e4d2f-bfca-4f10-b5b5-2223d7f6422b",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bf0c4f0f-ddf4-475b-8294-9157cad2d4e8",
+      "documentation": "Get certs for JWT verification",
+      "method": "get",
+      "endpoint": "v0.5/certs",
+      "responses": [
+        {
+          "uuid": "8985bf90-afbb-4c91-8fb2-992d60af3ab4",
+          "body": "{\n  \"keys\": [\n    {\n      \"alg\": \"\",\n      \"e\": \"\",\n      \"kid\": \"\",\n      \"kty\": \"\",\n      \"n\": \"\",\n      \"use\": \"\",\n      \"x5c\": [\n        \"\"\n      ],\n      \"x5t\": \"\",\n      \"x5t#S256\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "52411cb4-dc76-40e2-af36-d579ea56f0ad",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "**Causes:**\n  * Invalid consent request id\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "12339aa0-3124-41b4-b134-422973d2ecbb",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5a655b57-9b59-40db-8d0d-2611daf10240",
+      "documentation": "Create consent request",
+      "method": "post",
+      "endpoint": "v0.5/consent-requests/init",
+      "responses": [
+        {
+          "uuid": "029034c8-7627-4beb-83b9-1c8c83571fe4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4d80177b-bc66-4fe5-9664-d1887af40a46",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Invalid data sent \n  * Required attributes not mentioned\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "311e70f9-30c6-4576-af3b-81402b687d05",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Expired/Invalid token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "01fe1458-e788-4fe3-a751-095d733238ca",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2aa698c7-b401-4954-b78c-684db809bb68",
+      "documentation": "Response to consent request",
+      "method": "post",
+      "endpoint": "v0.5/consent-requests/on-init",
+      "responses": [
+        {
+          "uuid": "e81b5d21-aa9d-4c57-b451-550f0c75fc8e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "15f3e78c-bb91-4d1d-80f9-73d9eb7394a1",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Invalid data sent\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "418837cd-589e-44be-b43a-4b77db77e5ab",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Expired/Invalid token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a998c531-e436-4fe6-a9ea-892318b39513",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "61e8e92a-7062-4343-82c3-4494bf0768fe",
+      "documentation": "Result of consent request status",
+      "method": "post",
+      "endpoint": "v0.5/consent-requests/on-status",
+      "responses": [
+        {
+          "uuid": "20859b67-0631-43c7-9115-dfafb61a7b13",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d10caf48-43ea-488e-ba47-82cb1b730e31",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Invalid data sent\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "49e32110-8736-45c6-af8c-96cb3087cee1",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Expired/Invalid token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f34dcdbd-c276-484c-b317-3eb378ca67bf",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b3d399f8-846a-4380-a26d-26bcbe1d205d",
+      "documentation": "Get consent request status",
+      "method": "post",
+      "endpoint": "v0.5/consent-requests/status",
+      "responses": [
+        {
+          "uuid": "4d5726c1-81cd-4ef7-9aea-d703471902a7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6d2e709c-9cc2-4bc3-a277-0950ff720b29",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Invalid data sent\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5417a35e-c726-4273-b03a-a5b5a58622b3",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Expired/Invalid token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "950cefbd-bd30-449e-8ff5-455276981599",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "936f25be-5541-48a1-9355-7499cb68f0a9",
+      "documentation": "Get consent artefact",
+      "method": "post",
+      "endpoint": "v0.5/consents/fetch",
+      "responses": [
+        {
+          "uuid": "132c75e2-4f88-4ca2-baed-e56b95ebc6ba",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "aad5ef8d-276b-463c-b481-95a082032a0c",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Invalid data sent\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "656d832f-d044-4fa0-afe2-a7d0f6012143",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Expired/Invalid token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "250cc6aa-7146-4fb3-82b1-4cd98f88f433",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "252d555e-d16b-459a-b09d-d2006d5efa20",
+      "documentation": "Consent notification",
+      "method": "post",
+      "endpoint": "v0.5/consents/hip/notify",
+      "responses": [
+        {
+          "uuid": "3d8727ea-8b36-4b52-b982-413c3cbddb19",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0ded1cf2-a3c6-4ee1-9b57-6d6b9e37e3eb",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Invalid/Expired/Empty token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "82f408dd-bc75-4db1-94b1-aa18b51ce239",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream services are down\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5098a15d-feda-4295-9c83-eb69a00827e2",
+      "documentation": "Consent notification",
+      "method": "post",
+      "endpoint": "v0.5/consents/hip/on-notify",
+      "responses": [
+        {
+          "uuid": "b82f36c1-e5d4-4584-8939-ebb02e876892",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d8589bf3-295f-451e-8032-f2dff3fbac9c",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Invalid/Expired/Empty token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f9c6eb8d-89e9-4ac7-a7a6-9a7a72a3200a",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream services are down\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "633f4945-a461-49dc-b4d5-8b01b98f6e9a",
+      "documentation": "Consent notification",
+      "method": "post",
+      "endpoint": "v0.5/consents/hiu/notify",
+      "responses": [
+        {
+          "uuid": "0b24a066-ba5d-4e01-9b17-1aece963c46a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9ce7ab37-df19-4885-8c14-d0a95cc18b80",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Invalid/Expired/Empty token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e68583a9-6fd0-42c4-a8db-c77c4012cdb9",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream services are down\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "811fa369-c17c-44c2-b656-a1767ffe473c",
+      "documentation": "Consent notification",
+      "method": "post",
+      "endpoint": "v0.5/consents/hiu/on-notify",
+      "responses": [
+        {
+          "uuid": "eed27290-5931-4457-ab44-4c7ca84a063a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "78ae844b-b7da-4719-b499-37e2859464f7",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Invalid/Expired/Empty token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "808f51a3-9c10-487e-80b0-8643d6e7e055",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream services are down\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "21deac2a-4881-4ba1-b713-03ba28649a54",
+      "documentation": "Result of fetch request for a consent artefact",
+      "method": "post",
+      "endpoint": "v0.5/consents/on-fetch",
+      "responses": [
+        {
+          "uuid": "187408df-2c1a-49f9-a4ec-823751ed0568",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "00a2f412-4bc0-4ce7-8382-fc51c5fc02bd",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Invalid data sent\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c54d974f-ba8c-4ae7-87de-92c4af28f3c5",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Expired/Invalid token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3d3c0503-626f-4894-9a9f-ba6f8598c480",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7b4d69cd-5469-495e-b30e-87188df44e1d",
+      "documentation": "Health information data request",
+      "method": "post",
+      "endpoint": "v0.5/health-information/cm/on-request",
+      "responses": [
+        {
+          "uuid": "4d036efd-cdab-485a-adc9-858099968076",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e37c0d22-6cde-41e6-8b67-f038de84bc3f",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Bad request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0ec9acc2-6077-454d-95b5-b84d9a0926e7",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Token is invalid or Link has expired\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "def4f4d4-ccad-481a-9cc6-d3eed1f3bc1f",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7e92c0b2-aff2-4fa1-97be-698414f2baa3",
+      "documentation": "Health information data request",
+      "method": "post",
+      "endpoint": "v0.5/health-information/cm/request",
+      "responses": [
+        {
+          "uuid": "c266226c-f8d3-463a-b8ad-98e198f43b67",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3ce97738-b78d-42d6-9027-4ca5a50e53ca",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Bad request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "31835d75-deee-4ece-ade6-ad68543248c4",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Token is invalid or Link has expired\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e91ff766-1e53-47f0-b5e1-006b1b84bbd6",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b0b76e71-1ca5-4bd2-94b3-cf30e4ac9f3d",
+      "documentation": "Health information data request",
+      "method": "post",
+      "endpoint": "v0.5/health-information/hip/on-request",
+      "responses": [
+        {
+          "uuid": "cc2ade91-29da-43d1-a7d9-4ff65365e654",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "97eafa1d-2656-43dd-a518-f41d9a87af85",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Bad request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "31e2ad35-497c-4da2-a82c-e0f6bf7b5fe9",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Token is invalid or Link has expired\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "56e6dd63-b476-4894-863f-25755783b977",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6d0e8cca-51b5-42a5-8f31-9d7775e6c793",
+      "documentation": "Health information data request",
+      "method": "post",
+      "endpoint": "v0.5/health-information/hip/request",
+      "responses": [
+        {
+          "uuid": "9c30bf7d-3c70-42f2-a679-92ad60b4d102",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2b6b116a-c850-49cd-a542-a55ff7f72d5c",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Bad request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0f2957cb-c0a8-4269-8444-f01c8849f056",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Token is invalid or Link has expired\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bf0aa191-0d55-4d7e-94e0-7026df8b18f4",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e935e8ea-1051-4432-864e-3338ab63e081",
+      "documentation": "Notifications corresponding to events during data flow",
+      "method": "post",
+      "endpoint": "v0.5/health-information/notify",
+      "responses": [
+        {
+          "uuid": "5e14aba2-95ee-467b-8794-f00c46964e72",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Notification is Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "04c40457-d6dc-43c8-a2d1-db54cf1fb2c0",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Invalid Request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2b5b41cb-312a-4f27-a778-cacb0ef90199",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Expired/Invalid token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "34658939-ab43-4f1e-a138-7c2c2c644def",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "30ea9c56-6cbb-47c3-8057-a13ccda7f67a",
+      "documentation": "Get consent request status",
+      "method": "get",
+      "endpoint": "v0.5/heartbeat",
+      "responses": [
+        {
+          "uuid": "74f4c9d8-8184-4d33-ad8d-75c802b5437c",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  },\n  \"status\": \"{{oneOf (array 'UP' 'DOWN')}}\",\n  \"timestamp\": \"{{faker 'date.recent' 365}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d613dbc3-22ad-4c8a-8fbb-12fe237139d0",
+      "documentation": "Get bridge service details/profile by the serviceId provided.",
+      "method": "get",
+      "endpoint": "v0.5/hi-services/{service-id}",
+      "responses": [
+        {
+          "uuid": "0a1650e2-4c6f-4a9f-8f97-aa551c5f38f8",
+          "body": "{\n  \"active\": {{faker 'random.boolean'}},\n  \"endpoints\": [\n    {\n      \"address\": \"\",\n      \"connectionType\": \"\",\n      \"use\": \"\"\n    }\n  ],\n  \"id\": \"\",\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'HIP' 'HIU' 'HIP_AND_HIU' 'HEALTH_LOCKER')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "service details fetched successfully",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ba301d03-2678-4f2f-b7cd-0dbeecdca579",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2bbd58c1-bf67-4de9-832d-99f49e26e82e",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Service doesn't exist.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6c32d5de-9ea6-44f1-9e8a-0be0804143b7",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9e4d03c0-8e27-45d1-a17e-5e12be5daba3",
+      "documentation": "API for HIP initiated care-context linking for patient",
+      "method": "post",
+      "endpoint": "v0.5/links/link/add-contexts",
+      "responses": [
+        {
+          "uuid": "a1b3b996-bce4-4c1e-8aed-63d0f2885e16",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "65dbfc71-33ee-4572-8280-870c14ce2756",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * required information not provided\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ddd95a2e-5d1f-498f-baa1-684218a8ff84",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5fb94b7b-45ca-43a3-9750-c95675578edf",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7cc1ece4-e600-44e5-8adc-5d20747e04ce",
+      "documentation": "Token submission by Consent Manager for link confirmation",
+      "method": "post",
+      "endpoint": "v0.5/links/link/confirm",
+      "responses": [
+        {
+          "uuid": "9c3a5e98-c5b7-46d4-835a-b42f12c94d26",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3aa2b494-2e32-4309-b53a-8a5f4db3af4d",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Token is not provided\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9475f127-db49-4863-9c0c-0dfc0d60f901",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9e9241b6-8b33-45af-b5c2-37f2d1bd7df9",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "aed3fd2d-e82b-4e11-9b6d-2be8dd48cf9d",
+      "documentation": "Link patient's care contexts",
+      "method": "post",
+      "endpoint": "v0.5/links/link/init",
+      "responses": [
+        {
+          "uuid": "b431c505-b7dc-482f-ac5e-b50956afc98c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2568741f-4a96-48d0-a2d1-27716017824e",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Consent manager user id is not provided\n  * Patient reference number is not provided\n  * Care context references are not provided\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2f21052f-305e-4656-8593-1b0ccff8b02c",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "235e3c87-2dee-464e-bdd4-3199cbc2b2fb",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3505d37e-eed7-4bed-bfd8-5fc1e1c46ecc",
+      "documentation": "callback API for HIP initiated patient linking /link/add-context",
+      "method": "post",
+      "endpoint": "v0.5/links/link/on-add-contexts",
+      "responses": [
+        {
+          "uuid": "4349dd86-586b-4165-a7cd-5cd82d5c2348",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b295dd57-8ae3-4350-ad36-21189e826aec",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * resp not specified\n  * atleast acknowledgement or error should be specified\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "952af3d8-bf6e-46bb-8d96-691e12fd5b96",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e5a702d6-5a95-4b4c-a67b-fe520cc5c2c5",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "40ec15e6-705b-45f5-b849-3761e722540b",
+      "documentation": "Token authenticated by HIP, indicating completion of linkage of care-contexts",
+      "method": "post",
+      "endpoint": "v0.5/links/link/on-confirm",
+      "responses": [
+        {
+          "uuid": "ed344644-45c0-4ef7-a2bb-54edd299f083",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4d8eb9e8-eee9-4d47-a2e7-ef654fa2313d",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * resp not specified\n  * atleast patient or error should be specified\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "74fdea49-2701-472e-ad21-8f65b46e9a2e",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7086a04a-f752-424b-9546-21e17ef7a943",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d2e0621e-6a74-4246-9f94-451ea07b7392",
+      "documentation": "Response to patient's care context link request",
+      "method": "post",
+      "endpoint": "v0.5/links/link/on-init",
+      "responses": [
+        {
+          "uuid": "030061f7-aa73-400a-8115-c701099615ba",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bbdb9590-0def-40a1-a26d-eabf7223eda9",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Format mismatch of any of attributes.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7a305fcd-604c-4371-9c38-5461c2f7cbaa",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8af8f422-5f39-4a18-8d78-d0e76efd56c5",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e3ab4a22-94bf-41f0-b882-e592a0bc0013",
+      "documentation": "Identify a patient by her consent-manager user-id",
+      "method": "post",
+      "endpoint": "v0.5/patients/find",
+      "responses": [
+        {
+          "uuid": "fb3be6a9-d874-4a7b-a239-1f9cbff64c95",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8c855e51-aa18-4ecf-8990-b4c86d288279",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Invalid request, required attributes not provided\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c45fd95c-2dcb-493e-b18c-c9c8dd63fb20",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "10108f67-93a1-4dda-8429-b633d01afc6c",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "05689055-a280-43f6-a83d-1367ed3f72cb",
+      "documentation": "Identification result for a consent-manager user-id",
+      "method": "post",
+      "endpoint": "v0.5/patients/on-find",
+      "responses": [
+        {
+          "uuid": "1eae2516-0358-4949-9213-7532482ba900",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "022b65e5-78f9-48bc-80f8-1b4ccac2baaf",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Invalid request, required attributes not provided\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1ae7c6eb-2ade-44e7-a9d5-b94d9d4c3e11",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d8062910-fc1e-44da-8aed-7f681ae570b3",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a5917863-2858-41ca-aa97-ccf646a70708",
+      "documentation": "Response to patient's share profile request",
+      "method": "post",
+      "endpoint": "v0.5/patients/profile/on-share",
+      "responses": [
+        {
+          "uuid": "40a4c998-9076-406b-b91a-99153a70c5f5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8756f205-3787-40b8-84d3-2b1ca3022654",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Format mismatch of any of attributes.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7fdb6c60-f888-4ada-b2ac-cf54d4991103",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "da48fd31-aa84-4326-a61c-ba10b8741f9c",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "80c42c8f-3fac-4416-9d27-2c0aebd8fe98",
+      "documentation": "Share patient profile details",
+      "method": "post",
+      "endpoint": "v0.5/patients/profile/share",
+      "responses": [
+        {
+          "uuid": "69380ef4-4653-480e-afcb-1f95c90f87e5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c54762e5-23e0-4cee-b4fa-a369efc36aab",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Invalid Request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e289d83c-75df-44d9-a4d4-b16c86a64ce8",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2a69b52a-8cdf-4a83-8b08-cfce35920a3f",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "55f91488-6ff6-4e53-ace6-17b9e1183af0",
+      "documentation": "API for HIP to send SMS notifications to patients",
+      "method": "post",
+      "endpoint": "v0.5/patients/sms/notify",
+      "responses": [
+        {
+          "uuid": "615c3c03-074c-41b3-babd-f468d0a876c6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9e89370e-60cf-4559-b59b-5d69521747ba",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * required information not provided\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e5b53d86-edf7-467f-a02f-35d675e7e567",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "598a66c9-df64-4824-8b25-a76132b89a2c",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f219eac3-5e35-41b1-8960-112b25331902",
+      "documentation": "Acknowledgment response for SMS notification sent to patient by HIP",
+      "method": "post",
+      "endpoint": "v0.5/patients/sms/on-notify",
+      "responses": [
+        {
+          "uuid": "6adc8140-978a-4108-b1c5-fd31aa2df2d3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f42f22fd-577a-4c7d-a8dd-4166a2c394a0",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Invalid request, required attributes not provided\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "088b4093-3a47-4db3-84aa-05dc7ba6f5ed",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1b512299-bcfd-4f0b-ac5f-0c22f442e225",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d293ffdc-9d49-4c7d-96ed-98cde1ba9b98",
+      "documentation": "Get access token",
+      "method": "post",
+      "endpoint": "v0.5/sessions",
+      "responses": [
+        {
+          "uuid": "acd96fa8-ad8c-48bd-8a64-c5348c5aa557",
+          "body": "{\n  \"accessToken\": \"eyJhbGciOiJSUzI1Ni.IsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrVVp.2MXJQMjRyYXN1UW9wU2lWbkdZQUZIVFowYVZGVWpYNXFLMnNibTk0In0\",\n  \"expiresIn\": 1800,\n  \"refreshExpiresIn\": 1800,\n  \"refreshToken\": \"eyJhbGciOiJSUzI1Ni.IsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrVVp.2MXJQMjRyYXN1UW9wU2lWbkdZQUZIVFowYVZGVWpYNXFLMnNibTk0In0\",\n  \"tokenType\": \"bearer\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c99e4d0d-c107-482d-be6d-e9711b1bea04",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Invalid client Id or secret.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "39971361-949b-4409-b59f-8b686e7c307e",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "**Causes:**\n  * Invalid consent request id\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9f40729d-3e8d-4fbd-b083-545c2efa37d2",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "108e0895-656e-4cd2-835a-55ede8936dfa",
+      "documentation": "Request for subscription",
+      "method": "post",
+      "endpoint": "v0.5/subscription-requests/cm/init",
+      "responses": [
+        {
+          "uuid": "e2017e38-3a60-4378-a0df-4430fe6498cf",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c5a9fd51-38ef-4fac-9f56-9124697aaa3e",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Invalid data sent \n  * Required attributes not mentioned\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e8d5e0e8-5795-4d47-b943-c6d786f6d878",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Expired/Invalid token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f96ffbd1-3d9f-4a5e-b8e5-ed7d94f534a2",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0ca5aa2b-fae6-4fa0-9aee-eedd6bfed31b",
+      "documentation": "callback API for the /subscription-requests/cm/init to notify a HIU on acceptance/acknowledgement of the request for subscription.",
+      "method": "post",
+      "endpoint": "v0.5/subscription-requests/cm/on-init",
+      "responses": [
+        {
+          "uuid": "7406808e-30e9-4787-8603-398205c71077",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b3948a21-919c-43ab-ad69-79af20cffd17",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Invalid/Expired/Empty token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "123bda8c-803f-4565-a4e2-80e44d6c8ba3",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream services are down\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "01c8a5ec-461d-4767-b174-174336918942",
+      "documentation": "Notification for subscription grant/deny/revoke",
+      "method": "post",
+      "endpoint": "v0.5/subscription-requests/hiu/notify",
+      "responses": [
+        {
+          "uuid": "398fdb1c-96bb-4720-99f8-565498ea84ca",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b661ad29-1843-48c6-84ba-3291a3456262",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Invalid data sent \n  * Required attributes not mentioned\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cf6092b5-1957-4537-bc17-b5056d650b95",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Expired/Invalid token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7c88ecce-3b53-417f-928c-b49b94fa8e04",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f044d6e4-a625-42f6-b2a9-41d30c366eb3",
+      "documentation": "Callback API for /subscription-requests/hiu/notify to acknowledge receipt of notification.",
+      "method": "post",
+      "endpoint": "v0.5/subscription-requests/hiu/on-notify",
+      "responses": [
+        {
+          "uuid": "7ba8e159-b59c-4729-92ab-dd2c6f77320f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d410152a-7eeb-4a3e-8a13-30e404124dfc",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Invalid/Expired/Empty token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "38caec3d-3a70-4353-9403-f85518dded85",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream services are down\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ec66c8a3-67f7-4902-b3c7-b865c8ac1f11",
+      "documentation": "Notification to HIU on basis of a granted subscription",
+      "method": "post",
+      "endpoint": "v0.5/subscriptions/hiu/notify",
+      "responses": [
+        {
+          "uuid": "42b9bc9d-cd67-4e4a-9ddb-a7fce69396fb",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a52ac077-2d26-4d88-b2ab-562914e45e20",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * Invalid data sent \n  * Required attributes not mentioned\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d9d4cfb4-2218-4dc2-860d-0434e45b221b",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Expired/Invalid token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9a6004d8-5e94-4956-ba6f-36f27dbdf221",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "aba4686d-3678-4308-97a7-6c87004f764a",
+      "documentation": "Callback API for /subscriptions/hiu/notify to acknowledge receipt of notification.",
+      "method": "post",
+      "endpoint": "v0.5/subscriptions/hiu/on-notify",
+      "responses": [
+        {
+          "uuid": "89305483-d77d-4cb1-8c64-3730cdcac451",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "09fc3bcd-20f8-4988-8d24-4ca48c553664",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Invalid/Expired/Empty token.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3c53d066-f0a9-4dc3-a3ef-c5ea718d7e36",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream services are down\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "af8fef0f-086e-4d9c-9c76-7d5aff971539",
+      "documentation": "Confirmation request sending token, otp or other authentication details from HIP/HIU for confirmation",
+      "method": "post",
+      "endpoint": "v0.5/users/auth/confirm",
+      "responses": [
+        {
+          "uuid": "6720cc3d-f6b7-40df-9e72-06e4df924aaf",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "51becae4-899c-4567-bf10-a64f50c34f4f",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * transaction id is not provided or invalid\n  * token or other auth confirmation details not provided or invalid\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1ad3f32c-47de-483b-8266-630819547c53",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5ab5f989-f723-400e-9590-b1a68277a878",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a00ffd76-1138-4a44-9cce-dce7c1f22bb8",
+      "documentation": "Get a patient's authentication modes relevant to specified purpose",
+      "method": "post",
+      "endpoint": "v0.5/users/auth/fetch-modes",
+      "responses": [
+        {
+          "uuid": "e733ff2e-2feb-4026-bdab-014d1bc3de94",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5e119270-0942-4bdc-a293-a91743f2c5f4",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Invalid request, required attributes not provided\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b13849fe-a934-4265-b264-4967718838fe",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ffd25e06-aeae-4535-a395-f6ee4578792b",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "49b567f6-d4a4-4f10-910d-77c180172b23",
+      "documentation": "Initialize authentication from HIP",
+      "method": "post",
+      "endpoint": "v0.5/users/auth/init",
+      "responses": [
+        {
+          "uuid": "605a35e1-be6c-4536-a443-8f6bbe613903",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "88442780-5b9b-4ab6-8916-694d514a99a7",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * patient id is not provided\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6470546d-834d-4038-a3ea-feb32fa0c52c",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c76804d3-1d84-40d4-9f77-da959217dcf6",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f36b1023-df89-45d3-b5dd-27affe632194",
+      "documentation": "notification API in case of DIRECT mode of authentication by the CM",
+      "method": "post",
+      "endpoint": "v0.5/users/auth/notify",
+      "responses": [
+        {
+          "uuid": "8ad2c5ba-f0b4-4de8-b43e-c4e5929fa1b6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5534c49f-30be-4f01-90a9-aacfbf066dcb",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * required details not provided\n  * neither auth nor error specified \n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "57515aad-c8d8-4ae9-bc75-ba0a446cd23a",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6f47fc08-f4c1-4a87-be38-aaf43456537d",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3a479737-0dc2-4e5c-a772-a1b357b33a44",
+      "documentation": "callback API for /auth/confirm (in case of MEDIATED auth) to confirm user authentication or not",
+      "method": "post",
+      "endpoint": "v0.5/users/auth/on-confirm",
+      "responses": [
+        {
+          "uuid": "dd07cdba-082e-4b58-852b-674fcb5256d3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "239e6fdc-676a-48d6-921a-6f3e4f6ed29f",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * required details not provided\n  * neither auth nor error specified \n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f3d8115f-083f-4720-9dd9-60ff2adbba94",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8b599583-96d5-4788-b6ea-b26e955f5f96",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "346c96af-261d-435e-b339-c13ea6d18f1b",
+      "documentation": "Identification result for a consent-manager user-id",
+      "method": "post",
+      "endpoint": "v0.5/users/auth/on-fetch-modes",
+      "responses": [
+        {
+          "uuid": "62036e71-b738-4d7f-8228-9939c8511291",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7a7288c5-e681-41b7-9c33-0de691430e06",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Invalid request, required attributes not provided\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f2a77a4d-0f15-4221-9e73-fe1d365fc124",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "67bfd1c4-8a67-4358-a7d6-f61ea45a698d",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6024b825-8029-499e-a57b-a75320b8f473",
+      "documentation": "Response to user authentication initialization from HIP",
+      "method": "post",
+      "endpoint": "v0.5/users/auth/on-init",
+      "responses": [
+        {
+          "uuid": "b28fc46b-66ac-49a5-b247-ea2bf432c4ce",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ebdf17ff-a1dd-4ac1-aba2-90d3375b799c",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * required information not provided\n  * neither authInit nor error specified \n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6c0119fe-cb98-4dc3-9f10-ac5147a1e33d",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "31bd8ae9-9f9f-41c9-952d-0177f7d977dc",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d3f8b2ed-e1a8-4b83-adb4-4981256b9e08",
+      "documentation": "callback API by HIU/HIPs as acknowledgement of auth notification",
+      "method": "post",
+      "endpoint": "v0.5/users/auth/on-notify",
+      "responses": [
+        {
+          "uuid": "151ff975-b4f5-4982-8b6c-3297d1b25f04",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4d088279-4a73-48fe-a863-5536a7370d3d",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "**Causes:**\n  * required details not provided\n  * neither auth nor error specified \n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "55012e65-4bc1-4f10-a597-ebdfbed0039d",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "**Causes:**\n  * Unauthorized request\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b2911b13-6389-4c17-8334-626bd6a754d2",
+          "body": "{\n  \"error\": {\n    \"code\": \"{{oneOf (array '1000' '10001')}}\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "**Causes:**\n  * Downstream system(s) is down.\n  * Unhandled exceptions.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

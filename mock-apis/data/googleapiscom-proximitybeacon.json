@@ -1,0 +1,547 @@
+{
+  "uuid": "19bcb3a2-873e-49d0-811e-f44759555f12",
+  "lastMigration": 19,
+  "name": "Proximity Beacon API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "4d261e9a-f857-4345-a814-5c3104010e31",
+      "documentation": "Given one or more beacon observations, returns any beacon information and attachments accessible to your application. Authorize by using the [API key](https://developers.google.com/beacons/proximity/get-started#request_a_browser_api_key) for the application.",
+      "method": "post",
+      "endpoint": "v1beta1/beaconinfo:getforobserved",
+      "responses": [
+        {
+          "uuid": "6bafed31-490f-45d6-bf82-d998cef6a9e8",
+          "body": "{\n  \"beacons\": [\n    {\n      \"advertisedId\": {\n        \"id\": \"\",\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'EDDYSTONE' 'IBEACON' 'ALTBEACON' 'EDDYSTONE_EID')}}\"\n      },\n      \"attachments\": [\n        {\n          \"data\": \"\",\n          \"maxDistanceMeters\": {{faker 'random.float'}},\n          \"namespacedType\": \"\"\n        }\n      ],\n      \"beaconName\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "78491506-3545-4b21-9690-b6e7d140941d",
+      "documentation": "Searches the beacon registry for beacons that match the given search criteria. Only those beacons that the client has permission to list will be returned. Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **viewer**, **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "get",
+      "endpoint": "v1beta1/beacons",
+      "responses": [
+        {
+          "uuid": "7ebdc579-8183-4b34-822f-7727ef79bc7d",
+          "body": "{\n  \"beacons\": [\n    {\n      \"advertisedId\": {\n        \"id\": \"\",\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'EDDYSTONE' 'IBEACON' 'ALTBEACON' 'EDDYSTONE_EID')}}\"\n      },\n      \"beaconName\": \"\",\n      \"description\": \"\",\n      \"ephemeralIdRegistration\": {\n        \"beaconEcdhPublicKey\": \"\",\n        \"beaconIdentityKey\": \"\",\n        \"initialClockValue\": \"\",\n        \"initialEid\": \"\",\n        \"rotationPeriodExponent\": {{faker 'random.number'}},\n        \"serviceEcdhPublicKey\": \"\"\n      },\n      \"expectedStability\": \"{{oneOf (array 'STABILITY_UNSPECIFIED' 'STABLE' 'PORTABLE' 'MOBILE' 'ROVING')}}\",\n      \"indoorLevel\": {\n        \"name\": \"\"\n      },\n      \"latLng\": {\n        \"latitude\": {{faker 'random.float'}},\n        \"longitude\": {{faker 'random.float'}}\n      },\n      \"placeId\": \"\",\n      \"properties\": {},\n      \"provisioningKey\": \"\",\n      \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'ACTIVE' 'DECOMMISSIONED' 'INACTIVE')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\",\n  \"totalCount\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b9423917-29e9-43c9-baa2-f8eb09e647e3",
+      "documentation": "Registers a previously unregistered beacon given its `advertisedId`. These IDs are unique within the system. An ID can be registered only once. Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "post",
+      "endpoint": "v1beta1/beacons:register",
+      "responses": [
+        {
+          "uuid": "f42ad972-e67f-43d5-b601-58a6e2aa7f90",
+          "body": "{\n  \"advertisedId\": {\n    \"id\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'EDDYSTONE' 'IBEACON' 'ALTBEACON' 'EDDYSTONE_EID')}}\"\n  },\n  \"beaconName\": \"\",\n  \"description\": \"\",\n  \"ephemeralIdRegistration\": {\n    \"beaconEcdhPublicKey\": \"\",\n    \"beaconIdentityKey\": \"\",\n    \"initialClockValue\": \"\",\n    \"initialEid\": \"\",\n    \"rotationPeriodExponent\": {{faker 'random.number'}},\n    \"serviceEcdhPublicKey\": \"\"\n  },\n  \"expectedStability\": \"{{oneOf (array 'STABILITY_UNSPECIFIED' 'STABLE' 'PORTABLE' 'MOBILE' 'ROVING')}}\",\n  \"indoorLevel\": {\n    \"name\": \"\"\n  },\n  \"latLng\": {\n    \"latitude\": {{faker 'random.float'}},\n    \"longitude\": {{faker 'random.float'}}\n  },\n  \"placeId\": \"\",\n  \"properties\": {},\n  \"provisioningKey\": \"\",\n  \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'ACTIVE' 'DECOMMISSIONED' 'INACTIVE')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c8055cd1-aff5-45c2-a478-331879a798e4",
+      "documentation": "Gets the Proximity Beacon API's current public key and associated parameters used to initiate the Diffie-Hellman key exchange required to register a beacon that broadcasts the Eddystone-EID format. This key changes periodically; clients may cache it and re-use the same public key to provision and register multiple beacons. However, clients should be prepared to refresh this key when they encounter an error registering an Eddystone-EID beacon.",
+      "method": "get",
+      "endpoint": "v1beta1/eidparams",
+      "responses": [
+        {
+          "uuid": "b5562d2b-c7f6-43e6-8ca6-9bd917d97a84",
+          "body": "{\n  \"maxRotationPeriodExponent\": {{faker 'random.number'}},\n  \"minRotationPeriodExponent\": {{faker 'random.number'}},\n  \"serviceEcdhPublicKey\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "87a7daaa-3279-4a0b-a35c-2c6671390f0f",
+      "documentation": "Lists all attachment namespaces owned by your Google Developers Console project. Attachment data associated with a beacon must include a namespaced type, and the namespace must be owned by your project. Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **viewer**, **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "get",
+      "endpoint": "v1beta1/namespaces",
+      "responses": [
+        {
+          "uuid": "ef491a5e-93bc-46db-a419-021a89edea2b",
+          "body": "{\n  \"namespaces\": [\n    {\n      \"namespaceName\": \"\",\n      \"servingVisibility\": \"{{oneOf (array 'VISIBILITY_UNSPECIFIED' 'UNLISTED' 'PUBLIC')}}\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b5b9f1fa-0338-48db-8ef9-9d71c49f516c",
+      "documentation": "Deletes the specified attachment for the given beacon. Each attachment has a unique attachment name (`attachmentName`) which is returned when you fetch the attachment data via this API. You specify this with the delete request to control which attachment is removed. This operation cannot be undone. Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "delete",
+      "endpoint": "v1beta1/:attachmentName",
+      "responses": [
+        {
+          "uuid": "77476f25-b87e-4a2d-9cbc-6f2cdc6cea4e",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "13c201af-0a27-4d32-ad82-169f0d3a6ab0",
+      "documentation": "Deletes the specified beacon including all diagnostics data for the beacon as well as any attachments on the beacon (including those belonging to other projects). This operation cannot be undone. Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "delete",
+      "endpoint": "v1beta1/:beaconName",
+      "responses": [
+        {
+          "uuid": "4727f1d9-e9bb-4b2a-80d9-fc07427f3e62",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ec227bd8-0d1f-41dc-8184-10aac37b19fb",
+      "documentation": "Returns detailed information about the specified beacon. Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **viewer**, **Is owner** or **Can edit** permissions in the Google Developers Console project. Requests may supply an Eddystone-EID beacon name in the form: `beacons/4!beaconId` where the `beaconId` is the base16 ephemeral ID broadcast by the beacon. The returned `Beacon` object will contain the beacon's stable Eddystone-UID. Clients not authorized to resolve the beacon's ephemeral Eddystone-EID broadcast will receive an error.",
+      "method": "get",
+      "endpoint": "v1beta1/:beaconName",
+      "responses": [
+        {
+          "uuid": "0508c279-aaf8-453c-b357-88ea9f2a9081",
+          "body": "{\n  \"advertisedId\": {\n    \"id\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'EDDYSTONE' 'IBEACON' 'ALTBEACON' 'EDDYSTONE_EID')}}\"\n  },\n  \"beaconName\": \"\",\n  \"description\": \"\",\n  \"ephemeralIdRegistration\": {\n    \"beaconEcdhPublicKey\": \"\",\n    \"beaconIdentityKey\": \"\",\n    \"initialClockValue\": \"\",\n    \"initialEid\": \"\",\n    \"rotationPeriodExponent\": {{faker 'random.number'}},\n    \"serviceEcdhPublicKey\": \"\"\n  },\n  \"expectedStability\": \"{{oneOf (array 'STABILITY_UNSPECIFIED' 'STABLE' 'PORTABLE' 'MOBILE' 'ROVING')}}\",\n  \"indoorLevel\": {\n    \"name\": \"\"\n  },\n  \"latLng\": {\n    \"latitude\": {{faker 'random.float'}},\n    \"longitude\": {{faker 'random.float'}}\n  },\n  \"placeId\": \"\",\n  \"properties\": {},\n  \"provisioningKey\": \"\",\n  \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'ACTIVE' 'DECOMMISSIONED' 'INACTIVE')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ccca5f84-ddbf-4eae-967b-56bf32e92026",
+      "documentation": "Updates the information about the specified beacon. **Any field that you do not populate in the submitted beacon will be permanently erased**, so you should follow the \"read, modify, write\" pattern to avoid inadvertently destroying data. Changes to the beacon status via this method will be silently ignored. To update beacon status, use the separate methods on this API for activation, deactivation, and decommissioning. Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "put",
+      "endpoint": "v1beta1/:beaconName",
+      "responses": [
+        {
+          "uuid": "9e5180c2-414f-4209-a898-71111b4e1bec",
+          "body": "{\n  \"advertisedId\": {\n    \"id\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'EDDYSTONE' 'IBEACON' 'ALTBEACON' 'EDDYSTONE_EID')}}\"\n  },\n  \"beaconName\": \"\",\n  \"description\": \"\",\n  \"ephemeralIdRegistration\": {\n    \"beaconEcdhPublicKey\": \"\",\n    \"beaconIdentityKey\": \"\",\n    \"initialClockValue\": \"\",\n    \"initialEid\": \"\",\n    \"rotationPeriodExponent\": {{faker 'random.number'}},\n    \"serviceEcdhPublicKey\": \"\"\n  },\n  \"expectedStability\": \"{{oneOf (array 'STABILITY_UNSPECIFIED' 'STABLE' 'PORTABLE' 'MOBILE' 'ROVING')}}\",\n  \"indoorLevel\": {\n    \"name\": \"\"\n  },\n  \"latLng\": {\n    \"latitude\": {{faker 'random.float'}},\n    \"longitude\": {{faker 'random.float'}}\n  },\n  \"placeId\": \"\",\n  \"properties\": {},\n  \"provisioningKey\": \"\",\n  \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'ACTIVE' 'DECOMMISSIONED' 'INACTIVE')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b3f525be-014c-4ed2-b3e3-850e653cebe1",
+      "documentation": "Returns the attachments for the specified beacon that match the specified namespaced-type pattern. To control which namespaced types are returned, you add the `namespacedType` query parameter to the request. You must either use `*/*`, to return all attachments, or the namespace must be one of the ones returned from the `namespaces` endpoint. Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **viewer**, **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "get",
+      "endpoint": "v1beta1/:beaconName/attachments",
+      "responses": [
+        {
+          "uuid": "8137d7fb-1f31-4540-ae16-1858db4ede4a",
+          "body": "{\n  \"attachments\": [\n    {\n      \"attachmentName\": \"\",\n      \"creationTimeMs\": \"\",\n      \"data\": \"\",\n      \"maxDistanceMeters\": {{faker 'random.float'}},\n      \"namespacedType\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d29fda32-125f-4aa5-ab09-94e7b4aa3a52",
+      "documentation": "Associates the given data with the specified beacon. Attachment data must contain two parts: - A namespaced type. - The actual attachment data itself. The namespaced type consists of two parts, the namespace and the type. The namespace must be one of the values returned by the `namespaces` endpoint, while the type can be a string of any characters except for the forward slash (`/`) up to 100 characters in length. Attachment data can be up to 1024 bytes long. Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "post",
+      "endpoint": "v1beta1/:beaconName/attachments",
+      "responses": [
+        {
+          "uuid": "f8775662-72af-40af-9280-c7a240a6818a",
+          "body": "{\n  \"attachmentName\": \"\",\n  \"creationTimeMs\": \"\",\n  \"data\": \"\",\n  \"maxDistanceMeters\": {{faker 'random.float'}},\n  \"namespacedType\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9f87dca5-023e-4279-bbc0-f99d8b39dffd",
+      "documentation": "Deletes multiple attachments on a given beacon. This operation is permanent and cannot be undone. You can optionally specify `namespacedType` to choose which attachments should be deleted. If you do not specify `namespacedType`, all your attachments on the given beacon will be deleted. You also may explicitly specify `*/*` to delete all. Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "post",
+      "endpoint": "v1beta1/:beaconName/attachments:batchDelete",
+      "responses": [
+        {
+          "uuid": "b06857c4-ddf0-4826-be9a-c1d3cfaae868",
+          "body": "{\n  \"numDeleted\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bbe63f7d-dfba-4312-80de-48ad2f185c8c",
+      "documentation": "List the diagnostics for a single beacon. You can also list diagnostics for all the beacons owned by your Google Developers Console project by using the beacon name `beacons/-`. Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **viewer**, **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "get",
+      "endpoint": "v1beta1/:beaconName/diagnostics",
+      "responses": [
+        {
+          "uuid": "3f72c167-0cca-4156-bd73-321f3905aa1e",
+          "body": "{\n  \"diagnostics\": [\n    {\n      \"alerts\": [\n        \"{{oneOf (array 'ALERT_UNSPECIFIED' 'WRONG_LOCATION' 'LOW_BATTERY' 'LOW_ACTIVITY')}}\"\n      ],\n      \"beaconName\": \"\",\n      \"estimatedLowBatteryDate\": {\n        \"day\": {{faker 'random.number'}},\n        \"month\": {{faker 'random.number'}},\n        \"year\": {{faker 'random.number'}}\n      }\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e111172d-84cc-4e5f-9f22-a5621cea0cf0",
+      "documentation": "Activates a beacon. A beacon that is active will return information and attachment data when queried via `beaconinfo.getforobserved`. Calling this method on an already active beacon will do nothing (but will return a successful response code). Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "post",
+      "endpoint": "v1beta1/:beaconName:activate",
+      "responses": [
+        {
+          "uuid": "9b64adc7-61c1-4a62-b2fa-e1398d5f4a74",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e6101d76-7dcf-49de-9e13-f1b2ae766817",
+      "documentation": "Deactivates a beacon. Once deactivated, the API will not return information nor attachment data for the beacon when queried via `beaconinfo.getforobserved`. Calling this method on an already inactive beacon will do nothing (but will return a successful response code). Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "post",
+      "endpoint": "v1beta1/:beaconName:deactivate",
+      "responses": [
+        {
+          "uuid": "d8ea2114-e960-4215-80e3-b5aaf973c520",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b01c8f98-b857-4570-9418-c327d59a1bef",
+      "documentation": "Decommissions the specified beacon in the service. This beacon will no longer be returned from `beaconinfo.getforobserved`. This operation is permanent -- you will not be able to re-register a beacon with this ID again. Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) from a signed-in user with **Is owner** or **Can edit** permissions in the Google Developers Console project.",
+      "method": "post",
+      "endpoint": "v1beta1/:beaconName:decommission",
+      "responses": [
+        {
+          "uuid": "19416f9e-e55d-4fee-95a5-83457f347b95",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "aae3cc4c-5cfa-48b5-8949-1bc212348c2b",
+      "documentation": "Updates the information about the specified namespace. Only the namespace visibility can be updated.",
+      "method": "put",
+      "endpoint": "v1beta1/:namespaceName",
+      "responses": [
+        {
+          "uuid": "5b6926c3-ea2e-46ea-9c77-9e5e861f7c31",
+          "body": "{\n  \"namespaceName\": \"\",\n  \"servingVisibility\": \"{{oneOf (array 'VISIBILITY_UNSPECIFIED' 'UNLISTED' 'PUBLIC')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

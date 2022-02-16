@@ -1,0 +1,187 @@
+{
+  "uuid": "e78d8f63-5705-46cd-8152-e598aa40ea6f",
+  "lastMigration": 19,
+  "name": "Miataru",
+  "endpointPrefix": "v1",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "83683d32-9512-47a5-88a9-7d34421b78f5",
+      "documentation": "To retrieve a specific devices latest known location the /GetLocation method is used. Please note that the MiataruConfig portion is optional. RequestMiataruDeviceID should be the ID of the device the request is sent from (or an identifier like an URL).",
+      "method": "post",
+      "endpoint": "GetLocation",
+      "responses": [
+        {
+          "uuid": "2b556150-dc1b-4d45-b3c1-2321976859b6",
+          "body": "{\n  \"MiataruLocation\": [\n    {\n      \"Device\": \"7b8e6e0ee5296db345162dc2ef652c1350761823\",\n      \"HorizontalAccuracy\": \"50\",\n      \"Latitude\": \"41.079351\",\n      \"Longitude\": \"-4.394531\",\n      \"Timestamp\": \"1441360863\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful location responses",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7741464b-b3d1-4719-abaf-fd6de9d91ffe",
+      "documentation": "Retrieves a devices Location in GeoJSON format.",
+      "method": "get",
+      "endpoint": "GetLocationGeoJSON/:deviceID",
+      "responses": [
+        {
+          "uuid": "9d25e05b-e12c-43f9-8c13-2a8bf1cf4ba7",
+          "body": "{\n  \"geometry\": {\n    \"coordinates\": [\n      {{faker 'random.float'}}\n    ],\n    \"type\": \"\"\n  },\n  \"properties\": {\n    \"name\": \"\"\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "geoJSON formatted device location",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9ec99d6f-6c98-4a3d-9e93-b5d29d95ba80",
+      "documentation": "Location History is stored on the server only if the client told the server to do so using the “EnableLocationHistory” setting in the Location Update requests. For transitions of enabling/disabling that functionality - Everytime a Location Update is received by the server with “EnableLocationHistory=false” the server removes all stored Location History till that point. There is a server-side setting that controls up to how many Location Updates the server is storing in the Location History before it removes the oldest one. To request the Location History of a particular device the client sends the following POST request to the GetLocationHistory service URL. Please note that the MiataruConfig portion is optional. RequestMiataruDeviceID should be the ID of the device the request is sent from (or an identifier like an URL).",
+      "method": "post",
+      "endpoint": "GetLocationHistory",
+      "responses": [
+        {
+          "uuid": "635b43ba-b681-49af-88d5-9af4d39fbef4",
+          "body": "{\n  \"MiataruLocation\": [\n    {\n      \"Device\": \"7b8e6e0ee5296db345162dc2ef652c1350761823\",\n      \"HorizontalAccuracy\": \"50\",\n      \"Latitude\": \"41.079351\",\n      \"Longitude\": \"-4.394531\",\n      \"Timestamp\": \"1441360863\"\n    }\n  ],\n  \"MiataruServerConfig\": {\n    \"AvailableDeviceLocationUpdates\": \"\",\n    \"MaximumNumberOfLocationUpdates\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful location history response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "27117cc8-e2dc-4c66-9a1e-eb9b0105d826",
+      "documentation": "Visitor History is stored on the server with every request to the location or location history information of a device. There is a server-side setting that controls up to how many Visitors the server is storing in the Visitor History before it removes the oldest one. To request the Visitor History of a particular device the client sends the following POST request to the GetVisitorHistory service URL.",
+      "method": "post",
+      "endpoint": "GetVisitorHistory",
+      "responses": [
+        {
+          "uuid": "bf7bc153-1423-4977-bc28-3914f13410ec",
+          "body": "{\n  \"MiataruServerConfig\": {\n    \"AvailableVisitorHistory\": \"\",\n    \"MaximumNumberOfVisitorHistory\": \"\"\n  },\n  \"MiataruVisitors\": [\n    {\n      \"DeviceID\": \"\",\n      \"TimeStamp\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "visitor history response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "54e717d8-5a4b-4144-b9f3-b344dcb93d71",
+      "documentation": "This method is used to update the location of a device. The device does not need to be known already to the Miataru server but it rather creates a unique identifier for itself in the client application. This unique identifier, or device ID is then used to address this particular device.",
+      "method": "post",
+      "endpoint": "UpdateLocation",
+      "responses": [
+        {
+          "uuid": "c276eeaa-affc-40e5-89f9-9d6b438aec6e",
+          "body": "{\n  \"MiataruResponse\": \"ACK\",\n  \"MiataruVerboseResponse\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

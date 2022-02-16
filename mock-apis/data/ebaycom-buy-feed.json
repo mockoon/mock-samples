@@ -1,0 +1,829 @@
+{
+  "uuid": "040b6e6c-3233-4fff-a68e-170782dfd293",
+  "lastMigration": 19,
+  "name": "Item Feed Service",
+  "endpointPrefix": "buy/feed/v1_beta",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "6dfe2851-d100-447c-bf28-5486d41af617",
+      "documentation": "This method lets you download a TSV_GZIP (tab separated value gzip) Item feed file. The feed file contains all the items from all the child categories of the specified category. The first line of the file is the header, which labels the columns and indicates the order of the values on each line. Each header is described in the Response fields section. There are two types of item feed files generated: A daily Item feed file containing all the newly listed items for a specific category, date, and marketplace (feed_scope = NEWLY_LISTED) A weekly Item Bootstrap feed file containing all the items in a specific category and marketplace (feed_scope = ALL_ACTIVE) Note: Filters are applied to the feed files. For details, see Feed File Filters. When curating the items returned, be sure to code as if these filters are not applied as they can be changed or removed in the future. URLs for this method Production URL: https://api.ebay.com/buy/feed/v1_beta/item? Sandbox URL: https://api.sandbox.ebay.com/buy/feed/v1_beta/item? Downloading feed files Item feed files are binary gzip files. If the file is larger than 100 MB, the download must be streamed in chunks. You specify the size of the chunks in bytes using the Range request header. The Content-range response header indicates where in the full resource this partial chunk of data belongs and the total number of bytes in the file. For more information about using these headers, see Retrieving a gzip feed file. In addition to the API, there is an open source Feed SDK written in Java that downloads, combines files into a single file when needed, and unzips the entire feed file. It also lets you specify field filters to curate the items in the file. Note: The response is always a TSV_GZIP file. However for documentation purposes, the response is shown as JSON fields so that the value returned in each column can be explained. The order of the response fields, shows you the order of the columns in the feed file. Restrictions For a list of supported sites and other restrictions, see API Restrictions.",
+      "method": "get",
+      "endpoint": "item",
+      "responses": [
+        {
+          "uuid": "32a0d913-b448-44ef-b090-ab5aa83ec5a8",
+          "body": "{\n  \"items\": [\n    {\n      \"acceptedPaymentMethods\": \"\",\n      \"additionalImageUrls\": \"\",\n      \"additionalShippingCostPerUnit\": \"\",\n      \"alerts\": \"\",\n      \"availability\": \"\",\n      \"availabilityThreshold\": {{faker 'random.number'}},\n      \"availabilityThresholdType\": \"\",\n      \"brand\": \"\",\n      \"buyingOptions\": \"\",\n      \"category\": \"\",\n      \"categoryId\": \"\",\n      \"condition\": \"\",\n      \"conditionId\": \"\",\n      \"deliveryOptions\": \"\",\n      \"discountAmount\": \"\",\n      \"discountPercentage\": \"\",\n      \"energyEfficiencyClass\": \"\",\n      \"epid\": \"\",\n      \"estimatedAvailableQuantity\": {{faker 'random.number'}},\n      \"gtin\": \"\",\n      \"imageAlteringProhibited\": {{faker 'random.boolean'}},\n      \"imageUrl\": \"\",\n      \"inferredBrand\": \"\",\n      \"inferredEpid\": \"\",\n      \"inferredGtin\": \"\",\n      \"inferredLocalizedAspects\": \"\",\n      \"inferredMpn\": \"\",\n      \"itemEndDate\": \"\",\n      \"itemId\": \"\",\n      \"itemLocationCountry\": \"\",\n      \"legacyItemId\": \"\",\n      \"lengthUnitOfMeasure\": \"\",\n      \"localizedAspects\": \"\",\n      \"lotSize\": {{faker 'random.number'}},\n      \"mpn\": \"\",\n      \"originalPriceCurrency\": \"\",\n      \"originalPriceValue\": \"\",\n      \"packageHeight\": \"\",\n      \"packageLength\": \"\",\n      \"packageWeight\": \"\",\n      \"packageWidth\": \"\",\n      \"priceCurrency\": \"\",\n      \"priceValue\": \"\",\n      \"primaryItemGroupId\": \"\",\n      \"primaryItemGroupType\": \"\",\n      \"priorityListingPayload\": \"\",\n      \"qualifiedPrograms\": \"\",\n      \"quantityUsedForEstimate\": {{faker 'random.number'}},\n      \"refundMethod\": \"\",\n      \"returnMethod\": \"\",\n      \"returnPeriodUnit\": \"\",\n      \"returnPeriodValue\": {{faker 'random.number'}},\n      \"returnShippingCostPayer\": \"\",\n      \"returnsAccepted\": {{faker 'random.boolean'}},\n      \"sellerAccountType\": \"\",\n      \"sellerFeedbackPercentage\": \"\",\n      \"sellerFeedbackScore\": \"\",\n      \"sellerItemRevision\": \"\",\n      \"sellerTrustLevel\": \"\",\n      \"sellerUsername\": \"\",\n      \"shipToExcludedRegions\": \"\",\n      \"shipToIncludedRegions\": \"\",\n      \"shippingCarrierCode\": \"\",\n      \"shippingCost\": \"\",\n      \"shippingCostType\": \"\",\n      \"shippingServiceCode\": \"\",\n      \"shippingType\": \"\",\n      \"title\": \"\",\n      \"tyreLabelImageUrl\": \"\",\n      \"unitPrice\": \"\",\n      \"unitPricingMeasure\": \"\",\n      \"weightUnitOfMeasure\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Partial Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-range",
+              "value": ""
+            },
+            {
+              "key": "Last-Modified",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dac14c09-05a3-4bb9-8d21-6b14e04cdb1a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content <br />This code is returned when there are no items that meet the criteria for this feed file. See <a href=\"/api-docs/buy/static/api-feed.html#feed-filters\">Feed File Filters</a> for details.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a4fb14b8-633e-4a68-927d-c11369f8318a",
+          "body": "{\n  \"items\": [\n    {\n      \"acceptedPaymentMethods\": \"\",\n      \"additionalImageUrls\": \"\",\n      \"additionalShippingCostPerUnit\": \"\",\n      \"alerts\": \"\",\n      \"availability\": \"\",\n      \"availabilityThreshold\": {{faker 'random.number'}},\n      \"availabilityThresholdType\": \"\",\n      \"brand\": \"\",\n      \"buyingOptions\": \"\",\n      \"category\": \"\",\n      \"categoryId\": \"\",\n      \"condition\": \"\",\n      \"conditionId\": \"\",\n      \"deliveryOptions\": \"\",\n      \"discountAmount\": \"\",\n      \"discountPercentage\": \"\",\n      \"energyEfficiencyClass\": \"\",\n      \"epid\": \"\",\n      \"estimatedAvailableQuantity\": {{faker 'random.number'}},\n      \"gtin\": \"\",\n      \"imageAlteringProhibited\": {{faker 'random.boolean'}},\n      \"imageUrl\": \"\",\n      \"inferredBrand\": \"\",\n      \"inferredEpid\": \"\",\n      \"inferredGtin\": \"\",\n      \"inferredLocalizedAspects\": \"\",\n      \"inferredMpn\": \"\",\n      \"itemEndDate\": \"\",\n      \"itemId\": \"\",\n      \"itemLocationCountry\": \"\",\n      \"legacyItemId\": \"\",\n      \"lengthUnitOfMeasure\": \"\",\n      \"localizedAspects\": \"\",\n      \"lotSize\": {{faker 'random.number'}},\n      \"mpn\": \"\",\n      \"originalPriceCurrency\": \"\",\n      \"originalPriceValue\": \"\",\n      \"packageHeight\": \"\",\n      \"packageLength\": \"\",\n      \"packageWeight\": \"\",\n      \"packageWidth\": \"\",\n      \"priceCurrency\": \"\",\n      \"priceValue\": \"\",\n      \"primaryItemGroupId\": \"\",\n      \"primaryItemGroupType\": \"\",\n      \"priorityListingPayload\": \"\",\n      \"qualifiedPrograms\": \"\",\n      \"quantityUsedForEstimate\": {{faker 'random.number'}},\n      \"refundMethod\": \"\",\n      \"returnMethod\": \"\",\n      \"returnPeriodUnit\": \"\",\n      \"returnPeriodValue\": {{faker 'random.number'}},\n      \"returnShippingCostPayer\": \"\",\n      \"returnsAccepted\": {{faker 'random.boolean'}},\n      \"sellerAccountType\": \"\",\n      \"sellerFeedbackPercentage\": \"\",\n      \"sellerFeedbackScore\": \"\",\n      \"sellerItemRevision\": \"\",\n      \"sellerTrustLevel\": \"\",\n      \"sellerUsername\": \"\",\n      \"shipToExcludedRegions\": \"\",\n      \"shipToIncludedRegions\": \"\",\n      \"shippingCarrierCode\": \"\",\n      \"shippingCost\": \"\",\n      \"shippingCostType\": \"\",\n      \"shippingServiceCode\": \"\",\n      \"shippingType\": \"\",\n      \"title\": \"\",\n      \"tyreLabelImageUrl\": \"\",\n      \"unitPrice\": \"\",\n      \"unitPricingMeasure\": \"\",\n      \"weightUnitOfMeasure\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 206,
+          "label": "Partial Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-range",
+              "value": ""
+            },
+            {
+              "key": "Last-Modified",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cd81786c-0699-4efc-8e90-e456bfc0bf2c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b8ac0025-7b2c-42d9-9612-c359a6b05c38",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a0168cbf-70fc-4174-8dd5-22f5a3a0e912",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c850db15-73e3-4eaf-bb72-2b67b6a70c71",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "aba80ce2-cf79-457a-badf-f35e97726021",
+          "body": "",
+          "latency": 0,
+          "statusCode": 416,
+          "label": "Range not satisfiable",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "99be162a-b572-4e13-be49-429236daadbf",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "89fa91db-c11a-4a58-96b6-a116d5818c02",
+      "documentation": "This method lets you download a TSV_GZIP (tab separated value gzip) Item Group feed file. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. There are two types of item group feed files generated: A daily Item Group feed file containing the item group variation information associated with items returned in the Item feed file for a specific day, category, and marketplace. (feed_scope = NEWLY_LISTED) A weekly Item Group Bootstrap feed file containing all the item group variation information associated with items returned in the Item Bootstrap feed file for all the items in a specific category. (feed_scope = ALL_ACTIVE) Note: Filters are applied to the feed files. For details, see Feed File Filters. When curating the items returned, be sure to code as if these filters are not applied as they can be changed or removed in the future. The contents of these feed files are based on the contents of the corresponding daily Item or Item Bootstrap feed file. When a new Item or Item Bootstrap feed file is generated, the service reads the file and if an item in the file has a primaryItemGroupId value, which indicates the item is part of an item group, it uses that value to return the item group (parent item) information for that item in the corresponding Item Group or Item Group Bootstrap feed file. This information includes the name/value pair of the aspects of the items in this group returned in the variesByLocalizedAspects column. For example, if the item was a shirt some of the variation names could be Size, Color, etc. Also the images for the various aspects are returned in the additionalImageUrls column. The first line in any feed file is the header, which labels the columns and indicates the order of the values on each line. Each header is described in the Response fields section. Combining the Item Group and Item feed files The Item Group or Item Group Bootstrap feed file contains details about the item group (parent item), including the item group ID itemGroupId. You match the value of itemGroupId from the Item Group feed file with the value of primaryItemGroupId from the corresponding daily Item or Item Bootstrap feed file. URLs for this method Production URL: https://api.ebay.com/buy/feed/v1_beta/item_group? Sandbox URL: https://api.sandbox.ebay.com/buy/feed/v1_beta/item_group? Downloading feed files Item Group feed files are binary gzip files. If the file is larger than 100 MB, the download must be streamed in chunks. You specify the size of the chunks in bytes using the Range request header. The content-range response header indicates where in the full resource this partial chunk of data belongs and the total number of bytes in the file. For more information about using these headers, see Retrieving a gzip feed file. Note: The response is always only a TSV_GZIP file. However for documentation purposes, the response is shown as JSON fields so that the value returned in each column can be explained. The order of the response fields, shows you the order of the columns in the feed file. Restrictions For a list of supported sites and other restrictions, see API Restrictions.",
+      "method": "get",
+      "endpoint": "item_group",
+      "responses": [
+        {
+          "uuid": "7d98d93f-a837-48b7-ba8d-142d203c97f8",
+          "body": "{\n  \"itemGroups\": [\n    {\n      \"additionalImageUrls\": \"\",\n      \"imageAlteringProhibited\": {{faker 'random.boolean'}},\n      \"imageUrl\": \"\",\n      \"itemGroupId\": \"\",\n      \"itemGroupType\": \"\",\n      \"title\": \"\",\n      \"variesByLocalizedAspects\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Partial Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-range",
+              "value": ""
+            },
+            {
+              "key": "Last-Modified",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "67ac1246-74e9-43f1-8a76-8aa5eea99cb0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content <br />This code is returned when there are no items that meet the criteria for this feed file. See <a href=\"/api-docs/buy/static/api-feed.html#feed-filters\">Feed File Filters</a> for details.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9a1f3aeb-7a9c-488b-98fb-2097925a642a",
+          "body": "{\n  \"itemGroups\": [\n    {\n      \"additionalImageUrls\": \"\",\n      \"imageAlteringProhibited\": {{faker 'random.boolean'}},\n      \"imageUrl\": \"\",\n      \"itemGroupId\": \"\",\n      \"itemGroupType\": \"\",\n      \"title\": \"\",\n      \"variesByLocalizedAspects\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 206,
+          "label": "Partial Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-range",
+              "value": ""
+            },
+            {
+              "key": "Last-Modified",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4bbc234b-7a45-4bdd-9ea0-f0a792809598",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d801a512-e879-4857-bbff-78ccb8c899d2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0f626b20-9698-48e8-b0b7-ee23a8105e98",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d34f8c35-6383-4376-adba-7750d630a217",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c7778561-7987-4a37-9b71-6e2466c5b870",
+          "body": "",
+          "latency": 0,
+          "statusCode": 416,
+          "label": "Range not satisfiable",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "134b16c6-6e56-4678-ab6b-2ae4734f3a8a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2aacc910-d834-489c-b269-cc157e2462ec",
+      "documentation": "Using this method, you can download a TSV_GZIP (tab separated value gzip) Item Priority feed file, which allows you to track changes (deltas) in the status of your priority items, such as when an item is added or removed from a campaign. The delta feed tracks the changes to the status of items within a category you specify in the input URI. You can also specify a specific date for the feed you want returned. Important: You must consume the daily feeds (Item, Item Group) before consuming the Item Priority feed. This ensures that your inventory is up to date. URLs for this method Production URL: https://api.ebay.com/buy/feed/v1_beta/item_priority? Sandbox URL: https://api.sandbox.ebay.com/buy/feed/v1_beta/item_priority? Downloading feed files Note: Filters are applied to the feed files. For details, see Feed File Filters. When curating the items returned, be sure to code as if these filters are not applied as they can be changed or removed in the future. Priority Item feed files are binary gzip files. If the file is larger than 100 MB, the download must be streamed in chunks. You specify the size of the chunks in bytes using the Range request header. The Content-range response header indicates where in the full resource this partial chunk of data belongs and the total number of bytes in the file. For more information about using these headers, see Retrieving a gzip feed file. In addition to the API, there is an open source Feed SDK written in Java that downloads, combines files into a single file when needed, and unzips the entire feed file. It also lets you specify field filters to curate the items in the file. Note: The response is always a TSV_GZIP file. However for documentation purposes, the response is shown as JSON fields so that the value returned in each column can be explained. The order of the response fields, shows you the order of the columns in the feed file. Restrictions For a list of supported sites and other restrictions, see API Restrictions.",
+      "method": "get",
+      "endpoint": "item_priority",
+      "responses": [
+        {
+          "uuid": "ce169f1c-1fbd-4f0f-8312-14d84cf32435",
+          "body": "{\n  \"itemDelta\": [\n    {\n      \"changeMetadata\": \"\",\n      \"itemId\": \"\",\n      \"priorityListingPayload\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Partial Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-range",
+              "value": ""
+            },
+            {
+              "key": "Last-Modified",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "afa20b09-b4c6-48bf-84f9-7a6447e68966",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "44fa814c-3c90-439a-b651-e7509d7c6206",
+          "body": "{\n  \"itemDelta\": [\n    {\n      \"changeMetadata\": \"\",\n      \"itemId\": \"\",\n      \"priorityListingPayload\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 206,
+          "label": "Partial Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-range",
+              "value": ""
+            },
+            {
+              "key": "Last-Modified",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6ed74af4-150f-47cd-b1e3-5201b5fb6d42",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "57f52079-7e5c-49d9-bc50-7c87b6d7da1f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "868b911b-1cbd-4941-bc89-b9fb920505a1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5feffadb-c522-44ac-b337-2f9ca0c7fe2d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2b425691-d788-48c4-b9ee-33b9f9d38807",
+          "body": "",
+          "latency": 0,
+          "statusCode": 416,
+          "label": "Range not satisfiable",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "867f00e2-5987-4693-a433-9e567276c20e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c4905392-223a-4cdc-8014-02d29eef0fca",
+      "documentation": "The Hourly Snapshot feed file is generated each hour every day for most categories. This method lets you download an Hourly Snapshot TSV_GZIP (tab-separated value gzip) feed file containing the details of all the items that have changed within the specified day and hour for a specific category. This means to generate the 8AM file of items that have changed from 8AM and 8:59AM, the service starts at 9AM. You can retrieve the 8AM snapshot file at 10AM. Snapshot feeds now include new listings. You can check itemCreationDate to identify listings that were newly created within the specified hour. Note: Filters are applied to the feed files. For details, see Feed File Filters. When curating the items returned, be sure to code as if these filters are not applied as they can be changed or removed in the future. You can use the response from this method to update the item details of items stored in your database. By looking at the value of itemSnapshotDate for a given item, you will be able to tell which information is the latest. Important: When the value of the availability column is UNAVAILABLE, only the itemId and availability columns are populated. URLs for this method Production URL: https://api.ebay.com/buy/feed/v1_beta/item_snapshot? Sandbox URL: https://api.sandbox.ebay.com/buy/feed/v1_beta/item_snapshot? Downloading feed files Hourly snapshot feed files are binary gzip files. If the file is larger than 100 MB, the download must be streamed in chunks. You specify the size of the chunks in bytes using the Range request header. The Content-range response header indicates where in the full resource this partial chunk of data belongs and the total number of bytes in the file. For more information about using these headers, see Retrieving a gzip feed file. Note: The response is always a TSV_GZIP file. However for documentation purposes, the response is shown as JSON fields so that the value returned in each column can be explained. The order of the response fields, shows you the order of the columns in the feed file. Restrictions For a list of supported sites and other restrictions, see API Restrictions.",
+      "method": "get",
+      "endpoint": "item_snapshot",
+      "responses": [
+        {
+          "uuid": "dcfe4569-443a-42ab-828b-5c2500b68dc0",
+          "body": "{\n  \"items\": [\n    {\n      \"acceptedPaymentMethods\": \"\",\n      \"additionalImageUrls\": \"\",\n      \"additionalShippingCostPerUnit\": \"\",\n      \"ageGroup\": \"\",\n      \"alerts\": \"\",\n      \"availability\": \"\",\n      \"availabilityThreshold\": {{faker 'random.number'}},\n      \"availabilityThresholdType\": \"\",\n      \"brand\": \"\",\n      \"buyingOptions\": \"\",\n      \"category\": \"\",\n      \"categoryId\": \"\",\n      \"changeMetadata\": \"\",\n      \"color\": \"\",\n      \"condition\": \"\",\n      \"conditionId\": \"\",\n      \"defaultImageUrl\": \"\",\n      \"deliveryOptions\": \"\",\n      \"description\": \"\",\n      \"discountAmount\": \"\",\n      \"discountPercentage\": \"\",\n      \"energyEfficiencyClass\": \"\",\n      \"epid\": \"\",\n      \"estimatedAvailableQuantity\": {{faker 'random.number'}},\n      \"gender\": \"\",\n      \"gtin\": \"\",\n      \"imageAlteringProhibited\": {{faker 'random.boolean'}},\n      \"imageUrl\": \"\",\n      \"inferredEpid\": \"\",\n      \"itemAffiliateWebUrl\": \"\",\n      \"itemCreationDate\": \"\",\n      \"itemEndDate\": \"\",\n      \"itemId\": \"\",\n      \"itemLocationCountry\": \"\",\n      \"itemSnapshotDate\": \"\",\n      \"itemWebUrl\": \"\",\n      \"legacyItemId\": \"\",\n      \"localizedAspects\": \"\",\n      \"lotSize\": {{faker 'random.number'}},\n      \"material\": \"\",\n      \"mpn\": \"\",\n      \"originalPriceCurrency\": \"\",\n      \"originalPriceValue\": \"\",\n      \"pattern\": \"\",\n      \"priceCurrency\": \"\",\n      \"priceValue\": \"\",\n      \"primaryItemGroupId\": \"\",\n      \"primaryItemGroupType\": \"\",\n      \"qualifiedPrograms\": \"\",\n      \"quantityUsedForEstimate\": {{faker 'random.number'}},\n      \"refundMethod\": \"\",\n      \"returnMethod\": \"\",\n      \"returnPeriodUnit\": \"\",\n      \"returnPeriodValue\": {{faker 'random.number'}},\n      \"returnShippingCostPayer\": \"\",\n      \"returnsAccepted\": {{faker 'random.boolean'}},\n      \"sellerAccountType\": \"\",\n      \"sellerFeedbackPercentage\": \"\",\n      \"sellerFeedbackScore\": \"\",\n      \"sellerItemRevision\": \"\",\n      \"sellerTrustLevel\": \"\",\n      \"sellerUsername\": \"\",\n      \"shipToExcludedRegions\": \"\",\n      \"shipToIncludedRegions\": \"\",\n      \"shippingCarrierCode\": \"\",\n      \"shippingCost\": \"\",\n      \"shippingCostType\": \"\",\n      \"shippingServiceCode\": \"\",\n      \"shippingType\": \"\",\n      \"size\": \"\",\n      \"title\": \"\",\n      \"totalUnits\": \"\",\n      \"tyreLabelImageUrl\": \"\",\n      \"unitPrice\": \"\",\n      \"unitPricingMeasure\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Partial Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-range",
+              "value": ""
+            },
+            {
+              "key": "Last-Modified",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "170f9ef1-7431-4ace-a532-0fd52bbe2f07",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content <br />This code is returned when there are no items that meet the criteria for this feed file. See <a href=\"/api-docs/buy/static/api-feed.html#feed-filters\">Feed File Filters</a> for details.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3b386d38-a09a-4f51-9b23-2e995c47e0a5",
+          "body": "{\n  \"items\": [\n    {\n      \"acceptedPaymentMethods\": \"\",\n      \"additionalImageUrls\": \"\",\n      \"additionalShippingCostPerUnit\": \"\",\n      \"ageGroup\": \"\",\n      \"alerts\": \"\",\n      \"availability\": \"\",\n      \"availabilityThreshold\": {{faker 'random.number'}},\n      \"availabilityThresholdType\": \"\",\n      \"brand\": \"\",\n      \"buyingOptions\": \"\",\n      \"category\": \"\",\n      \"categoryId\": \"\",\n      \"changeMetadata\": \"\",\n      \"color\": \"\",\n      \"condition\": \"\",\n      \"conditionId\": \"\",\n      \"defaultImageUrl\": \"\",\n      \"deliveryOptions\": \"\",\n      \"description\": \"\",\n      \"discountAmount\": \"\",\n      \"discountPercentage\": \"\",\n      \"energyEfficiencyClass\": \"\",\n      \"epid\": \"\",\n      \"estimatedAvailableQuantity\": {{faker 'random.number'}},\n      \"gender\": \"\",\n      \"gtin\": \"\",\n      \"imageAlteringProhibited\": {{faker 'random.boolean'}},\n      \"imageUrl\": \"\",\n      \"inferredEpid\": \"\",\n      \"itemAffiliateWebUrl\": \"\",\n      \"itemCreationDate\": \"\",\n      \"itemEndDate\": \"\",\n      \"itemId\": \"\",\n      \"itemLocationCountry\": \"\",\n      \"itemSnapshotDate\": \"\",\n      \"itemWebUrl\": \"\",\n      \"legacyItemId\": \"\",\n      \"localizedAspects\": \"\",\n      \"lotSize\": {{faker 'random.number'}},\n      \"material\": \"\",\n      \"mpn\": \"\",\n      \"originalPriceCurrency\": \"\",\n      \"originalPriceValue\": \"\",\n      \"pattern\": \"\",\n      \"priceCurrency\": \"\",\n      \"priceValue\": \"\",\n      \"primaryItemGroupId\": \"\",\n      \"primaryItemGroupType\": \"\",\n      \"qualifiedPrograms\": \"\",\n      \"quantityUsedForEstimate\": {{faker 'random.number'}},\n      \"refundMethod\": \"\",\n      \"returnMethod\": \"\",\n      \"returnPeriodUnit\": \"\",\n      \"returnPeriodValue\": {{faker 'random.number'}},\n      \"returnShippingCostPayer\": \"\",\n      \"returnsAccepted\": {{faker 'random.boolean'}},\n      \"sellerAccountType\": \"\",\n      \"sellerFeedbackPercentage\": \"\",\n      \"sellerFeedbackScore\": \"\",\n      \"sellerItemRevision\": \"\",\n      \"sellerTrustLevel\": \"\",\n      \"sellerUsername\": \"\",\n      \"shipToExcludedRegions\": \"\",\n      \"shipToIncludedRegions\": \"\",\n      \"shippingCarrierCode\": \"\",\n      \"shippingCost\": \"\",\n      \"shippingCostType\": \"\",\n      \"shippingServiceCode\": \"\",\n      \"shippingType\": \"\",\n      \"size\": \"\",\n      \"title\": \"\",\n      \"totalUnits\": \"\",\n      \"tyreLabelImageUrl\": \"\",\n      \"unitPrice\": \"\",\n      \"unitPricingMeasure\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 206,
+          "label": "Partial Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-range",
+              "value": ""
+            },
+            {
+              "key": "Last-Modified",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f6e1cdae-57b0-40eb-8b0e-d04ccfd26df0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4c2a6d2a-f74f-4794-922c-bc6689fd3990",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0c5a06aa-4500-460f-9539-cb6abf2ae671",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bf97e27b-25d4-4db0-b3fb-fdbf3ac8652e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "15fb65ff-e96e-4593-88e1-d0e2e661e24c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 416,
+          "label": "Range not satisfiable",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4dc6046a-8682-4f09-8f8d-52d912d86df3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

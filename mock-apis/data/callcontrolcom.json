@@ -1,0 +1,293 @@
+{
+  "uuid": "5c3248e6-f153-4f95-858b-aad5bc657594",
+  "lastMigration": 19,
+  "name": "Call Control API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "340054ca-385d-426d-a757-7be36ea2c5ce",
+      "documentation": "Complaints: Free service (with registration), providing community and government complaint lookup by phone number for up to 2,000 queries per month.  Details include number complaint rates from (FTC, FCC, IRS, Indiana Attorney  General) and key entity tag extractions from complaints.",
+      "method": "get",
+      "endpoint": "api/2015-11-01/Complaints/:phoneNumber",
+      "responses": [
+        {
+          "uuid": "ceb8b713-df47-4b31-9eb0-a85e26c83fb2",
+          "body": "{\n  \"ComplaintsByEntity\": {},\n  \"LastComplaintDate\": \"{{faker 'date.recent' 365}}\",\n  \"ReportedCallerName\": \"\",\n  \"Tags\": [\n    \"\"\n  ],\n  \"TotalNumberOfComplaints\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b50a9226-d5bb-462b-98f6-93874d060584",
+      "documentation": "Enterprise  GET: GetUser\r\nReturns the current information from the user;  try 12066194123 as demo",
+      "method": "get",
+      "endpoint": "api/2015-11-01/Enterprise/GetUser/:phoneNumber",
+      "responses": [
+        {
+          "uuid": "26ff986d-505e-4f2f-aae8-ca431dda4947",
+          "body": "{\n  \"Age\": {{faker 'random.number'}},\n  \"BlackList\": [\n    \"\"\n  ],\n  \"BlockBehavior\": \"{{oneOf (array 'allow' 'voiceMail' 'block')}}\",\n  \"BreakThroughQhWithMultipleCalls\": {{faker 'random.boolean'}},\n  \"Email\": \"\",\n  \"FirstName\": \"\",\n  \"Gender\": \"\",\n  \"LastName\": \"\",\n  \"MiddleName\": \"\",\n  \"PhoneNumbeRegion\": \"\",\n  \"PhoneNumber\": \"\",\n  \"QuietHourList\": [\n    {\n      \"DayOfWeekList\": [\n        \"{{oneOf (array 'Sunday' 'Monday' 'Tuesday' 'Wednesday' 'Thursday' 'Friday' 'Saturday')}}\"\n      ],\n      \"DurationMin\": {{faker 'random.number'}},\n      \"StartHourLocal\": {{faker 'random.number'}},\n      \"StartMinLocal\": {{faker 'random.number'}},\n      \"TimeZoneName\": \"\"\n    }\n  ],\n  \"Salutation\": \"\",\n  \"Suffix\": \"\",\n  \"UseCommunityBlacklist\": {{faker 'random.boolean'}},\n  \"WhiteList\": [\n    \"\"\n  ],\n  \"WhiteListBreaksQh\": {{faker 'random.boolean'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "User Object",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c0fa3496-9068-4d1e-9a82-66e2ca68008f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request (invalid phone number)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "658bb7b8-569d-4d38-8be8-3367b22cc26b",
+      "documentation": "Enterprise  GET: ShouldBlock\r\nSimple Enteprise which returns a call block proceed decision.",
+      "method": "get",
+      "endpoint": "api/2015-11-01/Enterprise/ShouldBlock/:phoneNumber/:userPhoneNumber",
+      "responses": [
+        {
+          "uuid": "40516a4f-6136-463b-a255-1d01d48a3531",
+          "body": "\"{{oneOf (array 'allow' 'voiceMail' 'block')}}\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "true(block) false (no block)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "31de35e3-aed9-4460-956a-2b535ed688ae",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request (invalid phone number)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5affba7a-7695-4aad-a87e-cb1db2c0fff7",
+      "documentation": "UpsertUser: insert or update all properties from a user\r\nPhoneNumber\r\nWhiteList (list of phone numbers to whitelist)\r\nBlackList (list of phone numbers to blacklist)\r\nQuietHourList (list of quiet hour objects)\r\nUseCommunityBlacklist (enable / disable community blacklist) default true\r\nBreakThroughQhWithMultipleCalls (break through quiet hours with two calls in 3 minutes)\r\nWhiteListBreaksQh (break through quiet hours for whitelist)",
+      "method": "post",
+      "endpoint": "api/2015-11-01/Enterprise/UpsertUser",
+      "responses": [
+        {
+          "uuid": "67d6648d-bc2a-4654-b3e5-635326a965e3",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Ok",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "22d5e597-a15f-4eb5-bfa3-659b3dd0535f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request (eg. invalid phone nubmer)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "10dbe160-f8e6-4269-8670-5cda23892e06",
+      "documentation": "Report: report spam calls received to better tune our algorithms based upon spam calls you receive",
+      "method": "post",
+      "endpoint": "api/2015-11-01/Report",
+      "responses": [
+        {
+          "uuid": "087c7089-322a-41f3-b85b-92f854bd4f71",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request (eg. invalid phone nubmer)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a4fa5e8d-ba6b-4088-ad67-ac7b44035b42",
+      "documentation": "Reputation:\r\nPremium service which returns a reputation informaiton of a phone number via API.",
+      "method": "get",
+      "endpoint": "api/2015-11-01/Reputation/:phoneNumber",
+      "responses": [
+        {
+          "uuid": "1179ad02-e5be-409c-b32e-879d6d7e4dea",
+          "body": "{\n  \"CallType\": \"\",\n  \"Confidence\": {{faker 'random.number'}},\n  \"IsSpam\": {{faker 'random.boolean'}},\n  \"LastComplaintDate\": \"{{faker 'date.recent' 365}}\",\n  \"ReportedCallerName\": \"\",\n  \"Tags\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Reputation information",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fd2fe465-71e1-4fc5-aafe-eedecb142cd8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request (invalid phone number)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

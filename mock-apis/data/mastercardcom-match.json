@@ -1,0 +1,350 @@
+{
+  "uuid": "e5084041-84e5-4046-b08d-58938cc5b936",
+  "lastMigration": 19,
+  "name": "MATCH API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "f6f1c853-1883-4917-947b-2f358bb37374",
+      "documentation": "Used by Acquirers to add a terminated a merchant in the MATCH system. Merchant information, and up to five principal owners per merchant, can be provided by an acquiring bank as part of the listing.",
+      "method": "post",
+      "endpoint": "fraud/merchant/v3/add-merchant",
+      "responses": [
+        {
+          "uuid": "6302e265-0f4a-4ec8-b385-2c788be96261",
+          "body": "{\n  \"AddMerchantResponse\": {\n    \"MerchantReferenceNumber\": \"19962015072000000\",\n    \"Name\": \"XYZTEST XYZTECHMERCHANT\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The add terminated merchant response object.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b945edae-19af-43c8-8b73-7214d5fa2457",
+          "body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Description\": \"Unauthorized Access\",\n        \"ReasonCode\": \"AUTHENTICATION_FAILED\",\n        \"Recoverable\": true,\n        \"Source\": \"System\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8376d6a5-eadc-4f0e-a5f4-55713ceec8c9",
+      "documentation": "Returns the contact information for the acquirer id requested. When MATCH returns a possible merchant match, this resource assists users by retrieving the contact information associated with the Acquirer ID/ICA that added the merchant to MATCH.",
+      "method": "post",
+      "endpoint": "fraud/merchant/v3/common/contact-details",
+      "responses": [
+        {
+          "uuid": "69600684-30d3-4fa1-9565-705765e12d1d",
+          "body": "{\n  \"ContactResponse\": {\n    \"Contact\": [\n      {\n        \"BankName\": \"THE XYZ BANK\",\n        \"EmailAddress\": \"JACK_SMITH@XYZ.COM\",\n        \"FaxNumber\": \"6360000001\",\n        \"FirstName\": \"JACK\",\n        \"LastName\": \"SMITH\",\n        \"PhoneNumber\": \"6360000000\",\n        \"Region\": \"UNITED STATES\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The acquirer contact response object.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0ad46484-cdb5-4fd3-a48a-9eb1a4b1c53b",
+          "body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Description\": \"Unauthorized Access\",\n        \"ReasonCode\": \"AUTHENTICATION_FAILED\",\n        \"Recoverable\": true,\n        \"Source\": \"System\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "26b35361-e9c4-4287-ad72-d572df530724",
+          "body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Description\": \"Unauthorized Access\",\n        \"ReasonCode\": \"AUTHENTICATION_FAILED\",\n        \"Recoverable\": true,\n        \"Source\": \"System\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "56471351-5b58-41f1-9e95-c8fa1f9bd0ac",
+      "documentation": "Returns detailed information about Merchants, URLs and up to five principal owners, that have been terminated by an acquiring bank after the inquiry was made.  This MATCH resource assists acquirer's ability to consider the merchants terminated after the inquiry was made. If an initial inquiry does not result in a possible match, it is still possible that the merchant listing could appear sometime in the next 360 days. This may occur when another acquirer enters the merchant into the MATCH database. The system will automatically continue to search the MATCH system for 360 days. To view these notifications, acquirers must use the Retroactive Inquiry Summary service. This resource can be used to obtain detailed information, such as, if a Merchant or individual has been terminated by another acquirer after an inquiry was made, the reason for termination, and the history of fraudulent or risky business practices that led to that termination.",
+      "method": "post",
+      "endpoint": "fraud/merchant/v3/retro/retro-inquiry-details",
+      "responses": [
+        {
+          "uuid": "44398a42-009a-456a-8e21-f2e790a860f3",
+          "body": "{\n  \"RetroInquiryResponse\": {\n    \"PossibleMerchantMatches\": {\n      \"TerminatedMerchant\": [\n        {\n          \"Merchant\": {\n            \"AddedByAcquirerID\": \"1234\",\n            \"AddedOnDate\": \"10/13/2015\",\n            \"Address\": {\n              \"City\": \"DALLAS\",\n              \"Country\": \"USA\",\n              \"CountrySubdivision\": \"IL\",\n              \"Line1\": \"42 ELM AVENUE\",\n              \"Line2\": \"SUITE 201\",\n              \"PostalCode\": \"66579\",\n              \"Province\": \"\"\n            },\n            \"AltPhoneNumber\": \"3165557625\",\n            \"CountrySubdivisionTaxId\": \"492321030\",\n            \"DoingBusinessAsName\": \"BAIT R US\",\n            \"Name\": \"THE BAIT SHOP\",\n            \"NationalTaxId\": \"888596927\",\n            \"PhoneNumber\": \"3165557625\",\n            \"Principal\": [\n              {\n                \"Address\": {\n                  \"City\": \"DALLAS\",\n                  \"Country\": \"USA\",\n                  \"CountrySubdivision\": \"IL\",\n                  \"Line1\": \"42 ELM AVENUE\",\n                  \"Line2\": \"SUITE 201\",\n                  \"PostalCode\": \"66579\",\n                  \"Province\": \"\"\n                },\n                \"AltPhoneNumber\": \"3165557625\",\n                \"DriversLicense\": {\n                  \"Country\": \"USA\",\n                  \"CountrySubdivision\": \"IL\",\n                  \"Number\": \"M15698025\"\n                },\n                \"FirstName\": \"DAVID\",\n                \"LastName\": \"SMITH\",\n                \"MiddleInitial\": \"P\",\n                \"NationalId\": \"541022104\",\n                \"PhoneNumber\": \"3165557625\",\n                \"SearchCriteria\": {\n                  \"Country\": [\n                    \"USA\"\n                  ],\n                  \"MinPossibleMatchCount\": \"3\",\n                  \"Region\": [\n                    \"A\"\n                  ],\n                  \"SearchAll\": \"N\"\n                }\n              }\n            ],\n            \"SearchCriteria\": {\n              \"Country\": [\n                \"USA\"\n              ],\n              \"MinPossibleMatchCount\": \"3\",\n              \"Region\": [\n                \"A\"\n              ],\n              \"SearchAll\": \"N\"\n            },\n            \"ServiceProvDBA\": \"XYZ FINANCIAL SERVICE\",\n            \"ServiceProvLegal\": \"XYZ FINANCIAL SERVICE INCORPORATED\",\n            \"TerminationReasonCode\": \"13\",\n            \"Url\": \"WWW.TESTMERCHANT.COM\",\n            \"UrlGroup\": [\n              {\n                \"CloseMatchUrls\": [\n                  {\n                    \"Url\": [\n                      \"WWW.SHOESHOP.COM\"\n                    ]\n                  }\n                ],\n                \"ExactMatchUrls\": [\n                  {\n                    \"Url\": [\n                      \"WWW.SHOESHOP.COM\"\n                    ]\n                  }\n                ],\n                \"NoMatchUrls\": {\n                  \"Url\": [\n                    \"WWW.SHOESHOP.COM\"\n                  ]\n                }\n              }\n            ]\n          },\n          \"MerchantMatch\": {\n            \"Address\": {\n              \"City\": \"DALLAS\",\n              \"Country\": \"USA\",\n              \"CountrySubdivision\": \"IL\",\n              \"Line1\": \"42 ELM AVENUE\",\n              \"Line2\": \"SUITE 201\",\n              \"PostalCode\": \"66579\",\n              \"Province\": \"\"\n            },\n            \"AltPhoneNumber\": \"6367558968\",\n            \"CountrySubdivisionTaxId\": \"*****\",\n            \"DoingBusinessAsName\": \"BAIT R US\",\n            \"Name\": \"THE BAIT SHOP\",\n            \"NationalTaxId\": \"*****\",\n            \"PhoneNumber\": \"6367558963\",\n            \"PrincipalMatch\": [\n              {\n                \"Address\": {\n                  \"City\": \"DALLAS\",\n                  \"Country\": \"USA\",\n                  \"CountrySubdivision\": \"IL\",\n                  \"Line1\": \"42 ELM AVENUE\",\n                  \"Line2\": \"SUITE 201\",\n                  \"PostalCode\": \"66579\",\n                  \"Province\": \"\"\n                },\n                \"AltPhoneNumber\": \"3165557625\",\n                \"DriversLicense\": {\n                  \"Country\": \"USA\",\n                  \"CountrySubdivision\": \"IL\",\n                  \"Number\": \"M15698025\"\n                },\n                \"FirstName\": \"DAVID\",\n                \"LastName\": \"SMITH\",\n                \"MiddleInitial\": \"P\",\n                \"Name\": \"THE BAIT SHOP\",\n                \"NationalId\": \"541022104\",\n                \"PhoneNumber\": \"3165557625\",\n                \"SearchCriteria\": {\n                  \"Country\": [\n                    \"USA\"\n                  ],\n                  \"MinPossibleMatchCount\": \"3\",\n                  \"Region\": [\n                    \"A\"\n                  ],\n                  \"SearchAll\": \"N\"\n                }\n              }\n            ],\n            \"ServiceProvDBA\": \"XYZ FINANCIAL SERVICE\",\n            \"ServiceProvLegal\": \"XYZ FINANCIAL SERVICE INCORPORATED\"\n          }\n        }\n      ],\n      \"TotalLength\": \"2\"\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The retroactive inquiry response object.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6309b17c-da04-4ab3-9c14-92d242027533",
+          "body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Description\": \"Unauthorized Access\",\n        \"ReasonCode\": \"AUTHENTICATION_FAILED\",\n        \"Recoverable\": true,\n        \"Source\": \"System\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3a6749fa-41c9-46d8-8060-270de75ccee4",
+      "documentation": "Returns the summary of Retro matches for the given Acquirer Id. This resource will return the summary of Retroactive Inquiry matches for the given Acquirer ID/ICA. If an initial inquiry does not result in a possible match, it is still possible that the merchant listing could appear sometime in the next 360 days. This may occur when another acquirer enters the merchant into the MATCH database. The system will automatically continue to search the MATCH system for 360 days. To view these notifications, acquirers must use the Retroactive Inquiry service.",
+      "method": "post",
+      "endpoint": "fraud/merchant/v3/retro/retro-list",
+      "responses": [
+        {
+          "uuid": "f582670b-0a04-4db6-bacd-bfc45de293f0",
+          "body": "{\n  \"RetroResponse\": {\n    \"BusinessName\": \"THE BAIT SHOP\",\n    \"City\": \"CHICAGO\",\n    \"Country\": \"USA\",\n    \"Date\": \"09/02/2014\",\n    \"RefNum\": \"19962014090200009\",\n    \"State\": \"IL\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The retroactive request response object.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a44c246d-6dd5-467e-99d2-2350154f5a3c",
+          "body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Description\": \"Unauthorized Access\",\n        \"ReasonCode\": \"AUTHENTICATION_FAILED\",\n        \"Recoverable\": true,\n        \"Source\": \"System\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5c6d5ee2-211b-47eb-a505-47c80893dbaf",
+      "documentation": "Returns information on merchants that have been terminated and merchants that have inquired upon. Provides the acquiring bank with information, such as, if a Merchant or individual has been terminated by another acquirer already, the reason for termination, the history of fraudulent or risky business practices that led to that termination and the inquiry that was made already on the Merchant or individual by own or another acquiring bank (if opted).",
+      "method": "post",
+      "endpoint": "fraud/merchant/v3/termination-inquiry",
+      "responses": [
+        {
+          "uuid": "b19b7ce7-0a97-4240-96f0-4e51a4282189",
+          "body": "{\n  \"TerminationInquiry\": {\n    \"PageOffset\": \"\",\n    \"PossibleInquiryMatches\": {\n      \"InquiredMerchant\": [\n        {\n          \"Merchant\": {\n            \"AddedByAcquirerID\": \"1234\",\n            \"AddedOnDate\": \"12/03/2009\",\n            \"Address\": {\n              \"City\": \"DALLAS\",\n              \"Country\": \"USA\",\n              \"CountrySubdivision\": \"IL\",\n              \"Line1\": \"42 ELM AVENUE\",\n              \"Line2\": \"SUITE 201\",\n              \"PostalCode\": \"66579\",\n              \"Province\": \"\"\n            },\n            \"AltPhoneNumber\": \"6367558968\",\n            \"CountrySubdivisionTaxId\": \"*****\",\n            \"DoingBusinessAsName\": \"BAIT R US\",\n            \"MerchantMatch\": {\n              \"Address\": {\n                \"City\": \"DALLAS\",\n                \"Country\": \"USA\",\n                \"CountrySubdivision\": \"IL\",\n                \"Line1\": \"42 ELM AVENUE\",\n                \"Line2\": \"SUITE 201\",\n                \"PostalCode\": \"66579\",\n                \"Province\": \"\"\n              },\n              \"AltPhoneNumber\": \"6367558968\",\n              \"CountrySubdivisionTaxId\": \"*****\",\n              \"DoingBusinessAsName\": \"BAIT R US\",\n              \"Name\": \"THE BAIT SHOP\",\n              \"NationalTaxId\": \"*****\",\n              \"PhoneNumber\": \"6367558963\",\n              \"PrincipalMatch\": [\n                {\n                  \"Address\": {\n                    \"City\": \"DALLAS\",\n                    \"Country\": \"USA\",\n                    \"CountrySubdivision\": \"IL\",\n                    \"Line1\": \"42 ELM AVENUE\",\n                    \"Line2\": \"SUITE 201\",\n                    \"PostalCode\": \"66579\",\n                    \"Province\": \"\"\n                  },\n                  \"AltPhoneNumber\": \"3165557625\",\n                  \"DriversLicense\": {\n                    \"Country\": \"USA\",\n                    \"CountrySubdivision\": \"IL\",\n                    \"Number\": \"M15698025\"\n                  },\n                  \"FirstName\": \"DAVID\",\n                  \"LastName\": \"SMITH\",\n                  \"MiddleInitial\": \"P\",\n                  \"Name\": \"THE BAIT SHOP\",\n                  \"NationalId\": \"541022104\",\n                  \"PhoneNumber\": \"3165557625\",\n                  \"SearchCriteria\": {\n                    \"Country\": [\n                      \"USA\"\n                    ],\n                    \"MinPossibleMatchCount\": \"3\",\n                    \"Region\": [\n                      \"A\"\n                    ],\n                    \"SearchAll\": \"N\"\n                  }\n                }\n              ],\n              \"ServiceProvDBA\": \"XYZ FINANCIAL SERVICE\",\n              \"ServiceProvLegal\": \"XYZ FINANCIAL SERVICE INCORPORATED\"\n            },\n            \"Name\": \"THE BAIT SHOP\",\n            \"NationalTaxId\": \"*****\",\n            \"PhoneNumber\": \"6367558963\",\n            \"Principal\": {\n              \"Address\": {\n                \"City\": \"DALLAS\",\n                \"Country\": \"USA\",\n                \"CountrySubdivision\": \"IL\",\n                \"Line1\": \"42 ELM AVENUE\",\n                \"Line2\": \"SUITE 201\",\n                \"PostalCode\": \"66579\",\n                \"Province\": \"\"\n              },\n              \"AltPhoneNumber\": \"3165557625\",\n              \"DriversLicense\": {\n                \"Country\": \"USA\",\n                \"CountrySubdivision\": \"IL\",\n                \"Number\": \"M15698025\"\n              },\n              \"FirstName\": \"DAVID\",\n              \"LastName\": \"SMITH\",\n              \"MiddleInitial\": \"P\",\n              \"NationalId\": \"541022104\",\n              \"PhoneNumber\": \"3165557625\",\n              \"SearchCriteria\": {\n                \"Country\": [\n                  \"USA\"\n                ],\n                \"MinPossibleMatchCount\": \"3\",\n                \"Region\": [\n                  \"A\"\n                ],\n                \"SearchAll\": \"N\"\n              }\n            },\n            \"ServiceProvDBA\": \"XYZ FINANCIAL SERVICE\",\n            \"ServiceProvLegal\": \"XYZ FINANCIAL SERVICE INCORPORATED\",\n            \"TerminationReasonCode\": \"13\",\n            \"UrlGroup\": {\n              \"CloseMatchUrls\": [\n                {\n                  \"Url\": [\n                    \"WWW.SHOESHOP.COM\"\n                  ]\n                }\n              ],\n              \"ExactMatchUrls\": [\n                {\n                  \"Url\": [\n                    \"WWW.SHOESHOP.COM\"\n                  ]\n                }\n              ],\n              \"NoMatchUrls\": {\n                \"Url\": [\n                  \"WWW.SHOESHOP.COM\"\n                ]\n              }\n            }\n          }\n        }\n      ],\n      \"TotalLength\": \"2\"\n    },\n    \"PossibleMerchantMatches\": [\n      {\n        \"TerminatedMerchant\": [\n          {\n            \"Merchant\": {\n              \"AddedByAcquirerID\": \"1234\",\n              \"AddedOnDate\": \"10/13/2015\",\n              \"Address\": {\n                \"City\": \"DALLAS\",\n                \"Country\": \"USA\",\n                \"CountrySubdivision\": \"IL\",\n                \"Line1\": \"42 ELM AVENUE\",\n                \"Line2\": \"SUITE 201\",\n                \"PostalCode\": \"66579\",\n                \"Province\": \"\"\n              },\n              \"AltPhoneNumber\": \"3165557625\",\n              \"CountrySubdivisionTaxId\": \"492321030\",\n              \"DoingBusinessAsName\": \"BAIT R US\",\n              \"Name\": \"THE BAIT SHOP\",\n              \"NationalTaxId\": \"888596927\",\n              \"PhoneNumber\": \"3165557625\",\n              \"Principal\": [\n                {\n                  \"Address\": {\n                    \"City\": \"DALLAS\",\n                    \"Country\": \"USA\",\n                    \"CountrySubdivision\": \"IL\",\n                    \"Line1\": \"42 ELM AVENUE\",\n                    \"Line2\": \"SUITE 201\",\n                    \"PostalCode\": \"66579\",\n                    \"Province\": \"\"\n                  },\n                  \"AltPhoneNumber\": \"3165557625\",\n                  \"DriversLicense\": {\n                    \"Country\": \"USA\",\n                    \"CountrySubdivision\": \"IL\",\n                    \"Number\": \"M15698025\"\n                  },\n                  \"FirstName\": \"DAVID\",\n                  \"LastName\": \"SMITH\",\n                  \"MiddleInitial\": \"P\",\n                  \"NationalId\": \"541022104\",\n                  \"PhoneNumber\": \"3165557625\",\n                  \"SearchCriteria\": {\n                    \"Country\": [\n                      \"USA\"\n                    ],\n                    \"MinPossibleMatchCount\": \"3\",\n                    \"Region\": [\n                      \"A\"\n                    ],\n                    \"SearchAll\": \"N\"\n                  }\n                }\n              ],\n              \"SearchCriteria\": {\n                \"Country\": [\n                  \"USA\"\n                ],\n                \"MinPossibleMatchCount\": \"3\",\n                \"Region\": [\n                  \"A\"\n                ],\n                \"SearchAll\": \"N\"\n              },\n              \"ServiceProvDBA\": \"XYZ FINANCIAL SERVICE\",\n              \"ServiceProvLegal\": \"XYZ FINANCIAL SERVICE INCORPORATED\",\n              \"TerminationReasonCode\": \"13\",\n              \"Url\": \"WWW.TESTMERCHANT.COM\",\n              \"UrlGroup\": [\n                {\n                  \"CloseMatchUrls\": [\n                    {\n                      \"Url\": [\n                        \"WWW.SHOESHOP.COM\"\n                      ]\n                    }\n                  ],\n                  \"ExactMatchUrls\": [\n                    {\n                      \"Url\": [\n                        \"WWW.SHOESHOP.COM\"\n                      ]\n                    }\n                  ],\n                  \"NoMatchUrls\": {\n                    \"Url\": [\n                      \"WWW.SHOESHOP.COM\"\n                    ]\n                  }\n                }\n              ]\n            },\n            \"MerchantMatch\": {\n              \"Address\": {\n                \"City\": \"DALLAS\",\n                \"Country\": \"USA\",\n                \"CountrySubdivision\": \"IL\",\n                \"Line1\": \"42 ELM AVENUE\",\n                \"Line2\": \"SUITE 201\",\n                \"PostalCode\": \"66579\",\n                \"Province\": \"\"\n              },\n              \"AltPhoneNumber\": \"6367558968\",\n              \"CountrySubdivisionTaxId\": \"*****\",\n              \"DoingBusinessAsName\": \"BAIT R US\",\n              \"Name\": \"THE BAIT SHOP\",\n              \"NationalTaxId\": \"*****\",\n              \"PhoneNumber\": \"6367558963\",\n              \"PrincipalMatch\": [\n                {\n                  \"Address\": {\n                    \"City\": \"DALLAS\",\n                    \"Country\": \"USA\",\n                    \"CountrySubdivision\": \"IL\",\n                    \"Line1\": \"42 ELM AVENUE\",\n                    \"Line2\": \"SUITE 201\",\n                    \"PostalCode\": \"66579\",\n                    \"Province\": \"\"\n                  },\n                  \"AltPhoneNumber\": \"3165557625\",\n                  \"DriversLicense\": {\n                    \"Country\": \"USA\",\n                    \"CountrySubdivision\": \"IL\",\n                    \"Number\": \"M15698025\"\n                  },\n                  \"FirstName\": \"DAVID\",\n                  \"LastName\": \"SMITH\",\n                  \"MiddleInitial\": \"P\",\n                  \"Name\": \"THE BAIT SHOP\",\n                  \"NationalId\": \"541022104\",\n                  \"PhoneNumber\": \"3165557625\",\n                  \"SearchCriteria\": {\n                    \"Country\": [\n                      \"USA\"\n                    ],\n                    \"MinPossibleMatchCount\": \"3\",\n                    \"Region\": [\n                      \"A\"\n                    ],\n                    \"SearchAll\": \"N\"\n                  }\n                }\n              ],\n              \"ServiceProvDBA\": \"XYZ FINANCIAL SERVICE\",\n              \"ServiceProvLegal\": \"XYZ FINANCIAL SERVICE INCORPORATED\"\n            }\n          }\n        ],\n        \"TotalLength\": \"2\"\n      }\n    ],\n    \"TransactionReferenceNumber\": \"12345\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The termination inquiry response object.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9dbbc15e-506c-448a-ada3-04d29232f286",
+          "body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Description\": \"Unauthorized Access\",\n        \"ReasonCode\": \"AUTHENTICATION_FAILED\",\n        \"Recoverable\": true,\n        \"Source\": \"System\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "41565d48-993d-4314-994e-02803d503f5d",
+      "documentation": "Returns information about Merchants, URLs and up to five principal owners, that have been terminated by an acquiring bank from a previous inquiry. The Inquiry History Results resource displays the inquiry with the option to view either; Possible Merchant Matches or Possible Inquiry Matches.",
+      "method": "get",
+      "endpoint": "fraud/merchant/v3/termination-inquiry/:IRN",
+      "responses": [
+        {
+          "uuid": "0a34b269-8fc4-4410-a064-514c3b754499",
+          "body": "{\n  \"TerminationInquiry\": {\n    \"PageOffset\": \"\",\n    \"PossibleInquiryMatches\": {\n      \"InquiredMerchant\": [\n        {\n          \"Merchant\": {\n            \"AddedByAcquirerID\": \"1234\",\n            \"AddedOnDate\": \"12/03/2009\",\n            \"Address\": {\n              \"City\": \"DALLAS\",\n              \"Country\": \"USA\",\n              \"CountrySubdivision\": \"IL\",\n              \"Line1\": \"42 ELM AVENUE\",\n              \"Line2\": \"SUITE 201\",\n              \"PostalCode\": \"66579\",\n              \"Province\": \"\"\n            },\n            \"AltPhoneNumber\": \"6367558968\",\n            \"CountrySubdivisionTaxId\": \"*****\",\n            \"DoingBusinessAsName\": \"BAIT R US\",\n            \"MerchantMatch\": {\n              \"Address\": {\n                \"City\": \"DALLAS\",\n                \"Country\": \"USA\",\n                \"CountrySubdivision\": \"IL\",\n                \"Line1\": \"42 ELM AVENUE\",\n                \"Line2\": \"SUITE 201\",\n                \"PostalCode\": \"66579\",\n                \"Province\": \"\"\n              },\n              \"AltPhoneNumber\": \"6367558968\",\n              \"CountrySubdivisionTaxId\": \"*****\",\n              \"DoingBusinessAsName\": \"BAIT R US\",\n              \"Name\": \"THE BAIT SHOP\",\n              \"NationalTaxId\": \"*****\",\n              \"PhoneNumber\": \"6367558963\",\n              \"PrincipalMatch\": [\n                {\n                  \"Address\": {\n                    \"City\": \"DALLAS\",\n                    \"Country\": \"USA\",\n                    \"CountrySubdivision\": \"IL\",\n                    \"Line1\": \"42 ELM AVENUE\",\n                    \"Line2\": \"SUITE 201\",\n                    \"PostalCode\": \"66579\",\n                    \"Province\": \"\"\n                  },\n                  \"AltPhoneNumber\": \"3165557625\",\n                  \"DriversLicense\": {\n                    \"Country\": \"USA\",\n                    \"CountrySubdivision\": \"IL\",\n                    \"Number\": \"M15698025\"\n                  },\n                  \"FirstName\": \"DAVID\",\n                  \"LastName\": \"SMITH\",\n                  \"MiddleInitial\": \"P\",\n                  \"Name\": \"THE BAIT SHOP\",\n                  \"NationalId\": \"541022104\",\n                  \"PhoneNumber\": \"3165557625\",\n                  \"SearchCriteria\": {\n                    \"Country\": [\n                      \"USA\"\n                    ],\n                    \"MinPossibleMatchCount\": \"3\",\n                    \"Region\": [\n                      \"A\"\n                    ],\n                    \"SearchAll\": \"N\"\n                  }\n                }\n              ],\n              \"ServiceProvDBA\": \"XYZ FINANCIAL SERVICE\",\n              \"ServiceProvLegal\": \"XYZ FINANCIAL SERVICE INCORPORATED\"\n            },\n            \"Name\": \"THE BAIT SHOP\",\n            \"NationalTaxId\": \"*****\",\n            \"PhoneNumber\": \"6367558963\",\n            \"Principal\": {\n              \"Address\": {\n                \"City\": \"DALLAS\",\n                \"Country\": \"USA\",\n                \"CountrySubdivision\": \"IL\",\n                \"Line1\": \"42 ELM AVENUE\",\n                \"Line2\": \"SUITE 201\",\n                \"PostalCode\": \"66579\",\n                \"Province\": \"\"\n              },\n              \"AltPhoneNumber\": \"3165557625\",\n              \"DriversLicense\": {\n                \"Country\": \"USA\",\n                \"CountrySubdivision\": \"IL\",\n                \"Number\": \"M15698025\"\n              },\n              \"FirstName\": \"DAVID\",\n              \"LastName\": \"SMITH\",\n              \"MiddleInitial\": \"P\",\n              \"NationalId\": \"541022104\",\n              \"PhoneNumber\": \"3165557625\",\n              \"SearchCriteria\": {\n                \"Country\": [\n                  \"USA\"\n                ],\n                \"MinPossibleMatchCount\": \"3\",\n                \"Region\": [\n                  \"A\"\n                ],\n                \"SearchAll\": \"N\"\n              }\n            },\n            \"ServiceProvDBA\": \"XYZ FINANCIAL SERVICE\",\n            \"ServiceProvLegal\": \"XYZ FINANCIAL SERVICE INCORPORATED\",\n            \"TerminationReasonCode\": \"13\",\n            \"UrlGroup\": {\n              \"CloseMatchUrls\": [\n                {\n                  \"Url\": [\n                    \"WWW.SHOESHOP.COM\"\n                  ]\n                }\n              ],\n              \"ExactMatchUrls\": [\n                {\n                  \"Url\": [\n                    \"WWW.SHOESHOP.COM\"\n                  ]\n                }\n              ],\n              \"NoMatchUrls\": {\n                \"Url\": [\n                  \"WWW.SHOESHOP.COM\"\n                ]\n              }\n            }\n          }\n        }\n      ],\n      \"TotalLength\": \"2\"\n    },\n    \"PossibleMerchantMatches\": [\n      {\n        \"TerminatedMerchant\": [\n          {\n            \"Merchant\": {\n              \"AddedByAcquirerID\": \"1234\",\n              \"AddedOnDate\": \"10/13/2015\",\n              \"Address\": {\n                \"City\": \"DALLAS\",\n                \"Country\": \"USA\",\n                \"CountrySubdivision\": \"IL\",\n                \"Line1\": \"42 ELM AVENUE\",\n                \"Line2\": \"SUITE 201\",\n                \"PostalCode\": \"66579\",\n                \"Province\": \"\"\n              },\n              \"AltPhoneNumber\": \"3165557625\",\n              \"CountrySubdivisionTaxId\": \"492321030\",\n              \"DoingBusinessAsName\": \"BAIT R US\",\n              \"Name\": \"THE BAIT SHOP\",\n              \"NationalTaxId\": \"888596927\",\n              \"PhoneNumber\": \"3165557625\",\n              \"Principal\": [\n                {\n                  \"Address\": {\n                    \"City\": \"DALLAS\",\n                    \"Country\": \"USA\",\n                    \"CountrySubdivision\": \"IL\",\n                    \"Line1\": \"42 ELM AVENUE\",\n                    \"Line2\": \"SUITE 201\",\n                    \"PostalCode\": \"66579\",\n                    \"Province\": \"\"\n                  },\n                  \"AltPhoneNumber\": \"3165557625\",\n                  \"DriversLicense\": {\n                    \"Country\": \"USA\",\n                    \"CountrySubdivision\": \"IL\",\n                    \"Number\": \"M15698025\"\n                  },\n                  \"FirstName\": \"DAVID\",\n                  \"LastName\": \"SMITH\",\n                  \"MiddleInitial\": \"P\",\n                  \"NationalId\": \"541022104\",\n                  \"PhoneNumber\": \"3165557625\",\n                  \"SearchCriteria\": {\n                    \"Country\": [\n                      \"USA\"\n                    ],\n                    \"MinPossibleMatchCount\": \"3\",\n                    \"Region\": [\n                      \"A\"\n                    ],\n                    \"SearchAll\": \"N\"\n                  }\n                }\n              ],\n              \"SearchCriteria\": {\n                \"Country\": [\n                  \"USA\"\n                ],\n                \"MinPossibleMatchCount\": \"3\",\n                \"Region\": [\n                  \"A\"\n                ],\n                \"SearchAll\": \"N\"\n              },\n              \"ServiceProvDBA\": \"XYZ FINANCIAL SERVICE\",\n              \"ServiceProvLegal\": \"XYZ FINANCIAL SERVICE INCORPORATED\",\n              \"TerminationReasonCode\": \"13\",\n              \"Url\": \"WWW.TESTMERCHANT.COM\",\n              \"UrlGroup\": [\n                {\n                  \"CloseMatchUrls\": [\n                    {\n                      \"Url\": [\n                        \"WWW.SHOESHOP.COM\"\n                      ]\n                    }\n                  ],\n                  \"ExactMatchUrls\": [\n                    {\n                      \"Url\": [\n                        \"WWW.SHOESHOP.COM\"\n                      ]\n                    }\n                  ],\n                  \"NoMatchUrls\": {\n                    \"Url\": [\n                      \"WWW.SHOESHOP.COM\"\n                    ]\n                  }\n                }\n              ]\n            },\n            \"MerchantMatch\": {\n              \"Address\": {\n                \"City\": \"DALLAS\",\n                \"Country\": \"USA\",\n                \"CountrySubdivision\": \"IL\",\n                \"Line1\": \"42 ELM AVENUE\",\n                \"Line2\": \"SUITE 201\",\n                \"PostalCode\": \"66579\",\n                \"Province\": \"\"\n              },\n              \"AltPhoneNumber\": \"6367558968\",\n              \"CountrySubdivisionTaxId\": \"*****\",\n              \"DoingBusinessAsName\": \"BAIT R US\",\n              \"Name\": \"THE BAIT SHOP\",\n              \"NationalTaxId\": \"*****\",\n              \"PhoneNumber\": \"6367558963\",\n              \"PrincipalMatch\": [\n                {\n                  \"Address\": {\n                    \"City\": \"DALLAS\",\n                    \"Country\": \"USA\",\n                    \"CountrySubdivision\": \"IL\",\n                    \"Line1\": \"42 ELM AVENUE\",\n                    \"Line2\": \"SUITE 201\",\n                    \"PostalCode\": \"66579\",\n                    \"Province\": \"\"\n                  },\n                  \"AltPhoneNumber\": \"3165557625\",\n                  \"DriversLicense\": {\n                    \"Country\": \"USA\",\n                    \"CountrySubdivision\": \"IL\",\n                    \"Number\": \"M15698025\"\n                  },\n                  \"FirstName\": \"DAVID\",\n                  \"LastName\": \"SMITH\",\n                  \"MiddleInitial\": \"P\",\n                  \"Name\": \"THE BAIT SHOP\",\n                  \"NationalId\": \"541022104\",\n                  \"PhoneNumber\": \"3165557625\",\n                  \"SearchCriteria\": {\n                    \"Country\": [\n                      \"USA\"\n                    ],\n                    \"MinPossibleMatchCount\": \"3\",\n                    \"Region\": [\n                      \"A\"\n                    ],\n                    \"SearchAll\": \"N\"\n                  }\n                }\n              ],\n              \"ServiceProvDBA\": \"XYZ FINANCIAL SERVICE\",\n              \"ServiceProvLegal\": \"XYZ FINANCIAL SERVICE INCORPORATED\"\n            }\n          }\n        ],\n        \"TotalLength\": \"2\"\n      }\n    ],\n    \"TransactionReferenceNumber\": \"12345\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The termination inquiry history response object.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d25d7d0e-efc8-4c75-9b01-e918ae9c326b",
+          "body": "{\n  \"Errors\": {\n    \"Error\": [\n      {\n        \"Description\": \"Unauthorized Access\",\n        \"ReasonCode\": \"AUTHENTICATION_FAILED\",\n        \"Recoverable\": true,\n        \"Source\": \"System\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

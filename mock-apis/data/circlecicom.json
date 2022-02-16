@@ -1,0 +1,701 @@
+{
+  "uuid": "a6055eb1-f186-494a-a227-9ee198fa0028",
+  "lastMigration": 19,
+  "name": "CircleCI REST API",
+  "endpointPrefix": "api/v1",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "4c266959-66a0-45db-827f-4f168db2f5b8",
+      "documentation": "Provides information about the signed in user.\n",
+      "method": "get",
+      "endpoint": "me",
+      "responses": [
+        {
+          "uuid": "ee3e8200-591f-4a24-a344-cf6322b1ba8a",
+          "body": "{\n  \"admin\": {{faker 'random.boolean'}},\n  \"all_emails\": [\n    \"{{faker 'internet.email'}}\"\n  ],\n  \"analytics_id\": \"\",\n  \"avatar_url\": \"\",\n  \"basic_email_prefs\": \"\",\n  \"bitbucket\": {{faker 'random.number'}},\n  \"bitbucket_authorized\": {{faker 'random.boolean'}},\n  \"containers\": {{faker 'random.number'}},\n  \"created_at\": \"{{faker 'date.recent' 365}}\",\n  \"days_left_in_trial\": {{faker 'random.number'}},\n  \"dev_admin\": {{faker 'random.boolean'}},\n  \"enrolled_betas\": [\n    \"\"\n  ],\n  \"github_id\": {{faker 'random.number'}},\n  \"github_oauth_scopes\": [\n    \"\"\n  ],\n  \"gravatar_id\": {{faker 'random.number'}},\n  \"heroku_api_key\": \"\",\n  \"in_beta_program\": {{faker 'random.boolean'}},\n  \"login\": \"\",\n  \"name\": \"\",\n  \"organization_prefs\": {},\n  \"parallelism\": {{faker 'random.number'}},\n  \"plan\": \"\",\n  \"projects\": {},\n  \"pusher_id\": \"\",\n  \"selected_email\": \"{{faker 'internet.email'}}\",\n  \"sign_in_count\": {{faker 'random.number'}},\n  \"trial_end\": \"{{faker 'date.recent' 365}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "signed in user",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "50f61295-9b69-48f1-baa6-32b50ebc7ef6",
+      "documentation": "Build summary for each of the last 30 builds for a single git repo.\n",
+      "method": "get",
+      "endpoint": "project/:username/:project",
+      "responses": [
+        {
+          "uuid": "feb2a662-d3f7-4775-9502-37253cf10cb7",
+          "body": "[\n  {\n    \"body\": \"\",\n    \"branch\": \"\",\n    \"build_time_millis\": {{faker 'random.number'}},\n    \"build_url\": \"\",\n    \"committer_email\": \"{{faker 'internet.email'}}\",\n    \"committer_name\": \"\",\n    \"dont_build\": \"\",\n    \"lifecycle\": \"{{oneOf (array 'queued' 'scheduled' 'not_run' 'not_running' 'running' 'finished')}}\",\n    \"previous\": {\n      \"build_num\": {{faker 'random.number'}},\n      \"build_time_millis\": {{faker 'random.number'}},\n      \"status\": \"{{oneOf (array 'retried' 'canceled' 'infrastructure_fail' 'timedout' 'not_run' 'running' 'failed' 'queued' 'scheduled' 'not_running' 'no_tests' 'fixed' 'success')}}\"\n    },\n    \"queued_at\": \"{{faker 'date.recent' 365}}\",\n    \"reponame\": \"\",\n    \"retry_of\": {{faker 'random.number'}},\n    \"start_time\": \"{{faker 'date.recent' 365}}\",\n    \"stop_time\": \"{{faker 'date.recent' 365}}\",\n    \"subject\": \"\",\n    \"username\": \"\",\n    \"vcs_url\": \"\",\n    \"why\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Build summary for each of the last 30 builds",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9f6db4e6-834e-49b6-b5c8-7e9b816a653b",
+      "documentation": "Triggers a new build, returns a summary of the build.\n",
+      "method": "post",
+      "endpoint": "project/:username/:project",
+      "responses": [
+        {
+          "uuid": "2e9ded82-924d-4345-a5e1-bf9abb26d3e2",
+          "body": "{\n  \"added_at\": \"{{faker 'date.recent' 365}}\",\n  \"build_num\": {{faker 'random.number'}},\n  \"outcome\": \"{{oneOf (array 'canceled' 'infrastructure_fail' 'timedout' 'failed' 'no_tests' 'success')}}\",\n  \"pushed_at\": \"{{faker 'date.recent' 365}}\",\n  \"status\": \"{{oneOf (array 'retried' 'canceled' 'infrastructure_fail' 'timedout' 'not_run' 'running' 'failed' 'queued' 'scheduled' 'not_running' 'no_tests' 'fixed' 'success')}}\",\n  \"vcs_revision\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "returns a summary of the build",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "624a6d75-757e-40c4-a989-0889594d4ad2",
+      "documentation": "Clears the cache for a project.\n",
+      "method": "delete",
+      "endpoint": "project/:username/:project/build-cache",
+      "responses": [
+        {
+          "uuid": "2f1908dd-d2eb-4bcd-8d4f-0fdcbc47b4de",
+          "body": "{\n  \"status\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "status message",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8d8d729b-7132-4fed-8c77-4617e615af87",
+      "documentation": "Lists checkout keys.\n",
+      "method": "get",
+      "endpoint": "project/:username/:project/checkout-key",
+      "responses": [
+        {
+          "uuid": "a5299ef0-22ee-4bf5-b06f-6c99386a1e74",
+          "body": "[\n  {\n    \"fingerprint\": \"\",\n    \"preferred\": {{faker 'random.boolean'}},\n    \"public_key\": \"\",\n    \"time\": \"{{faker 'date.recent' 365}}\",\n    \"type\": \"{{oneOf (array 'deploy-key' 'github-user-key')}}\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "checkout keys",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f4894571-62ad-416e-9701-fd7ca46ff90d",
+      "documentation": "Creates a new checkout key.\nOnly usable with a user API token.\n",
+      "method": "post",
+      "endpoint": "project/:username/:project/checkout-key",
+      "responses": [
+        {
+          "uuid": "2a1731c0-ed04-43ad-8bd7-5c0e8f5d6d16",
+          "body": "{\n  \"fingerprint\": \"\",\n  \"preferred\": {{faker 'random.boolean'}},\n  \"public_key\": \"\",\n  \"time\": \"{{faker 'date.recent' 365}}\",\n  \"type\": \"{{oneOf (array 'deploy-key' 'github-user-key')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "checkout key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3e26310e-dc55-43ff-b9ec-711292fda800",
+      "documentation": "Delete a checkout key.\n",
+      "method": "delete",
+      "endpoint": "project/:username/:project/checkout-key/:fingerprint",
+      "responses": [
+        {
+          "uuid": "785ba7e4-1e70-4ab3-9322-7f7817e82bf1",
+          "body": "{\n  \"message\": \"{{oneOf (array 'OK')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "status message",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e986d236-1d49-4ada-9404-a5e2446465f2",
+      "documentation": "Get a checkout key.\n",
+      "method": "get",
+      "endpoint": "project/:username/:project/checkout-key/:fingerprint",
+      "responses": [
+        {
+          "uuid": "7f919b30-0efa-4b91-91d1-58d607d8c631",
+          "body": "{\n  \"fingerprint\": \"\",\n  \"preferred\": {{faker 'random.boolean'}},\n  \"public_key\": \"\",\n  \"time\": \"{{faker 'date.recent' 365}}\",\n  \"type\": \"{{oneOf (array 'deploy-key' 'github-user-key')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "checkout key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "90ab516c-2242-4ff2-96dd-18be24539d76",
+      "documentation": "Lists the environment variables for :project\n",
+      "method": "get",
+      "endpoint": "project/:username/:project/envvar",
+      "responses": [
+        {
+          "uuid": "c92bb0ca-6372-4dfc-a13f-3d9cd9fcf0b3",
+          "body": "[\n  {\n    \"name\": \"\",\n    \"value\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "XXX",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "03cdf068-7272-4bba-8026-39843ee4e950",
+      "documentation": "Creates a new environment variable\n",
+      "method": "post",
+      "endpoint": "project/:username/:project/envvar",
+      "responses": [
+        {
+          "uuid": "2e71a216-1278-4bdd-89eb-843ae7e1e2bf",
+          "body": "{\n  \"name\": \"\",\n  \"value\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "XXX",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f1b56657-b53e-4827-a191-ea3921b78422",
+      "documentation": "Deletes the environment variable named ':name'\n",
+      "method": "delete",
+      "endpoint": "project/:username/:project/envvar/:name",
+      "responses": [
+        {
+          "uuid": "3b796a6f-e5e3-4b67-b0d7-ff83a7cc8e81",
+          "body": "{\n  \"message\": \"{{oneOf (array 'OK')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Deletes the environment variable named ':name'\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e7c39c3e-3a8d-4ea3-8989-9d7efd946ac3",
+      "documentation": "Gets the hidden value of environment variable :name\n",
+      "method": "get",
+      "endpoint": "project/:username/:project/envvar/:name",
+      "responses": [
+        {
+          "uuid": "454e8727-19b0-4bdf-afc2-dbfeab0c16e2",
+          "body": "{\n  \"name\": \"\",\n  \"value\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "XXX",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6f929bdd-536c-4312-9583-fbd779fc6ebf",
+      "documentation": "Create an ssh key used to access external systems that require SSH key-based authentication\n",
+      "method": "post",
+      "endpoint": "project/:username/:project/ssh-key",
+      "responses": [
+        {
+          "uuid": "ba9d14aa-5175-4add-948b-ddaab8626128",
+          "body": "{\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "no response expected",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5d9b848c-35c0-41dd-986f-e3d527e54556",
+      "documentation": "Triggers a new build, returns a summary of the build.\nOptional build parameters can be set using an experimental API.\n\nNote: For more about build parameters, read about [using parameterized builds](https://circleci.com/docs/parameterized-builds/)\n",
+      "method": "post",
+      "endpoint": "project/:username/:project/tree/:branch",
+      "responses": [
+        {
+          "uuid": "5312c832-9a39-4ff1-8243-2cf927c0db69",
+          "body": "{\n  \"body\": \"\",\n  \"branch\": \"\",\n  \"build_time_millis\": {{faker 'random.number'}},\n  \"build_url\": \"\",\n  \"committer_email\": \"{{faker 'internet.email'}}\",\n  \"committer_name\": \"\",\n  \"dont_build\": \"\",\n  \"lifecycle\": \"{{oneOf (array 'queued' 'scheduled' 'not_run' 'not_running' 'running' 'finished')}}\",\n  \"previous\": {\n    \"build_num\": {{faker 'random.number'}},\n    \"build_time_millis\": {{faker 'random.number'}},\n    \"status\": \"{{oneOf (array 'retried' 'canceled' 'infrastructure_fail' 'timedout' 'not_run' 'running' 'failed' 'queued' 'scheduled' 'not_running' 'no_tests' 'fixed' 'success')}}\"\n  },\n  \"queued_at\": \"{{faker 'date.recent' 365}}\",\n  \"reponame\": \"\",\n  \"retry_of\": {{faker 'random.number'}},\n  \"start_time\": \"{{faker 'date.recent' 365}}\",\n  \"stop_time\": \"{{faker 'date.recent' 365}}\",\n  \"subject\": \"\",\n  \"username\": \"\",\n  \"vcs_url\": \"\",\n  \"why\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "returns a summary of the build",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "86977d8d-f2b4-4ce9-9f71-d53de64c06d4",
+      "documentation": "Full details for a single build. The response includes all of the fields from the build summary.\nThis is also the payload for the [notification webhooks](/docs/configuration/#notify), in which case this object is the value to a key named 'payload'.\n",
+      "method": "get",
+      "endpoint": "project/:username/:project/:build_num",
+      "responses": [
+        {
+          "uuid": "6bba924c-281b-414c-ba29-8f73adb968eb",
+          "body": "{\n  \"all_commit_details\": [\n    {\n      \"author_date\": \"{{faker 'date.recent' 365}}\",\n      \"author_email\": \"{{faker 'internet.email'}}\",\n      \"author_login\": \"\",\n      \"author_name\": \"\",\n      \"body\": \"\",\n      \"commit\": \"\",\n      \"commit_url\": \"\",\n      \"committer_date\": \"{{faker 'date.recent' 365}}\",\n      \"committer_email\": \"{{faker 'internet.email'}}\",\n      \"committer_login\": \"\",\n      \"committer_name\": \"\",\n      \"subject\": \"\"\n    }\n  ],\n  \"compare\": \"\",\n  \"job_name\": \"\",\n  \"node\": \"\",\n  \"previous_successful_build\": {\n    \"build_num\": {{faker 'random.number'}},\n    \"build_time_millis\": {{faker 'random.number'}},\n    \"status\": \"{{oneOf (array 'retried' 'canceled' 'infrastructure_fail' 'timedout' 'not_run' 'running' 'failed' 'queued' 'scheduled' 'not_running' 'no_tests' 'fixed' 'success')}}\"\n  },\n  \"retries\": {{faker 'random.boolean'}},\n  \"ssh_enabled\": {{faker 'random.boolean'}},\n  \"timedout\": {{faker 'random.boolean'}},\n  \"usage_queued_at\": \"{{faker 'date.recent' 365}}\",\n  \"user\": {\n    \"admin\": {{faker 'random.boolean'}},\n    \"all_emails\": [\n      \"{{faker 'internet.email'}}\"\n    ],\n    \"analytics_id\": \"\",\n    \"avatar_url\": \"\",\n    \"basic_email_prefs\": \"\",\n    \"bitbucket\": {{faker 'random.number'}},\n    \"bitbucket_authorized\": {{faker 'random.boolean'}},\n    \"containers\": {{faker 'random.number'}},\n    \"created_at\": \"{{faker 'date.recent' 365}}\",\n    \"days_left_in_trial\": {{faker 'random.number'}},\n    \"dev_admin\": {{faker 'random.boolean'}},\n    \"enrolled_betas\": [\n      \"\"\n    ],\n    \"github_id\": {{faker 'random.number'}},\n    \"github_oauth_scopes\": [\n      \"\"\n    ],\n    \"gravatar_id\": {{faker 'random.number'}},\n    \"heroku_api_key\": \"\",\n    \"in_beta_program\": {{faker 'random.boolean'}},\n    \"login\": \"\",\n    \"name\": \"\",\n    \"organization_prefs\": {},\n    \"parallelism\": {{faker 'random.number'}},\n    \"plan\": \"\",\n    \"projects\": {},\n    \"pusher_id\": \"\",\n    \"selected_email\": \"{{faker 'internet.email'}}\",\n    \"sign_in_count\": {{faker 'random.number'}},\n    \"trial_end\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Full details for a single build",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "931bc243-fcf0-4c65-80e6-1be3847540dd",
+      "documentation": "List the artifacts produced by a given build.\n",
+      "method": "get",
+      "endpoint": "project/:username/:project/:build_num/artifacts",
+      "responses": [
+        {
+          "uuid": "5c6393b5-0815-44a7-9c5b-37b717379785",
+          "body": "[\n  {\n    \"node_index\": {{faker 'random.number'}},\n    \"path\": \"\",\n    \"pretty_path\": \"\",\n    \"url\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List the artifacts produced by a given build",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "118bda92-5585-4f76-8ea0-8824039ccbff",
+      "documentation": "Cancels the build, returns a summary of the build.\n",
+      "method": "post",
+      "endpoint": "project/:username/:project/:build_num/cancel",
+      "responses": [
+        {
+          "uuid": "4f7737a4-565f-441e-9f4c-6280f00cb0be",
+          "body": "{\n  \"body\": \"\",\n  \"branch\": \"\",\n  \"build_time_millis\": {{faker 'random.number'}},\n  \"build_url\": \"\",\n  \"committer_email\": \"{{faker 'internet.email'}}\",\n  \"committer_name\": \"\",\n  \"dont_build\": \"\",\n  \"lifecycle\": \"{{oneOf (array 'queued' 'scheduled' 'not_run' 'not_running' 'running' 'finished')}}\",\n  \"previous\": {\n    \"build_num\": {{faker 'random.number'}},\n    \"build_time_millis\": {{faker 'random.number'}},\n    \"status\": \"{{oneOf (array 'retried' 'canceled' 'infrastructure_fail' 'timedout' 'not_run' 'running' 'failed' 'queued' 'scheduled' 'not_running' 'no_tests' 'fixed' 'success')}}\"\n  },\n  \"queued_at\": \"{{faker 'date.recent' 365}}\",\n  \"reponame\": \"\",\n  \"retry_of\": {{faker 'random.number'}},\n  \"start_time\": \"{{faker 'date.recent' 365}}\",\n  \"stop_time\": \"{{faker 'date.recent' 365}}\",\n  \"subject\": \"\",\n  \"username\": \"\",\n  \"vcs_url\": \"\",\n  \"why\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "returns a summary of the build",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6e445375-1e34-4fed-bf7b-99f1fdc2d199",
+      "documentation": "Retries the build, returns a summary of the new build.\n",
+      "method": "post",
+      "endpoint": "project/:username/:project/:build_num/retry",
+      "responses": [
+        {
+          "uuid": "a55db4ba-1cf7-4718-85d9-e55dedff4302",
+          "body": "{\n  \"body\": \"\",\n  \"branch\": \"\",\n  \"build_time_millis\": {{faker 'random.number'}},\n  \"build_url\": \"\",\n  \"committer_email\": \"{{faker 'internet.email'}}\",\n  \"committer_name\": \"\",\n  \"dont_build\": \"\",\n  \"lifecycle\": \"{{oneOf (array 'queued' 'scheduled' 'not_run' 'not_running' 'running' 'finished')}}\",\n  \"previous\": {\n    \"build_num\": {{faker 'random.number'}},\n    \"build_time_millis\": {{faker 'random.number'}},\n    \"status\": \"{{oneOf (array 'retried' 'canceled' 'infrastructure_fail' 'timedout' 'not_run' 'running' 'failed' 'queued' 'scheduled' 'not_running' 'no_tests' 'fixed' 'success')}}\"\n  },\n  \"queued_at\": \"{{faker 'date.recent' 365}}\",\n  \"reponame\": \"\",\n  \"retry_of\": {{faker 'random.number'}},\n  \"start_time\": \"{{faker 'date.recent' 365}}\",\n  \"stop_time\": \"{{faker 'date.recent' 365}}\",\n  \"subject\": \"\",\n  \"username\": \"\",\n  \"vcs_url\": \"\",\n  \"why\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "returns a summary of the new build",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "addd527d-0e8f-40f7-b8e3-a5d771b94173",
+      "documentation": "Provides test metadata for a build\nNote: [Learn how to set up your builds to collect test metadata](https://circleci.com/docs/test-metadata/)\n",
+      "method": "get",
+      "endpoint": "project/:username/:project/:build_num/tests",
+      "responses": [
+        {
+          "uuid": "80a8e871-bac0-4adf-a8cf-6f9b144d1342",
+          "body": "{\n  \"tests\": [\n    {\n      \"classname\": \"\",\n      \"file\": \"\",\n      \"message\": \"\",\n      \"name\": \"\",\n      \"result\": \"{{oneOf (array 'retried' 'canceled' 'infrastructure_fail' 'timedout' 'not_run' 'running' 'failed' 'queued' 'scheduled' 'not_running' 'no_tests' 'fixed' 'success')}}\",\n      \"run_time\": {{faker 'random.number'}},\n      \"source\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "test metadata for a build\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2af17859-43c8-4291-b632-7cf41834fc80",
+      "documentation": "List of all the projects you're following on CircleCI, with build information organized by branch.\n",
+      "method": "get",
+      "endpoint": "projects",
+      "responses": [
+        {
+          "uuid": "cf8f2480-b143-45b1-9cdf-501ac38dbccd",
+          "body": "[\n  {\n    \"aws\": {\n      \"keypair\": \"\"\n    },\n    \"branches\": {},\n    \"campfire_notify_prefs\": \"\",\n    \"campfire_room\": \"\",\n    \"campfire_subdomain\": \"\",\n    \"campfire_token\": \"\",\n    \"compile\": \"\",\n    \"default_branch\": \"\",\n    \"dependencies\": \"\",\n    \"extra\": \"\",\n    \"feature_flags\": {\n      \"build-fork-prs\": {{faker 'random.boolean'}},\n      \"fleet\": {{faker 'random.boolean'}},\n      \"junit\": {{faker 'random.boolean'}},\n      \"oss\": {{faker 'random.boolean'}},\n      \"osx\": {{faker 'random.boolean'}},\n      \"set-github-status\": {{faker 'random.boolean'}},\n      \"trusty-beta\": {{faker 'random.boolean'}}\n    },\n    \"flowdock_api_token\": \"\",\n    \"followed\": {{faker 'random.boolean'}},\n    \"has_usable_key\": {{faker 'random.boolean'}},\n    \"heroku_deploy_user\": \"\",\n    \"hipchat_api_token\": \"\",\n    \"hipchat_notify\": \"\",\n    \"hipchat_notify_prefs\": \"\",\n    \"hipchat_room\": \"\",\n    \"irc_channel\": \"\",\n    \"irc_keyword\": \"\",\n    \"irc_notify_prefs\": \"\",\n    \"irc_password\": \"\",\n    \"irc_server\": \"\",\n    \"irc_username\": \"\",\n    \"language\": \"\",\n    \"oss\": {{faker 'random.boolean'}},\n    \"parallel\": {{faker 'random.number'}},\n    \"reponame\": \"\",\n    \"scopes\": [\n      \"{{oneOf (array 'write-settings' 'view-builds' 'read-settings' 'trigger-builds' 'all' 'status' 'none')}}\"\n    ],\n    \"setup\": \"\",\n    \"slack_api_token\": \"\",\n    \"slack_channel\": \"\",\n    \"slack_channel_override\": \"\",\n    \"slack_notify_prefs\": \"\",\n    \"slack_subdomain\": \"\",\n    \"slack_webhook_url\": \"\",\n    \"ssh_keys\": [\n      \"\"\n    ],\n    \"test\": \"\",\n    \"username\": \"\",\n    \"vcs_type\": \"\",\n    \"vcs_url\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List of all the projects you're following on CircleCI\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5830e560-4ba0-408e-a2f5-333b4181b22f",
+      "documentation": "Build summary for each of the last 30 recent builds, ordered by build_num.\n",
+      "method": "get",
+      "endpoint": "recent-builds",
+      "responses": [
+        {
+          "uuid": "89424191-d563-4d65-8fa4-65c31b37eab5",
+          "body": "[\n  {\n    \"body\": \"\",\n    \"branch\": \"\",\n    \"build_time_millis\": {{faker 'random.number'}},\n    \"build_url\": \"\",\n    \"committer_email\": \"{{faker 'internet.email'}}\",\n    \"committer_name\": \"\",\n    \"dont_build\": \"\",\n    \"lifecycle\": \"{{oneOf (array 'queued' 'scheduled' 'not_run' 'not_running' 'running' 'finished')}}\",\n    \"previous\": {\n      \"build_num\": {{faker 'random.number'}},\n      \"build_time_millis\": {{faker 'random.number'}},\n      \"status\": \"{{oneOf (array 'retried' 'canceled' 'infrastructure_fail' 'timedout' 'not_run' 'running' 'failed' 'queued' 'scheduled' 'not_running' 'no_tests' 'fixed' 'success')}}\"\n    },\n    \"queued_at\": \"{{faker 'date.recent' 365}}\",\n    \"reponame\": \"\",\n    \"retry_of\": {{faker 'random.number'}},\n    \"start_time\": \"{{faker 'date.recent' 365}}\",\n    \"stop_time\": \"{{faker 'date.recent' 365}}\",\n    \"subject\": \"\",\n    \"username\": \"\",\n    \"vcs_url\": \"\",\n    \"why\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Build summary for each of the last 30 recent builds",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2e988a8f-3dde-42f5-abd0-005fdef1ecf3",
+      "documentation": "Adds your Heroku API key to CircleCI, takes apikey as form param name.\n",
+      "method": "post",
+      "endpoint": "user/heroku-key",
+      "responses": [
+        {
+          "uuid": "54befe81-e96d-42d7-a087-e598555dc7d6",
+          "body": "{\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Your Heroku API key is invalid.\n",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

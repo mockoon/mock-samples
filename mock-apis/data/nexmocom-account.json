@@ -1,0 +1,494 @@
+{
+  "uuid": "9b4aa303-005c-42c1-8dfb-30c6cc0dcf24",
+  "lastMigration": 19,
+  "name": "Account API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "dcf2decf-eb89-421c-8d1f-e087fd9283fb",
+      "documentation": "Get Account Balance",
+      "method": "get",
+      "endpoint": "account/get-balance",
+      "responses": [
+        {
+          "uuid": "44b43692-dd7e-40bc-8a6d-bb1bacc1968a",
+          "body": "{\n  \"autoReload\": \"{{oneOf (array 'true' 'false')}}\",\n  \"value\": 10.28\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The current balance of your account",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0d8f0a5c-0517-4394-af89-1fd757fe25ee",
+          "body": "{\n  \"error-code\": \"401\",\n  \"error-code-label\": \"authentication failed\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Not Authorised. You must supply your `api_key` and `api_secret` as query parameters to this request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2d3c1d3a-7c0c-46bc-9a7d-d124c03ab2d0",
+      "documentation": "Change Account Settings",
+      "method": "post",
+      "endpoint": "account/settings",
+      "responses": [
+        {
+          "uuid": "2e9000ea-3057-451d-b0fa-3272185e5596",
+          "body": "{\n  \"dr-callback-url\": \"https://example.com/webhooks/delivery-receipt\",\n  \"max-calls-per-second\": 30,\n  \"max-inbound-request\": 30,\n  \"max-outbound-request\": 30,\n  \"mo-callback-url\": \"https://example.com/webhooks/inbound-sms\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK. Settings were updated if supplied, the details of the current settings are included in the response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5e042a2f-4484-4f78-b916-a7272991d32b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Not Authorised. You must supply your `api_key` and `api_secret` as query parameters to this request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "73953bf1-324b-4664-87bb-8b3ab21374b7",
+      "documentation": "Top Up Account Balance",
+      "method": "post",
+      "endpoint": "account/top-up",
+      "responses": [
+        {
+          "uuid": "16bd41fe-1d22-4ff9-b253-dde7fa051b5c",
+          "body": "{\n  \"error-code\": \"200\",\n  \"error-code-label\": \"success\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fd7b8fc3-89b9-457b-a023-2f729ca1f614",
+          "body": "{\n  \"error-code\": \"401\",\n  \"error-code-label\": \"authentication failed\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Not Authorised",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6a79e170-6048-450e-84ff-b37f4b711983",
+      "documentation": "Retrieve API Secrets",
+      "method": "get",
+      "endpoint": "accounts/:api_key/secrets",
+      "responses": [
+        {
+          "uuid": "208b9c98-bbd1-4a82-a41c-18b235465e6b",
+          "body": "{\n  \"_embedded\": {\n    \"secrets\": [\n      {\n        \"_links\": {\n          \"self\": {\n            \"href\": \"\"\n          }\n        },\n        \"created_at\": \"2017-03-02T16:34:49Z\",\n        \"id\": \"ad6dc56f-07b5-46e1-a527-85530e625800\"\n      }\n    ]\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"\"\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The list of your current API secrets",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b23a70f9-6fa3-43ec-bebc-9c0ec04056ce",
+          "body": "{\n  \"detail\": \"Invalid credentials format. Expected: \\\"Authorization: (Base64(UTF-8(apiKey:secret)))\\\"\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Unauthorized\",\n  \"type\": \"https://developer.nexmo.com/\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Credentials are missing or invalid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4e996fc5-fa70-46a5-83eb-005aa5f614f3",
+          "body": "{\n  \"detail\": \"API key 'abc123' not found\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Invalid API Key\",\n  \"type\": \"https://developer.nexmo.com/api-errors#invalid-api-key\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Item not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8de1081e-13b3-44ce-ae02-cafd96488037",
+      "documentation": "Create API Secret",
+      "method": "post",
+      "endpoint": "accounts/:api_key/secrets",
+      "responses": [
+        {
+          "uuid": "fb090739-eb54-4295-8250-c9c9897da3e3",
+          "body": "{\n  \"_links\": {\n    \"self\": {\n      \"href\": \"\"\n    }\n  },\n  \"created_at\": \"2017-03-02T16:34:49Z\",\n  \"id\": \"ad6dc56f-07b5-46e1-a527-85530e625800\"\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Secret created",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "84cc8654-f867-4e1e-a12a-424ee2a438cd",
+          "body": "{\n  \"detail\": \"The request failed due to secret validation errors\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"invalid_parameters\": [\n    {\n      \"name\": \"secret\",\n      \"reason\": \"Does not meet complexity requirements\"\n    }\n  ],\n  \"title\": \"Bad Request\",\n  \"type\": \"https://developer.nexmo.com/api-errors/account/secret-management#validation\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request. This usually indicates valid data but can also occur when a user has exceeded the allowed number of secrets on their account.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b58511bf-b2b9-4fe3-a3d8-a61495bfaccc",
+          "body": "{\n  \"detail\": \"Invalid credentials format. Expected: \\\"Authorization: (Base64(UTF-8(apiKey:secret)))\\\"\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Unauthorized\",\n  \"type\": \"https://developer.nexmo.com/\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Credentials are missing or invalid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4f834743-ae97-4c1d-bada-0a04af8b8b76",
+          "body": "{\n  \"detail\": \"API key 'abc123' not found\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Invalid API Key\",\n  \"type\": \"https://developer.nexmo.com/api-errors#invalid-api-key\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Item not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "50691926-9276-4ebe-b4b3-5d73ef3e6992",
+      "documentation": "Revoke an API Secret",
+      "method": "delete",
+      "endpoint": "accounts/:api_key/secrets/:secret_id",
+      "responses": [
+        {
+          "uuid": "8b78371f-5921-48c3-a73d-b9b35445145c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Revoked secret response (without body content)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7e963883-4ded-4190-a6ec-867849dd8a00",
+          "body": "{\n  \"detail\": \"Invalid credentials format. Expected: \\\"Authorization: (Base64(UTF-8(apiKey:secret)))\\\"\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Unauthorized\",\n  \"type\": \"https://developer.nexmo.com/\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Credentials are missing or invalid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0bfa540d-df25-4150-ad35-7a09497c5e8d",
+          "body": "{\n  \"detail\": \"Can not delete the last secret. The account must always have at least 1 secret active at any time\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Secret Deletion Forbidden\",\n  \"type\": \"https://developer.nexmo.com/api-errors/account/secret-management#delete-last-secret\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Operation forbidden by permissions or because this is the only API secret and you are required to have at least one.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2759b580-907a-487e-92ac-fcded1eef8ec",
+          "body": "{\n  \"detail\": \"API key 'abc123' not found\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Invalid API Key\",\n  \"type\": \"https://developer.nexmo.com/api-errors#invalid-api-key\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Item not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1eecbe0b-6ca8-4888-acf3-f13e1d3b5809",
+      "documentation": "Retrieve one API Secret",
+      "method": "get",
+      "endpoint": "accounts/:api_key/secrets/:secret_id",
+      "responses": [
+        {
+          "uuid": "2c7d12d5-38fe-4cd6-ab57-7cefb3f5e1fc",
+          "body": "{\n  \"_links\": {\n    \"self\": {\n      \"href\": \"\"\n    }\n  },\n  \"created_at\": \"2017-03-02T16:34:49Z\",\n  \"id\": \"ad6dc56f-07b5-46e1-a527-85530e625800\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "API secret response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "52eccd9d-b15f-4854-a527-7981c266427f",
+          "body": "{\n  \"detail\": \"Invalid credentials format. Expected: \\\"Authorization: (Base64(UTF-8(apiKey:secret)))\\\"\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Unauthorized\",\n  \"type\": \"https://developer.nexmo.com/\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Credentials are missing or invalid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2e9314a3-bca5-46ce-8182-d754fd731c99",
+          "body": "{\n  \"detail\": \"API key 'abc123' not found\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Invalid API Key\",\n  \"type\": \"https://developer.nexmo.com/api-errors#invalid-api-key\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Item not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

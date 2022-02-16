@@ -1,0 +1,1412 @@
+{
+  "uuid": "59bbb5b4-b5af-4e29-b4f6-c28755b59e58",
+  "lastMigration": 19,
+  "name": "PDF Generator API",
+  "endpointPrefix": "api/v3",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "6fce00bb-16b4-4765-bee4-b3a47a273e34",
+      "documentation": "Get templates",
+      "method": "get",
+      "endpoint": "templates",
+      "responses": [
+        {
+          "uuid": "737f8eb1-8142-4355-9d1c-33d5f295a4a6",
+          "body": "{\n  \"response\": [\n    {\n      \"id\": 24382,\n      \"modified\": \"2017-10-21 11:49:28\",\n      \"name\": \"Invoice template\",\n      \"owner\": true,\n      \"tags\": [\n        \"invoice\",\n        \"orders\"\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of template objects",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "28642220-0dcb-45c9-bfae-74f5c32ed449",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Authentication failed: request expired' 'Authentication failed: signature or secret missing' 'Authentication failed: workspace missing' 'Authentication failed: key missing' 'Authentication failed: property 'iss' (issuer) missing in JWT' 'Authentication failed: property 'sub' (subject) missing in JWT' 'Authentication failed: property 'exp' (expiration time) missing in JWT' 'Authentication failed: invalid 'iss' (issuer)' 'Authentication failed: incorrect signature' 'Authentication failed')}}\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "01eeb597-46ba-41be-988c-e4766f96c9c3",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Your account has exceeded the monthly document generation limit.')}}\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cabbd324-37dd-49a0-b1e9-edd67646ba07",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Entity not found' 'Resource not found' 'None of the templates is available for the workspace.')}}\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "da1bde5e-b52d-4211-9f64-a8d1f74ee561",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Unable to parse JSON, please check formatting' 'Required parameter missing' 'Required parameter missing: template definition not defined' 'Required parameter missing: template not defined')}}\",\n  \"status\": 422\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c473fe46-74bb-4091-a85a-b76261d6819e",
+          "body": "{\n  \"error\": \"Internal error\",\n  \"status\": 500\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "67a5d88c-5c8d-4b84-ae26-10d94a138cf5",
+      "documentation": "Create template",
+      "method": "post",
+      "endpoint": "templates",
+      "responses": [
+        {
+          "uuid": "5b770557-c555-4456-af8d-49f31bb3ddad",
+          "body": "{\n  \"response\": {\n    \"dataSettings\": {\n      \"filterBy\": [\n        {}\n      ],\n      \"sortBy\": [\n        {}\n      ]\n    },\n    \"editor\": {\n      \"heightMultiplier\": 2\n    },\n    \"id\": 24382,\n    \"isDraft\": true,\n    \"layout\": {\n      \"emptyLabels\": {{faker 'random.number'}},\n      \"format\": \"{{oneOf (array 'A4' 'letter' 'custom')}}\",\n      \"height\": 29.7,\n      \"margins\": {\n        \"bottom\": 0.5,\n        \"left\": 0.5,\n        \"right\": 0.5,\n        \"top\": 0.5\n      },\n      \"orientation\": \"{{oneOf (array 'portrait' 'landscape')}}\",\n      \"repeatLayout\": {\n        \"format\": \"{{oneOf (array 'A4' 'letter' 'custom')}}\",\n        \"height\": 29.7,\n        \"width\": 21\n      },\n      \"rotation\": \"{{oneOf (array '0' '90' '180' '270')}}\",\n      \"unit\": \"{{oneOf (array 'cm' 'in')}}\",\n      \"width\": 21\n    },\n    \"name\": \"Invoice template\",\n    \"pages\": [\n      {\n        \"components\": [\n          {\n            \"cls\": \"{{oneOf (array 'labelComponent' 'numberComponent' 'textComponent' 'imageComponent' 'dateComponent' 'hlineComponent' 'vlineComponent' 'tableComponent' 'compositeComponent' 'barcodeComponent' 'qrcodeComponent' 'chartComponent' 'rectangleComponent' 'headerComponent' 'footerComponent' 'checkboxComponent' 'radioComponent')}}\",\n            \"dataIndex\": \"line_items\",\n            \"height\": 1,\n            \"id\": \"component-12313\",\n            \"left\": 2.5,\n            \"top\": 4.2,\n            \"value\": \"${price}\",\n            \"width\": 3.5,\n            \"zindex\": 102\n          }\n        ],\n        \"height\": 29.7,\n        \"margins\": {\n          \"bottom\": 0.5,\n          \"right\": 0.5\n        },\n        \"width\": 21\n      }\n    ],\n    \"tags\": [\n      \"invoice\",\n      \"orders\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Template configuration as JSON object",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c68deade-8b81-440c-9d2b-73f6065ab06e",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Authentication failed: request expired' 'Authentication failed: signature or secret missing' 'Authentication failed: workspace missing' 'Authentication failed: key missing' 'Authentication failed: property 'iss' (issuer) missing in JWT' 'Authentication failed: property 'sub' (subject) missing in JWT' 'Authentication failed: property 'exp' (expiration time) missing in JWT' 'Authentication failed: invalid 'iss' (issuer)' 'Authentication failed: incorrect signature' 'Authentication failed')}}\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2fe925cd-30c8-4677-b54a-b05511e5a82a",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Your account has exceeded the monthly document generation limit.')}}\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9b5170a5-da32-4b48-8dbc-75f8f55415c4",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Entity not found' 'Resource not found' 'None of the templates is available for the workspace.')}}\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cb8b6cc9-8560-4fc1-a785-de528bad1a99",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Unable to parse JSON, please check formatting' 'Required parameter missing' 'Required parameter missing: template definition not defined' 'Required parameter missing: template not defined')}}\",\n  \"status\": 422\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0bbbc46a-4da4-45dd-bba0-cb82c5e1644d",
+          "body": "{\n  \"error\": \"Internal error\",\n  \"status\": 500\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "165906d0-7ab7-42f8-825d-06aca0a4c69e",
+      "documentation": "Generate document (multiple templates)",
+      "method": "post",
+      "endpoint": "templates/output",
+      "responses": [
+        {
+          "uuid": "38f2ceb4-e031-4db4-a0d0-d2ccb401d9ba",
+          "body": "{\n  \"meta\": {\n    \"content-type\": \"application/pdf\",\n    \"display_name\": \"a2bd25b8921f3dc7a440fd7f427f90a4\",\n    \"encoding\": \"base64\",\n    \"name\": \"a2bd25b8921f3dc7a440fd7f427f90a4.pdf\"\n  },\n  \"response\": \"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8PCAvVHlwZSA...\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Document data",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "53df0e8b-9ad3-4c71-a6f1-575a541eb260",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Authentication failed: request expired' 'Authentication failed: signature or secret missing' 'Authentication failed: workspace missing' 'Authentication failed: key missing' 'Authentication failed: property 'iss' (issuer) missing in JWT' 'Authentication failed: property 'sub' (subject) missing in JWT' 'Authentication failed: property 'exp' (expiration time) missing in JWT' 'Authentication failed: invalid 'iss' (issuer)' 'Authentication failed: incorrect signature' 'Authentication failed')}}\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b560c424-a9f4-4e27-b4dc-f26d5129a0b2",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Your account has exceeded the monthly document generation limit.')}}\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "74c76bf1-0a94-4c95-a239-50ecfeeb3b78",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Entity not found' 'Resource not found' 'None of the templates is available for the workspace.')}}\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b5bd6fa7-fe23-4d48-bc5d-d71bb2869dca",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Unable to parse JSON, please check formatting' 'Required parameter missing' 'Required parameter missing: template definition not defined' 'Required parameter missing: template not defined')}}\",\n  \"status\": 422\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1da6b539-3da2-4e51-905c-f41a18d18023",
+          "body": "{\n  \"error\": \"Internal error\",\n  \"status\": 500\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f6b67985-25c8-48fa-8075-cb5677935978",
+      "documentation": "Delete template",
+      "method": "delete",
+      "endpoint": "templates/templateId",
+      "responses": [
+        {
+          "uuid": "61a858d1-934a-4077-bb3b-126a7407ec67",
+          "body": "{\n  \"response\": {\n    \"success\": true\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The request was successfully executed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d6604ecd-8e0a-4bf4-a625-2dcf47457c6e",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Authentication failed: request expired' 'Authentication failed: signature or secret missing' 'Authentication failed: workspace missing' 'Authentication failed: key missing' 'Authentication failed: property 'iss' (issuer) missing in JWT' 'Authentication failed: property 'sub' (subject) missing in JWT' 'Authentication failed: property 'exp' (expiration time) missing in JWT' 'Authentication failed: invalid 'iss' (issuer)' 'Authentication failed: incorrect signature' 'Authentication failed')}}\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c475059b-4175-4559-afdd-466049d40d6b",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Your account has exceeded the monthly document generation limit.')}}\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2e7f1bda-886b-49a8-b118-0b11071ddf99",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Entity not found' 'Resource not found' 'None of the templates is available for the workspace.')}}\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "080841f0-a186-46c6-aec4-3efd2e5da0c3",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Unable to parse JSON, please check formatting' 'Required parameter missing' 'Required parameter missing: template definition not defined' 'Required parameter missing: template not defined')}}\",\n  \"status\": 422\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "25983710-f9d0-4a8a-9d8b-06390e52e832",
+          "body": "{\n  \"error\": \"Internal error\",\n  \"status\": 500\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1af9e425-cdde-426c-9af2-967850751713",
+      "documentation": "Get template",
+      "method": "get",
+      "endpoint": "templates/templateId",
+      "responses": [
+        {
+          "uuid": "e2fb19a8-e585-4593-b895-7e68d44b1c6b",
+          "body": "{\n  \"response\": {\n    \"dataSettings\": {\n      \"filterBy\": [\n        {}\n      ],\n      \"sortBy\": [\n        {}\n      ]\n    },\n    \"editor\": {\n      \"heightMultiplier\": 2\n    },\n    \"id\": 24382,\n    \"isDraft\": true,\n    \"layout\": {\n      \"emptyLabels\": {{faker 'random.number'}},\n      \"format\": \"{{oneOf (array 'A4' 'letter' 'custom')}}\",\n      \"height\": 29.7,\n      \"margins\": {\n        \"bottom\": 0.5,\n        \"left\": 0.5,\n        \"right\": 0.5,\n        \"top\": 0.5\n      },\n      \"orientation\": \"{{oneOf (array 'portrait' 'landscape')}}\",\n      \"repeatLayout\": {\n        \"format\": \"{{oneOf (array 'A4' 'letter' 'custom')}}\",\n        \"height\": 29.7,\n        \"width\": 21\n      },\n      \"rotation\": \"{{oneOf (array '0' '90' '180' '270')}}\",\n      \"unit\": \"{{oneOf (array 'cm' 'in')}}\",\n      \"width\": 21\n    },\n    \"name\": \"Invoice template\",\n    \"pages\": [\n      {\n        \"components\": [\n          {\n            \"cls\": \"{{oneOf (array 'labelComponent' 'numberComponent' 'textComponent' 'imageComponent' 'dateComponent' 'hlineComponent' 'vlineComponent' 'tableComponent' 'compositeComponent' 'barcodeComponent' 'qrcodeComponent' 'chartComponent' 'rectangleComponent' 'headerComponent' 'footerComponent' 'checkboxComponent' 'radioComponent')}}\",\n            \"dataIndex\": \"line_items\",\n            \"height\": 1,\n            \"id\": \"component-12313\",\n            \"left\": 2.5,\n            \"top\": 4.2,\n            \"value\": \"${price}\",\n            \"width\": 3.5,\n            \"zindex\": 102\n          }\n        ],\n        \"height\": 29.7,\n        \"margins\": {\n          \"bottom\": 0.5,\n          \"right\": 0.5\n        },\n        \"width\": 21\n      }\n    ],\n    \"tags\": [\n      \"invoice\",\n      \"orders\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Template configuration as JSON object",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "61b51fa9-d732-46cb-8c3b-b1dd5784c1cf",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Authentication failed: request expired' 'Authentication failed: signature or secret missing' 'Authentication failed: workspace missing' 'Authentication failed: key missing' 'Authentication failed: property 'iss' (issuer) missing in JWT' 'Authentication failed: property 'sub' (subject) missing in JWT' 'Authentication failed: property 'exp' (expiration time) missing in JWT' 'Authentication failed: invalid 'iss' (issuer)' 'Authentication failed: incorrect signature' 'Authentication failed')}}\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8b273659-3bd3-4c40-8082-2502809bc6cd",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Your account has exceeded the monthly document generation limit.')}}\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dd94f7d1-f8a9-41c5-ba3b-be11c4c51841",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Entity not found' 'Resource not found' 'None of the templates is available for the workspace.')}}\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e026bca1-9cbe-4411-b42a-013ce520433a",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Unable to parse JSON, please check formatting' 'Required parameter missing' 'Required parameter missing: template definition not defined' 'Required parameter missing: template not defined')}}\",\n  \"status\": 422\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fbb6ffc7-3dcb-4558-a1be-7c7ea4481d1b",
+          "body": "{\n  \"error\": \"Internal error\",\n  \"status\": 500\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f9d79a4a-2905-4ce1-9d15-c72fac6c83ea",
+      "documentation": "Update template",
+      "method": "put",
+      "endpoint": "templates/templateId",
+      "responses": [
+        {
+          "uuid": "2052180e-d045-4979-8b72-439a58809f8b",
+          "body": "{\n  \"response\": {\n    \"dataSettings\": {\n      \"filterBy\": [\n        {}\n      ],\n      \"sortBy\": [\n        {}\n      ]\n    },\n    \"editor\": {\n      \"heightMultiplier\": 2\n    },\n    \"id\": 24382,\n    \"isDraft\": true,\n    \"layout\": {\n      \"emptyLabels\": {{faker 'random.number'}},\n      \"format\": \"{{oneOf (array 'A4' 'letter' 'custom')}}\",\n      \"height\": 29.7,\n      \"margins\": {\n        \"bottom\": 0.5,\n        \"left\": 0.5,\n        \"right\": 0.5,\n        \"top\": 0.5\n      },\n      \"orientation\": \"{{oneOf (array 'portrait' 'landscape')}}\",\n      \"repeatLayout\": {\n        \"format\": \"{{oneOf (array 'A4' 'letter' 'custom')}}\",\n        \"height\": 29.7,\n        \"width\": 21\n      },\n      \"rotation\": \"{{oneOf (array '0' '90' '180' '270')}}\",\n      \"unit\": \"{{oneOf (array 'cm' 'in')}}\",\n      \"width\": 21\n    },\n    \"name\": \"Invoice template\",\n    \"pages\": [\n      {\n        \"components\": [\n          {\n            \"cls\": \"{{oneOf (array 'labelComponent' 'numberComponent' 'textComponent' 'imageComponent' 'dateComponent' 'hlineComponent' 'vlineComponent' 'tableComponent' 'compositeComponent' 'barcodeComponent' 'qrcodeComponent' 'chartComponent' 'rectangleComponent' 'headerComponent' 'footerComponent' 'checkboxComponent' 'radioComponent')}}\",\n            \"dataIndex\": \"line_items\",\n            \"height\": 1,\n            \"id\": \"component-12313\",\n            \"left\": 2.5,\n            \"top\": 4.2,\n            \"value\": \"${price}\",\n            \"width\": 3.5,\n            \"zindex\": 102\n          }\n        ],\n        \"height\": 29.7,\n        \"margins\": {\n          \"bottom\": 0.5,\n          \"right\": 0.5\n        },\n        \"width\": 21\n      }\n    ],\n    \"tags\": [\n      \"invoice\",\n      \"orders\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Template configuration as JSON object",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e58ab3e7-b306-4499-9267-85dc07ec6c81",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Authentication failed: request expired' 'Authentication failed: signature or secret missing' 'Authentication failed: workspace missing' 'Authentication failed: key missing' 'Authentication failed: property 'iss' (issuer) missing in JWT' 'Authentication failed: property 'sub' (subject) missing in JWT' 'Authentication failed: property 'exp' (expiration time) missing in JWT' 'Authentication failed: invalid 'iss' (issuer)' 'Authentication failed: incorrect signature' 'Authentication failed')}}\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "78861f03-a475-49da-bf96-7de39caa8570",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Your account has exceeded the monthly document generation limit.')}}\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "85083ccb-6c59-4abe-9c98-0c813af7d248",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Entity not found' 'Resource not found' 'None of the templates is available for the workspace.')}}\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e920c517-82e8-48ef-8c6d-e1d804a76294",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Unable to parse JSON, please check formatting' 'Required parameter missing' 'Required parameter missing: template definition not defined' 'Required parameter missing: template not defined')}}\",\n  \"status\": 422\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ae2c3073-a068-47a8-9eca-6fb3833b8e21",
+          "body": "{\n  \"error\": \"Internal error\",\n  \"status\": 500\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "fcf0548e-4b8e-4246-b3fc-7839807efa8d",
+      "documentation": "Copy template",
+      "method": "post",
+      "endpoint": "templates/templateId/copy",
+      "responses": [
+        {
+          "uuid": "cd91ef1d-7d5a-44f6-80cb-331fee301f75",
+          "body": "{\n  \"response\": {\n    \"dataSettings\": {\n      \"filterBy\": [\n        {}\n      ],\n      \"sortBy\": [\n        {}\n      ]\n    },\n    \"editor\": {\n      \"heightMultiplier\": 2\n    },\n    \"id\": 24382,\n    \"isDraft\": true,\n    \"layout\": {\n      \"emptyLabels\": {{faker 'random.number'}},\n      \"format\": \"{{oneOf (array 'A4' 'letter' 'custom')}}\",\n      \"height\": 29.7,\n      \"margins\": {\n        \"bottom\": 0.5,\n        \"left\": 0.5,\n        \"right\": 0.5,\n        \"top\": 0.5\n      },\n      \"orientation\": \"{{oneOf (array 'portrait' 'landscape')}}\",\n      \"repeatLayout\": {\n        \"format\": \"{{oneOf (array 'A4' 'letter' 'custom')}}\",\n        \"height\": 29.7,\n        \"width\": 21\n      },\n      \"rotation\": \"{{oneOf (array '0' '90' '180' '270')}}\",\n      \"unit\": \"{{oneOf (array 'cm' 'in')}}\",\n      \"width\": 21\n    },\n    \"name\": \"Invoice template\",\n    \"pages\": [\n      {\n        \"components\": [\n          {\n            \"cls\": \"{{oneOf (array 'labelComponent' 'numberComponent' 'textComponent' 'imageComponent' 'dateComponent' 'hlineComponent' 'vlineComponent' 'tableComponent' 'compositeComponent' 'barcodeComponent' 'qrcodeComponent' 'chartComponent' 'rectangleComponent' 'headerComponent' 'footerComponent' 'checkboxComponent' 'radioComponent')}}\",\n            \"dataIndex\": \"line_items\",\n            \"height\": 1,\n            \"id\": \"component-12313\",\n            \"left\": 2.5,\n            \"top\": 4.2,\n            \"value\": \"${price}\",\n            \"width\": 3.5,\n            \"zindex\": 102\n          }\n        ],\n        \"height\": 29.7,\n        \"margins\": {\n          \"bottom\": 0.5,\n          \"right\": 0.5\n        },\n        \"width\": 21\n      }\n    ],\n    \"tags\": [\n      \"invoice\",\n      \"orders\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Template configuration as JSON object",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a0fb0736-3fde-4013-b76c-48c2278b6d9f",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Authentication failed: request expired' 'Authentication failed: signature or secret missing' 'Authentication failed: workspace missing' 'Authentication failed: key missing' 'Authentication failed: property 'iss' (issuer) missing in JWT' 'Authentication failed: property 'sub' (subject) missing in JWT' 'Authentication failed: property 'exp' (expiration time) missing in JWT' 'Authentication failed: invalid 'iss' (issuer)' 'Authentication failed: incorrect signature' 'Authentication failed')}}\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d6816b92-1df1-4a4e-b38f-4e27d409c620",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Your account has exceeded the monthly document generation limit.')}}\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d7f53f18-8b28-4149-a838-50ff682d12a9",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Entity not found' 'Resource not found' 'None of the templates is available for the workspace.')}}\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8272a952-f0b7-41ea-8efe-7ffe4b1da11e",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Unable to parse JSON, please check formatting' 'Required parameter missing' 'Required parameter missing: template definition not defined' 'Required parameter missing: template not defined')}}\",\n  \"status\": 422\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9a395007-54d7-40c3-992d-2ca9105a3746",
+          "body": "{\n  \"error\": \"Internal error\",\n  \"status\": 500\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7dbe6e8c-4257-428b-9622-75e4b7c6c6a5",
+      "documentation": "Open editor",
+      "method": "post",
+      "endpoint": "templates/templateId/editor",
+      "responses": [
+        {
+          "uuid": "7369d2fb-d5de-479b-ba78-d3a1f72e0992",
+          "body": "{\n  \"response\": \"https://us1.pdfgeneratorapi.com/editor/open/2ff98760d39456c4b2cf974fef005ecf\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns an URL which you can use to redirect your user to the editor or use as iframe source",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "674cf09f-092e-4ab6-b97a-24efa6398a10",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Authentication failed: request expired' 'Authentication failed: signature or secret missing' 'Authentication failed: workspace missing' 'Authentication failed: key missing' 'Authentication failed: property 'iss' (issuer) missing in JWT' 'Authentication failed: property 'sub' (subject) missing in JWT' 'Authentication failed: property 'exp' (expiration time) missing in JWT' 'Authentication failed: invalid 'iss' (issuer)' 'Authentication failed: incorrect signature' 'Authentication failed')}}\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "be5308c6-0655-4459-9686-7114a5642c85",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Your account has exceeded the monthly document generation limit.')}}\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "291b0706-5dde-48d9-8172-739e86c9f263",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Entity not found' 'Resource not found' 'None of the templates is available for the workspace.')}}\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9971cfdc-f119-44b4-a279-793babe85c37",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Unable to parse JSON, please check formatting' 'Required parameter missing' 'Required parameter missing: template definition not defined' 'Required parameter missing: template not defined')}}\",\n  \"status\": 422\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2da89b65-94ed-4c7d-9942-cd05f2855f3d",
+          "body": "{\n  \"error\": \"Internal error\",\n  \"status\": 500\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b24996b6-c142-478e-a108-51d468d2aab0",
+      "documentation": "Generate document",
+      "method": "post",
+      "endpoint": "templates/templateId/output",
+      "responses": [
+        {
+          "uuid": "b05d1251-ea93-4730-b609-9aea2ada25fb",
+          "body": "{\n  \"meta\": {\n    \"content-type\": \"application/pdf\",\n    \"display_name\": \"a2bd25b8921f3dc7a440fd7f427f90a4\",\n    \"encoding\": \"base64\",\n    \"name\": \"a2bd25b8921f3dc7a440fd7f427f90a4.pdf\"\n  },\n  \"response\": \"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8PCAvVHlwZSA...\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Document data",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e3f140f8-a00f-4716-b1e6-7cbf1348c5a1",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Authentication failed: request expired' 'Authentication failed: signature or secret missing' 'Authentication failed: workspace missing' 'Authentication failed: key missing' 'Authentication failed: property 'iss' (issuer) missing in JWT' 'Authentication failed: property 'sub' (subject) missing in JWT' 'Authentication failed: property 'exp' (expiration time) missing in JWT' 'Authentication failed: invalid 'iss' (issuer)' 'Authentication failed: incorrect signature' 'Authentication failed')}}\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "79b0ad8d-439d-45f6-9723-0dab29cd1830",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Your account has exceeded the monthly document generation limit.')}}\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f64d2e32-0717-4072-aacb-fcfb8504e4b1",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Entity not found' 'Resource not found' 'None of the templates is available for the workspace.')}}\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8f277eda-b016-4d5e-8491-564649a9f32f",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Unable to parse JSON, please check formatting' 'Required parameter missing' 'Required parameter missing: template definition not defined' 'Required parameter missing: template not defined')}}\",\n  \"status\": 422\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "76c0abcf-e740-4d64-b908-e53403c26e19",
+          "body": "{\n  \"error\": \"Internal error\",\n  \"status\": 500\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ba02688f-6593-44b0-ae9f-825072e5624f",
+      "documentation": "Delete workspace",
+      "method": "delete",
+      "endpoint": "workspaces/workspaceId",
+      "responses": [
+        {
+          "uuid": "1bd2e4c0-af88-4692-8e96-bbd8ce8ea93b",
+          "body": "{\n  \"response\": {\n    \"success\": true\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The request was successfully executed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a78f4b2f-f4c2-4402-9675-7df73acf12df",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Authentication failed: request expired' 'Authentication failed: signature or secret missing' 'Authentication failed: workspace missing' 'Authentication failed: key missing' 'Authentication failed: property 'iss' (issuer) missing in JWT' 'Authentication failed: property 'sub' (subject) missing in JWT' 'Authentication failed: property 'exp' (expiration time) missing in JWT' 'Authentication failed: invalid 'iss' (issuer)' 'Authentication failed: incorrect signature' 'Authentication failed')}}\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "871367e1-0504-4e93-b673-b21384ea7b94",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Your account has exceeded the monthly document generation limit.')}}\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4a4ab378-c332-466f-a283-c87922608051",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Entity not found' 'Resource not found' 'None of the templates is available for the workspace.')}}\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "347cccfb-f337-431d-997b-f0ad15080ab7",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Unable to parse JSON, please check formatting' 'Required parameter missing' 'Required parameter missing: template definition not defined' 'Required parameter missing: template not defined')}}\",\n  \"status\": 422\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "47301f1e-ab0f-4695-b57f-3f9d50912ca2",
+          "body": "{\n  \"error\": \"Internal error\",\n  \"status\": 500\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "848ceaa4-9ccc-4322-8bec-39f0d2adb65a",
+      "documentation": "Get workspace",
+      "method": "get",
+      "endpoint": "workspaces/workspaceId",
+      "responses": [
+        {
+          "uuid": "bce21266-1e07-4480-984f-aba1a4ab7565",
+          "body": "{\n  \"response\": {\n    \"created_at\": \"2020-04-01 12:03:12\",\n    \"id\": 1,\n    \"identifier\": \"demo.example@actualreports.com\",\n    \"is_master_workspace\": {{faker 'random.boolean'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Workspace information",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9ed083cb-2dd8-4d4d-b0a3-3eb1bf9650c3",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Authentication failed: request expired' 'Authentication failed: signature or secret missing' 'Authentication failed: workspace missing' 'Authentication failed: key missing' 'Authentication failed: property 'iss' (issuer) missing in JWT' 'Authentication failed: property 'sub' (subject) missing in JWT' 'Authentication failed: property 'exp' (expiration time) missing in JWT' 'Authentication failed: invalid 'iss' (issuer)' 'Authentication failed: incorrect signature' 'Authentication failed')}}\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a236e296-955a-45a5-bb02-55033bf04931",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Your account has exceeded the monthly document generation limit.')}}\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "381b8207-7ab1-4e88-ae91-3cfa44e0d318",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Entity not found' 'Resource not found' 'None of the templates is available for the workspace.')}}\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e22d8909-7fc1-4323-b352-17d652f1f2fe",
+          "body": "{\n  \"error\": \"{{oneOf (array 'Unable to parse JSON, please check formatting' 'Required parameter missing' 'Required parameter missing: template definition not defined' 'Required parameter missing: template not defined')}}\",\n  \"status\": 422\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4a008fed-37c3-433c-89c1-460369d9f88f",
+          "body": "{\n  \"error\": \"Internal error\",\n  \"status\": 500\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,535 @@
+{
+  "uuid": "daca57ac-1d8c-40ba-86ed-4b31b45a0af7",
+  "lastMigration": 19,
+  "name": "HealthcareApisClient",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "b18973dd-7a17-40f3-9e56-6954c1e50e76",
+      "documentation": "Lists all of the available Healthcare service REST API operations.",
+      "method": "get",
+      "endpoint": "providers/Microsoft.HealthcareApis/operations",
+      "responses": [
+        {
+          "uuid": "81c10bf2-1db9-4f5e-9a23-491249732061",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"display\": {\n        \"description\": \"\",\n        \"operation\": \"\",\n        \"provider\": \"\",\n        \"resource\": \"\"\n      },\n      \"name\": \"\",\n      \"origin\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK. The request has succeeded.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cdab88a7-9f7e-4da2-9360-dec2c4e6fb46",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\",\n    \"target\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "DefaultErrorResponse",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f42dea90-13b3-468a-b77a-656d523dcf26",
+      "documentation": "Check if a service instance name is available.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.HealthcareApis/checkNameAvailability",
+      "responses": [
+        {
+          "uuid": "4506a409-fed3-4e3c-9979-b9e5fef8669d",
+          "body": "{\n  \"message\": \"\",\n  \"nameAvailable\": {{faker 'random.boolean'}},\n  \"reason\": \"{{oneOf (array 'Invalid' 'AlreadyExists')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "This is a synchronous operation. The body contains a JSON-serialized response that specifies whether the service name is available. If the name is not available, the body contains the reason.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a5340370-17c3-43e3-8cf8-e01e001a54b9",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\",\n    \"target\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "DefaultErrorResponse",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1d4e6db1-62ee-4d75-b019-297ccce97d40",
+      "documentation": "Get the operation result for a long running operation.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.HealthcareApis/locations/:locationName/operationresults/:operationResultId",
+      "responses": [
+        {
+          "uuid": "ef4c31b4-4b8a-46ef-9923-ced6fbc4ae58",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": \"\",\n  \"startTime\": \"\",\n  \"status\": \"{{oneOf (array 'Canceled' 'Succeeded' 'Failed' 'Requested' 'Running')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The body contains all of the properties of the operation result.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "edc674ff-161e-4410-9bec-2296d4cb0987",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\",\n    \"target\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No operation result was found matching operationResultId.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d92fce58-e446-4cb1-9f04-97390013cbb5",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\",\n    \"target\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Default error response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2ff60794-f3a3-4c7e-8225-da19b06fcb52",
+      "documentation": "Get all the service instances in a subscription.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.HealthcareApis/services",
+      "responses": [
+        {
+          "uuid": "cece611a-3b39-4b16-aad3-7ac1d346b1ad",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"etag\": \"\",\n      \"id\": \"\",\n      \"kind\": \"{{oneOf (array 'fhir' 'fhir-Stu3' 'fhir-R4')}}\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"tags\": {},\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "This is a synchronous operation. The body contains a JSON-serialized array of the metadata from all the service instances in the subscription.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a2827e58-1872-44c0-a15c-82743ddeef6f",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\",\n    \"target\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "DefaultErrorResponse",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "740470d3-7f94-4a60-b2ee-ee26431fd3e0",
+      "documentation": "Get all the service instances in a resource group.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.HealthcareApis/services",
+      "responses": [
+        {
+          "uuid": "3fe128b1-e4f7-437a-9365-061253dc5a3f",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"etag\": \"\",\n      \"id\": \"\",\n      \"kind\": \"{{oneOf (array 'fhir' 'fhir-Stu3' 'fhir-R4')}}\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"tags\": {},\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "This is a synchronous operation. The body contains a JSON-serialized array of the metadata from all the service instances in the resource group.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cad13667-a4c8-4c62-80ff-614f378e0b5a",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\",\n    \"target\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "DefaultErrorResponse",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "95a97f2f-c161-4571-8866-89b190498b63",
+      "documentation": "Delete a service instance.",
+      "method": "delete",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.HealthcareApis/services/:resourceName",
+      "responses": [
+        {
+          "uuid": "5c002c9b-1593-49be-9340-81296937e186",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Accepted - Delete request accepted; the operation will complete asynchronously.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e697350d-c738-4936-b702-3290131a24ba",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "The resource does not exist.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9e8bfe20-a7c7-41cd-be08-1c9113411b4c",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\",\n    \"target\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "DefaultErrorResponse",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7e1c8e54-43be-4960-9949-faa2e194c09a",
+      "documentation": "Get the metadata of a service instance.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.HealthcareApis/services/:resourceName",
+      "responses": [
+        {
+          "uuid": "16a2378e-fce9-4ee4-ae3a-3a6b4567dc7e",
+          "body": "{\n  \"etag\": \"\",\n  \"id\": \"\",\n  \"kind\": \"{{oneOf (array 'fhir' 'fhir-Stu3' 'fhir-R4')}}\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The body contains all of the properties of the service instance.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9888e57a-0b71-48c4-8e7b-61230feb8811",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\",\n    \"target\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Default error response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "351fe46e-08cb-4293-a510-0056930c40ce",
+      "documentation": "Update the metadata of a service instance.",
+      "method": "patch",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.HealthcareApis/services/:resourceName",
+      "responses": [
+        {
+          "uuid": "5391e9f4-ddd2-4b87-b4d5-613598b152aa",
+          "body": "{\n  \"etag\": \"\",\n  \"id\": \"\",\n  \"kind\": \"{{oneOf (array 'fhir' 'fhir-Stu3' 'fhir-R4')}}\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The tags for the resource were updated successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8dec1695-0d15-43ef-98dc-9b2cb5a21ecf",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\",\n    \"target\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "DefaultErrorResponse",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "055399e1-6126-4204-a89e-0e2146db6774",
+      "documentation": "Create or update the metadata of a service instance.",
+      "method": "put",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.HealthcareApis/services/:resourceName",
+      "responses": [
+        {
+          "uuid": "d6521191-3e28-4c1b-baf1-df717f8cdd7a",
+          "body": "{\n  \"etag\": \"\",\n  \"id\": \"\",\n  \"kind\": \"{{oneOf (array 'fhir' 'fhir-Stu3' 'fhir-R4')}}\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Updated - Put request accepted and an existing resource is being updated; the operation will complete asynchronously.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f05697ef-0d91-47cd-bc13-212874a75606",
+          "body": "{\n  \"etag\": \"\",\n  \"id\": \"\",\n  \"kind\": \"{{oneOf (array 'fhir' 'fhir-Stu3' 'fhir-R4')}}\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Created - Put request accepted and a new resource was created; the operation will complete asynchronously.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2c7942cd-f7a9-4bb7-8d97-5b3d4086fe0c",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\",\n    \"target\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "DefaultErrorResponse",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

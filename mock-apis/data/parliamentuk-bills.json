@@ -1,0 +1,1120 @@
+{
+  "uuid": "0015c971-a243-423f-b9e0-4d2a5dd91502",
+  "lastMigration": 19,
+  "name": "Bills API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "dfd9fcca-a73a-4842-b6c6-515d15f3f366",
+      "documentation": "Returns a list of Bill types.",
+      "method": "get",
+      "endpoint": "api/v1/BillTypes",
+      "responses": [
+        {
+          "uuid": "5c6dca6e-4a08-4d0a-bd79-64b7150309f9",
+          "body": "{\n  \"items\": [\n    {\n      \"category\": \"{{oneOf (array 'Public' 'Private' 'Hybrid')}}\",\n      \"description\": \"\",\n      \"id\": {{faker 'random.number'}},\n      \"name\": \"\"\n    }\n  ],\n  \"itemsPerPage\": {{faker 'random.number'}},\n  \"totalResults\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6dcd76f3-db46-4e6e-a357-9351ac6de42b",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "70890db0-1af0-4e01-bc09-d6af55577336",
+      "documentation": "Returns a list of Bills.",
+      "method": "get",
+      "endpoint": "api/v1/Bills",
+      "responses": [
+        {
+          "uuid": "c8dad8cb-fb13-4f14-8104-d51b9710bd1c",
+          "body": "{\n  \"items\": [\n    {\n      \"billId\": {{faker 'random.number'}},\n      \"billTypeId\": {{faker 'random.number'}},\n      \"billWithdrawn\": \"{{faker 'date.recent' 365}}\",\n      \"currentHouse\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n      \"currentStage\": {\n        \"abbreviation\": \"\",\n        \"description\": \"\",\n        \"house\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n        \"id\": {{faker 'random.number'}},\n        \"sessionId\": {{faker 'random.number'}},\n        \"sortOrder\": {{faker 'random.number'}},\n        \"stageId\": {{faker 'random.number'}},\n        \"stageSittings\": [\n          {\n            \"billId\": {{faker 'random.number'}},\n            \"billStageId\": {{faker 'random.number'}},\n            \"date\": \"{{faker 'date.recent' 365}}\",\n            \"id\": {{faker 'random.number'}},\n            \"stageId\": {{faker 'random.number'}}\n          }\n        ]\n      },\n      \"includedSessionIds\": [\n        {{faker 'random.number'}}\n      ],\n      \"introducedSessionId\": {{faker 'random.number'}},\n      \"isAct\": {{faker 'random.boolean'}},\n      \"isDefeated\": {{faker 'random.boolean'}},\n      \"lastUpdate\": \"{{faker 'date.recent' 365}}\",\n      \"originatingHouse\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n      \"shortTitle\": \"\"\n    }\n  ],\n  \"itemsPerPage\": {{faker 'random.number'}},\n  \"totalResults\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "04bb62af-4a11-48bb-93c5-ccf8bef5a1be",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "974b7f09-6069-4f9b-ac67-4d41e5601d2f",
+      "documentation": "Return a Bill.",
+      "method": "get",
+      "endpoint": "api/v1/Bills/:billId",
+      "responses": [
+        {
+          "uuid": "e47f4fcd-237c-4a8d-9f99-7041523aec51",
+          "body": "{\n  \"agent\": {\n    \"address\": \"\",\n    \"email\": \"\",\n    \"name\": \"\",\n    \"phoneNo\": \"\",\n    \"website\": \"\"\n  },\n  \"billId\": {{faker 'random.number'}},\n  \"billTypeId\": {{faker 'random.number'}},\n  \"billWithdrawn\": \"{{faker 'date.recent' 365}}\",\n  \"currentHouse\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n  \"currentStage\": {\n    \"abbreviation\": \"\",\n    \"description\": \"\",\n    \"house\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n    \"id\": {{faker 'random.number'}},\n    \"sessionId\": {{faker 'random.number'}},\n    \"sortOrder\": {{faker 'random.number'}},\n    \"stageId\": {{faker 'random.number'}},\n    \"stageSittings\": [\n      {\n        \"billId\": {{faker 'random.number'}},\n        \"billStageId\": {{faker 'random.number'}},\n        \"date\": \"{{faker 'date.recent' 365}}\",\n        \"id\": {{faker 'random.number'}},\n        \"stageId\": {{faker 'random.number'}}\n      }\n    ]\n  },\n  \"includedSessionIds\": [\n    {{faker 'random.number'}}\n  ],\n  \"introducedSessionId\": {{faker 'random.number'}},\n  \"isAct\": {{faker 'random.boolean'}},\n  \"isDefeated\": {{faker 'random.boolean'}},\n  \"lastUpdate\": \"{{faker 'date.recent' 365}}\",\n  \"longTitle\": \"\",\n  \"originatingHouse\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n  \"petitionInformation\": \"\",\n  \"petitioningPeriod\": \"\",\n  \"promoters\": [\n    {\n      \"organisationName\": \"\",\n      \"organisationUrl\": \"\"\n    }\n  ],\n  \"shortTitle\": \"\",\n  \"sponsors\": [\n    {\n      \"member\": {\n        \"house\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'random.number'}},\n        \"memberPage\": \"\",\n        \"memberPhoto\": \"\",\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyColour\": \"\"\n      },\n      \"organisation\": {\n        \"name\": \"\",\n        \"url\": \"\"\n      },\n      \"sortOrder\": {{faker 'random.number'}}\n    }\n  ],\n  \"summary\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d2d0f711-fc0a-438f-b805-46deec17cd13",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4207afdd-b55a-4b74-9043-1cb06bd4fb68",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c0bd1676-5583-4fa3-a863-3c4f9533acd5",
+      "documentation": "Returns a list of news articles for a Bill.",
+      "method": "get",
+      "endpoint": "api/v1/Bills/:billId/NewsArticles",
+      "responses": [
+        {
+          "uuid": "ef54f7a5-352d-4ba1-b667-31e92698de54",
+          "body": "{\n  \"items\": [\n    {\n      \"content\": \"\",\n      \"displayDate\": \"{{faker 'date.recent' 365}}\",\n      \"id\": {{faker 'random.number'}},\n      \"title\": \"\"\n    }\n  ],\n  \"itemsPerPage\": {{faker 'random.number'}},\n  \"totalResults\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3fb3f24a-b4d9-4a54-99e0-83ee0c629853",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e5c0a7f8-435e-4d6c-9b8b-8126543de4f6",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "18c93c3b-ed8e-4ae6-946b-f69ba270cb37",
+      "documentation": "Return a list of Bill publications.",
+      "method": "get",
+      "endpoint": "api/v1/Bills/:billId/Publications",
+      "responses": [
+        {
+          "uuid": "a55a5206-64ff-4154-a453-bd4b9de6a6df",
+          "body": "{\n  \"billId\": {{faker 'random.number'}},\n  \"publications\": [\n    {\n      \"displayDate\": \"{{faker 'date.recent' 365}}\",\n      \"files\": [\n        {\n          \"contentLength\": {{faker 'random.number'}},\n          \"contentType\": \"\",\n          \"filename\": \"\",\n          \"id\": {{faker 'random.number'}}\n        }\n      ],\n      \"house\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n      \"id\": {{faker 'random.number'}},\n      \"links\": [\n        {\n          \"contentType\": \"\",\n          \"id\": {{faker 'random.number'}},\n          \"title\": \"\",\n          \"url\": \"\"\n        }\n      ],\n      \"publicationType\": {\n        \"description\": \"\",\n        \"id\": {{faker 'random.number'}},\n        \"name\": \"\"\n      },\n      \"title\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bc5c15ba-6d05-4ef2-ba9a-5279f5220c32",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d49ccb7e-357d-4997-b195-48bc0698552d",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a29801af-6c35-48b5-92b4-f1cd0c5436a1",
+      "documentation": "Returns all Bill stages.",
+      "method": "get",
+      "endpoint": "api/v1/Bills/:billId/Stages",
+      "responses": [
+        {
+          "uuid": "255e8182-49b6-4ad8-8645-fe1781faac81",
+          "body": "{\n  \"items\": [\n    {\n      \"abbreviation\": \"\",\n      \"description\": \"\",\n      \"house\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n      \"id\": {{faker 'random.number'}},\n      \"sessionId\": {{faker 'random.number'}},\n      \"sortOrder\": {{faker 'random.number'}},\n      \"stageId\": {{faker 'random.number'}},\n      \"stageSittings\": [\n        {\n          \"billId\": {{faker 'random.number'}},\n          \"billStageId\": {{faker 'random.number'}},\n          \"date\": \"{{faker 'date.recent' 365}}\",\n          \"id\": {{faker 'random.number'}},\n          \"stageId\": {{faker 'random.number'}}\n        }\n      ]\n    }\n  ],\n  \"itemsPerPage\": {{faker 'random.number'}},\n  \"totalResults\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a91a7242-b951-4d60-a5ae-c5469e7ae62c",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7cd62f81-1ba7-4c17-a188-10590b7ce366",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ddff7b9e-07ad-48d1-8fac-e07458d03b36",
+      "documentation": "Returns a Bill stage.",
+      "method": "get",
+      "endpoint": "api/v1/Bills/:billId/Stages/:billStageId",
+      "responses": [
+        {
+          "uuid": "093ef397-831e-440a-86eb-57b4ce9d6782",
+          "body": "{\n  \"abbreviation\": \"\",\n  \"committee\": {\n    \"category\": \"\",\n    \"house\": \"{{oneOf (array 'Commons' 'Lords' 'Joint')}}\",\n    \"id\": {{faker 'random.number'}},\n    \"name\": \"\",\n    \"url\": \"\"\n  },\n  \"description\": \"\",\n  \"house\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n  \"id\": {{faker 'random.number'}},\n  \"lastUpdate\": \"{{faker 'date.recent' 365}}\",\n  \"nextStageBillStageId\": {{faker 'random.number'}},\n  \"previousStageBillStageId\": {{faker 'random.number'}},\n  \"sessionId\": {{faker 'random.number'}},\n  \"sortOrder\": {{faker 'random.number'}},\n  \"stageId\": {{faker 'random.number'}},\n  \"stageSittings\": [\n    {\n      \"billId\": {{faker 'random.number'}},\n      \"billStageId\": {{faker 'random.number'}},\n      \"date\": \"{{faker 'date.recent' 365}}\",\n      \"id\": {{faker 'random.number'}},\n      \"stageId\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2de370a0-cc9a-4e72-86dc-b5778b6ae96a",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3b24bc41-acea-4db3-9a2a-c374f4e22ad4",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "49a34a26-2a61-4319-a9db-2a57292145d0",
+      "documentation": "Returns a list of amendments.",
+      "method": "get",
+      "endpoint": "api/v1/Bills/:billId/Stages/:billStageId/Amendments",
+      "responses": [
+        {
+          "uuid": "1404160c-b39b-415c-a0ed-33e6bac054dc",
+          "body": "{\n  \"items\": [\n    {\n      \"amendmentId\": {{faker 'random.number'}},\n      \"amendmentPosition\": \"\",\n      \"amendmentType\": \"{{oneOf (array 'EditLongTitle' 'EditBillBody' 'AddClauseOrSchedule' 'DeleteClauseOrSchedule')}}\",\n      \"billId\": {{faker 'random.number'}},\n      \"billStageId\": {{faker 'random.number'}},\n      \"clause\": {{faker 'random.number'}},\n      \"decision\": \"{{oneOf (array 'NoDecision' 'Withdrawn' 'Disagreed' 'NotMoved' 'Agreed')}}\",\n      \"lineNumber\": {{faker 'random.number'}},\n      \"marshalledListText\": \"\",\n      \"pageNumber\": {{faker 'random.number'}},\n      \"schedule\": {{faker 'random.number'}},\n      \"sponsors\": [\n        {\n          \"house\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n          \"isLead\": {{faker 'random.boolean'}},\n          \"memberFrom\": \"\",\n          \"memberId\": {{faker 'random.number'}},\n          \"memberPage\": \"\",\n          \"memberPhoto\": \"\",\n          \"name\": \"\",\n          \"party\": \"\",\n          \"partyColour\": \"\",\n          \"sortOrder\": {{faker 'random.number'}}\n        }\n      ],\n      \"summaryText\": [\n        \"\"\n      ]\n    }\n  ],\n  \"itemsPerPage\": {{faker 'random.number'}},\n  \"totalResults\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ba77c047-fb1c-446d-ae17-b7fe6f51d262",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "900b6963-634e-4381-911c-c2c4efbf0205",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d6464e15-134d-4a55-be6e-2f5ecd12cc99",
+      "documentation": "Returns an amendment.",
+      "method": "get",
+      "endpoint": "api/v1/Bills/:billId/Stages/:billStageId/Amendments/:amendmentId",
+      "responses": [
+        {
+          "uuid": "21cd2cb6-4d2c-4817-be5c-d1f3740d6d7a",
+          "body": "{\n  \"amendmentId\": {{faker 'random.number'}},\n  \"amendmentLines\": [\n    {\n      \"hangingIndentation\": \"\",\n      \"imageType\": \"\",\n      \"indentation\": {{faker 'random.number'}},\n      \"isImage\": {{faker 'random.boolean'}},\n      \"text\": \"\"\n    }\n  ],\n  \"amendmentNote\": \"\",\n  \"amendmentPosition\": \"\",\n  \"amendmentType\": \"{{oneOf (array 'EditLongTitle' 'EditBillBody' 'AddClauseOrSchedule' 'DeleteClauseOrSchedule')}}\",\n  \"billId\": {{faker 'random.number'}},\n  \"billStageId\": {{faker 'random.number'}},\n  \"clause\": {{faker 'random.number'}},\n  \"decision\": \"{{oneOf (array 'NoDecision' 'Withdrawn' 'Disagreed' 'NotMoved' 'Agreed')}}\",\n  \"explanatoryText\": \"\",\n  \"explanatoryTextPrefix\": \"\",\n  \"lineNumber\": {{faker 'random.number'}},\n  \"marshalledListText\": \"\",\n  \"pageNumber\": {{faker 'random.number'}},\n  \"schedule\": {{faker 'random.number'}},\n  \"sponsors\": [\n    {\n      \"house\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n      \"isLead\": {{faker 'random.boolean'}},\n      \"memberFrom\": \"\",\n      \"memberId\": {{faker 'random.number'}},\n      \"memberPage\": \"\",\n      \"memberPhoto\": \"\",\n      \"name\": \"\",\n      \"party\": \"\",\n      \"partyColour\": \"\",\n      \"sortOrder\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "72f44a7a-ae75-4e5f-a555-ceaa10af64b9",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bada9315-3dcc-4916-a3cb-678b07a1959e",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a4ccb42d-279a-4a72-bfb6-9e994e70cee6",
+      "documentation": "Return a list of Bill stage publications.",
+      "method": "get",
+      "endpoint": "api/v1/Bills/:billId/Stages/:stageId/Publications",
+      "responses": [
+        {
+          "uuid": "05846818-0166-4cc4-b219-2b03567c8c83",
+          "body": "{\n  \"billStageId\": {{faker 'random.number'}},\n  \"publications\": [\n    {\n      \"displayDate\": \"{{faker 'date.recent' 365}}\",\n      \"files\": [\n        {\n          \"contentLength\": {{faker 'random.number'}},\n          \"contentType\": \"\",\n          \"filename\": \"\",\n          \"id\": {{faker 'random.number'}}\n        }\n      ],\n      \"id\": {{faker 'random.number'}},\n      \"links\": [\n        {\n          \"contentType\": \"\",\n          \"id\": {{faker 'random.number'}},\n          \"title\": \"\",\n          \"url\": \"\"\n        }\n      ],\n      \"publicationType\": {\n        \"description\": \"\",\n        \"id\": {{faker 'random.number'}},\n        \"name\": \"\"\n      },\n      \"title\": \"\"\n    }\n  ],\n  \"sittings\": [\n    {\n      \"publications\": [\n        {\n          \"displayDate\": \"{{faker 'date.recent' 365}}\",\n          \"files\": [\n            {\n              \"contentLength\": {{faker 'random.number'}},\n              \"contentType\": \"\",\n              \"filename\": \"\",\n              \"id\": {{faker 'random.number'}}\n            }\n          ],\n          \"id\": {{faker 'random.number'}},\n          \"links\": [\n            {\n              \"contentType\": \"\",\n              \"id\": {{faker 'random.number'}},\n              \"title\": \"\",\n              \"url\": \"\"\n            }\n          ],\n          \"publicationType\": {\n            \"description\": \"\",\n            \"id\": {{faker 'random.number'}},\n            \"name\": \"\"\n          },\n          \"title\": \"\"\n        }\n      ],\n      \"sittingId\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e9bc3e6b-e526-4830-8b1e-d0cfeea08f97",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a16f4b4d-0935-4893-adac-fbb19da97454",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5d2d8cff-ab4a-4df8-9997-7397283e0ebe",
+      "documentation": "Returns a list of publication types.",
+      "method": "get",
+      "endpoint": "api/v1/PublicationTypes",
+      "responses": [
+        {
+          "uuid": "1b83cfab-3048-4d1f-a146-42ad7c3ae85e",
+          "body": "{\n  \"items\": [\n    {\n      \"description\": \"\",\n      \"id\": {{faker 'random.number'}},\n      \"name\": \"\"\n    }\n  ],\n  \"itemsPerPage\": {{faker 'random.number'}},\n  \"totalResults\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "52e5e656-c653-4708-8fba-c50d31da022a",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3a0b7abc-bedb-4f2a-820a-cbb80651cb45",
+      "documentation": "Return information on a document.",
+      "method": "get",
+      "endpoint": "api/v1/Publications/:publicationId/Documents/:documentId",
+      "responses": [
+        {
+          "uuid": "b609073f-8f50-4173-b10c-4f091d07709d",
+          "body": "{\n  \"contentLength\": {{faker 'random.number'}},\n  \"contentType\": \"\",\n  \"filename\": \"\",\n  \"id\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7031007f-cc73-4293-9b00-f3054d77818e",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a941feaa-3ea8-4103-88de-fd82f7b7e692",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bb8530bc-0e93-43a7-afc8-a291a167c730",
+      "documentation": "Return a document.",
+      "method": "get",
+      "endpoint": "api/v1/Publications/:publicationId/Documents/:documentId/Download",
+      "responses": [
+        {
+          "uuid": "e9e7451f-ab99-4355-b92f-6d7b6291446d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "59fb089c-4ad7-4226-9aa7-9a082d916cd7",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cb0037ba-9a5b-415e-85c6-4cfa7aed2c57",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d0886560-a971-4c50-aeba-3828b782b908",
+      "documentation": "Returns an Rss feed of a certain Bill.",
+      "method": "get",
+      "endpoint": "api/v1/Rss/Bills/:id.rss",
+      "responses": [
+        {
+          "uuid": "66de479d-15f4-47d8-8bbb-b79e7b1ae1a7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c86ab7a0-911b-4549-ab14-4e2f8b82b937",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a16063fc-5bdd-46fc-b051-62b3ff0fd48e",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8d2c8a5d-faba-4b3a-94d5-fcc2c17af553",
+      "documentation": "Returns an Rss feed of all Bills.",
+      "method": "get",
+      "endpoint": "api/v1/Rss/allbills.rss",
+      "responses": [
+        {
+          "uuid": "c2dd6bba-3116-4a8b-9030-365358010f0b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7759314c-916c-45f1-b307-1c7fb4f23831",
+      "documentation": "Returns an Rss feed of private Bills.",
+      "method": "get",
+      "endpoint": "api/v1/Rss/privatebills.rss",
+      "responses": [
+        {
+          "uuid": "2083d160-a74c-433d-993a-7bda487364a5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "486c05e0-9aea-4de3-9687-e45c47bd0124",
+      "documentation": "Returns an Rss feed of public Bills.",
+      "method": "get",
+      "endpoint": "api/v1/Rss/publicbills.rss",
+      "responses": [
+        {
+          "uuid": "6c24502a-7309-4329-8557-e127a1728da9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "eb808590-9c30-4f78-b7db-6938f2f68f7c",
+      "documentation": "Returns a list of Sittings.",
+      "method": "get",
+      "endpoint": "api/v1/Sittings",
+      "responses": [
+        {
+          "uuid": "9b819925-41b2-4e37-9ae1-b041e28861ec",
+          "body": "{\n  \"items\": [\n    {\n      \"billId\": {{faker 'random.number'}},\n      \"billStageId\": {{faker 'random.number'}},\n      \"date\": \"{{faker 'date.recent' 365}}\",\n      \"id\": {{faker 'random.number'}},\n      \"stageId\": {{faker 'random.number'}}\n    }\n  ],\n  \"itemsPerPage\": {{faker 'random.number'}},\n  \"totalResults\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9ad686d4-e312-4039-ba40-a6aadb8c3309",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "173407da-0d87-4e51-97b1-610d448deac6",
+      "documentation": "Returns a list of Bill stages.",
+      "method": "get",
+      "endpoint": "api/v1/Stages",
+      "responses": [
+        {
+          "uuid": "5c86c835-045c-4ed7-8930-586ccd9b69bc",
+          "body": "{\n  \"items\": [\n    {\n      \"house\": \"{{oneOf (array 'All' 'Commons' 'Lords' 'Unassigned')}}\",\n      \"id\": {{faker 'random.number'}},\n      \"name\": \"\"\n    }\n  ],\n  \"itemsPerPage\": {{faker 'random.number'}},\n  \"totalResults\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4a8b8d8c-406c-4425-8ac7-251790cf1a2b",
+          "body": "{\n  \"detail\": \"\",\n  \"instance\": \"\",\n  \"status\": {{faker 'random.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

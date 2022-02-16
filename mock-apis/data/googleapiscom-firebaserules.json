@@ -1,0 +1,307 @@
+{
+  "uuid": "3607e629-b797-4609-ad42-d4c06c922cee",
+  "lastMigration": 19,
+  "name": "Firebase Rules API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "b4ea16f7-af0c-4ce6-8e68-97d4d90f009b",
+      "documentation": "Delete a `Ruleset` by resource name. If the `Ruleset` is referenced by a `Release` the operation will fail.",
+      "method": "delete",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "d41593b2-d629-4f6b-93c4-f36d5ce48b15",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "caf87fa2-e4c7-48d2-87c9-3feb399242a3",
+      "documentation": "Get a `Ruleset` by name including the full `Source` contents.",
+      "method": "get",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "c8d95bc1-79b2-4ec6-a1a9-0a823eb978bc",
+          "body": "{\n  \"createTime\": \"\",\n  \"metadata\": {\n    \"services\": [\n      \"\"\n    ]\n  },\n  \"name\": \"\",\n  \"source\": {\n    \"files\": [\n      {\n        \"content\": \"\",\n        \"fingerprint\": \"\",\n        \"name\": \"\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f61c05ea-fb16-45b5-87f4-cafaf460278f",
+      "documentation": "Update a `Release` via PATCH. Only updates to `ruleset_name` will be honored. `Release` rename is not supported. To create a `Release` use the CreateRelease method.",
+      "method": "patch",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "8fa33d11-0bfc-420c-88af-f3cbcdf8f62e",
+          "body": "{\n  \"createTime\": \"\",\n  \"name\": \"\",\n  \"rulesetName\": \"\",\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "865fa7a4-813b-4a2e-91a9-607124c2be2d",
+      "documentation": "List the `Release` values for a project. This list may optionally be filtered by `Release` name, `Ruleset` name, `TestSuite` name, or any combination thereof.",
+      "method": "get",
+      "endpoint": "v1/:name/releases",
+      "responses": [
+        {
+          "uuid": "2df1d5dc-92db-42b3-a042-74d8d32c8ee3",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"releases\": [\n    {\n      \"createTime\": \"\",\n      \"name\": \"\",\n      \"rulesetName\": \"\",\n      \"updateTime\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1afd94ac-eaea-4654-9b57-d65b4d3abb2a",
+      "documentation": "Create a `Release`. Release names should reflect the developer's deployment practices. For example, the release name may include the environment name, application name, application version, or any other name meaningful to the developer. Once a `Release` refers to a `Ruleset`, the rules can be enforced by Firebase Rules-enabled services. More than one `Release` may be 'live' concurrently. Consider the following three `Release` names for `projects/foo` and the `Ruleset` to which they refer. Release Name -> Ruleset Name * projects/foo/releases/prod -> projects/foo/rulesets/uuid123 * projects/foo/releases/prod/beta -> projects/foo/rulesets/uuid123 * projects/foo/releases/prod/v23 -> projects/foo/rulesets/uuid456 The relationships reflect a `Ruleset` rollout in progress. The `prod` and `prod/beta` releases refer to the same `Ruleset`. However, `prod/v23` refers to a new `Ruleset`. The `Ruleset` reference for a `Release` may be updated using the UpdateRelease method.",
+      "method": "post",
+      "endpoint": "v1/:name/releases",
+      "responses": [
+        {
+          "uuid": "2bf56e54-592f-4d26-9840-730037c71d32",
+          "body": "{\n  \"createTime\": \"\",\n  \"name\": \"\",\n  \"rulesetName\": \"\",\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "81c05c9f-e702-4b44-8c46-faf11e22725f",
+      "documentation": "List `Ruleset` metadata only and optionally filter the results by `Ruleset` name. The full `Source` contents of a `Ruleset` may be retrieved with GetRuleset.",
+      "method": "get",
+      "endpoint": "v1/:name/rulesets",
+      "responses": [
+        {
+          "uuid": "573db649-bacf-4fa7-9a65-19617a77943d",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"rulesets\": [\n    {\n      \"createTime\": \"\",\n      \"metadata\": {\n        \"services\": [\n          \"\"\n        ]\n      },\n      \"name\": \"\",\n      \"source\": {\n        \"files\": [\n          {\n            \"content\": \"\",\n            \"fingerprint\": \"\",\n            \"name\": \"\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "100e25a0-e81a-4beb-bc8a-ae673fa5cdd7",
+      "documentation": "Create a `Ruleset` from `Source`. The `Ruleset` is given a unique generated name which is returned to the caller. `Source` containing syntactic or semantics errors will result in an error response indicating the first error encountered. For a detailed view of `Source` issues, use TestRuleset.",
+      "method": "post",
+      "endpoint": "v1/:name/rulesets",
+      "responses": [
+        {
+          "uuid": "89ebaef2-8d5b-457e-b125-37ba7035abff",
+          "body": "{\n  \"createTime\": \"\",\n  \"metadata\": {\n    \"services\": [\n      \"\"\n    ]\n  },\n  \"name\": \"\",\n  \"source\": {\n    \"files\": [\n      {\n        \"content\": \"\",\n        \"fingerprint\": \"\",\n        \"name\": \"\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6430781d-f155-4957-9848-40ca5e0ac505",
+      "documentation": "Get the `Release` executable to use when enforcing rules.",
+      "method": "get",
+      "endpoint": "v1/:name:getExecutable",
+      "responses": [
+        {
+          "uuid": "3e69724d-a661-49a1-8241-a87115b44e59",
+          "body": "{\n  \"executable\": \"\",\n  \"executableVersion\": \"{{oneOf (array 'RELEASE_EXECUTABLE_VERSION_UNSPECIFIED' 'FIREBASE_RULES_EXECUTABLE_V1' 'FIREBASE_RULES_EXECUTABLE_V2')}}\",\n  \"language\": \"{{oneOf (array 'LANGUAGE_UNSPECIFIED' 'FIREBASE_RULES' 'EVENT_FLOW_TRIGGERS')}}\",\n  \"rulesetName\": \"\",\n  \"syncTime\": \"\",\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "488acc4e-fb5c-410c-888e-b82fb86bb31d",
+      "documentation": "Test `Source` for syntactic and semantic correctness. Issues present, if any, will be returned to the caller with a description, severity, and source location. The test method may be executed with `Source` or a `Ruleset` name. Passing `Source` is useful for unit testing new rules. Passing a `Ruleset` name is useful for regression testing an existing rule. The following is an example of `Source` that permits users to upload images to a bucket bearing their user id and matching the correct metadata: _*Example*_ // Users are allowed to subscribe and unsubscribe to the blog. service firebase.storage { match /users/{userId}/images/{imageName} { allow write: if userId == request.auth.uid && (imageName.matches('*.png$') || imageName.matches('*.jpg$')) && resource.mimeType.matches('^image/') } }",
+      "method": "post",
+      "endpoint": "v1/:name:test",
+      "responses": [
+        {
+          "uuid": "a53c2cc7-9a17-476a-9786-fcb446cba447",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

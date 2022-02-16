@@ -1,0 +1,287 @@
+{
+  "uuid": "15fdfbd0-047c-4ffd-9722-a233e6698673",
+  "lastMigration": 19,
+  "name": "Amazon Kinesis Video Signaling Channels",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "90c932a4-36fa-49b3-9488-1b117b09c5d5",
+      "documentation": "<p>Gets the Interactive Connectivity Establishment (ICE) server configuration information, including URIs, username, and password which can be used to configure the WebRTC connection. The ICE component uses this configuration information to setup the WebRTC connection, including authenticating with the Traversal Using Relays around NAT (TURN) relay server. </p> <p>TURN is a protocol that is used to improve the connectivity of peer-to-peer applications. By providing a cloud-based relay service, TURN ensures that a connection can be established even when one or more peers are incapable of a direct peer-to-peer connection. For more information, see <a href=\"https://tools.ietf.org/html/draft-uberti-rtcweb-turn-rest-00\">A REST API For Access To TURN Services</a>.</p> <p> You can invoke this API to establish a fallback mechanism in case either of the peers is unable to establish a direct peer-to-peer connection over a signaling channel. You must specify either a signaling channel ARN or the client ID in order to invoke this API.</p>",
+      "method": "post",
+      "endpoint": "v1/get-ice-server-config",
+      "responses": [
+        {
+          "uuid": "6da445e2-8923-4355-a5c5-a29638015ddd",
+          "body": "{\n  \"IceServerList\": [\n    {\n      \"Uris\": [\n        \"\"\n      ],\n      \"Username\": \"\",\n      \"Password\": \"\",\n      \"Ttl\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dfb61cab-0123-4532-8316-3db75d7f7c3f",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidClientException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7915d7e1-9011-4404-a9bb-c55823d1128e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "SessionExpiredException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f177b4bb-c9cb-4c58-a871-53512fae0082",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ClientLimitExceededException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "703ec255-b87e-40ea-a9d7-9bfd3884cc7a",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dad4c4fa-361f-41ba-a389-2df9304f6df0",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "InvalidArgumentException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "eab602d9-ee0e-4a24-b5b3-9ec56e9b5b96",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 485,
+          "label": "NotAuthorizedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "19939774-6ee1-4a7d-b242-7915d3065bbf",
+      "documentation": "This API allows you to connect WebRTC-enabled devices with Alexa display devices. When invoked, it sends the Alexa Session Description Protocol (SDP) offer to the master peer. The offer is delivered as soon as the master is connected to the specified signaling channel. This API returns the SDP answer from the connected master. If the master is not connected to the signaling channel, redelivery requests are made until the message expires.",
+      "method": "post",
+      "endpoint": "v1/send-alexa-offer-to-master",
+      "responses": [
+        {
+          "uuid": "13d984a3-258c-4a5e-9a34-87c13e11645f",
+          "body": "{\n  \"Answer\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "71acf669-681d-4c76-8798-4faa2b489a2c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ClientLimitExceededException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "23d92301-1584-4a90-a3cf-cb0a7f9bf4c9",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fc2bc5f9-c676-4ec9-9cb0-3f5239e352d3",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "InvalidArgumentException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6280d56e-70c3-49ac-8020-ad3231907f23",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "NotAuthorizedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

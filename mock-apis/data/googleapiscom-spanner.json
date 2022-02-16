@@ -1,0 +1,1087 @@
+{
+  "uuid": "e8ccecf5-c7c7-4bdc-9b4b-f9bde1dfeb39",
+  "lastMigration": 19,
+  "name": "Cloud Spanner API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "5d8a7776-d7d5-453e-bd80-85a5c7617f2f",
+      "documentation": "Drops (aka deletes) a Cloud Spanner database. Completed backups for the database will be retained according to their `expire_time`. Note: Cloud Spanner might continue to accept requests for a few seconds after the database has been deleted.",
+      "method": "delete",
+      "endpoint": "v1/:database",
+      "responses": [
+        {
+          "uuid": "d4c3fd73-1286-40a4-aff9-5f13f2b72a37",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1244cb71-9aaa-405b-9d48-d5d6962fbeb9",
+      "documentation": "Returns the schema of a Cloud Spanner database as a list of formatted DDL statements. This method does not show pending schema updates, those may be queried using the Operations API.",
+      "method": "get",
+      "endpoint": "v1/:database/ddl",
+      "responses": [
+        {
+          "uuid": "b7df963d-3c5f-4f5c-9246-85f88c7b07b1",
+          "body": "{\n  \"statements\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "fedafeeb-8b56-486c-9024-fbb897d0f9c5",
+      "documentation": "Updates the schema of a Cloud Spanner database by creating/altering/dropping tables, columns, indexes, etc. The returned long-running operation will have a name of the format `/operations/` and can be used to track execution of the schema change(s). The metadata field type is UpdateDatabaseDdlMetadata. The operation has no response.",
+      "method": "patch",
+      "endpoint": "v1/:database/ddl",
+      "responses": [
+        {
+          "uuid": "a5bf3282-7011-41f4-85e3-7b8e4173aaf4",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6afaa095-80b0-4e6c-aab3-45f131f0c04a",
+      "documentation": "Lists all sessions in a given database.",
+      "method": "get",
+      "endpoint": "v1/:database/sessions",
+      "responses": [
+        {
+          "uuid": "3ab3301e-eb34-40ae-a986-b317941f22b9",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"sessions\": [\n    {\n      \"approximateLastUseTime\": \"\",\n      \"createTime\": \"\",\n      \"labels\": {},\n      \"name\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4e61e7b5-298c-4332-9d87-205efe437a52",
+      "documentation": "Creates a new session. A session can be used to perform transactions that read and/or modify data in a Cloud Spanner database. Sessions are meant to be reused for many consecutive transactions. Sessions can only execute one transaction at a time. To execute multiple concurrent read-write/write-only transactions, create multiple sessions. Note that standalone reads and queries use a transaction internally, and count toward the one transaction limit. Active sessions use additional server resources, so it is a good idea to delete idle and unneeded sessions. Aside from explicit deletes, Cloud Spanner may delete sessions for which no operations are sent for more than an hour. If a session is deleted, requests to it return `NOT_FOUND`. Idle sessions can be kept alive by sending a trivial SQL query periodically, e.g., `\"SELECT 1\"`.",
+      "method": "post",
+      "endpoint": "v1/:database/sessions",
+      "responses": [
+        {
+          "uuid": "22e21a52-1042-4c4c-9d29-89180e32eb06",
+          "body": "{\n  \"approximateLastUseTime\": \"\",\n  \"createTime\": \"\",\n  \"labels\": {},\n  \"name\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d767e509-1f79-4c74-92dc-2bbb4b088bcc",
+      "documentation": "Creates multiple new sessions. This API can be used to initialize a session cache on the clients. See https://goo.gl/TgSFN2 for best practices on session cache management.",
+      "method": "post",
+      "endpoint": "v1/:database/sessions:batchCreate",
+      "responses": [
+        {
+          "uuid": "b562c92e-3b57-49f9-9a4b-336be37396c8",
+          "body": "{\n  \"session\": [\n    {\n      \"approximateLastUseTime\": \"\",\n      \"createTime\": \"\",\n      \"labels\": {},\n      \"name\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cb2bc69d-e49e-4648-84ca-0141caca5676",
+      "documentation": "Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.",
+      "method": "delete",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "6cb8a9ec-8d8c-4771-a755-0d2ec555fb6c",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "59eea869-d72d-4c1f-9fa0-5cdaccc7d7bf",
+      "documentation": "Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`. NOTE: the `name` binding allows API services to override the binding to use different resource name schemes, such as `users/*/operations`. To override the binding, API services can add a binding such as `\"/v1/{name=users/*}/operations\"` to their service configuration. For backwards compatibility, the default name includes the operations collection id, however overriding users must ensure the name binding is the parent resource, without the operations collection id.",
+      "method": "get",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "657fa69e-e872-4886-8e01-5dca13dfc6af",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"operations\": [\n    {\n      \"done\": {{faker 'random.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'random.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"metadata\": {},\n      \"name\": \"\",\n      \"response\": {}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ca9994dd-66ab-4c7f-b93c-90b6faf5bc8f",
+      "documentation": "Updates a pending or completed Backup.",
+      "method": "patch",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "8645c5c1-85b9-4a11-8937-95ade8350a8e",
+          "body": "{\n  \"createTime\": \"\",\n  \"database\": \"\",\n  \"databaseDialect\": \"{{oneOf (array 'DATABASE_DIALECT_UNSPECIFIED' 'GOOGLE_STANDARD_SQL' 'POSTGRESQL')}}\",\n  \"encryptionInfo\": {\n    \"encryptionStatus\": {\n      \"code\": {{faker 'random.number'}},\n      \"details\": [\n        {}\n      ],\n      \"message\": \"\"\n    },\n    \"encryptionType\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'GOOGLE_DEFAULT_ENCRYPTION' 'CUSTOMER_MANAGED_ENCRYPTION')}}\",\n    \"kmsKeyVersion\": \"\"\n  },\n  \"expireTime\": \"\",\n  \"name\": \"\",\n  \"referencingDatabases\": [\n    \"\"\n  ],\n  \"sizeBytes\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'CREATING' 'READY')}}\",\n  \"versionTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c84bd170-3729-417a-a9c6-2b7b1c60536c",
+      "documentation": "Request a specific scan with Database-specific data for Cloud Key Visualizer.",
+      "method": "get",
+      "endpoint": "v1/:name/scans",
+      "responses": [
+        {
+          "uuid": "cc3280a1-000b-4434-a629-fe139c06b1da",
+          "body": "{\n  \"details\": {},\n  \"endTime\": \"\",\n  \"name\": \"\",\n  \"scanData\": {\n    \"data\": {\n      \"dataSourceEndToken\": \"\",\n      \"dataSourceSeparatorToken\": \"\",\n      \"diagnosticMessages\": [\n        {\n          \"info\": {\n            \"args\": {},\n            \"message\": \"\",\n            \"token\": \"\"\n          },\n          \"metric\": {\n            \"args\": {},\n            \"message\": \"\",\n            \"token\": \"\"\n          },\n          \"metricSpecific\": {{faker 'random.boolean'}},\n          \"severity\": \"{{oneOf (array 'SEVERITY_UNSPECIFIED' 'INFO' 'WARNING' 'ERROR' 'FATAL')}}\",\n          \"shortMessage\": {\n            \"args\": {},\n            \"message\": \"\",\n            \"token\": \"\"\n          }\n        }\n      ],\n      \"endKeyStrings\": [\n        \"\"\n      ],\n      \"hasPii\": {{faker 'random.boolean'}},\n      \"indexedKeys\": [\n        \"\"\n      ],\n      \"keySeparator\": \"\",\n      \"keyUnit\": \"{{oneOf (array 'KEY_UNIT_UNSPECIFIED' 'KEY' 'CHUNK')}}\",\n      \"metrics\": [\n        {\n          \"aggregation\": \"{{oneOf (array 'AGGREGATION_UNSPECIFIED' 'MAX' 'SUM')}}\",\n          \"category\": {\n            \"args\": {},\n            \"message\": \"\",\n            \"token\": \"\"\n          },\n          \"derived\": {\n            \"denominator\": {\n              \"args\": {},\n              \"message\": \"\",\n              \"token\": \"\"\n            },\n            \"numerator\": {\n              \"args\": {},\n              \"message\": \"\",\n              \"token\": \"\"\n            }\n          },\n          \"displayLabel\": {\n            \"args\": {},\n            \"message\": \"\",\n            \"token\": \"\"\n          },\n          \"hasNonzeroData\": {{faker 'random.boolean'}},\n          \"hotValue\": {{faker 'random.float'}},\n          \"indexedHotKeys\": {},\n          \"indexedKeyRangeInfos\": {},\n          \"info\": {\n            \"args\": {},\n            \"message\": \"\",\n            \"token\": \"\"\n          },\n          \"matrix\": {\n            \"rows\": [\n              {\n                \"cols\": [\n                  {{faker 'random.float'}}\n                ]\n              }\n            ]\n          },\n          \"unit\": {\n            \"args\": {},\n            \"message\": \"\",\n            \"token\": \"\"\n          },\n          \"visible\": {{faker 'random.boolean'}}\n        }\n      ],\n      \"prefixNodes\": [\n        {\n          \"dataSourceNode\": {{faker 'random.boolean'}},\n          \"depth\": {{faker 'random.number'}},\n          \"endIndex\": {{faker 'random.number'}},\n          \"startIndex\": {{faker 'random.number'}},\n          \"word\": \"\"\n        }\n      ]\n    },\n    \"endTime\": \"\",\n    \"startTime\": \"\"\n  },\n  \"startTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e693447c-4e4f-4800-b6ad-e5dbbf456a93",
+      "documentation": "Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.",
+      "method": "post",
+      "endpoint": "v1/:name:cancel",
+      "responses": [
+        {
+          "uuid": "f1865e30-95e2-40bc-895d-b62fe9a6e4ef",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "22182c5e-9827-4df4-8d32-6958dfb710a9",
+      "documentation": "Return available scans given a Database-specific resource name.",
+      "method": "get",
+      "endpoint": "v1/:parent",
+      "responses": [
+        {
+          "uuid": "f95368c4-7e9d-46ce-b232-ccb3eaecd3f7",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"scans\": [\n    {\n      \"details\": {},\n      \"endTime\": \"\",\n      \"name\": \"\",\n      \"scanData\": {\n        \"data\": {\n          \"dataSourceEndToken\": \"\",\n          \"dataSourceSeparatorToken\": \"\",\n          \"diagnosticMessages\": [\n            {\n              \"info\": {\n                \"args\": {},\n                \"message\": \"\",\n                \"token\": \"\"\n              },\n              \"metric\": {\n                \"args\": {},\n                \"message\": \"\",\n                \"token\": \"\"\n              },\n              \"metricSpecific\": {{faker 'random.boolean'}},\n              \"severity\": \"{{oneOf (array 'SEVERITY_UNSPECIFIED' 'INFO' 'WARNING' 'ERROR' 'FATAL')}}\",\n              \"shortMessage\": {\n                \"args\": {},\n                \"message\": \"\",\n                \"token\": \"\"\n              }\n            }\n          ],\n          \"endKeyStrings\": [\n            \"\"\n          ],\n          \"hasPii\": {{faker 'random.boolean'}},\n          \"indexedKeys\": [\n            \"\"\n          ],\n          \"keySeparator\": \"\",\n          \"keyUnit\": \"{{oneOf (array 'KEY_UNIT_UNSPECIFIED' 'KEY' 'CHUNK')}}\",\n          \"metrics\": [\n            {\n              \"aggregation\": \"{{oneOf (array 'AGGREGATION_UNSPECIFIED' 'MAX' 'SUM')}}\",\n              \"category\": {\n                \"args\": {},\n                \"message\": \"\",\n                \"token\": \"\"\n              },\n              \"derived\": {\n                \"denominator\": {\n                  \"args\": {},\n                  \"message\": \"\",\n                  \"token\": \"\"\n                },\n                \"numerator\": {\n                  \"args\": {},\n                  \"message\": \"\",\n                  \"token\": \"\"\n                }\n              },\n              \"displayLabel\": {\n                \"args\": {},\n                \"message\": \"\",\n                \"token\": \"\"\n              },\n              \"hasNonzeroData\": {{faker 'random.boolean'}},\n              \"hotValue\": {{faker 'random.float'}},\n              \"indexedHotKeys\": {},\n              \"indexedKeyRangeInfos\": {},\n              \"info\": {\n                \"args\": {},\n                \"message\": \"\",\n                \"token\": \"\"\n              },\n              \"matrix\": {\n                \"rows\": [\n                  {\n                    \"cols\": [\n                      {{faker 'random.float'}}\n                    ]\n                  }\n                ]\n              },\n              \"unit\": {\n                \"args\": {},\n                \"message\": \"\",\n                \"token\": \"\"\n              },\n              \"visible\": {{faker 'random.boolean'}}\n            }\n          ],\n          \"prefixNodes\": [\n            {\n              \"dataSourceNode\": {{faker 'random.boolean'}},\n              \"depth\": {{faker 'random.number'}},\n              \"endIndex\": {{faker 'random.number'}},\n              \"startIndex\": {{faker 'random.number'}},\n              \"word\": \"\"\n            }\n          ]\n        },\n        \"endTime\": \"\",\n        \"startTime\": \"\"\n      },\n      \"startTime\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cb931958-b948-4a8e-8fc7-1b95bf791971",
+      "documentation": "Lists the backup long-running operations in the given instance. A backup operation has a name of the form `projects//instances//backups//operations/`. The long-running operation metadata field type `metadata.type_url` describes the type of the metadata. Operations returned include those that have completed/failed/canceled within the last 7 days, and pending operations. Operations returned are ordered by `operation.metadata.value.progress.start_time` in descending order starting from the most recently started operation.",
+      "method": "get",
+      "endpoint": "v1/:parent/backupOperations",
+      "responses": [
+        {
+          "uuid": "a18b704f-bd22-44b9-aad2-00f0e823bd08",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"operations\": [\n    {\n      \"done\": {{faker 'random.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'random.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"metadata\": {},\n      \"name\": \"\",\n      \"response\": {}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "89fe7641-204d-4207-bf8b-c6d93ca6d257",
+      "documentation": "Lists completed and pending backups. Backups returned are ordered by `create_time` in descending order, starting from the most recent `create_time`.",
+      "method": "get",
+      "endpoint": "v1/:parent/backups",
+      "responses": [
+        {
+          "uuid": "cad8c6fa-dcf3-486b-a9ed-26e73fce6a2a",
+          "body": "{\n  \"backups\": [\n    {\n      \"createTime\": \"\",\n      \"database\": \"\",\n      \"databaseDialect\": \"{{oneOf (array 'DATABASE_DIALECT_UNSPECIFIED' 'GOOGLE_STANDARD_SQL' 'POSTGRESQL')}}\",\n      \"encryptionInfo\": {\n        \"encryptionStatus\": {\n          \"code\": {{faker 'random.number'}},\n          \"details\": [\n            {}\n          ],\n          \"message\": \"\"\n        },\n        \"encryptionType\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'GOOGLE_DEFAULT_ENCRYPTION' 'CUSTOMER_MANAGED_ENCRYPTION')}}\",\n        \"kmsKeyVersion\": \"\"\n      },\n      \"expireTime\": \"\",\n      \"name\": \"\",\n      \"referencingDatabases\": [\n        \"\"\n      ],\n      \"sizeBytes\": \"\",\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'CREATING' 'READY')}}\",\n      \"versionTime\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "992a32ed-63e0-451d-a8ed-e620c38edbe3",
+      "documentation": "Starts creating a new Cloud Spanner Backup. The returned backup long-running operation will have a name of the format `projects//instances//backups//operations/` and can be used to track creation of the backup. The metadata field type is CreateBackupMetadata. The response field type is Backup, if successful. Cancelling the returned operation will stop the creation and delete the backup. There can be only one pending backup creation per database. Backup creation of different databases can run concurrently.",
+      "method": "post",
+      "endpoint": "v1/:parent/backups",
+      "responses": [
+        {
+          "uuid": "343e3552-af9e-41d6-8e72-6a24e2870c31",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "41589235-e652-4675-bad8-9fb253e0996f",
+      "documentation": "Lists database longrunning-operations. A database operation has a name of the form `projects//instances//databases//operations/`. The long-running operation metadata field type `metadata.type_url` describes the type of the metadata. Operations returned include those that have completed/failed/canceled within the last 7 days, and pending operations.",
+      "method": "get",
+      "endpoint": "v1/:parent/databaseOperations",
+      "responses": [
+        {
+          "uuid": "e4c5ed74-d429-4052-b37c-4ef9c12ab361",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"operations\": [\n    {\n      \"done\": {{faker 'random.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'random.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"metadata\": {},\n      \"name\": \"\",\n      \"response\": {}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6b095149-132d-4ad9-b402-d04d01845a8c",
+      "documentation": "Lists Cloud Spanner databases.",
+      "method": "get",
+      "endpoint": "v1/:parent/databases",
+      "responses": [
+        {
+          "uuid": "5998b64a-9d2c-4757-8774-d9737152f755",
+          "body": "{\n  \"databases\": [\n    {\n      \"createTime\": \"\",\n      \"databaseDialect\": \"{{oneOf (array 'DATABASE_DIALECT_UNSPECIFIED' 'GOOGLE_STANDARD_SQL' 'POSTGRESQL')}}\",\n      \"defaultLeader\": \"\",\n      \"earliestVersionTime\": \"\",\n      \"encryptionConfig\": {\n        \"kmsKeyName\": \"\"\n      },\n      \"encryptionInfo\": [\n        {\n          \"encryptionStatus\": {\n            \"code\": {{faker 'random.number'}},\n            \"details\": [\n              {}\n            ],\n            \"message\": \"\"\n          },\n          \"encryptionType\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'GOOGLE_DEFAULT_ENCRYPTION' 'CUSTOMER_MANAGED_ENCRYPTION')}}\",\n          \"kmsKeyVersion\": \"\"\n        }\n      ],\n      \"name\": \"\",\n      \"restoreInfo\": {\n        \"backupInfo\": {\n          \"backup\": \"\",\n          \"createTime\": \"\",\n          \"sourceDatabase\": \"\",\n          \"versionTime\": \"\"\n        },\n        \"sourceType\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'BACKUP')}}\"\n      },\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'CREATING' 'READY' 'READY_OPTIMIZING')}}\",\n      \"versionRetentionPeriod\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0085cb7c-02ac-4104-8b84-8361d5c1974d",
+      "documentation": "Creates a new Cloud Spanner database and starts to prepare it for serving. The returned long-running operation will have a name of the format `/operations/` and can be used to track preparation of the database. The metadata field type is CreateDatabaseMetadata. The response field type is Database, if successful.",
+      "method": "post",
+      "endpoint": "v1/:parent/databases",
+      "responses": [
+        {
+          "uuid": "27278cd3-5d1c-492b-8907-8aa401cef8fa",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "704bedb8-e245-4322-a1c4-a7af84867242",
+      "documentation": "Create a new database by restoring from a completed backup. The new database must be in the same project and in an instance with the same instance configuration as the instance containing the backup. The returned database long-running operation has a name of the format `projects//instances//databases//operations/`, and can be used to track the progress of the operation, and to cancel it. The metadata field type is RestoreDatabaseMetadata. The response type is Database, if successful. Cancelling the returned operation will stop the restore and delete the database. There can be only one database being restored into an instance at a time. Once the restore operation completes, a new restore operation can be initiated, without waiting for the optimize operation associated with the first restore to complete.",
+      "method": "post",
+      "endpoint": "v1/:parent/databases:restore",
+      "responses": [
+        {
+          "uuid": "4bd90fd7-a987-46b9-85ae-cffa85b68812",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "501cdb57-98e9-4e3e-a4d3-a08582c186fd",
+      "documentation": "Lists the supported instance configurations for a given project.",
+      "method": "get",
+      "endpoint": "v1/:parent/instanceConfigs",
+      "responses": [
+        {
+          "uuid": "42f2e254-65e0-42b0-a69e-cb3497eea40f",
+          "body": "{\n  \"instanceConfigs\": [\n    {\n      \"displayName\": \"\",\n      \"leaderOptions\": [\n        \"\"\n      ],\n      \"name\": \"\",\n      \"replicas\": [\n        {\n          \"defaultLeaderLocation\": {{faker 'random.boolean'}},\n          \"location\": \"\",\n          \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'READ_WRITE' 'READ_ONLY' 'WITNESS')}}\"\n        }\n      ]\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "99598a55-91f6-40ff-b2b3-131d500a58ac",
+      "documentation": "Lists all instances in the given project.",
+      "method": "get",
+      "endpoint": "v1/:parent/instances",
+      "responses": [
+        {
+          "uuid": "e4463056-e1f7-4fa4-bcfd-c13e2277686e",
+          "body": "{\n  \"instances\": [\n    {\n      \"config\": \"\",\n      \"displayName\": \"\",\n      \"endpointUris\": [\n        \"\"\n      ],\n      \"labels\": {},\n      \"name\": \"\",\n      \"nodeCount\": {{faker 'random.number'}},\n      \"processingUnits\": {{faker 'random.number'}},\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'CREATING' 'READY')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\",\n  \"unreachable\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a01ed8ef-2078-462a-8eb8-77c985ccdf14",
+      "documentation": "Creates an instance and begins preparing it to begin serving. The returned long-running operation can be used to track the progress of preparing the new instance. The instance name is assigned by the caller. If the named instance already exists, `CreateInstance` returns `ALREADY_EXISTS`. Immediately upon completion of this request: * The instance is readable via the API, with all requested attributes but no allocated resources. Its state is `CREATING`. Until completion of the returned operation: * Cancelling the operation renders the instance immediately unreadable via the API. * The instance can be deleted. * All other attempts to modify the instance are rejected. Upon completion of the returned operation: * Billing for all successfully-allocated resources begins (some types may have lower than the requested levels). * Databases can be created in the instance. * The instance's allocated resource levels are readable via the API. * The instance's state becomes `READY`. The returned long-running operation will have a name of the format `/operations/` and can be used to track creation of the instance. The metadata field type is CreateInstanceMetadata. The response field type is Instance, if successful.",
+      "method": "post",
+      "endpoint": "v1/:parent/instances",
+      "responses": [
+        {
+          "uuid": "7d5195b7-e6d7-4e09-9d71-9e99b963428a",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b9619788-93b5-4889-bcc6-54274efe1346",
+      "documentation": "Gets the access control policy for a database or backup resource. Returns an empty policy if a database or backup exists but does not have a policy set. Authorization requires `spanner.databases.getIamPolicy` permission on resource. For backups, authorization requires `spanner.backups.getIamPolicy` permission on resource.",
+      "method": "post",
+      "endpoint": "v1/:resource:getIamPolicy",
+      "responses": [
+        {
+          "uuid": "f8600455-db35-4b35-95e6-13f9c9a70011",
+          "body": "{\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b91ec395-6eff-42ad-8d22-6329bab9c0f9",
+      "documentation": "Sets the access control policy on a database or backup resource. Replaces any existing policy. Authorization requires `spanner.databases.setIamPolicy` permission on resource. For backups, authorization requires `spanner.backups.setIamPolicy` permission on resource.",
+      "method": "post",
+      "endpoint": "v1/:resource:setIamPolicy",
+      "responses": [
+        {
+          "uuid": "234b4d0c-0b30-42c2-8502-8f1cbe2182e3",
+          "body": "{\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1e3c6532-d1c9-40cf-bd6c-5125e9705b4f",
+      "documentation": "Returns permissions that the caller has on the specified database or backup resource. Attempting this RPC on a non-existent Cloud Spanner database will result in a NOT_FOUND error if the user has `spanner.databases.list` permission on the containing Cloud Spanner instance. Otherwise returns an empty set of permissions. Calling this method on a backup that does not exist will result in a NOT_FOUND error if the user has `spanner.backups.list` permission on the containing instance.",
+      "method": "post",
+      "endpoint": "v1/:resource:testIamPermissions",
+      "responses": [
+        {
+          "uuid": "518c88bb-1497-469b-a568-96e306db9e7b",
+          "body": "{\n  \"permissions\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "24a0fb66-02c1-4ab1-afd3-1eace28ea50e",
+      "documentation": "Begins a new transaction. This step can often be skipped: Read, ExecuteSql and Commit can begin a new transaction as a side-effect.",
+      "method": "post",
+      "endpoint": "v1/:session:beginTransaction",
+      "responses": [
+        {
+          "uuid": "55962f90-809f-45de-b453-c0823bfd6d5e",
+          "body": "{\n  \"id\": \"\",\n  \"readTimestamp\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "dd7a0127-a1a8-45a2-9c65-e77cab35bdfe",
+      "documentation": "Commits a transaction. The request includes the mutations to be applied to rows in the database. `Commit` might return an `ABORTED` error. This can occur at any time; commonly, the cause is conflicts with concurrent transactions. However, it can also happen for a variety of other reasons. If `Commit` returns `ABORTED`, the caller should re-attempt the transaction from the beginning, re-using the same session. On very rare occasions, `Commit` might return `UNKNOWN`. This can happen, for example, if the client job experiences a 1+ hour networking failure. At that point, Cloud Spanner has lost track of the transaction outcome and we recommend that you perform another read from the database to see the state of things as they are now.",
+      "method": "post",
+      "endpoint": "v1/:session:commit",
+      "responses": [
+        {
+          "uuid": "ec84b7ce-e005-46ae-85ba-fa979faede7b",
+          "body": "{\n  \"commitStats\": {\n    \"mutationCount\": \"\"\n  },\n  \"commitTimestamp\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "901a1590-1e0f-43eb-967d-542aed61210f",
+      "documentation": "Executes a batch of SQL DML statements. This method allows many statements to be run with lower latency than submitting them sequentially with ExecuteSql. Statements are executed in sequential order. A request can succeed even if a statement fails. The ExecuteBatchDmlResponse.status field in the response provides information about the statement that failed. Clients must inspect this field to determine whether an error occurred. Execution stops after the first failed statement; the remaining statements are not executed.",
+      "method": "post",
+      "endpoint": "v1/:session:executeBatchDml",
+      "responses": [
+        {
+          "uuid": "494c1634-e35e-4c25-af64-00a41268846f",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5cae7f94-0e26-4b52-9bda-638a50ea9480",
+      "documentation": "Executes an SQL statement, returning all results in a single reply. This method cannot be used to return a result set larger than 10 MiB; if the query yields more data than that, the query fails with a `FAILED_PRECONDITION` error. Operations inside read-write transactions might return `ABORTED`. If this occurs, the application should restart the transaction from the beginning. See Transaction for more details. Larger result sets can be fetched in streaming fashion by calling ExecuteStreamingSql instead.",
+      "method": "post",
+      "endpoint": "v1/:session:executeSql",
+      "responses": [
+        {
+          "uuid": "105a7bbb-ca35-43ec-bdab-cb9c7dad3a90",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "28c5dcf1-8b72-4f97-89e8-781357e0c3d5",
+      "documentation": "Like ExecuteSql, except returns the result set as a stream. Unlike ExecuteSql, there is no limit on the size of the returned result set. However, no individual row in the result set can exceed 100 MiB, and no column value can exceed 10 MiB.",
+      "method": "post",
+      "endpoint": "v1/:session:executeStreamingSql",
+      "responses": [
+        {
+          "uuid": "6af94d63-6f6f-49b0-a4bd-4021e2185a21",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b8c6a60c-6517-41a4-9669-ffc3be3a7bc3",
+      "documentation": "Creates a set of partition tokens that can be used to execute a query operation in parallel. Each of the returned partition tokens can be used by ExecuteStreamingSql to specify a subset of the query result to read. The same session and read-only transaction must be used by the PartitionQueryRequest used to create the partition tokens and the ExecuteSqlRequests that use the partition tokens. Partition tokens become invalid when the session used to create them is deleted, is idle for too long, begins a new transaction, or becomes too old. When any of these happen, it is not possible to resume the query, and the whole operation must be restarted from the beginning.",
+      "method": "post",
+      "endpoint": "v1/:session:partitionQuery",
+      "responses": [
+        {
+          "uuid": "61d2d7d1-cc5e-4cf1-8d65-4382a4c1c7d4",
+          "body": "{\n  \"partitions\": [\n    {\n      \"partitionToken\": \"\"\n    }\n  ],\n  \"transaction\": {\n    \"id\": \"\",\n    \"readTimestamp\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c32e820a-d7fe-4be1-8eb6-eec52da90d20",
+      "documentation": "Creates a set of partition tokens that can be used to execute a read operation in parallel. Each of the returned partition tokens can be used by StreamingRead to specify a subset of the read result to read. The same session and read-only transaction must be used by the PartitionReadRequest used to create the partition tokens and the ReadRequests that use the partition tokens. There are no ordering guarantees on rows returned among the returned partition tokens, or even within each individual StreamingRead call issued with a partition_token. Partition tokens become invalid when the session used to create them is deleted, is idle for too long, begins a new transaction, or becomes too old. When any of these happen, it is not possible to resume the read, and the whole operation must be restarted from the beginning.",
+      "method": "post",
+      "endpoint": "v1/:session:partitionRead",
+      "responses": [
+        {
+          "uuid": "ef068889-1ae2-466a-a3f3-bf0b9bdc9982",
+          "body": "{\n  \"partitions\": [\n    {\n      \"partitionToken\": \"\"\n    }\n  ],\n  \"transaction\": {\n    \"id\": \"\",\n    \"readTimestamp\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "87250d38-071e-4681-b1b2-4b2f9786e167",
+      "documentation": "Reads rows from the database using key lookups and scans, as a simple key/value style alternative to ExecuteSql. This method cannot be used to return a result set larger than 10 MiB; if the read matches more data than that, the read fails with a `FAILED_PRECONDITION` error. Reads inside read-write transactions might return `ABORTED`. If this occurs, the application should restart the transaction from the beginning. See Transaction for more details. Larger result sets can be yielded in streaming fashion by calling StreamingRead instead.",
+      "method": "post",
+      "endpoint": "v1/:session:read",
+      "responses": [
+        {
+          "uuid": "bc7b0c55-1b6f-408d-abb6-19597e885d70",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "685d3557-b82d-4f54-9470-ba8780d18778",
+      "documentation": "Rolls back a transaction, releasing any locks it holds. It is a good idea to call this for any transaction that includes one or more Read or ExecuteSql requests and ultimately decides not to commit. `Rollback` returns `OK` if it successfully aborts the transaction, the transaction was already aborted, or the transaction is not found. `Rollback` never returns `ABORTED`.",
+      "method": "post",
+      "endpoint": "v1/:session:rollback",
+      "responses": [
+        {
+          "uuid": "ddbda677-0175-4eb5-b57b-8f05bb5b57be",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "64d60264-d937-4828-bd86-fc5e31f4ce88",
+      "documentation": "Like Read, except returns the result set as a stream. Unlike Read, there is no limit on the size of the returned result set. However, no individual row in the result set can exceed 100 MiB, and no column value can exceed 10 MiB.",
+      "method": "post",
+      "endpoint": "v1/:session:streamingRead",
+      "responses": [
+        {
+          "uuid": "b2afd2cd-536f-4298-8a60-c1036652f3c4",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

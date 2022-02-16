@@ -1,0 +1,127 @@
+{
+  "uuid": "310b362b-dcbe-477d-81a6-ec919e4f5531",
+  "lastMigration": 19,
+  "name": "Gmail Postmaster Tools API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "bcbafdb8-b097-4b02-84a9-0dfb1e9c8dbc",
+      "documentation": "Lists the domains that have been registered by the client. The order of domains in the response is unspecified and non-deterministic. Newly created domains will not necessarily be added to the end of this list.",
+      "method": "get",
+      "endpoint": "v1/domains",
+      "responses": [
+        {
+          "uuid": "03c67929-93d6-482a-959c-a73dbc6f01ae",
+          "body": "{\n  \"domains\": [\n    {\n      \"createTime\": \"\",\n      \"name\": \"\",\n      \"permission\": \"{{oneOf (array 'PERMISSION_UNSPECIFIED' 'OWNER' 'READER' 'NONE')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "11dc13f7-64da-410b-8de8-7f30a429bc9e",
+      "documentation": "Get traffic statistics for a domain on a specific date. Returns PERMISSION_DENIED if user does not have permission to access TrafficStats for the domain.",
+      "method": "get",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "d0083077-4b6b-4663-9d2b-9783fb22e173",
+          "body": "{\n  \"deliveryErrors\": [\n    {\n      \"errorClass\": \"{{oneOf (array 'DELIVERY_ERROR_CLASS_UNSPECIFIED' 'PERMANENT_ERROR' 'TEMPORARY_ERROR')}}\",\n      \"errorRatio\": {{faker 'random.float'}},\n      \"errorType\": \"{{oneOf (array 'DELIVERY_ERROR_TYPE_UNSPECIFIED' 'RATE_LIMIT_EXCEEDED' 'SUSPECTED_SPAM' 'CONTENT_SPAMMY' 'BAD_ATTACHMENT' 'BAD_DMARC_POLICY' 'LOW_IP_REPUTATION' 'LOW_DOMAIN_REPUTATION' 'IP_IN_RBL' 'DOMAIN_IN_RBL' 'BAD_PTR_RECORD')}}\"\n    }\n  ],\n  \"dkimSuccessRatio\": {{faker 'random.float'}},\n  \"dmarcSuccessRatio\": {{faker 'random.float'}},\n  \"domainReputation\": \"{{oneOf (array 'REPUTATION_CATEGORY_UNSPECIFIED' 'HIGH' 'MEDIUM' 'LOW' 'BAD')}}\",\n  \"inboundEncryptionRatio\": {{faker 'random.float'}},\n  \"ipReputations\": [\n    {\n      \"ipCount\": \"\",\n      \"reputation\": \"{{oneOf (array 'REPUTATION_CATEGORY_UNSPECIFIED' 'HIGH' 'MEDIUM' 'LOW' 'BAD')}}\",\n      \"sampleIps\": [\n        \"\"\n      ]\n    }\n  ],\n  \"name\": \"\",\n  \"outboundEncryptionRatio\": {{faker 'random.float'}},\n  \"spammyFeedbackLoops\": [\n    {\n      \"id\": \"\",\n      \"spamRatio\": {{faker 'random.float'}}\n    }\n  ],\n  \"spfSuccessRatio\": {{faker 'random.float'}},\n  \"userReportedSpamRatio\": {{faker 'random.float'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bf09d2f7-5b7b-4f6e-9e5e-8951d2d8f370",
+      "documentation": "List traffic statistics for all available days. Returns PERMISSION_DENIED if user does not have permission to access TrafficStats for the domain.",
+      "method": "get",
+      "endpoint": "v1/:parent/trafficStats",
+      "responses": [
+        {
+          "uuid": "f4f4d108-d01d-40d0-8510-70ebf9baea49",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"trafficStats\": [\n    {\n      \"deliveryErrors\": [\n        {\n          \"errorClass\": \"{{oneOf (array 'DELIVERY_ERROR_CLASS_UNSPECIFIED' 'PERMANENT_ERROR' 'TEMPORARY_ERROR')}}\",\n          \"errorRatio\": {{faker 'random.float'}},\n          \"errorType\": \"{{oneOf (array 'DELIVERY_ERROR_TYPE_UNSPECIFIED' 'RATE_LIMIT_EXCEEDED' 'SUSPECTED_SPAM' 'CONTENT_SPAMMY' 'BAD_ATTACHMENT' 'BAD_DMARC_POLICY' 'LOW_IP_REPUTATION' 'LOW_DOMAIN_REPUTATION' 'IP_IN_RBL' 'DOMAIN_IN_RBL' 'BAD_PTR_RECORD')}}\"\n        }\n      ],\n      \"dkimSuccessRatio\": {{faker 'random.float'}},\n      \"dmarcSuccessRatio\": {{faker 'random.float'}},\n      \"domainReputation\": \"{{oneOf (array 'REPUTATION_CATEGORY_UNSPECIFIED' 'HIGH' 'MEDIUM' 'LOW' 'BAD')}}\",\n      \"inboundEncryptionRatio\": {{faker 'random.float'}},\n      \"ipReputations\": [\n        {\n          \"ipCount\": \"\",\n          \"reputation\": \"{{oneOf (array 'REPUTATION_CATEGORY_UNSPECIFIED' 'HIGH' 'MEDIUM' 'LOW' 'BAD')}}\",\n          \"sampleIps\": [\n            \"\"\n          ]\n        }\n      ],\n      \"name\": \"\",\n      \"outboundEncryptionRatio\": {{faker 'random.float'}},\n      \"spammyFeedbackLoops\": [\n        {\n          \"id\": \"\",\n          \"spamRatio\": {{faker 'random.float'}}\n        }\n      ],\n      \"spfSuccessRatio\": {{faker 'random.float'}},\n      \"userReportedSpamRatio\": {{faker 'random.float'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

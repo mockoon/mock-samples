@@ -1,0 +1,2095 @@
+{
+  "uuid": "4e2c4f3f-6751-4f2a-a34e-3cda69b58db3",
+  "lastMigration": 19,
+  "name": "TVmaze user API",
+  "endpointPrefix": "v1",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "ea2eafcb-a5fc-49ba-8b7e-a23c8a3073a6",
+      "documentation": "Poll whether an authentication request was confirmed",
+      "method": "post",
+      "endpoint": "auth/poll",
+      "responses": [
+        {
+          "uuid": "6d883220-54c3-453b-a821-119e9cc02ab4",
+          "body": "{\n  \"apikey\": \"\",\n  \"username\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The user confirmed the authentication request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e3d3e908-d02b-4ecb-b340-71b20ed3c741",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "The authentication request was not confirmed yet",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "46f3b5ce-8fcd-4635-b324-33a590d7183b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The authentication request was not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d561c91a-d1dc-400b-b21f-592e46bfaf1c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "You are polling too quickly, please back off",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "345c86b4-cb03-48a9-b732-9c2101475146",
+      "documentation": "Start an authentication request",
+      "method": "post",
+      "endpoint": "auth/start",
+      "responses": [
+        {
+          "uuid": "e8c75ffb-52d1-46f7-89bf-20cb15272a2d",
+          "body": "{\n  \"confirm_url\": \"\",\n  \"token\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The authentication request was succesfully started",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4dd25744-37b8-4fe6-872d-0f9c23458956",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "The email address was found, but not confirmed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "88d431b2-af72-4585-b8ad-d9dc7437e2ba",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The email address was not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1aca6e20-a2ef-4bb2-a732-0ad5e79e53a3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "You are starting authentication requests too quickly, please back off",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ae7f546d-2bc4-404d-905b-1aae81f6df54",
+      "documentation": "Validate your authentication credentials",
+      "method": "get",
+      "endpoint": "auth/validate",
+      "responses": [
+        {
+          "uuid": "98c9a21b-5dcf-4458-877f-3533bc60933c",
+          "body": "{\n  \"premium\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The supplied credentials are valid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f9a60e7b-6388-48e9-b70d-0f99a09c4851",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "The supplied credentials are not valid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cc59bba7-6223-4f32-8ddb-0a014a04151c",
+      "documentation": "Mark episodes as acquired or watched based on their IDs",
+      "method": "post",
+      "endpoint": "scrobble/episodes",
+      "responses": [
+        {
+          "uuid": "b43def32-8303-43cb-865e-bc4181a20aff",
+          "body": "[\n  {\n    \"code\": {{faker 'random.number'}},\n    \"errors\": {},\n    \"input\": {},\n    \"message\": \"\",\n    \"result\": {}\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "All episodes were succesfully marked",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e3052dd8-e1ab-4904-b5cd-81f993860141",
+          "body": "[\n  {\n    \"code\": {{faker 'random.number'}},\n    \"errors\": {},\n    \"input\": {},\n    \"message\": \"\",\n    \"result\": {}\n  }\n]",
+          "latency": 0,
+          "statusCode": 207,
+          "label": "Some episodes were succesfully marked, but there are errors",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "497c231b-f2d0-4d8b-9561-6606a0a531c0",
+          "body": "[\n  {\n    \"code\": {{faker 'random.number'}},\n    \"errors\": {},\n    \"input\": {},\n    \"message\": \"\",\n    \"result\": {}\n  }\n]",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "None of the episodes were succesfully marked",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "157daa65-1a55-4784-a5ec-5b9fc9bc0b20",
+      "documentation": "Mark an episode as acquired or watched based on its ID",
+      "method": "put",
+      "endpoint": "scrobble/episodes/:episode_id",
+      "responses": [
+        {
+          "uuid": "308a7146-2c42-4156-b8ea-ae0724787c2e",
+          "body": "{\n  \"_embedded\": {\n    \"episode\": {}\n  },\n  \"episode_id\": {{faker 'random.number'}},\n  \"marked_at\": {{faker 'random.number'}},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "this episode is now marked",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bea4c502-f35e-4f52-8541-63731dcd7fa9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "this episode does not exist",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "19155e98-2eab-4447-8970-b84626f7d85d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "invalid input data",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4453188a-7bb1-42cc-98f4-c6b8b4183efa",
+      "documentation": "Mark episodes within a show as acquired or watched based on their attributes",
+      "method": "post",
+      "endpoint": "scrobble/shows",
+      "responses": [
+        {
+          "uuid": "039234b9-1ebf-4625-b4df-f9d585379c98",
+          "body": "[\n  {\n    \"code\": {{faker 'random.number'}},\n    \"errors\": {},\n    \"input\": {},\n    \"message\": \"\",\n    \"result\": {}\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "All episodes were succesfully marked",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e73d4e77-68c0-4b01-ae70-5a4f5d4f0500",
+          "body": "[\n  {\n    \"code\": {{faker 'random.number'}},\n    \"errors\": {},\n    \"input\": {},\n    \"message\": \"\",\n    \"result\": {}\n  }\n]",
+          "latency": 0,
+          "statusCode": 207,
+          "label": "Some episodes were succesfully marked, but there are errors",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "888f6962-062f-49f5-ac36-1bb0e84c73a7",
+          "body": "[\n  {\n    \"code\": {{faker 'random.number'}},\n    \"errors\": {},\n    \"input\": {},\n    \"message\": \"\",\n    \"result\": {}\n  }\n]",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "None of the episodes were succesfully marked",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d0ef1923-a72a-4fca-8cd4-fa0fb95bbed9",
+      "documentation": "List watched and acquired episodes for a show",
+      "method": "get",
+      "endpoint": "scrobble/shows/:show_id",
+      "responses": [
+        {
+          "uuid": "47f3a20b-03ef-498c-ab1f-2f5937d947f9",
+          "body": "[\n  {\n    \"_embedded\": {\n      \"episode\": {}\n    },\n    \"episode_id\": {{faker 'random.number'}},\n    \"marked_at\": {{faker 'random.number'}},\n    \"type\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of marked episodes",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "521284ee-b985-4f44-9010-1541f17e482c",
+      "documentation": "List the marked episodes",
+      "method": "get",
+      "endpoint": "user/episodes",
+      "responses": [
+        {
+          "uuid": "dd704c8d-4d94-4398-b7a0-6646beee14e8",
+          "body": "[\n  {\n    \"_embedded\": {\n      \"episode\": {}\n    },\n    \"episode_id\": {{faker 'random.number'}},\n    \"marked_at\": {{faker 'random.number'}},\n    \"type\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of marked episodes",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "26bba86a-b463-4ef4-97e6-1cedf1fda96b",
+      "documentation": "Unmark an episode",
+      "method": "delete",
+      "endpoint": "user/episodes/:episode_id",
+      "responses": [
+        {
+          "uuid": "5fdc505d-3579-4289-b9f9-70f05b85c372",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "the episode is now unmarked",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b5ce1eec-1398-474f-ad29-acaf4b61dff8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "this episode was not marked",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4cfd1a83-b697-4278-8964-ada006e7ebc1",
+      "documentation": "Check if an episode is marked",
+      "method": "get",
+      "endpoint": "user/episodes/:episode_id",
+      "responses": [
+        {
+          "uuid": "bd02619a-7835-493c-85e6-dbb75121cd9b",
+          "body": "{\n  \"_embedded\": {\n    \"episode\": {}\n  },\n  \"episode_id\": {{faker 'random.number'}},\n  \"marked_at\": {{faker 'random.number'}},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The marked episode",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c72857e9-5f34-4442-8f59-9d51171ad7ae",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "This episode is not marked",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "93685e3a-e06d-4cc7-818f-2830ff10edaa",
+      "documentation": "Mark an episode",
+      "method": "put",
+      "endpoint": "user/episodes/:episode_id",
+      "responses": [
+        {
+          "uuid": "d3d03ef4-ceac-4e73-8fe0-3dd842c1f462",
+          "body": "{\n  \"_embedded\": {\n    \"episode\": {}\n  },\n  \"episode_id\": {{faker 'random.number'}},\n  \"marked_at\": {{faker 'random.number'}},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "this episode is now marked",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a2bcdb74-022d-4fe1-9a86-5ca5d0b22b13",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "this episode does not exist",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e1ba081a-5823-4a23-9767-ffdd4e2a8f9a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "invalid input data",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "fad2e289-e28b-4161-b822-c87f5eba5068",
+      "documentation": "List the followed networks",
+      "method": "get",
+      "endpoint": "user/follows/networks",
+      "responses": [
+        {
+          "uuid": "99054896-9f57-4622-b2ff-56452752f12f",
+          "body": "[\n  {\n    \"_embedded\": {\n      \"network\": {}\n    },\n    \"network_id\": {{faker 'random.number'}}\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of followed networks",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "dfac9dce-bf89-45b3-b89a-cac6203d725c",
+      "documentation": "Unfollow a network",
+      "method": "delete",
+      "endpoint": "user/follows/networks/:network_id",
+      "responses": [
+        {
+          "uuid": "02d6b021-fb04-473c-8dc2-0ba35d020b44",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "the network is now unfollowed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3db4a48c-4b24-4f80-8e32-a43f3b88af7b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "this network was not followed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7f086daa-59e5-4991-bfd3-0be31aef4e91",
+      "documentation": "Check if a network is followed",
+      "method": "get",
+      "endpoint": "user/follows/networks/:network_id",
+      "responses": [
+        {
+          "uuid": "d4a8dc99-7f31-48a2-bab6-8af440dbf242",
+          "body": "{\n  \"_embedded\": {\n    \"network\": {}\n  },\n  \"network_id\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The followed network",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "90a9ca6c-8004-4665-bf8b-ebb03b779db4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "this network is not followed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f0562492-2c3f-435c-9b87-f9b6f82dd6bb",
+      "documentation": "Follow a network",
+      "method": "put",
+      "endpoint": "user/follows/networks/:network_id",
+      "responses": [
+        {
+          "uuid": "fa5bcbfd-9892-46ad-ac49-fe28e799ceb4",
+          "body": "{\n  \"_embedded\": {\n    \"network\": {}\n  },\n  \"network_id\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "this network is now followed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d278add5-3554-42f0-b1c6-cc64a5f725bf",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "this network does not exist",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f7d27a44-8f3f-41fc-a67f-f70df912a32e",
+      "documentation": "List the followed people",
+      "method": "get",
+      "endpoint": "user/follows/people",
+      "responses": [
+        {
+          "uuid": "e5416c25-2406-4b55-8151-69ebc645c6a9",
+          "body": "[\n  {\n    \"_embedded\": {\n      \"person\": {}\n    },\n    \"person_id\": {{faker 'random.number'}}\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of followed people",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7ba7d171-2457-4a3d-a363-848676ec8a7b",
+      "documentation": "Unfollow a person",
+      "method": "delete",
+      "endpoint": "user/follows/people/:person_id",
+      "responses": [
+        {
+          "uuid": "a363bef2-cde0-4035-be79-cd44e1532d03",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "the person is now unfollowed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8f50e955-0194-484c-87d7-6c12644bec8e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "this person was not followed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a3a83924-48cb-458f-94f2-2aec365d11ea",
+      "documentation": "Check if a person is followed",
+      "method": "get",
+      "endpoint": "user/follows/people/:person_id",
+      "responses": [
+        {
+          "uuid": "e463cbd8-ccab-47a8-91a6-9d778e7a0b7e",
+          "body": "{\n  \"_embedded\": {\n    \"person\": {}\n  },\n  \"person_id\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The followed person",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a4afc7c1-0854-418a-97fd-e7646ecbcd09",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "this person is not followed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3eabdebd-d3a6-46a3-8a82-80d820486cf3",
+      "documentation": "Follow a person",
+      "method": "put",
+      "endpoint": "user/follows/people/:person_id",
+      "responses": [
+        {
+          "uuid": "edcd9b35-9ec2-428d-adb0-55e54c848cda",
+          "body": "{\n  \"_embedded\": {\n    \"person\": {}\n  },\n  \"person_id\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "this person is now followed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "649635c1-4b09-4915-92bc-a98819b12cc7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "this person does not exist",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ec1d0f27-54ac-4308-b888-6c418394de34",
+      "documentation": "List the followed shows",
+      "method": "get",
+      "endpoint": "user/follows/shows",
+      "responses": [
+        {
+          "uuid": "47f9329c-301f-4136-a758-3e8dc1a7dc54",
+          "body": "[\n  {\n    \"_embedded\": {\n      \"show\": {}\n    },\n    \"show_id\": {{faker 'random.number'}}\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of followed shows",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3babd993-6fd3-47cf-a3e2-5473dbcbd6e8",
+      "documentation": "Unfollow a show",
+      "method": "delete",
+      "endpoint": "user/follows/shows/:show_id",
+      "responses": [
+        {
+          "uuid": "bcc51af1-7a3d-45e8-bc4d-fb522d80e40a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The show is now unfollowed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "85451e40-7ff7-4266-8e32-98ca71a50337",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "This show was not followed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5c643dac-1809-49dc-8a6a-e9b3e15ad9a8",
+      "documentation": "Check if a show is followed",
+      "method": "get",
+      "endpoint": "user/follows/shows/:show_id",
+      "responses": [
+        {
+          "uuid": "66b57fac-a0e8-43bc-9883-3592f868a3fd",
+          "body": "{\n  \"_embedded\": {\n    \"show\": {}\n  },\n  \"show_id\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The followed show",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2ca41bd1-908d-4b85-b51a-08536567e5b1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "This show is not followed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c2a95b67-0927-4266-91da-ce8d2145cf13",
+      "documentation": "Follow a show",
+      "method": "put",
+      "endpoint": "user/follows/shows/:show_id",
+      "responses": [
+        {
+          "uuid": "bd282a6f-a27e-4ca2-a12a-4a4b1a85dda7",
+          "body": "{\n  \"_embedded\": {\n    \"show\": {}\n  },\n  \"show_id\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "This show is now followed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "53ab4b3d-579d-495a-a53f-507e79ce414f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "This show does not exist",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a7d3a621-7934-4acb-bfcd-3151e4d1a666",
+      "documentation": "List the followed webchannels",
+      "method": "get",
+      "endpoint": "user/follows/webchannels",
+      "responses": [
+        {
+          "uuid": "e359fe89-7ae2-4e24-8fc0-50ea73ed6313",
+          "body": "[\n  {\n    \"_embedded\": {\n      \"webchannel\": {}\n    },\n    \"webchannel_id\": {{faker 'random.number'}}\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of followed webchannels",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e861f47d-a2ba-4a42-8377-3ac672675377",
+      "documentation": "Unfollow a webchannel",
+      "method": "delete",
+      "endpoint": "user/follows/webchannels/:webchannel_id",
+      "responses": [
+        {
+          "uuid": "1d0ee26d-5766-4f83-9f84-2cf637bddc6b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "the webchannel is now unfollowed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4d74814a-4821-4098-a70a-eb5f9b335022",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "this webchannel was not followed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ed5efa1f-ea46-41bf-92b9-f30fde9ba251",
+      "documentation": "Check if a webchannel is followed",
+      "method": "get",
+      "endpoint": "user/follows/webchannels/:webchannel_id",
+      "responses": [
+        {
+          "uuid": "97f87813-0df7-4688-8506-327cae6bb490",
+          "body": "{\n  \"_embedded\": {\n    \"webchannel\": {}\n  },\n  \"webchannel_id\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The followed webchannel",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8ffaab2c-0abe-48b0-998e-bda38f21594c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "this webchannel is not followed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "693b0122-1404-49ff-865c-2667c4f68c22",
+      "documentation": "Follow a webchannel",
+      "method": "put",
+      "endpoint": "user/follows/webchannels/:webchannel_id",
+      "responses": [
+        {
+          "uuid": "75c0b2cd-20bf-4b09-a7d6-656d819d0f55",
+          "body": "{\n  \"_embedded\": {\n    \"webchannel\": {}\n  },\n  \"webchannel_id\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "this webchannel is now followed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1e9b7271-a9ea-45e1-b6bf-05fabf88962d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "this webchannel does not exist",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b2dc50e9-0294-4482-8fcf-3dc3bb386844",
+      "documentation": "List all tags",
+      "method": "get",
+      "endpoint": "user/tags",
+      "responses": [
+        {
+          "uuid": "b2cc2020-75ce-4ee0-8564-004c54174534",
+          "body": "[\n  {\n    \"id\": {{faker 'random.number'}},\n    \"name\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of tags",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ce0aed12-2089-444f-b8a6-e2260332f212",
+      "documentation": "Create a new tag",
+      "method": "post",
+      "endpoint": "user/tags",
+      "responses": [
+        {
+          "uuid": "ab0eb76e-e39e-4144-b518-730d9e394b38",
+          "body": "{\n  \"id\": {{faker 'random.number'}},\n  \"name\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The newly created tag",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e8b68930-aeed-40e1-9db4-419db8619576",
+          "body": "",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "invalid input data",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4969a87f-22ca-4207-b5e1-8d61b7f60f56",
+      "documentation": "Delete a specific tag",
+      "method": "delete",
+      "endpoint": "user/tags/:tag_id",
+      "responses": [
+        {
+          "uuid": "285f36e0-5a02-4866-b7e2-77daa56d8c95",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The tag was deleted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5722f47e-7256-4131-86a2-093eeca6aaca",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The tag does not exist",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bbbec192-4a35-43f5-8410-6a99b1780d87",
+      "documentation": "Update a specific tag",
+      "method": "patch",
+      "endpoint": "user/tags/:tag_id",
+      "responses": [
+        {
+          "uuid": "9b6e9f79-8290-4515-97f2-9fb277d3ec2a",
+          "body": "{\n  \"id\": {{faker 'random.number'}},\n  \"name\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The tag was updated",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fee70e44-bd13-4e48-877d-d98d920d6d54",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The tag does not exist",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "97a277d1-fd9e-41b4-949f-ba9dc3439b44",
+          "body": "",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "The tag could not be updated",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f40c8f2c-ca37-4dcf-8db4-12572a3101b5",
+      "documentation": "List all shows under this tag",
+      "method": "get",
+      "endpoint": "user/tags/:tag_id/shows",
+      "responses": [
+        {
+          "uuid": "83d627c7-8012-4e24-a33a-16b162a3a148",
+          "body": "[\n  {\n    \"_embedded\": {\n      \"show\": {}\n    },\n    \"show_id\": {{faker 'random.number'}}\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of tagged shows",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6140a4e4-2fdc-43c4-9c14-f2455f21cb67",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The tag does not exist",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "09164a5d-8a6a-40d8-8d89-e84cec6d0817",
+      "documentation": "Untag a show",
+      "method": "delete",
+      "endpoint": "user/tags/:tag_id/shows/:show_id",
+      "responses": [
+        {
+          "uuid": "35d44afa-7f5a-4599-b87d-43e2c695c9a3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The show was untagged",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3140b746-cc06-411b-8fc4-a70017bbb2ab",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The show was not tagged",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d7cdce2a-b927-419c-ba34-49dc9aba93fd",
+      "documentation": "Tag a show",
+      "method": "put",
+      "endpoint": "user/tags/:tag_id/shows/:show_id",
+      "responses": [
+        {
+          "uuid": "1363bbf7-bc36-4fd2-944e-052b1fc1e7b1",
+          "body": "{\n  \"_embedded\": {\n    \"show\": {}\n  },\n  \"show_id\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The show was tagged",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bf0675fc-1cf5-437b-8218-bb5dc95e5989",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The show or tag does not exist",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7934ee93-8093-4473-8a7b-cc327ddc183f",
+      "documentation": "List the episodes voted for",
+      "method": "get",
+      "endpoint": "user/votes/episodes",
+      "responses": [
+        {
+          "uuid": "332c932c-9b98-435c-85ca-79a7dc148fa5",
+          "body": "[\n  {\n    \"episode_id\": {{faker 'random.number'}},\n    \"vote\": {{faker 'random.number'}},\n    \"voted_at\": {{faker 'random.number'}}\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of episode votes",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f92e7b92-560d-498f-b22c-e0710c228542",
+      "documentation": "Remove an episode vote",
+      "method": "delete",
+      "endpoint": "user/votes/episodes/:episode_id",
+      "responses": [
+        {
+          "uuid": "da144077-217f-4d43-b27c-74e455b327ab",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The episode vote is now removed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "30a1a02f-ecc8-4f8c-bfdb-6d3713433f95",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "This episode was not voted for",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9484e2da-e562-4515-a4ca-0cd52f5fefba",
+      "documentation": "Check if an episode is voted for",
+      "method": "get",
+      "endpoint": "user/votes/episodes/:episode_id",
+      "responses": [
+        {
+          "uuid": "e7e0d5b1-d57d-49be-8d1a-64539d0ccff7",
+          "body": "{\n  \"episode_id\": {{faker 'random.number'}},\n  \"vote\": {{faker 'random.number'}},\n  \"voted_at\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The episode vote",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2cfc9102-1e88-4d35-bec9-f32b9cfa60d1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "This episode is not voted for",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "48d48e2e-16ef-4d40-bb4e-7fb6ae3753c1",
+      "documentation": "Vote for an episode",
+      "method": "put",
+      "endpoint": "user/votes/episodes/:episode_id",
+      "responses": [
+        {
+          "uuid": "22223f98-b7ce-4cb7-b6ca-3b1216a58172",
+          "body": "{\n  \"episode_id\": {{faker 'random.number'}},\n  \"vote\": {{faker 'random.number'}},\n  \"voted_at\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "This episode is now voted for",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c210b948-0f0e-4ada-a634-75274a22f193",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "This episode does not exist",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "229ae275-a119-4866-bd2c-b8b3621bb052",
+      "documentation": "List the shows voted for",
+      "method": "get",
+      "endpoint": "user/votes/shows",
+      "responses": [
+        {
+          "uuid": "fc8550ce-362a-414f-aa69-371a3c59e7d6",
+          "body": "[\n  {\n    \"show_id\": {{faker 'random.number'}},\n    \"vote\": {{faker 'random.number'}},\n    \"voted_at\": {{faker 'random.number'}}\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of show votes",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "36a53711-b794-473b-adbe-e5128de05d6c",
+      "documentation": "Remove a show vote",
+      "method": "delete",
+      "endpoint": "user/votes/shows/:show_id",
+      "responses": [
+        {
+          "uuid": "c6719544-0454-463c-b0b4-91cd3860fc57",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The show vote is now removed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7a06bd43-5ef3-46e8-8ab8-f9f5233fe9ee",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "This show was not voted for",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6c387b29-ef80-453a-b52e-36a5a6a60bcc",
+      "documentation": "Check if a show is voted for",
+      "method": "get",
+      "endpoint": "user/votes/shows/:show_id",
+      "responses": [
+        {
+          "uuid": "9068e51b-761e-4995-9c69-03d13df3a193",
+          "body": "{\n  \"show_id\": {{faker 'random.number'}},\n  \"vote\": {{faker 'random.number'}},\n  \"voted_at\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The show vote",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ef2270bc-a6e0-41f6-a1de-b64934070f12",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "This show is not voted for",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8f3be60b-bb5e-4997-a643-fca6828175d9",
+      "documentation": "Vote for a show",
+      "method": "put",
+      "endpoint": "user/votes/shows/:show_id",
+      "responses": [
+        {
+          "uuid": "798cab91-fc27-42c5-8a01-366d037be68b",
+          "body": "{\n  \"show_id\": {{faker 'random.number'}},\n  \"vote\": {{faker 'random.number'}},\n  \"voted_at\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "This show is now voted for",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0bddc002-fabd-4444-8236-ba0bec9cb67d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "This show does not exist",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

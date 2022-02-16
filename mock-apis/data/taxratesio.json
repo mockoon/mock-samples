@@ -1,0 +1,241 @@
+{
+  "uuid": "003c1169-4225-4d7b-8031-bcc829ab6fd6",
+  "lastMigration": 19,
+  "name": "Taxrates.io API",
+  "endpointPrefix": "api",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "a27b8987-9ad8-4fb1-8166-91d1e4b45037",
+      "documentation": "Tax rates by Country Code",
+      "method": "get",
+      "endpoint": "v1/tax/countrycode",
+      "responses": [
+        {
+          "uuid": "dd19004e-b827-4e6b-82fc-02d38e9a62ce",
+          "body": "{\n  \"country_name\": \"<string>\",\n  \"taxes\": [\n    {\n      \"Country\": \"<string>\",\n      \"Type\": \"<string>\",\n      \"data_name\": \"<string>\",\n      \"data_value\": \"<string>\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7e02a988-66a1-4a93-8adf-444d12c09669",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Country not found. Have you provided correct alpha-2 country code?",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2ab23a5d-a4b4-42b2-9455-a7327891cb45",
+          "body": "{\n  \"code\": \"<integer>\",\n  \"fields\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8d691e21-daa4-4c8c-9a48-e9afa41a4c3f",
+      "documentation": "Tax rates by IP address",
+      "method": "get",
+      "endpoint": "v1/tax/ip",
+      "responses": [
+        {
+          "uuid": "87400e8b-3198-4ec5-80aa-f429dc8241b5",
+          "body": "[\n  {\n    \"country_name\": \"<string>\",\n    \"taxes\": [\n      {\n        \"Country\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"data_name\": \"<string>\",\n        \"data_value\": \"<string>\"\n      }\n    ]\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of tax rates for VAT, GST & TAX",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4710b36a-f85b-413a-bf3d-903f49897cbf",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Geolocation can not be processed/No matching country found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "06e68366-abae-4674-b85e-8aa3a8254ca4",
+          "body": "{\n  \"code\": \"<integer>\",\n  \"fields\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b4b1f379-d76c-4141-8928-1c23576c869b",
+      "documentation": "All tax rates",
+      "method": "get",
+      "endpoint": "v3/tax/rates",
+      "responses": [
+        {
+          "uuid": "bc0a9022-b27a-4ad0-b2ab-9b7f00c16172",
+          "body": "[\n  {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"rates\": [\n      {\n        \"data_name\": \"<string>\",\n        \"data_value\": \"<string>\",\n        \"product_code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of locations with tax rates",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e1fb3364-9d41-4604-9614-8897b3cefe83",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No configured tax rates found. Have you added any country to your account?",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5e998d68-f945-4750-a99e-9a1511b65ebd",
+          "body": "{\n  \"code\": \"<integer>\",\n  \"fields\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

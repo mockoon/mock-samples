@@ -1,0 +1,135 @@
+{
+  "uuid": "f593f268-9fb1-45ed-b37d-7e0594dc4751",
+  "lastMigration": 19,
+  "name": "UsageManagementClient",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "49a7a48b-e2f0-4121-b477-bc72f93444c7",
+      "documentation": "Enables you to query for the resource/meter metadata and related prices used in a given subscription by Offer ID, Currency, Locale and Region. The metadata associated with the billing meters, including but not limited to service names, types, resources, units of measure, and regions, is subject to change at any time and without notice. If you intend to use this billing data in an automated fashion, please use the billing meter GUID to uniquely identify each billable item. If the billing meter GUID is scheduled to change due to a new billing model, you will be notified in advance of the change. ",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Commerce/RateCard",
+      "responses": [
+        {
+          "uuid": "a2142b74-79e5-4876-8b94-ee85818b5eb7",
+          "body": "{\n  \"Currency\": \"\",\n  \"IsTaxIncluded\": {{faker 'random.boolean'}},\n  \"Locale\": \"\",\n  \"Meters\": [\n    {\n      \"EffectiveDate\": \"{{faker 'date.recent' 365}}\",\n      \"IncludedQuantity\": {{faker 'random.float'}},\n      \"MeterCategory\": \"\",\n      \"MeterId\": \"{{faker 'random.uuid'}}\",\n      \"MeterName\": \"\",\n      \"MeterRates\": {},\n      \"MeterRegion\": \"\",\n      \"MeterSubCategory\": \"\",\n      \"MeterTags\": [\n        \"\"\n      ],\n      \"Unit\": \"\"\n    }\n  ],\n  \"OfferTerms\": [\n    {\n      \"EffectiveDate\": \"{{faker 'date.recent' 365}}\",\n      \"Name\": \"{{oneOf (array 'Recurring Charge' 'Monetary Commitment' 'Monetary Credit')}}\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Normal response for a successful query. The response body will contain the data that matches the filters specified in the query parameters.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7ce44cad-bb84-4f56-ae23-71e353b1e8b9",
+          "body": "{\n  \"code\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3d7b9897-a1fe-4279-91ee-2fb43d98c610",
+      "documentation": "Query aggregated Azure subscription consumption data for a date range.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Commerce/UsageAggregates",
+      "responses": [
+        {
+          "uuid": "f7cd056a-8bc9-4789-9b8a-8618c060a0ad",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"infoFields\": {\n          \"project\": \"\"\n        },\n        \"instanceData\": \"\",\n        \"meterCategory\": \"\",\n        \"meterId\": \"\",\n        \"meterName\": \"\",\n        \"meterRegion\": \"\",\n        \"meterSubCategory\": \"\",\n        \"quantity\": {{faker 'random.float'}},\n        \"subscriptionId\": \"{{faker 'random.uuid'}}\",\n        \"unit\": \"\",\n        \"usageEndTime\": \"{{faker 'date.recent' 365}}\",\n        \"usageStartTime\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Normal response for a successful query. The response body will contain the data that matches the filters specified in the query parameters.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2ed138cf-40cf-4f5b-bab8-d79fab2caf17",
+          "body": "{\n  \"code\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response describing why the operation failed.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

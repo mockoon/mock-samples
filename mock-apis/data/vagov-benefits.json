@@ -1,0 +1,681 @@
+{
+  "uuid": "cb2a93af-f260-4f05-bd6a-bba99617b711",
+  "lastMigration": 19,
+  "name": "Benefits Intake",
+  "endpointPrefix": "services/vba_documents/v1",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "3694c076-b36f-4406-b65f-74056d58dbdd",
+      "documentation": "Accepts document upload.",
+      "method": "put",
+      "endpoint": "path",
+      "responses": [
+        {
+          "uuid": "6b4d6042-fc85-4946-89ea-c88189ba67f3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Document upload staged",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "be803a38-ad12-448b-a777-e7fa77f9abc1",
+          "body": "{\n  \"Message\": \"Unauthorized Request\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "10581513-53ef-4a0f-ad2b-a4976dc001ce",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Document upload failed",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/xml"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "336b397a-6e97-4080-8de1-ef8cc6e46607",
+          "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"DOC104 - Upload rejected by upstream system. Processing failed and upload must be resubmitted\",\n      \"status\": \"422\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "431ab126-4b2b-4fbc-a6ac-0815694c9bf4",
+          "body": "{\n  \"Message\": \"API rate limit exceeded\"\n}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "Too many requests",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "26f71236-070d-49c4-8e2b-1c9f3681575c",
+          "body": "{\n  \"code\": 500,\n  \"detail\": \"Internal server error\",\n  \"status\": 500,\n  \"title\": \"Internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bb15be9e-74e3-4c41-b52e-88b531699169",
+      "documentation": "Get a location for subsequent document upload PUT request",
+      "method": "post",
+      "endpoint": "uploads",
+      "responses": [
+        {
+          "uuid": "8cda9370-c3a2-4265-b74e-146c034f069e",
+          "body": "{\n  \"data\": {\n    \"attributes\": {\n      \"code\": \"\",\n      \"detail\": \"\",\n      \"guid\": \"6d8433c1-cd55-4c24-affd-f592287a7572\",\n      \"location\": \"https://sandbox-api.va.gov/services_user_content/vba_documents/{idpath}\",\n      \"status\": \"{{oneOf (array 'pending' 'uploaded' 'received' 'processing' 'success' 'vbms' 'error')}}\",\n      \"updated_at\": \"2018-07-30T17:31:15.958Z\",\n      \"uploaded_pdf\": \"null\"\n    },\n    \"id\": \"6d8433c1-cd55-4c24-affd-f592287a7572\",\n    \"type\": \"document_upload\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Accepted. Location generated",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "27aeccea-522f-4eb4-a9a9-9ac3a3c48189",
+          "body": "{\n  \"Message\": \"Unauthorized Request\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0a505f60-889b-4d7b-8c07-ba4f7ff082c1",
+          "body": "{\n  \"Message\": \"Invalid authentication credentials\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f6202b65-3aec-43e9-a9cf-b19e90891192",
+          "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"DOC104 - Upload rejected by upstream system. Processing failed and upload must be resubmitted\",\n      \"status\": \"422\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ad224e6f-352b-4107-b12a-78004b28d298",
+          "body": "{\n  \"Message\": \"API rate limit exceeded\"\n}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "Too many requests",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "76ddad2e-5380-47c8-ab24-fd036dbc6045",
+          "body": "{\n  \"code\": 500,\n  \"detail\": \"Internal server error\",\n  \"status\": 500,\n  \"title\": \"Internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cbae68ea-24e2-4c49-9312-395fa407a67a",
+      "documentation": "Get a bulk status report for a list of previous uploads",
+      "method": "post",
+      "endpoint": "uploads/report",
+      "responses": [
+        {
+          "uuid": "65112981-d031-4255-978f-8d8961c17dd3",
+          "body": "{\n  \"data\": [\n    {\n      \"attributes\": {\n        \"code\": \"\",\n        \"detail\": \"\",\n        \"guid\": \"6d8433c1-cd55-4c24-affd-f592287a7572\",\n        \"message\": \"\",\n        \"status\": \"{{oneOf (array 'pending' 'uploaded' 'received' 'processing' 'success' 'vbms' 'error')}}\",\n        \"updated_at\": \"2018-07-30T17:31:15.958Z\",\n        \"uploaded_pdf\": {\n          \"content\": {\n            \"attachments\": [\n              {\n                \"dimensions\": {\n                  \"height\": \"11.0\",\n                  \"oversized_pdf\": \"false\",\n                  \"width\": \"8.5\"\n                },\n                \"page_count\": \"2\"\n              }\n            ],\n            \"dimensions\": {\n              \"height\": \"11.0\",\n              \"oversized_pdf\": \"false\",\n              \"width\": \"8.5\"\n            },\n            \"page_count\": \"1\"\n          },\n          \"total_documents\": \"2\",\n          \"total_pages\": \"3\"\n        }\n      },\n      \"id\": \"6d8433c1-cd55-4c24-affd-f592287a7572\",\n      \"type\": \"document_upload\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Upload status report retrieved successfully",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6c098c91-5f24-4e04-9cb8-ed3dee86537f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request - invalid or missing list of guids",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7208ab20-87cd-45d2-80c7-5457830aa8cb",
+          "body": "{\n  \"Message\": \"Unauthorized Request\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "546ba127-e9f8-4c7f-874c-76d78328a31c",
+          "body": "{\n  \"Message\": \"Invalid authentication credentials\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "70172298-f87a-4a52-ae60-17c06bf91047",
+          "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"DOC104 - Upload rejected by upstream system. Processing failed and upload must be resubmitted\",\n      \"status\": \"422\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Unprocessable Entity",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7d93fddd-ef85-47de-9a27-c373a9c32563",
+          "body": "{\n  \"Message\": \"API rate limit exceeded\"\n}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "Too many requests",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "aa83dc9c-e36a-49e9-ba8e-feedb932654d",
+          "body": "{\n  \"code\": 500,\n  \"detail\": \"Internal server error\",\n  \"status\": 500,\n  \"title\": \"Internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "78908c65-b823-4e2c-8b25-79952e926d9e",
+      "documentation": "Get status for a previous benefits document upload",
+      "method": "get",
+      "endpoint": "uploads/:id",
+      "responses": [
+        {
+          "uuid": "6e6ae5f9-bae3-4820-9044-5fefe49b40ab",
+          "body": "{\n  \"data\": {\n    \"attributes\": {\n      \"code\": \"\",\n      \"detail\": \"\",\n      \"guid\": \"6d8433c1-cd55-4c24-affd-f592287a7572\",\n      \"message\": \"\",\n      \"status\": \"{{oneOf (array 'pending' 'uploaded' 'received' 'processing' 'success' 'vbms' 'error')}}\",\n      \"updated_at\": \"2018-07-30T17:31:15.958Z\",\n      \"uploaded_pdf\": {\n        \"content\": {\n          \"attachments\": [\n            {\n              \"dimensions\": {\n                \"height\": \"11.0\",\n                \"oversized_pdf\": \"false\",\n                \"width\": \"8.5\"\n              },\n              \"page_count\": \"2\"\n            }\n          ],\n          \"dimensions\": {\n            \"height\": \"11.0\",\n            \"oversized_pdf\": \"false\",\n            \"width\": \"8.5\"\n          },\n          \"page_count\": \"1\"\n        },\n        \"total_documents\": \"2\",\n        \"total_pages\": \"3\"\n      }\n    },\n    \"id\": \"6d8433c1-cd55-4c24-affd-f592287a7572\",\n    \"type\": \"document_upload\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Upload status retrieved successfully",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3ab88292-3913-4672-ae0b-c951fa9b9d96",
+          "body": "{\n  \"Message\": \"Unauthorized Request\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7e4b2e89-f821-40b3-a784-0a051981b81f",
+          "body": "{\n  \"Message\": \"Invalid authentication credentials\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "35c7a6fd-d618-4ad3-8fdf-777b999e5ba2",
+          "body": "{\n  \"code\": 404,\n  \"detail\": \"The record identified by {{ind}} could not be found\",\n  \"status\": 404,\n  \"title\": \"Record not found\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dcd77969-34de-434f-b80e-e9b3d7aa5ffd",
+          "body": "{\n  \"Message\": \"API rate limit exceeded\"\n}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "Too many requests",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c65b36a7-d7c6-495d-907f-a842e56efc17",
+          "body": "{\n  \"code\": 500,\n  \"detail\": \"Internal server error\",\n  \"status\": 500,\n  \"title\": \"Internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7936fd77-1728-4ac7-a8c6-6d44f8a3dea7",
+      "documentation": "Download zip of \"what the server sees\"",
+      "method": "get",
+      "endpoint": "uploads/:id/download",
+      "responses": [
+        {
+          "uuid": "5d009cc7-d981-4616-9094-f8128978be91",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Zip file with the contents of your payload as parsed by our server",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/zip"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a502aa27-f3e5-49a6-b367-7a5a07a0d529",
+          "body": "{\n  \"Message\": \"Unauthorized Request\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "77df79ed-8365-4b54-a35c-8119f79aaec3",
+          "body": "{\n  \"Message\": \"Invalid authentication credentials\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ab6e8c2d-8442-476c-b0c2-44270aa0023d",
+          "body": "{\n  \"code\": 404,\n  \"detail\": \"The record identified by {{ind}} could not be found\",\n  \"status\": 404,\n  \"title\": \"Record not found\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "34e07269-e1a7-4a40-9b30-76933feecb90",
+          "body": "{\n  \"Message\": \"API rate limit exceeded\"\n}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "Too many requests",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "963f1948-b306-446d-959b-fcf321eb0fea",
+          "body": "{\n  \"code\": 500,\n  \"detail\": \"Internal server error\",\n  \"status\": 500,\n  \"title\": \"Internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

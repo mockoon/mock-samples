@@ -1,0 +1,919 @@
+{
+  "uuid": "b71bfe34-1efb-483d-9362-6162a4a38929",
+  "lastMigration": 19,
+  "name": "Files",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "758e6429-8ad5-4772-9dce-0b3a1d8dea43",
+      "documentation": "Upload file",
+      "method": "post",
+      "endpoint": "files/v3/files",
+      "responses": [
+        {
+          "uuid": "fe66495e-cc19-4797-ad7e-516c6edaf013",
+          "body": "{\n  \"access\": \"{{oneOf (array 'PUBLIC_INDEXABLE' 'PUBLIC_NOT_INDEXABLE' 'HIDDEN_INDEXABLE' 'HIDDEN_NOT_INDEXABLE' 'HIDDEN_PRIVATE' 'PRIVATE')}}\",\n  \"archived\": {{faker 'random.boolean'}},\n  \"archivedAt\": \"{{faker 'date.recent' 365}}\",\n  \"createdAt\": \"{{faker 'date.recent' 365}}\",\n  \"defaultHostingUrl\": \"\",\n  \"encoding\": \"\",\n  \"extension\": \"\",\n  \"height\": {{faker 'random.number'}},\n  \"id\": \"\",\n  \"isUsableInContent\": {{faker 'random.boolean'}},\n  \"name\": \"\",\n  \"parentFolderId\": \"\",\n  \"path\": \"\",\n  \"size\": {{faker 'random.number'}},\n  \"type\": \"\",\n  \"updatedAt\": \"{{faker 'date.recent' 365}}\",\n  \"url\": \"\",\n  \"width\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "471a99e6-68bd-408b-8475-4918769a1ee0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bd27f733-de81-4547-aa9e-2093d779b12d",
+      "documentation": "Import a file from a URL into the file manager.",
+      "method": "post",
+      "endpoint": "files/v3/files/import-from-url/async",
+      "responses": [
+        {
+          "uuid": "3516c8a8-c1f9-486c-bbb5-d5ef207ce459",
+          "body": "{\n  \"id\": \"57122e26-59f8-4cfc-ba53-96e30c816762\",\n  \"links\": [\n    {\n      \"status\": \"https://api.hubspot.com/files/v3/files/import-from-url/async/tasks/57122e26-59f8-4cfc-ba53-96e30c816762/status\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5eab00d3-e3f4-469e-91c8-e6c5ad23f957",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c0dcd492-7dba-41e6-9fc7-2fe6fa324a47",
+      "documentation": "Check import status.",
+      "method": "get",
+      "endpoint": "files/v3/files/import-from-url/async/tasks/:taskId/status",
+      "responses": [
+        {
+          "uuid": "7b43e809-09fd-4683-b307-aee8e425a237",
+          "body": "{\n  \"completedAt\": \"{{faker 'date.recent' 365}}\",\n  \"errors\": [\n    {\n      \"category\": {\n        \"httpStatus\": \"{{oneOf (array 'CONTINUE' 'SWITCHING_PROTOCOLS' 'PROCESSING' 'OK' 'CREATED' 'ACCEPTED' 'NON_AUTHORITATIVE_INFORMATION' 'NO_CONTENT' 'RESET_CONTENT' 'PARTIAL_CONTENT' 'MULTI_STATUS' 'ALREADY_REPORTED' 'IM_USED' 'MULTIPLE_CHOICES' 'MOVED_PERMANENTLY' 'FOUND' 'SEE_OTHER' 'NOT_MODIFIED' 'USE_PROXY' 'TEMPORARY_REDIRECT' 'PERMANENT_REDIRECT' 'BAD_REQUEST' 'UNAUTHORIZED' 'PAYMENT_REQUIRED' 'FORBIDDEN' 'NOT_FOUND' 'METHOD_NOT_ALLOWED' 'NOT_ACCEPTABLE' 'PROXY_AUTHENTICATION_REQUIRED' 'REQUEST_TIMEOUT' 'CONFLICT' 'GONE' 'LENGTH_REQUIRED' 'PRECONDITION_FAILED' 'REQUEST_ENTITY_TOO_LARGE' 'REQUEST_URI_TOO_LONG' 'UNSUPPORTED_MEDIA_TYPE' 'REQUESTED_RANGE_NOT_SATISFIABLE' 'EXPECTATION_FAILED' 'IM_A_TEAPOT' 'MISDIRECTED_REQUEST' 'UNPROCESSABLE_ENTITY' 'LOCKED' 'FAILED_DEPENDENCY' 'UPGRADE_REQUIRED' 'PRECONDITION_REQUIRED' 'TOO_MANY_REQUESTS' 'REQUEST_HEADERS_FIELDS_TOO_LARGE' 'INTERNAL_STALE_SERVICE_DISCOVERY' 'UNAVAILABLE_FOR_LEGAL_REASONS' 'INTERNAL_SERVER_ERROR' 'NOT_IMPLEMENTED' 'BAD_GATEWAY' 'SERVICE_UNAVAILABLE' 'GATEWAY_TIMEOUT' 'HTTP_VERSION_NOT_SUPPORTED' 'VARIANT_ALSO_NEGOTIATES' 'INSUFFICIENT_STORAGE' 'LOOP_DETECTED' 'NOT_EXTENDED' 'NETWORK_AUTHENTICATION_REQUIRED')}}\",\n        \"name\": \"\"\n      },\n      \"context\": {},\n      \"errors\": [\n        {\n          \"code\": \"\",\n          \"context\": {\n            \"missingScopes\": [\n              \"scope1\",\n              \"scope2\"\n            ]\n          },\n          \"in\": \"\",\n          \"message\": \"\",\n          \"subCategory\": \"\"\n        }\n      ],\n      \"id\": \"\",\n      \"links\": {},\n      \"message\": \"\",\n      \"status\": \"\",\n      \"subCategory\": {}\n    }\n  ],\n  \"links\": {},\n  \"numErrors\": {{faker 'random.number'}},\n  \"requestedAt\": \"{{faker 'date.recent' 365}}\",\n  \"result\": {\n    \"access\": \"{{oneOf (array 'PUBLIC_INDEXABLE' 'PUBLIC_NOT_INDEXABLE' 'HIDDEN_INDEXABLE' 'HIDDEN_NOT_INDEXABLE' 'HIDDEN_PRIVATE' 'PRIVATE')}}\",\n    \"archived\": {{faker 'random.boolean'}},\n    \"archivedAt\": \"{{faker 'date.recent' 365}}\",\n    \"createdAt\": \"{{faker 'date.recent' 365}}\",\n    \"defaultHostingUrl\": \"\",\n    \"encoding\": \"\",\n    \"extension\": \"\",\n    \"height\": {{faker 'random.number'}},\n    \"id\": \"\",\n    \"isUsableInContent\": {{faker 'random.boolean'}},\n    \"name\": \"\",\n    \"parentFolderId\": \"\",\n    \"path\": \"\",\n    \"size\": {{faker 'random.number'}},\n    \"type\": \"\",\n    \"updatedAt\": \"{{faker 'date.recent' 365}}\",\n    \"url\": \"\",\n    \"width\": {{faker 'random.number'}}\n  },\n  \"startedAt\": \"{{faker 'date.recent' 365}}\",\n  \"status\": \"{{oneOf (array 'PENDING' 'PROCESSING' 'CANCELED' 'COMPLETE')}}\",\n  \"taskId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "15bb8a94-3576-4d77-a295-b4b4772bb4a5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f8dfb126-eb66-44f7-bc91-72b8e763ee50",
+      "documentation": "Search files",
+      "method": "get",
+      "endpoint": "files/v3/files/search",
+      "responses": [
+        {
+          "uuid": "75d4e690-40c6-45ef-bb98-0b2f3168c755",
+          "body": "{\n  \"paging\": {\n    \"next\": {\n      \"after\": \"\",\n      \"link\": \"\"\n    },\n    \"prev\": {\n      \"before\": \"\",\n      \"link\": \"\"\n    }\n  },\n  \"results\": [\n    {\n      \"access\": \"{{oneOf (array 'PUBLIC_INDEXABLE' 'PUBLIC_NOT_INDEXABLE' 'HIDDEN_INDEXABLE' 'HIDDEN_NOT_INDEXABLE' 'HIDDEN_PRIVATE' 'PRIVATE')}}\",\n      \"archived\": {{faker 'random.boolean'}},\n      \"archivedAt\": \"{{faker 'date.recent' 365}}\",\n      \"createdAt\": \"{{faker 'date.recent' 365}}\",\n      \"defaultHostingUrl\": \"\",\n      \"encoding\": \"\",\n      \"extension\": \"\",\n      \"height\": {{faker 'random.number'}},\n      \"id\": \"\",\n      \"isUsableInContent\": {{faker 'random.boolean'}},\n      \"name\": \"\",\n      \"parentFolderId\": \"\",\n      \"path\": \"\",\n      \"size\": {{faker 'random.number'}},\n      \"type\": \"\",\n      \"updatedAt\": \"{{faker 'date.recent' 365}}\",\n      \"url\": \"\",\n      \"width\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6a32d0a1-d5d5-483a-95e9-e82014e81775",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6c97e517-2b68-485c-952c-353b72e32119",
+      "documentation": "Delete file",
+      "method": "delete",
+      "endpoint": "files/v3/files/:fileId",
+      "responses": [
+        {
+          "uuid": "4d7d515d-ed4f-4f1b-b24e-f1359f6ec929",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a31bf32f-19ec-49a1-b5fb-b39111db9b78",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "56430d53-f532-41e0-92d8-52fbe57bb7d4",
+      "documentation": "Get file.",
+      "method": "get",
+      "endpoint": "files/v3/files/:fileId",
+      "responses": [
+        {
+          "uuid": "4e8a6ea5-9e81-4ca1-b7a6-be4bdae962b9",
+          "body": "{\n  \"access\": \"{{oneOf (array 'PUBLIC_INDEXABLE' 'PUBLIC_NOT_INDEXABLE' 'HIDDEN_INDEXABLE' 'HIDDEN_NOT_INDEXABLE' 'HIDDEN_PRIVATE' 'PRIVATE')}}\",\n  \"archived\": {{faker 'random.boolean'}},\n  \"archivedAt\": \"{{faker 'date.recent' 365}}\",\n  \"createdAt\": \"{{faker 'date.recent' 365}}\",\n  \"defaultHostingUrl\": \"\",\n  \"encoding\": \"\",\n  \"extension\": \"\",\n  \"height\": {{faker 'random.number'}},\n  \"id\": \"\",\n  \"isUsableInContent\": {{faker 'random.boolean'}},\n  \"name\": \"\",\n  \"parentFolderId\": \"\",\n  \"path\": \"\",\n  \"size\": {{faker 'random.number'}},\n  \"type\": \"\",\n  \"updatedAt\": \"{{faker 'date.recent' 365}}\",\n  \"url\": \"\",\n  \"width\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e0c9509b-6ce5-466e-a0a6-ce9c825e59e5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d56583b0-3ae3-48fd-937e-a473e00b37ab",
+      "documentation": "update file properties",
+      "method": "patch",
+      "endpoint": "files/v3/files/:fileId",
+      "responses": [
+        {
+          "uuid": "16eb628b-0732-4959-9ada-001f79ac2900",
+          "body": "{\n  \"access\": \"{{oneOf (array 'PUBLIC_INDEXABLE' 'PUBLIC_NOT_INDEXABLE' 'HIDDEN_INDEXABLE' 'HIDDEN_NOT_INDEXABLE' 'HIDDEN_PRIVATE' 'PRIVATE')}}\",\n  \"archived\": {{faker 'random.boolean'}},\n  \"archivedAt\": \"{{faker 'date.recent' 365}}\",\n  \"createdAt\": \"{{faker 'date.recent' 365}}\",\n  \"defaultHostingUrl\": \"\",\n  \"encoding\": \"\",\n  \"extension\": \"\",\n  \"height\": {{faker 'random.number'}},\n  \"id\": \"\",\n  \"isUsableInContent\": {{faker 'random.boolean'}},\n  \"name\": \"\",\n  \"parentFolderId\": \"\",\n  \"path\": \"\",\n  \"size\": {{faker 'random.number'}},\n  \"type\": \"\",\n  \"updatedAt\": \"{{faker 'date.recent' 365}}\",\n  \"url\": \"\",\n  \"width\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e71a7d7a-28dc-498b-b0d4-b835f40fab70",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "23215bfa-effc-4550-b058-e5ba59e46b17",
+      "documentation": "Replace file.",
+      "method": "put",
+      "endpoint": "files/v3/files/:fileId",
+      "responses": [
+        {
+          "uuid": "1bdaf59a-f4de-4de9-a3af-842c00a37fe7",
+          "body": "{\n  \"access\": \"{{oneOf (array 'PUBLIC_INDEXABLE' 'PUBLIC_NOT_INDEXABLE' 'HIDDEN_INDEXABLE' 'HIDDEN_NOT_INDEXABLE' 'HIDDEN_PRIVATE' 'PRIVATE')}}\",\n  \"archived\": {{faker 'random.boolean'}},\n  \"archivedAt\": \"{{faker 'date.recent' 365}}\",\n  \"createdAt\": \"{{faker 'date.recent' 365}}\",\n  \"defaultHostingUrl\": \"\",\n  \"encoding\": \"\",\n  \"extension\": \"\",\n  \"height\": {{faker 'random.number'}},\n  \"id\": \"\",\n  \"isUsableInContent\": {{faker 'random.boolean'}},\n  \"name\": \"\",\n  \"parentFolderId\": \"\",\n  \"path\": \"\",\n  \"size\": {{faker 'random.number'}},\n  \"type\": \"\",\n  \"updatedAt\": \"{{faker 'date.recent' 365}}\",\n  \"url\": \"\",\n  \"width\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "200f3727-ff0e-4cec-88bb-93aa44488e21",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a65b87ce-406a-430e-9a49-59f9e966cbd8",
+      "documentation": "GDPR delete",
+      "method": "delete",
+      "endpoint": "files/v3/files/:fileId/gdpr-delete",
+      "responses": [
+        {
+          "uuid": "ca5eedcc-9b70-486b-8ae8-28153a7447c6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "06283172-bdbc-4f8d-a8ca-df86d4d13959",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a2a68743-e807-4112-a2f0-504abde814f2",
+      "documentation": "Get signed URL to access private file.",
+      "method": "get",
+      "endpoint": "files/v3/files/:fileId/signed-url",
+      "responses": [
+        {
+          "uuid": "90555496-7cc9-467a-9905-026c8936ea6b",
+          "body": "{\n  \"expiresAt\": \"{{faker 'date.recent' 365}}\",\n  \"extension\": \"\",\n  \"height\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"size\": {{faker 'random.number'}},\n  \"type\": \"\",\n  \"url\": \"\",\n  \"width\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d897df33-3612-4948-9152-aa549378b142",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "38c621bc-2ce7-4f65-bc39-37085c7717d4",
+      "documentation": "Create folder.",
+      "method": "post",
+      "endpoint": "files/v3/folders",
+      "responses": [
+        {
+          "uuid": "137b2ef2-5216-4030-bf8d-93e963c8b0b4",
+          "body": "{\n  \"archived\": {{faker 'random.boolean'}},\n  \"archivedAt\": \"{{faker 'date.recent' 365}}\",\n  \"createdAt\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"parentFolderId\": \"\",\n  \"path\": \"\",\n  \"updatedAt\": \"{{faker 'date.recent' 365}}\"\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "71ef52d4-5da0-4e4c-9b92-7476ff93ae0a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e8022e79-c05e-4357-8160-98c6f2d9ed38",
+      "documentation": "Search folders",
+      "method": "get",
+      "endpoint": "files/v3/folders/search",
+      "responses": [
+        {
+          "uuid": "18b8befe-2d37-45d7-9fdf-9203fe385834",
+          "body": "{\n  \"paging\": {\n    \"next\": {\n      \"after\": \"\",\n      \"link\": \"\"\n    },\n    \"prev\": {\n      \"before\": \"\",\n      \"link\": \"\"\n    }\n  },\n  \"results\": [\n    {\n      \"archived\": {{faker 'random.boolean'}},\n      \"archivedAt\": \"{{faker 'date.recent' 365}}\",\n      \"createdAt\": \"{{faker 'date.recent' 365}}\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"parentFolderId\": \"\",\n      \"path\": \"\",\n      \"updatedAt\": \"{{faker 'date.recent' 365}}\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "630b8544-8722-4e79-98a2-8dfdf40562c6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "04428638-9f55-4ffd-948c-8ff598f6fefc",
+      "documentation": "Update folder properties",
+      "method": "post",
+      "endpoint": "files/v3/folders/update/async",
+      "responses": [
+        {
+          "uuid": "0cbae1dd-9732-4729-8844-b1ad25e0145f",
+          "body": "{\n  \"id\": \"57122e26-59f8-4cfc-ba53-96e30c816762\",\n  \"links\": [\n    {\n      \"status\": \"https://api.hubspot.com/files/v3/folders/update/async/tasks/57122e26-59f8-4cfc-ba53-96e30c816762/status\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "33494513-0ff9-41f6-82f9-f06817c9f903",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "be4a1e2d-4c62-431b-9f74-a900dad6313a",
+      "documentation": "Check folder update status.",
+      "method": "get",
+      "endpoint": "files/v3/folders/update/async/tasks/:taskId/status",
+      "responses": [
+        {
+          "uuid": "00b3675a-e7a5-4879-ae17-670a2e9a9583",
+          "body": "{\n  \"completedAt\": \"{{faker 'date.recent' 365}}\",\n  \"errors\": [\n    {\n      \"category\": {\n        \"httpStatus\": \"{{oneOf (array 'CONTINUE' 'SWITCHING_PROTOCOLS' 'PROCESSING' 'OK' 'CREATED' 'ACCEPTED' 'NON_AUTHORITATIVE_INFORMATION' 'NO_CONTENT' 'RESET_CONTENT' 'PARTIAL_CONTENT' 'MULTI_STATUS' 'ALREADY_REPORTED' 'IM_USED' 'MULTIPLE_CHOICES' 'MOVED_PERMANENTLY' 'FOUND' 'SEE_OTHER' 'NOT_MODIFIED' 'USE_PROXY' 'TEMPORARY_REDIRECT' 'PERMANENT_REDIRECT' 'BAD_REQUEST' 'UNAUTHORIZED' 'PAYMENT_REQUIRED' 'FORBIDDEN' 'NOT_FOUND' 'METHOD_NOT_ALLOWED' 'NOT_ACCEPTABLE' 'PROXY_AUTHENTICATION_REQUIRED' 'REQUEST_TIMEOUT' 'CONFLICT' 'GONE' 'LENGTH_REQUIRED' 'PRECONDITION_FAILED' 'REQUEST_ENTITY_TOO_LARGE' 'REQUEST_URI_TOO_LONG' 'UNSUPPORTED_MEDIA_TYPE' 'REQUESTED_RANGE_NOT_SATISFIABLE' 'EXPECTATION_FAILED' 'IM_A_TEAPOT' 'MISDIRECTED_REQUEST' 'UNPROCESSABLE_ENTITY' 'LOCKED' 'FAILED_DEPENDENCY' 'UPGRADE_REQUIRED' 'PRECONDITION_REQUIRED' 'TOO_MANY_REQUESTS' 'REQUEST_HEADERS_FIELDS_TOO_LARGE' 'INTERNAL_STALE_SERVICE_DISCOVERY' 'UNAVAILABLE_FOR_LEGAL_REASONS' 'INTERNAL_SERVER_ERROR' 'NOT_IMPLEMENTED' 'BAD_GATEWAY' 'SERVICE_UNAVAILABLE' 'GATEWAY_TIMEOUT' 'HTTP_VERSION_NOT_SUPPORTED' 'VARIANT_ALSO_NEGOTIATES' 'INSUFFICIENT_STORAGE' 'LOOP_DETECTED' 'NOT_EXTENDED' 'NETWORK_AUTHENTICATION_REQUIRED')}}\",\n        \"name\": \"\"\n      },\n      \"context\": {},\n      \"errors\": [\n        {\n          \"code\": \"\",\n          \"context\": {\n            \"missingScopes\": [\n              \"scope1\",\n              \"scope2\"\n            ]\n          },\n          \"in\": \"\",\n          \"message\": \"\",\n          \"subCategory\": \"\"\n        }\n      ],\n      \"id\": \"\",\n      \"links\": {},\n      \"message\": \"\",\n      \"status\": \"\",\n      \"subCategory\": {}\n    }\n  ],\n  \"links\": {},\n  \"numErrors\": {{faker 'random.number'}},\n  \"requestedAt\": \"{{faker 'date.recent' 365}}\",\n  \"result\": {\n    \"archived\": {{faker 'random.boolean'}},\n    \"archivedAt\": \"{{faker 'date.recent' 365}}\",\n    \"createdAt\": \"{{faker 'date.recent' 365}}\",\n    \"id\": \"\",\n    \"name\": \"\",\n    \"parentFolderId\": \"\",\n    \"path\": \"\",\n    \"updatedAt\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"startedAt\": \"{{faker 'date.recent' 365}}\",\n  \"status\": \"{{oneOf (array 'PENDING' 'PROCESSING' 'CANCELED' 'COMPLETE')}}\",\n  \"taskId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1e176ec7-29cc-40eb-b744-6c3cb713f94a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "283ba4f2-affd-477f-98c1-f0c9b1c7b8ce",
+      "documentation": "Delete folder.",
+      "method": "delete",
+      "endpoint": "files/v3/folders/:folderId",
+      "responses": [
+        {
+          "uuid": "837a8547-da3a-450f-8b77-178c5668aa01",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "13620955-9454-446d-8d7a-da76a8bbb83f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a45ef13b-cc77-4a4e-ac04-4b07b1f32caf",
+      "documentation": "Get folder",
+      "method": "get",
+      "endpoint": "files/v3/folders/:folderId",
+      "responses": [
+        {
+          "uuid": "f265761b-b6b4-4248-8ee9-4b98ae0e0f7a",
+          "body": "{\n  \"archived\": {{faker 'random.boolean'}},\n  \"archivedAt\": \"{{faker 'date.recent' 365}}\",\n  \"createdAt\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"parentFolderId\": \"\",\n  \"path\": \"\",\n  \"updatedAt\": \"{{faker 'date.recent' 365}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6292453b-1f12-4ebd-a29c-739548624cff",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "05473475-fb19-4384-ba01-0045c8fa16ec",
+      "documentation": "Delete folder.",
+      "method": "delete",
+      "endpoint": "files/v3/folders/:folderPath",
+      "responses": [
+        {
+          "uuid": "82ef5685-6555-4ec8-b009-48b340d83e25",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dbf9fd81-21fa-4b96-9c39-66ee955ff784",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2c33dadc-a672-4fcd-9733-57163eb574f9",
+      "documentation": "Get folder.",
+      "method": "get",
+      "endpoint": "files/v3/folders/:folderPath",
+      "responses": [
+        {
+          "uuid": "753b7f90-4e4e-4eec-ad24-87d58f95da00",
+          "body": "{\n  \"archived\": {{faker 'random.boolean'}},\n  \"archivedAt\": \"{{faker 'date.recent' 365}}\",\n  \"createdAt\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"parentFolderId\": \"\",\n  \"path\": \"\",\n  \"updatedAt\": \"{{faker 'date.recent' 365}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0f2ed7a7-6eef-407e-9742-28d8e4f00072",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An error occurred.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,792 @@
+{
+  "uuid": "41590ddc-8b97-4aa5-9f0a-5ed8e3768658",
+  "lastMigration": 19,
+  "name": "MetaPub",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "abd5a4dc-d256-4a0e-abd7-2fded4940bb1",
+      "documentation": "Upload a file.",
+      "method": "post",
+      "endpoint": "api/v2/cddrive/files/content",
+      "responses": [
+        {
+          "uuid": "c4fc552a-7040-4200-b073-f6d8074c3fca",
+          "body": "{\n  \"createdDate\": \"\",\n  \"id\": {{faker 'random.number'}},\n  \"lastModifiedDate\": \"\",\n  \"name\": \"\",\n  \"parentId\": {{faker 'random.number'}},\n  \"size\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "The file was created successfully. The response contains the file metadata.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "11eed57d-31f3-48e7-a6ad-93a78a493706",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "The provided Content-MD5 header doesn't match the provided content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6dff3106-71c3-4a58-afe2-1836209f59b4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Authorization failed, Username or password not found or incorrect.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "efbaf9dc-bca7-4bfb-9ce0-2607fe4131cc",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "A parent id cannot be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "307e4d5c-c231-459a-8f35-7822a843d04b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "A name conflict because the file already exists.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c1aadbca-33a1-4d83-acf0-88a3679f8185",
+          "body": "",
+          "latency": 0,
+          "statusCode": 413,
+          "label": "File is bigger than maximum size of 500 MB.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "dde441fe-092f-4ea1-b8d9-6cfa46a389ec",
+      "documentation": "Delete a file.",
+      "method": "delete",
+      "endpoint": "api/v2/cddrive/files/{file-id}",
+      "responses": [
+        {
+          "uuid": "17a6af68-0fde-4316-a336-0a66931dc7d2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "The file was successfully deleted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "be5f1601-2de0-4ecf-b28e-ce09d9e6397d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The file cannot be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4feae904-a235-4bd8-9cf4-8d1fc42d5e7e",
+      "documentation": "Get file information.",
+      "method": "get",
+      "endpoint": "api/v2/cddrive/files/{file-id}",
+      "responses": [
+        {
+          "uuid": "487b459e-6a91-4f72-972f-fbd5dbc66229",
+          "body": "{\n  \"createdDate\": \"\",\n  \"id\": {{faker 'random.number'}},\n  \"lastModifiedDate\": \"\",\n  \"name\": \"\",\n  \"parentId\": {{faker 'random.number'}},\n  \"size\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The file information.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0f5242a7-056d-4eb5-b087-6cbf64c17648",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The file cannot be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b576f416-7394-4103-8cf4-a1bf02339dcd",
+      "documentation": "Download a file.",
+      "method": "get",
+      "endpoint": "api/v2/cddrive/files/{file-id}/content",
+      "responses": [
+        {
+          "uuid": "7162bcd1-2429-40fe-b642-928182079b57",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The file was found and will be returned in the body of the response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/octet-stream"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9a7bcc39-42de-45e8-aaaf-6d858aba2419",
+          "body": "",
+          "latency": 0,
+          "statusCode": 302,
+          "label": "The file was found but should be downloaded at the URL presented in the Location header. This return code may be used when the file is available via a CDN or other optimized path.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/octet-stream"
+            },
+            {
+              "key": "Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "300e50e5-5b3d-43cd-a736-79958520f2c5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The file cannot be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/octet-stream"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "fbd18d5d-0c30-4a10-9876-2a5a42e24e2f",
+      "documentation": "Create a folder.",
+      "method": "post",
+      "endpoint": "api/v2/cddrive/folders",
+      "responses": [
+        {
+          "uuid": "3cfe6964-dd36-46b5-a260-c15559af87be",
+          "body": "{\n  \"createdDate\": \"\",\n  \"id\": {{faker 'random.number'}},\n  \"lastModifiedDate\": \"\",\n  \"name\": \"\",\n  \"parentId\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The folder information.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3256036c-4399-49d8-8a2f-3c102aa2c2d9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Authorization failed, Username or password not found or incorrect.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "11bb119e-7652-4786-beab-1003084546e5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "A parent id cannot be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f7c98c99-cb67-42c6-b1df-894346003da3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "The folder already exists.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f8e496af-f0b1-41f9-bc44-6b3f0c7280eb",
+      "documentation": "Delete a folder.",
+      "method": "delete",
+      "endpoint": "api/v2/cddrive/folders/{folder-id}",
+      "responses": [
+        {
+          "uuid": "6eef92f1-929e-48dd-b9bd-45fd8115433c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "The file was successfully deleted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c37f7d0f-cbaa-49dc-9498-ecb9ee6bd4f9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The file cannot be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4c1c1a22-871e-41cc-85c4-66f3e72bce41",
+      "documentation": "Get folder information.",
+      "method": "get",
+      "endpoint": "api/v2/cddrive/folders/{folder-id}",
+      "responses": [
+        {
+          "uuid": "203ff8c9-cd98-4ba6-89f6-a2231ab59e3a",
+          "body": "{\n  \"createdDate\": \"\",\n  \"id\": {{faker 'random.number'}},\n  \"lastModifiedDate\": \"\",\n  \"name\": \"\",\n  \"parentId\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The folder information.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "82ca119e-4c28-4708-8e46-121ff5f04304",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The folder cannot be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2ccd2488-c80d-4d5f-a633-e1a896982fdd",
+      "documentation": "Get the items in the folder.",
+      "method": "get",
+      "endpoint": "api/v2/cddrive/folders/{folder-id}/items",
+      "responses": [
+        {
+          "uuid": "28f34c52-d7bd-4d72-8c33-3e7d73ca3ad4",
+          "body": "{\n  \"entries\": [\n    {\n      \"id\": {{faker 'random.number'}},\n      \"name\": \"\",\n      \"type\": \"{{oneOf (array 'file' 'folder')}}\"\n    }\n  ],\n  \"limit\": {{faker 'random.number'}},\n  \"offset\": {{faker 'random.number'}},\n  \"totalCount\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The folder information.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "28886c8e-cf01-4ac5-b74c-eef3946ec3cf",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The folder cannot be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "689fdf2c-4c74-4604-ab75-944a2daa7637",
+      "documentation": "Create a batch operation on EPG information.",
+      "method": "post",
+      "endpoint": "api/v2/metapub/program-information/batch",
+      "responses": [
+        {
+          "uuid": "8f942180-90b8-4f3a-a126-f4ed32624bb2",
+          "body": "{\n  \"createdDate\": \"\",\n  \"finishedDate\": \"\",\n  \"format\": \"{{oneOf (array 'radiodns')}}\",\n  \"id\": {{faker 'random.number'}},\n  \"message\": \"\",\n  \"name\": \"\",\n  \"program\": {\n    \"airDate\": \"\",\n    \"title\": \"\"\n  },\n  \"status\": \"{{oneOf (array 'queued' 'processing' 'failed' 'successful')}}\",\n  \"uri\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "The accepted batch information that is queued for processing.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c9350e52-2f7a-4592-b179-20f2ad845846",
+      "documentation": "Get an EPG batch operation.",
+      "method": "get",
+      "endpoint": "api/v2/metapub/program-information/batch/{batch-id}",
+      "responses": [
+        {
+          "uuid": "4c03cd3a-def4-4dd9-8086-676d6b272ab9",
+          "body": "{\n  \"createdDate\": \"\",\n  \"finishedDate\": \"\",\n  \"format\": \"{{oneOf (array 'radiodns')}}\",\n  \"id\": {{faker 'random.number'}},\n  \"message\": \"\",\n  \"name\": \"\",\n  \"program\": {\n    \"airDate\": \"\",\n    \"title\": \"\"\n  },\n  \"status\": \"{{oneOf (array 'queued' 'processing' 'failed' 'successful')}}\",\n  \"uri\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The batch information.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b484990a-2cd0-4f5b-9f19-c2a2731c922a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Authorization failed, Username or password not found or incorrect.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9e1044f5-37bd-4673-a15d-09e6a4cdb1cd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The batch is not found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "eb73add1-567e-4f0a-909f-9fb55686ec31",
+      "documentation": "Get the group information document.",
+      "method": "get",
+      "endpoint": "radiodns/spi/3.1/GI.xml",
+      "responses": [
+        {
+          "uuid": "c93037b4-cd65-445d-8884-4954146734ea",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The group information document is returned in the body of the response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/xml"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9d6a6719-81d4-44ff-a7ff-419d933dcaa1",
+      "documentation": "Get the service information document.",
+      "method": "get",
+      "endpoint": "radiodns/spi/3.1/SI.xml",
+      "responses": [
+        {
+          "uuid": "99406e81-6d70-4439-b448-6ed25f9a23ac",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The service information document is returned in the body of the response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/xml"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "eb8d4a20-2d2d-4f34-a37c-2facce77f5eb",
+      "documentation": "Get the program information document.",
+      "method": "get",
+      "endpoint": "radiodns/spi/3.1/id/:fqdn/:sid/:date_PI.xml",
+      "responses": [
+        {
+          "uuid": "96815613-1ae3-4223-9589-abba2cb20b86",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Program information document for the given 24 hour period.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/xml"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "506a9201-cb79-420c-8360-ab6a54e85464",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Authorization failed, the client Id is incorrect.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/xml"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f26c951f-bca7-48cf-b6b2-9532fbeb493d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The program information for the requested day or service cannot be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/xml"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

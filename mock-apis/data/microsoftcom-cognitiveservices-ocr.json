@@ -1,0 +1,241 @@
+{
+  "uuid": "1bd2ef3d-385a-4d3b-bae9-6e8639e95217",
+  "lastMigration": 19,
+  "name": "Computer Vision Client",
+  "endpointPrefix": "vision/v2.1",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "3ef9c541-3ab2-437d-be82-4e25cac800d5",
+      "documentation": "Use this interface to get the result of a Read operation, employing the state-of-the-art Optical Character Recognition (OCR) algorithms optimized for text-heavy documents. When you use the Read File interface, the response contains a field called 'Operation-Location'. The 'Operation-Location' field contains the URL that you must use for your 'GetReadOperationResult' operation to access OCR results.​",
+      "method": "post",
+      "endpoint": "read/core/asyncBatchAnalyze",
+      "responses": [
+        {
+          "uuid": "c0a11653-c0ca-4a70-87d2-0fbda34ce211",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "The service has accepted the request and will start processing later.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Operation-Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c25c96de-06fc-4599-9da9-42ae85d1e938",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageFormat' 'UnsupportedMediaType' 'InvalidImageUrl' 'NotSupportedFeature' 'NotSupportedImage' 'Timeout' 'InternalServerError' 'InvalidImageSize' 'BadArgument' 'DetectFaceError' 'NotSupportedLanguage' 'InvalidThumbnailSize' 'InvalidDetails' 'InvalidModel' 'CancelledRequest' 'NotSupportedVisualFeature' 'FailedToProcess' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c002f7b7-ef9b-4dc5-a971-629b9701e839",
+      "documentation": "This interface is used for getting OCR results of Read operation. The URL to this interface should be retrieved from 'Operation-Location' field returned from Batch Read File interface.",
+      "method": "get",
+      "endpoint": "read/operations/:operationId",
+      "responses": [
+        {
+          "uuid": "0c656fe4-2366-4be9-836a-e7a76d21f2ff",
+          "body": "{\n  \"recognitionResults\": [\n    {\n      \"clockwiseOrientation\": {{faker 'random.number'}},\n      \"height\": {{faker 'random.number'}},\n      \"lines\": [\n        {\n          \"boundingBox\": [\n            {{faker 'random.number'}}\n          ],\n          \"text\": \"\",\n          \"words\": [\n            {\n              \"boundingBox\": [\n                {{faker 'random.number'}}\n              ],\n              \"confidence\": \"{{oneOf (array 'High' 'Low')}}\",\n              \"text\": \"\"\n            }\n          ]\n        }\n      ],\n      \"page\": {{faker 'random.number'}},\n      \"unit\": \"{{oneOf (array 'pixel' 'inch')}}\",\n      \"width\": {{faker 'random.number'}}\n    }\n  ],\n  \"status\": \"{{oneOf (array 'NotStarted' 'Running' 'Failed' 'Succeeded')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the read operation status.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e93a8bd9-e248-4567-b47c-f8e64d265d51",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageFormat' 'UnsupportedMediaType' 'InvalidImageUrl' 'NotSupportedFeature' 'NotSupportedImage' 'Timeout' 'InternalServerError' 'InvalidImageSize' 'BadArgument' 'DetectFaceError' 'NotSupportedLanguage' 'InvalidThumbnailSize' 'InvalidDetails' 'InvalidModel' 'CancelledRequest' 'NotSupportedVisualFeature' 'FailedToProcess' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7e40135c-74d6-4e28-92bc-18bd1169eb77",
+      "documentation": "Recognize Text operation. When you use the Recognize Text interface, the response contains a field called 'Operation-Location'. The 'Operation-Location' field contains the URL that you must use for your Get Recognize Text Operation Result operation.",
+      "method": "post",
+      "endpoint": "recognizeText",
+      "responses": [
+        {
+          "uuid": "3625df06-2dab-45dc-9aa2-d165cbb28a4c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "The service has accepted the request and will start processing later. It will return Accepted immediately and include an 'Operation-Location' header. Client side should further query the operation status using the URL specified in this header. The operation ID will expire in 48 hours.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Operation-Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0c829fcb-a4f7-4476-a960-eacaa7dc4087",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageFormat' 'UnsupportedMediaType' 'InvalidImageUrl' 'NotSupportedFeature' 'NotSupportedImage' 'Timeout' 'InternalServerError' 'InvalidImageSize' 'BadArgument' 'DetectFaceError' 'NotSupportedLanguage' 'InvalidThumbnailSize' 'InvalidDetails' 'InvalidModel' 'CancelledRequest' 'NotSupportedVisualFeature' 'FailedToProcess' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b604f658-4ba3-47bd-bb4c-e5fcb0934d0c",
+      "documentation": "This interface is used for getting text operation result. The URL to this interface should be retrieved from 'Operation-Location' field returned from Recognize Text interface.",
+      "method": "get",
+      "endpoint": "textOperations/:operationId",
+      "responses": [
+        {
+          "uuid": "247abdde-1767-4f94-9152-57d7945bf5b1",
+          "body": "{\n  \"recognitionResult\": {\n    \"clockwiseOrientation\": {{faker 'random.number'}},\n    \"height\": {{faker 'random.number'}},\n    \"lines\": [\n      {\n        \"boundingBox\": [\n          {{faker 'random.number'}}\n        ],\n        \"text\": \"\",\n        \"words\": [\n          {\n            \"boundingBox\": [\n              {{faker 'random.number'}}\n            ],\n            \"confidence\": \"{{oneOf (array 'High' 'Low')}}\",\n            \"text\": \"\"\n          }\n        ]\n      }\n    ],\n    \"page\": {{faker 'random.number'}},\n    \"unit\": \"{{oneOf (array 'pixel' 'inch')}}\",\n    \"width\": {{faker 'random.number'}}\n  },\n  \"status\": \"{{oneOf (array 'NotStarted' 'Running' 'Failed' 'Succeeded')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Returns the operation status.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2df38156-98c5-4670-9280-5ab440f7b402",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageFormat' 'UnsupportedMediaType' 'InvalidImageUrl' 'NotSupportedFeature' 'NotSupportedImage' 'Timeout' 'InternalServerError' 'InvalidImageSize' 'BadArgument' 'DetectFaceError' 'NotSupportedLanguage' 'InvalidThumbnailSize' 'InvalidDetails' 'InvalidModel' 'CancelledRequest' 'NotSupportedVisualFeature' 'FailedToProcess' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

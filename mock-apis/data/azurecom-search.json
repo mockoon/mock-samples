@@ -1,0 +1,916 @@
+{
+  "uuid": "ff97d773-c9a0-4f84-8a00-34238d3473e1",
+  "lastMigration": 19,
+  "name": "SearchManagementClient",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "72178e00-d8a7-47a0-975c-49f1d7ef774b",
+      "documentation": "Lists all of the available REST API operations of the Microsoft.Search provider.",
+      "method": "get",
+      "endpoint": "providers/Microsoft.Search/operations",
+      "responses": [
+        {
+          "uuid": "412a7bb8-edc4-447a-8831-ad6da89df026",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"display\": {\n        \"description\": \"\",\n        \"operation\": \"\",\n        \"provider\": \"\",\n        \"resource\": \"\"\n      },\n      \"name\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success. The response describes the list of operations.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "054299b8-cff5-4837-9da0-776ad4e874ca",
+      "documentation": "Checks whether or not the given Search service name is available for use. Search service names must be globally unique since they are part of the service URI (https://<name>.search.windows.net).",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Search/checkNameAvailability",
+      "responses": [
+        {
+          "uuid": "31599748-8cff-43fa-8298-f2d5574fb6ee",
+          "body": "{\n  \"message\": \"\",\n  \"nameAvailable\": {{faker 'random.boolean'}},\n  \"reason\": \"{{oneOf (array 'Invalid' 'AlreadyExists')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The name check completed. The response contains details of whether the name is valid and available. If the name is invalid, the response also contains a message explaining why not.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "553d1903-a92e-4a7e-ad80-d71725103a0d",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "HTTP 400 (Bad Request): The given resource type is not 'searchServices'.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f8b598af-f52b-46e6-9738-b7604c000533",
+      "documentation": "Gets a list of all Search services in the given subscription.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Search/searchServices",
+      "responses": [
+        {
+          "uuid": "6d6470c4-ab6c-41af-9398-fd1be370db8f",
+          "body": "{\n  \"value\": [\n    {\n      \"id\": \"\",\n      \"identity\": {\n        \"principalId\": \"\",\n        \"tenantId\": \"\",\n        \"type\": \"{{oneOf (array 'None' 'SystemAssigned')}}\"\n      },\n      \"location\": \"\",\n      \"name\": \"\",\n      \"tags\": {},\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The operation succeeded. The response contains the list of all Search service definitions for the given subscription.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e884860a-3c47-4322-bd19-0b87bf814428",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An unexpected error occurred during the operation.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3490b4e2-9919-4978-9cf1-4949916c02e5",
+      "documentation": "Gets a list of all Search services in the given resource group.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices",
+      "responses": [
+        {
+          "uuid": "a6019738-e746-4e5c-ac45-9c60d42ea460",
+          "body": "{\n  \"value\": [\n    {\n      \"id\": \"\",\n      \"identity\": {\n        \"principalId\": \"\",\n        \"tenantId\": \"\",\n        \"type\": \"{{oneOf (array 'None' 'SystemAssigned')}}\"\n      },\n      \"location\": \"\",\n      \"name\": \"\",\n      \"tags\": {},\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The operation succeeded. The response contains the list of all Search service definitions for the given resource group.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7c31c24d-10ca-481e-a05f-c45f7ff561a8",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An unexpected error occurred during the operation.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2b040dc5-13d0-428b-a03b-efa4ae20e19f",
+      "documentation": "Deletes a Search service in the given resource group, along with its associated resources.",
+      "method": "delete",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices/:searchServiceName",
+      "responses": [
+        {
+          "uuid": "8055a8cc-dac9-41f8-8b46-52d2c3b0f1ef",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The Search service was successfully deleted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3c2428ab-4d4d-413d-9a7e-6065ca818255",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "The Search service was successfully deleted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f8596a84-8164-456f-a591-f0b319a66f01",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The subscription, resource group, or Search service could not be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "20112559-64a9-4ff1-8109-62d2526b2134",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An unexpected error occurred during the operation.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a2381b92-9c89-48ec-b57f-6a7a3f14d620",
+      "documentation": "Gets the Search service with the given name in the given resource group.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices/:searchServiceName",
+      "responses": [
+        {
+          "uuid": "bb2b77c0-f39e-4b5c-9ccc-6a95955503d3",
+          "body": "{\n  \"id\": \"\",\n  \"identity\": {\n    \"principalId\": \"\",\n    \"tenantId\": \"\",\n    \"type\": \"{{oneOf (array 'None' 'SystemAssigned')}}\"\n  },\n  \"location\": \"\",\n  \"name\": \"\",\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The Search service definition was successfully retrieved and is in the response. If you are polling for the completion of a provisioning or scale operation, you can check its status via the provisioningState property.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "11e7869b-a3f7-4dfd-b485-a2e651f975fe",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "HTTP 404 (Not Found): The subscription, resource group, or Search service name could not be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "183e1361-ee25-446e-98df-a56aa319c216",
+      "documentation": "Updates an existing Search service in the given resource group.",
+      "method": "patch",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices/:searchServiceName",
+      "responses": [
+        {
+          "uuid": "b4b09e77-e514-4627-bded-dd60391439ad",
+          "body": "{\n  \"id\": \"\",\n  \"identity\": {\n    \"principalId\": \"\",\n    \"tenantId\": \"\",\n    \"type\": \"{{oneOf (array 'None' 'SystemAssigned')}}\"\n  },\n  \"location\": \"\",\n  \"name\": \"\",\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The existing service definition was successfully updated. If you changed the number of replicas or partitions, the scale operation will happen asynchronously. You can periodically get your service definition and monitor progress via the provisioningState property.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1ff62f9a-f677-4e94-bca0-f15dcdb1992f",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "HTTP 400 (Bad Request): The given service definition is invalid or you attempted to change a property that is immutable; See the error code and message in the response for details. HTTP 404 (Not Found): The subscription or resource group could not be found. HTTP 409 (Conflict): The specified subscription is disabled.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c3b5fb8d-d307-4a2a-a404-1d30bcf1106c",
+      "documentation": "Creates or updates a Search service in the given resource group. If the Search service already exists, all properties will be updated with the given values.",
+      "method": "put",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices/:searchServiceName",
+      "responses": [
+        {
+          "uuid": "99f4cc29-cfd5-4495-9f36-366eef5b7cc2",
+          "body": "{\n  \"id\": \"\",\n  \"identity\": {\n    \"principalId\": \"\",\n    \"tenantId\": \"\",\n    \"type\": \"{{oneOf (array 'None' 'SystemAssigned')}}\"\n  },\n  \"location\": \"\",\n  \"name\": \"\",\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The existing service definition was successfully updated. If you changed the number of replicas or partitions, the scale operation will happen asynchronously. You can periodically get your service definition and monitor progress via the provisioningState property.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1eb42529-3f3e-43ba-afdb-8fee20522931",
+          "body": "{\n  \"id\": \"\",\n  \"identity\": {\n    \"principalId\": \"\",\n    \"tenantId\": \"\",\n    \"type\": \"{{oneOf (array 'None' 'SystemAssigned')}}\"\n  },\n  \"location\": \"\",\n  \"name\": \"\",\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "If you requested creation of a free Search service, the service is now provisioned and ready to use, subject to DNS propagation delay. For other SKU types, provisioning happens asynchronously. You can periodically get your service definition and monitor progress via the provisioningState property.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e6bc459c-4e18-435d-9c67-61377cf9c578",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "HTTP 400 (Bad Request): The given service name or service definition is invalid; See the error code and message in the response for details. HTTP 404 (Not Found): The subscription or resource group could not be found. HTTP 409 (Conflict): The specified subscription is disabled.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1a3ac3ec-ce0e-43cc-8492-5319b5be2b28",
+      "documentation": "Generates a new query key for the specified Search service. You can create up to 50 query keys per service.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices/:searchServiceName/createQueryKey/:name",
+      "responses": [
+        {
+          "uuid": "81272b23-708c-495d-858c-3eaa7cfc8987",
+          "body": "{\n  \"key\": \"\",\n  \"name\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The query key was successfully created and is in the response. You can use the query key as the value of the 'api-key' parameter in the Azure Cognitive Search Service REST API or SDK to perform read-only operations on your Search indexes such as querying and looking up documents by ID.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "21f98557-746e-4683-9eeb-f50ccb768ccb",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "HTTP 404 (Not Found): The subscription, resource group, or Search service could not be found. HTTP 409 (Conflict): The specified subscription is disabled.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "21491820-bdf4-43cb-be4b-b107c36e1a26",
+      "documentation": "Deletes the specified query key. Unlike admin keys, query keys are not regenerated. The process for regenerating a query key is to delete and then recreate it.",
+      "method": "delete",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices/:searchServiceName/deleteQueryKey/:key",
+      "responses": [
+        {
+          "uuid": "1ba986f6-3328-4f86-a651-4607d0ff8e44",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The query key was successfully deleted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d22250b6-2427-4082-811a-e0ead4d6e938",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "The query key was successfully deleted.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9a33336e-c977-46c2-8642-96b8904c690c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The subscription, resource group, Search service, or query key could not be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cab9b845-b5f6-4cf1-8e0d-63cca43c7bbf",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "HTTP 409 (Conflict): The specified subscription is disabled.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bef3f6d0-a48c-4c5c-b1ba-60fe6cb30594",
+      "documentation": "Gets the primary and secondary admin API keys for the specified Azure Cognitive Search service.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices/:searchServiceName/listAdminKeys",
+      "responses": [
+        {
+          "uuid": "0aff430e-cab9-4956-aa37-fc713717610a",
+          "body": "{\n  \"primaryKey\": \"\",\n  \"secondaryKey\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The admin keys were successfully retrieved and are in the response. You can use either the primary or secondary key as the value of the 'api-key' parameter in the Azure Cognitive Search Service REST API or SDK to perform any operations on your Search service, including privileged operations. Privileged operations include managing resources like indexes and data sources as well as uploading, modifying, or deleting data in your indexes.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d7e9ab8b-3ce4-4ccf-b434-94cd6288d61e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "HTTP 404 (Not Found): The subscription, resource group, or Search service could not be found. HTTP 409 (Conflict): The specified subscription is disabled.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b05b6d65-e4f9-4e10-9a4b-e450514e18bb",
+      "documentation": "Returns the list of query API keys for the given Azure Cognitive Search service.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices/:searchServiceName/listQueryKeys",
+      "responses": [
+        {
+          "uuid": "32267c1a-1bdf-45a9-8c69-8df731d9a663",
+          "body": "{\n  \"value\": [\n    {\n      \"key\": \"\",\n      \"name\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "All query keys for the given Search service were successfully retrieved and are in the response. You can use any of the query keys as the value of the 'api-key' parameter in the Azure Cognitive Search Service REST API or SDK to perform read-only operations on your Search indexes such as querying and looking up documents by ID.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "afb80372-da02-45a0-b634-6a92c40f652d",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "HTTP 404 (Not Found): The subscription, resource group, or Search service could not be found. HTTP 409 (Conflict): The specified subscription is disabled.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "02993185-aaa4-4313-aa09-667c18647d7c",
+      "documentation": "Disconnects the private endpoint connection and deletes it from the Search service.",
+      "method": "delete",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices/:searchServiceName/privateEndpointConnections/:privateEndpointConnectionName",
+      "responses": [
+        {
+          "uuid": "05d0fa0d-9216-482a-89ab-84fc3fcf1938",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"privateEndpoint\": {\n      \"id\": \"\"\n    },\n    \"privateLinkServiceConnectionState\": {\n      \"actionsRequired\": \"None\",\n      \"description\": \"\",\n      \"status\": \"{{oneOf (array 'Pending' 'Approved' 'Rejected' 'Disconnected')}}\"\n    }\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The private endpoint connection was successfully disconnected and removed from the search service. The response will contain the updated definition of the private endpoint connection.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f1fdcfbe-9438-4d35-babe-2443b791e8bb",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "The subscription, resource group, Search service or private endpoint connection could not be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "09fd185e-17a8-4b81-b8c1-f6320df88c71",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An unexpected error occurred during the operation.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "deb4c91a-b758-4199-afe0-bd14453e61cb",
+      "documentation": "Gets the details of the private endpoint connection to the Search service in the given resource group.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices/:searchServiceName/privateEndpointConnections/:privateEndpointConnectionName",
+      "responses": [
+        {
+          "uuid": "36b4706c-b2e0-4714-89f9-531b2fcdbf82",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"privateEndpoint\": {\n      \"id\": \"\"\n    },\n    \"privateLinkServiceConnectionState\": {\n      \"actionsRequired\": \"None\",\n      \"description\": \"\",\n      \"status\": \"{{oneOf (array 'Pending' 'Approved' 'Rejected' 'Disconnected')}}\"\n    }\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The definition of the private endpoint connection was successfully retrieved and is in the response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5896b8b4-927c-491e-b28d-d9d832b1823e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "HTTP 404 (Not Found): The subscription, resource group, Search service or private endpoint connection could not be found.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c182e0a1-1827-451e-8511-17e63e8d9366",
+      "documentation": "Updates a Private Endpoint connection to the Search service in the given resource group.",
+      "method": "put",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices/:searchServiceName/privateEndpointConnections/:privateEndpointConnectionName",
+      "responses": [
+        {
+          "uuid": "8f2e4500-ef7b-4265-99b8-e7beac6493e6",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"privateEndpoint\": {\n      \"id\": \"\"\n    },\n    \"privateLinkServiceConnectionState\": {\n      \"actionsRequired\": \"None\",\n      \"description\": \"\",\n      \"status\": \"{{oneOf (array 'Pending' 'Approved' 'Rejected' 'Disconnected')}}\"\n    }\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The existing private endpoint connection definition was successfully updated.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "593f0402-751a-40a4-b252-e8e86478e2a8",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "HTTP 400 (Bad Request): The given private endpoint connection name or the private endpoint connection definition is invalid; See the error code and message in the response for details. HTTP 404 (Not Found): The subscription, resource group, search service or private endpoint connection could not be found. HTTP 409 (Conflict): The specified subscription is disabled.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "29265ece-4111-4117-bfa8-dc0a1c5bffa7",
+      "documentation": "Regenerates either the primary or secondary admin API key. You can only regenerate one key at a time.",
+      "method": "post",
+      "endpoint": "subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.Search/searchServices/:searchServiceName/regenerateAdminKey/:keyKind",
+      "responses": [
+        {
+          "uuid": "915bbc21-9f3d-464a-8296-8e7dc90afca0",
+          "body": "{\n  \"primaryKey\": \"\",\n  \"secondaryKey\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The specified admin key was successfully regenerated. Both admin keys are included in the response, including the newly-regenerated key.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "65d4789d-b5cc-4831-836c-88ce47e54858",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "HTTP 404 (Not Found): The subscription, resource group, or Search service could not be found. HTTP 409 (Conflict): The specified subscription is disabled.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

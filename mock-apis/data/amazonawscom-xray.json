@@ -1,0 +1,1968 @@
+{
+  "uuid": "dbda30ef-53a6-4ac7-b897-af3589f185f6",
+  "lastMigration": 19,
+  "name": "AWS X-Ray",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "f7cf92fc-c949-4678-962d-dfe6fc63ef7c",
+      "documentation": "Retrieves a list of traces specified by ID. Each trace is a collection of segment documents that originates from a single request. Use <code>GetTraceSummaries</code> to get a list of trace IDs.",
+      "method": "post",
+      "endpoint": "Traces",
+      "responses": [
+        {
+          "uuid": "e95019b2-0459-47fe-9e4d-c4c7fc2dd229",
+          "body": "{\n  \"Traces\": [\n    {\n      \"Id\": \"\",\n      \"Duration\": {{faker 'random.float'}},\n      \"LimitExceeded\": {{faker 'random.boolean'}},\n      \"Segments\": [\n        {\n          \"Id\": \"\",\n          \"Document\": \"\"\n        }\n      ]\n    }\n  ],\n  \"UnprocessedTraceIds\": [\n    \"\"\n  ],\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "12df2dd9-c292-4948-9c09-8335ef87a726",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "97e842b0-d830-4feb-96a4-157b6bae87be",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b67d2afd-1256-4b0b-bc41-e5ab74076d2d",
+      "documentation": "Creates a group resource with a name and a filter expression. ",
+      "method": "post",
+      "endpoint": "CreateGroup",
+      "responses": [
+        {
+          "uuid": "48565592-a787-46a3-a5ba-965029c74b3f",
+          "body": "{\n  \"Group\": {\n    \"GroupName\": \"\",\n    \"GroupARN\": \"\",\n    \"FilterExpression\": \"\",\n    \"InsightsConfiguration\": {\n      \"InsightsEnabled\": {{faker 'random.boolean'}},\n      \"NotificationsEnabled\": {{faker 'random.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6ec1878a-ea7e-4959-9f39-1114ffb27cb0",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "838fc9a1-6bfe-4263-937b-e1837f1cd08b",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f9fecd92-2d12-4598-8fc8-3d167068de75",
+      "documentation": "Creates a rule to control sampling behavior for instrumented applications. Services retrieve rules with <a href=\"https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingRules.html\">GetSamplingRules</a>, and evaluate each rule in ascending order of <i>priority</i> for each request. If a rule matches, the service records a trace, borrowing it from the reservoir size. After 10 seconds, the service reports back to X-Ray with <a href=\"https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingTargets.html\">GetSamplingTargets</a> to get updated versions of each in-use rule. The updated rule contains a trace quota that the service can use instead of borrowing from the reservoir.",
+      "method": "post",
+      "endpoint": "CreateSamplingRule",
+      "responses": [
+        {
+          "uuid": "69f43bac-df75-4af9-8f04-6ca632de3c00",
+          "body": "{\n  \"SamplingRuleRecord\": {\n    \"SamplingRule\": {\n      \"RuleName\": \"\",\n      \"RuleARN\": \"\",\n      \"ResourceARN\": \"\",\n      \"Priority\": {{faker 'random.number'}},\n      \"FixedRate\": {{faker 'random.float'}},\n      \"ReservoirSize\": {{faker 'random.number'}},\n      \"ServiceName\": \"\",\n      \"ServiceType\": \"\",\n      \"Host\": \"\",\n      \"HTTPMethod\": \"\",\n      \"URLPath\": \"\",\n      \"Version\": {{faker 'random.number'}},\n      \"Attributes\": {}\n    },\n    \"CreatedAt\": \"{{faker 'date.recent' 365}}\",\n    \"ModifiedAt\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3505025a-5254-490f-acaf-ff94a72773d7",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c2150896-eaa2-4a0c-b338-bc892218243e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2732d5b2-7082-4b8c-88a1-3fa0156e5ea0",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "RuleLimitExceededException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "31c7dbaf-2d00-4c37-9e4d-7bc764325e9c",
+      "documentation": "Deletes a group resource.",
+      "method": "post",
+      "endpoint": "DeleteGroup",
+      "responses": [
+        {
+          "uuid": "22079bc5-a7ce-4616-a51a-7f163852612b",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "804a2221-8851-4453-814c-c9610f5efc33",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a5ccaf3f-e28a-4d27-9434-53330c1806e0",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "84673f76-82c2-4547-9cdb-e683a9c6f06c",
+      "documentation": "Deletes a sampling rule.",
+      "method": "post",
+      "endpoint": "DeleteSamplingRule",
+      "responses": [
+        {
+          "uuid": "56de03b4-9e76-48b0-ab39-034648de4bd2",
+          "body": "{\n  \"SamplingRuleRecord\": {\n    \"SamplingRule\": {\n      \"RuleName\": \"\",\n      \"RuleARN\": \"\",\n      \"ResourceARN\": \"\",\n      \"Priority\": {{faker 'random.number'}},\n      \"FixedRate\": {{faker 'random.float'}},\n      \"ReservoirSize\": {{faker 'random.number'}},\n      \"ServiceName\": \"\",\n      \"ServiceType\": \"\",\n      \"Host\": \"\",\n      \"HTTPMethod\": \"\",\n      \"URLPath\": \"\",\n      \"Version\": {{faker 'random.number'}},\n      \"Attributes\": {}\n    },\n    \"CreatedAt\": \"{{faker 'date.recent' 365}}\",\n    \"ModifiedAt\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bf7d56d4-8ae5-4e3c-9274-d0e91660c345",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "458b36bd-a554-4d6f-8f8c-beb6d9740cc8",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9eb1200c-4e7f-4fcc-be76-f5ff1ccc2e3d",
+      "documentation": "Retrieves the current encryption configuration for X-Ray data.",
+      "method": "post",
+      "endpoint": "EncryptionConfig",
+      "responses": [
+        {
+          "uuid": "959b8ae6-7bcc-43b7-9a76-a7bb7250d00c",
+          "body": "{\n  \"EncryptionConfig\": {\n    \"KeyId\": \"\",\n    \"Status\": \"\",\n    \"Type\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6f1e88e0-9b94-49f0-a223-b312e9c0d84d",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "745c35b2-2773-4845-8374-8a5d63a9886c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "29c6a0fe-e6bd-4439-ba38-6fcad1a15bce",
+      "documentation": "Retrieves group resource details.",
+      "method": "post",
+      "endpoint": "GetGroup",
+      "responses": [
+        {
+          "uuid": "c14cd4db-9d53-4d82-9025-c49db6e9824c",
+          "body": "{\n  \"Group\": {\n    \"GroupName\": \"\",\n    \"GroupARN\": \"\",\n    \"FilterExpression\": \"\",\n    \"InsightsConfiguration\": {\n      \"InsightsEnabled\": {{faker 'random.boolean'}},\n      \"NotificationsEnabled\": {{faker 'random.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0d84ad5e-e991-46bc-a2c5-fb621aa2f6b8",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5d6e7bef-72fa-435b-bafb-e1cbcb000488",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9c1f3f27-b375-4aa6-8aef-e7b45e527f83",
+      "documentation": "Retrieves all active group details.",
+      "method": "post",
+      "endpoint": "Groups",
+      "responses": [
+        {
+          "uuid": "bb654346-90f1-45fd-800a-e9e0e3bae419",
+          "body": "{\n  \"Groups\": [\n    {\n      \"GroupName\": \"\",\n      \"GroupARN\": \"\",\n      \"FilterExpression\": \"\",\n      \"InsightsConfiguration\": {\n        \"InsightsEnabled\": {{faker 'random.boolean'}},\n        \"NotificationsEnabled\": {{faker 'random.boolean'}}\n      }\n    }\n  ],\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "173e1051-7441-4c3d-8d5b-cb63f865eb4c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8a3ed238-b892-4408-acf4-c008f89f9605",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0f801aed-b161-4c5d-a60f-37b64932bc3f",
+      "documentation": "Retrieves the summary information of an insight. This includes impact to clients and root cause services, the top anomalous services, the category, the state of the insight, and the start and end time of the insight.",
+      "method": "post",
+      "endpoint": "Insight",
+      "responses": [
+        {
+          "uuid": "54862b0e-0209-4343-9cd3-63bf19ce2f37",
+          "body": "{\n  \"Insight\": {\n    \"InsightId\": \"\",\n    \"GroupARN\": \"\",\n    \"GroupName\": \"\",\n    \"RootCauseServiceId\": {\n      \"Name\": \"\",\n      \"Names\": [\n        \"\"\n      ],\n      \"AccountId\": \"\",\n      \"Type\": \"\"\n    },\n    \"Categories\": [\n      \"{{oneOf (array 'FAULT')}}\"\n    ],\n    \"State\": \"\",\n    \"StartTime\": \"{{faker 'date.recent' 365}}\",\n    \"EndTime\": \"{{faker 'date.recent' 365}}\",\n    \"Summary\": \"\",\n    \"ClientRequestImpactStatistics\": {\n      \"FaultCount\": {{faker 'random.number'}},\n      \"OkCount\": {{faker 'random.number'}},\n      \"TotalCount\": {{faker 'random.number'}}\n    },\n    \"RootCauseServiceRequestImpactStatistics\": {\n      \"FaultCount\": {{faker 'random.number'}},\n      \"OkCount\": {{faker 'random.number'}},\n      \"TotalCount\": {{faker 'random.number'}}\n    },\n    \"TopAnomalousServices\": [\n      {\n        \"ServiceId\": {\n          \"Name\": \"\",\n          \"Names\": [\n            \"\"\n          ],\n          \"AccountId\": \"\",\n          \"Type\": \"\"\n        }\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "25fa0892-3553-4b40-bfe0-3edc0186b26e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "03deacf2-09a2-4de2-a702-229d781994d8",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "01f6b03b-e471-48ae-a77c-fa821e406242",
+      "documentation": "X-Ray reevaluates insights periodically until they're resolved, and records each intermediate state as an event. You can review an insight's events in the Impact Timeline on the Inspect page in the X-Ray console.",
+      "method": "post",
+      "endpoint": "InsightEvents",
+      "responses": [
+        {
+          "uuid": "0b841428-99b5-437e-9e4c-392f1b6f059b",
+          "body": "{\n  \"InsightEvents\": [\n    {\n      \"Summary\": \"\",\n      \"EventTime\": \"{{faker 'date.recent' 365}}\",\n      \"ClientRequestImpactStatistics\": {\n        \"FaultCount\": {{faker 'random.number'}},\n        \"OkCount\": {{faker 'random.number'}},\n        \"TotalCount\": {{faker 'random.number'}}\n      },\n      \"RootCauseServiceRequestImpactStatistics\": {\n        \"FaultCount\": {{faker 'random.number'}},\n        \"OkCount\": {{faker 'random.number'}},\n        \"TotalCount\": {{faker 'random.number'}}\n      },\n      \"TopAnomalousServices\": [\n        {\n          \"ServiceId\": {\n            \"Name\": \"\",\n            \"Names\": [\n              \"\"\n            ],\n            \"AccountId\": \"\",\n            \"Type\": \"\"\n          }\n        }\n      ]\n    }\n  ],\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b864f2f1-a3b5-448a-ae58-2aa38674f214",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "90351730-a72b-468c-a40a-2c7ea99a7538",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "df36c78f-2ce4-434c-a4ad-de2545c02300",
+      "documentation": "Retrieves a service graph structure filtered by the specified insight. The service graph is limited to only structural information. For a complete service graph, use this API with the GetServiceGraph API.",
+      "method": "post",
+      "endpoint": "InsightImpactGraph",
+      "responses": [
+        {
+          "uuid": "1cca7df7-93b8-4fb5-a6f1-2100a6cd00d1",
+          "body": "{\n  \"InsightId\": \"\",\n  \"StartTime\": \"{{faker 'date.recent' 365}}\",\n  \"EndTime\": \"{{faker 'date.recent' 365}}\",\n  \"ServiceGraphStartTime\": \"{{faker 'date.recent' 365}}\",\n  \"ServiceGraphEndTime\": \"{{faker 'date.recent' 365}}\",\n  \"Services\": [\n    {\n      \"ReferenceId\": {{faker 'random.number'}},\n      \"Type\": \"\",\n      \"Name\": \"\",\n      \"Names\": [\n        \"\"\n      ],\n      \"AccountId\": \"\",\n      \"Edges\": [\n        {\n          \"ReferenceId\": {{faker 'random.number'}}\n        }\n      ]\n    }\n  ],\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9b0d018e-f756-4ee3-9de7-c301d4db62b8",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "374ba9d1-9e33-4744-a2d2-4041265d8490",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "216d7dfb-f7a8-4a0b-a71b-bc7c1714e251",
+      "documentation": "Retrieves the summaries of all insights in the specified group matching the provided filter values.",
+      "method": "post",
+      "endpoint": "InsightSummaries",
+      "responses": [
+        {
+          "uuid": "4cd99969-62c9-48b9-898b-0e6ede2b8d60",
+          "body": "{\n  \"InsightSummaries\": [\n    {\n      \"InsightId\": \"\",\n      \"GroupARN\": \"\",\n      \"GroupName\": \"\",\n      \"RootCauseServiceId\": {\n        \"Name\": \"\",\n        \"Names\": [\n          \"\"\n        ],\n        \"AccountId\": \"\",\n        \"Type\": \"\"\n      },\n      \"Categories\": [\n        \"{{oneOf (array 'FAULT')}}\"\n      ],\n      \"State\": \"\",\n      \"StartTime\": \"{{faker 'date.recent' 365}}\",\n      \"EndTime\": \"{{faker 'date.recent' 365}}\",\n      \"Summary\": \"\",\n      \"ClientRequestImpactStatistics\": {\n        \"FaultCount\": {{faker 'random.number'}},\n        \"OkCount\": {{faker 'random.number'}},\n        \"TotalCount\": {{faker 'random.number'}}\n      },\n      \"RootCauseServiceRequestImpactStatistics\": {\n        \"FaultCount\": {{faker 'random.number'}},\n        \"OkCount\": {{faker 'random.number'}},\n        \"TotalCount\": {{faker 'random.number'}}\n      },\n      \"TopAnomalousServices\": [\n        {\n          \"ServiceId\": {\n            \"Name\": \"\",\n            \"Names\": [\n              \"\"\n            ],\n            \"AccountId\": \"\",\n            \"Type\": \"\"\n          }\n        }\n      ],\n      \"LastUpdateTime\": \"{{faker 'date.recent' 365}}\"\n    }\n  ],\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0e955769-dd19-4ff8-97a5-0a7003157671",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8eb58355-e9cc-4035-b4cc-be2d3dcda256",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0ee5cb18-542c-4a0b-8d5d-ce62f18be159",
+      "documentation": "Retrieves all sampling rules.",
+      "method": "post",
+      "endpoint": "GetSamplingRules",
+      "responses": [
+        {
+          "uuid": "130eb527-aaaf-4631-8cba-51d79fdae378",
+          "body": "{\n  \"SamplingRuleRecords\": [\n    {\n      \"SamplingRule\": {\n        \"RuleName\": \"\",\n        \"RuleARN\": \"\",\n        \"ResourceARN\": \"\",\n        \"Priority\": {{faker 'random.number'}},\n        \"FixedRate\": {{faker 'random.float'}},\n        \"ReservoirSize\": {{faker 'random.number'}},\n        \"ServiceName\": \"\",\n        \"ServiceType\": \"\",\n        \"Host\": \"\",\n        \"HTTPMethod\": \"\",\n        \"URLPath\": \"\",\n        \"Version\": {{faker 'random.number'}},\n        \"Attributes\": {}\n      },\n      \"CreatedAt\": \"{{faker 'date.recent' 365}}\",\n      \"ModifiedAt\": \"{{faker 'date.recent' 365}}\"\n    }\n  ],\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ee0bab94-0593-4248-a2e9-2674f43a3cac",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9301ae0b-7826-45cc-9c1d-836620e69f84",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "000cef1a-c929-4722-a71a-82a4e174580d",
+      "documentation": "Retrieves information about recent sampling results for all sampling rules.",
+      "method": "post",
+      "endpoint": "SamplingStatisticSummaries",
+      "responses": [
+        {
+          "uuid": "cec5e1d5-16e2-4a4b-9a1b-4f9a6ec1e4ce",
+          "body": "{\n  \"SamplingStatisticSummaries\": [\n    {\n      \"RuleName\": \"\",\n      \"Timestamp\": \"{{faker 'date.recent' 365}}\",\n      \"RequestCount\": {{faker 'random.number'}},\n      \"BorrowCount\": {{faker 'random.number'}},\n      \"SampledCount\": {{faker 'random.number'}}\n    }\n  ],\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f165a4fa-c17f-47fb-b254-55000b25cc13",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6625835b-3f8a-419d-ad32-be9b5e3ac38a",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "39f15232-7a02-4228-a1a9-10fc05b1b588",
+      "documentation": "Requests a sampling quota for rules that the service is using to sample requests. ",
+      "method": "post",
+      "endpoint": "SamplingTargets",
+      "responses": [
+        {
+          "uuid": "d77af031-d64c-4e54-925e-5d84e5a12255",
+          "body": "{\n  \"SamplingTargetDocuments\": [\n    {\n      \"RuleName\": \"\",\n      \"FixedRate\": {{faker 'random.float'}},\n      \"ReservoirQuota\": {{faker 'random.number'}},\n      \"ReservoirQuotaTTL\": \"{{faker 'date.recent' 365}}\",\n      \"Interval\": {{faker 'random.number'}}\n    }\n  ],\n  \"LastRuleModification\": \"{{faker 'date.recent' 365}}\",\n  \"UnprocessedStatistics\": [\n    {\n      \"RuleName\": \"\",\n      \"ErrorCode\": \"\",\n      \"Message\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "abeb49d4-0b40-4123-8fc6-e50031e7830e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c54fa6a3-c189-40df-800c-a9b0519da2e8",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cbe9393e-6f84-4215-9ab0-5799c314ef19",
+      "documentation": "Retrieves a document that describes services that process incoming requests, and downstream services that they call as a result. Root services process incoming requests and make calls to downstream services. Root services are applications that use the <a href=\"https://docs.aws.amazon.com/xray/index.html\">Amazon Web Services X-Ray SDK</a>. Downstream services can be other applications, Amazon Web Services resources, HTTP web APIs, or SQL databases.",
+      "method": "post",
+      "endpoint": "ServiceGraph",
+      "responses": [
+        {
+          "uuid": "07831844-f79c-491c-886b-e263138cbe28",
+          "body": "{\n  \"StartTime\": \"{{faker 'date.recent' 365}}\",\n  \"EndTime\": \"{{faker 'date.recent' 365}}\",\n  \"Services\": [\n    {\n      \"ReferenceId\": {{faker 'random.number'}},\n      \"Name\": \"\",\n      \"Names\": [\n        \"\"\n      ],\n      \"Root\": {{faker 'random.boolean'}},\n      \"AccountId\": \"\",\n      \"Type\": \"\",\n      \"State\": \"\",\n      \"StartTime\": \"{{faker 'date.recent' 365}}\",\n      \"EndTime\": \"{{faker 'date.recent' 365}}\",\n      \"Edges\": [\n        {\n          \"ReferenceId\": {{faker 'random.number'}},\n          \"StartTime\": \"{{faker 'date.recent' 365}}\",\n          \"EndTime\": \"{{faker 'date.recent' 365}}\",\n          \"SummaryStatistics\": {\n            \"OkCount\": {{faker 'random.number'}},\n            \"ErrorStatistics\": {\n              \"ThrottleCount\": {{faker 'random.number'}},\n              \"OtherCount\": {{faker 'random.number'}},\n              \"TotalCount\": {{faker 'random.number'}}\n            },\n            \"FaultStatistics\": {\n              \"OtherCount\": {{faker 'random.number'}},\n              \"TotalCount\": {{faker 'random.number'}}\n            },\n            \"TotalCount\": {{faker 'random.number'}},\n            \"TotalResponseTime\": {{faker 'random.float'}}\n          },\n          \"ResponseTimeHistogram\": [\n            {\n              \"Value\": {{faker 'random.float'}},\n              \"Count\": {{faker 'random.number'}}\n            }\n          ],\n          \"Aliases\": [\n            {\n              \"Name\": \"\",\n              \"Names\": [\n                \"\"\n              ],\n              \"Type\": \"\"\n            }\n          ]\n        }\n      ],\n      \"SummaryStatistics\": {\n        \"OkCount\": {{faker 'random.number'}},\n        \"ErrorStatistics\": {\n          \"ThrottleCount\": {{faker 'random.number'}},\n          \"OtherCount\": {{faker 'random.number'}},\n          \"TotalCount\": {{faker 'random.number'}}\n        },\n        \"FaultStatistics\": {\n          \"OtherCount\": {{faker 'random.number'}},\n          \"TotalCount\": {{faker 'random.number'}}\n        },\n        \"TotalCount\": {{faker 'random.number'}},\n        \"TotalResponseTime\": {{faker 'random.float'}}\n      },\n      \"DurationHistogram\": [\n        {\n          \"Value\": {{faker 'random.float'}},\n          \"Count\": {{faker 'random.number'}}\n        }\n      ],\n      \"ResponseTimeHistogram\": [\n        {\n          \"Value\": {{faker 'random.float'}},\n          \"Count\": {{faker 'random.number'}}\n        }\n      ]\n    }\n  ],\n  \"ContainsOldGroupVersions\": {{faker 'random.boolean'}},\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "79182c62-0e3b-4e4e-9cfe-e165316cbdda",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2b91cf83-a348-4a0c-89fd-544974a6c3d7",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "901c181e-06ce-4a51-bedb-7172e13bb5ff",
+      "documentation": "Get an aggregation of service statistics defined by a specific time range.",
+      "method": "post",
+      "endpoint": "TimeSeriesServiceStatistics",
+      "responses": [
+        {
+          "uuid": "7a8a874f-63d3-41d2-93c9-76ed518456c9",
+          "body": "{\n  \"TimeSeriesServiceStatistics\": [\n    {\n      \"Timestamp\": \"{{faker 'date.recent' 365}}\",\n      \"EdgeSummaryStatistics\": {\n        \"OkCount\": {{faker 'random.number'}},\n        \"ErrorStatistics\": {\n          \"ThrottleCount\": {{faker 'random.number'}},\n          \"OtherCount\": {{faker 'random.number'}},\n          \"TotalCount\": {{faker 'random.number'}}\n        },\n        \"FaultStatistics\": {\n          \"OtherCount\": {{faker 'random.number'}},\n          \"TotalCount\": {{faker 'random.number'}}\n        },\n        \"TotalCount\": {{faker 'random.number'}},\n        \"TotalResponseTime\": {{faker 'random.float'}}\n      },\n      \"ServiceSummaryStatistics\": {\n        \"OkCount\": {{faker 'random.number'}},\n        \"ErrorStatistics\": {\n          \"ThrottleCount\": {{faker 'random.number'}},\n          \"OtherCount\": {{faker 'random.number'}},\n          \"TotalCount\": {{faker 'random.number'}}\n        },\n        \"FaultStatistics\": {\n          \"OtherCount\": {{faker 'random.number'}},\n          \"TotalCount\": {{faker 'random.number'}}\n        },\n        \"TotalCount\": {{faker 'random.number'}},\n        \"TotalResponseTime\": {{faker 'random.float'}}\n      },\n      \"ServiceForecastStatistics\": {\n        \"FaultCountHigh\": {{faker 'random.number'}},\n        \"FaultCountLow\": {{faker 'random.number'}}\n      },\n      \"ResponseTimeHistogram\": [\n        {\n          \"Value\": {{faker 'random.float'}},\n          \"Count\": {{faker 'random.number'}}\n        }\n      ]\n    }\n  ],\n  \"ContainsOldGroupVersions\": {{faker 'random.boolean'}},\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5a083d0a-f30f-43a4-bdef-2662ab7dfb63",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7ad95624-a666-4c13-b6c1-cab4ac41cdf5",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7c1607b9-4786-40a5-b48b-43bce65e5257",
+      "documentation": "Retrieves a service graph for one or more specific trace IDs.",
+      "method": "post",
+      "endpoint": "TraceGraph",
+      "responses": [
+        {
+          "uuid": "28a3438a-279f-4b33-adfd-30708432aab3",
+          "body": "{\n  \"Services\": [\n    {\n      \"ReferenceId\": {{faker 'random.number'}},\n      \"Name\": \"\",\n      \"Names\": [\n        \"\"\n      ],\n      \"Root\": {{faker 'random.boolean'}},\n      \"AccountId\": \"\",\n      \"Type\": \"\",\n      \"State\": \"\",\n      \"StartTime\": \"{{faker 'date.recent' 365}}\",\n      \"EndTime\": \"{{faker 'date.recent' 365}}\",\n      \"Edges\": [\n        {\n          \"ReferenceId\": {{faker 'random.number'}},\n          \"StartTime\": \"{{faker 'date.recent' 365}}\",\n          \"EndTime\": \"{{faker 'date.recent' 365}}\",\n          \"SummaryStatistics\": {\n            \"OkCount\": {{faker 'random.number'}},\n            \"ErrorStatistics\": {\n              \"ThrottleCount\": {{faker 'random.number'}},\n              \"OtherCount\": {{faker 'random.number'}},\n              \"TotalCount\": {{faker 'random.number'}}\n            },\n            \"FaultStatistics\": {\n              \"OtherCount\": {{faker 'random.number'}},\n              \"TotalCount\": {{faker 'random.number'}}\n            },\n            \"TotalCount\": {{faker 'random.number'}},\n            \"TotalResponseTime\": {{faker 'random.float'}}\n          },\n          \"ResponseTimeHistogram\": [\n            {\n              \"Value\": {{faker 'random.float'}},\n              \"Count\": {{faker 'random.number'}}\n            }\n          ],\n          \"Aliases\": [\n            {\n              \"Name\": \"\",\n              \"Names\": [\n                \"\"\n              ],\n              \"Type\": \"\"\n            }\n          ]\n        }\n      ],\n      \"SummaryStatistics\": {\n        \"OkCount\": {{faker 'random.number'}},\n        \"ErrorStatistics\": {\n          \"ThrottleCount\": {{faker 'random.number'}},\n          \"OtherCount\": {{faker 'random.number'}},\n          \"TotalCount\": {{faker 'random.number'}}\n        },\n        \"FaultStatistics\": {\n          \"OtherCount\": {{faker 'random.number'}},\n          \"TotalCount\": {{faker 'random.number'}}\n        },\n        \"TotalCount\": {{faker 'random.number'}},\n        \"TotalResponseTime\": {{faker 'random.float'}}\n      },\n      \"DurationHistogram\": [\n        {\n          \"Value\": {{faker 'random.float'}},\n          \"Count\": {{faker 'random.number'}}\n        }\n      ],\n      \"ResponseTimeHistogram\": [\n        {\n          \"Value\": {{faker 'random.float'}},\n          \"Count\": {{faker 'random.number'}}\n        }\n      ]\n    }\n  ],\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1789b88a-00a7-4b02-915a-cb78f7c10443",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f3983a9f-02ca-47a4-b7a4-6fdc7a5fdd25",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8bd37712-d273-4198-a672-afe24ee91f1a",
+      "documentation": "<p>Retrieves IDs and annotations for traces available for a specified time frame using an optional filter. To get the full traces, pass the trace IDs to <code>BatchGetTraces</code>.</p> <p>A filter expression can target traced requests that hit specific service nodes or edges, have errors, or come from a known user. For example, the following filter expression targets traces that pass through <code>api.example.com</code>:</p> <p> <code>service(\"api.example.com\")</code> </p> <p>This filter expression finds traces that have an annotation named <code>account</code> with the value <code>12345</code>:</p> <p> <code>annotation.account = \"12345\"</code> </p> <p>For a full list of indexed fields and keywords that you can use in filter expressions, see <a href=\"https://docs.aws.amazon.com/xray/latest/devguide/xray-console-filters.html\">Using Filter Expressions</a> in the <i>Amazon Web Services X-Ray Developer Guide</i>.</p>",
+      "method": "post",
+      "endpoint": "TraceSummaries",
+      "responses": [
+        {
+          "uuid": "01e47ea0-bcc4-4901-8a57-3eaa52b5b6ad",
+          "body": "{\n  \"TraceSummaries\": [\n    {\n      \"Id\": \"\",\n      \"Duration\": {{faker 'random.float'}},\n      \"ResponseTime\": {{faker 'random.float'}},\n      \"HasFault\": {{faker 'random.boolean'}},\n      \"HasError\": {{faker 'random.boolean'}},\n      \"HasThrottle\": {{faker 'random.boolean'}},\n      \"IsPartial\": {{faker 'random.boolean'}},\n      \"Http\": {\n        \"HttpURL\": \"\",\n        \"HttpStatus\": {{faker 'random.number'}},\n        \"HttpMethod\": \"\",\n        \"UserAgent\": \"\",\n        \"ClientIp\": \"\"\n      },\n      \"Annotations\": {},\n      \"Users\": [\n        {\n          \"UserName\": \"\",\n          \"ServiceIds\": [\n            {\n              \"Name\": \"\",\n              \"Names\": [\n                \"\"\n              ],\n              \"AccountId\": \"\",\n              \"Type\": \"\"\n            }\n          ]\n        }\n      ],\n      \"ServiceIds\": [\n        {\n          \"Name\": \"\",\n          \"Names\": [\n            \"\"\n          ],\n          \"AccountId\": \"\",\n          \"Type\": \"\"\n        }\n      ],\n      \"ResourceARNs\": [\n        {\n          \"ARN\": \"\"\n        }\n      ],\n      \"InstanceIds\": [\n        {\n          \"Id\": \"\"\n        }\n      ],\n      \"AvailabilityZones\": [\n        {\n          \"Name\": \"\"\n        }\n      ],\n      \"EntryPoint\": {\n        \"Name\": \"\",\n        \"Names\": [\n          \"\"\n        ],\n        \"AccountId\": \"\",\n        \"Type\": \"\"\n      },\n      \"FaultRootCauses\": [\n        {\n          \"Services\": [\n            {\n              \"Name\": \"\",\n              \"Names\": [\n                \"\"\n              ],\n              \"Type\": \"\",\n              \"AccountId\": \"\",\n              \"EntityPath\": [\n                {\n                  \"Name\": \"\",\n                  \"Exceptions\": [\n                    {\n                      \"Name\": \"\",\n                      \"Message\": \"\"\n                    }\n                  ],\n                  \"Remote\": {{faker 'random.boolean'}}\n                }\n              ],\n              \"Inferred\": {{faker 'random.boolean'}}\n            }\n          ],\n          \"ClientImpacting\": {{faker 'random.boolean'}}\n        }\n      ],\n      \"ErrorRootCauses\": [\n        {\n          \"Services\": [\n            {\n              \"Name\": \"\",\n              \"Names\": [\n                \"\"\n              ],\n              \"Type\": \"\",\n              \"AccountId\": \"\",\n              \"EntityPath\": [\n                {\n                  \"Name\": \"\",\n                  \"Exceptions\": [\n                    {\n                      \"Name\": \"\",\n                      \"Message\": \"\"\n                    }\n                  ],\n                  \"Remote\": {{faker 'random.boolean'}}\n                }\n              ],\n              \"Inferred\": {{faker 'random.boolean'}}\n            }\n          ],\n          \"ClientImpacting\": {{faker 'random.boolean'}}\n        }\n      ],\n      \"ResponseTimeRootCauses\": [\n        {\n          \"Services\": [\n            {\n              \"Name\": \"\",\n              \"Names\": [\n                \"\"\n              ],\n              \"Type\": \"\",\n              \"AccountId\": \"\",\n              \"EntityPath\": [\n                {\n                  \"Name\": \"\",\n                  \"Coverage\": {{faker 'random.float'}},\n                  \"Remote\": {{faker 'random.boolean'}}\n                }\n              ],\n              \"Inferred\": {{faker 'random.boolean'}}\n            }\n          ],\n          \"ClientImpacting\": {{faker 'random.boolean'}}\n        }\n      ],\n      \"Revision\": {{faker 'random.number'}},\n      \"MatchedEventTime\": \"{{faker 'date.recent' 365}}\"\n    }\n  ],\n  \"ApproximateTime\": \"{{faker 'date.recent' 365}}\",\n  \"TracesProcessedCount\": {{faker 'random.number'}},\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c0a1fc16-125d-4864-853d-503075d8e5dc",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f5cae6ad-6849-45fe-a3f6-a1db97723061",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "80a16ec7-5c36-4f3b-a9c9-eb495b33fc33",
+      "documentation": "Returns a list of tags that are applied to the specified Amazon Web Services X-Ray group or sampling rule.",
+      "method": "post",
+      "endpoint": "ListTagsForResource",
+      "responses": [
+        {
+          "uuid": "a3e809f2-904f-4c2a-9570-9736a209dff1",
+          "body": "{\n  \"Tags\": [\n    {\n      \"Key\": \"\",\n      \"Value\": \"\"\n    }\n  ],\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fffa049d-9a66-4043-a074-03d9187662a3",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b957a0ed-03da-43c1-826b-e0240ebaff17",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9df86ec1-7f02-4e1e-90b3-464b3fdfc1f1",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c1e71d21-dfce-4603-a12a-77c820126b16",
+      "documentation": "Updates the encryption configuration for X-Ray data.",
+      "method": "post",
+      "endpoint": "PutEncryptionConfig",
+      "responses": [
+        {
+          "uuid": "f7f807c9-c015-4996-9a09-6f8504e3f095",
+          "body": "{\n  \"EncryptionConfig\": {\n    \"KeyId\": \"\",\n    \"Status\": \"\",\n    \"Type\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5fc173aa-8b3e-43eb-a0c9-4e3fb1914c60",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "02114aca-14e7-4329-bc3e-c7a262672a13",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "428e51ff-8977-45ba-b820-1af39dfb10ab",
+      "documentation": "Used by the Amazon Web Services X-Ray daemon to upload telemetry.",
+      "method": "post",
+      "endpoint": "TelemetryRecords",
+      "responses": [
+        {
+          "uuid": "72af393c-165b-43ee-b79c-3849fa4cef8f",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b021af76-2c66-43c6-91fa-41a99ba9b7db",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "eba9b34b-9792-4af8-bd37-b167f4fd01df",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a80d4c5f-ac20-4f20-a147-f8af7b66a932",
+      "documentation": "<p>Uploads segment documents to Amazon Web Services X-Ray. The <a href=\"https://docs.aws.amazon.com/xray/index.html\">X-Ray SDK</a> generates segment documents and sends them to the X-Ray daemon, which uploads them in batches. A segment document can be a completed segment, an in-progress segment, or an array of subsegments.</p> <p>Segments must include the following fields. For the full segment document schema, see <a href=\"https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html\">Amazon Web Services X-Ray Segment Documents</a> in the <i>Amazon Web Services X-Ray Developer Guide</i>.</p> <p class=\"title\"> <b>Required segment document fields</b> </p> <ul> <li> <p> <code>name</code> - The name of the service that handled the request.</p> </li> <li> <p> <code>id</code> - A 64-bit identifier for the segment, unique among segments in the same trace, in 16 hexadecimal digits.</p> </li> <li> <p> <code>trace_id</code> - A unique identifier that connects all segments and subsegments originating from a single client request.</p> </li> <li> <p> <code>start_time</code> - Time the segment or subsegment was created, in floating point seconds in epoch time, accurate to milliseconds. For example, <code>1480615200.010</code> or <code>1.480615200010E9</code>.</p> </li> <li> <p> <code>end_time</code> - Time the segment or subsegment was closed. For example, <code>1480615200.090</code> or <code>1.480615200090E9</code>. Specify either an <code>end_time</code> or <code>in_progress</code>.</p> </li> <li> <p> <code>in_progress</code> - Set to <code>true</code> instead of specifying an <code>end_time</code> to record that a segment has been started, but is not complete. Send an in-progress segment when your application receives a request that will take a long time to serve, to trace that the request was received. When the response is sent, send the complete segment to overwrite the in-progress segment.</p> </li> </ul> <p>A <code>trace_id</code> consists of three numbers separated by hyphens. For example, 1-58406520-a006649127e371903a2de979. This includes:</p> <p class=\"title\"> <b>Trace ID Format</b> </p> <ul> <li> <p>The version number, for instance, <code>1</code>.</p> </li> <li> <p>The time of the original request, in Unix epoch time, in 8 hexadecimal digits. For example, 10:00AM December 2nd, 2016 PST in epoch time is <code>1480615200</code> seconds, or <code>58406520</code> in hexadecimal.</p> </li> <li> <p>A 96-bit identifier for the trace, globally unique, in 24 hexadecimal digits.</p> </li> </ul>",
+      "method": "post",
+      "endpoint": "TraceSegments",
+      "responses": [
+        {
+          "uuid": "3c04d36d-2564-4b05-8688-9d4cf98765f3",
+          "body": "{\n  \"UnprocessedTraceSegments\": [\n    {\n      \"Id\": \"\",\n      \"ErrorCode\": \"\",\n      \"Message\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c31ebc60-93d7-4d1d-95a2-384de68ade57",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a722203e-b015-42d9-9782-d2df053ce2a1",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3453e155-0f24-4b46-b2dd-1abd4e593132",
+      "documentation": "Applies tags to an existing Amazon Web Services X-Ray group or sampling rule.",
+      "method": "post",
+      "endpoint": "TagResource",
+      "responses": [
+        {
+          "uuid": "2d4a4195-27b7-45b8-9d1f-d52ababf6ac9",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cf2be42f-a31a-46f5-aeb5-9aaeeee0ab7e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f17f1051-3555-4569-98a4-cb3e4de07504",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7ea08ba4-2278-45da-8a60-1897e3ea9c41",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1e0bb962-33d0-4962-bfec-f47ff2acbcd9",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "TooManyTagsException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b1198f85-56f2-4c2a-9b9d-5c13357910c5",
+      "documentation": "Removes tags from an Amazon Web Services X-Ray group or sampling rule. You cannot edit or delete system tags (those with an <code>aws:</code> prefix).",
+      "method": "post",
+      "endpoint": "UntagResource",
+      "responses": [
+        {
+          "uuid": "b52845d0-3677-482f-be80-da4cfb6919c5",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ac176447-0e97-438f-af76-66bc5c27b97f",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7b4140fd-026e-4eff-9c35-21aba9baef0d",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e49961e1-83e4-4f0c-b111-25225209f5af",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "48edc6f2-1149-41db-8bc6-5be3ca6f52fa",
+      "documentation": "Updates a group resource.",
+      "method": "post",
+      "endpoint": "UpdateGroup",
+      "responses": [
+        {
+          "uuid": "d8aeccf2-87ec-4fe2-8c41-30045c174ecf",
+          "body": "{\n  \"Group\": {\n    \"GroupName\": \"\",\n    \"GroupARN\": \"\",\n    \"FilterExpression\": \"\",\n    \"InsightsConfiguration\": {\n      \"InsightsEnabled\": {{faker 'random.boolean'}},\n      \"NotificationsEnabled\": {{faker 'random.boolean'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "44510ad8-4bde-4255-b790-3bbffb35a746",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e7ea1013-a4ad-433d-9bb9-137380625722",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5b9db86e-9820-4315-899f-33ca197d03bb",
+      "documentation": "Modifies a sampling rule's configuration.",
+      "method": "post",
+      "endpoint": "UpdateSamplingRule",
+      "responses": [
+        {
+          "uuid": "c8d5c9e8-6ba9-4e0d-b998-2d79286cd8d1",
+          "body": "{\n  \"SamplingRuleRecord\": {\n    \"SamplingRule\": {\n      \"RuleName\": \"\",\n      \"RuleARN\": \"\",\n      \"ResourceARN\": \"\",\n      \"Priority\": {{faker 'random.number'}},\n      \"FixedRate\": {{faker 'random.float'}},\n      \"ReservoirSize\": {{faker 'random.number'}},\n      \"ServiceName\": \"\",\n      \"ServiceType\": \"\",\n      \"Host\": \"\",\n      \"HTTPMethod\": \"\",\n      \"URLPath\": \"\",\n      \"Version\": {{faker 'random.number'}},\n      \"Attributes\": {}\n    },\n    \"CreatedAt\": \"{{faker 'date.recent' 365}}\",\n    \"ModifiedAt\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "aad8ce8a-21b9-4808-88dc-a9f939e2108a",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InvalidRequestException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7e46f5a0-a3e2-403e-838b-c83544cdd5dc",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottledException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

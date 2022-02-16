@@ -1,0 +1,143 @@
+{
+  "uuid": "9206a9b2-445a-4e61-9103-3d4ec5f7dc8a",
+  "lastMigration": 19,
+  "name": "Veteran Confirmation",
+  "endpointPrefix": "services/veteran_confirmation/v0",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "56138f7d-9315-4dcb-a50e-d3040c80d671",
+      "documentation": "Get confirmation about an individual's Veteran status according to the VA",
+      "method": "post",
+      "endpoint": "status",
+      "responses": [
+        {
+          "uuid": "8e956c8d-49a5-4077-962f-1241e2d85913",
+          "body": "{\n  \"veteran_status\": \"{{oneOf (array 'confirmed' 'not confirmed')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Confirmation status successfully retrieved",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e624232f-3392-42f3-837d-a33177e7239c",
+          "body": "{\n  \"errors\": [\n    {\n      \"code\": \"103\",\n      \"detail\": \"Detailed error message\",\n      \"status\": \"400\",\n      \"title\": \"Error title\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request - invalid or missing query parameters",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fe079b11-b505-42b4-bf52-4b26e968fd85",
+          "body": "{\n  \"message\": \"No API key found in request\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing API token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "390f4335-6520-415f-b598-6ebe9a067456",
+          "body": "{\n  \"message\": \"No API key found in request\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Invalid API token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e6f026a9-b870-4663-ac2f-ca5442dc914e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 503,
+          "label": "We encountered a temporary error. Check back in the future.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

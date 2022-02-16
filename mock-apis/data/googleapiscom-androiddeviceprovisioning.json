@@ -1,0 +1,727 @@
+{
+  "uuid": "1dedc63f-4f04-4ff5-80f1-f2c0eed297b2",
+  "lastMigration": 19,
+  "name": "Android Device Provisioning Partner API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "ae9b6bae-cd7e-45fa-919a-8fa81be46f59",
+      "documentation": "Lists the user's customer accounts.",
+      "method": "get",
+      "endpoint": "v1/customers",
+      "responses": [
+        {
+          "uuid": "7e5e7dc2-897f-4904-8ebf-7f6bf7afeab0",
+          "body": "{\n  \"customers\": [\n    {\n      \"adminEmails\": [\n        \"\"\n      ],\n      \"companyId\": \"\",\n      \"companyName\": \"\",\n      \"languageCode\": \"\",\n      \"name\": \"\",\n      \"ownerEmails\": [\n        \"\"\n      ],\n      \"skipWelcomeEmail\": {{faker 'random.boolean'}},\n      \"termsStatus\": \"{{oneOf (array 'TERMS_STATUS_UNSPECIFIED' 'TERMS_STATUS_NOT_ACCEPTED' 'TERMS_STATUS_ACCEPTED' 'TERMS_STATUS_STALE')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "aaf90c9e-70e8-490a-ba8d-afb08f50e49b",
+      "documentation": "Updates reseller metadata associated with the device.",
+      "method": "post",
+      "endpoint": "v1/partners/:metadataOwnerId/devices/:deviceId/metadata",
+      "responses": [
+        {
+          "uuid": "328e3894-ff65-47b2-97ef-d65dee594e2e",
+          "body": "{\n  \"entries\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "95cf7e12-657b-4213-bc90-3e90733f380c",
+      "documentation": "Lists the customers that are enrolled to the reseller identified by the `partnerId` argument. This list includes customers that the reseller created and customers that enrolled themselves using the portal.",
+      "method": "get",
+      "endpoint": "v1/partners/:partnerId/customers",
+      "responses": [
+        {
+          "uuid": "5ed3e418-cdef-46ca-a46c-f67c57434d1f",
+          "body": "{\n  \"customers\": [\n    {\n      \"adminEmails\": [\n        \"\"\n      ],\n      \"companyId\": \"\",\n      \"companyName\": \"\",\n      \"languageCode\": \"\",\n      \"name\": \"\",\n      \"ownerEmails\": [\n        \"\"\n      ],\n      \"skipWelcomeEmail\": {{faker 'random.boolean'}},\n      \"termsStatus\": \"{{oneOf (array 'TERMS_STATUS_UNSPECIFIED' 'TERMS_STATUS_NOT_ACCEPTED' 'TERMS_STATUS_ACCEPTED' 'TERMS_STATUS_STALE')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\",\n  \"totalSize\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "59bab92c-f09a-40ca-9219-0e94ddd24396",
+      "documentation": "Claims a device for a customer and adds it to zero-touch enrollment. If the device is already claimed by another customer, the call returns an error.",
+      "method": "post",
+      "endpoint": "v1/partners/:partnerId/devices:claim",
+      "responses": [
+        {
+          "uuid": "c6a1b969-05d8-4198-ba45-cc1afe91607c",
+          "body": "{\n  \"deviceId\": \"\",\n  \"deviceName\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e208eb16-9082-4f15-a936-59e019091cfb",
+      "documentation": "Claims a batch of devices for a customer asynchronously. Adds the devices to zero-touch enrollment. To learn more, read [Long‑running batch operations](/zero-touch/guides/how-it-works#operations).",
+      "method": "post",
+      "endpoint": "v1/partners/:partnerId/devices:claimAsync",
+      "responses": [
+        {
+          "uuid": "493b8038-a36f-40a9-8854-62cfe3ce0658",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1f1b4c71-325d-4a9e-bfad-95e573d4fa5f",
+      "documentation": "Finds devices by hardware identifiers, such as IMEI.",
+      "method": "post",
+      "endpoint": "v1/partners/:partnerId/devices:findByIdentifier",
+      "responses": [
+        {
+          "uuid": "343f47fe-30fc-4619-bcbf-66fecf609ced",
+          "body": "{\n  \"devices\": [\n    {\n      \"claims\": [\n        {\n          \"additionalService\": \"{{oneOf (array 'ADDITIONAL_SERVICE_UNSPECIFIED' 'DEVICE_PROTECTION')}}\",\n          \"ownerCompanyId\": \"\",\n          \"resellerId\": \"\",\n          \"sectionType\": \"{{oneOf (array 'SECTION_TYPE_UNSPECIFIED' 'SECTION_TYPE_SIM_LOCK' 'SECTION_TYPE_ZERO_TOUCH')}}\",\n          \"vacationModeExpireTime\": \"\",\n          \"vacationModeStartTime\": \"\"\n        }\n      ],\n      \"configuration\": \"\",\n      \"deviceId\": \"\",\n      \"deviceIdentifier\": {\n        \"imei\": \"\",\n        \"manufacturer\": \"\",\n        \"meid\": \"\",\n        \"model\": \"\",\n        \"serialNumber\": \"\"\n      },\n      \"deviceMetadata\": {\n        \"entries\": {}\n      },\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\",\n  \"totalSize\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a25bfb88-01e6-46a1-82c2-79ec874ca1d9",
+      "documentation": "Finds devices claimed for customers. The results only contain devices registered to the reseller that's identified by the `partnerId` argument. The customer's devices purchased from other resellers don't appear in the results.",
+      "method": "post",
+      "endpoint": "v1/partners/:partnerId/devices:findByOwner",
+      "responses": [
+        {
+          "uuid": "d218c622-a294-4da4-a9eb-98d19f2b16b1",
+          "body": "{\n  \"devices\": [\n    {\n      \"claims\": [\n        {\n          \"additionalService\": \"{{oneOf (array 'ADDITIONAL_SERVICE_UNSPECIFIED' 'DEVICE_PROTECTION')}}\",\n          \"ownerCompanyId\": \"\",\n          \"resellerId\": \"\",\n          \"sectionType\": \"{{oneOf (array 'SECTION_TYPE_UNSPECIFIED' 'SECTION_TYPE_SIM_LOCK' 'SECTION_TYPE_ZERO_TOUCH')}}\",\n          \"vacationModeExpireTime\": \"\",\n          \"vacationModeStartTime\": \"\"\n        }\n      ],\n      \"configuration\": \"\",\n      \"deviceId\": \"\",\n      \"deviceIdentifier\": {\n        \"imei\": \"\",\n        \"manufacturer\": \"\",\n        \"meid\": \"\",\n        \"model\": \"\",\n        \"serialNumber\": \"\"\n      },\n      \"deviceMetadata\": {\n        \"entries\": {}\n      },\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\",\n  \"totalSize\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f26f1ee6-745f-4a95-9712-bb83fe955deb",
+      "documentation": "Unclaims a device from a customer and removes it from zero-touch enrollment.",
+      "method": "post",
+      "endpoint": "v1/partners/:partnerId/devices:unclaim",
+      "responses": [
+        {
+          "uuid": "cbf45ece-ce8b-4904-8c6b-5b4d55b7fdbb",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "91254a7f-eac9-4734-981f-e2dbc6e5b196",
+      "documentation": "Unclaims a batch of devices for a customer asynchronously. Removes the devices from zero-touch enrollment. To learn more, read [Long‑running batch operations](/zero-touch/guides/how-it-works#operations).",
+      "method": "post",
+      "endpoint": "v1/partners/:partnerId/devices:unclaimAsync",
+      "responses": [
+        {
+          "uuid": "3f5a0ed7-0553-453a-9484-10a057653caa",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4671fbad-328b-42bc-b316-713c9e9e407d",
+      "documentation": "Updates the reseller metadata attached to a batch of devices. This method updates devices asynchronously and returns an `Operation` that can be used to track progress. Read [Long‑running batch operations](/zero-touch/guides/how-it-works#operations).",
+      "method": "post",
+      "endpoint": "v1/partners/:partnerId/devices:updateMetadataAsync",
+      "responses": [
+        {
+          "uuid": "42ea124f-d4e8-4f53-94e7-885199f39f12",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b748e885-f3e1-4275-b04c-87b204bed2a8",
+      "documentation": "Deletes an unused configuration. The API call fails if the customer has devices with the configuration applied.",
+      "method": "delete",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "047ca14f-f90a-40da-9da5-aaeb4db20f9f",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "672f03c6-e76c-4371-bc11-214663f16804",
+      "documentation": "Gets a device.",
+      "method": "get",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "202da13d-1983-4b28-a735-bc6f5175b418",
+          "body": "{\n  \"claims\": [\n    {\n      \"additionalService\": \"{{oneOf (array 'ADDITIONAL_SERVICE_UNSPECIFIED' 'DEVICE_PROTECTION')}}\",\n      \"ownerCompanyId\": \"\",\n      \"resellerId\": \"\",\n      \"sectionType\": \"{{oneOf (array 'SECTION_TYPE_UNSPECIFIED' 'SECTION_TYPE_SIM_LOCK' 'SECTION_TYPE_ZERO_TOUCH')}}\",\n      \"vacationModeExpireTime\": \"\",\n      \"vacationModeStartTime\": \"\"\n    }\n  ],\n  \"configuration\": \"\",\n  \"deviceId\": \"\",\n  \"deviceIdentifier\": {\n    \"imei\": \"\",\n    \"manufacturer\": \"\",\n    \"meid\": \"\",\n    \"model\": \"\",\n    \"serialNumber\": \"\"\n  },\n  \"deviceMetadata\": {\n    \"entries\": {}\n  },\n  \"name\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "eed2a2c4-f373-4c90-ae4f-0ff737ae0c38",
+      "documentation": "Updates a configuration's field values.",
+      "method": "patch",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "90513054-3fff-4a19-b90e-0660d0bb202b",
+          "body": "{\n  \"companyName\": \"\",\n  \"configurationId\": \"\",\n  \"configurationName\": \"\",\n  \"contactEmail\": \"\",\n  \"contactPhone\": \"\",\n  \"customMessage\": \"\",\n  \"dpcExtras\": \"\",\n  \"dpcResourcePath\": \"\",\n  \"isDefault\": {{faker 'random.boolean'}},\n  \"name\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1db98602-4221-4701-b881-e03c8f99b29c",
+      "documentation": "Lists a customer's configurations.",
+      "method": "get",
+      "endpoint": "v1/:parent/configurations",
+      "responses": [
+        {
+          "uuid": "d8295f8f-80e4-4ccc-977b-55abb625f602",
+          "body": "{\n  \"configurations\": [\n    {\n      \"companyName\": \"\",\n      \"configurationId\": \"\",\n      \"configurationName\": \"\",\n      \"contactEmail\": \"\",\n      \"contactPhone\": \"\",\n      \"customMessage\": \"\",\n      \"dpcExtras\": \"\",\n      \"dpcResourcePath\": \"\",\n      \"isDefault\": {{faker 'random.boolean'}},\n      \"name\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b59edc58-37da-4293-b636-b2af35252c4d",
+      "documentation": "Creates a new configuration. Once created, a customer can apply the configuration to devices.",
+      "method": "post",
+      "endpoint": "v1/:parent/configurations",
+      "responses": [
+        {
+          "uuid": "7fc38e40-6059-490f-9de2-67b8d737c8b1",
+          "body": "{\n  \"companyName\": \"\",\n  \"configurationId\": \"\",\n  \"configurationName\": \"\",\n  \"contactEmail\": \"\",\n  \"contactPhone\": \"\",\n  \"customMessage\": \"\",\n  \"dpcExtras\": \"\",\n  \"dpcResourcePath\": \"\",\n  \"isDefault\": {{faker 'random.boolean'}},\n  \"name\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8468f57c-8993-4fc8-b08e-315fc204c678",
+      "documentation": "Lists the customers of the vendor.",
+      "method": "get",
+      "endpoint": "v1/:parent/customers",
+      "responses": [
+        {
+          "uuid": "7341cb89-71df-4adc-8c02-d24e472109f3",
+          "body": "{\n  \"customers\": [\n    {\n      \"adminEmails\": [\n        \"\"\n      ],\n      \"companyId\": \"\",\n      \"companyName\": \"\",\n      \"languageCode\": \"\",\n      \"name\": \"\",\n      \"ownerEmails\": [\n        \"\"\n      ],\n      \"skipWelcomeEmail\": {{faker 'random.boolean'}},\n      \"termsStatus\": \"{{oneOf (array 'TERMS_STATUS_UNSPECIFIED' 'TERMS_STATUS_NOT_ACCEPTED' 'TERMS_STATUS_ACCEPTED' 'TERMS_STATUS_STALE')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\",\n  \"totalSize\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3e12b675-bde1-4415-8218-b332e61d750d",
+      "documentation": "Creates a customer for zero-touch enrollment. After the method returns successfully, admin and owner roles can manage devices and EMM configs by calling API methods or using their zero-touch enrollment portal. The customer receives an email that welcomes them to zero-touch enrollment and explains how to sign into the portal.",
+      "method": "post",
+      "endpoint": "v1/:parent/customers",
+      "responses": [
+        {
+          "uuid": "18547ada-a33c-49ce-bdad-69184c8013e1",
+          "body": "{\n  \"adminEmails\": [\n    \"\"\n  ],\n  \"companyId\": \"\",\n  \"companyName\": \"\",\n  \"languageCode\": \"\",\n  \"name\": \"\",\n  \"ownerEmails\": [\n    \"\"\n  ],\n  \"skipWelcomeEmail\": {{faker 'random.boolean'}},\n  \"termsStatus\": \"{{oneOf (array 'TERMS_STATUS_UNSPECIFIED' 'TERMS_STATUS_NOT_ACCEPTED' 'TERMS_STATUS_ACCEPTED' 'TERMS_STATUS_STALE')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6c74bb13-c8f9-42fe-9d56-ca013c1cb672",
+      "documentation": "Lists a customer's devices.",
+      "method": "get",
+      "endpoint": "v1/:parent/devices",
+      "responses": [
+        {
+          "uuid": "b9c8b5a4-aad4-4c21-bc96-d78517837fd7",
+          "body": "{\n  \"devices\": [\n    {\n      \"claims\": [\n        {\n          \"additionalService\": \"{{oneOf (array 'ADDITIONAL_SERVICE_UNSPECIFIED' 'DEVICE_PROTECTION')}}\",\n          \"ownerCompanyId\": \"\",\n          \"resellerId\": \"\",\n          \"sectionType\": \"{{oneOf (array 'SECTION_TYPE_UNSPECIFIED' 'SECTION_TYPE_SIM_LOCK' 'SECTION_TYPE_ZERO_TOUCH')}}\",\n          \"vacationModeExpireTime\": \"\",\n          \"vacationModeStartTime\": \"\"\n        }\n      ],\n      \"configuration\": \"\",\n      \"deviceId\": \"\",\n      \"deviceIdentifier\": {\n        \"imei\": \"\",\n        \"manufacturer\": \"\",\n        \"meid\": \"\",\n        \"model\": \"\",\n        \"serialNumber\": \"\"\n      },\n      \"deviceMetadata\": {\n        \"entries\": {}\n      },\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6d45db23-c5df-4b64-9dad-8a81e402e93b",
+      "documentation": "Applies a Configuration to the device to register the device for zero-touch enrollment. After applying a configuration to a device, the device automatically provisions itself on first boot, or next factory reset.",
+      "method": "post",
+      "endpoint": "v1/:parent/devices:applyConfiguration",
+      "responses": [
+        {
+          "uuid": "da40d076-b871-4aa7-8089-e10a41bed979",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a0de9819-587b-42c8-9279-ba01ae55391b",
+      "documentation": "Removes a configuration from device.",
+      "method": "post",
+      "endpoint": "v1/:parent/devices:removeConfiguration",
+      "responses": [
+        {
+          "uuid": "285a3e1a-c705-4c30-8857-b90f1d452d44",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2e50f6c0-45aa-4fb1-8f26-f2057b8f202d",
+      "documentation": "Unclaims a device from a customer and removes it from zero-touch enrollment. After removing a device, a customer must contact their reseller to register the device into zero-touch enrollment again.",
+      "method": "post",
+      "endpoint": "v1/:parent/devices:unclaim",
+      "responses": [
+        {
+          "uuid": "247bf9e5-1ebf-4093-bb5c-8c22f6a49ece",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "94b37893-83fe-4b1a-b209-3bd2ac1fef38",
+      "documentation": "Lists the DPCs (device policy controllers) that support zero-touch enrollment.",
+      "method": "get",
+      "endpoint": "v1/:parent/dpcs",
+      "responses": [
+        {
+          "uuid": "e6c3335d-bc07-4679-a941-212af55bbb42",
+          "body": "{\n  \"dpcs\": [\n    {\n      \"dpcName\": \"\",\n      \"name\": \"\",\n      \"packageName\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "31207175-f46e-489c-94ab-29bedb89476b",
+      "documentation": "Lists the vendors of the partner.",
+      "method": "get",
+      "endpoint": "v1/:parent/vendors",
+      "responses": [
+        {
+          "uuid": "1ccda764-1581-48ac-a245-74085e424413",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"totalSize\": {{faker 'random.number'}},\n  \"vendors\": [\n    {\n      \"adminEmails\": [\n        \"\"\n      ],\n      \"companyId\": \"\",\n      \"companyName\": \"\",\n      \"languageCode\": \"\",\n      \"name\": \"\",\n      \"ownerEmails\": [\n        \"\"\n      ],\n      \"skipWelcomeEmail\": {{faker 'random.boolean'}},\n      \"termsStatus\": \"{{oneOf (array 'TERMS_STATUS_UNSPECIFIED' 'TERMS_STATUS_NOT_ACCEPTED' 'TERMS_STATUS_ACCEPTED' 'TERMS_STATUS_STALE')}}\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

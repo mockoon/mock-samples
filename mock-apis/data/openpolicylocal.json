@@ -1,0 +1,1152 @@
+{
+  "uuid": "b2dca8f0-5c1b-4b39-ba46-95c2e2a21e50",
+  "lastMigration": 19,
+  "name": "Open Policy Agent (OPA) REST API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "146cc849-91b2-48b4-8a0c-c5f6df2e2014",
+      "documentation": "Execute a simple query",
+      "method": "post",
+      "endpoint": "",
+      "responses": [
+        {
+          "uuid": "7c4f2fde-3ec8-4914-b395-65d387d009cd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5984cdd4-49fc-482f-8ca2-30e01f985d77",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "78e42e34-53f6-4344-8a36-bec2a3b1f81b",
+          "body": "{\n  \"code\": \"resource_not_found\",\n  \"message\": \"storage_not_found_error: policy id \\\\\\\"partial\\\\\\\"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found (for example, a requested policy module or document does not exist)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a6bc2335-9969-4335-8a22-2962eb617ed9",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6780380b-5271-4e33-9f06-cf6f3026f4fd",
+      "documentation": "Health",
+      "method": "get",
+      "endpoint": "health",
+      "responses": [
+        {
+          "uuid": "2dd78185-eda5-498b-bc8c-27c9e06a9c1b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OPA service is healthy",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c027c49d-6064-4a88-823f-cf3384061aeb",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "OPA service is not healthy",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b72cd976-bcc2-4af8-b16a-cc4993c0b0f7",
+      "documentation": "Get a document (with webhook)",
+      "method": "post",
+      "endpoint": "v0/data/:path",
+      "responses": [
+        {
+          "uuid": "c6cf0400-839e-4032-943a-21f4690fde97",
+          "body": "{\n  \"result\": [\n    {\n      \"ast\": {\n        \"package\": {\n          \"path\": [\n            {\n              \"type\": \"{{oneOf (array 'import' 'package')}}\",\n              \"value\": \"data.opa.example\"\n            }\n          ]\n        },\n        \"rules\": [\n          {\n            \"body\": [\n              {\n                \"index\": 1,\n                \"terms\": [\n                  {\n                    \"type\": \"var\",\n                    \"value\": [\n                      {\n                        \"type\": \"\",\n                        \"value\": \"\"\n                      }\n                    ]\n                  }\n                ]\n              }\n            ],\n            \"head\": {\n              \"key\": {\n                \"type\": \"var\",\n                \"value\": \"$0\"\n              },\n              \"name\": \"violations\"\n            }\n          }\n        ]\n      },\n      \"id\": \"example2\",\n      \"raw\": \"package opa.examples\\\\n\\\\nimport data.servers\\\\n\\\\nviolations[server] {\\\\n\\\\tserver = servers[_]\\\\n\\\\tserver.protocols[_] = \\\\\\\"http\\\\\\\"\\\\n\\\\tpublic_servers[server]\\\\n}\\\\n\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5b74a5fa-d82f-40e7-9b60-c988b318fda4",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3212ede4-fa43-44ea-ba94-5ea796cf100c",
+          "body": "{\n  \"code\": \"resource_not_found\",\n  \"message\": \"storage_not_found_error: policy id \\\\\\\"partial\\\\\\\"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found (for example, a requested policy module or document does not exist)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a501192d-029b-47ea-90bb-157f24f7d26e",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9b331b4c-f8c4-4a82-9191-aecb062e66c1",
+      "documentation": "Compile",
+      "method": "post",
+      "endpoint": "v1/compile",
+      "responses": [
+        {
+          "uuid": "6672ad5b-cf03-48f8-9130-ec135cf62419",
+          "body": "{\n  \"result\": [\n    {\n      \"ast\": {\n        \"package\": {\n          \"path\": [\n            {\n              \"type\": \"{{oneOf (array 'import' 'package')}}\",\n              \"value\": \"data.opa.example\"\n            }\n          ]\n        },\n        \"rules\": [\n          {\n            \"body\": [\n              {\n                \"index\": 1,\n                \"terms\": [\n                  {\n                    \"type\": \"var\",\n                    \"value\": [\n                      {\n                        \"type\": \"\",\n                        \"value\": \"\"\n                      }\n                    ]\n                  }\n                ]\n              }\n            ],\n            \"head\": {\n              \"key\": {\n                \"type\": \"var\",\n                \"value\": \"$0\"\n              },\n              \"name\": \"violations\"\n            }\n          }\n        ]\n      },\n      \"id\": \"example2\",\n      \"raw\": \"package opa.examples\\\\n\\\\nimport data.servers\\\\n\\\\nviolations[server] {\\\\n\\\\tserver = servers[_]\\\\n\\\\tserver.protocols[_] = \\\\\\\"http\\\\\\\"\\\\n\\\\tpublic_servers[server]\\\\n}\\\\n\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "00e895c0-3dd8-44c2-adc9-61d903a99b99",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "08a918b5-9322-4b6b-96df-d83fa544594f",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e064c9f2-7f40-4f15-89d8-2be576550a97",
+      "documentation": "Delete a document",
+      "method": "delete",
+      "endpoint": "v1/data/:path",
+      "responses": [
+        {
+          "uuid": "74d9df87-af6e-4e97-9835-da23f3182503",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1a7da68b-2edd-44be-8a6b-d4690f4f00d5",
+          "body": "{\n  \"code\": \"resource_not_found\",\n  \"message\": \"storage_not_found_error: policy id \\\\\\\"partial\\\\\\\"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found (for example, a requested policy module or document does not exist)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "668553c9-7279-44c7-b514-2fb471890f6e",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5dc0d15c-f4cb-45a4-9f78-27fbee2ccded",
+      "documentation": "Get a document",
+      "method": "get",
+      "endpoint": "v1/data/:path",
+      "responses": [
+        {
+          "uuid": "b0bb3db1-97dd-47be-b5a6-3a757b90b45c",
+          "body": "{\n  \"result\": [\n    {\n      \"ast\": {\n        \"package\": {\n          \"path\": [\n            {\n              \"type\": \"{{oneOf (array 'import' 'package')}}\",\n              \"value\": \"data.opa.example\"\n            }\n          ]\n        },\n        \"rules\": [\n          {\n            \"body\": [\n              {\n                \"index\": 1,\n                \"terms\": [\n                  {\n                    \"type\": \"var\",\n                    \"value\": [\n                      {\n                        \"type\": \"\",\n                        \"value\": \"\"\n                      }\n                    ]\n                  }\n                ]\n              }\n            ],\n            \"head\": {\n              \"key\": {\n                \"type\": \"var\",\n                \"value\": \"$0\"\n              },\n              \"name\": \"violations\"\n            }\n          }\n        ]\n      },\n      \"id\": \"example2\",\n      \"raw\": \"package opa.examples\\\\n\\\\nimport data.servers\\\\n\\\\nviolations[server] {\\\\n\\\\tserver = servers[_]\\\\n\\\\tserver.protocols[_] = \\\\\\\"http\\\\\\\"\\\\n\\\\tpublic_servers[server]\\\\n}\\\\n\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e643c63b-fa5b-41be-b943-f04d0aced060",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b377f91f-a602-4d6d-beca-dc63649506dc",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f6701ee6-c649-428b-98ca-88b76b8e7c01",
+      "documentation": "Update a document",
+      "method": "patch",
+      "endpoint": "v1/data/:path",
+      "responses": [
+        {
+          "uuid": "0b4fc0ac-b2aa-4b4b-88f9-66e9ac961635",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "34d62d43-7f90-495c-b272-11c04d2a2cbe",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "11fa3c56-b328-4dd0-abfc-8201fc3b5263",
+          "body": "{\n  \"code\": \"resource_not_found\",\n  \"message\": \"storage_not_found_error: policy id \\\\\\\"partial\\\\\\\"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found (for example, a requested policy module or document does not exist)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "75f2d7a4-a56b-4ea8-82a6-c36381177a37",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4a1d6298-ce51-44f1-8a56-fd8425daddbe",
+      "documentation": "Get a document (with input)",
+      "method": "post",
+      "endpoint": "v1/data/:path",
+      "responses": [
+        {
+          "uuid": "91ad426c-487f-402d-b98e-af8c72490c3d",
+          "body": "{\n  \"result\": [\n    {\n      \"ast\": {\n        \"package\": {\n          \"path\": [\n            {\n              \"type\": \"{{oneOf (array 'import' 'package')}}\",\n              \"value\": \"data.opa.example\"\n            }\n          ]\n        },\n        \"rules\": [\n          {\n            \"body\": [\n              {\n                \"index\": 1,\n                \"terms\": [\n                  {\n                    \"type\": \"var\",\n                    \"value\": [\n                      {\n                        \"type\": \"\",\n                        \"value\": \"\"\n                      }\n                    ]\n                  }\n                ]\n              }\n            ],\n            \"head\": {\n              \"key\": {\n                \"type\": \"var\",\n                \"value\": \"$0\"\n              },\n              \"name\": \"violations\"\n            }\n          }\n        ]\n      },\n      \"id\": \"example2\",\n      \"raw\": \"package opa.examples\\\\n\\\\nimport data.servers\\\\n\\\\nviolations[server] {\\\\n\\\\tserver = servers[_]\\\\n\\\\tserver.protocols[_] = \\\\\\\"http\\\\\\\"\\\\n\\\\tpublic_servers[server]\\\\n}\\\\n\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "187cba00-551d-429d-b86a-3031f48aca04",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "14524cd8-9886-43cb-ac02-97859779832a",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "da9b3fb6-7a30-4fed-ba07-18f5f26f6b29",
+      "documentation": "Create or overwrite a document",
+      "method": "put",
+      "endpoint": "v1/data/:path",
+      "responses": [
+        {
+          "uuid": "a9a52b75-78bb-4d63-bbca-82fb5d095e10",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "850e5652-34bd-4c24-af79-bc010ed55194",
+          "body": "",
+          "latency": 0,
+          "statusCode": 304,
+          "label": "Document was not modified",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "89e6ee79-2761-4d8d-87fe-3ab06da23e7d",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c0ef6398-6666-4862-a84f-d213e7c659cc",
+          "body": "{\n  \"code\": \"resource_not_found\",\n  \"message\": \"storage_not_found_error: policy id \\\\\\\"partial\\\\\\\"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found (for example, a requested policy module or document does not exist)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f10747d3-d9c2-406e-ac90-7617d99bd0b5",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7d06936e-a053-4202-b08f-869072b7c249",
+      "documentation": "List policies",
+      "method": "get",
+      "endpoint": "v1/policies",
+      "responses": [
+        {
+          "uuid": "5c4901a0-37df-43a2-a2ef-0607cca11295",
+          "body": "{\n  \"result\": [\n    {\n      \"ast\": {\n        \"package\": {\n          \"path\": [\n            {\n              \"type\": \"{{oneOf (array 'import' 'package')}}\",\n              \"value\": \"data.opa.example\"\n            }\n          ]\n        },\n        \"rules\": [\n          {\n            \"body\": [\n              {\n                \"index\": 1,\n                \"terms\": [\n                  {\n                    \"type\": \"var\",\n                    \"value\": [\n                      {\n                        \"type\": \"\",\n                        \"value\": \"\"\n                      }\n                    ]\n                  }\n                ]\n              }\n            ],\n            \"head\": {\n              \"key\": {\n                \"type\": \"var\",\n                \"value\": \"$0\"\n              },\n              \"name\": \"violations\"\n            }\n          }\n        ]\n      },\n      \"id\": \"example2\",\n      \"raw\": \"package opa.examples\\\\n\\\\nimport data.servers\\\\n\\\\nviolations[server] {\\\\n\\\\tserver = servers[_]\\\\n\\\\tserver.protocols[_] = \\\\\\\"http\\\\\\\"\\\\n\\\\tpublic_servers[server]\\\\n}\\\\n\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cd7d7f92-570b-45e1-80c5-03503a5129c5",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6f84db95-63ac-4f7e-86c6-72e17885ebbb",
+      "documentation": "Delete a policy module",
+      "method": "delete",
+      "endpoint": "v1/policies/:id",
+      "responses": [
+        {
+          "uuid": "3d79691d-0519-4356-86fb-8016d0ccde4c",
+          "body": "{\n  \"result\": [\n    {\n      \"ast\": {\n        \"package\": {\n          \"path\": [\n            {\n              \"type\": \"{{oneOf (array 'import' 'package')}}\",\n              \"value\": \"data.opa.example\"\n            }\n          ]\n        },\n        \"rules\": [\n          {\n            \"body\": [\n              {\n                \"index\": 1,\n                \"terms\": [\n                  {\n                    \"type\": \"var\",\n                    \"value\": [\n                      {\n                        \"type\": \"\",\n                        \"value\": \"\"\n                      }\n                    ]\n                  }\n                ]\n              }\n            ],\n            \"head\": {\n              \"key\": {\n                \"type\": \"var\",\n                \"value\": \"$0\"\n              },\n              \"name\": \"violations\"\n            }\n          }\n        ]\n      },\n      \"id\": \"example2\",\n      \"raw\": \"package opa.examples\\\\n\\\\nimport data.servers\\\\n\\\\nviolations[server] {\\\\n\\\\tserver = servers[_]\\\\n\\\\tserver.protocols[_] = \\\\\\\"http\\\\\\\"\\\\n\\\\tpublic_servers[server]\\\\n}\\\\n\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5d092b37-7a59-4dd1-acce-7c5436331b78",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d952cc2c-6169-4863-9714-61e87329fc27",
+          "body": "{\n  \"code\": \"resource_not_found\",\n  \"message\": \"storage_not_found_error: policy id \\\\\\\"partial\\\\\\\"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found (for example, a requested policy module or document does not exist)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4bf2a021-3786-45de-8536-2c585e054355",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8b533897-8096-495a-a47d-a259f538bb50",
+      "documentation": "Get a policy module",
+      "method": "get",
+      "endpoint": "v1/policies/:id",
+      "responses": [
+        {
+          "uuid": "1da8c22d-2204-4f08-899a-91211c4ce020",
+          "body": "{\n  \"result\": [\n    {\n      \"ast\": {\n        \"package\": {\n          \"path\": [\n            {\n              \"type\": \"{{oneOf (array 'import' 'package')}}\",\n              \"value\": \"data.opa.example\"\n            }\n          ]\n        },\n        \"rules\": [\n          {\n            \"body\": [\n              {\n                \"index\": 1,\n                \"terms\": [\n                  {\n                    \"type\": \"var\",\n                    \"value\": [\n                      {\n                        \"type\": \"\",\n                        \"value\": \"\"\n                      }\n                    ]\n                  }\n                ]\n              }\n            ],\n            \"head\": {\n              \"key\": {\n                \"type\": \"var\",\n                \"value\": \"$0\"\n              },\n              \"name\": \"violations\"\n            }\n          }\n        ]\n      },\n      \"id\": \"example2\",\n      \"raw\": \"package opa.examples\\\\n\\\\nimport data.servers\\\\n\\\\nviolations[server] {\\\\n\\\\tserver = servers[_]\\\\n\\\\tserver.protocols[_] = \\\\\\\"http\\\\\\\"\\\\n\\\\tpublic_servers[server]\\\\n}\\\\n\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ecd20485-cd40-4ab0-a938-00d6d1f467c0",
+          "body": "{\n  \"code\": \"resource_not_found\",\n  \"message\": \"storage_not_found_error: policy id \\\\\\\"partial\\\\\\\"\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found (for example, a requested policy module or document does not exist)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b8b06c05-69f4-49a2-a1f8-21de9eedb31a",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "263d51fc-5603-4918-8b18-7842c1231865",
+      "documentation": "Create or update a policy module",
+      "method": "put",
+      "endpoint": "v1/policies/:id",
+      "responses": [
+        {
+          "uuid": "83c258d6-153c-48e1-9cd4-b01cee152ea4",
+          "body": "{\n  \"result\": [\n    {\n      \"ast\": {\n        \"package\": {\n          \"path\": [\n            {\n              \"type\": \"{{oneOf (array 'import' 'package')}}\",\n              \"value\": \"data.opa.example\"\n            }\n          ]\n        },\n        \"rules\": [\n          {\n            \"body\": [\n              {\n                \"index\": 1,\n                \"terms\": [\n                  {\n                    \"type\": \"var\",\n                    \"value\": [\n                      {\n                        \"type\": \"\",\n                        \"value\": \"\"\n                      }\n                    ]\n                  }\n                ]\n              }\n            ],\n            \"head\": {\n              \"key\": {\n                \"type\": \"var\",\n                \"value\": \"$0\"\n              },\n              \"name\": \"violations\"\n            }\n          }\n        ]\n      },\n      \"id\": \"example2\",\n      \"raw\": \"package opa.examples\\\\n\\\\nimport data.servers\\\\n\\\\nviolations[server] {\\\\n\\\\tserver = servers[_]\\\\n\\\\tserver.protocols[_] = \\\\\\\"http\\\\\\\"\\\\n\\\\tpublic_servers[server]\\\\n}\\\\n\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f83193e4-8861-4712-9f1b-d4c1f603ff23",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5599b387-59e0-457f-83c6-660f55c70999",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cd729bd1-a0b8-406f-be54-d5b3d34c903a",
+      "documentation": "Execute an ad-hoc query (simple)",
+      "method": "get",
+      "endpoint": "v1/query",
+      "responses": [
+        {
+          "uuid": "ba68da07-8588-486a-8fb3-1cdae364e097",
+          "body": "{\n  \"result\": [\n    {\n      \"ast\": {\n        \"package\": {\n          \"path\": [\n            {\n              \"type\": \"{{oneOf (array 'import' 'package')}}\",\n              \"value\": \"data.opa.example\"\n            }\n          ]\n        },\n        \"rules\": [\n          {\n            \"body\": [\n              {\n                \"index\": 1,\n                \"terms\": [\n                  {\n                    \"type\": \"var\",\n                    \"value\": [\n                      {\n                        \"type\": \"\",\n                        \"value\": \"\"\n                      }\n                    ]\n                  }\n                ]\n              }\n            ],\n            \"head\": {\n              \"key\": {\n                \"type\": \"var\",\n                \"value\": \"$0\"\n              },\n              \"name\": \"violations\"\n            }\n          }\n        ]\n      },\n      \"id\": \"example2\",\n      \"raw\": \"package opa.examples\\\\n\\\\nimport data.servers\\\\n\\\\nviolations[server] {\\\\n\\\\tserver = servers[_]\\\\n\\\\tserver.protocols[_] = \\\\\\\"http\\\\\\\"\\\\n\\\\tpublic_servers[server]\\\\n}\\\\n\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3b0ec994-bc0d-49b2-8131-9c5ffab5e073",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "094e2376-18cb-43db-9acd-707e89e038a8",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "370e7b8b-62dd-4ba2-acf6-ca4879efe810",
+      "documentation": "Execute an ad-hoc query (complex)",
+      "method": "post",
+      "endpoint": "v1/query",
+      "responses": [
+        {
+          "uuid": "08ce3d98-acf2-4cc4-bdc8-e1d0c715b063",
+          "body": "{\n  \"result\": [\n    {\n      \"ast\": {\n        \"package\": {\n          \"path\": [\n            {\n              \"type\": \"{{oneOf (array 'import' 'package')}}\",\n              \"value\": \"data.opa.example\"\n            }\n          ]\n        },\n        \"rules\": [\n          {\n            \"body\": [\n              {\n                \"index\": 1,\n                \"terms\": [\n                  {\n                    \"type\": \"var\",\n                    \"value\": [\n                      {\n                        \"type\": \"\",\n                        \"value\": \"\"\n                      }\n                    ]\n                  }\n                ]\n              }\n            ],\n            \"head\": {\n              \"key\": {\n                \"type\": \"var\",\n                \"value\": \"$0\"\n              },\n              \"name\": \"violations\"\n            }\n          }\n        ]\n      },\n      \"id\": \"example2\",\n      \"raw\": \"package opa.examples\\\\n\\\\nimport data.servers\\\\n\\\\nviolations[server] {\\\\n\\\\tserver = servers[_]\\\\n\\\\tserver.protocols[_] = \\\\\\\"http\\\\\\\"\\\\n\\\\tpublic_servers[server]\\\\n}\\\\n\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "550e4946-c7d4-4f2e-b3c9-878caa5f112c",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b4f8bef7-cbfa-4105-a2bd-11405704bed0",
+          "body": "{\n  \"code\": \"invalid_parameter\",\n  \"errors\": [\n    {\n      \"code\": \"rego_unsafe_var_error\",\n      \"location\": {\n        \"col\": 1,\n        \"file\": \"example1\",\n        \"row\": 3\n      },\n      \"message\": \"var x is unsafe\"\n    }\n  ],\n  \"message\": \"error(s) occurred while compiling module(s)\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3ce3f6a3-1209-411f-94c5-3937ed451d03",
+          "body": "",
+          "latency": 0,
+          "statusCode": 501,
+          "label": "Streaming not implemented",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

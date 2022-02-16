@@ -1,0 +1,135 @@
+{
+  "uuid": "c63db473-4ed3-4386-97aa-b43f7dc89a7f",
+  "lastMigration": 19,
+  "name": "Anomaly Finder Client",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "601ec373-76cd-44a2-95d8-3f1415179fe3",
+      "documentation": "Find anomalies for the entire series in batch.",
+      "method": "post",
+      "endpoint": "timeseries/entire/detect",
+      "responses": [
+        {
+          "uuid": "e2dcbd49-1fe5-4873-94be-0dae5da9c824",
+          "body": "{\n  \"expectedValues\": [\n    {{faker 'random.float'}}\n  ],\n  \"isAnomaly\": [\n    {{faker 'random.boolean'}}\n  ],\n  \"isNegativeAnomaly\": [\n    {{faker 'random.boolean'}}\n  ],\n  \"isPositiveAnomaly\": [\n    {{faker 'random.boolean'}}\n  ],\n  \"lowerMargins\": [\n    {{faker 'random.float'}}\n  ],\n  \"period\": {{faker 'random.number'}},\n  \"upperMargins\": [\n    {{faker 'random.float'}}\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful operation.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "299b7128-ec99-4291-b376-87c8f494d305",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidCustomInterval' 'BadArgument' 'InvalidGranularity' 'InvalidPeriod' 'InvalidModelArgument' 'InvalidSeries')}}\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9e3a942d-1bcf-45b4-bbdb-99325774eea6",
+      "documentation": "Detect anomaly status of the latest point in time series.",
+      "method": "post",
+      "endpoint": "timeseries/last/detect",
+      "responses": [
+        {
+          "uuid": "4903c855-73b8-4146-bc55-4dbdaddf5b36",
+          "body": "{\n  \"expectedValue\": {{faker 'random.float'}},\n  \"isAnomaly\": {{faker 'random.boolean'}},\n  \"isNegativeAnomaly\": {{faker 'random.boolean'}},\n  \"isPositiveAnomaly\": {{faker 'random.boolean'}},\n  \"lowerMargin\": {{faker 'random.float'}},\n  \"period\": {{faker 'random.number'}},\n  \"suggestedWindow\": {{faker 'random.number'}},\n  \"upperMargin\": {{faker 'random.float'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful operation.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f8b64a92-a978-430f-8012-5f19a30ce522",
+          "body": "{\n  \"code\": \"{{oneOf (array 'InvalidCustomInterval' 'BadArgument' 'InvalidGranularity' 'InvalidPeriod' 'InvalidModelArgument' 'InvalidSeries')}}\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Error response.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

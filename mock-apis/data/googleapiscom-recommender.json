@@ -1,0 +1,247 @@
+{
+  "uuid": "d57c7785-c4cb-41d9-99f6-75c8e63c7346",
+  "lastMigration": 19,
+  "name": "Recommender API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "eb1fdfa0-d8f4-41b1-97f3-9af7694829e5",
+      "documentation": "Gets the requested recommendation. Requires the recommender.*.get IAM permission for the specified recommender.",
+      "method": "get",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "57c875e6-6777-4628-bdbd-6872784409cc",
+          "body": "{\n  \"additionalImpact\": [\n    {\n      \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'COST' 'SECURITY' 'PERFORMANCE' 'MANAGEABILITY')}}\",\n      \"costProjection\": {\n        \"cost\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"duration\": \"\"\n      },\n      \"securityProjection\": {\n        \"details\": {}\n      }\n    }\n  ],\n  \"associatedInsights\": [\n    {\n      \"insight\": \"\"\n    }\n  ],\n  \"content\": {\n    \"operationGroups\": [\n      {\n        \"operations\": [\n          {\n            \"action\": \"\",\n            \"path\": \"\",\n            \"pathFilters\": {},\n            \"pathValueMatchers\": {},\n            \"resource\": \"\",\n            \"resourceType\": \"\",\n            \"sourcePath\": \"\",\n            \"sourceResource\": \"\",\n            \"value\": \"\",\n            \"valueMatcher\": {\n              \"matchesPattern\": \"\"\n            }\n          }\n        ]\n      }\n    ],\n    \"overview\": {}\n  },\n  \"description\": \"\",\n  \"etag\": \"\",\n  \"lastRefreshTime\": \"\",\n  \"name\": \"\",\n  \"primaryImpact\": {\n    \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'COST' 'SECURITY' 'PERFORMANCE' 'MANAGEABILITY')}}\",\n    \"costProjection\": {\n      \"cost\": {\n        \"currencyCode\": \"\",\n        \"nanos\": {{faker 'random.number'}},\n        \"units\": \"\"\n      },\n      \"duration\": \"\"\n    },\n    \"securityProjection\": {\n      \"details\": {}\n    }\n  },\n  \"priority\": \"{{oneOf (array 'PRIORITY_UNSPECIFIED' 'P4' 'P3' 'P2' 'P1')}}\",\n  \"recommenderSubtype\": \"\",\n  \"stateInfo\": {\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'CLAIMED' 'SUCCEEDED' 'FAILED' 'DISMISSED')}}\",\n    \"stateMetadata\": {}\n  },\n  \"xorGroupId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c7eaa297-64c5-4d1d-b13b-bcc72eb3ccc6",
+      "documentation": "Marks the Insight State as Accepted. Users can use this method to indicate to the Recommender API that they have applied some action based on the insight. This stops the insight content from being updated. MarkInsightAccepted can be applied to insights in ACTIVE state. Requires the recommender.*.update IAM permission for the specified insight.",
+      "method": "post",
+      "endpoint": "v1/:name:markAccepted",
+      "responses": [
+        {
+          "uuid": "a9b7c598-53e0-42aa-8f47-b11493d57f8c",
+          "body": "{\n  \"associatedRecommendations\": [\n    {\n      \"recommendation\": \"\"\n    }\n  ],\n  \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'COST' 'SECURITY' 'PERFORMANCE' 'MANAGEABILITY')}}\",\n  \"content\": {},\n  \"description\": \"\",\n  \"etag\": \"\",\n  \"insightSubtype\": \"\",\n  \"lastRefreshTime\": \"\",\n  \"name\": \"\",\n  \"observationPeriod\": \"\",\n  \"severity\": \"{{oneOf (array 'SEVERITY_UNSPECIFIED' 'LOW' 'MEDIUM' 'HIGH' 'CRITICAL')}}\",\n  \"stateInfo\": {\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'ACCEPTED' 'DISMISSED')}}\",\n    \"stateMetadata\": {}\n  },\n  \"targetResources\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8a40b26a-72bc-410c-b1c4-d78eb75e9cac",
+      "documentation": "Marks the Recommendation State as Claimed. Users can use this method to indicate to the Recommender API that they are starting to apply the recommendation themselves. This stops the recommendation content from being updated. Associated insights are frozen and placed in the ACCEPTED state. MarkRecommendationClaimed can be applied to recommendations in CLAIMED, SUCCEEDED, FAILED, or ACTIVE state. Requires the recommender.*.update IAM permission for the specified recommender.",
+      "method": "post",
+      "endpoint": "v1/:name:markClaimed",
+      "responses": [
+        {
+          "uuid": "5c0cfdf3-b207-4dcd-92f2-75ab85a79b72",
+          "body": "{\n  \"additionalImpact\": [\n    {\n      \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'COST' 'SECURITY' 'PERFORMANCE' 'MANAGEABILITY')}}\",\n      \"costProjection\": {\n        \"cost\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"duration\": \"\"\n      },\n      \"securityProjection\": {\n        \"details\": {}\n      }\n    }\n  ],\n  \"associatedInsights\": [\n    {\n      \"insight\": \"\"\n    }\n  ],\n  \"content\": {\n    \"operationGroups\": [\n      {\n        \"operations\": [\n          {\n            \"action\": \"\",\n            \"path\": \"\",\n            \"pathFilters\": {},\n            \"pathValueMatchers\": {},\n            \"resource\": \"\",\n            \"resourceType\": \"\",\n            \"sourcePath\": \"\",\n            \"sourceResource\": \"\",\n            \"value\": \"\",\n            \"valueMatcher\": {\n              \"matchesPattern\": \"\"\n            }\n          }\n        ]\n      }\n    ],\n    \"overview\": {}\n  },\n  \"description\": \"\",\n  \"etag\": \"\",\n  \"lastRefreshTime\": \"\",\n  \"name\": \"\",\n  \"primaryImpact\": {\n    \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'COST' 'SECURITY' 'PERFORMANCE' 'MANAGEABILITY')}}\",\n    \"costProjection\": {\n      \"cost\": {\n        \"currencyCode\": \"\",\n        \"nanos\": {{faker 'random.number'}},\n        \"units\": \"\"\n      },\n      \"duration\": \"\"\n    },\n    \"securityProjection\": {\n      \"details\": {}\n    }\n  },\n  \"priority\": \"{{oneOf (array 'PRIORITY_UNSPECIFIED' 'P4' 'P3' 'P2' 'P1')}}\",\n  \"recommenderSubtype\": \"\",\n  \"stateInfo\": {\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'CLAIMED' 'SUCCEEDED' 'FAILED' 'DISMISSED')}}\",\n    \"stateMetadata\": {}\n  },\n  \"xorGroupId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "47f26e72-e13c-4b9c-af54-37ea7797c3ff",
+      "documentation": "Marks the Recommendation State as Failed. Users can use this method to indicate to the Recommender API that they have applied the recommendation themselves, and the operation failed. This stops the recommendation content from being updated. Associated insights are frozen and placed in the ACCEPTED state. MarkRecommendationFailed can be applied to recommendations in ACTIVE, CLAIMED, SUCCEEDED, or FAILED state. Requires the recommender.*.update IAM permission for the specified recommender.",
+      "method": "post",
+      "endpoint": "v1/:name:markFailed",
+      "responses": [
+        {
+          "uuid": "c25d4f8b-e0ab-4d98-a0a4-647532c7c3f6",
+          "body": "{\n  \"additionalImpact\": [\n    {\n      \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'COST' 'SECURITY' 'PERFORMANCE' 'MANAGEABILITY')}}\",\n      \"costProjection\": {\n        \"cost\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"duration\": \"\"\n      },\n      \"securityProjection\": {\n        \"details\": {}\n      }\n    }\n  ],\n  \"associatedInsights\": [\n    {\n      \"insight\": \"\"\n    }\n  ],\n  \"content\": {\n    \"operationGroups\": [\n      {\n        \"operations\": [\n          {\n            \"action\": \"\",\n            \"path\": \"\",\n            \"pathFilters\": {},\n            \"pathValueMatchers\": {},\n            \"resource\": \"\",\n            \"resourceType\": \"\",\n            \"sourcePath\": \"\",\n            \"sourceResource\": \"\",\n            \"value\": \"\",\n            \"valueMatcher\": {\n              \"matchesPattern\": \"\"\n            }\n          }\n        ]\n      }\n    ],\n    \"overview\": {}\n  },\n  \"description\": \"\",\n  \"etag\": \"\",\n  \"lastRefreshTime\": \"\",\n  \"name\": \"\",\n  \"primaryImpact\": {\n    \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'COST' 'SECURITY' 'PERFORMANCE' 'MANAGEABILITY')}}\",\n    \"costProjection\": {\n      \"cost\": {\n        \"currencyCode\": \"\",\n        \"nanos\": {{faker 'random.number'}},\n        \"units\": \"\"\n      },\n      \"duration\": \"\"\n    },\n    \"securityProjection\": {\n      \"details\": {}\n    }\n  },\n  \"priority\": \"{{oneOf (array 'PRIORITY_UNSPECIFIED' 'P4' 'P3' 'P2' 'P1')}}\",\n  \"recommenderSubtype\": \"\",\n  \"stateInfo\": {\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'CLAIMED' 'SUCCEEDED' 'FAILED' 'DISMISSED')}}\",\n    \"stateMetadata\": {}\n  },\n  \"xorGroupId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e404a54c-143b-45b8-aeb3-3d147531a3e5",
+      "documentation": "Marks the Recommendation State as Succeeded. Users can use this method to indicate to the Recommender API that they have applied the recommendation themselves, and the operation was successful. This stops the recommendation content from being updated. Associated insights are frozen and placed in the ACCEPTED state. MarkRecommendationSucceeded can be applied to recommendations in ACTIVE, CLAIMED, SUCCEEDED, or FAILED state. Requires the recommender.*.update IAM permission for the specified recommender.",
+      "method": "post",
+      "endpoint": "v1/:name:markSucceeded",
+      "responses": [
+        {
+          "uuid": "e0271115-1d10-4943-b862-130eff451b0e",
+          "body": "{\n  \"additionalImpact\": [\n    {\n      \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'COST' 'SECURITY' 'PERFORMANCE' 'MANAGEABILITY')}}\",\n      \"costProjection\": {\n        \"cost\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"duration\": \"\"\n      },\n      \"securityProjection\": {\n        \"details\": {}\n      }\n    }\n  ],\n  \"associatedInsights\": [\n    {\n      \"insight\": \"\"\n    }\n  ],\n  \"content\": {\n    \"operationGroups\": [\n      {\n        \"operations\": [\n          {\n            \"action\": \"\",\n            \"path\": \"\",\n            \"pathFilters\": {},\n            \"pathValueMatchers\": {},\n            \"resource\": \"\",\n            \"resourceType\": \"\",\n            \"sourcePath\": \"\",\n            \"sourceResource\": \"\",\n            \"value\": \"\",\n            \"valueMatcher\": {\n              \"matchesPattern\": \"\"\n            }\n          }\n        ]\n      }\n    ],\n    \"overview\": {}\n  },\n  \"description\": \"\",\n  \"etag\": \"\",\n  \"lastRefreshTime\": \"\",\n  \"name\": \"\",\n  \"primaryImpact\": {\n    \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'COST' 'SECURITY' 'PERFORMANCE' 'MANAGEABILITY')}}\",\n    \"costProjection\": {\n      \"cost\": {\n        \"currencyCode\": \"\",\n        \"nanos\": {{faker 'random.number'}},\n        \"units\": \"\"\n      },\n      \"duration\": \"\"\n    },\n    \"securityProjection\": {\n      \"details\": {}\n    }\n  },\n  \"priority\": \"{{oneOf (array 'PRIORITY_UNSPECIFIED' 'P4' 'P3' 'P2' 'P1')}}\",\n  \"recommenderSubtype\": \"\",\n  \"stateInfo\": {\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'CLAIMED' 'SUCCEEDED' 'FAILED' 'DISMISSED')}}\",\n    \"stateMetadata\": {}\n  },\n  \"xorGroupId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "69ad7a2e-05aa-4f72-ad1c-00020dd54e1e",
+      "documentation": "Lists insights for the specified Cloud Resource. Requires the recommender.*.list IAM permission for the specified insight type.",
+      "method": "get",
+      "endpoint": "v1/:parent/insights",
+      "responses": [
+        {
+          "uuid": "b6b3afec-9d03-4a1d-857b-7b9aa675e817",
+          "body": "{\n  \"insights\": [\n    {\n      \"associatedRecommendations\": [\n        {\n          \"recommendation\": \"\"\n        }\n      ],\n      \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'COST' 'SECURITY' 'PERFORMANCE' 'MANAGEABILITY')}}\",\n      \"content\": {},\n      \"description\": \"\",\n      \"etag\": \"\",\n      \"insightSubtype\": \"\",\n      \"lastRefreshTime\": \"\",\n      \"name\": \"\",\n      \"observationPeriod\": \"\",\n      \"severity\": \"{{oneOf (array 'SEVERITY_UNSPECIFIED' 'LOW' 'MEDIUM' 'HIGH' 'CRITICAL')}}\",\n      \"stateInfo\": {\n        \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'ACCEPTED' 'DISMISSED')}}\",\n        \"stateMetadata\": {}\n      },\n      \"targetResources\": [\n        \"\"\n      ]\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2b0aec37-d205-4ecf-8676-826ca1599763",
+      "documentation": "Lists recommendations for the specified Cloud Resource. Requires the recommender.*.list IAM permission for the specified recommender.",
+      "method": "get",
+      "endpoint": "v1/:parent/recommendations",
+      "responses": [
+        {
+          "uuid": "330f65ae-f12b-4c37-b494-b7c06c14fcdd",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"recommendations\": [\n    {\n      \"additionalImpact\": [\n        {\n          \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'COST' 'SECURITY' 'PERFORMANCE' 'MANAGEABILITY')}}\",\n          \"costProjection\": {\n            \"cost\": {\n              \"currencyCode\": \"\",\n              \"nanos\": {{faker 'random.number'}},\n              \"units\": \"\"\n            },\n            \"duration\": \"\"\n          },\n          \"securityProjection\": {\n            \"details\": {}\n          }\n        }\n      ],\n      \"associatedInsights\": [\n        {\n          \"insight\": \"\"\n        }\n      ],\n      \"content\": {\n        \"operationGroups\": [\n          {\n            \"operations\": [\n              {\n                \"action\": \"\",\n                \"path\": \"\",\n                \"pathFilters\": {},\n                \"pathValueMatchers\": {},\n                \"resource\": \"\",\n                \"resourceType\": \"\",\n                \"sourcePath\": \"\",\n                \"sourceResource\": \"\",\n                \"value\": \"\",\n                \"valueMatcher\": {\n                  \"matchesPattern\": \"\"\n                }\n              }\n            ]\n          }\n        ],\n        \"overview\": {}\n      },\n      \"description\": \"\",\n      \"etag\": \"\",\n      \"lastRefreshTime\": \"\",\n      \"name\": \"\",\n      \"primaryImpact\": {\n        \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'COST' 'SECURITY' 'PERFORMANCE' 'MANAGEABILITY')}}\",\n        \"costProjection\": {\n          \"cost\": {\n            \"currencyCode\": \"\",\n            \"nanos\": {{faker 'random.number'}},\n            \"units\": \"\"\n          },\n          \"duration\": \"\"\n        },\n        \"securityProjection\": {\n          \"details\": {}\n        }\n      },\n      \"priority\": \"{{oneOf (array 'PRIORITY_UNSPECIFIED' 'P4' 'P3' 'P2' 'P1')}}\",\n      \"recommenderSubtype\": \"\",\n      \"stateInfo\": {\n        \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'CLAIMED' 'SUCCEEDED' 'FAILED' 'DISMISSED')}}\",\n        \"stateMetadata\": {}\n      },\n      \"xorGroupId\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,2287 @@
+{
+  "uuid": "b05f3367-e2ad-474b-b57b-43fc09a31277",
+  "lastMigration": 19,
+  "name": "Google Play EMM API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "09c2fa17-1b28-42b7-bf2c-d53b7daca054",
+      "documentation": "Looks up an enterprise by domain name. This is only supported for enterprises created via the Google-initiated creation flow. Lookup of the id is not needed for enterprises created via the EMM-initiated flow since the EMM learns the enterprise ID in the callback specified in the Enterprises.generateSignupUrl call.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises",
+      "responses": [
+        {
+          "uuid": "bc24aae1-c8b4-4ae9-b79c-ab144a7faea7",
+          "body": "{\n  \"enterprise\": [\n    {\n      \"administrator\": [\n        {\n          \"email\": \"\"\n        }\n      ],\n      \"id\": \"\",\n      \"name\": \"\",\n      \"primaryDomain\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "86ce6e06-ccb9-43b0-b682-2a7a0e790a9d",
+      "documentation": "Acknowledges notifications that were received from Enterprises.PullNotificationSet to prevent subsequent calls from returning the same notifications.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/acknowledgeNotificationSet",
+      "responses": [
+        {
+          "uuid": "59375e55-3183-45e2-9bfd-c2868e4c3602",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2724618f-c904-4ca7-b1fe-5ac490d05c77",
+      "documentation": "Completes the signup flow, by specifying the Completion token and Enterprise token. This request must not be called multiple times for a given Enterprise Token.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/completeSignup",
+      "responses": [
+        {
+          "uuid": "ade4996f-298c-42cd-b554-cd32585e685b",
+          "body": "{\n  \"administrator\": [\n    {\n      \"email\": \"\"\n    }\n  ],\n  \"id\": \"\",\n  \"name\": \"\",\n  \"primaryDomain\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4f3d9687-1110-4ee7-acb7-910f90376582",
+      "documentation": "Enrolls an enterprise with the calling EMM.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/enroll",
+      "responses": [
+        {
+          "uuid": "477c742c-9b94-4db9-b299-7b8cdcc1da47",
+          "body": "{\n  \"administrator\": [\n    {\n      \"email\": \"\"\n    }\n  ],\n  \"id\": \"\",\n  \"name\": \"\",\n  \"primaryDomain\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a6b9ad39-d730-48a7-b3db-0cbf35c108bf",
+      "documentation": "Pulls and returns a notification set for the enterprises associated with the service account authenticated for the request. The notification set may be empty if no notification are pending. A notification set returned needs to be acknowledged within 20 seconds by calling Enterprises.AcknowledgeNotificationSet, unless the notification set is empty. Notifications that are not acknowledged within the 20 seconds will eventually be included again in the response to another PullNotificationSet request, and those that are never acknowledged will ultimately be deleted according to the Google Cloud Platform Pub/Sub system policy. Multiple requests might be performed concurrently to retrieve notifications, in which case the pending notifications (if any) will be split among each caller, if any are pending. If no notifications are present, an empty notification list is returned. Subsequent requests may return more notifications once they become available.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/pullNotificationSet",
+      "responses": [
+        {
+          "uuid": "b63134e6-b57f-4215-b51b-b938a5223bf9",
+          "body": "{\n  \"notification\": [\n    {\n      \"appRestrictionsSchemaChangeEvent\": {\n        \"productId\": \"\"\n      },\n      \"appUpdateEvent\": {\n        \"productId\": \"\"\n      },\n      \"deviceReportUpdateEvent\": {\n        \"deviceId\": \"\",\n        \"report\": {\n          \"appState\": [\n            {\n              \"keyedAppState\": [\n                {\n                  \"data\": \"\",\n                  \"key\": \"\",\n                  \"message\": \"\",\n                  \"severity\": \"{{oneOf (array 'severityUnknown' 'severityInfo' 'severityError')}}\",\n                  \"stateTimestampMillis\": \"\"\n                }\n              ],\n              \"packageName\": \"\"\n            }\n          ],\n          \"lastUpdatedTimestampMillis\": \"\"\n        },\n        \"userId\": \"\"\n      },\n      \"enterpriseId\": \"\",\n      \"installFailureEvent\": {\n        \"deviceId\": \"\",\n        \"failureDetails\": \"\",\n        \"failureReason\": \"{{oneOf (array 'unknown' 'timeout')}}\",\n        \"productId\": \"\",\n        \"userId\": \"\"\n      },\n      \"newDeviceEvent\": {\n        \"deviceId\": \"\",\n        \"dpcPackageName\": \"\",\n        \"managementType\": \"{{oneOf (array 'managedDevice' 'managedProfile')}}\",\n        \"userId\": \"\"\n      },\n      \"newPermissionsEvent\": {\n        \"approvedPermissions\": [\n          \"\"\n        ],\n        \"productId\": \"\",\n        \"requestedPermissions\": [\n          \"\"\n        ]\n      },\n      \"notificationType\": \"{{oneOf (array 'unknown' 'testNotification' 'productApproval' 'installFailure' 'appUpdate' 'newPermissions' 'appRestricionsSchemaChange' 'productAvailabilityChange' 'newDevice' 'deviceReportUpdate')}}\",\n      \"productApprovalEvent\": {\n        \"approved\": \"{{oneOf (array 'unknown' 'approved' 'unapproved')}}\",\n        \"productId\": \"\"\n      },\n      \"productAvailabilityChangeEvent\": {\n        \"availabilityStatus\": \"{{oneOf (array 'unknown' 'available' 'removed' 'unpublished')}}\",\n        \"productId\": \"\"\n      },\n      \"timestampMillis\": \"\"\n    }\n  ],\n  \"notificationSetId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "37675225-4ec4-487e-88f4-f63c49c0ff8e",
+      "documentation": "Generates a sign-up URL.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/signupUrl",
+      "responses": [
+        {
+          "uuid": "db293210-5728-4b48-9c68-ed260c397d24",
+          "body": "{\n  \"completionToken\": \"\",\n  \"kind\": \"\",\n  \"url\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6948e664-7195-4100-abe4-499d2e02f9ee",
+      "documentation": "Retrieves the name and domain of an enterprise.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId",
+      "responses": [
+        {
+          "uuid": "498fa1b9-d51c-4b13-bb01-1b628eefac20",
+          "body": "{\n  \"administrator\": [\n    {\n      \"email\": \"\"\n    }\n  ],\n  \"id\": \"\",\n  \"name\": \"\",\n  \"primaryDomain\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6fb083e8-e0a8-44f1-9157-01223ec2610c",
+      "documentation": "Sets the account that will be used to authenticate to the API as the enterprise.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/account",
+      "responses": [
+        {
+          "uuid": "78d4d869-6545-4e85-9ab7-afc8950dcda8",
+          "body": "{\n  \"accountEmail\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b36306c3-85de-42a6-8c84-d50db28cffe4",
+      "documentation": "Returns a unique token to access an embeddable UI. To generate a web UI, pass the generated token into the managed Google Play javascript API. Each token may only be used to start one UI session. See the javascript API documentation for further information.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/createWebToken",
+      "responses": [
+        {
+          "uuid": "86859567-180a-4493-ad4c-a26103e4e53b",
+          "body": "{\n  \"token\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5a87d94a-7f11-4309-932f-ab4448b36fc6",
+      "documentation": "Retrieves IDs of all products for which the enterprise has a group license.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/groupLicenses",
+      "responses": [
+        {
+          "uuid": "42eed121-b246-432e-bc26-3b751158f9f3",
+          "body": "{\n  \"groupLicense\": [\n    {\n      \"acquisitionKind\": \"{{oneOf (array 'free' 'bulkPurchase')}}\",\n      \"approval\": \"{{oneOf (array 'approved' 'unapproved')}}\",\n      \"numProvisioned\": {{faker 'random.number'}},\n      \"numPurchased\": {{faker 'random.number'}},\n      \"permissions\": \"{{oneOf (array 'currentApproved' 'needsReapproval' 'allCurrentAndFutureApproved')}}\",\n      \"productId\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c45e58b5-8284-4738-8afb-47c92f346a12",
+      "documentation": "Retrieves details of an enterprise's group license for a product.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/groupLicenses/:groupLicenseId",
+      "responses": [
+        {
+          "uuid": "e468a7e2-5432-4af4-80bf-183c9a221ac4",
+          "body": "{\n  \"acquisitionKind\": \"{{oneOf (array 'free' 'bulkPurchase')}}\",\n  \"approval\": \"{{oneOf (array 'approved' 'unapproved')}}\",\n  \"numProvisioned\": {{faker 'random.number'}},\n  \"numPurchased\": {{faker 'random.number'}},\n  \"permissions\": \"{{oneOf (array 'currentApproved' 'needsReapproval' 'allCurrentAndFutureApproved')}}\",\n  \"productId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5d9ab0d3-7793-4e97-a1a6-541826a5df29",
+      "documentation": "Retrieves the IDs of the users who have been granted entitlements under the license.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/groupLicenses/:groupLicenseId/users",
+      "responses": [
+        {
+          "uuid": "6a242f2e-66a4-4bf2-8c0f-b4db82a9b373",
+          "body": "{\n  \"user\": [\n    {\n      \"accountIdentifier\": \"\",\n      \"accountType\": \"{{oneOf (array 'deviceAccount' 'userAccount')}}\",\n      \"displayName\": \"\",\n      \"id\": \"\",\n      \"managementType\": \"{{oneOf (array 'googleManaged' 'emmManaged')}}\",\n      \"primaryEmail\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d9fb4aa7-a8d4-4110-92d6-a3a962548890",
+      "documentation": "Finds approved products that match a query, or all approved products if there is no query.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/products",
+      "responses": [
+        {
+          "uuid": "2446450d-3dc9-41e1-8a0e-039b3d4c9eb1",
+          "body": "{\n  \"pageInfo\": {\n    \"resultPerPage\": {{faker 'random.number'}},\n    \"startIndex\": {{faker 'random.number'}},\n    \"totalResults\": {{faker 'random.number'}}\n  },\n  \"product\": [\n    {\n      \"appTracks\": [\n        {\n          \"trackAlias\": \"\",\n          \"trackId\": \"\"\n        }\n      ],\n      \"appVersion\": [\n        {\n          \"isProduction\": {{faker 'random.boolean'}},\n          \"track\": \"{{oneOf (array 'appTrackUnspecified' 'production' 'beta' 'alpha')}}\",\n          \"trackId\": [\n            \"\"\n          ],\n          \"versionCode\": {{faker 'random.number'}},\n          \"versionString\": \"\"\n        }\n      ],\n      \"authorName\": \"\",\n      \"availableCountries\": [\n        \"\"\n      ],\n      \"availableTracks\": [\n        \"{{oneOf (array 'appTrackUnspecified' 'production' 'beta' 'alpha')}}\"\n      ],\n      \"category\": \"\",\n      \"contentRating\": \"{{oneOf (array 'ratingUnknown' 'all' 'preTeen' 'teen' 'mature')}}\",\n      \"description\": \"\",\n      \"detailsUrl\": \"\",\n      \"distributionChannel\": \"{{oneOf (array 'publicGoogleHosted' 'privateGoogleHosted' 'privateSelfHosted')}}\",\n      \"features\": [\n        \"{{oneOf (array 'featureUnknown' 'vpnApp')}}\"\n      ],\n      \"iconUrl\": \"\",\n      \"lastUpdatedTimestampMillis\": \"\",\n      \"minAndroidSdkVersion\": {{faker 'random.number'}},\n      \"permissions\": [\n        {\n          \"permissionId\": \"\",\n          \"state\": \"{{oneOf (array 'required' 'accepted')}}\"\n        }\n      ],\n      \"productId\": \"\",\n      \"productPricing\": \"{{oneOf (array 'unknown' 'free' 'freeWithInAppPurchase' 'paid')}}\",\n      \"recentChanges\": \"\",\n      \"requiresContainerApp\": {{faker 'random.boolean'}},\n      \"screenshotUrls\": [\n        \"\"\n      ],\n      \"signingCertificate\": {\n        \"certificateHashSha1\": \"\",\n        \"certificateHashSha256\": \"\"\n      },\n      \"smallIconUrl\": \"\",\n      \"title\": \"\",\n      \"workDetailsUrl\": \"\"\n    }\n  ],\n  \"tokenPagination\": {\n    \"nextPageToken\": \"\",\n    \"previousPageToken\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bc217fe3-cc97-4289-bef0-756dd3210d02",
+      "documentation": "Retrieves details of a product for display to an enterprise admin.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/products/:productId",
+      "responses": [
+        {
+          "uuid": "2231a164-3c5d-4128-8fe0-67571ff834f4",
+          "body": "{\n  \"appTracks\": [\n    {\n      \"trackAlias\": \"\",\n      \"trackId\": \"\"\n    }\n  ],\n  \"appVersion\": [\n    {\n      \"isProduction\": {{faker 'random.boolean'}},\n      \"track\": \"{{oneOf (array 'appTrackUnspecified' 'production' 'beta' 'alpha')}}\",\n      \"trackId\": [\n        \"\"\n      ],\n      \"versionCode\": {{faker 'random.number'}},\n      \"versionString\": \"\"\n    }\n  ],\n  \"authorName\": \"\",\n  \"availableCountries\": [\n    \"\"\n  ],\n  \"availableTracks\": [\n    \"{{oneOf (array 'appTrackUnspecified' 'production' 'beta' 'alpha')}}\"\n  ],\n  \"category\": \"\",\n  \"contentRating\": \"{{oneOf (array 'ratingUnknown' 'all' 'preTeen' 'teen' 'mature')}}\",\n  \"description\": \"\",\n  \"detailsUrl\": \"\",\n  \"distributionChannel\": \"{{oneOf (array 'publicGoogleHosted' 'privateGoogleHosted' 'privateSelfHosted')}}\",\n  \"features\": [\n    \"{{oneOf (array 'featureUnknown' 'vpnApp')}}\"\n  ],\n  \"iconUrl\": \"\",\n  \"lastUpdatedTimestampMillis\": \"\",\n  \"minAndroidSdkVersion\": {{faker 'random.number'}},\n  \"permissions\": [\n    {\n      \"permissionId\": \"\",\n      \"state\": \"{{oneOf (array 'required' 'accepted')}}\"\n    }\n  ],\n  \"productId\": \"\",\n  \"productPricing\": \"{{oneOf (array 'unknown' 'free' 'freeWithInAppPurchase' 'paid')}}\",\n  \"recentChanges\": \"\",\n  \"requiresContainerApp\": {{faker 'random.boolean'}},\n  \"screenshotUrls\": [\n    \"\"\n  ],\n  \"signingCertificate\": {\n    \"certificateHashSha1\": \"\",\n    \"certificateHashSha256\": \"\"\n  },\n  \"smallIconUrl\": \"\",\n  \"title\": \"\",\n  \"workDetailsUrl\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0269831b-a85c-4a1b-be92-026ef2b8c833",
+      "documentation": "Retrieves the schema that defines the configurable properties for this product. All products have a schema, but this schema may be empty if no managed configurations have been defined. This schema can be used to populate a UI that allows an admin to configure the product. To apply a managed configuration based on the schema obtained using this API, see Managed Configurations through Play.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/products/:productId/appRestrictionsSchema",
+      "responses": [
+        {
+          "uuid": "50ec334a-46b4-428a-8867-34c224fe744e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "03690096-e320-49d8-9db8-413771a020e3",
+      "documentation": " Approves the specified product and the relevant app permissions, if any. The maximum number of products that you can approve per enterprise customer is 1,000. To learn how to use managed Google Play to design and create a store layout to display approved products to your users, see Store Layout Design. ",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/products/:productId/approve",
+      "responses": [
+        {
+          "uuid": "e20fa849-6773-424f-856b-ed95551bb3aa",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "819a75ea-d529-463e-a00d-230dffe2b90b",
+      "documentation": "Generates a URL that can be rendered in an iframe to display the permissions (if any) of a product. An enterprise admin must view these permissions and accept them on behalf of their organization in order to approve that product. Admins should accept the displayed permissions by interacting with a separate UI element in the EMM console, which in turn should trigger the use of this URL as the approvalUrlInfo.approvalUrl property in a Products.approve call to approve the product. This URL can only be used to display permissions for up to 1 day.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/products/:productId/generateApprovalUrl",
+      "responses": [
+        {
+          "uuid": "fb6804b8-8e7a-44bd-ac8d-24ea349e69f1",
+          "body": "{\n  \"url\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8c06a281-6791-40b9-a811-322181193e03",
+      "documentation": "Lists all the managed configurations settings for the specified app.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/products/:productId/managedConfigurationsSettings",
+      "responses": [
+        {
+          "uuid": "a3835ae0-3625-42bf-a4e5-03712610722f",
+          "body": "{\n  \"managedConfigurationsSettings\": [\n    {\n      \"lastUpdatedTimestampMillis\": \"\",\n      \"mcmId\": \"\",\n      \"name\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7f219cb1-0dcd-43e8-8cf2-1604b859c45c",
+      "documentation": "Retrieves the Android app permissions required by this app.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/products/:productId/permissions",
+      "responses": [
+        {
+          "uuid": "5874209b-d312-4662-937f-8f75bc678856",
+          "body": "{\n  \"permission\": [\n    {\n      \"permissionId\": \"\",\n      \"state\": \"{{oneOf (array 'required' 'accepted')}}\"\n    }\n  ],\n  \"productId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6dee0c79-d5cb-451d-a663-95c5770149c0",
+      "documentation": "Unapproves the specified product (and the relevant app permissions, if any)",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/products/:productId/unapprove",
+      "responses": [
+        {
+          "uuid": "75d40f3e-e436-4b22-98ea-892a82aff030",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "798f6163-64a2-4dc9-a3c5-d2e21e0e434f",
+      "documentation": "Sends a test notification to validate the EMM integration with the Google Cloud Pub/Sub service for this enterprise.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/sendTestPushNotification",
+      "responses": [
+        {
+          "uuid": "54af47bb-5baa-40e9-a0ce-d7394f9313bb",
+          "body": "{\n  \"messageId\": \"\",\n  \"topicName\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "48fa1156-ff4a-466b-a4e1-bf617b8712b3",
+      "documentation": "Returns a service account and credentials. The service account can be bound to the enterprise by calling setAccount. The service account is unique to this enterprise and EMM, and will be deleted if the enterprise is unbound. The credentials contain private key data and are not stored server-side. This method can only be called after calling Enterprises.Enroll or Enterprises.CompleteSignup, and before Enterprises.SetAccount; at other times it will return an error. Subsequent calls after the first will generate a new, unique set of credentials, and invalidate the previously generated credentials. Once the service account is bound to the enterprise, it can be managed using the serviceAccountKeys resource.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/serviceAccount",
+      "responses": [
+        {
+          "uuid": "eaeb3edd-fb88-4215-9155-403cc1892011",
+          "body": "{\n  \"key\": {\n    \"data\": \"\",\n    \"id\": \"\",\n    \"publicData\": \"\",\n    \"type\": \"{{oneOf (array 'googleCredentials' 'pkcs12')}}\"\n  },\n  \"name\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1fd97868-7478-4482-ad34-ea61f222b3ce",
+      "documentation": "Lists all active credentials for the service account associated with this enterprise. Only the ID and key type are returned. The calling service account must have been retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling Enterprises.SetAccount.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/serviceAccountKeys",
+      "responses": [
+        {
+          "uuid": "5d8059a1-8014-422e-8917-ce41d7b93681",
+          "body": "{\n  \"serviceAccountKey\": [\n    {\n      \"data\": \"\",\n      \"id\": \"\",\n      \"publicData\": \"\",\n      \"type\": \"{{oneOf (array 'googleCredentials' 'pkcs12')}}\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "67440f28-552c-46cc-adc9-ad3bbcdc5ea7",
+      "documentation": "Generates new credentials for the service account associated with this enterprise. The calling service account must have been retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling Enterprises.SetAccount. Only the type of the key should be populated in the resource to be inserted.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/serviceAccountKeys",
+      "responses": [
+        {
+          "uuid": "49a64541-a693-441b-8ea3-9eedae8b569b",
+          "body": "{\n  \"data\": \"\",\n  \"id\": \"\",\n  \"publicData\": \"\",\n  \"type\": \"{{oneOf (array 'googleCredentials' 'pkcs12')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "37672db7-ec74-4663-a3b6-b0e6665352b5",
+      "documentation": "Removes and invalidates the specified credentials for the service account associated with this enterprise. The calling service account must have been retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling Enterprises.SetAccount.",
+      "method": "delete",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/serviceAccountKeys/:keyId",
+      "responses": [
+        {
+          "uuid": "7cd5428c-563e-4cd4-829b-a828642192e2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1cce9280-745b-474e-95f1-65a064b02ab4",
+      "documentation": "Returns the store layout for the enterprise. If the store layout has not been set, returns \"basic\" as the store layout type and no homepage.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/storeLayout",
+      "responses": [
+        {
+          "uuid": "b653acf7-bc81-4b33-ba2d-55f4cba8bdde",
+          "body": "{\n  \"homepageId\": \"\",\n  \"storeLayoutType\": \"{{oneOf (array 'unknown' 'basic' 'custom')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "387359cb-c568-41f8-a983-b5ddcb16b0f8",
+      "documentation": "Sets the store layout for the enterprise. By default, storeLayoutType is set to \"basic\" and the basic store layout is enabled. The basic layout only contains apps approved by the admin, and that have been added to the available product set for a user (using the setAvailableProductSet call). Apps on the page are sorted in order of their product ID value. If you create a custom store layout (by setting storeLayoutType = \"custom\" and setting a homepage), the basic store layout is disabled.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/storeLayout",
+      "responses": [
+        {
+          "uuid": "f2a71fa6-8f24-45b0-be74-8043ba81eeb6",
+          "body": "{\n  \"homepageId\": \"\",\n  \"storeLayoutType\": \"{{oneOf (array 'unknown' 'basic' 'custom')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "82d5e343-60dd-4fe3-943c-37b897cf50e9",
+      "documentation": "Retrieves the details of all pages in the store.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/storeLayout/pages",
+      "responses": [
+        {
+          "uuid": "1540ed25-1f1f-40b0-9730-f4a2060dac7c",
+          "body": "{\n  \"page\": [\n    {\n      \"id\": \"\",\n      \"link\": [\n        \"\"\n      ],\n      \"name\": [\n        {\n          \"locale\": \"\",\n          \"text\": \"\"\n        }\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1628988a-ed5f-4649-9df4-9b38df1744ea",
+      "documentation": "Inserts a new store page.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/storeLayout/pages",
+      "responses": [
+        {
+          "uuid": "7c02dcb1-0ded-47ca-acaf-afbaffc11db5",
+          "body": "{\n  \"id\": \"\",\n  \"link\": [\n    \"\"\n  ],\n  \"name\": [\n    {\n      \"locale\": \"\",\n      \"text\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "16239087-0dfe-4848-aef9-dee71f54eedc",
+      "documentation": "Deletes a store page.",
+      "method": "delete",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/storeLayout/pages/:pageId",
+      "responses": [
+        {
+          "uuid": "b17aa05c-56b7-44e4-9907-f34b89b5653c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c9678a36-6c5f-474f-95a2-ff95c2b2e633",
+      "documentation": "Retrieves details of a store page.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/storeLayout/pages/:pageId",
+      "responses": [
+        {
+          "uuid": "d7b69f78-99f1-4eff-8baa-b5cea7219e8d",
+          "body": "{\n  \"id\": \"\",\n  \"link\": [\n    \"\"\n  ],\n  \"name\": [\n    {\n      \"locale\": \"\",\n      \"text\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3e10d267-ec12-47e0-87d9-fb677dfa1ac9",
+      "documentation": "Updates the content of a store page.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/storeLayout/pages/:pageId",
+      "responses": [
+        {
+          "uuid": "5f444191-27a3-4a3a-ae86-5e11014a945c",
+          "body": "{\n  \"id\": \"\",\n  \"link\": [\n    \"\"\n  ],\n  \"name\": [\n    {\n      \"locale\": \"\",\n      \"text\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c673db8f-3840-4c92-9dfa-3a18625d28d3",
+      "documentation": "Retrieves the details of all clusters on the specified page.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/storeLayout/pages/:pageId/clusters",
+      "responses": [
+        {
+          "uuid": "b31759ec-c8cb-40e4-af60-d7e1befca974",
+          "body": "{\n  \"cluster\": [\n    {\n      \"id\": \"\",\n      \"name\": [\n        {\n          \"locale\": \"\",\n          \"text\": \"\"\n        }\n      ],\n      \"orderInPage\": \"\",\n      \"productId\": [\n        \"\"\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ae4cd17a-beb0-4e0c-b77f-0d71e79d4cbc",
+      "documentation": "Inserts a new cluster in a page.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/storeLayout/pages/:pageId/clusters",
+      "responses": [
+        {
+          "uuid": "2f372579-e9bd-437e-bf8c-4487d9f260fb",
+          "body": "{\n  \"id\": \"\",\n  \"name\": [\n    {\n      \"locale\": \"\",\n      \"text\": \"\"\n    }\n  ],\n  \"orderInPage\": \"\",\n  \"productId\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4a989c2d-bdcf-42c4-8869-d01741be8a1a",
+      "documentation": "Deletes a cluster.",
+      "method": "delete",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/storeLayout/pages/:pageId/clusters/:clusterId",
+      "responses": [
+        {
+          "uuid": "f99d1bad-34fc-46a4-832b-69f78509bb6e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5b75cf45-4810-413c-aa7f-6f20d6d49757",
+      "documentation": "Retrieves details of a cluster.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/storeLayout/pages/:pageId/clusters/:clusterId",
+      "responses": [
+        {
+          "uuid": "2fdea0de-6269-40b6-8b95-407e14a92788",
+          "body": "{\n  \"id\": \"\",\n  \"name\": [\n    {\n      \"locale\": \"\",\n      \"text\": \"\"\n    }\n  ],\n  \"orderInPage\": \"\",\n  \"productId\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "993e568d-68e6-4d99-b35c-d7a203b1a239",
+      "documentation": "Updates a cluster.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/storeLayout/pages/:pageId/clusters/:clusterId",
+      "responses": [
+        {
+          "uuid": "1139c130-8198-4db6-a4d2-c3a8d45c3049",
+          "body": "{\n  \"id\": \"\",\n  \"name\": [\n    {\n      \"locale\": \"\",\n      \"text\": \"\"\n    }\n  ],\n  \"orderInPage\": \"\",\n  \"productId\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "730e6a89-a500-4d53-a78e-2a21420d8d3d",
+      "documentation": "Unenrolls an enterprise from the calling EMM.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/unenroll",
+      "responses": [
+        {
+          "uuid": "a33d8252-274a-4e0f-ac76-c8a256d0d9ec",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3bc7343c-049f-440f-af77-14ab6024b7fd",
+      "documentation": "Looks up a user by primary email address. This is only supported for Google-managed users. Lookup of the id is not needed for EMM-managed users because the id is already returned in the result of the Users.insert call.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users",
+      "responses": [
+        {
+          "uuid": "9a33d75f-9de8-4d71-a459-b408d3641c64",
+          "body": "{\n  \"user\": [\n    {\n      \"accountIdentifier\": \"\",\n      \"accountType\": \"{{oneOf (array 'deviceAccount' 'userAccount')}}\",\n      \"displayName\": \"\",\n      \"id\": \"\",\n      \"managementType\": \"{{oneOf (array 'googleManaged' 'emmManaged')}}\",\n      \"primaryEmail\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "627ba3b9-b40d-46a8-a5e8-24644bd71a9c",
+      "documentation": "Creates a new EMM-managed user. The Users resource passed in the body of the request should include an accountIdentifier and an accountType. If a corresponding user already exists with the same account identifier, the user will be updated with the resource. In this case only the displayName field can be changed.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users",
+      "responses": [
+        {
+          "uuid": "f67b2c0b-510e-41ae-a871-65986f1672d5",
+          "body": "{\n  \"accountIdentifier\": \"\",\n  \"accountType\": \"{{oneOf (array 'deviceAccount' 'userAccount')}}\",\n  \"displayName\": \"\",\n  \"id\": \"\",\n  \"managementType\": \"{{oneOf (array 'googleManaged' 'emmManaged')}}\",\n  \"primaryEmail\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "04313f3b-9c13-48db-8b40-96dae6daae24",
+      "documentation": "Deleted an EMM-managed user.",
+      "method": "delete",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId",
+      "responses": [
+        {
+          "uuid": "261c95b4-e6ac-4cb3-af90-be62e6b1d5b1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3dac95aa-e371-43d8-b6c1-477c0970a9bc",
+      "documentation": "Retrieves a user's details.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId",
+      "responses": [
+        {
+          "uuid": "4a958750-8fb7-45cb-909b-8f3c9d6d875d",
+          "body": "{\n  \"accountIdentifier\": \"\",\n  \"accountType\": \"{{oneOf (array 'deviceAccount' 'userAccount')}}\",\n  \"displayName\": \"\",\n  \"id\": \"\",\n  \"managementType\": \"{{oneOf (array 'googleManaged' 'emmManaged')}}\",\n  \"primaryEmail\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "546a0582-86c7-4b86-b1ca-7f86dfcc37fa",
+      "documentation": "Updates the details of an EMM-managed user. Can be used with EMM-managed users only (not Google managed users). Pass the new details in the Users resource in the request body. Only the displayName field can be changed. Other fields must either be unset or have the currently active value.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId",
+      "responses": [
+        {
+          "uuid": "785a08ca-0e11-47f5-8e5f-128353ae25fe",
+          "body": "{\n  \"accountIdentifier\": \"\",\n  \"accountType\": \"{{oneOf (array 'deviceAccount' 'userAccount')}}\",\n  \"displayName\": \"\",\n  \"id\": \"\",\n  \"managementType\": \"{{oneOf (array 'googleManaged' 'emmManaged')}}\",\n  \"primaryEmail\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7838f219-efeb-4399-979c-09110789158f",
+      "documentation": "Generates an authentication token which the device policy client can use to provision the given EMM-managed user account on a device. The generated token is single-use and expires after a few minutes. You can provision a maximum of 10 devices per user. This call only works with EMM-managed accounts.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/authenticationToken",
+      "responses": [
+        {
+          "uuid": "62cd9f0d-bd7a-4e38-8969-5155ba13ad43",
+          "body": "{\n  \"token\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2a5c3426-fe22-4833-bd5f-2e4cf4d3ccbd",
+      "documentation": "Retrieves the set of products a user is entitled to access.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/availableProductSet",
+      "responses": [
+        {
+          "uuid": "d1b176d7-8bbe-4f2e-adce-23432dc3f02b",
+          "body": "{\n  \"productId\": [\n    \"\"\n  ],\n  \"productSetBehavior\": \"{{oneOf (array 'unknown' 'whitelist' 'includeAll' 'allApproved')}}\",\n  \"productVisibility\": [\n    {\n      \"productId\": \"\",\n      \"trackIds\": [\n        \"\"\n      ],\n      \"tracks\": [\n        \"{{oneOf (array 'appTrackUnspecified' 'production' 'beta' 'alpha')}}\"\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "df28ce49-d31e-4a0e-b390-49805b25a660",
+      "documentation": "Modifies the set of products that a user is entitled to access (referred to as *whitelisted* products). Only products that are approved or products that were previously approved (products with revoked approval) can be whitelisted.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/availableProductSet",
+      "responses": [
+        {
+          "uuid": "e168aa69-270a-4f26-adc8-3d35908e5aa4",
+          "body": "{\n  \"productId\": [\n    \"\"\n  ],\n  \"productSetBehavior\": \"{{oneOf (array 'unknown' 'whitelist' 'includeAll' 'allApproved')}}\",\n  \"productVisibility\": [\n    {\n      \"productId\": \"\",\n      \"trackIds\": [\n        \"\"\n      ],\n      \"tracks\": [\n        \"{{oneOf (array 'appTrackUnspecified' 'production' 'beta' 'alpha')}}\"\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "fcde5ea6-7a9a-4793-9e5b-e750d4dae6a7",
+      "documentation": "Revokes access to all devices currently provisioned to the user. The user will no longer be able to use the managed Play store on any of their managed devices. This call only works with EMM-managed accounts.",
+      "method": "delete",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/deviceAccess",
+      "responses": [
+        {
+          "uuid": "bbd2afbb-6d17-4865-bbd1-833e8f066554",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3029ee99-fc57-47c7-9027-316225cfe497",
+      "documentation": "Retrieves the IDs of all of a user's devices.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices",
+      "responses": [
+        {
+          "uuid": "f88aef98-86d4-405e-a1d3-b3fbe285d2ba",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0553326e-e73d-4703-9657-1db52ca0d7f9",
+      "documentation": "Retrieves the details of a device.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId",
+      "responses": [
+        {
+          "uuid": "748746e9-d8e7-4b4b-a66a-898608e7b00c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "944eb189-6028-4b61-bdf7-9f7f3ede9df5",
+      "documentation": "Updates the device policy. To ensure the policy is properly enforced, you need to prevent unmanaged accounts from accessing Google Play by setting the allowed_accounts in the managed configuration for the Google Play package. See restrict accounts in Google Play. When provisioning a new device, you should set the device policy using this method before adding the managed Google Play Account to the device, otherwise the policy will not be applied for a short period of time after adding the account to the device.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId",
+      "responses": [
+        {
+          "uuid": "da26aabd-7598-41e3-92ca-50509b7e496c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4ab082bd-e0a6-4b4f-a684-8e9bcb34bedf",
+      "documentation": "Uploads a report containing any changes in app states on the device since the last report was generated. You can call this method up to 3 times every 24 hours for a given device. If you exceed the quota, then the Google Play EMM API returns HTTP 429 Too Many Requests.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId/forceReportUpload",
+      "responses": [
+        {
+          "uuid": "f0fcf7e9-fef1-4bfa-b750-1caf488620dc",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "16c1a81c-2a41-485e-bedc-b9b213187acb",
+      "documentation": "Retrieves the details of all apps installed on the specified device.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId/installs",
+      "responses": [
+        {
+          "uuid": "ca992eb4-8ad7-4d7d-a914-6ad22a8abb4a",
+          "body": "{\n  \"install\": [\n    {\n      \"installState\": \"{{oneOf (array 'installed' 'installPending')}}\",\n      \"productId\": \"\",\n      \"versionCode\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2699e5d3-323d-4e5d-89f4-44f9587e40ac",
+      "documentation": "Requests to remove an app from a device. A call to get or list will still show the app as installed on the device until it is actually removed.",
+      "method": "delete",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId/installs/:installId",
+      "responses": [
+        {
+          "uuid": "d919e00e-4ce1-41b7-bd8c-b3eae58ada56",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "dc87b01e-a59c-487b-8723-6074209235fa",
+      "documentation": "Retrieves details of an installation of an app on a device.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId/installs/:installId",
+      "responses": [
+        {
+          "uuid": "8cf9f008-b88a-4b90-b5f7-cd60231332f4",
+          "body": "{\n  \"installState\": \"{{oneOf (array 'installed' 'installPending')}}\",\n  \"productId\": \"\",\n  \"versionCode\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "90a78468-9623-489e-9c64-1d2afbbea02e",
+      "documentation": "Requests to install the latest version of an app to a device. If the app is already installed, then it is updated to the latest version if necessary.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId/installs/:installId",
+      "responses": [
+        {
+          "uuid": "22d4e1a0-7ac4-4225-9594-aa790a866d9d",
+          "body": "{\n  \"installState\": \"{{oneOf (array 'installed' 'installPending')}}\",\n  \"productId\": \"\",\n  \"versionCode\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "07f16ee4-bd12-47a3-bf12-63120534810b",
+      "documentation": "Lists all the per-device managed configurations for the specified device. Only the ID is set.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId/managedConfigurationsForDevice",
+      "responses": [
+        {
+          "uuid": "1193cb7f-39de-4ddf-b3d8-539d3df0dc28",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d5aa94e1-0fcc-4981-9914-b8b5eec74bc1",
+      "documentation": "Removes a per-device managed configuration for an app for the specified device.",
+      "method": "delete",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId/managedConfigurationsForDevice/:managedConfigurationForDeviceId",
+      "responses": [
+        {
+          "uuid": "916b0549-2bb2-4313-b852-c36c8ed42b44",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "258b729f-fc9c-46a6-9743-eb62b14c11dc",
+      "documentation": "Retrieves details of a per-device managed configuration.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId/managedConfigurationsForDevice/:managedConfigurationForDeviceId",
+      "responses": [
+        {
+          "uuid": "99ae6b31-830f-48fa-a506-be9b66d0e979",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "42ed3845-005b-4dc8-a5ce-c93b86eea681",
+      "documentation": "Adds or updates a per-device managed configuration for an app for the specified device.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId/managedConfigurationsForDevice/:managedConfigurationForDeviceId",
+      "responses": [
+        {
+          "uuid": "a8183f27-eddf-4431-ba4a-de8d645fa4f7",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9075a82a-c951-4008-ab4c-139556107d6a",
+      "documentation": "Retrieves whether a device's access to Google services is enabled or disabled. The device state takes effect only if enforcing EMM policies on Android devices is enabled in the Google Admin Console. Otherwise, the device state is ignored and all devices are allowed access to Google services. This is only supported for Google-managed users.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId/state",
+      "responses": [
+        {
+          "uuid": "0b151d25-a739-4e84-9d95-aff49861c65f",
+          "body": "{\n  \"accountState\": \"{{oneOf (array 'enabled' 'disabled')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4e30ebcb-f6d1-4091-9236-04d1e4b9f5db",
+      "documentation": "Sets whether a device's access to Google services is enabled or disabled. The device state takes effect only if enforcing EMM policies on Android devices is enabled in the Google Admin Console. Otherwise, the device state is ignored and all devices are allowed access to Google services. This is only supported for Google-managed users.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/devices/:deviceId/state",
+      "responses": [
+        {
+          "uuid": "c03084c2-2929-4ee1-806c-2d13761697d1",
+          "body": "{\n  \"accountState\": \"{{oneOf (array 'enabled' 'disabled')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "492f503c-4295-4913-a6ef-30d62cd5c436",
+      "documentation": "Lists all entitlements for the specified user. Only the ID is set.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/entitlements",
+      "responses": [
+        {
+          "uuid": "6382f80e-5475-44f9-95d1-e67bfcec06ce",
+          "body": "{\n  \"entitlement\": [\n    {\n      \"productId\": \"\",\n      \"reason\": \"{{oneOf (array 'free' 'groupLicense' 'userPurchase')}}\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d0977e14-8906-45c7-b9f8-ae019e5a8e12",
+      "documentation": "Removes an entitlement to an app for a user.",
+      "method": "delete",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/entitlements/:entitlementId",
+      "responses": [
+        {
+          "uuid": "d43ed656-5ee8-462a-80b1-216f7651a728",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b21dcbad-2092-447f-a97f-2c50d1d76194",
+      "documentation": "Retrieves details of an entitlement.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/entitlements/:entitlementId",
+      "responses": [
+        {
+          "uuid": "76bb440f-8c64-454e-af01-bc4d6166a570",
+          "body": "{\n  \"productId\": \"\",\n  \"reason\": \"{{oneOf (array 'free' 'groupLicense' 'userPurchase')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f738e750-7ee6-48d3-b43e-443dbb15a5d3",
+      "documentation": "Adds or updates an entitlement to an app for a user.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/entitlements/:entitlementId",
+      "responses": [
+        {
+          "uuid": "41220f3c-fbb9-47e3-9161-4205f24c4d40",
+          "body": "{\n  \"productId\": \"\",\n  \"reason\": \"{{oneOf (array 'free' 'groupLicense' 'userPurchase')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1b5a3774-1f9f-4a0c-8d72-502183954cda",
+      "documentation": "Lists all the per-user managed configurations for the specified user. Only the ID is set.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/managedConfigurationsForUser",
+      "responses": [
+        {
+          "uuid": "71c64b50-019d-49d6-a538-788dc14e311a",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5010b1f6-4acc-44ff-91d3-dc02091abdb1",
+      "documentation": "Removes a per-user managed configuration for an app for the specified user.",
+      "method": "delete",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/managedConfigurationsForUser/:managedConfigurationForUserId",
+      "responses": [
+        {
+          "uuid": "9112fb13-4c71-4511-9a32-004971894bcf",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3214f7e5-64a3-4292-9a3b-20cd7b417ac8",
+      "documentation": "Retrieves details of a per-user managed configuration for an app for the specified user.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/managedConfigurationsForUser/:managedConfigurationForUserId",
+      "responses": [
+        {
+          "uuid": "6eb20c43-48a1-4431-9a73-52771c2c376b",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "fb3c565f-e687-4f5a-9795-99e0110d9986",
+      "documentation": "Adds or updates the managed configuration settings for an app for the specified user. If you support the Managed configurations iframe, you can apply managed configurations to a user by specifying an mcmId and its associated configuration variables (if any) in the request. Alternatively, all EMMs can apply managed configurations by passing a list of managed properties.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/users/:userId/managedConfigurationsForUser/:managedConfigurationForUserId",
+      "responses": [
+        {
+          "uuid": "ea43bb9c-997d-4a96-939a-c85020ae8add",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "287d313e-e563-422c-93e1-bdbea21fcc8a",
+      "documentation": "Retrieves the details of all web apps for a given enterprise.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/webApps",
+      "responses": [
+        {
+          "uuid": "81c482e4-2541-4a29-b229-a42cdb4fb5ab",
+          "body": "{\n  \"webApp\": [\n    {\n      \"displayMode\": \"{{oneOf (array 'displayModeUnspecified' 'minimalUi' 'standalone' 'fullScreen')}}\",\n      \"icons\": [\n        {\n          \"imageData\": \"\"\n        }\n      ],\n      \"isPublished\": {{faker 'random.boolean'}},\n      \"startUrl\": \"\",\n      \"title\": \"\",\n      \"versionCode\": \"\",\n      \"webAppId\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "09b8f387-fcd0-408f-8d8d-8d22798f32ad",
+      "documentation": "Creates a new web app for the enterprise.",
+      "method": "post",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/webApps",
+      "responses": [
+        {
+          "uuid": "1f365def-2e48-4732-9db4-fed449ff0cc7",
+          "body": "{\n  \"displayMode\": \"{{oneOf (array 'displayModeUnspecified' 'minimalUi' 'standalone' 'fullScreen')}}\",\n  \"icons\": [\n    {\n      \"imageData\": \"\"\n    }\n  ],\n  \"isPublished\": {{faker 'random.boolean'}},\n  \"startUrl\": \"\",\n  \"title\": \"\",\n  \"versionCode\": \"\",\n  \"webAppId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a0d41f25-be2f-464b-bc9a-8f6b74085a19",
+      "documentation": "Deletes an existing web app.",
+      "method": "delete",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/webApps/:webAppId",
+      "responses": [
+        {
+          "uuid": "84687d33-9a55-4462-834e-1975ce7815f2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9d255ae4-c40e-40d4-9b47-a44ebc77a9db",
+      "documentation": "Gets an existing web app.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/webApps/:webAppId",
+      "responses": [
+        {
+          "uuid": "3036b1ce-3a4f-4b0a-9c64-48cd4748bf72",
+          "body": "{\n  \"displayMode\": \"{{oneOf (array 'displayModeUnspecified' 'minimalUi' 'standalone' 'fullScreen')}}\",\n  \"icons\": [\n    {\n      \"imageData\": \"\"\n    }\n  ],\n  \"isPublished\": {{faker 'random.boolean'}},\n  \"startUrl\": \"\",\n  \"title\": \"\",\n  \"versionCode\": \"\",\n  \"webAppId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1157f247-0600-4ace-9313-f31ec53bde77",
+      "documentation": "Updates an existing web app.",
+      "method": "put",
+      "endpoint": "androidenterprise/v1/enterprises/:enterpriseId/webApps/:webAppId",
+      "responses": [
+        {
+          "uuid": "fe313d4f-a2ce-476f-b278-85f8c6ad22b2",
+          "body": "{\n  \"displayMode\": \"{{oneOf (array 'displayModeUnspecified' 'minimalUi' 'standalone' 'fullScreen')}}\",\n  \"icons\": [\n    {\n      \"imageData\": \"\"\n    }\n  ],\n  \"isPublished\": {{faker 'random.boolean'}},\n  \"startUrl\": \"\",\n  \"title\": \"\",\n  \"versionCode\": \"\",\n  \"webAppId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "eb76ee82-730a-4c35-8e7b-87c3c5740a56",
+      "documentation": "Retrieves details of an Android app permission for display to an enterprise admin.",
+      "method": "get",
+      "endpoint": "androidenterprise/v1/permissions/:permissionId",
+      "responses": [
+        {
+          "uuid": "c6ad03cb-52fa-4bed-9186-15aa88004781",
+          "body": "{\n  \"description\": \"\",\n  \"name\": \"\",\n  \"permissionId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

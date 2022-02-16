@@ -1,0 +1,421 @@
+{
+  "uuid": "cb139e13-f65a-40bf-a415-ddd2cd18695a",
+  "lastMigration": 19,
+  "name": "OpenALPR CarCheck API",
+  "endpointPrefix": "v3",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "82ce702a-3469-4c1c-98f1-25aac6920fa4",
+      "documentation": "Get a list of available results for plate and vehicle recognition\n",
+      "method": "get",
+      "endpoint": "config",
+      "responses": [
+        {
+          "uuid": "a764ba3d-a571-429a-badc-26d7f7767db8",
+          "body": "{\n  \"countries\": [\n    {\n      \"code\": \"us\",\n      \"name\": \"North America\"\n    }\n  ],\n  \"vehicle_labels\": {\n    \"bodytype\": [\n      \"sedan-compact\"\n    ],\n    \"color\": [\n      \"blue\"\n    ],\n    \"make\": [\n      \"volvo\"\n    ],\n    \"makemodel\": [\n      \"volvo_v40\"\n    ],\n    \"orientation\": [\n      45\n    ],\n    \"year\": [\n      \"2000-2004\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "ok",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5d5745cf-a229-4b47-9d0e-e00ce3619ffd",
+      "documentation": "Send an image for OpenALPR to analyze and provide metadata back\nThe image is sent as a file using a form data POST\n",
+      "method": "post",
+      "endpoint": "recognize",
+      "responses": [
+        {
+          "uuid": "24e6e139-6c0e-40df-ae29-b0029595811d",
+          "body": "{\n  \"credit_cost\": {{faker 'random.number'}},\n  \"credits_monthly_total\": {{faker 'random.number'}},\n  \"credits_monthly_used\": {{faker 'random.number'}},\n  \"data_type\": \"{{oneOf (array 'alpr_results' 'alpr_group' 'heartbeat')}}\",\n  \"epoch_time\": {{faker 'random.number'}},\n  \"img_height\": {{faker 'random.number'}},\n  \"img_width\": {{faker 'random.number'}},\n  \"processing_time\": {\n    \"plates\": {{faker 'random.number'}},\n    \"total\": {{faker 'random.number'}},\n    \"vehicles\": {{faker 'random.number'}}\n  },\n  \"regions_of_interest\": [\n    {\n      \"height\": {{faker 'random.number'}},\n      \"width\": {{faker 'random.number'}},\n      \"x\": {{faker 'random.number'}},\n      \"y\": {{faker 'random.number'}}\n    }\n  ],\n  \"results\": [\n    {\n      \"candidates\": [\n        {\n          \"confidence\": {{faker 'random.number'}},\n          \"matches_template\": {{faker 'random.number'}},\n          \"plate\": \"\"\n        }\n      ],\n      \"confidence\": {{faker 'random.number'}},\n      \"coordinates\": [\n        {\n          \"x\": {{faker 'random.number'}},\n          \"y\": {{faker 'random.number'}}\n        }\n      ],\n      \"matches_template\": {{faker 'random.number'}},\n      \"plate\": \"\",\n      \"processing_time_ms\": {{faker 'random.number'}},\n      \"region\": \"\",\n      \"region_confidence\": {{faker 'random.number'}},\n      \"requested_topn\": {{faker 'random.number'}},\n      \"vehicle\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"vehicle_region\": {\n        \"height\": {{faker 'random.number'}},\n        \"width\": {{faker 'random.number'}},\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      }\n    }\n  ],\n  \"vehicles\": [\n    {\n      \"details\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"height\": {{faker 'random.number'}},\n      \"width\": {{faker 'random.number'}},\n      \"x\": {{faker 'random.number'}},\n      \"y\": {{faker 'random.number'}}\n    }\n  ],\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-RateLimit-Limit",
+              "value": ""
+            },
+            {
+              "key": "X-Ratelimit-Remaining",
+              "value": ""
+            },
+            {
+              "key": "X-Ratelimit-Reset",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b06a1369-6155-471d-9114-695538560778",
+          "body": "{\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Parameter is invalid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9897115a-6eb0-47ee-806d-977f66898abf",
+          "body": "{\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "User not authorized or invalid secret_key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "33d9976f-cd38-4518-a845-9e8e017b601e",
+          "body": "{\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 402,
+          "label": "Monthly usage limit exceeded",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7cfb5dd7-84c5-4680-88b3-a125233eb925",
+          "body": "{\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Temporary rate-limit exceeded",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4ab78b9d-d70c-4101-b95b-fa8dc8f723bd",
+      "documentation": "Send an image for OpenALPR to analyze and provide metadata back\nThe image is sent as base64 encoded bytes.\n",
+      "method": "post",
+      "endpoint": "recognize_bytes",
+      "responses": [
+        {
+          "uuid": "fe6c964e-9e8c-447f-88c4-9ef60c970ef5",
+          "body": "{\n  \"credit_cost\": {{faker 'random.number'}},\n  \"credits_monthly_total\": {{faker 'random.number'}},\n  \"credits_monthly_used\": {{faker 'random.number'}},\n  \"data_type\": \"{{oneOf (array 'alpr_results' 'alpr_group' 'heartbeat')}}\",\n  \"epoch_time\": {{faker 'random.number'}},\n  \"img_height\": {{faker 'random.number'}},\n  \"img_width\": {{faker 'random.number'}},\n  \"processing_time\": {\n    \"plates\": {{faker 'random.number'}},\n    \"total\": {{faker 'random.number'}},\n    \"vehicles\": {{faker 'random.number'}}\n  },\n  \"regions_of_interest\": [\n    {\n      \"height\": {{faker 'random.number'}},\n      \"width\": {{faker 'random.number'}},\n      \"x\": {{faker 'random.number'}},\n      \"y\": {{faker 'random.number'}}\n    }\n  ],\n  \"results\": [\n    {\n      \"candidates\": [\n        {\n          \"confidence\": {{faker 'random.number'}},\n          \"matches_template\": {{faker 'random.number'}},\n          \"plate\": \"\"\n        }\n      ],\n      \"confidence\": {{faker 'random.number'}},\n      \"coordinates\": [\n        {\n          \"x\": {{faker 'random.number'}},\n          \"y\": {{faker 'random.number'}}\n        }\n      ],\n      \"matches_template\": {{faker 'random.number'}},\n      \"plate\": \"\",\n      \"processing_time_ms\": {{faker 'random.number'}},\n      \"region\": \"\",\n      \"region_confidence\": {{faker 'random.number'}},\n      \"requested_topn\": {{faker 'random.number'}},\n      \"vehicle\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"vehicle_region\": {\n        \"height\": {{faker 'random.number'}},\n        \"width\": {{faker 'random.number'}},\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      }\n    }\n  ],\n  \"vehicles\": [\n    {\n      \"details\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"height\": {{faker 'random.number'}},\n      \"width\": {{faker 'random.number'}},\n      \"x\": {{faker 'random.number'}},\n      \"y\": {{faker 'random.number'}}\n    }\n  ],\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-RateLimit-Limit",
+              "value": ""
+            },
+            {
+              "key": "X-Ratelimit-Remaining",
+              "value": ""
+            },
+            {
+              "key": "X-Ratelimit-Reset",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2af1c764-a2cb-4f8f-8073-7317341e0298",
+          "body": "{\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Parameter is invalid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "001fc237-c466-47d7-b1b9-bdedfe28eab1",
+          "body": "{\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "User not authorized or invalid secret_key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9e69eccb-5a07-45f0-89c4-bfd0d956e855",
+          "body": "{\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 402,
+          "label": "Monthly usage limit exceeded",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c2aec33e-e43e-4133-a676-0e8dde13fdd6",
+          "body": "{\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Temporary rate-limit exceeded",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b0f128ad-6f26-4487-88a6-47ab6078932b",
+      "documentation": "Send an image for OpenALPR to analyze and provide metadata back\nThe image is sent as a URL.  The OpenALPR service will download the image \nand process it\n",
+      "method": "post",
+      "endpoint": "recognize_url",
+      "responses": [
+        {
+          "uuid": "78a092dd-6daf-46f6-b25b-45bc6bb00c7c",
+          "body": "{\n  \"credit_cost\": {{faker 'random.number'}},\n  \"credits_monthly_total\": {{faker 'random.number'}},\n  \"credits_monthly_used\": {{faker 'random.number'}},\n  \"data_type\": \"{{oneOf (array 'alpr_results' 'alpr_group' 'heartbeat')}}\",\n  \"epoch_time\": {{faker 'random.number'}},\n  \"img_height\": {{faker 'random.number'}},\n  \"img_width\": {{faker 'random.number'}},\n  \"processing_time\": {\n    \"plates\": {{faker 'random.number'}},\n    \"total\": {{faker 'random.number'}},\n    \"vehicles\": {{faker 'random.number'}}\n  },\n  \"regions_of_interest\": [\n    {\n      \"height\": {{faker 'random.number'}},\n      \"width\": {{faker 'random.number'}},\n      \"x\": {{faker 'random.number'}},\n      \"y\": {{faker 'random.number'}}\n    }\n  ],\n  \"results\": [\n    {\n      \"candidates\": [\n        {\n          \"confidence\": {{faker 'random.number'}},\n          \"matches_template\": {{faker 'random.number'}},\n          \"plate\": \"\"\n        }\n      ],\n      \"confidence\": {{faker 'random.number'}},\n      \"coordinates\": [\n        {\n          \"x\": {{faker 'random.number'}},\n          \"y\": {{faker 'random.number'}}\n        }\n      ],\n      \"matches_template\": {{faker 'random.number'}},\n      \"plate\": \"\",\n      \"processing_time_ms\": {{faker 'random.number'}},\n      \"region\": \"\",\n      \"region_confidence\": {{faker 'random.number'}},\n      \"requested_topn\": {{faker 'random.number'}},\n      \"vehicle\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"vehicle_region\": {\n        \"height\": {{faker 'random.number'}},\n        \"width\": {{faker 'random.number'}},\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      }\n    }\n  ],\n  \"vehicles\": [\n    {\n      \"details\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'random.number'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"height\": {{faker 'random.number'}},\n      \"width\": {{faker 'random.number'}},\n      \"x\": {{faker 'random.number'}},\n      \"y\": {{faker 'random.number'}}\n    }\n  ],\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-RateLimit-Limit",
+              "value": ""
+            },
+            {
+              "key": "X-Ratelimit-Remaining",
+              "value": ""
+            },
+            {
+              "key": "X-Ratelimit-Reset",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "09108d4d-1165-49c2-9e44-6b1fbdbf132d",
+          "body": "{\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Parameter is invalid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b5c79657-64e8-4d64-81b4-52d341a7f8b4",
+          "body": "{\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "User not authorized or invalid secret_key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0bca1f16-4acf-4b66-859d-1beb3631aeae",
+          "body": "{\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 402,
+          "label": "Monthly usage limit exceeded",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ef11a101-2d60-4669-b7cc-109cbdb68d03",
+          "body": "{\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Temporary rate-limit exceeded",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

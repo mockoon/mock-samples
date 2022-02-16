@@ -1,0 +1,457 @@
+{
+  "uuid": "292a2c2a-0bae-4c91-89e0-9b3d609d2ab8",
+  "lastMigration": 19,
+  "name": "BigQuery Reservation API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "ed7adb80-04c3-4a87-9692-b8fa1f7fea8d",
+      "documentation": "Deletes a assignment. No expansion will happen. Example: * Organization `organizationA` contains two projects, `project1` and `project2`. * Reservation `res1` exists and was created previously. * CreateAssignment was used previously to define the following associations between entities and reservations: `` and `` In this example, deletion of the `` assignment won't affect the other assignment ``. After said deletion, queries from `project1` will still use `res1` while queries from `project2` will switch to use on-demand mode.",
+      "method": "delete",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "a1ab0c22-773e-447b-9156-e9b6005452cb",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b4d2b01d-d3fd-423b-bae0-c4af38f7f0e1",
+      "documentation": "Returns information about the reservation.",
+      "method": "get",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "5a7a6ab9-e507-49f2-96c1-2ca8a8220371",
+          "body": "{\n  \"creationTime\": \"\",\n  \"ignoreIdleSlots\": {{faker 'random.boolean'}},\n  \"name\": \"\",\n  \"slotCapacity\": \"\",\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7ad6b834-6b1e-4a27-bd7e-0d9b38155858",
+      "documentation": "Updates an existing reservation resource.",
+      "method": "patch",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "8df005f2-512f-402a-b83e-1a6b92f8cdfb",
+          "body": "{\n  \"creationTime\": \"\",\n  \"ignoreIdleSlots\": {{faker 'random.boolean'}},\n  \"name\": \"\",\n  \"slotCapacity\": \"\",\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "917a7e6f-b195-4acb-89cb-d57fb7bf4559",
+      "documentation": "Moves an assignment under a new reservation. This differs from removing an existing assignment and recreating a new one by providing a transactional change that ensures an assignee always has an associated reservation.",
+      "method": "post",
+      "endpoint": "v1/:name:move",
+      "responses": [
+        {
+          "uuid": "8215103a-2030-418d-aef2-d5311b109426",
+          "body": "{\n  \"assignee\": \"\",\n  \"jobType\": \"{{oneOf (array 'JOB_TYPE_UNSPECIFIED' 'PIPELINE' 'QUERY' 'ML_EXTERNAL')}}\",\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'ACTIVE')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "57161d6a-fe12-48b0-ab4d-334510d4dc89",
+      "documentation": "Splits capacity commitment to two commitments of the same plan and `commitment_end_time`. A common use case is to enable downgrading commitments. For example, in order to downgrade from 10000 slots to 8000, you might split a 10000 capacity commitment into commitments of 2000 and 8000. Then, you would change the plan of the first one to `FLEX` and then delete it.",
+      "method": "post",
+      "endpoint": "v1/:name:split",
+      "responses": [
+        {
+          "uuid": "e262fe44-46a9-4513-9d9c-eb3dab596554",
+          "body": "{\n  \"first\": {\n    \"commitmentEndTime\": \"\",\n    \"commitmentStartTime\": \"\",\n    \"failureStatus\": {\n      \"code\": {{faker 'random.number'}},\n      \"details\": [\n        {}\n      ],\n      \"message\": \"\"\n    },\n    \"name\": \"\",\n    \"plan\": \"{{oneOf (array 'COMMITMENT_PLAN_UNSPECIFIED' 'FLEX' 'TRIAL' 'MONTHLY' 'ANNUAL')}}\",\n    \"renewalPlan\": \"{{oneOf (array 'COMMITMENT_PLAN_UNSPECIFIED' 'FLEX' 'TRIAL' 'MONTHLY' 'ANNUAL')}}\",\n    \"slotCount\": \"\",\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'ACTIVE' 'FAILED')}}\"\n  },\n  \"second\": {\n    \"commitmentEndTime\": \"\",\n    \"commitmentStartTime\": \"\",\n    \"failureStatus\": {\n      \"code\": {{faker 'random.number'}},\n      \"details\": [\n        {}\n      ],\n      \"message\": \"\"\n    },\n    \"name\": \"\",\n    \"plan\": \"{{oneOf (array 'COMMITMENT_PLAN_UNSPECIFIED' 'FLEX' 'TRIAL' 'MONTHLY' 'ANNUAL')}}\",\n    \"renewalPlan\": \"{{oneOf (array 'COMMITMENT_PLAN_UNSPECIFIED' 'FLEX' 'TRIAL' 'MONTHLY' 'ANNUAL')}}\",\n    \"slotCount\": \"\",\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'ACTIVE' 'FAILED')}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b4ebe1bc-274d-4326-b26d-8ed059aefc82",
+      "documentation": "Lists assignments. Only explicitly created assignments will be returned. Example: * Organization `organizationA` contains two projects, `project1` and `project2`. * Reservation `res1` exists and was created previously. * CreateAssignment was used previously to define the following associations between entities and reservations: `` and `` In this example, ListAssignments will just return the above two assignments for reservation `res1`, and no expansion/merge will happen. The wildcard \"-\" can be used for reservations in the request. In that case all assignments belongs to the specified project and location will be listed. **Note** \"-\" cannot be used for projects nor locations.",
+      "method": "get",
+      "endpoint": "v1/:parent/assignments",
+      "responses": [
+        {
+          "uuid": "cf031202-1a81-4314-9348-564165f512a3",
+          "body": "{\n  \"assignments\": [\n    {\n      \"assignee\": \"\",\n      \"jobType\": \"{{oneOf (array 'JOB_TYPE_UNSPECIFIED' 'PIPELINE' 'QUERY' 'ML_EXTERNAL')}}\",\n      \"name\": \"\",\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'ACTIVE')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9b74c1d3-cab7-47d3-9852-e0a82d767d28",
+      "documentation": "Creates an assignment object which allows the given project to submit jobs of a certain type using slots from the specified reservation. Currently a resource (project, folder, organization) can only have one assignment per each (job_type, location) combination, and that reservation will be used for all jobs of the matching type. Different assignments can be created on different levels of the projects, folders or organization hierarchy. During query execution, the assignment is looked up at the project, folder and organization levels in that order. The first assignment found is applied to the query. When creating assignments, it does not matter if other assignments exist at higher levels. Example: * The organization `organizationA` contains two projects, `project1` and `project2`. * Assignments for all three entities (`organizationA`, `project1`, and `project2`) could all be created and mapped to the same or different reservations. \"None\" assignments represent an absence of the assignment. Projects assigned to None use on-demand pricing. To create a \"None\" assignment, use \"none\" as a reservation_id in the parent. Example parent: `projects/myproject/locations/US/reservations/none`. Returns `google.rpc.Code.PERMISSION_DENIED` if user does not have 'bigquery.admin' permissions on the project using the reservation and the project that owns this reservation. Returns `google.rpc.Code.INVALID_ARGUMENT` when location of the assignment does not match location of the reservation.",
+      "method": "post",
+      "endpoint": "v1/:parent/assignments",
+      "responses": [
+        {
+          "uuid": "4840f613-f9f5-4117-a55e-4e30e0c8358e",
+          "body": "{\n  \"assignee\": \"\",\n  \"jobType\": \"{{oneOf (array 'JOB_TYPE_UNSPECIFIED' 'PIPELINE' 'QUERY' 'ML_EXTERNAL')}}\",\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'ACTIVE')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7a73d889-0444-4185-9a83-2fbcfe1f899f",
+      "documentation": "Lists all the capacity commitments for the admin project.",
+      "method": "get",
+      "endpoint": "v1/:parent/capacityCommitments",
+      "responses": [
+        {
+          "uuid": "5fee7d98-e9ad-4ce7-af29-0f6186265fb5",
+          "body": "{\n  \"capacityCommitments\": [\n    {\n      \"commitmentEndTime\": \"\",\n      \"commitmentStartTime\": \"\",\n      \"failureStatus\": {\n        \"code\": {{faker 'random.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"name\": \"\",\n      \"plan\": \"{{oneOf (array 'COMMITMENT_PLAN_UNSPECIFIED' 'FLEX' 'TRIAL' 'MONTHLY' 'ANNUAL')}}\",\n      \"renewalPlan\": \"{{oneOf (array 'COMMITMENT_PLAN_UNSPECIFIED' 'FLEX' 'TRIAL' 'MONTHLY' 'ANNUAL')}}\",\n      \"slotCount\": \"\",\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'ACTIVE' 'FAILED')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3e95c2ff-fa70-4d97-be66-42ae178adc58",
+      "documentation": "Creates a new capacity commitment resource.",
+      "method": "post",
+      "endpoint": "v1/:parent/capacityCommitments",
+      "responses": [
+        {
+          "uuid": "0d7cee3a-59f8-4eb5-ac47-82e62abde256",
+          "body": "{\n  \"commitmentEndTime\": \"\",\n  \"commitmentStartTime\": \"\",\n  \"failureStatus\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"name\": \"\",\n  \"plan\": \"{{oneOf (array 'COMMITMENT_PLAN_UNSPECIFIED' 'FLEX' 'TRIAL' 'MONTHLY' 'ANNUAL')}}\",\n  \"renewalPlan\": \"{{oneOf (array 'COMMITMENT_PLAN_UNSPECIFIED' 'FLEX' 'TRIAL' 'MONTHLY' 'ANNUAL')}}\",\n  \"slotCount\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'ACTIVE' 'FAILED')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ae5928b4-8432-4f06-ba6e-0bdf31aadacc",
+      "documentation": "Merges capacity commitments of the same plan into a single commitment. The resulting capacity commitment has the greater commitment_end_time out of the to-be-merged capacity commitments. Attempting to merge capacity commitments of different plan will fail with the error code `google.rpc.Code.FAILED_PRECONDITION`.",
+      "method": "post",
+      "endpoint": "v1/:parent/capacityCommitments:merge",
+      "responses": [
+        {
+          "uuid": "76abf487-e7fe-4c0c-beb0-52b3f20f57f6",
+          "body": "{\n  \"commitmentEndTime\": \"\",\n  \"commitmentStartTime\": \"\",\n  \"failureStatus\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"name\": \"\",\n  \"plan\": \"{{oneOf (array 'COMMITMENT_PLAN_UNSPECIFIED' 'FLEX' 'TRIAL' 'MONTHLY' 'ANNUAL')}}\",\n  \"renewalPlan\": \"{{oneOf (array 'COMMITMENT_PLAN_UNSPECIFIED' 'FLEX' 'TRIAL' 'MONTHLY' 'ANNUAL')}}\",\n  \"slotCount\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'ACTIVE' 'FAILED')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7cab6a21-1975-4216-a4d8-1863eefb6372",
+      "documentation": "Lists all the reservations for the project in the specified location.",
+      "method": "get",
+      "endpoint": "v1/:parent/reservations",
+      "responses": [
+        {
+          "uuid": "6cebf847-a9e7-455b-bc66-017c21696501",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"reservations\": [\n    {\n      \"creationTime\": \"\",\n      \"ignoreIdleSlots\": {{faker 'random.boolean'}},\n      \"name\": \"\",\n      \"slotCapacity\": \"\",\n      \"updateTime\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "423221ad-4383-4a5b-acc2-656517c94496",
+      "documentation": "Creates a new reservation resource.",
+      "method": "post",
+      "endpoint": "v1/:parent/reservations",
+      "responses": [
+        {
+          "uuid": "1b959773-9378-434d-984d-a100c9c44ed7",
+          "body": "{\n  \"creationTime\": \"\",\n  \"ignoreIdleSlots\": {{faker 'random.boolean'}},\n  \"name\": \"\",\n  \"slotCapacity\": \"\",\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "54d2db76-4fc1-40be-9332-cbe8a866fd64",
+      "documentation": "Looks up assignments for a specified resource for a particular region. If the request is about a project: 1. Assignments created on the project will be returned if they exist. 2. Otherwise assignments created on the closest ancestor will be returned. 3. Assignments for different JobTypes will all be returned. The same logic applies if the request is about a folder. If the request is about an organization, then assignments created on the organization will be returned (organization doesn't have ancestors). Comparing to ListAssignments, there are some behavior differences: 1. permission on the assignee will be verified in this API. 2. Hierarchy lookup (project->folder->organization) happens in this API. 3. Parent here is `projects/*/locations/*`, instead of `projects/*/locations/*reservations/*`.",
+      "method": "get",
+      "endpoint": "v1/:parent:searchAllAssignments",
+      "responses": [
+        {
+          "uuid": "d4a6c471-d836-4177-9f2f-b66138ee2738",
+          "body": "{\n  \"assignments\": [\n    {\n      \"assignee\": \"\",\n      \"jobType\": \"{{oneOf (array 'JOB_TYPE_UNSPECIFIED' 'PIPELINE' 'QUERY' 'ML_EXTERNAL')}}\",\n      \"name\": \"\",\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'ACTIVE')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "eee2cfcf-dc7b-4310-a149-990e25a981bb",
+      "documentation": "Deprecated: Looks up assignments for a specified resource for a particular region. If the request is about a project: 1. Assignments created on the project will be returned if they exist. 2. Otherwise assignments created on the closest ancestor will be returned. 3. Assignments for different JobTypes will all be returned. The same logic applies if the request is about a folder. If the request is about an organization, then assignments created on the organization will be returned (organization doesn't have ancestors). Comparing to ListAssignments, there are some behavior differences: 1. permission on the assignee will be verified in this API. 2. Hierarchy lookup (project->folder->organization) happens in this API. 3. Parent here is `projects/*/locations/*`, instead of `projects/*/locations/*reservations/*`. **Note** \"-\" cannot be used for projects nor locations.",
+      "method": "get",
+      "endpoint": "v1/:parent:searchAssignments",
+      "responses": [
+        {
+          "uuid": "25a34a7c-be1b-45d6-a164-8d1083fdbb7b",
+          "body": "{\n  \"assignments\": [\n    {\n      \"assignee\": \"\",\n      \"jobType\": \"{{oneOf (array 'JOB_TYPE_UNSPECIFIED' 'PIPELINE' 'QUERY' 'ML_EXTERNAL')}}\",\n      \"name\": \"\",\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'ACTIVE')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

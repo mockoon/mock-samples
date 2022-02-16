@@ -1,0 +1,4743 @@
+{
+  "uuid": "95d5be7f-c088-448a-84d0-c47bb27ea938",
+  "lastMigration": 19,
+  "name": "NamSor API v2",
+  "endpointPrefix": "NamSorAPIv2",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "49c341a8-ac33-471e-b5a2-30e5b3756143",
+      "documentation": "Activate/deactivate anonymization for a source.",
+      "method": "get",
+      "endpoint": "api2/json/anonymize/:source/:anonymized",
+      "responses": [
+        {
+          "uuid": "28906d60-f76c-4d0f-b556-5c2ecefb73b3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Anonymization of a source.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "aaf431f5-ca57-4476-9ffc-65cd4e09dbf0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4d2a42f3-7617-400a-8586-affb760ece74",
+      "documentation": "List of classification services and usage cost in Units per classification (default is 1=ONE Unit). Some API endpoints (ex. Corridor) combine multiple classifiers.",
+      "method": "get",
+      "endpoint": "api2/json/apiServices",
+      "responses": [
+        {
+          "uuid": "1b6f9771-dc84-4acd-8420-1abd61b559de",
+          "body": "{\n  \"apiServices\": [\n    {\n      \"costInUnits\": {{faker 'random.number'}},\n      \"serviceGroup\": \"\",\n      \"serviceName\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Available services",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "debe01c1-4de6-4c43-ac10-f24942f06308",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7b3d3aa3-9d66-4d4d-b23c-0378b3adbc34",
+      "documentation": "Prints the current status of the classifiers. A classifier name in apiStatus corresponds to a service name in apiServices.",
+      "method": "get",
+      "endpoint": "api2/json/apiStatus",
+      "responses": [
+        {
+          "uuid": "6fb62104-6e2d-4286-996f-7031966f5d57",
+          "body": "{\n  \"classifiers\": [\n    {\n      \"classifierName\": \"\",\n      \"learning\": {{faker 'random.boolean'}},\n      \"probabilityCalibrated\": {{faker 'random.boolean'}},\n      \"serving\": {{faker 'random.boolean'}},\n      \"shuttingDown\": {{faker 'random.boolean'}}\n    }\n  ],\n  \"softwareVersion\": {\n    \"softwareNameAndVersion\": \"\",\n    \"softwareVersion\": [\n      {{faker 'random.number'}}\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Available classifiers and status",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0cdbe60e-a68a-4d9e-9d38-64c59d1d9c32",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5c42a32a-471a-4958-97ab-721627ac0fb8",
+      "documentation": "Print current API usage.",
+      "method": "get",
+      "endpoint": "api2/json/apiUsage",
+      "responses": [
+        {
+          "uuid": "f1007b4f-22e8-4069-932d-bc93bf748ba7",
+          "body": "{\n  \"billingPeriod\": {\n    \"apiKey\": \"\",\n    \"billingStatus\": \"\",\n    \"hardLimit\": {{faker 'random.number'}},\n    \"periodEnded\": {{faker 'random.number'}},\n    \"periodStarted\": {{faker 'random.number'}},\n    \"softLimit\": {{faker 'random.number'}},\n    \"stripeCurrentPeriodEnd\": {{faker 'random.number'}},\n    \"stripeCurrentPeriodStart\": {{faker 'random.number'}},\n    \"subscriptionStarted\": {{faker 'random.number'}},\n    \"usage\": {{faker 'random.number'}}\n  },\n  \"overageCurrency\": \"\",\n  \"overageExclTax\": {{faker 'random.float'}},\n  \"overageInclTax\": {{faker 'random.float'}},\n  \"overageQuantity\": {{faker 'random.number'}},\n  \"subscription\": {\n    \"apiKey\": \"\",\n    \"currency\": \"\",\n    \"currencyFactor\": {{faker 'random.float'}},\n    \"planBaseFeesKey\": \"\",\n    \"planEnded\": {{faker 'random.number'}},\n    \"planName\": \"\",\n    \"planQuota\": {{faker 'random.number'}},\n    \"planStarted\": {{faker 'random.number'}},\n    \"planStatus\": \"\",\n    \"price\": {{faker 'random.float'}},\n    \"priceOverage\": {{faker 'random.float'}},\n    \"priceOverageUSD\": {{faker 'random.float'}},\n    \"priceUSD\": {{faker 'random.float'}},\n    \"priorPlanStarted\": {{faker 'random.number'}},\n    \"stripeCustomerId\": \"\",\n    \"stripeStatus\": \"\",\n    \"stripeSubscription\": \"\",\n    \"taxRate\": {{faker 'random.float'}},\n    \"userId\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Print current API usage.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f84cf6e5-4f58-4d6b-88de-6fe7bf84ab5a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3ae13a3c-a2a1-4be1-b907-8f4eced96efb",
+      "documentation": "Print historical API usage.",
+      "method": "get",
+      "endpoint": "api2/json/apiUsageHistory",
+      "responses": [
+        {
+          "uuid": "7f6535d1-0e60-4bac-bdd7-b0d929708688",
+          "body": "{\n  \"detailedUsage\": [\n    {\n      \"apiKey\": {\n        \"admin\": {{faker 'random.boolean'}},\n        \"anonymized\": {{faker 'random.boolean'}},\n        \"apiKey\": \"\",\n        \"corporate\": {{faker 'random.boolean'}},\n        \"disabled\": {{faker 'random.boolean'}},\n        \"learnable\": {{faker 'random.boolean'}},\n        \"partner\": {{faker 'random.boolean'}},\n        \"striped\": {{faker 'random.boolean'}},\n        \"userId\": \"\",\n        \"vetted\": {{faker 'random.boolean'}}\n      },\n      \"apiService\": \"\",\n      \"createdDateTime\": {{faker 'random.number'}},\n      \"lastFlushedDateTime\": {{faker 'random.number'}},\n      \"lastUsedDateTime\": {{faker 'random.number'}},\n      \"serviceFeaturesUsage\": {},\n      \"totalUsage\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Print historical API usage (NB. new output format form v2.0.15)",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ef3f46c9-2e0a-4f9d-9ec0-ce3bfbd131ab",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "206eb9de-643e-42ce-8a23-122fff051c83",
+      "documentation": "Print historical API usage (in an aggregated view, by service, by day/hour/min).",
+      "method": "get",
+      "endpoint": "api2/json/apiUsageHistoryAggregate",
+      "responses": [
+        {
+          "uuid": "91247965-03eb-48b5-8ba1-d0754e4a4e34",
+          "body": "{\n  \"colHeaders\": [\n    \"\"\n  ],\n  \"data\": [\n    [\n      {{faker 'random.number'}}\n    ]\n  ],\n  \"historyTruncated\": {{faker 'random.boolean'}},\n  \"periodEnd\": {{faker 'random.number'}},\n  \"periodStart\": {{faker 'random.number'}},\n  \"rowHeaders\": [\n    \"\"\n  ],\n  \"timeUnit\": \"\",\n  \"totalUsage\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Print historical API usage.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8e67b1ba-119d-4d74-9e4c-d4bdd32954d2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "970b0d08-77ac-408f-b352-44aee386521b",
+      "documentation": "Identify Chinese name candidates, based on the romanized name ex. Wang Xiaoming",
+      "method": "get",
+      "endpoint": "api2/json/chineseNameCandidates/:chineseSurnameLatin/:chineseGivenNameLatin",
+      "responses": [
+        {
+          "uuid": "2b0cf816-c7b2-4d74-9a5b-e177fc5f2e70",
+          "body": "{\n  \"firstName\": \"\",\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"matchCandidates\": [\n    {\n      \"candidateName\": \"\",\n      \"predScoreFamilyName\": {{faker 'random.float'}},\n      \"predScoreGivenName\": {{faker 'random.float'}},\n      \"probability\": {{faker 'random.float'}}\n    }\n  ],\n  \"orderOption\": \"\",\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A romanized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f55806c8-d615-44ee-87f2-1866c14ea936",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6d449660-91c0-4849-8bc6-24f2ee5d0463",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "495d2a72-c20a-4827-a1ed-57331265924b",
+      "documentation": "Identify Chinese name candidates, based on the romanized name (firstName = chineseGivenName; lastName=chineseSurname), ex. Wang Xiaoming",
+      "method": "post",
+      "endpoint": "api2/json/chineseNameCandidatesBatch",
+      "responses": [
+        {
+          "uuid": "bc02d2af-8fee-4798-a8b1-9bd444cdacb9",
+          "body": "{\n  \"namesAndMatchCandidates\": [\n    {\n      \"firstName\": \"\",\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"matchCandidates\": [\n        {\n          \"candidateName\": \"\",\n          \"predScoreFamilyName\": {{faker 'random.float'}},\n          \"predScoreGivenName\": {{faker 'random.float'}},\n          \"probability\": {{faker 'random.float'}}\n        }\n      ],\n      \"orderOption\": \"\",\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "86ddf4b2-5bba-49e9-a11b-5e5df09ccf79",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e0ddc85b-06eb-4b4d-9483-d2518e630682",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3c755761-8299-46f5-963a-f5fafa0bbb85",
+      "documentation": "Identify Chinese name candidates, based on the romanized name (firstName = chineseGivenName; lastName=chineseSurname) ex. Wang Xiaoming.",
+      "method": "post",
+      "endpoint": "api2/json/chineseNameCandidatesGenderBatch",
+      "responses": [
+        {
+          "uuid": "fffa496d-3688-4e23-939c-ad6aacd4d676",
+          "body": "{\n  \"namesAndMatchCandidates\": [\n    {\n      \"firstName\": \"\",\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"matchCandidates\": [\n        {\n          \"candidateName\": \"\",\n          \"predScoreFamilyName\": {{faker 'random.float'}},\n          \"predScoreGivenName\": {{faker 'random.float'}},\n          \"probability\": {{faker 'random.float'}}\n        }\n      ],\n      \"orderOption\": \"\",\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2dd7fe8a-c3a7-474d-998e-0abf70b93e8e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "44f9b397-d08f-4320-8280-cb96a7d4353f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6be179b3-b11d-49b4-8ce0-901af73a8a0f",
+      "documentation": "Identify Chinese name candidates, based on the romanized name ex. Wang Xiaoming - having a known gender ('male' or 'female')",
+      "method": "get",
+      "endpoint": "api2/json/chineseNameGenderCandidates/:chineseSurnameLatin/:chineseGivenNameLatin/:knownGender",
+      "responses": [
+        {
+          "uuid": "7193aff5-2749-4690-a4ed-d9d3c80ccd0d",
+          "body": "{\n  \"firstName\": \"\",\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"matchCandidates\": [\n    {\n      \"candidateName\": \"\",\n      \"predScoreFamilyName\": {{faker 'random.float'}},\n      \"predScoreGivenName\": {{faker 'random.float'}},\n      \"probability\": {{faker 'random.float'}}\n    }\n  ],\n  \"orderOption\": \"\",\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A romanized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6560be6e-79f0-4805-b483-27a2850bdab0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0b8ebf44-4e67-4d2f-86b5-6e68f4569712",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1346d7c1-90cf-4085-a3ae-30be34634ab2",
+      "documentation": "Return a score for matching Chinese name ex. 王晓明 with a romanized name ex. Wang Xiaoming",
+      "method": "get",
+      "endpoint": "api2/json/chineseNameMatch/:chineseSurnameLatin/:chineseGivenNameLatin/:chineseName",
+      "responses": [
+        {
+          "uuid": "92114f7e-c31d-4ff2-840f-bf2d3965fb34",
+          "body": "{\n  \"id\": \"\",\n  \"matchStatus\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A romanized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "edf140a6-a944-4b12-ac21-651b0fe7638e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5ef2602b-b736-42c7-8e2e-c55c434b8d57",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5fecd14f-d2bd-4373-9c53-36e8e14a68df",
+      "documentation": "Identify Chinese name candidates, based on the romanized name (firstName = chineseGivenName; lastName=chineseSurname), ex. Wang Xiaoming",
+      "method": "post",
+      "endpoint": "api2/json/chineseNameMatchBatch",
+      "responses": [
+        {
+          "uuid": "27343485-1dfb-4f58-904d-46c9f7660237",
+          "body": "{\n  \"matchedNames\": [\n    {\n      \"id\": \"\",\n      \"matchStatus\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e51b75ff-db54-4807-a111-2eb13ecde9bf",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5697fb12-a18c-4a20-b0e3-13abb2235b5a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5116332e-ca27-4a1a-aae7-26d4426f938e",
+      "documentation": "[USES 20 UNITS PER NAME COUPLE] Infer several classifications for a cross border interaction between names (ex. remit, travel, intl com)",
+      "method": "get",
+      "endpoint": "api2/json/corridor/:countryIso2From/:firstNameFrom/:lastNameFrom/:countryIso2To/:firstNameTo/:lastNameTo",
+      "responses": [
+        {
+          "uuid": "afd4669a-af89-48b1-b570-b141a29b51c6",
+          "body": "{\n  \"FirstLastNameDiasporaedOut\": {\n    \"countryIso2\": \"\",\n    \"ethnicitiesTop\": [\n      \"\"\n    ],\n    \"ethnicity\": \"Chinese\",\n    \"ethnicityAlt\": \"Japanese\",\n    \"firstName\": \"\",\n    \"id\": \"\",\n    \"lastName\": \"\",\n    \"lifted\": {{faker 'random.boolean'}},\n    \"score\": {{faker 'random.float'}},\n    \"script\": \"\"\n  },\n  \"FirstLastNameGenderedOut\": {\n    \"firstName\": \"\",\n    \"genderScale\": {{faker 'random.float'}},\n    \"id\": \"\",\n    \"lastName\": \"\",\n    \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n    \"probabilityCalibrated\": {{faker 'random.float'}},\n    \"score\": {{faker 'random.float'}},\n    \"script\": \"\"\n  },\n  \"FirstLastNameOriginedOut\": {\n    \"countriesOriginTop\": [\n      \"\"\n    ],\n    \"countryOrigin\": \"\",\n    \"countryOriginAlt\": \"\",\n    \"firstName\": \"\",\n    \"id\": \"\",\n    \"lastName\": \"\",\n    \"probabilityAltCalibrated\": {{faker 'random.float'}},\n    \"probabilityCalibrated\": {{faker 'random.float'}},\n    \"regionOrigin\": \"\",\n    \"score\": {{faker 'random.float'}},\n    \"script\": \"\",\n    \"subRegionOrigin\": \"\",\n    \"topRegionOrigin\": \"\"\n  },\n  \"id\": \"\",\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Two classified names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ea736f32-b6ea-4256-9a9b-2be3f36000f4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e8cd92e6-2b72-4144-bd2e-615e1bd0dbc3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7d5fe9de-1e09-4caa-8a29-cb19ea025db7",
+      "documentation": "[USES 20 UNITS PER NAME PAIR] Infer several classifications for up to 100 cross border interaction between names (ex. remit, travel, intl com)",
+      "method": "post",
+      "endpoint": "api2/json/corridorBatch",
+      "responses": [
+        {
+          "uuid": "ccfafc9c-274b-4513-b568-35d6dba82931",
+          "body": "{\n  \"corridorFromTo\": [\n    {\n      \"FirstLastNameDiasporaedOut\": {\n        \"countryIso2\": \"\",\n        \"ethnicitiesTop\": [\n          \"\"\n        ],\n        \"ethnicity\": \"Chinese\",\n        \"ethnicityAlt\": \"Japanese\",\n        \"firstName\": \"\",\n        \"id\": \"\",\n        \"lastName\": \"\",\n        \"lifted\": {{faker 'random.boolean'}},\n        \"score\": {{faker 'random.float'}},\n        \"script\": \"\"\n      },\n      \"FirstLastNameGenderedOut\": {\n        \"firstName\": \"\",\n        \"genderScale\": {{faker 'random.float'}},\n        \"id\": \"\",\n        \"lastName\": \"\",\n        \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n        \"probabilityCalibrated\": {{faker 'random.float'}},\n        \"score\": {{faker 'random.float'}},\n        \"script\": \"\"\n      },\n      \"FirstLastNameOriginedOut\": {\n        \"countriesOriginTop\": [\n          \"\"\n        ],\n        \"countryOrigin\": \"\",\n        \"countryOriginAlt\": \"\",\n        \"firstName\": \"\",\n        \"id\": \"\",\n        \"lastName\": \"\",\n        \"probabilityAltCalibrated\": {{faker 'random.float'}},\n        \"probabilityCalibrated\": {{faker 'random.float'}},\n        \"regionOrigin\": \"\",\n        \"score\": {{faker 'random.float'}},\n        \"script\": \"\",\n        \"subRegionOrigin\": \"\",\n        \"topRegionOrigin\": \"\"\n      },\n      \"id\": \"\",\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of classified name pairs.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "632bb401-e632-40d3-9d8d-5eed30f93243",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e1bad129-cfec-4454-9192-1566156d2602",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "db7e74ae-dca0-4139-80b1-f97b277d431b",
+      "documentation": "[USES 10 UNITS PER NAME] Infer the likely country of residence of a personal full name, or one surname. Assumes names as they are in the country of residence OR the country of origin.",
+      "method": "get",
+      "endpoint": "api2/json/country/:personalNameFull",
+      "responses": [
+        {
+          "uuid": "9f1a6bfd-50dd-47d3-8c12-143d932cefc5",
+          "body": "{\n  \"countriesTop\": [\n    \"\"\n  ],\n  \"country\": \"\",\n  \"countryAlt\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"probabilityAltCalibrated\": {{faker 'random.float'}},\n  \"probabilityCalibrated\": {{faker 'random.float'}},\n  \"region\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\",\n  \"subRegion\": \"\",\n  \"topRegion\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A origined name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "785cb63d-1390-4dbf-a07b-f8289bfab30d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6de2c67e-1d6c-461d-8d3b-6af5a1514fdd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6fb29a8a-063e-46a2-988a-00a252cf790c",
+      "documentation": "[USES 10 UNITS PER NAME] Infer the likely country of residence of up to 100 personal full names, or surnames. Assumes names as they are in the country of residence OR the country of origin.",
+      "method": "post",
+      "endpoint": "api2/json/countryBatch",
+      "responses": [
+        {
+          "uuid": "0a093752-2e75-4218-9e8e-5cd1cd77cbfc",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"countriesTop\": [\n        \"\"\n      ],\n      \"country\": \"\",\n      \"countryAlt\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"probabilityAltCalibrated\": {{faker 'random.float'}},\n      \"probabilityCalibrated\": {{faker 'random.float'}},\n      \"region\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\",\n      \"subRegion\": \"\",\n      \"topRegion\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7146888e-bb84-4995-9902-874736f30cfe",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f22b8bfd-8715-4da0-83db-86e9de448137",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d5a66320-ba40-491f-82a6-7189af908651",
+      "documentation": "[USES 20 UNITS PER NAME] Infer the likely ethnicity/diaspora of a personal name, given a country of residence ISO2 code (ex. US, CA, AU, NZ etc.)",
+      "method": "get",
+      "endpoint": "api2/json/diaspora/:countryIso2/:firstName/:lastName",
+      "responses": [
+        {
+          "uuid": "0c17448a-e05a-4840-be67-cb6c6da0262d",
+          "body": "{\n  \"countryIso2\": \"\",\n  \"ethnicitiesTop\": [\n    \"\"\n  ],\n  \"ethnicity\": \"Chinese\",\n  \"ethnicityAlt\": \"Japanese\",\n  \"firstName\": \"\",\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"lifted\": {{faker 'random.boolean'}},\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A diaspora / ethnicity for given name and geography.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a438237b-7806-4cc5-94c6-23112bbc6bfe",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "253313d9-9b11-4178-82d2-9a873005a5b2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f43bcd52-d8fb-42e1-b4db-367d53efa4ab",
+      "documentation": "[USES 20 UNITS PER NAME] Infer the likely ethnicity/diaspora of up to 100 personal names, given a country of residence ISO2 code (ex. US, CA, AU, NZ etc.)",
+      "method": "post",
+      "endpoint": "api2/json/diasporaBatch",
+      "responses": [
+        {
+          "uuid": "9ac34f12-6560-4cbb-ae00-d313794cb88e",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"countryIso2\": \"\",\n      \"ethnicitiesTop\": [\n        \"\"\n      ],\n      \"ethnicity\": \"Chinese\",\n      \"ethnicityAlt\": \"Japanese\",\n      \"firstName\": \"\",\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"lifted\": {{faker 'random.boolean'}},\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of diaspora / ethnicity given a name and residency.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5f860d8d-3148-472a-a67b-9683f852b5df",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "210dfa9a-8301-4869-928d-58ab907d222e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0997bb56-bd7b-441a-9364-511db565350e",
+      "documentation": "Activate/deactivate an API Key.",
+      "method": "get",
+      "endpoint": "api2/json/disable/:source/:disabled",
+      "responses": [
+        {
+          "uuid": "97ad552d-7120-4bf0-8dd0-f0d01bedf0ae",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Disabled the API Key.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f44eb998-6ad5-4fac-9b0e-fe2f3f3f627a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2a4001a4-800a-4627-b3d3-306ebd4550d6",
+      "documentation": "Infer the likely gender of a name.",
+      "method": "get",
+      "endpoint": "api2/json/gender/:firstName/:lastName",
+      "responses": [
+        {
+          "uuid": "b6a5f1aa-1d69-4582-9159-8d48379aac34",
+          "body": "{\n  \"firstName\": \"\",\n  \"genderScale\": {{faker 'random.float'}},\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n  \"probabilityCalibrated\": {{faker 'random.float'}},\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A genderized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f293b161-8123-4b25-8a1c-8101dd981a16",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0fd0a7be-63ae-42da-9659-5e987c8cd518",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "645723e8-00ee-4a00-b22f-f01e927a2791",
+      "documentation": "Infer the likely gender of up to 100 names, detecting automatically the cultural context.",
+      "method": "post",
+      "endpoint": "api2/json/genderBatch",
+      "responses": [
+        {
+          "uuid": "9d9058b4-2962-4f5c-b071-a9ea8d11bd2e",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"firstName\": \"\",\n      \"genderScale\": {{faker 'random.float'}},\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n      \"probabilityCalibrated\": {{faker 'random.float'}},\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d8879542-fd39-4c4a-ad3c-2c3f25dba3f0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4fd215c5-d19f-4d22-9d29-54477b2e8f80",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ca999510-b6c1-4860-a410-cf61a7b5dd22",
+      "documentation": "Infer the likely gender of a Chinese full name ex. 王晓明",
+      "method": "get",
+      "endpoint": "api2/json/genderChineseName/:chineseName",
+      "responses": [
+        {
+          "uuid": "3af71e78-07a0-4064-a0a7-22256c89bf80",
+          "body": "{\n  \"genderScale\": {{faker 'random.float'}},\n  \"id\": \"\",\n  \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n  \"name\": \"\",\n  \"probabilityCalibrated\": {{faker 'random.float'}},\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A genderized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2078bac9-ac81-49b2-835e-7efbcbd792f6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "83b8fb52-91df-4db1-8685-5cf8d253cc69",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "07e8e921-3459-409e-adb7-772a5c3371ce",
+      "documentation": "Infer the likely gender of up to 100 full names ex. 王晓明",
+      "method": "post",
+      "endpoint": "api2/json/genderChineseNameBatch",
+      "responses": [
+        {
+          "uuid": "c9c5c6b5-641d-42b9-83e6-56054348ee17",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"genderScale\": {{faker 'random.float'}},\n      \"id\": \"\",\n      \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n      \"name\": \"\",\n      \"probabilityCalibrated\": {{faker 'random.float'}},\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e11a518a-39be-4842-aa6f-5cc0c70800c7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8f3005c0-5dd6-497f-aaa3-02012deb3fb0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "26fffbb0-63b9-4fdf-ac91-b7a2445138bb",
+      "documentation": "Infer the likely gender of a Chinese name in LATIN (Pinyin).",
+      "method": "get",
+      "endpoint": "api2/json/genderChineseNamePinyin/:chineseSurnameLatin/:chineseGivenNameLatin",
+      "responses": [
+        {
+          "uuid": "09fe69da-b661-4d2d-a073-d812dcb9c7e6",
+          "body": "{\n  \"firstName\": \"\",\n  \"genderScale\": {{faker 'random.float'}},\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n  \"probabilityCalibrated\": {{faker 'random.float'}},\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A genderized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bd93012b-fb8a-4504-903e-cb75a223ed8f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b5bc2f8d-4143-4917-9c1b-8c41385d7ba8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f5e43984-2923-4026-b6ac-bc5a43d25d92",
+      "documentation": "Infer the likely gender of up to 100 Chinese names in LATIN (Pinyin).",
+      "method": "post",
+      "endpoint": "api2/json/genderChineseNamePinyinBatch",
+      "responses": [
+        {
+          "uuid": "fe953474-1110-4813-b296-666350dd4729",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"firstName\": \"\",\n      \"genderScale\": {{faker 'random.float'}},\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n      \"probabilityCalibrated\": {{faker 'random.float'}},\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cb75ab3c-82ee-474b-bd14-89194f147ad0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "200b2e84-6271-4bee-88bb-5953e9f245ff",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a0800460-ff8d-402e-af0b-11f395ef34cf",
+      "documentation": "Infer the likely gender of a full name, ex. John H. Smith",
+      "method": "get",
+      "endpoint": "api2/json/genderFull/:fullName",
+      "responses": [
+        {
+          "uuid": "d0952e76-7842-4bb1-804d-f77bed3acb1b",
+          "body": "{\n  \"genderScale\": {{faker 'random.float'}},\n  \"id\": \"\",\n  \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n  \"name\": \"\",\n  \"probabilityCalibrated\": {{faker 'random.float'}},\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A genderized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bc4ee30a-a641-49a3-8b60-6b5dcace2b31",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ba62136f-e14d-4898-9dcb-54a79ef88a29",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d4f947c2-dd3f-4026-8784-bf01c8613e33",
+      "documentation": "Infer the likely gender of up to 100 full names, detecting automatically the cultural context.",
+      "method": "post",
+      "endpoint": "api2/json/genderFullBatch",
+      "responses": [
+        {
+          "uuid": "5c4e88c2-f333-42bb-8ec4-bc4d89cd2f4d",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"genderScale\": {{faker 'random.float'}},\n      \"id\": \"\",\n      \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n      \"name\": \"\",\n      \"probabilityCalibrated\": {{faker 'random.float'}},\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "565dd0e7-64fb-4fe5-a412-6375b5d1495f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e54f6117-653c-453d-b658-82ab610d1936",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ad372674-2a8b-47dd-8cbe-e92545666230",
+      "documentation": "Infer the likely gender of a full name, given a local context (ISO2 country code).",
+      "method": "get",
+      "endpoint": "api2/json/genderFullGeo/:fullName/:countryIso2",
+      "responses": [
+        {
+          "uuid": "bb4dd9cc-dfbf-47ca-95c9-8cee0dfdd1ba",
+          "body": "{\n  \"genderScale\": {{faker 'random.float'}},\n  \"id\": \"\",\n  \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n  \"name\": \"\",\n  \"probabilityCalibrated\": {{faker 'random.float'}},\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A genderized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5cc305fb-5170-449b-a8cf-72c422ed9a6a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2ff9e792-c305-4cf0-bcc0-7ec710c1dc3e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5cc24f9d-b7f1-4eb9-acaa-fd957333e51b",
+      "documentation": "Infer the likely gender of up to 100 full names, with a given cultural context (country ISO2 code).",
+      "method": "post",
+      "endpoint": "api2/json/genderFullGeoBatch",
+      "responses": [
+        {
+          "uuid": "c296cc38-4d54-40b1-9974-47934d89f592",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"genderScale\": {{faker 'random.float'}},\n      \"id\": \"\",\n      \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n      \"name\": \"\",\n      \"probabilityCalibrated\": {{faker 'random.float'}},\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "59845fb7-622b-4199-8cc6-b2feef70bcbb",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "aed9e75e-551f-4c67-9765-1b1aa2f5ba54",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5d57bb70-cd60-42fc-bb6b-ba9a73649c9d",
+      "documentation": "Infer the likely gender of a name, given a local context (ISO2 country code).",
+      "method": "get",
+      "endpoint": "api2/json/genderGeo/:firstName/:lastName/:countryIso2",
+      "responses": [
+        {
+          "uuid": "15b0836d-b5a7-4623-84e6-499a2f11108c",
+          "body": "{\n  \"firstName\": \"\",\n  \"genderScale\": {{faker 'random.float'}},\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n  \"probabilityCalibrated\": {{faker 'random.float'}},\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A genderized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a2ba847e-0c58-478b-a1ed-c46ac4278487",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "44f2c956-6bd0-40a0-92b6-2d89431e1cba",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ecbab514-061a-44aa-8ff2-7544fb95a20e",
+      "documentation": "Infer the likely gender of up to 100 names, each given a local context (ISO2 country code).",
+      "method": "post",
+      "endpoint": "api2/json/genderGeoBatch",
+      "responses": [
+        {
+          "uuid": "b726b1b0-40f6-499c-9206-8b7d23621daa",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"firstName\": \"\",\n      \"genderScale\": {{faker 'random.float'}},\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n      \"probabilityCalibrated\": {{faker 'random.float'}},\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "99256008-2563-443a-8cdf-f72675253122",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6239f264-1c72-4b2d-ba48-eec8b6191db4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6c9cbd95-74d2-4ed2-9a90-f87615ecd3eb",
+      "documentation": "Infer the likely gender of a Japanese name in LATIN (Pinyin).",
+      "method": "get",
+      "endpoint": "api2/json/genderJapaneseName/:japaneseSurname/:japaneseGivenName",
+      "responses": [
+        {
+          "uuid": "908e4edc-6dac-45ce-b46c-7cf33368326f",
+          "body": "{\n  \"firstName\": \"\",\n  \"genderScale\": {{faker 'random.float'}},\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n  \"probabilityCalibrated\": {{faker 'random.float'}},\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A genderized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7a61abfc-110a-4a7b-b2e8-9262e350fb11",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "de8a9222-0d5b-4e02-8e00-0e332ac290ad",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "593efc54-784a-4e3e-80a3-7d7777e394f0",
+      "documentation": "Infer the likely gender of up to 100 Japanese names in LATIN (Pinyin).",
+      "method": "post",
+      "endpoint": "api2/json/genderJapaneseNameBatch",
+      "responses": [
+        {
+          "uuid": "e86cf754-7724-4528-9545-3620a8bfab49",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"firstName\": \"\",\n      \"genderScale\": {{faker 'random.float'}},\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n      \"probabilityCalibrated\": {{faker 'random.float'}},\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b6de5666-2dfb-4a83-b82d-2b01d14b8662",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "176cbe03-dccc-4cf8-b240-2b007a57abf1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "33119e57-93ba-4adb-aa73-949f4abde205",
+      "documentation": "Infer the likely gender of a Japanese full name ex. 王晓明",
+      "method": "get",
+      "endpoint": "api2/json/genderJapaneseNameFull/:japaneseName",
+      "responses": [
+        {
+          "uuid": "21fbd874-d538-43c8-89c9-0aecd3a02291",
+          "body": "{\n  \"genderScale\": {{faker 'random.float'}},\n  \"id\": \"\",\n  \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n  \"name\": \"\",\n  \"probabilityCalibrated\": {{faker 'random.float'}},\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A genderized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bd49bae0-a96b-4b6e-b17c-d175f6705c46",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "044b9898-e554-46f0-ac05-0aa33030002e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "653febb6-ad66-4d5f-93d8-2062474df72b",
+      "documentation": "Infer the likely gender of up to 100 full names",
+      "method": "post",
+      "endpoint": "api2/json/genderJapaneseNameFullBatch",
+      "responses": [
+        {
+          "uuid": "dae2967a-d332-4b15-82da-cc4026b3d3e2",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"genderScale\": {{faker 'random.float'}},\n      \"id\": \"\",\n      \"likelyGender\": \"{{oneOf (array 'male' 'female' 'unknown')}}\",\n      \"name\": \"\",\n      \"probabilityCalibrated\": {{faker 'random.float'}},\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "870fe172-8215-43db-a18a-297a580c6c05",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "876147a9-6f52-4a89-9a92-0ab5342ec824",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "917cd21c-ddda-496e-a94c-27c6f4910489",
+      "documentation": "Identify japanese name candidates in KANJI, based on the romanized name (firstName = japaneseGivenName; lastName=japaneseSurname) with KNOWN gender, ex. Yamamoto Sanae",
+      "method": "post",
+      "endpoint": "api2/json/japaneseNameGenderKanjiCandidatesBatch",
+      "responses": [
+        {
+          "uuid": "b7ad15c7-0fe2-47b1-b709-e2d3cc8d520b",
+          "body": "{\n  \"namesAndMatchCandidates\": [\n    {\n      \"firstName\": \"\",\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"matchCandidates\": [\n        {\n          \"candidateName\": \"\",\n          \"predScoreFamilyName\": {{faker 'random.float'}},\n          \"predScoreGivenName\": {{faker 'random.float'}},\n          \"probability\": {{faker 'random.float'}}\n        }\n      ],\n      \"orderOption\": \"\",\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7215ec5f-09eb-44fc-88b5-da5d0b696eb2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ca78a967-c67b-4542-ab11-9e49288521f2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e2875e8e-5727-479e-812e-ab97e9ebf53f",
+      "documentation": "Identify japanese name candidates in KANJI, based on the romanized name ex. Yamamoto Sanae",
+      "method": "get",
+      "endpoint": "api2/json/japaneseNameKanjiCandidates/:japaneseSurnameLatin/:japaneseGivenNameLatin",
+      "responses": [
+        {
+          "uuid": "a74749bb-e342-4641-8a06-10ba5205c4ab",
+          "body": "{\n  \"firstName\": \"\",\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"matchCandidates\": [\n    {\n      \"candidateName\": \"\",\n      \"predScoreFamilyName\": {{faker 'random.float'}},\n      \"predScoreGivenName\": {{faker 'random.float'}},\n      \"probability\": {{faker 'random.float'}}\n    }\n  ],\n  \"orderOption\": \"\",\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A romanized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8b9a7fa3-05a6-48e2-96c9-ab4d1269c117",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5ec386ba-4c6f-4b54-9d95-94959ef21c1a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "532be1a4-fe28-42e6-8ed3-ccb162dcd790",
+      "documentation": "Identify japanese name candidates in KANJI, based on the romanized name ex. Yamamoto Sanae - and a known gender.",
+      "method": "get",
+      "endpoint": "api2/json/japaneseNameKanjiCandidates/:japaneseSurnameLatin/:japaneseGivenNameLatin/:knownGender",
+      "responses": [
+        {
+          "uuid": "7eeba385-7275-4a68-a8f7-8356442c9332",
+          "body": "{\n  \"firstName\": \"\",\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"matchCandidates\": [\n    {\n      \"candidateName\": \"\",\n      \"predScoreFamilyName\": {{faker 'random.float'}},\n      \"predScoreGivenName\": {{faker 'random.float'}},\n      \"probability\": {{faker 'random.float'}}\n    }\n  ],\n  \"orderOption\": \"\",\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A romanized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "af10a4fc-fd30-4b09-932d-30bcc5fd2567",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2744cfb3-822a-4c3b-8541-f4b7298ae62a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e606f251-c378-4e68-b80f-a8c8791a1683",
+      "documentation": "Identify japanese name candidates in KANJI, based on the romanized name (firstName = japaneseGivenName; lastName=japaneseSurname), ex. Yamamoto Sanae",
+      "method": "post",
+      "endpoint": "api2/json/japaneseNameKanjiCandidatesBatch",
+      "responses": [
+        {
+          "uuid": "f455ec8c-6ac9-426b-889a-fa7e2f30eaaa",
+          "body": "{\n  \"namesAndMatchCandidates\": [\n    {\n      \"firstName\": \"\",\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"matchCandidates\": [\n        {\n          \"candidateName\": \"\",\n          \"predScoreFamilyName\": {{faker 'random.float'}},\n          \"predScoreGivenName\": {{faker 'random.float'}},\n          \"probability\": {{faker 'random.float'}}\n        }\n      ],\n      \"orderOption\": \"\",\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "eaeb3f22-48de-47ad-9ca9-2d9ccb9a59ef",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fc9f3ee6-da4a-4301-b3f3-4257d4c589fa",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "440db6b7-ef5f-430d-94dd-2b59e67273ae",
+      "documentation": "Romanize japanese name, based on the name in Kanji.",
+      "method": "get",
+      "endpoint": "api2/json/japaneseNameLatinCandidates/:japaneseSurnameKanji/:japaneseGivenNameKanji",
+      "responses": [
+        {
+          "uuid": "ac9d0514-2d08-461e-aba9-168d55cf9316",
+          "body": "{\n  \"firstName\": \"\",\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"matchCandidates\": [\n    {\n      \"candidateName\": \"\",\n      \"predScoreFamilyName\": {{faker 'random.float'}},\n      \"predScoreGivenName\": {{faker 'random.float'}},\n      \"probability\": {{faker 'random.float'}}\n    }\n  ],\n  \"orderOption\": \"\",\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A romanized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e0a9f812-6574-4eef-803e-9d8593adee2c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c483002b-65d8-4f1e-8dc0-5c0f48203069",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "859148e2-0c94-47f6-917e-59cb0c0e0860",
+      "documentation": "Romanize japanese names, based on the name in KANJI",
+      "method": "post",
+      "endpoint": "api2/json/japaneseNameLatinCandidatesBatch",
+      "responses": [
+        {
+          "uuid": "c844b267-4bdc-4e49-9906-916280362bef",
+          "body": "{\n  \"namesAndMatchCandidates\": [\n    {\n      \"firstName\": \"\",\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"matchCandidates\": [\n        {\n          \"candidateName\": \"\",\n          \"predScoreFamilyName\": {{faker 'random.float'}},\n          \"predScoreGivenName\": {{faker 'random.float'}},\n          \"probability\": {{faker 'random.float'}}\n        }\n      ],\n      \"orderOption\": \"\",\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "50ca7405-5844-4738-b99e-5414f52a936f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "57adc55d-aaf5-48ad-b40f-309dc7d10712",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "accc58c6-5607-4176-9a6c-b2d2f546a114",
+      "documentation": "Return a score for matching Japanese name in KANJI ex. 山本 早苗 with a romanized name ex. Yamamoto Sanae",
+      "method": "get",
+      "endpoint": "api2/json/japaneseNameMatch/:japaneseSurnameLatin/:japaneseGivenNameLatin/:japaneseName",
+      "responses": [
+        {
+          "uuid": "a9d6a4c5-9371-4e68-b14d-1833abe4849e",
+          "body": "{\n  \"id\": \"\",\n  \"matchStatus\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A romanized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "60cd84f0-729a-49b4-a670-25b9b2f12ea9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6620aaa2-a11a-4f23-b23d-3fd800d87274",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7ce53eb6-4c15-433e-aaa7-ef9986581269",
+      "documentation": "Return a score for matching a list of Japanese names in KANJI ex. 山本 早苗 with romanized names ex. Yamamoto Sanae",
+      "method": "post",
+      "endpoint": "api2/json/japaneseNameMatchBatch",
+      "responses": [
+        {
+          "uuid": "b7d41ada-245e-47d1-b5f3-7ae7a20c2d36",
+          "body": "{\n  \"matchedNames\": [\n    {\n      \"id\": \"\",\n      \"matchStatus\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of matched names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a0112c13-14c9-49a4-9388-549a519db29d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "59608d01-9965-4949-82c0-e8bcbf082c90",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "dbdd1a24-baea-4551-8187-cdf9d7b3fc7a",
+      "documentation": "[CREDITS 1 UNIT] Feedback loop to better perform matching Japanese name in KANJI ex. 山本 早苗 with a romanized name ex. Yamamoto Sanae",
+      "method": "get",
+      "endpoint": "api2/json/japaneseNameMatchFeedbackLoop/:japaneseSurnameLatin/:japaneseGivenNameLatin/:japaneseName",
+      "responses": [
+        {
+          "uuid": "25ce2801-6aa7-47f7-b1a0-cb736fbeb2dc",
+          "body": "{\n  \"feedbackCredits\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A romanized name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4ad7da39-97a2-4ef6-b21d-8e56bae1059f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4635d774-cd02-4dbc-95fa-3c5e93ca7e0c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "01b5919c-d374-4d4a-be31-5465b135cb4e",
+      "documentation": "Activate/deactivate learning from a source.",
+      "method": "get",
+      "endpoint": "api2/json/learnable/:source/:learnable",
+      "responses": [
+        {
+          "uuid": "d11cc4ea-8278-4daf-a6de-8db9b95cf961",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Set learning from source.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d6972337-7913-4000-9844-784e6df4f807",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c96f056c-8c5e-4bed-9655-9ab1137ae013",
+      "documentation": "Infer the likely type of a proper noun (personal name, brand name, place name etc.)",
+      "method": "get",
+      "endpoint": "api2/json/nameType/:properNoun",
+      "responses": [
+        {
+          "uuid": "486a95b2-d7c7-453c-824b-cc4629f6ce52",
+          "body": "{\n  \"commonType\": \"\",\n  \"commonTypeAlt\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A typed name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4beb2873-1486-4301-b484-df23f0895bb0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b9559158-edd2-4db8-8720-a3048192f403",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "443ac50e-0acf-4dbd-bd5f-f51c548c27dc",
+      "documentation": "Infer the likely common type of up to 100 proper nouns (personal name, brand name, place name etc.)",
+      "method": "post",
+      "endpoint": "api2/json/nameTypeBatch",
+      "responses": [
+        {
+          "uuid": "e25f3efa-3dfc-4869-892b-d182a93e32fa",
+          "body": "{\n  \"properNouns\": [\n    {\n      \"commonType\": \"\",\n      \"commonTypeAlt\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of commonTypeized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7654467c-c4f3-413c-8818-0eab52ecbea2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e14c3688-2d61-457e-8042-249a68c6e1d8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "62e721f2-f718-435a-9cfb-a4ea1c8ccdab",
+      "documentation": "Infer the likely type of a proper noun (personal name, brand name, place name etc.)",
+      "method": "get",
+      "endpoint": "api2/json/nameTypeGeo/:properNoun/:countryIso2",
+      "responses": [
+        {
+          "uuid": "ce70a2c3-4f96-4a48-884f-c216d0bfa662",
+          "body": "{\n  \"commonType\": \"\",\n  \"commonTypeAlt\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A typed name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9d19ee0a-a4a5-465d-a7d8-52585640fc47",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "27287c9f-ef53-4641-9e0e-499278250d87",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "eaa2714f-0a2a-47e1-9b8e-8abde4b9fa5b",
+      "documentation": "Infer the likely common type of up to 100 proper nouns (personal name, brand name, place name etc.)",
+      "method": "post",
+      "endpoint": "api2/json/nameTypeGeoBatch",
+      "responses": [
+        {
+          "uuid": "42207684-48c5-40c0-bc23-b35a3e45872d",
+          "body": "{\n  \"properNouns\": [\n    {\n      \"commonType\": \"\",\n      \"commonTypeAlt\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of commonTypeized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4599934d-c3af-4906-ab47-4c95223ca198",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c2a7b82e-9474-4741-9aef-57523dd8772e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "fc68dc90-7896-49dd-bc58-469cb4c55a8f",
+      "documentation": "[USES 10 UNITS PER NAME] Infer the likely country of origin of a personal name. Assumes names as they are in the country of origin. For US, CA, AU, NZ and other melting-pots : use 'diaspora' instead.",
+      "method": "get",
+      "endpoint": "api2/json/origin/:firstName/:lastName",
+      "responses": [
+        {
+          "uuid": "cf47be71-3148-49b3-ab04-ad958820d6ad",
+          "body": "{\n  \"countriesOriginTop\": [\n    \"\"\n  ],\n  \"countryOrigin\": \"\",\n  \"countryOriginAlt\": \"\",\n  \"firstName\": \"\",\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"probabilityAltCalibrated\": {{faker 'random.float'}},\n  \"probabilityCalibrated\": {{faker 'random.float'}},\n  \"regionOrigin\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\",\n  \"subRegionOrigin\": \"\",\n  \"topRegionOrigin\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A origined name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7643d2e0-d087-4a87-8f01-4d6c2617a657",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f62c8814-3df0-4e7e-9493-0c1caa7f26b5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "149e9941-a3ad-416c-b7dd-484626865a56",
+      "documentation": "[USES 10 UNITS PER NAME] Infer the likely country of origin of up to 100 names, detecting automatically the cultural context.",
+      "method": "post",
+      "endpoint": "api2/json/originBatch",
+      "responses": [
+        {
+          "uuid": "6eff3002-dcb3-4f9c-b824-baa8ebe7f3cc",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"countriesOriginTop\": [\n        \"\"\n      ],\n      \"countryOrigin\": \"\",\n      \"countryOriginAlt\": \"\",\n      \"firstName\": \"\",\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"probabilityAltCalibrated\": {{faker 'random.float'}},\n      \"probabilityCalibrated\": {{faker 'random.float'}},\n      \"regionOrigin\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\",\n      \"subRegionOrigin\": \"\",\n      \"topRegionOrigin\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "08106bef-a140-4245-9c6c-c77ee7ea4c1b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6090e5c4-2416-4639-bacc-c4b1f13c5014",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2383ebe6-94dc-43e6-9074-a8347c1fec46",
+      "documentation": "Infer the likely first/last name structure of a name, ex. 王晓明 -> 王(surname) 晓明(given name)",
+      "method": "get",
+      "endpoint": "api2/json/parseChineseName/:chineseName",
+      "responses": [
+        {
+          "uuid": "be97676a-c07d-4a5f-808e-bc5efd35742b",
+          "body": "{\n  \"firstLastName\": {\n    \"firstName\": \"\",\n    \"id\": \"\",\n    \"lastName\": \"\",\n    \"script\": \"\"\n  },\n  \"id\": \"\",\n  \"name\": \"\",\n  \"nameParserType\": \"\",\n  \"nameParserTypeAlt\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A origined name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "23dac3e6-cb74-47d8-80c9-ba045c4eb4a9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "75305cf8-8e79-4404-b8cf-413c011d45e8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "31f90d12-12ad-4ab0-86a9-41eac844b8ae",
+      "documentation": "Infer the likely first/last name structure of a name, ex. 王晓明 -> 王(surname) 晓明(given name).",
+      "method": "post",
+      "endpoint": "api2/json/parseChineseNameBatch",
+      "responses": [
+        {
+          "uuid": "655fdb6e-100f-4e6e-b8ec-a7c7ad0d712d",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"firstLastName\": {\n        \"firstName\": \"\",\n        \"id\": \"\",\n        \"lastName\": \"\",\n        \"script\": \"\"\n      },\n      \"id\": \"\",\n      \"name\": \"\",\n      \"nameParserType\": \"\",\n      \"nameParserTypeAlt\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of parsed names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "eb1780ca-3ee2-4b5d-a98a-ff880f5ed699",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ef49e411-058f-4261-9a18-6ea6ca6174ed",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2d856b14-c4f3-4b57-bdc1-a5271a4ecfa4",
+      "documentation": "Infer the likely first/last name structure of a name, ex. 山本 早苗 or Yamamoto Sanae",
+      "method": "get",
+      "endpoint": "api2/json/parseJapaneseName/:japaneseName",
+      "responses": [
+        {
+          "uuid": "64eaac3d-bfbd-4d8b-818c-a0a45d02fdfe",
+          "body": "{\n  \"firstLastName\": {\n    \"firstName\": \"\",\n    \"id\": \"\",\n    \"lastName\": \"\",\n    \"script\": \"\"\n  },\n  \"id\": \"\",\n  \"name\": \"\",\n  \"nameParserType\": \"\",\n  \"nameParserTypeAlt\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A origined name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c4aead76-05c9-4067-9260-0fd10e3908e0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c36f1ee9-8f5c-4dfc-8066-fea923e8fbf6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "eaa89f84-e147-414f-a282-62d1d7183526",
+      "documentation": "Infer the likely first/last name structure of a name, ex. 山本 早苗 or Yamamoto Sanae ",
+      "method": "post",
+      "endpoint": "api2/json/parseJapaneseNameBatch",
+      "responses": [
+        {
+          "uuid": "3d952615-7898-4f66-9093-4a80709bf880",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"firstLastName\": {\n        \"firstName\": \"\",\n        \"id\": \"\",\n        \"lastName\": \"\",\n        \"script\": \"\"\n      },\n      \"id\": \"\",\n      \"name\": \"\",\n      \"nameParserType\": \"\",\n      \"nameParserTypeAlt\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of parsed names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e3a8baf2-82aa-4a4e-87a1-c7f6b20549c8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a50ff58d-8860-446d-ae3c-270d0241e37f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0fa835c3-dfb7-490d-9a98-7258947f3294",
+      "documentation": "Infer the likely first/last name structure of a name, ex. John Smith or SMITH, John or SMITH; John. ",
+      "method": "get",
+      "endpoint": "api2/json/parseName/:nameFull",
+      "responses": [
+        {
+          "uuid": "47ddcaca-fa9b-4915-85b4-f6a7e172e00f",
+          "body": "{\n  \"firstLastName\": {\n    \"firstName\": \"\",\n    \"id\": \"\",\n    \"lastName\": \"\",\n    \"script\": \"\"\n  },\n  \"id\": \"\",\n  \"name\": \"\",\n  \"nameParserType\": \"\",\n  \"nameParserTypeAlt\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A origined name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "aa384467-f06e-429e-953d-cfef26171cf7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1676a954-55dd-4f27-b9e1-fe8c7f3f263f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ba642e97-5bfd-4824-9ed5-880039f004c7",
+      "documentation": "Infer the likely first/last name structure of a name, ex. John Smith or SMITH, John or SMITH; John. For better accuracy, provide a geographic context.",
+      "method": "get",
+      "endpoint": "api2/json/parseName/:nameFull/:countryIso2",
+      "responses": [
+        {
+          "uuid": "dabc3245-3b05-426c-a223-8ca62b14680b",
+          "body": "{\n  \"firstLastName\": {\n    \"firstName\": \"\",\n    \"id\": \"\",\n    \"lastName\": \"\",\n    \"script\": \"\"\n  },\n  \"id\": \"\",\n  \"name\": \"\",\n  \"nameParserType\": \"\",\n  \"nameParserTypeAlt\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A origined name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a22dd392-a43f-4e53-9b6b-2d0553cc20d7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "df72f86e-018a-462b-9788-e5649c5e921c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a0481a52-899d-4bd8-81a8-b2994f135c41",
+      "documentation": "Infer the likely first/last name structure of a name, ex. John Smith or SMITH, John or SMITH; John.",
+      "method": "post",
+      "endpoint": "api2/json/parseNameBatch",
+      "responses": [
+        {
+          "uuid": "fab2c663-cca2-4939-9018-b9f5bf7efafa",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"firstLastName\": {\n        \"firstName\": \"\",\n        \"id\": \"\",\n        \"lastName\": \"\",\n        \"script\": \"\"\n      },\n      \"id\": \"\",\n      \"name\": \"\",\n      \"nameParserType\": \"\",\n      \"nameParserTypeAlt\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of parsed names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d3b21a14-e08a-40fc-a993-930e0c787550",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6ac20030-9509-47a3-9935-5807e6125ef9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f89681be-a44d-4582-ad7a-491dac77e3c7",
+      "documentation": "Infer the likely first/last name structure of a name, ex. John Smith or SMITH, John or SMITH; John. Giving a local context improves precision. ",
+      "method": "post",
+      "endpoint": "api2/json/parseNameGeoBatch",
+      "responses": [
+        {
+          "uuid": "f499d4c7-102e-43d6-a5d5-9961f7099704",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"firstLastName\": {\n        \"firstName\": \"\",\n        \"id\": \"\",\n        \"lastName\": \"\",\n        \"script\": \"\"\n      },\n      \"id\": \"\",\n      \"name\": \"\",\n      \"nameParserType\": \"\",\n      \"nameParserTypeAlt\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of parsed names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "22b30c07-edc0-449e-8fe9-57681d4e1455",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2c070fc1-3323-4fd0-90ec-bca02c82dbfc",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4296fac8-8ad7-4f76-be29-1ca513247b54",
+      "documentation": "[USES 11 UNITS PER NAME] Infer the likely country and phone prefix, given a personal name and formatted / unformatted phone number.",
+      "method": "get",
+      "endpoint": "api2/json/phoneCode/:firstName/:lastName/:phoneNumber",
+      "responses": [
+        {
+          "uuid": "ff51a2f7-9fc4-4ed7-886c-17a371d70202",
+          "body": "{\n  \"countryIso2\": \"\",\n  \"firstName\": \"\",\n  \"id\": \"\",\n  \"internationalPhoneNumberVerified\": \"\",\n  \"lastName\": \"\",\n  \"originCountryIso2\": \"\",\n  \"originCountryIso2Alt\": \"\",\n  \"phoneCountryCode\": {{faker 'random.number'}},\n  \"phoneCountryCodeAlt\": {{faker 'random.number'}},\n  \"phoneCountryIso2\": \"\",\n  \"phoneCountryIso2Alt\": \"\",\n  \"phoneCountryIso2Verified\": \"\",\n  \"phoneNumber\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\",\n  \"verified\": {{faker 'random.boolean'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A name with country and phone code.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1f0f777c-ea13-4ba3-a740-7955dfafac98",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fdf16a0b-9e67-4a28-8537-8d6c6c9ba108",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9718b458-49a3-4408-8691-95d04b0a5de9",
+      "documentation": "[USES 11 UNITS PER NAME] Infer the likely country and phone prefix, of up to 100 personal names, detecting automatically the local context given a name and formatted / unformatted phone number.",
+      "method": "post",
+      "endpoint": "api2/json/phoneCodeBatch",
+      "responses": [
+        {
+          "uuid": "b20a1eaa-2802-4686-b67d-5c88c57c1101",
+          "body": "{\n  \"personalNamesWithPhoneNumbers\": [\n    {\n      \"countryIso2\": \"\",\n      \"firstName\": \"\",\n      \"id\": \"\",\n      \"internationalPhoneNumberVerified\": \"\",\n      \"lastName\": \"\",\n      \"originCountryIso2\": \"\",\n      \"originCountryIso2Alt\": \"\",\n      \"phoneCountryCode\": {{faker 'random.number'}},\n      \"phoneCountryCodeAlt\": {{faker 'random.number'}},\n      \"phoneCountryIso2\": \"\",\n      \"phoneCountryIso2Alt\": \"\",\n      \"phoneCountryIso2Verified\": \"\",\n      \"phoneNumber\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\",\n      \"verified\": {{faker 'random.boolean'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b86e6af4-9dfd-401e-8cbd-a043b68ed4bb",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "17433065-5561-4809-a61d-f46d9e00ebfa",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "23364270-82da-4379-824e-9211d3bdc29a",
+      "documentation": "[USES 11 UNITS PER NAME] Infer the likely phone prefix, given a personal name and formatted / unformatted phone number, with a local context (ISO2 country of residence).",
+      "method": "get",
+      "endpoint": "api2/json/phoneCodeGeo/:firstName/:lastName/:phoneNumber/:countryIso2",
+      "responses": [
+        {
+          "uuid": "1940761d-495a-47eb-af2f-d109edcb1738",
+          "body": "{\n  \"countryIso2\": \"\",\n  \"firstName\": \"\",\n  \"id\": \"\",\n  \"internationalPhoneNumberVerified\": \"\",\n  \"lastName\": \"\",\n  \"originCountryIso2\": \"\",\n  \"originCountryIso2Alt\": \"\",\n  \"phoneCountryCode\": {{faker 'random.number'}},\n  \"phoneCountryCodeAlt\": {{faker 'random.number'}},\n  \"phoneCountryIso2\": \"\",\n  \"phoneCountryIso2Alt\": \"\",\n  \"phoneCountryIso2Verified\": \"\",\n  \"phoneNumber\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\",\n  \"verified\": {{faker 'random.boolean'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A name with country and phone code.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7c12f1ef-a1b2-4dcf-aeab-dd7e932cf87a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d3b32935-ad5d-43a2-885e-9f7791bf57a1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4c8db979-b775-4345-a661-c124315e4242",
+      "documentation": "[USES 11 UNITS PER NAME] Infer the likely country and phone prefix, of up to 100 personal names, with a local context (ISO2 country of residence).",
+      "method": "post",
+      "endpoint": "api2/json/phoneCodeGeoBatch",
+      "responses": [
+        {
+          "uuid": "29b836a4-a409-4de9-81f0-6ca00d609101",
+          "body": "{\n  \"personalNamesWithPhoneNumbers\": [\n    {\n      \"countryIso2\": \"\",\n      \"firstName\": \"\",\n      \"id\": \"\",\n      \"internationalPhoneNumberVerified\": \"\",\n      \"lastName\": \"\",\n      \"originCountryIso2\": \"\",\n      \"originCountryIso2Alt\": \"\",\n      \"phoneCountryCode\": {{faker 'random.number'}},\n      \"phoneCountryCodeAlt\": {{faker 'random.number'}},\n      \"phoneCountryIso2\": \"\",\n      \"phoneCountryIso2Alt\": \"\",\n      \"phoneCountryIso2Verified\": \"\",\n      \"phoneNumber\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\",\n      \"verified\": {{faker 'random.boolean'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of genderized names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "044d4b72-0736-4662-8332-104db0308989",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "be525674-462c-4ef2-a278-ccb516cf49cc",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9c4fc388-a4f9-4caa-b0b8-2c0aefaec712",
+      "documentation": "[CREDITS 1 UNIT] Feedback loop to better infer the likely phone prefix, given a personal name and formatted / unformatted phone number, with a local context (ISO2 country of residence).",
+      "method": "get",
+      "endpoint": "api2/json/phoneCodeGeoFeedbackLoop/:firstName/:lastName/:phoneNumber/:phoneNumberE164/:countryIso2",
+      "responses": [
+        {
+          "uuid": "d4382017-35db-4505-b75c-c76aa9571dcd",
+          "body": "{\n  \"countryIso2\": \"\",\n  \"firstName\": \"\",\n  \"id\": \"\",\n  \"internationalPhoneNumberVerified\": \"\",\n  \"lastName\": \"\",\n  \"originCountryIso2\": \"\",\n  \"originCountryIso2Alt\": \"\",\n  \"phoneCountryCode\": {{faker 'random.number'}},\n  \"phoneCountryCodeAlt\": {{faker 'random.number'}},\n  \"phoneCountryIso2\": \"\",\n  \"phoneCountryIso2Alt\": \"\",\n  \"phoneCountryIso2Verified\": \"\",\n  \"phoneNumber\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\",\n  \"verified\": {{faker 'random.boolean'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A name with country and phone code.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3427ccc3-e925-40b6-84af-c745653f117d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "55a5117f-5e6a-4b3f-98cb-1f809f730df4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b88ef75b-4d6c-4617-90a9-2236818b5855",
+      "documentation": "Romanize the Chinese name to Pinyin, ex. 王晓明 -> Wang (surname) Xiaoming (given name)",
+      "method": "get",
+      "endpoint": "api2/json/pinyinChineseName/:chineseName",
+      "responses": [
+        {
+          "uuid": "b86a1fc7-1159-48d9-8f3e-e376f117227c",
+          "body": "{\n  \"firstLastName\": {\n    \"firstName\": \"\",\n    \"id\": \"\",\n    \"lastName\": \"\",\n    \"script\": \"\"\n  },\n  \"id\": \"\",\n  \"name\": \"\",\n  \"nameParserType\": \"\",\n  \"nameParserTypeAlt\": \"\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A pinyin name.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "285c0636-2ee2-4642-8868-7dfc8fc93fd6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "620443bc-284a-4a00-b5ed-8a658dc0ccb6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "82ea5de4-ff14-4fd9-94c2-53fe4388f279",
+      "documentation": "Romanize a list of Chinese name to Pinyin, ex. 王晓明 -> Wang (surname) Xiaoming (given name).",
+      "method": "post",
+      "endpoint": "api2/json/pinyinChineseNameBatch",
+      "responses": [
+        {
+          "uuid": "a84285a6-9a08-45db-bc2c-a89f77e00fc4",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"firstLastName\": {\n        \"firstName\": \"\",\n        \"id\": \"\",\n        \"lastName\": \"\",\n        \"script\": \"\"\n      },\n      \"id\": \"\",\n      \"name\": \"\",\n      \"nameParserType\": \"\",\n      \"nameParserTypeAlt\": \"\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of Pinyin names.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f76f73e2-59e6-40dc-9d77-771505880d43",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "06924f56-f1d8-44e7-9f81-17742dc200bc",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "579ead85-7bb4-468d-9ecf-4f947b194c49",
+      "documentation": "Get the current software version",
+      "method": "get",
+      "endpoint": "api2/json/softwareVersion",
+      "responses": [
+        {
+          "uuid": "31f0ef80-fe61-4100-b783-01d72dbc4785",
+          "body": "{\n  \"softwareNameAndVersion\": \"\",\n  \"softwareVersion\": [\n    {{faker 'random.number'}}\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The current software version",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7f765c7b-303f-4154-b5e7-a5d29a7eaea1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c973f6bb-1ca6-4aca-b51f-c597c1dedc92",
+      "documentation": "Print the taxonomy classes valid for the given classifier.",
+      "method": "get",
+      "endpoint": "api2/json/taxonomyClasses/:classifierName",
+      "responses": [
+        {
+          "uuid": "20f7eee3-7a3b-4af1-8bbf-c4909cc51555",
+          "body": "{\n  \"classifierName\": \"\",\n  \"taxonomyClasses\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Available plans",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ad972b06-f4e5-40c0-a70e-711a1428b148",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "66e7036a-6eca-4b08-8a26-ba100c663ed7",
+      "documentation": "[USES 10 UNITS PER NAME] Infer a US resident's likely race/ethnicity according to US Census taxonomy W_NL (white, non latino), HL (hispano latino),  A (asian, non latino), B_NL (black, non latino). Optionally add header X-OPTION-USRACEETHNICITY-TAXONOMY: USRACEETHNICITY-6CLASSES for two additional classes, AI_AN (American Indian or Alaskan Native) and PI (Pacific Islander).",
+      "method": "get",
+      "endpoint": "api2/json/usRaceEthnicity/:firstName/:lastName",
+      "responses": [
+        {
+          "uuid": "ea7749bd-95ee-4e9d-9035-d6832636e60b",
+          "body": "{\n  \"firstName\": \"\",\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"probabilityAltCalibrated\": {{faker 'random.float'}},\n  \"probabilityCalibrated\": {{faker 'random.float'}},\n  \"raceEthnicitiesTop\": [\n    \"\"\n  ],\n  \"raceEthnicity\": \"{{oneOf (array 'W_NL' 'HL' 'A' 'B_NL' 'AI_AN' 'PI')}}\",\n  \"raceEthnicityAlt\": \"{{oneOf (array 'W_NL' 'HL' 'A' 'B_NL' 'AI_AN' 'PI')}}\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "a US resident's likely race/ethnicity : W_NL (white, non latino), HL (hispano latino),  A (asian, non latino), B_NL (black, non latino), AI_AN (American Indian or Alaskan Native*) and PI (Pacific Islander*). *optionally",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "422fa08b-6412-4502-835b-59c82b556d99",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "48339a81-2f23-4035-b1de-c6395a7f1e03",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5df411d2-d90d-4c98-b5eb-db5db19076f2",
+      "documentation": "[USES 10 UNITS PER NAME] Infer up-to 100 US resident's likely race/ethnicity according to US Census taxonomy. Output is W_NL (white, non latino), HL (hispano latino),  A (asian, non latino), B_NL (black, non latino). Optionally add header X-OPTION-USRACEETHNICITY-TAXONOMY: USRACEETHNICITY-6CLASSES for two additional classes, AI_AN (American Indian or Alaskan Native) and PI (Pacific Islander).",
+      "method": "post",
+      "endpoint": "api2/json/usRaceEthnicityBatch",
+      "responses": [
+        {
+          "uuid": "928d31c5-1c7e-4f40-b8d7-9e3577f91456",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"firstName\": \"\",\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"probabilityAltCalibrated\": {{faker 'random.float'}},\n      \"probabilityCalibrated\": {{faker 'random.float'}},\n      \"raceEthnicitiesTop\": [\n        \"\"\n      ],\n      \"raceEthnicity\": \"{{oneOf (array 'W_NL' 'HL' 'A' 'B_NL' 'AI_AN' 'PI')}}\",\n      \"raceEthnicityAlt\": \"{{oneOf (array 'W_NL' 'HL' 'A' 'B_NL' 'AI_AN' 'PI')}}\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of US resident's likely race/ethnicity. W_NL (white, non latino), HL (hispano latino),  A (asian, non latino), B_NL (black, non latino), AI_AN (American Indian or Alaskan Native*) and PI (Pacific Islander*). *optionally",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f97798dd-c1d5-4fd4-9bda-dbacca418ccd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a0909bb1-3170-49d1-a2b3-cee10ef0cbc1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3b5d5f5f-ea27-4a39-915e-40a27792dd92",
+      "documentation": "[USES 10 UNITS PER NAME] Infer a US resident's likely race/ethnicity according to US Census taxonomy, using (optional) ZIP5 code info. Output is W_NL (white, non latino), HL (hispano latino),  A (asian, non latino), B_NL (black, non latino). Optionally add header X-OPTION-USRACEETHNICITY-TAXONOMY: USRACEETHNICITY-6CLASSES for two additional classes, AI_AN (American Indian or Alaskan Native) and PI (Pacific Islander).",
+      "method": "get",
+      "endpoint": "api2/json/usRaceEthnicityZIP5/:firstName/:lastName/:zip5Code",
+      "responses": [
+        {
+          "uuid": "8dcf9ca0-c16b-4140-bb25-48d16502e874",
+          "body": "{\n  \"firstName\": \"\",\n  \"id\": \"\",\n  \"lastName\": \"\",\n  \"probabilityAltCalibrated\": {{faker 'random.float'}},\n  \"probabilityCalibrated\": {{faker 'random.float'}},\n  \"raceEthnicitiesTop\": [\n    \"\"\n  ],\n  \"raceEthnicity\": \"{{oneOf (array 'W_NL' 'HL' 'A' 'B_NL' 'AI_AN' 'PI')}}\",\n  \"raceEthnicityAlt\": \"{{oneOf (array 'W_NL' 'HL' 'A' 'B_NL' 'AI_AN' 'PI')}}\",\n  \"score\": {{faker 'random.float'}},\n  \"script\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "a US resident's likely race/ethnicity : W_NL (white, non latino), HL (hispano latino),  A (asian, non latino), B_NL (black, non latino), AI_AN (American Indian or Alaskan Native*) and PI (Pacific Islander*). *optionally",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cf582c64-5803-40f2-aacc-1f0ac773e098",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d83f0c9b-9dfd-43c0-8102-dd7ff6145471",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "aa7956cb-193a-4dcf-bc2f-a32ffa8009c5",
+      "documentation": "[USES 10 UNITS PER NAME] Infer up-to 100 US resident's likely race/ethnicity according to US Census taxonomy, with (optional) ZIP code. Output is W_NL (white, non latino), HL (hispano latino),  A (asian, non latino), B_NL (black, non latino). Optionally add header X-OPTION-USRACEETHNICITY-TAXONOMY: USRACEETHNICITY-6CLASSES for two additional classes, AI_AN (American Indian or Alaskan Native) and PI (Pacific Islander).",
+      "method": "post",
+      "endpoint": "api2/json/usZipRaceEthnicityBatch",
+      "responses": [
+        {
+          "uuid": "8c95bf0a-18b2-4fd7-94b1-f465a3ffaaad",
+          "body": "{\n  \"personalNames\": [\n    {\n      \"firstName\": \"\",\n      \"id\": \"\",\n      \"lastName\": \"\",\n      \"probabilityAltCalibrated\": {{faker 'random.float'}},\n      \"probabilityCalibrated\": {{faker 'random.float'}},\n      \"raceEthnicitiesTop\": [\n        \"\"\n      ],\n      \"raceEthnicity\": \"{{oneOf (array 'W_NL' 'HL' 'A' 'B_NL' 'AI_AN' 'PI')}}\",\n      \"raceEthnicityAlt\": \"{{oneOf (array 'W_NL' 'HL' 'A' 'B_NL' 'AI_AN' 'PI')}}\",\n      \"score\": {{faker 'random.float'}},\n      \"script\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A list of US resident's likely race/ethnicity. W_NL (white, non latino), HL (hispano latino),  A (asian, non latino), B_NL (black, non latino), AI_AN (American Indian or Alaskan Native*) and PI (Pacific Islander*). *optionally",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "15b94c9d-2864-4c4b-99c6-3b0e58f89a5a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Missing or incorrect API Key",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "02c4e14a-88d4-4d15-837a-dc22f9be0f96",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "API Limit Reached or API Key Disabled",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

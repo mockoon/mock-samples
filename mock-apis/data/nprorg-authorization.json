@@ -1,0 +1,496 @@
+{
+  "uuid": "dd814f13-a7ec-4221-a58a-f1259ff705bb",
+  "lastMigration": 19,
+  "name": "NPR Authorization Service",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "df1f00f8-1ab6-47bb-a21b-6f13eab5a7d4",
+      "documentation": "Show a web-based login/signup form to a user",
+      "method": "get",
+      "endpoint": "v2/authorize",
+      "responses": [
+        {
+          "uuid": "2551bcc8-a814-458d-a0e4-4e9a6947cb11",
+          "body": "",
+          "latency": 0,
+          "statusCode": 302,
+          "label": "The correct parameters were passed in and we are redirecting to the authentication page; OR, a valid `redirect_uri` was supplied but there was another error, and the error type and message are embedded in the querystring.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/html"
+            },
+            {
+              "key": "Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "849b6e3f-0fd4-43e5-99ad-fbabbfc7190a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "A bad request; generally, one or more parameters passed in were incorrect or missing. This error will only be shown if the client did not pass in a valid `redirect_uri`; otherwise, all errors will be returned as 302s to the supplied `redirect_uri`, with the error type and message embedded in the querystring.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/html"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1219bc0e-cc03-4353-b43e-9cc7df62acab",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "The client credentials were invalid (i.e., the `redirect_uri` does not match what we have stored for this client) or the authorization server denied the request. This error will only be shown if the client did not pass in a valid `redirect_uri`; otherwise, all errors will be returned as 302s to the supplied `redirect_uri`, with the error type and message embedded in the querystring.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/html"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5c844a8d-b61b-4154-bb21-a4838c39ed93",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "There was an unspecified server error. This error will only be shown if the client did not pass in a valid `redirect_uri`; otherwise, all errors will be returned as 302s to the supplied `redirect_uri`, with the error type and message embedded in the querystring.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/html"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "de3ab759-0f7c-4ebc-86d5-a73135a12531",
+          "body": "",
+          "latency": 0,
+          "statusCode": 503,
+          "label": "The system is undergoing maintenance and we are unable to fulfill this request. This error will only be shown if the client did not pass in a valid `redirect_uri`; otherwise, all errors will be returned as 302s to the supplied `redirect_uri`, with the error type and message embedded in the querystring.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/html"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9874876e-c344-428c-af28-c731015bcc62",
+      "documentation": "Initiate an OAuth2 login flow for limited input devices",
+      "method": "post",
+      "endpoint": "v2/device",
+      "responses": [
+        {
+          "uuid": "b7beb59e-1529-4c7b-8e21-0c054a5ba9f1",
+          "body": "{\n  \"device_code\": \"\",\n  \"expires_in\": 1800,\n  \"interval\": 5,\n  \"user_code\": \"\",\n  \"verification_uri\": \"http://npr.org/device\"\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "We have generated a unique device code and user code. These will only be valid for the amount of time specified in the `expires_in` field; if the user does not complete the login process in that amount of time, the client will need to request a new set of codes.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8fed22b6-9203-4cfa-838f-9299fad12c61",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "A bad request; generally, one or more parameters passed in were incorrect or missing",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ecedf8c1-5aa3-4354-ba4c-7215bfea0ad3",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "The client credentials were invalid or the authorization server denied the request.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "08aea38f-45d6-4720-b729-2f3793ae2408",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "A server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9f3183ac-9808-4532-bff4-40c1a9a7ecf4",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 503,
+          "label": "The system is undergoing maintenance and we are unable to fulfill this request. Look for a `Retry-After` header to see the predicted time the system will be back up.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Retry-After",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b1b9b336-f4f2-4a9d-a416-2f1e6a4d0533",
+      "documentation": "Create a new OAuth2 access token",
+      "method": "post",
+      "endpoint": "v2/token",
+      "responses": [
+        {
+          "uuid": "b40afdfd-40df-4fad-a88c-bbc39d6abc91",
+          "body": "{\n  \"access_token\": \"\",\n  \"expires_in\": {{faker 'random.number'}},\n  \"refresh_token\": \"\",\n  \"token_type\": \"{{oneOf (array 'Bearer' 'MAC')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A new token was successfully created",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "05cc42ce-0843-4204-a3e2-0b2319c56399",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "A bad request; generally, one or more parameters passed in were incorrect or missing",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "41de1741-83de-432b-98cc-c3f31008ee55",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "The client credentials were invalid (any grant type), the user credentials were invalid (`password` grant type), the user has not yet logged in or has purposely denied the request (`device_code` grant type), or the authorization server denied the request.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ff1361f4-0009-4202-a879-5c52b4a2ab84",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "A server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "92c9006f-5dc4-4e0d-84f8-8ac7f107ae93",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 503,
+          "label": "The system is undergoing maintenance and we are unable to fulfill this request. Look for a `Retry-After` header to see the predicted time the system will be back up.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Retry-After",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "41b643b3-d73d-4e9d-9dfa-8c694a30e1b1",
+      "documentation": "Revoke an existing OAuth2 access token",
+      "method": "post",
+      "endpoint": "v2/token/revoke",
+      "responses": [
+        {
+          "uuid": "c14ac208-c83e-4593-8781-5fe954061510",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "The old token was successfully revoked",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cef3941b-a19e-43df-a8f3-bc3ca843c371",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "A bad request; generally, one or more parameters passed in were incorrect or missing",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2c8e0935-229d-48ac-8b3a-c8ec6387804f",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "The client credentials were invalid or the authorization server denied the request.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4f13dc2c-415c-4c68-8bf2-8ae1a6a8f248",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "The client associated with the access token in the header does not own the access token that this request is attempting to revoke.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "20387507-10d7-4258-b362-d9117d5d368a",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "A server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8506b2a7-47ab-478a-9c8b-84cfa6c770bc",
+          "body": "{\n  \"message\": \"\",\n  \"type\": \"error\"\n}",
+          "latency": 0,
+          "statusCode": 503,
+          "label": "The system is undergoing maintenance and we are unable to fulfill this request. Look for a `Retry-After` header to see the predicted time the system will be back up.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Retry-After",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

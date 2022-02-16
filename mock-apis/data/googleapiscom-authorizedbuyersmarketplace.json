@@ -1,0 +1,847 @@
+{
+  "uuid": "872ba7ab-a985-49d8-8afa-742b24a02f29",
+  "lastMigration": 19,
+  "name": "Authorized Buyers Marketplace API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "886724de-215f-44a3-a0d9-c31ab1b7c9a7",
+      "documentation": "Subscribe the specified clients of the buyer to the auction package. If a client in the list does not belong to the buyer, an error response will be returned, and all of the following clients in the list will not be subscribed. Subscribing an already subscribed client will have no effect.",
+      "method": "post",
+      "endpoint": "v1/:auctionPackage:subscribeClients",
+      "responses": [
+        {
+          "uuid": "795f4aa8-5b09-4b8e-914b-b3392715c6ab",
+          "body": "{\n  \"createTime\": \"\",\n  \"creator\": \"\",\n  \"description\": \"\",\n  \"displayName\": \"\",\n  \"name\": \"\",\n  \"subscribedClients\": [\n    \"\"\n  ],\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "288cbd57-1468-4426-938e-fda495c738d9",
+      "documentation": "Unsubscribe from the auction package for the specified clients of the buyer. Unsubscribing a client that is not subscribed will have no effect.",
+      "method": "post",
+      "endpoint": "v1/:auctionPackage:unsubscribeClients",
+      "responses": [
+        {
+          "uuid": "c0672c79-7105-4478-99b3-dd7c83717eab",
+          "body": "{\n  \"createTime\": \"\",\n  \"creator\": \"\",\n  \"description\": \"\",\n  \"displayName\": \"\",\n  \"name\": \"\",\n  \"subscribedClients\": [\n    \"\"\n  ],\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "686b3475-cb64-409a-b23d-84f01ccd6b98",
+      "documentation": "Sends a request for proposal (RFP) to a publisher to initiate the negotiation regarding certain inventory. In the RFP, buyers can specify the deal type, deal terms, start and end dates, targeting, and a message to the publisher. Once the RFP is sent, a proposal in `SELLER_REVIEW_REQUESTED` state will be created and returned in the response. The publisher may review your request and respond with detailed deals in the proposal.",
+      "method": "post",
+      "endpoint": "v1/:buyer/proposals:sendRfp",
+      "responses": [
+        {
+          "uuid": "4decfff2-77ad-4324-ba02-2cbd2c66b4b8",
+          "body": "{\n  \"billedBuyer\": \"\",\n  \"buyer\": \"\",\n  \"buyerContacts\": [\n    {\n      \"displayName\": \"\",\n      \"email\": \"\"\n    }\n  ],\n  \"buyerPrivateData\": {\n    \"referenceId\": \"\"\n  },\n  \"client\": \"\",\n  \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n  \"displayName\": \"\",\n  \"isRenegotiating\": {{faker 'random.boolean'}},\n  \"lastUpdaterOrCommentorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n  \"name\": \"\",\n  \"notes\": [\n    {\n      \"createTime\": \"\",\n      \"creatorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n      \"note\": \"\"\n    }\n  ],\n  \"originatorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n  \"pausingConsented\": {{faker 'random.boolean'}},\n  \"proposalRevision\": \"\",\n  \"publisherProfile\": \"\",\n  \"sellerContacts\": [\n    {\n      \"displayName\": \"\",\n      \"email\": \"\"\n    }\n  ],\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'BUYER_REVIEW_REQUESTED' 'SELLER_REVIEW_REQUESTED' 'BUYER_ACCEPTANCE_REQUESTED' 'FINALIZED' 'TERMINATED')}}\",\n  \"termsAndConditions\": \"\",\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b053f0f3-23ae-4faf-99dc-dfad4bd7ff9a",
+      "documentation": "Add creative to be used in the bidding process for a finalized deal. For programmatic guaranteed deals, it's recommended that you associate at least one approved creative with the deal before calling SetReadyToServe, to help reduce the number of bid responses filtered because they don't contain approved creatives. Creatives successfully added to a deal can be found in the Realtime-bidding Creatives API creative.deal_ids. This method only applies to programmatic guaranteed deals. Maximum number of 1000 creatives can be added to a finalized deal.",
+      "method": "post",
+      "endpoint": "v1/:deal:addCreative",
+      "responses": [
+        {
+          "uuid": "117c32c1-f8e8-4713-9a39-4c40209e8861",
+          "body": "{\n  \"deal\": {\n    \"billedBuyer\": \"\",\n    \"buyer\": \"\",\n    \"client\": \"\",\n    \"createTime\": \"\",\n    \"creativeRequirements\": {\n      \"creativeFormat\": \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'DISPLAY' 'VIDEO')}}\",\n      \"creativePreApprovalPolicy\": \"{{oneOf (array 'CREATIVE_PRE_APPROVAL_POLICY_UNSPECIFIED' 'SELLER_PRE_APPROVAL_REQUIRED' 'SELLER_PRE_APPROVAL_NOT_REQUIRED')}}\",\n      \"creativeSafeFrameCompatibility\": \"{{oneOf (array 'CREATIVE_SAFE_FRAME_COMPATIBILITY_UNSPECIFIED' 'COMPATIBLE' 'INCOMPATIBLE')}}\",\n      \"maxAdDurationMs\": \"\",\n      \"programmaticCreativeSource\": \"{{oneOf (array 'PROGRAMMATIC_CREATIVE_SOURCE_UNSPECIFIED' 'ADVERTISER' 'PUBLISHER')}}\",\n      \"skippableAdType\": \"{{oneOf (array 'SKIPPABLE_AD_TYPE_UNSPECIFIED' 'SKIPPABLE' 'INSTREAM_SELECT' 'NOT_SKIPPABLE' 'ANY')}}\"\n    },\n    \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n    \"deliveryControl\": {\n      \"companionDeliveryType\": \"{{oneOf (array 'COMPANION_DELIVERY_TYPE_UNSPECIFIED' 'DELIVERY_OPTIONAL' 'DELIVERY_AT_LEAST_ONE' 'DELIVERY_ALL')}}\",\n      \"creativeRotationType\": \"{{oneOf (array 'CREATIVE_ROTATION_TYPE_UNSPECIFIED' 'ROTATION_EVEN' 'ROTATION_OPTIMIZED' 'ROTATION_MANUAL' 'ROTATION_SEQUENTIAL')}}\",\n      \"deliveryRateType\": \"{{oneOf (array 'DELIVERY_RATE_TYPE_UNSPECIFIED' 'EVENLY' 'FRONT_LOADED' 'AS_FAST_AS_POSSIBLE')}}\",\n      \"frequencyCap\": [\n        {\n          \"maxImpressions\": {{faker 'random.number'}},\n          \"timeUnitType\": \"{{oneOf (array 'TIME_UNIT_TYPE_UNSPECIFIED' 'MINUTE' 'HOUR' 'DAY' 'WEEK' 'MONTH' 'LIFETIME' 'POD' 'STREAM')}}\",\n          \"timeUnitsCount\": {{faker 'random.number'}}\n        }\n      ],\n      \"roadblockingType\": \"{{oneOf (array 'ROADBLOCKING_TYPE_UNSPECIFIED' 'ONLY_ONE' 'ONE_OR_MORE' 'AS_MANY_AS_POSSIBLE' 'ALL_ROADBLOCK' 'CREATIVE_SET')}}\"\n    },\n    \"description\": \"\",\n    \"displayName\": \"\",\n    \"estimatedGrossSpend\": {\n      \"currencyCode\": \"\",\n      \"nanos\": {{faker 'random.number'}},\n      \"units\": \"\"\n    },\n    \"flightEndTime\": \"\",\n    \"flightStartTime\": \"\",\n    \"name\": \"\",\n    \"preferredDealTerms\": {\n      \"fixedPrice\": {\n        \"amount\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n      }\n    },\n    \"privateAuctionTerms\": {\n      \"floorPrice\": {\n        \"amount\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n      },\n      \"openAuctionAllowed\": {{faker 'random.boolean'}}\n    },\n    \"programmaticGuaranteedTerms\": {\n      \"fixedPrice\": {\n        \"amount\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n      },\n      \"guaranteedLooks\": \"\",\n      \"impressionCap\": \"\",\n      \"minimumDailyLooks\": \"\",\n      \"percentShareOfVoice\": \"\",\n      \"reservationType\": \"{{oneOf (array 'RESERVATION_TYPE_UNSPECIFIED' 'STANDARD' 'SPONSORSHIP')}}\"\n    },\n    \"proposalRevision\": \"\",\n    \"publisherProfile\": \"\",\n    \"sellerTimeZone\": {\n      \"id\": \"\",\n      \"version\": \"\"\n    },\n    \"targeting\": {\n      \"daypartTargeting\": {\n        \"dayParts\": [\n          {\n            \"dayOfWeek\": \"{{oneOf (array 'DAY_OF_WEEK_UNSPECIFIED' 'MONDAY' 'TUESDAY' 'WEDNESDAY' 'THURSDAY' 'FRIDAY' 'SATURDAY' 'SUNDAY')}}\",\n            \"endTime\": {\n              \"hours\": {{faker 'random.number'}},\n              \"minutes\": {{faker 'random.number'}},\n              \"nanos\": {{faker 'random.number'}},\n              \"seconds\": {{faker 'random.number'}}\n            },\n            \"startTime\": {\n              \"hours\": {{faker 'random.number'}},\n              \"minutes\": {{faker 'random.number'}},\n              \"nanos\": {{faker 'random.number'}},\n              \"seconds\": {{faker 'random.number'}}\n            }\n          }\n        ],\n        \"timeZoneType\": \"{{oneOf (array 'TIME_ZONE_TYPE_UNSPECIFIED' 'SELLER' 'USER')}}\"\n      },\n      \"geoTargeting\": {\n        \"excludedCriteriaIds\": [\n          \"\"\n        ],\n        \"targetedCriteriaIds\": [\n          \"\"\n        ]\n      },\n      \"inventorySizeTargeting\": {\n        \"excludedInventorySizes\": [\n          {\n            \"height\": \"\",\n            \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n            \"width\": \"\"\n          }\n        ],\n        \"targetedInventorySizes\": [\n          {\n            \"height\": \"\",\n            \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n            \"width\": \"\"\n          }\n        ]\n      },\n      \"placementTargeting\": {\n        \"mobileApplicationTargeting\": {\n          \"firstPartyTargeting\": {\n            \"excludedAppIds\": [\n              \"\"\n            ],\n            \"targetedAppIds\": [\n              \"\"\n            ]\n          }\n        },\n        \"uriTargeting\": {\n          \"excludedUris\": [\n            \"\"\n          ],\n          \"targetedUris\": [\n            \"\"\n          ]\n        }\n      },\n      \"technologyTargeting\": {\n        \"deviceCapabilityTargeting\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"deviceCategoryTargeting\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"operatingSystemTargeting\": {\n          \"operatingSystemCriteria\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          },\n          \"operatingSystemVersionCriteria\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          }\n        }\n      },\n      \"userListTargeting\": {\n        \"excludedCriteriaIds\": [\n          \"\"\n        ],\n        \"targetedCriteriaIds\": [\n          \"\"\n        ]\n      },\n      \"videoTargeting\": {\n        \"excludedPositionTypes\": [\n          \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n        ],\n        \"targetedPositionTypes\": [\n          \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n        ]\n      }\n    },\n    \"updateTime\": \"\"\n  },\n  \"dealPausingInfo\": {\n    \"pauseReason\": \"\",\n    \"pauseRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n    \"pausingConsented\": {{faker 'random.boolean'}}\n  },\n  \"dealServingStatus\": \"{{oneOf (array 'DEAL_SERVING_STATUS_UNSPECIFIED' 'ACTIVE' 'ENDED' 'PAUSED_BY_BUYER' 'PAUSED_BY_SELLER')}}\",\n  \"name\": \"\",\n  \"readyToServe\": {{faker 'random.boolean'}},\n  \"rtbMetrics\": {\n    \"adImpressions7Days\": \"\",\n    \"bidRate7Days\": {{faker 'random.float'}},\n    \"bidRequests7Days\": \"\",\n    \"bids7Days\": \"\",\n    \"filteredBidRate7Days\": {{faker 'random.float'}},\n    \"mustBidRateCurrentMonth\": {{faker 'random.float'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "204a6d52-da34-4a8a-bd94-5e4009901582",
+      "documentation": "Sets the given finalized deal as ready to serve. By default, deals are ready to serve as soon as they're finalized. A bidder can opt out of this feature by asking to be included in an allowlist. Once opted out, finalized deals belonging to the bidder and its child seats will not start serving until this method is called. This method is useful to the bidders who prefer to not receive bid requests before the creative is ready. This method only applies to programmatic guaranteed deals.",
+      "method": "post",
+      "endpoint": "v1/:deal:setReadyToServe",
+      "responses": [
+        {
+          "uuid": "b8d0b476-d839-4ac0-9f27-d324293ddc94",
+          "body": "{\n  \"deal\": {\n    \"billedBuyer\": \"\",\n    \"buyer\": \"\",\n    \"client\": \"\",\n    \"createTime\": \"\",\n    \"creativeRequirements\": {\n      \"creativeFormat\": \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'DISPLAY' 'VIDEO')}}\",\n      \"creativePreApprovalPolicy\": \"{{oneOf (array 'CREATIVE_PRE_APPROVAL_POLICY_UNSPECIFIED' 'SELLER_PRE_APPROVAL_REQUIRED' 'SELLER_PRE_APPROVAL_NOT_REQUIRED')}}\",\n      \"creativeSafeFrameCompatibility\": \"{{oneOf (array 'CREATIVE_SAFE_FRAME_COMPATIBILITY_UNSPECIFIED' 'COMPATIBLE' 'INCOMPATIBLE')}}\",\n      \"maxAdDurationMs\": \"\",\n      \"programmaticCreativeSource\": \"{{oneOf (array 'PROGRAMMATIC_CREATIVE_SOURCE_UNSPECIFIED' 'ADVERTISER' 'PUBLISHER')}}\",\n      \"skippableAdType\": \"{{oneOf (array 'SKIPPABLE_AD_TYPE_UNSPECIFIED' 'SKIPPABLE' 'INSTREAM_SELECT' 'NOT_SKIPPABLE' 'ANY')}}\"\n    },\n    \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n    \"deliveryControl\": {\n      \"companionDeliveryType\": \"{{oneOf (array 'COMPANION_DELIVERY_TYPE_UNSPECIFIED' 'DELIVERY_OPTIONAL' 'DELIVERY_AT_LEAST_ONE' 'DELIVERY_ALL')}}\",\n      \"creativeRotationType\": \"{{oneOf (array 'CREATIVE_ROTATION_TYPE_UNSPECIFIED' 'ROTATION_EVEN' 'ROTATION_OPTIMIZED' 'ROTATION_MANUAL' 'ROTATION_SEQUENTIAL')}}\",\n      \"deliveryRateType\": \"{{oneOf (array 'DELIVERY_RATE_TYPE_UNSPECIFIED' 'EVENLY' 'FRONT_LOADED' 'AS_FAST_AS_POSSIBLE')}}\",\n      \"frequencyCap\": [\n        {\n          \"maxImpressions\": {{faker 'random.number'}},\n          \"timeUnitType\": \"{{oneOf (array 'TIME_UNIT_TYPE_UNSPECIFIED' 'MINUTE' 'HOUR' 'DAY' 'WEEK' 'MONTH' 'LIFETIME' 'POD' 'STREAM')}}\",\n          \"timeUnitsCount\": {{faker 'random.number'}}\n        }\n      ],\n      \"roadblockingType\": \"{{oneOf (array 'ROADBLOCKING_TYPE_UNSPECIFIED' 'ONLY_ONE' 'ONE_OR_MORE' 'AS_MANY_AS_POSSIBLE' 'ALL_ROADBLOCK' 'CREATIVE_SET')}}\"\n    },\n    \"description\": \"\",\n    \"displayName\": \"\",\n    \"estimatedGrossSpend\": {\n      \"currencyCode\": \"\",\n      \"nanos\": {{faker 'random.number'}},\n      \"units\": \"\"\n    },\n    \"flightEndTime\": \"\",\n    \"flightStartTime\": \"\",\n    \"name\": \"\",\n    \"preferredDealTerms\": {\n      \"fixedPrice\": {\n        \"amount\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n      }\n    },\n    \"privateAuctionTerms\": {\n      \"floorPrice\": {\n        \"amount\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n      },\n      \"openAuctionAllowed\": {{faker 'random.boolean'}}\n    },\n    \"programmaticGuaranteedTerms\": {\n      \"fixedPrice\": {\n        \"amount\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n      },\n      \"guaranteedLooks\": \"\",\n      \"impressionCap\": \"\",\n      \"minimumDailyLooks\": \"\",\n      \"percentShareOfVoice\": \"\",\n      \"reservationType\": \"{{oneOf (array 'RESERVATION_TYPE_UNSPECIFIED' 'STANDARD' 'SPONSORSHIP')}}\"\n    },\n    \"proposalRevision\": \"\",\n    \"publisherProfile\": \"\",\n    \"sellerTimeZone\": {\n      \"id\": \"\",\n      \"version\": \"\"\n    },\n    \"targeting\": {\n      \"daypartTargeting\": {\n        \"dayParts\": [\n          {\n            \"dayOfWeek\": \"{{oneOf (array 'DAY_OF_WEEK_UNSPECIFIED' 'MONDAY' 'TUESDAY' 'WEDNESDAY' 'THURSDAY' 'FRIDAY' 'SATURDAY' 'SUNDAY')}}\",\n            \"endTime\": {\n              \"hours\": {{faker 'random.number'}},\n              \"minutes\": {{faker 'random.number'}},\n              \"nanos\": {{faker 'random.number'}},\n              \"seconds\": {{faker 'random.number'}}\n            },\n            \"startTime\": {\n              \"hours\": {{faker 'random.number'}},\n              \"minutes\": {{faker 'random.number'}},\n              \"nanos\": {{faker 'random.number'}},\n              \"seconds\": {{faker 'random.number'}}\n            }\n          }\n        ],\n        \"timeZoneType\": \"{{oneOf (array 'TIME_ZONE_TYPE_UNSPECIFIED' 'SELLER' 'USER')}}\"\n      },\n      \"geoTargeting\": {\n        \"excludedCriteriaIds\": [\n          \"\"\n        ],\n        \"targetedCriteriaIds\": [\n          \"\"\n        ]\n      },\n      \"inventorySizeTargeting\": {\n        \"excludedInventorySizes\": [\n          {\n            \"height\": \"\",\n            \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n            \"width\": \"\"\n          }\n        ],\n        \"targetedInventorySizes\": [\n          {\n            \"height\": \"\",\n            \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n            \"width\": \"\"\n          }\n        ]\n      },\n      \"placementTargeting\": {\n        \"mobileApplicationTargeting\": {\n          \"firstPartyTargeting\": {\n            \"excludedAppIds\": [\n              \"\"\n            ],\n            \"targetedAppIds\": [\n              \"\"\n            ]\n          }\n        },\n        \"uriTargeting\": {\n          \"excludedUris\": [\n            \"\"\n          ],\n          \"targetedUris\": [\n            \"\"\n          ]\n        }\n      },\n      \"technologyTargeting\": {\n        \"deviceCapabilityTargeting\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"deviceCategoryTargeting\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"operatingSystemTargeting\": {\n          \"operatingSystemCriteria\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          },\n          \"operatingSystemVersionCriteria\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          }\n        }\n      },\n      \"userListTargeting\": {\n        \"excludedCriteriaIds\": [\n          \"\"\n        ],\n        \"targetedCriteriaIds\": [\n          \"\"\n        ]\n      },\n      \"videoTargeting\": {\n        \"excludedPositionTypes\": [\n          \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n        ],\n        \"targetedPositionTypes\": [\n          \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n        ]\n      }\n    },\n    \"updateTime\": \"\"\n  },\n  \"dealPausingInfo\": {\n    \"pauseReason\": \"\",\n    \"pauseRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n    \"pausingConsented\": {{faker 'random.boolean'}}\n  },\n  \"dealServingStatus\": \"{{oneOf (array 'DEAL_SERVING_STATUS_UNSPECIFIED' 'ACTIVE' 'ENDED' 'PAUSED_BY_BUYER' 'PAUSED_BY_SELLER')}}\",\n  \"name\": \"\",\n  \"readyToServe\": {{faker 'random.boolean'}},\n  \"rtbMetrics\": {\n    \"adImpressions7Days\": \"\",\n    \"bidRate7Days\": {{faker 'random.float'}},\n    \"bidRequests7Days\": \"\",\n    \"bids7Days\": \"\",\n    \"filteredBidRate7Days\": {{faker 'random.float'}},\n    \"mustBidRateCurrentMonth\": {{faker 'random.float'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6872fba0-c992-4853-b232-420a9b915b0b",
+      "documentation": "Deletes an existing client user. The client user will lose access to the Authorized Buyers UI. Note that if a client user is deleted, the user's access to the UI can't be restored unless a new client user is created and activated.",
+      "method": "delete",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "8f782647-e3f2-4e50-b51a-1f575286a54b",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "999dd53a-bab3-4b0c-b6fc-34534cfab22b",
+      "documentation": "Gets the requested publisher profile by name.",
+      "method": "get",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "c81291f4-bb5d-4484-b2cf-7e6004c22afe",
+          "body": "{\n  \"audienceDescription\": \"\",\n  \"directDealsContact\": \"\",\n  \"displayName\": \"\",\n  \"domains\": [\n    \"\"\n  ],\n  \"isParent\": {{faker 'random.boolean'}},\n  \"logoUrl\": \"\",\n  \"mediaKitUrl\": \"\",\n  \"mobileApps\": [\n    {\n      \"appStore\": \"{{oneOf (array 'APP_STORE_TYPE_UNSPECIFIED' 'APPLE_ITUNES' 'GOOGLE_PLAY' 'ROKU' 'AMAZON_FIRE_TV' 'PLAYSTATION' 'XBOX' 'SAMSUNG_TV' 'AMAZON' 'OPPO' 'SAMSUNG' 'VIVO' 'XIAOMI')}}\",\n      \"externalAppId\": \"\",\n      \"name\": \"\"\n    }\n  ],\n  \"name\": \"\",\n  \"overview\": \"\",\n  \"pitchStatement\": \"\",\n  \"programmaticDealsContact\": \"\",\n  \"publisherCode\": \"\",\n  \"samplePageUrl\": \"\",\n  \"topHeadlines\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "65c79402-ca49-47ad-8368-717544ed87b4",
+      "documentation": "Updates the given deal at the buyer known revision number. If the server revision has advanced since the passed-in proposal.proposal_revision an ABORTED error message will be returned. The revision number is incremented by the server whenever the proposal or its constituent deals are updated. Note: The revision number is kept at a proposal level. The buyer of the API is expected to keep track of the revision number after the last update operation and send it in as part of the next update request. This way, if there are further changes on the server (e.g., seller making new updates), then the server can detect conflicts and reject the proposed changes.",
+      "method": "patch",
+      "endpoint": "v1/:name",
+      "responses": [
+        {
+          "uuid": "a7679efb-3176-4442-9299-1da317c847f4",
+          "body": "{\n  \"billedBuyer\": \"\",\n  \"buyer\": \"\",\n  \"client\": \"\",\n  \"createTime\": \"\",\n  \"creativeRequirements\": {\n    \"creativeFormat\": \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'DISPLAY' 'VIDEO')}}\",\n    \"creativePreApprovalPolicy\": \"{{oneOf (array 'CREATIVE_PRE_APPROVAL_POLICY_UNSPECIFIED' 'SELLER_PRE_APPROVAL_REQUIRED' 'SELLER_PRE_APPROVAL_NOT_REQUIRED')}}\",\n    \"creativeSafeFrameCompatibility\": \"{{oneOf (array 'CREATIVE_SAFE_FRAME_COMPATIBILITY_UNSPECIFIED' 'COMPATIBLE' 'INCOMPATIBLE')}}\",\n    \"maxAdDurationMs\": \"\",\n    \"programmaticCreativeSource\": \"{{oneOf (array 'PROGRAMMATIC_CREATIVE_SOURCE_UNSPECIFIED' 'ADVERTISER' 'PUBLISHER')}}\",\n    \"skippableAdType\": \"{{oneOf (array 'SKIPPABLE_AD_TYPE_UNSPECIFIED' 'SKIPPABLE' 'INSTREAM_SELECT' 'NOT_SKIPPABLE' 'ANY')}}\"\n  },\n  \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n  \"deliveryControl\": {\n    \"companionDeliveryType\": \"{{oneOf (array 'COMPANION_DELIVERY_TYPE_UNSPECIFIED' 'DELIVERY_OPTIONAL' 'DELIVERY_AT_LEAST_ONE' 'DELIVERY_ALL')}}\",\n    \"creativeRotationType\": \"{{oneOf (array 'CREATIVE_ROTATION_TYPE_UNSPECIFIED' 'ROTATION_EVEN' 'ROTATION_OPTIMIZED' 'ROTATION_MANUAL' 'ROTATION_SEQUENTIAL')}}\",\n    \"deliveryRateType\": \"{{oneOf (array 'DELIVERY_RATE_TYPE_UNSPECIFIED' 'EVENLY' 'FRONT_LOADED' 'AS_FAST_AS_POSSIBLE')}}\",\n    \"frequencyCap\": [\n      {\n        \"maxImpressions\": {{faker 'random.number'}},\n        \"timeUnitType\": \"{{oneOf (array 'TIME_UNIT_TYPE_UNSPECIFIED' 'MINUTE' 'HOUR' 'DAY' 'WEEK' 'MONTH' 'LIFETIME' 'POD' 'STREAM')}}\",\n        \"timeUnitsCount\": {{faker 'random.number'}}\n      }\n    ],\n    \"roadblockingType\": \"{{oneOf (array 'ROADBLOCKING_TYPE_UNSPECIFIED' 'ONLY_ONE' 'ONE_OR_MORE' 'AS_MANY_AS_POSSIBLE' 'ALL_ROADBLOCK' 'CREATIVE_SET')}}\"\n  },\n  \"description\": \"\",\n  \"displayName\": \"\",\n  \"estimatedGrossSpend\": {\n    \"currencyCode\": \"\",\n    \"nanos\": {{faker 'random.number'}},\n    \"units\": \"\"\n  },\n  \"flightEndTime\": \"\",\n  \"flightStartTime\": \"\",\n  \"name\": \"\",\n  \"preferredDealTerms\": {\n    \"fixedPrice\": {\n      \"amount\": {\n        \"currencyCode\": \"\",\n        \"nanos\": {{faker 'random.number'}},\n        \"units\": \"\"\n      },\n      \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n    }\n  },\n  \"privateAuctionTerms\": {\n    \"floorPrice\": {\n      \"amount\": {\n        \"currencyCode\": \"\",\n        \"nanos\": {{faker 'random.number'}},\n        \"units\": \"\"\n      },\n      \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n    },\n    \"openAuctionAllowed\": {{faker 'random.boolean'}}\n  },\n  \"programmaticGuaranteedTerms\": {\n    \"fixedPrice\": {\n      \"amount\": {\n        \"currencyCode\": \"\",\n        \"nanos\": {{faker 'random.number'}},\n        \"units\": \"\"\n      },\n      \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n    },\n    \"guaranteedLooks\": \"\",\n    \"impressionCap\": \"\",\n    \"minimumDailyLooks\": \"\",\n    \"percentShareOfVoice\": \"\",\n    \"reservationType\": \"{{oneOf (array 'RESERVATION_TYPE_UNSPECIFIED' 'STANDARD' 'SPONSORSHIP')}}\"\n  },\n  \"proposalRevision\": \"\",\n  \"publisherProfile\": \"\",\n  \"sellerTimeZone\": {\n    \"id\": \"\",\n    \"version\": \"\"\n  },\n  \"targeting\": {\n    \"daypartTargeting\": {\n      \"dayParts\": [\n        {\n          \"dayOfWeek\": \"{{oneOf (array 'DAY_OF_WEEK_UNSPECIFIED' 'MONDAY' 'TUESDAY' 'WEDNESDAY' 'THURSDAY' 'FRIDAY' 'SATURDAY' 'SUNDAY')}}\",\n          \"endTime\": {\n            \"hours\": {{faker 'random.number'}},\n            \"minutes\": {{faker 'random.number'}},\n            \"nanos\": {{faker 'random.number'}},\n            \"seconds\": {{faker 'random.number'}}\n          },\n          \"startTime\": {\n            \"hours\": {{faker 'random.number'}},\n            \"minutes\": {{faker 'random.number'}},\n            \"nanos\": {{faker 'random.number'}},\n            \"seconds\": {{faker 'random.number'}}\n          }\n        }\n      ],\n      \"timeZoneType\": \"{{oneOf (array 'TIME_ZONE_TYPE_UNSPECIFIED' 'SELLER' 'USER')}}\"\n    },\n    \"geoTargeting\": {\n      \"excludedCriteriaIds\": [\n        \"\"\n      ],\n      \"targetedCriteriaIds\": [\n        \"\"\n      ]\n    },\n    \"inventorySizeTargeting\": {\n      \"excludedInventorySizes\": [\n        {\n          \"height\": \"\",\n          \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n          \"width\": \"\"\n        }\n      ],\n      \"targetedInventorySizes\": [\n        {\n          \"height\": \"\",\n          \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n          \"width\": \"\"\n        }\n      ]\n    },\n    \"placementTargeting\": {\n      \"mobileApplicationTargeting\": {\n        \"firstPartyTargeting\": {\n          \"excludedAppIds\": [\n            \"\"\n          ],\n          \"targetedAppIds\": [\n            \"\"\n          ]\n        }\n      },\n      \"uriTargeting\": {\n        \"excludedUris\": [\n          \"\"\n        ],\n        \"targetedUris\": [\n          \"\"\n        ]\n      }\n    },\n    \"technologyTargeting\": {\n      \"deviceCapabilityTargeting\": {\n        \"excludedCriteriaIds\": [\n          \"\"\n        ],\n        \"targetedCriteriaIds\": [\n          \"\"\n        ]\n      },\n      \"deviceCategoryTargeting\": {\n        \"excludedCriteriaIds\": [\n          \"\"\n        ],\n        \"targetedCriteriaIds\": [\n          \"\"\n        ]\n      },\n      \"operatingSystemTargeting\": {\n        \"operatingSystemCriteria\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"operatingSystemVersionCriteria\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        }\n      }\n    },\n    \"userListTargeting\": {\n      \"excludedCriteriaIds\": [\n        \"\"\n      ],\n      \"targetedCriteriaIds\": [\n        \"\"\n      ]\n    },\n    \"videoTargeting\": {\n      \"excludedPositionTypes\": [\n        \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n      ],\n      \"targetedPositionTypes\": [\n        \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n      ]\n    }\n  },\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3d166f28-2f9e-45a5-a19a-4076cabf507b",
+      "documentation": "Accepts the proposal at the given revision number. If the revision number in the request is behind the latest from the server, an error message will be returned. This call updates the Proposal.state from `BUYER_ACCEPTANCE_REQUESTED` to `FINALIZED`; it has no side effect if the Proposal.state is already `FINALIZED` and throws exception if the Proposal.state is not either `BUYER_ACCEPTANCE_REQUESTED` or `FINALIZED`. Accepting a proposal means the buyer understands and accepts the Proposal.terms_and_conditions proposed by the seller.",
+      "method": "post",
+      "endpoint": "v1/:name:accept",
+      "responses": [
+        {
+          "uuid": "bf8ba149-4ab8-4fba-a9c1-26b0478f396c",
+          "body": "{\n  \"billedBuyer\": \"\",\n  \"buyer\": \"\",\n  \"buyerContacts\": [\n    {\n      \"displayName\": \"\",\n      \"email\": \"\"\n    }\n  ],\n  \"buyerPrivateData\": {\n    \"referenceId\": \"\"\n  },\n  \"client\": \"\",\n  \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n  \"displayName\": \"\",\n  \"isRenegotiating\": {{faker 'random.boolean'}},\n  \"lastUpdaterOrCommentorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n  \"name\": \"\",\n  \"notes\": [\n    {\n      \"createTime\": \"\",\n      \"creatorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n      \"note\": \"\"\n    }\n  ],\n  \"originatorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n  \"pausingConsented\": {{faker 'random.boolean'}},\n  \"proposalRevision\": \"\",\n  \"publisherProfile\": \"\",\n  \"sellerContacts\": [\n    {\n      \"displayName\": \"\",\n      \"email\": \"\"\n    }\n  ],\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'BUYER_REVIEW_REQUESTED' 'SELLER_REVIEW_REQUESTED' 'BUYER_ACCEPTANCE_REQUESTED' 'FINALIZED' 'TERMINATED')}}\",\n  \"termsAndConditions\": \"\",\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2cc2f2df-d072-40b3-8030-8d8fc8ba34fe",
+      "documentation": "Activates an existing client user. The state of the client user will be updated from \"INACTIVE\" to \"ACTIVE\". This method has no effect if the client user is already in \"ACTIVE\" state. An error will be returned if the client user to activate is still in \"INVITED\" state.",
+      "method": "post",
+      "endpoint": "v1/:name:activate",
+      "responses": [
+        {
+          "uuid": "473d0711-0082-4002-95a2-35d96679330e",
+          "body": "{\n  \"email\": \"\",\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'INVITED' 'ACTIVE' 'INACTIVE')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "341b8794-48f1-4e31-a6fd-56a9c84dd41d",
+      "documentation": "Deactivates an existing client user. The state of the client user will be updated from \"ACTIVE\" to \"INACTIVE\". This method has no effect if the client user is already in \"INACTIVE\" state. An error will be returned if the client user to deactivate is still in \"INVITED\" state.",
+      "method": "post",
+      "endpoint": "v1/:name:deactivate",
+      "responses": [
+        {
+          "uuid": "c30759b3-d94d-4159-bc19-76fb2625e366",
+          "body": "{\n  \"email\": \"\",\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'INVITED' 'ACTIVE' 'INACTIVE')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8805ca47-4ce7-41b0-9a16-0fbe8c515d85",
+      "documentation": "Pauses serving of the given finalized deal. This call only pauses the serving status, and does not affect other fields of the finalized deal. Calling this method for an already paused deal has no effect. This method only applies to programmatic guaranteed deals.",
+      "method": "post",
+      "endpoint": "v1/:name:pause",
+      "responses": [
+        {
+          "uuid": "6d6f7867-5996-430d-a2c2-bd36e81dda8e",
+          "body": "{\n  \"deal\": {\n    \"billedBuyer\": \"\",\n    \"buyer\": \"\",\n    \"client\": \"\",\n    \"createTime\": \"\",\n    \"creativeRequirements\": {\n      \"creativeFormat\": \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'DISPLAY' 'VIDEO')}}\",\n      \"creativePreApprovalPolicy\": \"{{oneOf (array 'CREATIVE_PRE_APPROVAL_POLICY_UNSPECIFIED' 'SELLER_PRE_APPROVAL_REQUIRED' 'SELLER_PRE_APPROVAL_NOT_REQUIRED')}}\",\n      \"creativeSafeFrameCompatibility\": \"{{oneOf (array 'CREATIVE_SAFE_FRAME_COMPATIBILITY_UNSPECIFIED' 'COMPATIBLE' 'INCOMPATIBLE')}}\",\n      \"maxAdDurationMs\": \"\",\n      \"programmaticCreativeSource\": \"{{oneOf (array 'PROGRAMMATIC_CREATIVE_SOURCE_UNSPECIFIED' 'ADVERTISER' 'PUBLISHER')}}\",\n      \"skippableAdType\": \"{{oneOf (array 'SKIPPABLE_AD_TYPE_UNSPECIFIED' 'SKIPPABLE' 'INSTREAM_SELECT' 'NOT_SKIPPABLE' 'ANY')}}\"\n    },\n    \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n    \"deliveryControl\": {\n      \"companionDeliveryType\": \"{{oneOf (array 'COMPANION_DELIVERY_TYPE_UNSPECIFIED' 'DELIVERY_OPTIONAL' 'DELIVERY_AT_LEAST_ONE' 'DELIVERY_ALL')}}\",\n      \"creativeRotationType\": \"{{oneOf (array 'CREATIVE_ROTATION_TYPE_UNSPECIFIED' 'ROTATION_EVEN' 'ROTATION_OPTIMIZED' 'ROTATION_MANUAL' 'ROTATION_SEQUENTIAL')}}\",\n      \"deliveryRateType\": \"{{oneOf (array 'DELIVERY_RATE_TYPE_UNSPECIFIED' 'EVENLY' 'FRONT_LOADED' 'AS_FAST_AS_POSSIBLE')}}\",\n      \"frequencyCap\": [\n        {\n          \"maxImpressions\": {{faker 'random.number'}},\n          \"timeUnitType\": \"{{oneOf (array 'TIME_UNIT_TYPE_UNSPECIFIED' 'MINUTE' 'HOUR' 'DAY' 'WEEK' 'MONTH' 'LIFETIME' 'POD' 'STREAM')}}\",\n          \"timeUnitsCount\": {{faker 'random.number'}}\n        }\n      ],\n      \"roadblockingType\": \"{{oneOf (array 'ROADBLOCKING_TYPE_UNSPECIFIED' 'ONLY_ONE' 'ONE_OR_MORE' 'AS_MANY_AS_POSSIBLE' 'ALL_ROADBLOCK' 'CREATIVE_SET')}}\"\n    },\n    \"description\": \"\",\n    \"displayName\": \"\",\n    \"estimatedGrossSpend\": {\n      \"currencyCode\": \"\",\n      \"nanos\": {{faker 'random.number'}},\n      \"units\": \"\"\n    },\n    \"flightEndTime\": \"\",\n    \"flightStartTime\": \"\",\n    \"name\": \"\",\n    \"preferredDealTerms\": {\n      \"fixedPrice\": {\n        \"amount\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n      }\n    },\n    \"privateAuctionTerms\": {\n      \"floorPrice\": {\n        \"amount\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n      },\n      \"openAuctionAllowed\": {{faker 'random.boolean'}}\n    },\n    \"programmaticGuaranteedTerms\": {\n      \"fixedPrice\": {\n        \"amount\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n      },\n      \"guaranteedLooks\": \"\",\n      \"impressionCap\": \"\",\n      \"minimumDailyLooks\": \"\",\n      \"percentShareOfVoice\": \"\",\n      \"reservationType\": \"{{oneOf (array 'RESERVATION_TYPE_UNSPECIFIED' 'STANDARD' 'SPONSORSHIP')}}\"\n    },\n    \"proposalRevision\": \"\",\n    \"publisherProfile\": \"\",\n    \"sellerTimeZone\": {\n      \"id\": \"\",\n      \"version\": \"\"\n    },\n    \"targeting\": {\n      \"daypartTargeting\": {\n        \"dayParts\": [\n          {\n            \"dayOfWeek\": \"{{oneOf (array 'DAY_OF_WEEK_UNSPECIFIED' 'MONDAY' 'TUESDAY' 'WEDNESDAY' 'THURSDAY' 'FRIDAY' 'SATURDAY' 'SUNDAY')}}\",\n            \"endTime\": {\n              \"hours\": {{faker 'random.number'}},\n              \"minutes\": {{faker 'random.number'}},\n              \"nanos\": {{faker 'random.number'}},\n              \"seconds\": {{faker 'random.number'}}\n            },\n            \"startTime\": {\n              \"hours\": {{faker 'random.number'}},\n              \"minutes\": {{faker 'random.number'}},\n              \"nanos\": {{faker 'random.number'}},\n              \"seconds\": {{faker 'random.number'}}\n            }\n          }\n        ],\n        \"timeZoneType\": \"{{oneOf (array 'TIME_ZONE_TYPE_UNSPECIFIED' 'SELLER' 'USER')}}\"\n      },\n      \"geoTargeting\": {\n        \"excludedCriteriaIds\": [\n          \"\"\n        ],\n        \"targetedCriteriaIds\": [\n          \"\"\n        ]\n      },\n      \"inventorySizeTargeting\": {\n        \"excludedInventorySizes\": [\n          {\n            \"height\": \"\",\n            \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n            \"width\": \"\"\n          }\n        ],\n        \"targetedInventorySizes\": [\n          {\n            \"height\": \"\",\n            \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n            \"width\": \"\"\n          }\n        ]\n      },\n      \"placementTargeting\": {\n        \"mobileApplicationTargeting\": {\n          \"firstPartyTargeting\": {\n            \"excludedAppIds\": [\n              \"\"\n            ],\n            \"targetedAppIds\": [\n              \"\"\n            ]\n          }\n        },\n        \"uriTargeting\": {\n          \"excludedUris\": [\n            \"\"\n          ],\n          \"targetedUris\": [\n            \"\"\n          ]\n        }\n      },\n      \"technologyTargeting\": {\n        \"deviceCapabilityTargeting\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"deviceCategoryTargeting\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"operatingSystemTargeting\": {\n          \"operatingSystemCriteria\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          },\n          \"operatingSystemVersionCriteria\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          }\n        }\n      },\n      \"userListTargeting\": {\n        \"excludedCriteriaIds\": [\n          \"\"\n        ],\n        \"targetedCriteriaIds\": [\n          \"\"\n        ]\n      },\n      \"videoTargeting\": {\n        \"excludedPositionTypes\": [\n          \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n        ],\n        \"targetedPositionTypes\": [\n          \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n        ]\n      }\n    },\n    \"updateTime\": \"\"\n  },\n  \"dealPausingInfo\": {\n    \"pauseReason\": \"\",\n    \"pauseRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n    \"pausingConsented\": {{faker 'random.boolean'}}\n  },\n  \"dealServingStatus\": \"{{oneOf (array 'DEAL_SERVING_STATUS_UNSPECIFIED' 'ACTIVE' 'ENDED' 'PAUSED_BY_BUYER' 'PAUSED_BY_SELLER')}}\",\n  \"name\": \"\",\n  \"readyToServe\": {{faker 'random.boolean'}},\n  \"rtbMetrics\": {\n    \"adImpressions7Days\": \"\",\n    \"bidRate7Days\": {{faker 'random.float'}},\n    \"bidRequests7Days\": \"\",\n    \"bids7Days\": \"\",\n    \"filteredBidRate7Days\": {{faker 'random.float'}},\n    \"mustBidRateCurrentMonth\": {{faker 'random.float'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f4c80c4d-0980-4df6-9a27-429c8faf8846",
+      "documentation": "Resumes serving of the given finalized deal. Calling this method for an running deal has no effect. If a deal is initially paused by the seller, calling this method will not resume serving of the deal until the seller also resumes the deal. This method only applies to programmatic guaranteed deals.",
+      "method": "post",
+      "endpoint": "v1/:name:resume",
+      "responses": [
+        {
+          "uuid": "3e4f1618-0f5b-4b43-91e7-f0411fb0ee76",
+          "body": "{\n  \"deal\": {\n    \"billedBuyer\": \"\",\n    \"buyer\": \"\",\n    \"client\": \"\",\n    \"createTime\": \"\",\n    \"creativeRequirements\": {\n      \"creativeFormat\": \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'DISPLAY' 'VIDEO')}}\",\n      \"creativePreApprovalPolicy\": \"{{oneOf (array 'CREATIVE_PRE_APPROVAL_POLICY_UNSPECIFIED' 'SELLER_PRE_APPROVAL_REQUIRED' 'SELLER_PRE_APPROVAL_NOT_REQUIRED')}}\",\n      \"creativeSafeFrameCompatibility\": \"{{oneOf (array 'CREATIVE_SAFE_FRAME_COMPATIBILITY_UNSPECIFIED' 'COMPATIBLE' 'INCOMPATIBLE')}}\",\n      \"maxAdDurationMs\": \"\",\n      \"programmaticCreativeSource\": \"{{oneOf (array 'PROGRAMMATIC_CREATIVE_SOURCE_UNSPECIFIED' 'ADVERTISER' 'PUBLISHER')}}\",\n      \"skippableAdType\": \"{{oneOf (array 'SKIPPABLE_AD_TYPE_UNSPECIFIED' 'SKIPPABLE' 'INSTREAM_SELECT' 'NOT_SKIPPABLE' 'ANY')}}\"\n    },\n    \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n    \"deliveryControl\": {\n      \"companionDeliveryType\": \"{{oneOf (array 'COMPANION_DELIVERY_TYPE_UNSPECIFIED' 'DELIVERY_OPTIONAL' 'DELIVERY_AT_LEAST_ONE' 'DELIVERY_ALL')}}\",\n      \"creativeRotationType\": \"{{oneOf (array 'CREATIVE_ROTATION_TYPE_UNSPECIFIED' 'ROTATION_EVEN' 'ROTATION_OPTIMIZED' 'ROTATION_MANUAL' 'ROTATION_SEQUENTIAL')}}\",\n      \"deliveryRateType\": \"{{oneOf (array 'DELIVERY_RATE_TYPE_UNSPECIFIED' 'EVENLY' 'FRONT_LOADED' 'AS_FAST_AS_POSSIBLE')}}\",\n      \"frequencyCap\": [\n        {\n          \"maxImpressions\": {{faker 'random.number'}},\n          \"timeUnitType\": \"{{oneOf (array 'TIME_UNIT_TYPE_UNSPECIFIED' 'MINUTE' 'HOUR' 'DAY' 'WEEK' 'MONTH' 'LIFETIME' 'POD' 'STREAM')}}\",\n          \"timeUnitsCount\": {{faker 'random.number'}}\n        }\n      ],\n      \"roadblockingType\": \"{{oneOf (array 'ROADBLOCKING_TYPE_UNSPECIFIED' 'ONLY_ONE' 'ONE_OR_MORE' 'AS_MANY_AS_POSSIBLE' 'ALL_ROADBLOCK' 'CREATIVE_SET')}}\"\n    },\n    \"description\": \"\",\n    \"displayName\": \"\",\n    \"estimatedGrossSpend\": {\n      \"currencyCode\": \"\",\n      \"nanos\": {{faker 'random.number'}},\n      \"units\": \"\"\n    },\n    \"flightEndTime\": \"\",\n    \"flightStartTime\": \"\",\n    \"name\": \"\",\n    \"preferredDealTerms\": {\n      \"fixedPrice\": {\n        \"amount\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n      }\n    },\n    \"privateAuctionTerms\": {\n      \"floorPrice\": {\n        \"amount\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n      },\n      \"openAuctionAllowed\": {{faker 'random.boolean'}}\n    },\n    \"programmaticGuaranteedTerms\": {\n      \"fixedPrice\": {\n        \"amount\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n      },\n      \"guaranteedLooks\": \"\",\n      \"impressionCap\": \"\",\n      \"minimumDailyLooks\": \"\",\n      \"percentShareOfVoice\": \"\",\n      \"reservationType\": \"{{oneOf (array 'RESERVATION_TYPE_UNSPECIFIED' 'STANDARD' 'SPONSORSHIP')}}\"\n    },\n    \"proposalRevision\": \"\",\n    \"publisherProfile\": \"\",\n    \"sellerTimeZone\": {\n      \"id\": \"\",\n      \"version\": \"\"\n    },\n    \"targeting\": {\n      \"daypartTargeting\": {\n        \"dayParts\": [\n          {\n            \"dayOfWeek\": \"{{oneOf (array 'DAY_OF_WEEK_UNSPECIFIED' 'MONDAY' 'TUESDAY' 'WEDNESDAY' 'THURSDAY' 'FRIDAY' 'SATURDAY' 'SUNDAY')}}\",\n            \"endTime\": {\n              \"hours\": {{faker 'random.number'}},\n              \"minutes\": {{faker 'random.number'}},\n              \"nanos\": {{faker 'random.number'}},\n              \"seconds\": {{faker 'random.number'}}\n            },\n            \"startTime\": {\n              \"hours\": {{faker 'random.number'}},\n              \"minutes\": {{faker 'random.number'}},\n              \"nanos\": {{faker 'random.number'}},\n              \"seconds\": {{faker 'random.number'}}\n            }\n          }\n        ],\n        \"timeZoneType\": \"{{oneOf (array 'TIME_ZONE_TYPE_UNSPECIFIED' 'SELLER' 'USER')}}\"\n      },\n      \"geoTargeting\": {\n        \"excludedCriteriaIds\": [\n          \"\"\n        ],\n        \"targetedCriteriaIds\": [\n          \"\"\n        ]\n      },\n      \"inventorySizeTargeting\": {\n        \"excludedInventorySizes\": [\n          {\n            \"height\": \"\",\n            \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n            \"width\": \"\"\n          }\n        ],\n        \"targetedInventorySizes\": [\n          {\n            \"height\": \"\",\n            \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n            \"width\": \"\"\n          }\n        ]\n      },\n      \"placementTargeting\": {\n        \"mobileApplicationTargeting\": {\n          \"firstPartyTargeting\": {\n            \"excludedAppIds\": [\n              \"\"\n            ],\n            \"targetedAppIds\": [\n              \"\"\n            ]\n          }\n        },\n        \"uriTargeting\": {\n          \"excludedUris\": [\n            \"\"\n          ],\n          \"targetedUris\": [\n            \"\"\n          ]\n        }\n      },\n      \"technologyTargeting\": {\n        \"deviceCapabilityTargeting\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"deviceCategoryTargeting\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"operatingSystemTargeting\": {\n          \"operatingSystemCriteria\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          },\n          \"operatingSystemVersionCriteria\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          }\n        }\n      },\n      \"userListTargeting\": {\n        \"excludedCriteriaIds\": [\n          \"\"\n        ],\n        \"targetedCriteriaIds\": [\n          \"\"\n        ]\n      },\n      \"videoTargeting\": {\n        \"excludedPositionTypes\": [\n          \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n        ],\n        \"targetedPositionTypes\": [\n          \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n        ]\n      }\n    },\n    \"updateTime\": \"\"\n  },\n  \"dealPausingInfo\": {\n    \"pauseReason\": \"\",\n    \"pauseRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n    \"pausingConsented\": {{faker 'random.boolean'}}\n  },\n  \"dealServingStatus\": \"{{oneOf (array 'DEAL_SERVING_STATUS_UNSPECIFIED' 'ACTIVE' 'ENDED' 'PAUSED_BY_BUYER' 'PAUSED_BY_SELLER')}}\",\n  \"name\": \"\",\n  \"readyToServe\": {{faker 'random.boolean'}},\n  \"rtbMetrics\": {\n    \"adImpressions7Days\": \"\",\n    \"bidRate7Days\": {{faker 'random.float'}},\n    \"bidRequests7Days\": \"\",\n    \"bids7Days\": \"\",\n    \"filteredBidRate7Days\": {{faker 'random.float'}},\n    \"mustBidRateCurrentMonth\": {{faker 'random.float'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9dd0c812-dc31-499f-bb0f-2a9c499c9ff7",
+      "documentation": "Subscribe to the auction package for the specified buyer. Once subscribed, the bidder will receive a call out for inventory matching the auction package targeting criteria with the auction package deal ID and the specified buyer.",
+      "method": "post",
+      "endpoint": "v1/:name:subscribe",
+      "responses": [
+        {
+          "uuid": "15cb3b8e-1363-4296-b2e7-13ce1a9184b7",
+          "body": "{\n  \"createTime\": \"\",\n  \"creator\": \"\",\n  \"description\": \"\",\n  \"displayName\": \"\",\n  \"name\": \"\",\n  \"subscribedClients\": [\n    \"\"\n  ],\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d2c8eb71-a529-4409-ab1f-db63a3df3c83",
+      "documentation": "Unsubscribe from the auction package for the specified buyer. Once unsubscribed, the bidder will no longer receive a call out for the auction package deal ID and the specified buyer.",
+      "method": "post",
+      "endpoint": "v1/:name:unsubscribe",
+      "responses": [
+        {
+          "uuid": "19093e26-71f6-44a7-917c-e0732e887608",
+          "body": "{\n  \"createTime\": \"\",\n  \"creator\": \"\",\n  \"description\": \"\",\n  \"displayName\": \"\",\n  \"name\": \"\",\n  \"subscribedClients\": [\n    \"\"\n  ],\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c4fcefb1-c23d-46b1-b8c6-591d537eeef9",
+      "documentation": "List the auction packages subscribed by a buyer and its clients.",
+      "method": "get",
+      "endpoint": "v1/:parent/auctionPackages",
+      "responses": [
+        {
+          "uuid": "2a0511bb-abb7-4b2c-baf6-43b00f65089d",
+          "body": "{\n  \"auctionPackages\": [\n    {\n      \"createTime\": \"\",\n      \"creator\": \"\",\n      \"description\": \"\",\n      \"displayName\": \"\",\n      \"name\": \"\",\n      \"subscribedClients\": [\n        \"\"\n      ],\n      \"updateTime\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c8118fbb-3a7f-4c0e-a509-d957e45bfcaa",
+      "documentation": "Lists all the clients for the current buyer.",
+      "method": "get",
+      "endpoint": "v1/:parent/clients",
+      "responses": [
+        {
+          "uuid": "e8f14599-9cf9-4818-b0b0-bf731c4d024b",
+          "body": "{\n  \"clients\": [\n    {\n      \"displayName\": \"\",\n      \"name\": \"\",\n      \"partnerClientId\": \"\",\n      \"role\": \"{{oneOf (array 'CLIENT_ROLE_UNSPECIFIED' 'CLIENT_DEAL_VIEWER' 'CLIENT_DEAL_NEGOTIATOR' 'CLIENT_DEAL_APPROVER')}}\",\n      \"sellerVisible\": {{faker 'random.boolean'}},\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'INACTIVE')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c414d52e-58e1-4bcc-b692-005e1b4e39ad",
+      "documentation": "Creates a new client.",
+      "method": "post",
+      "endpoint": "v1/:parent/clients",
+      "responses": [
+        {
+          "uuid": "087e9c54-7f51-4803-99a3-5832288f9052",
+          "body": "{\n  \"displayName\": \"\",\n  \"name\": \"\",\n  \"partnerClientId\": \"\",\n  \"role\": \"{{oneOf (array 'CLIENT_ROLE_UNSPECIFIED' 'CLIENT_DEAL_VIEWER' 'CLIENT_DEAL_NEGOTIATOR' 'CLIENT_DEAL_APPROVER')}}\",\n  \"sellerVisible\": {{faker 'random.boolean'}},\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'INACTIVE')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "97def367-3aba-4407-8ae1-7760c2b38edf",
+      "documentation": "Lists all deals in a proposal. To retrieve only the finalized revision deals regardless if a deal is being renegotiated, see the FinalizedDeals resource.",
+      "method": "get",
+      "endpoint": "v1/:parent/deals",
+      "responses": [
+        {
+          "uuid": "04d24585-a137-4bf8-8f26-051464608adb",
+          "body": "{\n  \"deals\": [\n    {\n      \"billedBuyer\": \"\",\n      \"buyer\": \"\",\n      \"client\": \"\",\n      \"createTime\": \"\",\n      \"creativeRequirements\": {\n        \"creativeFormat\": \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'DISPLAY' 'VIDEO')}}\",\n        \"creativePreApprovalPolicy\": \"{{oneOf (array 'CREATIVE_PRE_APPROVAL_POLICY_UNSPECIFIED' 'SELLER_PRE_APPROVAL_REQUIRED' 'SELLER_PRE_APPROVAL_NOT_REQUIRED')}}\",\n        \"creativeSafeFrameCompatibility\": \"{{oneOf (array 'CREATIVE_SAFE_FRAME_COMPATIBILITY_UNSPECIFIED' 'COMPATIBLE' 'INCOMPATIBLE')}}\",\n        \"maxAdDurationMs\": \"\",\n        \"programmaticCreativeSource\": \"{{oneOf (array 'PROGRAMMATIC_CREATIVE_SOURCE_UNSPECIFIED' 'ADVERTISER' 'PUBLISHER')}}\",\n        \"skippableAdType\": \"{{oneOf (array 'SKIPPABLE_AD_TYPE_UNSPECIFIED' 'SKIPPABLE' 'INSTREAM_SELECT' 'NOT_SKIPPABLE' 'ANY')}}\"\n      },\n      \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n      \"deliveryControl\": {\n        \"companionDeliveryType\": \"{{oneOf (array 'COMPANION_DELIVERY_TYPE_UNSPECIFIED' 'DELIVERY_OPTIONAL' 'DELIVERY_AT_LEAST_ONE' 'DELIVERY_ALL')}}\",\n        \"creativeRotationType\": \"{{oneOf (array 'CREATIVE_ROTATION_TYPE_UNSPECIFIED' 'ROTATION_EVEN' 'ROTATION_OPTIMIZED' 'ROTATION_MANUAL' 'ROTATION_SEQUENTIAL')}}\",\n        \"deliveryRateType\": \"{{oneOf (array 'DELIVERY_RATE_TYPE_UNSPECIFIED' 'EVENLY' 'FRONT_LOADED' 'AS_FAST_AS_POSSIBLE')}}\",\n        \"frequencyCap\": [\n          {\n            \"maxImpressions\": {{faker 'random.number'}},\n            \"timeUnitType\": \"{{oneOf (array 'TIME_UNIT_TYPE_UNSPECIFIED' 'MINUTE' 'HOUR' 'DAY' 'WEEK' 'MONTH' 'LIFETIME' 'POD' 'STREAM')}}\",\n            \"timeUnitsCount\": {{faker 'random.number'}}\n          }\n        ],\n        \"roadblockingType\": \"{{oneOf (array 'ROADBLOCKING_TYPE_UNSPECIFIED' 'ONLY_ONE' 'ONE_OR_MORE' 'AS_MANY_AS_POSSIBLE' 'ALL_ROADBLOCK' 'CREATIVE_SET')}}\"\n      },\n      \"description\": \"\",\n      \"displayName\": \"\",\n      \"estimatedGrossSpend\": {\n        \"currencyCode\": \"\",\n        \"nanos\": {{faker 'random.number'}},\n        \"units\": \"\"\n      },\n      \"flightEndTime\": \"\",\n      \"flightStartTime\": \"\",\n      \"name\": \"\",\n      \"preferredDealTerms\": {\n        \"fixedPrice\": {\n          \"amount\": {\n            \"currencyCode\": \"\",\n            \"nanos\": {{faker 'random.number'}},\n            \"units\": \"\"\n          },\n          \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n        }\n      },\n      \"privateAuctionTerms\": {\n        \"floorPrice\": {\n          \"amount\": {\n            \"currencyCode\": \"\",\n            \"nanos\": {{faker 'random.number'}},\n            \"units\": \"\"\n          },\n          \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n        },\n        \"openAuctionAllowed\": {{faker 'random.boolean'}}\n      },\n      \"programmaticGuaranteedTerms\": {\n        \"fixedPrice\": {\n          \"amount\": {\n            \"currencyCode\": \"\",\n            \"nanos\": {{faker 'random.number'}},\n            \"units\": \"\"\n          },\n          \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n        },\n        \"guaranteedLooks\": \"\",\n        \"impressionCap\": \"\",\n        \"minimumDailyLooks\": \"\",\n        \"percentShareOfVoice\": \"\",\n        \"reservationType\": \"{{oneOf (array 'RESERVATION_TYPE_UNSPECIFIED' 'STANDARD' 'SPONSORSHIP')}}\"\n      },\n      \"proposalRevision\": \"\",\n      \"publisherProfile\": \"\",\n      \"sellerTimeZone\": {\n        \"id\": \"\",\n        \"version\": \"\"\n      },\n      \"targeting\": {\n        \"daypartTargeting\": {\n          \"dayParts\": [\n            {\n              \"dayOfWeek\": \"{{oneOf (array 'DAY_OF_WEEK_UNSPECIFIED' 'MONDAY' 'TUESDAY' 'WEDNESDAY' 'THURSDAY' 'FRIDAY' 'SATURDAY' 'SUNDAY')}}\",\n              \"endTime\": {\n                \"hours\": {{faker 'random.number'}},\n                \"minutes\": {{faker 'random.number'}},\n                \"nanos\": {{faker 'random.number'}},\n                \"seconds\": {{faker 'random.number'}}\n              },\n              \"startTime\": {\n                \"hours\": {{faker 'random.number'}},\n                \"minutes\": {{faker 'random.number'}},\n                \"nanos\": {{faker 'random.number'}},\n                \"seconds\": {{faker 'random.number'}}\n              }\n            }\n          ],\n          \"timeZoneType\": \"{{oneOf (array 'TIME_ZONE_TYPE_UNSPECIFIED' 'SELLER' 'USER')}}\"\n        },\n        \"geoTargeting\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"inventorySizeTargeting\": {\n          \"excludedInventorySizes\": [\n            {\n              \"height\": \"\",\n              \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n              \"width\": \"\"\n            }\n          ],\n          \"targetedInventorySizes\": [\n            {\n              \"height\": \"\",\n              \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n              \"width\": \"\"\n            }\n          ]\n        },\n        \"placementTargeting\": {\n          \"mobileApplicationTargeting\": {\n            \"firstPartyTargeting\": {\n              \"excludedAppIds\": [\n                \"\"\n              ],\n              \"targetedAppIds\": [\n                \"\"\n              ]\n            }\n          },\n          \"uriTargeting\": {\n            \"excludedUris\": [\n              \"\"\n            ],\n            \"targetedUris\": [\n              \"\"\n            ]\n          }\n        },\n        \"technologyTargeting\": {\n          \"deviceCapabilityTargeting\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          },\n          \"deviceCategoryTargeting\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          },\n          \"operatingSystemTargeting\": {\n            \"operatingSystemCriteria\": {\n              \"excludedCriteriaIds\": [\n                \"\"\n              ],\n              \"targetedCriteriaIds\": [\n                \"\"\n              ]\n            },\n            \"operatingSystemVersionCriteria\": {\n              \"excludedCriteriaIds\": [\n                \"\"\n              ],\n              \"targetedCriteriaIds\": [\n                \"\"\n              ]\n            }\n          }\n        },\n        \"userListTargeting\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"videoTargeting\": {\n          \"excludedPositionTypes\": [\n            \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n          ],\n          \"targetedPositionTypes\": [\n            \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n          ]\n        }\n      },\n      \"updateTime\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "238a4491-206d-426d-8d0f-c48bb767dd36",
+      "documentation": "Batch updates multiple deals in the same proposal.",
+      "method": "post",
+      "endpoint": "v1/:parent/deals:batchUpdate",
+      "responses": [
+        {
+          "uuid": "48acba90-2629-4044-a887-99cd570dc7c6",
+          "body": "{\n  \"deals\": [\n    {\n      \"billedBuyer\": \"\",\n      \"buyer\": \"\",\n      \"client\": \"\",\n      \"createTime\": \"\",\n      \"creativeRequirements\": {\n        \"creativeFormat\": \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'DISPLAY' 'VIDEO')}}\",\n        \"creativePreApprovalPolicy\": \"{{oneOf (array 'CREATIVE_PRE_APPROVAL_POLICY_UNSPECIFIED' 'SELLER_PRE_APPROVAL_REQUIRED' 'SELLER_PRE_APPROVAL_NOT_REQUIRED')}}\",\n        \"creativeSafeFrameCompatibility\": \"{{oneOf (array 'CREATIVE_SAFE_FRAME_COMPATIBILITY_UNSPECIFIED' 'COMPATIBLE' 'INCOMPATIBLE')}}\",\n        \"maxAdDurationMs\": \"\",\n        \"programmaticCreativeSource\": \"{{oneOf (array 'PROGRAMMATIC_CREATIVE_SOURCE_UNSPECIFIED' 'ADVERTISER' 'PUBLISHER')}}\",\n        \"skippableAdType\": \"{{oneOf (array 'SKIPPABLE_AD_TYPE_UNSPECIFIED' 'SKIPPABLE' 'INSTREAM_SELECT' 'NOT_SKIPPABLE' 'ANY')}}\"\n      },\n      \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n      \"deliveryControl\": {\n        \"companionDeliveryType\": \"{{oneOf (array 'COMPANION_DELIVERY_TYPE_UNSPECIFIED' 'DELIVERY_OPTIONAL' 'DELIVERY_AT_LEAST_ONE' 'DELIVERY_ALL')}}\",\n        \"creativeRotationType\": \"{{oneOf (array 'CREATIVE_ROTATION_TYPE_UNSPECIFIED' 'ROTATION_EVEN' 'ROTATION_OPTIMIZED' 'ROTATION_MANUAL' 'ROTATION_SEQUENTIAL')}}\",\n        \"deliveryRateType\": \"{{oneOf (array 'DELIVERY_RATE_TYPE_UNSPECIFIED' 'EVENLY' 'FRONT_LOADED' 'AS_FAST_AS_POSSIBLE')}}\",\n        \"frequencyCap\": [\n          {\n            \"maxImpressions\": {{faker 'random.number'}},\n            \"timeUnitType\": \"{{oneOf (array 'TIME_UNIT_TYPE_UNSPECIFIED' 'MINUTE' 'HOUR' 'DAY' 'WEEK' 'MONTH' 'LIFETIME' 'POD' 'STREAM')}}\",\n            \"timeUnitsCount\": {{faker 'random.number'}}\n          }\n        ],\n        \"roadblockingType\": \"{{oneOf (array 'ROADBLOCKING_TYPE_UNSPECIFIED' 'ONLY_ONE' 'ONE_OR_MORE' 'AS_MANY_AS_POSSIBLE' 'ALL_ROADBLOCK' 'CREATIVE_SET')}}\"\n      },\n      \"description\": \"\",\n      \"displayName\": \"\",\n      \"estimatedGrossSpend\": {\n        \"currencyCode\": \"\",\n        \"nanos\": {{faker 'random.number'}},\n        \"units\": \"\"\n      },\n      \"flightEndTime\": \"\",\n      \"flightStartTime\": \"\",\n      \"name\": \"\",\n      \"preferredDealTerms\": {\n        \"fixedPrice\": {\n          \"amount\": {\n            \"currencyCode\": \"\",\n            \"nanos\": {{faker 'random.number'}},\n            \"units\": \"\"\n          },\n          \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n        }\n      },\n      \"privateAuctionTerms\": {\n        \"floorPrice\": {\n          \"amount\": {\n            \"currencyCode\": \"\",\n            \"nanos\": {{faker 'random.number'}},\n            \"units\": \"\"\n          },\n          \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n        },\n        \"openAuctionAllowed\": {{faker 'random.boolean'}}\n      },\n      \"programmaticGuaranteedTerms\": {\n        \"fixedPrice\": {\n          \"amount\": {\n            \"currencyCode\": \"\",\n            \"nanos\": {{faker 'random.number'}},\n            \"units\": \"\"\n          },\n          \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n        },\n        \"guaranteedLooks\": \"\",\n        \"impressionCap\": \"\",\n        \"minimumDailyLooks\": \"\",\n        \"percentShareOfVoice\": \"\",\n        \"reservationType\": \"{{oneOf (array 'RESERVATION_TYPE_UNSPECIFIED' 'STANDARD' 'SPONSORSHIP')}}\"\n      },\n      \"proposalRevision\": \"\",\n      \"publisherProfile\": \"\",\n      \"sellerTimeZone\": {\n        \"id\": \"\",\n        \"version\": \"\"\n      },\n      \"targeting\": {\n        \"daypartTargeting\": {\n          \"dayParts\": [\n            {\n              \"dayOfWeek\": \"{{oneOf (array 'DAY_OF_WEEK_UNSPECIFIED' 'MONDAY' 'TUESDAY' 'WEDNESDAY' 'THURSDAY' 'FRIDAY' 'SATURDAY' 'SUNDAY')}}\",\n              \"endTime\": {\n                \"hours\": {{faker 'random.number'}},\n                \"minutes\": {{faker 'random.number'}},\n                \"nanos\": {{faker 'random.number'}},\n                \"seconds\": {{faker 'random.number'}}\n              },\n              \"startTime\": {\n                \"hours\": {{faker 'random.number'}},\n                \"minutes\": {{faker 'random.number'}},\n                \"nanos\": {{faker 'random.number'}},\n                \"seconds\": {{faker 'random.number'}}\n              }\n            }\n          ],\n          \"timeZoneType\": \"{{oneOf (array 'TIME_ZONE_TYPE_UNSPECIFIED' 'SELLER' 'USER')}}\"\n        },\n        \"geoTargeting\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"inventorySizeTargeting\": {\n          \"excludedInventorySizes\": [\n            {\n              \"height\": \"\",\n              \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n              \"width\": \"\"\n            }\n          ],\n          \"targetedInventorySizes\": [\n            {\n              \"height\": \"\",\n              \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n              \"width\": \"\"\n            }\n          ]\n        },\n        \"placementTargeting\": {\n          \"mobileApplicationTargeting\": {\n            \"firstPartyTargeting\": {\n              \"excludedAppIds\": [\n                \"\"\n              ],\n              \"targetedAppIds\": [\n                \"\"\n              ]\n            }\n          },\n          \"uriTargeting\": {\n            \"excludedUris\": [\n              \"\"\n            ],\n            \"targetedUris\": [\n              \"\"\n            ]\n          }\n        },\n        \"technologyTargeting\": {\n          \"deviceCapabilityTargeting\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          },\n          \"deviceCategoryTargeting\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          },\n          \"operatingSystemTargeting\": {\n            \"operatingSystemCriteria\": {\n              \"excludedCriteriaIds\": [\n                \"\"\n              ],\n              \"targetedCriteriaIds\": [\n                \"\"\n              ]\n            },\n            \"operatingSystemVersionCriteria\": {\n              \"excludedCriteriaIds\": [\n                \"\"\n              ],\n              \"targetedCriteriaIds\": [\n                \"\"\n              ]\n            }\n          }\n        },\n        \"userListTargeting\": {\n          \"excludedCriteriaIds\": [\n            \"\"\n          ],\n          \"targetedCriteriaIds\": [\n            \"\"\n          ]\n        },\n        \"videoTargeting\": {\n          \"excludedPositionTypes\": [\n            \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n          ],\n          \"targetedPositionTypes\": [\n            \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n          ]\n        }\n      },\n      \"updateTime\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e0495b4b-8b74-42c3-8c0b-8c3b21fbf016",
+      "documentation": "Lists finalized deals. Use the URL path \"/v1/buyers/{accountId}/finalizedDeals\" to list finalized deals for the current buyer and its clients. Bidders can use the URL path \"/v1/bidders/{accountId}/finalizedDeals\" to list finalized deals for the bidder, its buyers and all their clients.",
+      "method": "get",
+      "endpoint": "v1/:parent/finalizedDeals",
+      "responses": [
+        {
+          "uuid": "ac5694a8-d8b1-443c-bfd9-2cea2100cfc1",
+          "body": "{\n  \"finalizedDeals\": [\n    {\n      \"deal\": {\n        \"billedBuyer\": \"\",\n        \"buyer\": \"\",\n        \"client\": \"\",\n        \"createTime\": \"\",\n        \"creativeRequirements\": {\n          \"creativeFormat\": \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'DISPLAY' 'VIDEO')}}\",\n          \"creativePreApprovalPolicy\": \"{{oneOf (array 'CREATIVE_PRE_APPROVAL_POLICY_UNSPECIFIED' 'SELLER_PRE_APPROVAL_REQUIRED' 'SELLER_PRE_APPROVAL_NOT_REQUIRED')}}\",\n          \"creativeSafeFrameCompatibility\": \"{{oneOf (array 'CREATIVE_SAFE_FRAME_COMPATIBILITY_UNSPECIFIED' 'COMPATIBLE' 'INCOMPATIBLE')}}\",\n          \"maxAdDurationMs\": \"\",\n          \"programmaticCreativeSource\": \"{{oneOf (array 'PROGRAMMATIC_CREATIVE_SOURCE_UNSPECIFIED' 'ADVERTISER' 'PUBLISHER')}}\",\n          \"skippableAdType\": \"{{oneOf (array 'SKIPPABLE_AD_TYPE_UNSPECIFIED' 'SKIPPABLE' 'INSTREAM_SELECT' 'NOT_SKIPPABLE' 'ANY')}}\"\n        },\n        \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n        \"deliveryControl\": {\n          \"companionDeliveryType\": \"{{oneOf (array 'COMPANION_DELIVERY_TYPE_UNSPECIFIED' 'DELIVERY_OPTIONAL' 'DELIVERY_AT_LEAST_ONE' 'DELIVERY_ALL')}}\",\n          \"creativeRotationType\": \"{{oneOf (array 'CREATIVE_ROTATION_TYPE_UNSPECIFIED' 'ROTATION_EVEN' 'ROTATION_OPTIMIZED' 'ROTATION_MANUAL' 'ROTATION_SEQUENTIAL')}}\",\n          \"deliveryRateType\": \"{{oneOf (array 'DELIVERY_RATE_TYPE_UNSPECIFIED' 'EVENLY' 'FRONT_LOADED' 'AS_FAST_AS_POSSIBLE')}}\",\n          \"frequencyCap\": [\n            {\n              \"maxImpressions\": {{faker 'random.number'}},\n              \"timeUnitType\": \"{{oneOf (array 'TIME_UNIT_TYPE_UNSPECIFIED' 'MINUTE' 'HOUR' 'DAY' 'WEEK' 'MONTH' 'LIFETIME' 'POD' 'STREAM')}}\",\n              \"timeUnitsCount\": {{faker 'random.number'}}\n            }\n          ],\n          \"roadblockingType\": \"{{oneOf (array 'ROADBLOCKING_TYPE_UNSPECIFIED' 'ONLY_ONE' 'ONE_OR_MORE' 'AS_MANY_AS_POSSIBLE' 'ALL_ROADBLOCK' 'CREATIVE_SET')}}\"\n        },\n        \"description\": \"\",\n        \"displayName\": \"\",\n        \"estimatedGrossSpend\": {\n          \"currencyCode\": \"\",\n          \"nanos\": {{faker 'random.number'}},\n          \"units\": \"\"\n        },\n        \"flightEndTime\": \"\",\n        \"flightStartTime\": \"\",\n        \"name\": \"\",\n        \"preferredDealTerms\": {\n          \"fixedPrice\": {\n            \"amount\": {\n              \"currencyCode\": \"\",\n              \"nanos\": {{faker 'random.number'}},\n              \"units\": \"\"\n            },\n            \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n          }\n        },\n        \"privateAuctionTerms\": {\n          \"floorPrice\": {\n            \"amount\": {\n              \"currencyCode\": \"\",\n              \"nanos\": {{faker 'random.number'}},\n              \"units\": \"\"\n            },\n            \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n          },\n          \"openAuctionAllowed\": {{faker 'random.boolean'}}\n        },\n        \"programmaticGuaranteedTerms\": {\n          \"fixedPrice\": {\n            \"amount\": {\n              \"currencyCode\": \"\",\n              \"nanos\": {{faker 'random.number'}},\n              \"units\": \"\"\n            },\n            \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CPM' 'CPD')}}\"\n          },\n          \"guaranteedLooks\": \"\",\n          \"impressionCap\": \"\",\n          \"minimumDailyLooks\": \"\",\n          \"percentShareOfVoice\": \"\",\n          \"reservationType\": \"{{oneOf (array 'RESERVATION_TYPE_UNSPECIFIED' 'STANDARD' 'SPONSORSHIP')}}\"\n        },\n        \"proposalRevision\": \"\",\n        \"publisherProfile\": \"\",\n        \"sellerTimeZone\": {\n          \"id\": \"\",\n          \"version\": \"\"\n        },\n        \"targeting\": {\n          \"daypartTargeting\": {\n            \"dayParts\": [\n              {\n                \"dayOfWeek\": \"{{oneOf (array 'DAY_OF_WEEK_UNSPECIFIED' 'MONDAY' 'TUESDAY' 'WEDNESDAY' 'THURSDAY' 'FRIDAY' 'SATURDAY' 'SUNDAY')}}\",\n                \"endTime\": {\n                  \"hours\": {{faker 'random.number'}},\n                  \"minutes\": {{faker 'random.number'}},\n                  \"nanos\": {{faker 'random.number'}},\n                  \"seconds\": {{faker 'random.number'}}\n                },\n                \"startTime\": {\n                  \"hours\": {{faker 'random.number'}},\n                  \"minutes\": {{faker 'random.number'}},\n                  \"nanos\": {{faker 'random.number'}},\n                  \"seconds\": {{faker 'random.number'}}\n                }\n              }\n            ],\n            \"timeZoneType\": \"{{oneOf (array 'TIME_ZONE_TYPE_UNSPECIFIED' 'SELLER' 'USER')}}\"\n          },\n          \"geoTargeting\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          },\n          \"inventorySizeTargeting\": {\n            \"excludedInventorySizes\": [\n              {\n                \"height\": \"\",\n                \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n                \"width\": \"\"\n              }\n            ],\n            \"targetedInventorySizes\": [\n              {\n                \"height\": \"\",\n                \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'PIXEL' 'INTERSTITIAL' 'NATIVE' 'FLUID')}}\",\n                \"width\": \"\"\n              }\n            ]\n          },\n          \"placementTargeting\": {\n            \"mobileApplicationTargeting\": {\n              \"firstPartyTargeting\": {\n                \"excludedAppIds\": [\n                  \"\"\n                ],\n                \"targetedAppIds\": [\n                  \"\"\n                ]\n              }\n            },\n            \"uriTargeting\": {\n              \"excludedUris\": [\n                \"\"\n              ],\n              \"targetedUris\": [\n                \"\"\n              ]\n            }\n          },\n          \"technologyTargeting\": {\n            \"deviceCapabilityTargeting\": {\n              \"excludedCriteriaIds\": [\n                \"\"\n              ],\n              \"targetedCriteriaIds\": [\n                \"\"\n              ]\n            },\n            \"deviceCategoryTargeting\": {\n              \"excludedCriteriaIds\": [\n                \"\"\n              ],\n              \"targetedCriteriaIds\": [\n                \"\"\n              ]\n            },\n            \"operatingSystemTargeting\": {\n              \"operatingSystemCriteria\": {\n                \"excludedCriteriaIds\": [\n                  \"\"\n                ],\n                \"targetedCriteriaIds\": [\n                  \"\"\n                ]\n              },\n              \"operatingSystemVersionCriteria\": {\n                \"excludedCriteriaIds\": [\n                  \"\"\n                ],\n                \"targetedCriteriaIds\": [\n                  \"\"\n                ]\n              }\n            }\n          },\n          \"userListTargeting\": {\n            \"excludedCriteriaIds\": [\n              \"\"\n            ],\n            \"targetedCriteriaIds\": [\n              \"\"\n            ]\n          },\n          \"videoTargeting\": {\n            \"excludedPositionTypes\": [\n              \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n            ],\n            \"targetedPositionTypes\": [\n              \"{{oneOf (array 'POSITION_TYPE_UNSPECIFIED' 'PREROLL' 'MIDROLL' 'POSTROLL')}}\"\n            ]\n          }\n        },\n        \"updateTime\": \"\"\n      },\n      \"dealPausingInfo\": {\n        \"pauseReason\": \"\",\n        \"pauseRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n        \"pausingConsented\": {{faker 'random.boolean'}}\n      },\n      \"dealServingStatus\": \"{{oneOf (array 'DEAL_SERVING_STATUS_UNSPECIFIED' 'ACTIVE' 'ENDED' 'PAUSED_BY_BUYER' 'PAUSED_BY_SELLER')}}\",\n      \"name\": \"\",\n      \"readyToServe\": {{faker 'random.boolean'}},\n      \"rtbMetrics\": {\n        \"adImpressions7Days\": \"\",\n        \"bidRate7Days\": {{faker 'random.float'}},\n        \"bidRequests7Days\": \"\",\n        \"bids7Days\": \"\",\n        \"filteredBidRate7Days\": {{faker 'random.float'}},\n        \"mustBidRateCurrentMonth\": {{faker 'random.float'}}\n      }\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b000195e-2877-4701-8b2e-e1fabb7d862d",
+      "documentation": "Lists proposals. A filter expression (list filter syntax) may be specified to filter the results. This will not list finalized versions of proposals that are being renegotiated; to retrieve these use the finalizedProposals resource.",
+      "method": "get",
+      "endpoint": "v1/:parent/proposals",
+      "responses": [
+        {
+          "uuid": "3220b225-90e9-4114-83bd-534da739a1b2",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"proposals\": [\n    {\n      \"billedBuyer\": \"\",\n      \"buyer\": \"\",\n      \"buyerContacts\": [\n        {\n          \"displayName\": \"\",\n          \"email\": \"\"\n        }\n      ],\n      \"buyerPrivateData\": {\n        \"referenceId\": \"\"\n      },\n      \"client\": \"\",\n      \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n      \"displayName\": \"\",\n      \"isRenegotiating\": {{faker 'random.boolean'}},\n      \"lastUpdaterOrCommentorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n      \"name\": \"\",\n      \"notes\": [\n        {\n          \"createTime\": \"\",\n          \"creatorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n          \"note\": \"\"\n        }\n      ],\n      \"originatorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n      \"pausingConsented\": {{faker 'random.boolean'}},\n      \"proposalRevision\": \"\",\n      \"publisherProfile\": \"\",\n      \"sellerContacts\": [\n        {\n          \"displayName\": \"\",\n          \"email\": \"\"\n        }\n      ],\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'BUYER_REVIEW_REQUESTED' 'SELLER_REVIEW_REQUESTED' 'BUYER_ACCEPTANCE_REQUESTED' 'FINALIZED' 'TERMINATED')}}\",\n      \"termsAndConditions\": \"\",\n      \"updateTime\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "af800b2a-1140-4661-a934-33120cbc5aeb",
+      "documentation": "Lists publisher profiles",
+      "method": "get",
+      "endpoint": "v1/:parent/publisherProfiles",
+      "responses": [
+        {
+          "uuid": "badf706f-ec06-4573-9113-3e10fc5dbdc0",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"publisherProfiles\": [\n    {\n      \"audienceDescription\": \"\",\n      \"directDealsContact\": \"\",\n      \"displayName\": \"\",\n      \"domains\": [\n        \"\"\n      ],\n      \"isParent\": {{faker 'random.boolean'}},\n      \"logoUrl\": \"\",\n      \"mediaKitUrl\": \"\",\n      \"mobileApps\": [\n        {\n          \"appStore\": \"{{oneOf (array 'APP_STORE_TYPE_UNSPECIFIED' 'APPLE_ITUNES' 'GOOGLE_PLAY' 'ROKU' 'AMAZON_FIRE_TV' 'PLAYSTATION' 'XBOX' 'SAMSUNG_TV' 'AMAZON' 'OPPO' 'SAMSUNG' 'VIVO' 'XIAOMI')}}\",\n          \"externalAppId\": \"\",\n          \"name\": \"\"\n        }\n      ],\n      \"name\": \"\",\n      \"overview\": \"\",\n      \"pitchStatement\": \"\",\n      \"programmaticDealsContact\": \"\",\n      \"publisherCode\": \"\",\n      \"samplePageUrl\": \"\",\n      \"topHeadlines\": [\n        \"\"\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "904764cb-f931-4f3b-b9c0-a84b4f4c2738",
+      "documentation": "Lists all client users for a specified client.",
+      "method": "get",
+      "endpoint": "v1/:parent/users",
+      "responses": [
+        {
+          "uuid": "afc5d169-a43b-4946-a165-7c089411c307",
+          "body": "{\n  \"clientUsers\": [\n    {\n      \"email\": \"\",\n      \"name\": \"\",\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'INVITED' 'ACTIVE' 'INACTIVE')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7f968edc-f17f-4e9b-b094-c34d24d80181",
+      "documentation": "Creates a new client user in \"INVITED\" state. An email invitation will be sent to the new user, once accepted the user will become active.",
+      "method": "post",
+      "endpoint": "v1/:parent/users",
+      "responses": [
+        {
+          "uuid": "eb685cac-4914-448d-bf5e-2391bdd96e34",
+          "body": "{\n  \"email\": \"\",\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'INVITED' 'ACTIVE' 'INACTIVE')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "09ba66e5-451d-4fee-9737-38b75c06a467",
+      "documentation": "Creates a note for this proposal and sends to the seller.",
+      "method": "post",
+      "endpoint": "v1/:proposal:addNote",
+      "responses": [
+        {
+          "uuid": "0c4eae04-1dbe-4043-9be7-5a626d131878",
+          "body": "{\n  \"billedBuyer\": \"\",\n  \"buyer\": \"\",\n  \"buyerContacts\": [\n    {\n      \"displayName\": \"\",\n      \"email\": \"\"\n    }\n  ],\n  \"buyerPrivateData\": {\n    \"referenceId\": \"\"\n  },\n  \"client\": \"\",\n  \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n  \"displayName\": \"\",\n  \"isRenegotiating\": {{faker 'random.boolean'}},\n  \"lastUpdaterOrCommentorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n  \"name\": \"\",\n  \"notes\": [\n    {\n      \"createTime\": \"\",\n      \"creatorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n      \"note\": \"\"\n    }\n  ],\n  \"originatorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n  \"pausingConsented\": {{faker 'random.boolean'}},\n  \"proposalRevision\": \"\",\n  \"publisherProfile\": \"\",\n  \"sellerContacts\": [\n    {\n      \"displayName\": \"\",\n      \"email\": \"\"\n    }\n  ],\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'BUYER_REVIEW_REQUESTED' 'SELLER_REVIEW_REQUESTED' 'BUYER_ACCEPTANCE_REQUESTED' 'FINALIZED' 'TERMINATED')}}\",\n  \"termsAndConditions\": \"\",\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b143dbf3-59c1-4bbc-856b-df2fcffc17b7",
+      "documentation": "Cancels an ongoing negotiation on a proposal. This does not cancel or end serving for the deals if the proposal has been finalized. If the proposal has not been finalized before, calling this method will set the Proposal.state to `TERMINATED` and increment the Proposal.proposal_revision. If the proposal has been finalized before and is under renegotiation now, calling this method will reset the Proposal.state to `FINALIZED` and increment the Proposal.proposal_revision. This method does not support private auction proposals whose Proposal.deal_type is 'PRIVATE_AUCTION'.",
+      "method": "post",
+      "endpoint": "v1/:proposal:cancelNegotiation",
+      "responses": [
+        {
+          "uuid": "90c4289a-9280-4cb9-bee5-1917a3e3f95a",
+          "body": "{\n  \"billedBuyer\": \"\",\n  \"buyer\": \"\",\n  \"buyerContacts\": [\n    {\n      \"displayName\": \"\",\n      \"email\": \"\"\n    }\n  ],\n  \"buyerPrivateData\": {\n    \"referenceId\": \"\"\n  },\n  \"client\": \"\",\n  \"dealType\": \"{{oneOf (array 'DEAL_TYPE_UNSPECIFIED' 'PREFERRED_DEAL' 'PRIVATE_AUCTION' 'PROGRAMMATIC_GUARANTEED')}}\",\n  \"displayName\": \"\",\n  \"isRenegotiating\": {{faker 'random.boolean'}},\n  \"lastUpdaterOrCommentorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n  \"name\": \"\",\n  \"notes\": [\n    {\n      \"createTime\": \"\",\n      \"creatorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n      \"note\": \"\"\n    }\n  ],\n  \"originatorRole\": \"{{oneOf (array 'BUYER_SELLER_ROLE_UNSPECIFIED' 'BUYER' 'SELLER')}}\",\n  \"pausingConsented\": {{faker 'random.boolean'}},\n  \"proposalRevision\": \"\",\n  \"publisherProfile\": \"\",\n  \"sellerContacts\": [\n    {\n      \"displayName\": \"\",\n      \"email\": \"\"\n    }\n  ],\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'BUYER_REVIEW_REQUESTED' 'SELLER_REVIEW_REQUESTED' 'BUYER_ACCEPTANCE_REQUESTED' 'FINALIZED' 'TERMINATED')}}\",\n  \"termsAndConditions\": \"\",\n  \"updateTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

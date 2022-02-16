@@ -1,0 +1,162 @@
+{
+  "uuid": "64569b5e-ddde-447c-899b-83db0958c7b3",
+  "lastMigration": 19,
+  "name": "Redact API",
+  "endpointPrefix": "v1/redact",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "a3b0f04a-d637-417e-9251-677abfe09599",
+      "documentation": "Redact a specific message",
+      "method": "post",
+      "endpoint": "transaction",
+      "responses": [
+        {
+          "uuid": "ae1c5844-26b9-43b7-97d0-fd369299f332",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "37539f70-2937-421d-b3ec-d8b8220aa968",
+          "body": "{\n  \"error_title\": \"Unauthorized\",\n  \"type\": \"UNAUTHORIZED\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Authentication failure",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "86624d09-818c-4757-b3dc-e79b4472f648",
+          "body": "{\n  \"detail\": \"You must wait 60 minutes before redacting ID '0A000000B0C9A1234'\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Premature Redaction\",\n  \"type\": \"https://developer.nexmo.com/api-errors/redact#premature-redaction\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Authorisation denied",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7c7e6f70-bc16-4594-80f4-6cf01fd02ec8",
+          "body": "{\n  \"detail\": \"ID '0A000000B0C9A1234' could not be found (type=MT)\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Invalid ID\",\n  \"type\": \"https://developer.nexmo.com/api-errors#invalid-id\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No such record",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8e952d30-a18e-4799-90aa-84957b8151d5",
+          "body": "{\n  \"detail\": \"Unexpected character ('\\\"' (code 34)): was expecting comma to separate Object entries\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Invalid JSON\",\n  \"type\": \"https://developer.nexmo.com/api-errors#invalid-json\"\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Invalid JSON body",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "70ae1604-2e90-4ec4-8a39-ed90878a5643",
+          "body": "{\n  \"detail\": \"Please wait, then retry your request\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Rate Limit Hit\",\n  \"type\": \"https://developer.nexmo.com/api-errors/redact#rate-limit\"\n}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "Rate Limited",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

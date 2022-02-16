@@ -1,0 +1,543 @@
+{
+  "uuid": "23385c55-477f-4898-b8c8-181278347357",
+  "lastMigration": 19,
+  "name": "Form Recognizer Client",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "71643dcb-6ef1-4215-a1a8-b670e23596ce",
+      "documentation": "List Custom Models",
+      "method": "get",
+      "endpoint": "custom/models",
+      "responses": [
+        {
+          "uuid": "36090d27-b2c5-498e-8e38-26ae386cbfb4",
+          "body": "{\n  \"modelList\": [\n    {\n      \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"modelId\": \"{{faker 'random.uuid'}}\",\n      \"status\": \"{{oneOf (array 'creating' 'ready' 'invalid')}}\"\n    }\n  ],\n  \"nextLink\": \"\",\n  \"summary\": {\n    \"count\": {{faker 'random.number'}},\n    \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"limit\": {{faker 'random.number'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "49f9948e-854d-4bd0-8010-85096185c073",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Response entity accompanying non-successful responses containing additional details about the error.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7c48d2d9-db61-4ced-8c47-48822543d0fd",
+      "documentation": "Train Custom Model",
+      "method": "post",
+      "endpoint": "custom/models",
+      "responses": [
+        {
+          "uuid": "3acb8d78-8ab0-47c7-831c-ab52dc36b8d6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Request is queued successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "05c3f9b3-ba3a-47f3-a9e5-b0fe61ed0ac7",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Response entity accompanying non-successful responses containing additional details about the error.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a62362ca-2c60-4e68-b6fc-befac960519c",
+      "documentation": "Delete Custom Model",
+      "method": "delete",
+      "endpoint": "custom/models/:modelId",
+      "responses": [
+        {
+          "uuid": "fbbc55c2-7621-4d5d-b659-3b05d36b20f1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Successfully marked model for deletion. Model artifacts will be removed within a predefined time period.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8cff1a9c-608f-45c1-bfc5-fd7994639f54",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Response entity accompanying non-successful responses containing additional details about the error.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2e157520-392b-413a-abf1-68b66157e041",
+      "documentation": "Get Custom Model",
+      "method": "get",
+      "endpoint": "custom/models/:modelId",
+      "responses": [
+        {
+          "uuid": "237b242a-620e-406c-b5fa-45820acfb8b9",
+          "body": "{\n  \"keys\": {\n    \"clusters\": {}\n  },\n  \"modelInfo\": {\n    \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"modelId\": \"{{faker 'random.uuid'}}\",\n    \"status\": \"{{oneOf (array 'creating' 'ready' 'invalid')}}\"\n  },\n  \"trainResult\": {\n    \"averageModelAccuracy\": {{faker 'random.number'}},\n    \"errors\": [\n      {\n        \"code\": \"\",\n        \"message\": \"\"\n      }\n    ],\n    \"fields\": [\n      {\n        \"accuracy\": {{faker 'random.number'}},\n        \"fieldName\": \"\"\n      }\n    ],\n    \"trainingDocuments\": [\n      {\n        \"documentName\": \"\",\n        \"errors\": [\n          {\n            \"code\": \"\",\n            \"message\": \"\"\n          }\n        ],\n        \"pages\": {{faker 'random.number'}},\n        \"status\": \"{{oneOf (array 'succeeded' 'partiallySucceeded' 'failed')}}\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "941f5f3d-27d0-49f4-a91f-a74bab18a4fb",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Response entity accompanying non-successful responses containing additional details about the error.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "381495c5-6f1c-47ab-94f5-c7a7acaff6dd",
+      "documentation": "Analyze Form",
+      "method": "post",
+      "endpoint": "custom/models/:modelId/analyze",
+      "responses": [
+        {
+          "uuid": "983944e4-6720-4fb3-8400-7ce4cf84d60d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request is queued successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Operation-Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "434dfbd7-264d-4874-b60b-6dc8a9959c3a",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Response entity accompanying non-successful responses containing additional details about the error.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5ba86fcc-a9bc-40a7-b8de-87fd275fc413",
+      "documentation": "Get Analyze Form Result",
+      "method": "get",
+      "endpoint": "custom/models/:modelId/analyzeResults/:resultId",
+      "responses": [
+        {
+          "uuid": "dfb0a5d2-c4b1-4b7b-83c8-f6d46eabc221",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "84c9df13-7c50-450e-a69b-7dffae3931c0",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Response entity accompanying non-successful responses containing additional details about the error.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5c6d4b85-c97a-4cb5-ba45-0c650b425542",
+      "documentation": "Analyze Layout",
+      "method": "post",
+      "endpoint": "layout/analyze",
+      "responses": [
+        {
+          "uuid": "8ca7b5ff-6ca3-4090-a943-054cfad1af1e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request is queued successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Operation-Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4e8ace33-8fa2-46e1-bb82-c1da9376cdef",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Response entity accompanying non-successful responses containing additional details about the error.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0bd8c1e0-2fed-4093-ac7e-76331033d3d3",
+      "documentation": "Get Analyze Layout Result",
+      "method": "get",
+      "endpoint": "layout/analyzeResults/:resultId",
+      "responses": [
+        {
+          "uuid": "52ecd607-edc2-457e-8766-462f806dee99",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "be683b42-2a2c-4fb1-9a62-444fd1b673c3",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Response entity accompanying non-successful responses containing additional details about the error.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ed68fb0c-b798-4b77-803d-4471647efc2e",
+      "documentation": "Analyze Receipt",
+      "method": "post",
+      "endpoint": "prebuilt/receipt/analyze",
+      "responses": [
+        {
+          "uuid": "b7f7edf3-79e0-4dca-83b5-6438ad451b9c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Request is queued successfully.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Operation-Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fc5543dd-0943-4934-b9b7-6ee6523e63a5",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Response entity accompanying non-successful responses containing additional details about the error.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a0f60111-0450-46bf-a3f9-d81cc9993be3",
+      "documentation": "Get Analyze Receipt Result",
+      "method": "get",
+      "endpoint": "prebuilt/receipt/analyzeResults/:resultId",
+      "responses": [
+        {
+          "uuid": "f63b84d4-ca74-424f-8aed-d6cde5519141",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "99987f9a-5130-406f-98e0-214e2b2c40c2",
+          "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Response entity accompanying non-successful responses containing additional details about the error.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

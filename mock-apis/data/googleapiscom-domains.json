@@ -1,0 +1,637 @@
+{
+  "uuid": "9f13cb50-0873-47b4-af44-a0e9ab4bad1c",
+  "lastMigration": 19,
+  "name": "Cloud Domains API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "6702f88f-0f4f-471a-9609-107fe591737f",
+      "documentation": "Gets parameters needed to register a new domain name, including price and up-to-date availability. Use the returned values to call `RegisterDomain`.",
+      "method": "get",
+      "endpoint": "v1alpha2/:location/registrations:retrieveRegisterParameters",
+      "responses": [
+        {
+          "uuid": "10ab683a-8e53-4c4e-ae49-de606913ec60",
+          "body": "{\n  \"registerParameters\": {\n    \"availability\": \"{{oneOf (array 'AVAILABILITY_UNSPECIFIED' 'AVAILABLE' 'UNAVAILABLE' 'UNSUPPORTED' 'UNKNOWN')}}\",\n    \"domainName\": \"\",\n    \"domainNotices\": [\n      \"{{oneOf (array 'DOMAIN_NOTICE_UNSPECIFIED' 'HSTS_PRELOADED')}}\"\n    ],\n    \"supportedPrivacy\": [\n      \"{{oneOf (array 'CONTACT_PRIVACY_UNSPECIFIED' 'PUBLIC_CONTACT_DATA' 'PRIVATE_CONTACT_DATA' 'REDACTED_CONTACT_DATA')}}\"\n    ],\n    \"yearlyPrice\": {\n      \"currencyCode\": \"\",\n      \"nanos\": {{faker 'random.number'}},\n      \"units\": \"\"\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "601e7afb-0e52-4529-8f80-3bb1c98acf2d",
+      "documentation": "Gets parameters needed to transfer a domain name from another registrar to Cloud Domains. For domains managed by Google Domains, transferring to Cloud Domains is not supported. Use the returned values to call `TransferDomain`.",
+      "method": "get",
+      "endpoint": "v1alpha2/:location/registrations:retrieveTransferParameters",
+      "responses": [
+        {
+          "uuid": "50a6689f-f552-479d-a8bf-da8d8f239ee1",
+          "body": "{\n  \"transferParameters\": {\n    \"currentRegistrar\": \"\",\n    \"domainName\": \"\",\n    \"nameServers\": [\n      \"\"\n    ],\n    \"supportedPrivacy\": [\n      \"{{oneOf (array 'CONTACT_PRIVACY_UNSPECIFIED' 'PUBLIC_CONTACT_DATA' 'PRIVATE_CONTACT_DATA' 'REDACTED_CONTACT_DATA')}}\"\n    ],\n    \"transferLockState\": \"{{oneOf (array 'TRANSFER_LOCK_STATE_UNSPECIFIED' 'UNLOCKED' 'LOCKED')}}\",\n    \"yearlyPrice\": {\n      \"currencyCode\": \"\",\n      \"nanos\": {{faker 'random.number'}},\n      \"units\": \"\"\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c7ebca7a-d1c4-4784-90c7-7eb465a01dd6",
+      "documentation": "Searches for available domain names similar to the provided query. Availability results from this method are approximate; call `RetrieveRegisterParameters` on a domain before registering to confirm availability.",
+      "method": "get",
+      "endpoint": "v1alpha2/:location/registrations:searchDomains",
+      "responses": [
+        {
+          "uuid": "af205f61-0edc-41d3-bd47-fa3d7e9094be",
+          "body": "{\n  \"registerParameters\": [\n    {\n      \"availability\": \"{{oneOf (array 'AVAILABILITY_UNSPECIFIED' 'AVAILABLE' 'UNAVAILABLE' 'UNSUPPORTED' 'UNKNOWN')}}\",\n      \"domainName\": \"\",\n      \"domainNotices\": [\n        \"{{oneOf (array 'DOMAIN_NOTICE_UNSPECIFIED' 'HSTS_PRELOADED')}}\"\n      ],\n      \"supportedPrivacy\": [\n        \"{{oneOf (array 'CONTACT_PRIVACY_UNSPECIFIED' 'PUBLIC_CONTACT_DATA' 'PRIVATE_CONTACT_DATA' 'REDACTED_CONTACT_DATA')}}\"\n      ],\n      \"yearlyPrice\": {\n        \"currencyCode\": \"\",\n        \"nanos\": {{faker 'random.number'}},\n        \"units\": \"\"\n      }\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "517a0d6f-606a-48e4-a073-23d77aa4917a",
+      "documentation": "Deletes a `Registration` resource. This method works on any `Registration` resource using [Subscription or Commitment billing](/domains/pricing#billing-models), provided that the resource was created at least 1 day in the past. For `Registration` resources using [Monthly billing](/domains/pricing#billing-models), this method works if: * `state` is `EXPORTED` with `expire_time` in the past * `state` is `REGISTRATION_FAILED` * `state` is `TRANSFER_FAILED` When an active registration is successfully deleted, you can continue to use the domain in [Google Domains](https://domains.google/) until it expires. The calling user becomes the domain's sole owner in Google Domains, and permissions for the domain are subsequently managed there. The domain does not renew automatically unless the new owner sets up billing in Google Domains.",
+      "method": "delete",
+      "endpoint": "v1alpha2/:name",
+      "responses": [
+        {
+          "uuid": "74d64e2d-aebf-427b-94b2-1f72f30386db",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c4049a4b-e18d-4858-aff7-f7ab0d6870be",
+      "documentation": "Gets the details of a `Registration` resource.",
+      "method": "get",
+      "endpoint": "v1alpha2/:name",
+      "responses": [
+        {
+          "uuid": "8ab56998-fc60-4913-9074-e24bb750c5a7",
+          "body": "{\n  \"contactSettings\": {\n    \"adminContact\": {\n      \"email\": \"\",\n      \"faxNumber\": \"\",\n      \"phoneNumber\": \"\",\n      \"postalAddress\": {\n        \"addressLines\": [\n          \"\"\n        ],\n        \"administrativeArea\": \"\",\n        \"languageCode\": \"\",\n        \"locality\": \"\",\n        \"organization\": \"\",\n        \"postalCode\": \"\",\n        \"recipients\": [\n          \"\"\n        ],\n        \"regionCode\": \"\",\n        \"revision\": {{faker 'random.number'}},\n        \"sortingCode\": \"\",\n        \"sublocality\": \"\"\n      }\n    },\n    \"privacy\": \"{{oneOf (array 'CONTACT_PRIVACY_UNSPECIFIED' 'PUBLIC_CONTACT_DATA' 'PRIVATE_CONTACT_DATA' 'REDACTED_CONTACT_DATA')}}\",\n    \"registrantContact\": {\n      \"email\": \"\",\n      \"faxNumber\": \"\",\n      \"phoneNumber\": \"\",\n      \"postalAddress\": {\n        \"addressLines\": [\n          \"\"\n        ],\n        \"administrativeArea\": \"\",\n        \"languageCode\": \"\",\n        \"locality\": \"\",\n        \"organization\": \"\",\n        \"postalCode\": \"\",\n        \"recipients\": [\n          \"\"\n        ],\n        \"regionCode\": \"\",\n        \"revision\": {{faker 'random.number'}},\n        \"sortingCode\": \"\",\n        \"sublocality\": \"\"\n      }\n    },\n    \"technicalContact\": {\n      \"email\": \"\",\n      \"faxNumber\": \"\",\n      \"phoneNumber\": \"\",\n      \"postalAddress\": {\n        \"addressLines\": [\n          \"\"\n        ],\n        \"administrativeArea\": \"\",\n        \"languageCode\": \"\",\n        \"locality\": \"\",\n        \"organization\": \"\",\n        \"postalCode\": \"\",\n        \"recipients\": [\n          \"\"\n        ],\n        \"regionCode\": \"\",\n        \"revision\": {{faker 'random.number'}},\n        \"sortingCode\": \"\",\n        \"sublocality\": \"\"\n      }\n    }\n  },\n  \"createTime\": \"\",\n  \"dnsSettings\": {\n    \"customDns\": {\n      \"dsRecords\": [\n        {\n          \"algorithm\": \"{{oneOf (array 'ALGORITHM_UNSPECIFIED' 'RSAMD5' 'DH' 'DSA' 'ECC' 'RSASHA1' 'DSANSEC3SHA1' 'RSASHA1NSEC3SHA1' 'RSASHA256' 'RSASHA512' 'ECCGOST' 'ECDSAP256SHA256' 'ECDSAP384SHA384' 'ED25519' 'ED448' 'INDIRECT' 'PRIVATEDNS' 'PRIVATEOID')}}\",\n          \"digest\": \"\",\n          \"digestType\": \"{{oneOf (array 'DIGEST_TYPE_UNSPECIFIED' 'SHA1' 'SHA256' 'GOST3411' 'SHA384')}}\",\n          \"keyTag\": {{faker 'random.number'}}\n        }\n      ],\n      \"nameServers\": [\n        \"\"\n      ]\n    },\n    \"glueRecords\": [\n      {\n        \"hostName\": \"\",\n        \"ipv4Addresses\": [\n          \"\"\n        ],\n        \"ipv6Addresses\": [\n          \"\"\n        ]\n      }\n    ],\n    \"googleDomainsDns\": {\n      \"dsRecords\": [\n        {\n          \"algorithm\": \"{{oneOf (array 'ALGORITHM_UNSPECIFIED' 'RSAMD5' 'DH' 'DSA' 'ECC' 'RSASHA1' 'DSANSEC3SHA1' 'RSASHA1NSEC3SHA1' 'RSASHA256' 'RSASHA512' 'ECCGOST' 'ECDSAP256SHA256' 'ECDSAP384SHA384' 'ED25519' 'ED448' 'INDIRECT' 'PRIVATEDNS' 'PRIVATEOID')}}\",\n          \"digest\": \"\",\n          \"digestType\": \"{{oneOf (array 'DIGEST_TYPE_UNSPECIFIED' 'SHA1' 'SHA256' 'GOST3411' 'SHA384')}}\",\n          \"keyTag\": {{faker 'random.number'}}\n        }\n      ],\n      \"dsState\": \"{{oneOf (array 'DS_STATE_UNSPECIFIED' 'DS_RECORDS_UNPUBLISHED' 'DS_RECORDS_PUBLISHED')}}\",\n      \"nameServers\": [\n        \"\"\n      ]\n    }\n  },\n  \"domainName\": \"\",\n  \"expireTime\": \"\",\n  \"issues\": [\n    \"{{oneOf (array 'ISSUE_UNSPECIFIED' 'CONTACT_SUPPORT' 'UNVERIFIED_EMAIL')}}\"\n  ],\n  \"labels\": {},\n  \"managementSettings\": {\n    \"renewalMethod\": \"{{oneOf (array 'RENEWAL_METHOD_UNSPECIFIED' 'AUTOMATIC_RENEWAL' 'MANUAL_RENEWAL')}}\",\n    \"transferLockState\": \"{{oneOf (array 'TRANSFER_LOCK_STATE_UNSPECIFIED' 'UNLOCKED' 'LOCKED')}}\"\n  },\n  \"name\": \"\",\n  \"pendingContactSettings\": {\n    \"adminContact\": {\n      \"email\": \"\",\n      \"faxNumber\": \"\",\n      \"phoneNumber\": \"\",\n      \"postalAddress\": {\n        \"addressLines\": [\n          \"\"\n        ],\n        \"administrativeArea\": \"\",\n        \"languageCode\": \"\",\n        \"locality\": \"\",\n        \"organization\": \"\",\n        \"postalCode\": \"\",\n        \"recipients\": [\n          \"\"\n        ],\n        \"regionCode\": \"\",\n        \"revision\": {{faker 'random.number'}},\n        \"sortingCode\": \"\",\n        \"sublocality\": \"\"\n      }\n    },\n    \"privacy\": \"{{oneOf (array 'CONTACT_PRIVACY_UNSPECIFIED' 'PUBLIC_CONTACT_DATA' 'PRIVATE_CONTACT_DATA' 'REDACTED_CONTACT_DATA')}}\",\n    \"registrantContact\": {\n      \"email\": \"\",\n      \"faxNumber\": \"\",\n      \"phoneNumber\": \"\",\n      \"postalAddress\": {\n        \"addressLines\": [\n          \"\"\n        ],\n        \"administrativeArea\": \"\",\n        \"languageCode\": \"\",\n        \"locality\": \"\",\n        \"organization\": \"\",\n        \"postalCode\": \"\",\n        \"recipients\": [\n          \"\"\n        ],\n        \"regionCode\": \"\",\n        \"revision\": {{faker 'random.number'}},\n        \"sortingCode\": \"\",\n        \"sublocality\": \"\"\n      }\n    },\n    \"technicalContact\": {\n      \"email\": \"\",\n      \"faxNumber\": \"\",\n      \"phoneNumber\": \"\",\n      \"postalAddress\": {\n        \"addressLines\": [\n          \"\"\n        ],\n        \"administrativeArea\": \"\",\n        \"languageCode\": \"\",\n        \"locality\": \"\",\n        \"organization\": \"\",\n        \"postalCode\": \"\",\n        \"recipients\": [\n          \"\"\n        ],\n        \"regionCode\": \"\",\n        \"revision\": {{faker 'random.number'}},\n        \"sortingCode\": \"\",\n        \"sublocality\": \"\"\n      }\n    }\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'REGISTRATION_PENDING' 'REGISTRATION_FAILED' 'TRANSFER_PENDING' 'TRANSFER_FAILED' 'ACTIVE' 'SUSPENDED' 'EXPORTED')}}\",\n  \"supportedPrivacy\": [\n    \"{{oneOf (array 'CONTACT_PRIVACY_UNSPECIFIED' 'PUBLIC_CONTACT_DATA' 'PRIVATE_CONTACT_DATA' 'REDACTED_CONTACT_DATA')}}\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ec53a868-4b50-462e-884d-5ffcb330701a",
+      "documentation": "Updates select fields of a `Registration` resource, notably `labels`. To update other fields, use the appropriate custom update method: * To update management settings, see `ConfigureManagementSettings` * To update DNS configuration, see `ConfigureDnsSettings` * To update contact information, see `ConfigureContactSettings`",
+      "method": "patch",
+      "endpoint": "v1alpha2/:name",
+      "responses": [
+        {
+          "uuid": "edbfd899-fb0a-4dcc-adc6-ca5cbca28208",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9bec549f-5660-485e-a376-b2d225b0f3f1",
+      "documentation": "Lists information about the supported locations for this service.",
+      "method": "get",
+      "endpoint": "v1alpha2/:name/locations",
+      "responses": [
+        {
+          "uuid": "d23ea9a8-1890-40f9-9331-f5d2ddd73407",
+          "body": "{\n  \"locations\": [\n    {\n      \"displayName\": \"\",\n      \"labels\": {},\n      \"locationId\": \"\",\n      \"metadata\": {},\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "09f6a132-a69f-4630-b297-6c0fb682c93c",
+      "documentation": "Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`. NOTE: the `name` binding allows API services to override the binding to use different resource name schemes, such as `users/*/operations`. To override the binding, API services can add a binding such as `\"/v1/{name=users/*}/operations\"` to their service configuration. For backwards compatibility, the default name includes the operations collection id, however overriding users must ensure the name binding is the parent resource, without the operations collection id.",
+      "method": "get",
+      "endpoint": "v1alpha2/:name/operations",
+      "responses": [
+        {
+          "uuid": "33dda15b-04dd-47ce-b926-f620644a49f3",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"operations\": [\n    {\n      \"done\": {{faker 'random.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'random.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"metadata\": {},\n      \"name\": \"\",\n      \"response\": {}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f804805b-a563-4d73-8b87-06c4245182bf",
+      "documentation": "Exports a `Registration` resource, such that it is no longer managed by Cloud Domains. When an active domain is successfully exported, you can continue to use the domain in [Google Domains](https://domains.google/) until it expires. The calling user becomes the domain's sole owner in Google Domains, and permissions for the domain are subsequently managed there. The domain does not renew automatically unless the new owner sets up billing in Google Domains.",
+      "method": "post",
+      "endpoint": "v1alpha2/:name:export",
+      "responses": [
+        {
+          "uuid": "732963e8-fb75-4958-8f9a-6183d8208aaa",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b1ad4542-a678-4da9-87bd-162a9f291f22",
+      "documentation": "Lists the `Registration` resources in a project.",
+      "method": "get",
+      "endpoint": "v1alpha2/:parent/registrations",
+      "responses": [
+        {
+          "uuid": "428b34ad-54c0-4dd3-bc03-1abf85f20eda",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"registrations\": [\n    {\n      \"contactSettings\": {\n        \"adminContact\": {\n          \"email\": \"\",\n          \"faxNumber\": \"\",\n          \"phoneNumber\": \"\",\n          \"postalAddress\": {\n            \"addressLines\": [\n              \"\"\n            ],\n            \"administrativeArea\": \"\",\n            \"languageCode\": \"\",\n            \"locality\": \"\",\n            \"organization\": \"\",\n            \"postalCode\": \"\",\n            \"recipients\": [\n              \"\"\n            ],\n            \"regionCode\": \"\",\n            \"revision\": {{faker 'random.number'}},\n            \"sortingCode\": \"\",\n            \"sublocality\": \"\"\n          }\n        },\n        \"privacy\": \"{{oneOf (array 'CONTACT_PRIVACY_UNSPECIFIED' 'PUBLIC_CONTACT_DATA' 'PRIVATE_CONTACT_DATA' 'REDACTED_CONTACT_DATA')}}\",\n        \"registrantContact\": {\n          \"email\": \"\",\n          \"faxNumber\": \"\",\n          \"phoneNumber\": \"\",\n          \"postalAddress\": {\n            \"addressLines\": [\n              \"\"\n            ],\n            \"administrativeArea\": \"\",\n            \"languageCode\": \"\",\n            \"locality\": \"\",\n            \"organization\": \"\",\n            \"postalCode\": \"\",\n            \"recipients\": [\n              \"\"\n            ],\n            \"regionCode\": \"\",\n            \"revision\": {{faker 'random.number'}},\n            \"sortingCode\": \"\",\n            \"sublocality\": \"\"\n          }\n        },\n        \"technicalContact\": {\n          \"email\": \"\",\n          \"faxNumber\": \"\",\n          \"phoneNumber\": \"\",\n          \"postalAddress\": {\n            \"addressLines\": [\n              \"\"\n            ],\n            \"administrativeArea\": \"\",\n            \"languageCode\": \"\",\n            \"locality\": \"\",\n            \"organization\": \"\",\n            \"postalCode\": \"\",\n            \"recipients\": [\n              \"\"\n            ],\n            \"regionCode\": \"\",\n            \"revision\": {{faker 'random.number'}},\n            \"sortingCode\": \"\",\n            \"sublocality\": \"\"\n          }\n        }\n      },\n      \"createTime\": \"\",\n      \"dnsSettings\": {\n        \"customDns\": {\n          \"dsRecords\": [\n            {\n              \"algorithm\": \"{{oneOf (array 'ALGORITHM_UNSPECIFIED' 'RSAMD5' 'DH' 'DSA' 'ECC' 'RSASHA1' 'DSANSEC3SHA1' 'RSASHA1NSEC3SHA1' 'RSASHA256' 'RSASHA512' 'ECCGOST' 'ECDSAP256SHA256' 'ECDSAP384SHA384' 'ED25519' 'ED448' 'INDIRECT' 'PRIVATEDNS' 'PRIVATEOID')}}\",\n              \"digest\": \"\",\n              \"digestType\": \"{{oneOf (array 'DIGEST_TYPE_UNSPECIFIED' 'SHA1' 'SHA256' 'GOST3411' 'SHA384')}}\",\n              \"keyTag\": {{faker 'random.number'}}\n            }\n          ],\n          \"nameServers\": [\n            \"\"\n          ]\n        },\n        \"glueRecords\": [\n          {\n            \"hostName\": \"\",\n            \"ipv4Addresses\": [\n              \"\"\n            ],\n            \"ipv6Addresses\": [\n              \"\"\n            ]\n          }\n        ],\n        \"googleDomainsDns\": {\n          \"dsRecords\": [\n            {\n              \"algorithm\": \"{{oneOf (array 'ALGORITHM_UNSPECIFIED' 'RSAMD5' 'DH' 'DSA' 'ECC' 'RSASHA1' 'DSANSEC3SHA1' 'RSASHA1NSEC3SHA1' 'RSASHA256' 'RSASHA512' 'ECCGOST' 'ECDSAP256SHA256' 'ECDSAP384SHA384' 'ED25519' 'ED448' 'INDIRECT' 'PRIVATEDNS' 'PRIVATEOID')}}\",\n              \"digest\": \"\",\n              \"digestType\": \"{{oneOf (array 'DIGEST_TYPE_UNSPECIFIED' 'SHA1' 'SHA256' 'GOST3411' 'SHA384')}}\",\n              \"keyTag\": {{faker 'random.number'}}\n            }\n          ],\n          \"dsState\": \"{{oneOf (array 'DS_STATE_UNSPECIFIED' 'DS_RECORDS_UNPUBLISHED' 'DS_RECORDS_PUBLISHED')}}\",\n          \"nameServers\": [\n            \"\"\n          ]\n        }\n      },\n      \"domainName\": \"\",\n      \"expireTime\": \"\",\n      \"issues\": [\n        \"{{oneOf (array 'ISSUE_UNSPECIFIED' 'CONTACT_SUPPORT' 'UNVERIFIED_EMAIL')}}\"\n      ],\n      \"labels\": {},\n      \"managementSettings\": {\n        \"renewalMethod\": \"{{oneOf (array 'RENEWAL_METHOD_UNSPECIFIED' 'AUTOMATIC_RENEWAL' 'MANUAL_RENEWAL')}}\",\n        \"transferLockState\": \"{{oneOf (array 'TRANSFER_LOCK_STATE_UNSPECIFIED' 'UNLOCKED' 'LOCKED')}}\"\n      },\n      \"name\": \"\",\n      \"pendingContactSettings\": {\n        \"adminContact\": {\n          \"email\": \"\",\n          \"faxNumber\": \"\",\n          \"phoneNumber\": \"\",\n          \"postalAddress\": {\n            \"addressLines\": [\n              \"\"\n            ],\n            \"administrativeArea\": \"\",\n            \"languageCode\": \"\",\n            \"locality\": \"\",\n            \"organization\": \"\",\n            \"postalCode\": \"\",\n            \"recipients\": [\n              \"\"\n            ],\n            \"regionCode\": \"\",\n            \"revision\": {{faker 'random.number'}},\n            \"sortingCode\": \"\",\n            \"sublocality\": \"\"\n          }\n        },\n        \"privacy\": \"{{oneOf (array 'CONTACT_PRIVACY_UNSPECIFIED' 'PUBLIC_CONTACT_DATA' 'PRIVATE_CONTACT_DATA' 'REDACTED_CONTACT_DATA')}}\",\n        \"registrantContact\": {\n          \"email\": \"\",\n          \"faxNumber\": \"\",\n          \"phoneNumber\": \"\",\n          \"postalAddress\": {\n            \"addressLines\": [\n              \"\"\n            ],\n            \"administrativeArea\": \"\",\n            \"languageCode\": \"\",\n            \"locality\": \"\",\n            \"organization\": \"\",\n            \"postalCode\": \"\",\n            \"recipients\": [\n              \"\"\n            ],\n            \"regionCode\": \"\",\n            \"revision\": {{faker 'random.number'}},\n            \"sortingCode\": \"\",\n            \"sublocality\": \"\"\n          }\n        },\n        \"technicalContact\": {\n          \"email\": \"\",\n          \"faxNumber\": \"\",\n          \"phoneNumber\": \"\",\n          \"postalAddress\": {\n            \"addressLines\": [\n              \"\"\n            ],\n            \"administrativeArea\": \"\",\n            \"languageCode\": \"\",\n            \"locality\": \"\",\n            \"organization\": \"\",\n            \"postalCode\": \"\",\n            \"recipients\": [\n              \"\"\n            ],\n            \"regionCode\": \"\",\n            \"revision\": {{faker 'random.number'}},\n            \"sortingCode\": \"\",\n            \"sublocality\": \"\"\n          }\n        }\n      },\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'REGISTRATION_PENDING' 'REGISTRATION_FAILED' 'TRANSFER_PENDING' 'TRANSFER_FAILED' 'ACTIVE' 'SUSPENDED' 'EXPORTED')}}\",\n      \"supportedPrivacy\": [\n        \"{{oneOf (array 'CONTACT_PRIVACY_UNSPECIFIED' 'PUBLIC_CONTACT_DATA' 'PRIVATE_CONTACT_DATA' 'REDACTED_CONTACT_DATA')}}\"\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1d0dfd9a-8766-45f8-be14-1d24c06e5f10",
+      "documentation": "Registers a new domain name and creates a corresponding `Registration` resource. Call `RetrieveRegisterParameters` first to check availability of the domain name and determine parameters like price that are needed to build a call to this method. A successful call creates a `Registration` resource in state `REGISTRATION_PENDING`, which resolves to `ACTIVE` within 1-2 minutes, indicating that the domain was successfully registered. If the resource ends up in state `REGISTRATION_FAILED`, it indicates that the domain was not registered successfully, and you can safely delete the resource and retry registration.",
+      "method": "post",
+      "endpoint": "v1alpha2/:parent/registrations:register",
+      "responses": [
+        {
+          "uuid": "251b2fa8-b48c-4b01-9bd2-eb6b2e2ba485",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0c3c229a-e479-4e96-a858-feb0aefd2d09",
+      "documentation": "Transfers a domain name from another registrar to Cloud Domains. For domains managed by Google Domains, transferring to Cloud Domains is not supported. Before calling this method, go to the domain's current registrar to unlock the domain for transfer and retrieve the domain's transfer authorization code. Then call `RetrieveTransferParameters` to confirm that the domain is unlocked and to get values needed to build a call to this method. A successful call creates a `Registration` resource in state `TRANSFER_PENDING`. It can take several days to complete the transfer process. The registrant can often speed up this process by approving the transfer through the current registrar, either by clicking a link in an email from the registrar or by visiting the registrar's website. A few minutes after transfer approval, the resource transitions to state `ACTIVE`, indicating that the transfer was successful. If the transfer is rejected or the request expires without being approved, the resource can end up in state `TRANSFER_FAILED`. If transfer fails, you can safely delete the resource and retry the transfer.",
+      "method": "post",
+      "endpoint": "v1alpha2/:parent/registrations:transfer",
+      "responses": [
+        {
+          "uuid": "64c23fbf-1cb9-4e77-9fae-7a5057e9ad35",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4581c151-7af1-4efa-b154-82c50b34002c",
+      "documentation": "Updates a `Registration`'s contact settings. Some changes require confirmation by the domain's registrant contact .",
+      "method": "post",
+      "endpoint": "v1alpha2/:registration:configureContactSettings",
+      "responses": [
+        {
+          "uuid": "e1640681-35c5-4fb3-9dba-381f46cedbd5",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cfc0ba44-d091-4e3a-878e-3a72bcee2636",
+      "documentation": "Updates a `Registration`'s DNS settings.",
+      "method": "post",
+      "endpoint": "v1alpha2/:registration:configureDnsSettings",
+      "responses": [
+        {
+          "uuid": "3e8e06fa-b982-4af8-8b9f-8ab1c8d1c1d3",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "41915520-dd6b-4e3f-9f53-1e3beedcffbb",
+      "documentation": "Updates a `Registration`'s management settings.",
+      "method": "post",
+      "endpoint": "v1alpha2/:registration:configureManagementSettings",
+      "responses": [
+        {
+          "uuid": "c3e173e2-c0e9-4c21-bdf2-471c99d2d013",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3c6a08a8-fb01-45c8-bda4-90dcbc072012",
+      "documentation": "Resets the authorization code of the `Registration` to a new random string. You can call this method only after 60 days have elapsed since the initial domain registration.",
+      "method": "post",
+      "endpoint": "v1alpha2/:registration:resetAuthorizationCode",
+      "responses": [
+        {
+          "uuid": "c391d152-47f9-40d8-a9e4-018102cafce3",
+          "body": "{\n  \"code\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "69309585-429e-4bc5-a468-6aa7b66bc260",
+      "documentation": "Gets the authorization code of the `Registration` for the purpose of transferring the domain to another registrar. You can call this method only after 60 days have elapsed since the initial domain registration.",
+      "method": "get",
+      "endpoint": "v1alpha2/:registration:retrieveAuthorizationCode",
+      "responses": [
+        {
+          "uuid": "d54e278a-c091-4a1d-8965-c32315c31f4e",
+          "body": "{\n  \"code\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "18b86005-add4-4169-9ed4-5abc1797e457",
+      "documentation": "Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.",
+      "method": "get",
+      "endpoint": "v1alpha2/:resource:getIamPolicy",
+      "responses": [
+        {
+          "uuid": "7d17700e-9419-4974-9ec9-dcb408113e49",
+          "body": "{\n  \"auditConfigs\": [\n    {\n      \"auditLogConfigs\": [\n        {\n          \"exemptedMembers\": [\n            \"\"\n          ],\n          \"logType\": \"{{oneOf (array 'LOG_TYPE_UNSPECIFIED' 'ADMIN_READ' 'DATA_WRITE' 'DATA_READ')}}\"\n        }\n      ],\n      \"service\": \"\"\n    }\n  ],\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e8bfc6d8-5ae1-44a9-b4b8-79cf608dde84",
+      "documentation": "Sets the access control policy on the specified resource. Replaces any existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.",
+      "method": "post",
+      "endpoint": "v1alpha2/:resource:setIamPolicy",
+      "responses": [
+        {
+          "uuid": "334accc1-16de-4756-86ba-472b3539878c",
+          "body": "{\n  \"auditConfigs\": [\n    {\n      \"auditLogConfigs\": [\n        {\n          \"exemptedMembers\": [\n            \"\"\n          ],\n          \"logType\": \"{{oneOf (array 'LOG_TYPE_UNSPECIFIED' 'ADMIN_READ' 'DATA_WRITE' 'DATA_READ')}}\"\n        }\n      ],\n      \"service\": \"\"\n    }\n  ],\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "67c52fd9-2e06-455e-a249-a3e6e559d6f4",
+      "documentation": "Returns permissions that a caller has on the specified resource. If the resource does not exist, this will return an empty set of permissions, not a `NOT_FOUND` error. Note: This operation is designed to be used for building permission-aware UIs and command-line tools, not for authorization checking. This operation may \"fail open\" without warning.",
+      "method": "post",
+      "endpoint": "v1alpha2/:resource:testIamPermissions",
+      "responses": [
+        {
+          "uuid": "3cf86af8-b480-4fe1-994d-1880aa7ac24e",
+          "body": "{\n  \"permissions\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,540 @@
+{
+  "uuid": "a18966ab-f174-4a90-b986-e3ea2b801561",
+  "lastMigration": 19,
+  "name": "WeGA API",
+  "endpointPrefix": "api/v1",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "b9fceb9d-90ac-447f-bfbd-7bf4dfdb3328",
+      "documentation": "Create a new WeGA ID",
+      "method": "get",
+      "endpoint": "application/newID",
+      "responses": [
+        {
+          "uuid": "5494a681-e4e2-421e-8aea-459831a86e85",
+          "body": "{\n  \"docID\": \"\",\n  \"docType\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "A single object with a fresh WeGA ID",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "92a39ea1-1205-468d-b439-5bacf4534232",
+          "body": "{\n  \"code\": 403,\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "The creation of new IDs is only available in the development environment",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d4de1994-890d-41bb-9bad-9343b7c934dd",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"fields\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "461c66db-cb7b-44ce-9ea7-7a5277443e9b",
+      "documentation": "Get status information about the running WeGA-WebApp",
+      "method": "get",
+      "endpoint": "application/status",
+      "responses": [
+        {
+          "uuid": "3174d769-6134-4ddc-afdd-b324d419d080",
+          "body": "{\n  \"deployment\": \"{{faker 'date.recent' 365}}\",\n  \"status\": \"healthy\",\n  \"svnRevision\": {{faker 'random.number'}},\n  \"version\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Healthy – A single object with status information",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c7a7d8c6-c87c-4a92-b469-dcd9302dc661",
+          "body": "{\n  \"deployment\": \"{{faker 'date.recent' 365}}\",\n  \"status\": \"unhealthy\",\n  \"svnRevision\": {{faker 'random.number'}},\n  \"version\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Unhealthy – A single object with status information",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2cdc71f7-2da6-4939-b248-bcedef564a35",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"fields\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e0663082-1b5d-4b73-9bd5-1536d9b9799e",
+      "documentation": "Finds code samples by XML element",
+      "method": "get",
+      "endpoint": "code/findByElement/:element",
+      "responses": [
+        {
+          "uuid": "6fa58573-50b9-4c52-a124-9ef55e3d1929",
+          "body": "[\n  {\n    \"codeSample\": \"\",\n    \"docID\": \"\",\n    \"uri\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of documents",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "totalrecordcount",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "602b3395-aa92-4088-ae61-e5066ab6672c",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"fields\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ed0af327-bb80-4860-8cc7-8169435d2051",
+      "documentation": "Lists all documents",
+      "method": "get",
+      "endpoint": "documents",
+      "responses": [
+        {
+          "uuid": "556ff85c-db0c-46c2-aa25-43c3882d8d1d",
+          "body": "[\n  {\n    \"docID\": \"\",\n    \"docType\": \"\",\n    \"title\": \"\",\n    \"uri\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of documents",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "totalrecordcount",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d70be98d-52c7-4494-8d43-b5a19058f0e0",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"fields\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6ac1e093-5ba9-4267-98ec-3ad2b4d67457",
+      "documentation": "Finds documents by author",
+      "method": "get",
+      "endpoint": "documents/findByAuthor/:authorID",
+      "responses": [
+        {
+          "uuid": "821743b8-852d-415b-b3b2-dec37f9fcbac",
+          "body": "[\n  {\n    \"docID\": \"\",\n    \"docType\": \"\",\n    \"title\": \"\",\n    \"uri\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of documents",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "totalrecordcount",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f7106134-ec04-429b-913b-268fb8409a13",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"fields\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c6698ae3-b118-40d8-999e-082bcf91ca4e",
+      "documentation": "Finds documents by date",
+      "method": "get",
+      "endpoint": "documents/findByDate",
+      "responses": [
+        {
+          "uuid": "2693e242-1fde-4986-b7ce-eae8f8ba0658",
+          "body": "[\n  {\n    \"docID\": \"\",\n    \"docType\": \"\",\n    \"title\": \"\",\n    \"uri\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of documents",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "totalrecordcount",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2c9aafa5-8bf6-4c55-aa99-040df39b178f",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"fields\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "20d23025-68b7-4bc9-9493-0d4c7ec70ce9",
+      "documentation": "Finds documents by reference",
+      "method": "get",
+      "endpoint": "documents/findByMention/:docID",
+      "responses": [
+        {
+          "uuid": "a7704f68-b8d8-4469-875e-2581b8331b17",
+          "body": "[\n  {\n    \"docID\": \"\",\n    \"docType\": \"\",\n    \"title\": \"\",\n    \"uri\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of documents",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "totalrecordcount",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "43ac0ebc-2bfb-403f-b010-49deb3ed5b7f",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"fields\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "38f8a6ae-7814-45e6-af24-0e10138f5a55",
+      "documentation": "Returns documents by ID",
+      "method": "get",
+      "endpoint": "documents/:docID",
+      "responses": [
+        {
+          "uuid": "9bbd69c1-8760-445b-81e8-481bd6a32a5a",
+          "body": "[\n  {\n    \"docID\": \"\",\n    \"docType\": \"\",\n    \"title\": \"\",\n    \"uri\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of documents",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "31ceae70-3733-4676-b0f1-2cc96c7b52af",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"fields\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "984207e3-1c22-4729-b120-6d16bbc02959",
+      "documentation": "Returns facets",
+      "method": "get",
+      "endpoint": "facets/:facet",
+      "responses": [
+        {
+          "uuid": "89c155fc-6d63-4195-845f-152d7da48e75",
+          "body": "[\n  {\n    \"frequency\": {{faker 'random.number'}},\n    \"label\": \"\",\n    \"value\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "An array of facets",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "totalrecordcount",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "31ed545f-ccde-41bd-acb5-d28bc0276fac",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"fields\": \"\",\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

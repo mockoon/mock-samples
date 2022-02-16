@@ -1,0 +1,358 @@
+{
+  "uuid": "f35df1b3-4703-4696-b993-32f0fc095b85",
+  "lastMigration": 19,
+  "name": "Azure Addons Resource Provider",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "ae1b2d7f-dbdf-4b13-a983-c7b085232a06",
+      "documentation": "Lists all of the available Addons RP operations.",
+      "method": "get",
+      "endpoint": "providers/Microsoft.Addons/operations",
+      "responses": [
+        {
+          "uuid": "4a38fe69-20cc-4e64-b477-f512b8d5e416",
+          "body": "[\n  {\n    \"display\": {\n      \"description\": \"\",\n      \"operation\": \"\",\n      \"provider\": \"\",\n      \"resource\": \"\"\n    },\n    \"name\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "List all the operations.",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "634d6066-0952-4b35-8db9-d3f9c1eaf958",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "840419f3-25d6-4eee-99f9-668505f3a944",
+      "documentation": "Returns the Canonical Support Plans.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Addons/supportProviders/:providerName/supportPlanTypes",
+      "responses": [
+        {
+          "uuid": "e7746a08-50a4-4d97-8107-a69c75f86516",
+          "body": "[\n  {\n    \"enabled\": {{faker 'random.boolean'}},\n    \"supportPlanType\": \"{{oneOf (array 'essential' 'standard' 'advanced')}}\",\n    \"willEmitOneTimeChargeIfReEnabled\": {{faker 'random.boolean'}},\n    \"willEmitOneTimeChargeWhenEnabled\": {{faker 'random.boolean'}}\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e3b6fea5-e1f7-47a0-861f-616427ef9127",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "'404' - 'Not Found'.\n'400' - 'Bad Request'",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "114a2e32-2b13-48b1-9353-0cffd28a59ec",
+      "documentation": "Cancels the Canonical support plan of type {type} for the subscription.",
+      "method": "delete",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Addons/supportProviders/:providerName/supportPlanTypes/:planTypeName",
+      "responses": [
+        {
+          "uuid": "2066c287-0e4a-4cac-a64d-498c22b37544",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Purchasing' 'Downgrading' 'Cancelling' 'Upgrading')}}\"\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "55ea125b-72a3-40e2-a1f3-0a4da41a64d0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0c43a545-d924-43b7-8d02-d54bf323b9fa",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "BadRequest",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8976a085-68a3-4472-a0ac-3257734f9ce9",
+      "documentation": "Returns whether or not the canonical support plan of type {type} is enabled for the subscription.",
+      "method": "get",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Addons/supportProviders/:providerName/supportPlanTypes/:planTypeName",
+      "responses": [
+        {
+          "uuid": "2b0866db-6d1f-43c3-b5bb-880a12945801",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Purchasing' 'Downgrading' 'Cancelling' 'Upgrading')}}\"\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cf911acd-3480-4d06-a9f4-e17038342d14",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9525fb53-58b0-4e61-81f2-b7f111986b87",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "'404' - 'Not Found'.\n'400' - 'Bad Request'",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cd3d257a-7135-4c2f-a38d-86a2814bae31",
+      "documentation": "Creates or updates the Canonical support plan of type {type} for the subscription.",
+      "method": "put",
+      "endpoint": "subscriptions/:subscriptionId/providers/Microsoft.Addons/supportProviders/:providerName/supportPlanTypes/:planTypeName",
+      "responses": [
+        {
+          "uuid": "48baa06f-6485-463c-94fa-50007646f9a2",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Purchasing' 'Downgrading' 'Cancelling' 'Upgrading')}}\"\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "09508c00-d3a9-42cf-b21c-1485959d48e6",
+          "body": "{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"provisioningState\": \"{{oneOf (array 'Succeeded' 'Failed' 'Cancelled' 'Purchasing' 'Downgrading' 'Cancelling' 'Upgrading')}}\"\n  },\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Created",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d60ec28d-ad10-4977-a585-882c5ce156b2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "357f0cbe-6f0c-446e-8fe6-6be986c38121",
+          "body": "{\n  \"code\": {{faker 'random.number'}},\n  \"message\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "'404' - 'Not Found'.\n'400' - 'Bad Request'",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "uuid": "4107f06b-79f8-463b-a9f9-1c05a438b38e",
+  "lastMigration": 19,
+  "name": "VA Forms",
+  "endpointPrefix": "services/va_forms/v0",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "b703eac1-8a0c-42fc-b1d6-2433535f3e92",
+      "documentation": "Returns all VA Forms and their last revision date",
+      "method": "get",
+      "endpoint": "forms",
+      "responses": [
+        {
+          "uuid": "172ada04-d82b-4474-bc7a-c917565ace72",
+          "body": "{\n  \"data\": [\n    {\n      \"attributes\": {\n        \"benefit_categories\": [\n          {\n            \"description\": \"VA health care\",\n            \"name\": \"Health care\"\n          }\n        ],\n        \"deleted_at\": \"null\",\n        \"first_issued_on\": \"2016-07-10\",\n        \"form_details_url\": \"https://www.va.gov/find-forms/about-form-10-10ez\",\n        \"form_name\": \"10-10EZ\",\n        \"form_tool_intro\": \"You can apply online instead of filling out and sending us the paper form.\",\n        \"form_tool_url\": \"https://www.va.gov/health-care/apply/application/introduction\",\n        \"form_type\": \"benefit\",\n        \"form_usage\": \"<p>Use VA Form 10-10EZ if you’re a Veteran and want to apply for VA health care. You must be enrolled in...</p>\",\n        \"language\": \"en\",\n        \"last_revision_on\": \"2020-01-17\",\n        \"last_sha256_change\": \"2019-05-30\",\n        \"pages\": 5,\n        \"related_forms\": [\n          \"10-10EZR\"\n        ],\n        \"sha256\": \"6e6465e2e1c89225871daa9b6d86b92d1c263c7b02f98541212af7b35272372b\",\n        \"title\": \"Instructions and Enrollment Application for Health Benefits\",\n        \"url\": \"https://www.va.gov/vaforms/medical/pdf/10-10EZ-fillable.pdf\",\n        \"va_form_administration\": \"Veterans Health Administration\",\n        \"valid_pdf\": \"true\"\n      },\n      \"id\": \"10-10EZ\",\n      \"type\": \"va_form\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "VA Forms index response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "88dbbaa2-e7d8-4a40-bcbc-d372b8db6ea6",
+          "body": "{\n  \"message\": \"Invalid authentication credentials\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a8444b50-f3e5-4f59-b73d-4c4e07badcd1",
+          "body": "{\n  \"message\": \"API rate limit exceeded\"\n}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "Too many requests",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "307da381-0769-4300-9d17-0e2a43c40786",
+      "documentation": "Find form by form name",
+      "method": "get",
+      "endpoint": "forms/:form_name",
+      "responses": [
+        {
+          "uuid": "63a5569e-4d4a-46d1-90eb-7ce29f15fe23",
+          "body": "{\n  \"data\": {\n    \"attributes\": {\n      \"benefit_categories\": [\n        {\n          \"description\": \"VA health care\",\n          \"name\": \"Health care\"\n        }\n      ],\n      \"created_at\": \"2021-03-30T16:28:30.338Z\",\n      \"deleted_at\": \"{{faker 'date.recent' 365}}\",\n      \"first_issued_on\": \"2016-07-10\",\n      \"form_details_url\": \"https://www.va.gov/find-forms/about-form-10-10ez\",\n      \"form_name\": \"10-10EZ\",\n      \"form_tool_intro\": \"You can apply online instead of filling out and sending us the paper form.\",\n      \"form_tool_url\": \"https://www.va.gov/health-care/apply/application/introduction\",\n      \"form_type\": \"benefit\",\n      \"form_usage\": \"<p>Use VA Form 10-10EZ if you’re a Veteran and want to apply for VA health care. You must be enrolled in...</p>\",\n      \"language\": \"en\",\n      \"last_revision_on\": \"2020-01-17\",\n      \"pages\": 5,\n      \"related_forms\": [\n        \"10-10EZR\"\n      ],\n      \"sha256\": \"5fe171299ece147e8b456961a38e17f1391026f26e9e170229317bc95d9827b7\",\n      \"title\": \"Instructions and Enrollment Application for Health Benefits\",\n      \"url\": \"https://www.va.gov/vaforms/medical/pdf/10-10EZ-fillable.pdf\",\n      \"va_form_administration\": \"Veterans Health Administration\",\n      \"valid_pdf\": \"true\",\n      \"versions\": [\n        {\n          \"revision_on\": \"2012-01-01\",\n          \"sha256\": \"5fe171299ece147e8b456961a38e17f1391026f26e9e170229317bc95d9827b7\"\n        }\n      ]\n    },\n    \"id\": \"10-10-EZ\",\n    \"type\": \"va_form\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "VA Form Show response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "675b477d-c9f6-4872-a396-75e15fa52fc5",
+          "body": "{\n  \"message\": \"Invalid authentication credentials\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5245ce8e-9cf2-4061-b113-b61fc15a2113",
+          "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Form not found\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8d305165-782f-48ae-b8f5-b500ee6afe0f",
+          "body": "{\n  \"message\": \"API rate limit exceeded\"\n}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "Too many requests",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

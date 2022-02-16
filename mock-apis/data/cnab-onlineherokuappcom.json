@@ -1,0 +1,233 @@
+{
+  "uuid": "a532b368-c8b2-40a7-ac10-2815777030a4",
+  "lastMigration": 19,
+  "name": "Cnab Online",
+  "endpointPrefix": "v1",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "7b0c5761-8433-4cc3-a3b1-05c1ffdb713d",
+      "documentation": "Faz o upload de um arquivo",
+      "method": "post",
+      "endpoint": "file",
+      "responses": [
+        {
+          "uuid": "663f0fb2-b89c-4faf-9e87-65d1a767f5bd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Informações básicas do arquivo",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "multipart/form-data"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4071e1c2-53e8-4ba6-af74-8cc0a15f29b8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "multipart/form-data"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "18a570d4-2fcf-4dd0-90ec-b15f624eb18b",
+      "documentation": "Retorna as informações básicas de um arquivo previamente processado",
+      "method": "get",
+      "endpoint": "file/:fileId",
+      "responses": [
+        {
+          "uuid": "a7362bf7-5ec3-42ef-b77d-f05f61227fd7",
+          "body": "{\n  \"data\": {\n    \"attributes\": {\n      \"account_number\": \"\",\n      \"bank_code\": {{faker 'random.number'}},\n      \"bank_name\": \"\",\n      \"company_name\": \"\",\n      \"generation_date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"name\": \"\"\n    },\n    \"id\": \"\",\n    \"type\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Informações básicas do arquivo",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "82cbf901-589e-423d-a78d-369153cd5ed3",
+          "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"\",\n      \"title\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d74d5a21-8595-4aa7-a3d4-ac4facdb3c0b",
+      "documentation": "Retorna todas as linhas e seus respectivos campos (de forma não processada, apenas indicando os campos reconhecidos)",
+      "method": "get",
+      "endpoint": "file/:fileId/lines",
+      "responses": [
+        {
+          "uuid": "6df5540f-e0f8-4fc0-9a35-8f0d2ea56d4f",
+          "body": "{\n  \"data\": [\n    {\n      \"attributes\": {\n        \"identified_fields\": [\n          {\n            \"end\": {{faker 'random.number'}},\n            \"name\": \"\",\n            \"start\": {{faker 'random.number'}},\n            \"value\": \"\"\n          }\n        ],\n        \"raw_text\": \"\"\n      },\n      \"id\": \"\",\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Informações básicas do arquivo",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c54190eb-aba3-4362-9d3b-b9f298571c04",
+          "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"\",\n      \"title\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "495bffe5-6e38-41a8-915c-96954fd1a18f",
+      "documentation": "Retorna as informações de baixa de boletos e outros tipos de ocorrências",
+      "method": "get",
+      "endpoint": "file/:fileId/occurrences",
+      "responses": [
+        {
+          "uuid": "f94ca1bc-3e2e-4de9-a473-e6b21b05a2fb",
+          "body": "{\n  \"data\": [\n    {\n      \"attributes\": {\n        \"agency\": \"\",\n        \"bank_tax\": {{faker 'random.number'}},\n        \"charged_agency\": \"\",\n        \"code\": \"\",\n        \"code_name\": \"\",\n        \"credit_date\": \"\",\n        \"discount_value\": {{faker 'random.number'}},\n        \"document_number\": \"\",\n        \"due_date\": \"\",\n        \"iof_tax\": {{faker 'random.number'}},\n        \"is_dda\": \"\",\n        \"is_payment\": {{faker 'random.boolean'}},\n        \"is_rejected_payment\": {{faker 'random.boolean'}},\n        \"liquidation_code\": \"\",\n        \"liquidation_description\": \"\",\n        \"mulct_value\": \"\",\n        \"occurrence_date\": \"\",\n        \"others_credits_value\": {{faker 'random.number'}},\n        \"our_number\": \"\",\n        \"payer_allegation\": \"\",\n        \"rebate_value\": {{faker 'random.number'}},\n        \"received_value\": {{faker 'random.number'}},\n        \"sequencial_number\": {{faker 'random.number'}},\n        \"title_value\": {{faker 'random.number'}},\n        \"wallet\": \"\"\n      },\n      \"id\": {{faker 'random.number'}},\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Informações básicas do arquivo",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4c051540-0f5c-4b70-bc73-30b3fd76e174",
+          "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"\",\n      \"title\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Unexpected error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

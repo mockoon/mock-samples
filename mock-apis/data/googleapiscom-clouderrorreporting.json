@@ -1,0 +1,217 @@
+{
+  "uuid": "06ebb790-6bf4-4492-a666-cff7c7e6a304",
+  "lastMigration": 19,
+  "name": "Error Reporting API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "b08777b8-c5ae-4061-be58-bb3a00d3d4e9",
+      "documentation": "Get the specified group.",
+      "method": "get",
+      "endpoint": "v1beta1/:groupName",
+      "responses": [
+        {
+          "uuid": "d2fdf726-f12f-48b5-9d13-83a58744f577",
+          "body": "{\n  \"groupId\": \"\",\n  \"name\": \"\",\n  \"resolutionStatus\": \"{{oneOf (array 'RESOLUTION_STATUS_UNSPECIFIED' 'OPEN' 'ACKNOWLEDGED' 'RESOLVED' 'MUTED')}}\",\n  \"trackingIssues\": [\n    {\n      \"url\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "910832ce-9873-4f76-b97e-67cf46121007",
+      "documentation": "Replace the data for the specified group. Fails if the group does not exist.",
+      "method": "put",
+      "endpoint": "v1beta1/:name",
+      "responses": [
+        {
+          "uuid": "2f5e7740-9dd2-4ec2-8784-ccc60188f892",
+          "body": "{\n  \"groupId\": \"\",\n  \"name\": \"\",\n  \"resolutionStatus\": \"{{oneOf (array 'RESOLUTION_STATUS_UNSPECIFIED' 'OPEN' 'ACKNOWLEDGED' 'RESOLVED' 'MUTED')}}\",\n  \"trackingIssues\": [\n    {\n      \"url\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d2f150dc-ce53-40aa-ab99-05217fff63a2",
+      "documentation": "Deletes all error events of a given project.",
+      "method": "delete",
+      "endpoint": "v1beta1/:projectName/events",
+      "responses": [
+        {
+          "uuid": "2b150e25-66e0-4e29-b5c6-52eb1f1cacfb",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3e03e35d-703f-4bdf-8d3f-e11314a7b627",
+      "documentation": "Lists the specified events.",
+      "method": "get",
+      "endpoint": "v1beta1/:projectName/events",
+      "responses": [
+        {
+          "uuid": "d7dea2d9-6a4d-4197-9e57-86b22f827ffa",
+          "body": "{\n  \"errorEvents\": [\n    {\n      \"context\": {\n        \"httpRequest\": {\n          \"method\": \"\",\n          \"referrer\": \"\",\n          \"remoteIp\": \"\",\n          \"responseStatusCode\": {{faker 'random.number'}},\n          \"url\": \"\",\n          \"userAgent\": \"\"\n        },\n        \"reportLocation\": {\n          \"filePath\": \"\",\n          \"functionName\": \"\",\n          \"lineNumber\": {{faker 'random.number'}}\n        },\n        \"sourceReferences\": [\n          {\n            \"repository\": \"\",\n            \"revisionId\": \"\"\n          }\n        ],\n        \"user\": \"\"\n      },\n      \"eventTime\": \"\",\n      \"message\": \"\",\n      \"serviceContext\": {\n        \"resourceType\": \"\",\n        \"service\": \"\",\n        \"version\": \"\"\n      }\n    }\n  ],\n  \"nextPageToken\": \"\",\n  \"timeRangeBegin\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8c7fe15f-fc91-4b73-8251-eba0e0230881",
+      "documentation": "Report an individual error event and record the event to a log. This endpoint accepts **either** an OAuth token, **or** an [API key](https://support.google.com/cloud/answer/6158862) for authentication. To use an API key, append it to the URL as the value of a `key` parameter. For example: `POST https://clouderrorreporting.googleapis.com/v1beta1/{projectName}/events:report?key=123ABC456` **Note:** [Error Reporting] (https://cloud.google.com/error-reporting) is a global service built on Cloud Logging and doesn't analyze logs stored in regional log buckets or logs routed to other Google Cloud projects. For more information, see [Using Error Reporting with regionalized logs] (https://cloud.google.com/error-reporting/docs/regionalization).",
+      "method": "post",
+      "endpoint": "v1beta1/:projectName/events:report",
+      "responses": [
+        {
+          "uuid": "ceb653b1-7eaa-455b-b5d7-39efb4c79980",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cfd11d7b-4417-4e3a-883b-7dbb9a05e248",
+      "documentation": "Lists the specified groups.",
+      "method": "get",
+      "endpoint": "v1beta1/:projectName/groupStats",
+      "responses": [
+        {
+          "uuid": "27e8d34f-6b3b-4fd6-8a58-88973479eeab",
+          "body": "{\n  \"errorGroupStats\": [\n    {\n      \"affectedServices\": [\n        {\n          \"resourceType\": \"\",\n          \"service\": \"\",\n          \"version\": \"\"\n        }\n      ],\n      \"affectedUsersCount\": \"\",\n      \"count\": \"\",\n      \"firstSeenTime\": \"\",\n      \"group\": {\n        \"groupId\": \"\",\n        \"name\": \"\",\n        \"resolutionStatus\": \"{{oneOf (array 'RESOLUTION_STATUS_UNSPECIFIED' 'OPEN' 'ACKNOWLEDGED' 'RESOLVED' 'MUTED')}}\",\n        \"trackingIssues\": [\n          {\n            \"url\": \"\"\n          }\n        ]\n      },\n      \"lastSeenTime\": \"\",\n      \"numAffectedServices\": {{faker 'random.number'}},\n      \"representative\": {\n        \"context\": {\n          \"httpRequest\": {\n            \"method\": \"\",\n            \"referrer\": \"\",\n            \"remoteIp\": \"\",\n            \"responseStatusCode\": {{faker 'random.number'}},\n            \"url\": \"\",\n            \"userAgent\": \"\"\n          },\n          \"reportLocation\": {\n            \"filePath\": \"\",\n            \"functionName\": \"\",\n            \"lineNumber\": {{faker 'random.number'}}\n          },\n          \"sourceReferences\": [\n            {\n              \"repository\": \"\",\n              \"revisionId\": \"\"\n            }\n          ],\n          \"user\": \"\"\n        },\n        \"eventTime\": \"\",\n        \"message\": \"\",\n        \"serviceContext\": {\n          \"resourceType\": \"\",\n          \"service\": \"\",\n          \"version\": \"\"\n        }\n      },\n      \"timedCounts\": [\n        {\n          \"count\": \"\",\n          \"endTime\": \"\",\n          \"startTime\": \"\"\n        }\n      ]\n    }\n  ],\n  \"nextPageToken\": \"\",\n  \"timeRangeBegin\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

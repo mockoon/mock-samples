@@ -1,0 +1,4610 @@
+{
+  "uuid": "c813c77d-a2d0-4a3e-841d-bdeda5b27aa0",
+  "lastMigration": 19,
+  "name": "Marketing API",
+  "endpointPrefix": "sell/marketing/v1",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "c3b8be77-8a17-4944-9520-9a0e589a31c7",
+      "documentation": "This method retrieves the details for all the campaigns of a seller, including the campaign's the selection rules. Note that this method does not return the listing IDs or inventory reference IDs of the items included in the ad campaign. Call getAds to retrieve these IDs. You can filter the result set by a campaign name, end date range, start date range, or campaign status. You can also paginate the records returned from the result set using the limit query parameter, and control which records to return using the offset parameter.",
+      "method": "get",
+      "endpoint": "ad_campaign",
+      "responses": [
+        {
+          "uuid": "3b91f204-08a9-453a-9ce8-4374d69e640e",
+          "body": "{\n  \"campaigns\": [\n    {\n      \"campaignCriterion\": {\n        \"autoSelectFutureInventory\": {{faker 'random.boolean'}},\n        \"criterionType\": \"\",\n        \"selectionRules\": [\n          {\n            \"brands\": [\n              \"\"\n            ],\n            \"categoryIds\": [\n              \"\"\n            ],\n            \"categoryScope\": \"\",\n            \"listingConditionIds\": [\n              \"\"\n            ],\n            \"maxPrice\": {\n              \"currency\": \"\",\n              \"value\": \"\"\n            },\n            \"minPrice\": {\n              \"currency\": \"\",\n              \"value\": \"\"\n            }\n          }\n        ]\n      },\n      \"campaignId\": \"\",\n      \"campaignName\": \"\",\n      \"campaignStatus\": \"\",\n      \"endDate\": \"\",\n      \"fundingStrategy\": {\n        \"bidPercentage\": \"\",\n        \"fundingModel\": \"\"\n      },\n      \"marketplaceId\": \"\",\n      \"startDate\": \"\"\n    }\n  ],\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"total\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "63214ae8-f1a0-4bad-be40-c23fe39d41e7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e5012502-e00b-45bb-8de1-5afde782a847",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bfd1c145-3054-485c-8ff1-28ec09d3955a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f0bc34a8-699d-4c71-a7a7-030546b74c8d",
+      "documentation": "This method creates a Promoted Listings ad campaign. A Promoted Listings campaign is the structure into which you place the ads for the listings you want to promote. Identify the items you want to place into a campaign either by &quot;key&quot; or by &quot;rule&quot; as follows: Rules-based campaigns &ndash; A rules-based campaign adds items to the campaign according to the criteria you specify in your call to createCampaign. Key-based campaigns &ndash; Add items to an existing campaign using either listing ID values or Inventory Reference values: Add listingId values to an existing campaign by calling either createAdByListingID or bulkCreateAdsByListingId. Add inventoryReference values to an existing campaign by calling either createAdByInventoryReference or bulkCreateAdsByInventoryReference. Note: No matter how you add items to a Promoted Listings campaign, each campaign can contain ads for a maximum of 50,000 items. If a rules-based campaign identifies more than 50,000 items, ads are created for only the first 50,000 items identified by the specified criteria, and ads are not created for the remaining items. Creating a campaign To create a basic campaign, supply: The user-defined campaign name The start date (and optionally the end date) of the campaign The eBay marketplace on which the campaign is hosted Details on the campaign funding model The campaign funding model specifies how the Promoted Listings fee is calculated. Currently, the only supported funding model is COST_PER_SALE. For complete information on how the fee is calculated and when it applies, see Promoted Listings fees. If you populate the campaignCriterion object in your createCampaign request, campaign &quot;ads&quot; are created by &quot;rule&quot; for the listings that meet the criteria you specify, and these ads are associated with the newly created campaign. For details on creating Promoted Listings campaigns and how to select the items to be included in your campaigns, see Creating a Promoted Listings campaign. For recommendations on which listings are prime for a Promoted Listings ad campaign and to get guidance on how to set the bidPercentage field, see Using the Recommendation API to help configure campaigns. Tip: See Promoted Listings requirements and restrictions for the details on the marketplaces that support Promoted Listings via the API.",
+      "method": "post",
+      "endpoint": "ad_campaign",
+      "responses": [
+        {
+          "uuid": "73775970-8a5e-4ce3-bd48-a7b6d14293a7",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Created",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2f02f372-6269-493f-8a74-350b6a03088c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "543f1d91-be37-4182-9303-ff7cca3f8ebd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "96880b98-b7d4-4c84-a0ea-0ea7d584bb47",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a7a0a28b-1e74-401d-a555-781e12ff05f6",
+      "documentation": "This method retrieves the campaigns containing the listing that is specified using either a listing ID, or an inventory reference ID and inventory reference type pair. eBay listing IDs are generated by either the Trading API or the Inventory API when you create a listing. An inventory reference ID can be either a seller-defined SKU or inventoryItemGroupKey, as specified in the Inventory API. Note: This request accepts either a listing_id, or an inventory_reference_id and inventory_reference_type pair, as used in the Inventory API.",
+      "method": "get",
+      "endpoint": "ad_campaign/find_campaign_by_ad_reference",
+      "responses": [
+        {
+          "uuid": "d537f021-42ad-4a19-a25c-4032ca83dc7f",
+          "body": "{\n  \"campaigns\": [\n    {\n      \"campaignCriterion\": {\n        \"autoSelectFutureInventory\": {{faker 'random.boolean'}},\n        \"criterionType\": \"\",\n        \"selectionRules\": [\n          {\n            \"brands\": [\n              \"\"\n            ],\n            \"categoryIds\": [\n              \"\"\n            ],\n            \"categoryScope\": \"\",\n            \"listingConditionIds\": [\n              \"\"\n            ],\n            \"maxPrice\": {\n              \"currency\": \"\",\n              \"value\": \"\"\n            },\n            \"minPrice\": {\n              \"currency\": \"\",\n              \"value\": \"\"\n            }\n          }\n        ]\n      },\n      \"campaignId\": \"\",\n      \"campaignName\": \"\",\n      \"campaignStatus\": \"\",\n      \"endDate\": \"\",\n      \"fundingStrategy\": {\n        \"bidPercentage\": \"\",\n        \"fundingModel\": \"\"\n      },\n      \"marketplaceId\": \"\",\n      \"startDate\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "751ea0db-ec99-4820-9557-09f254f3dee4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6d08cf03-ff4f-4156-990e-74912babb20b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b699a2a4-d90c-4575-a0fa-91c078feaccd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "19f9d24b-22a1-496a-ab5b-4f7dffa0ef11",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "78effdf5-85a8-4e34-b31a-f7686109c3cd",
+      "documentation": "This method retrieves the details of a single campaign, as specified with the campaign_name query parameter. Note that the campaign name you specify must be an exact, case-sensitive match of the name of the campaign you want to retrieve. This method returns all the details of a campaign (including the campaign's the selection rules), except the for the listing IDs or inventory reference IDs included in the campaign. These IDs are returned by getAds. Call getCampaigns to retrieve a list of the seller's campaign names.",
+      "method": "get",
+      "endpoint": "ad_campaign/get_campaign_by_name",
+      "responses": [
+        {
+          "uuid": "d17a0207-61ff-45a3-b912-3ed60cdd5ec4",
+          "body": "{\n  \"campaignCriterion\": {\n    \"autoSelectFutureInventory\": {{faker 'random.boolean'}},\n    \"criterionType\": \"\",\n    \"selectionRules\": [\n      {\n        \"brands\": [\n          \"\"\n        ],\n        \"categoryIds\": [\n          \"\"\n        ],\n        \"categoryScope\": \"\",\n        \"listingConditionIds\": [\n          \"\"\n        ],\n        \"maxPrice\": {\n          \"currency\": \"\",\n          \"value\": \"\"\n        },\n        \"minPrice\": {\n          \"currency\": \"\",\n          \"value\": \"\"\n        }\n      }\n    ]\n  },\n  \"campaignId\": \"\",\n  \"campaignName\": \"\",\n  \"campaignStatus\": \"\",\n  \"endDate\": \"\",\n  \"fundingStrategy\": {\n    \"bidPercentage\": \"\",\n    \"fundingModel\": \"\"\n  },\n  \"marketplaceId\": \"\",\n  \"startDate\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a389e9c9-0151-4c9b-a56e-f539f0ed59d9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3ff9b630-01e9-46c8-9c41-2f725e37ce84",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3d1a496d-7b4b-4d94-9030-b9892f5e729b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9341bf21-6034-4e2c-a4e8-8fefb551dcfa",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9b798f66-f89c-4552-ba50-ddc17d6af2e5",
+      "documentation": "This method deletes the campaign specified by the campaign_id query parameter. Note: You can delete only campaigns that have ended. Call getCampaigns to retrieve the campaign_id and the campaign status (RUNNING, PAUSED, ENDED, and so on) for all the seller's campaigns.",
+      "method": "delete",
+      "endpoint": "ad_campaign/:campaign_id",
+      "responses": [
+        {
+          "uuid": "ea2663e9-be6e-45e5-b5c5-8c7f746631e7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "352f3575-f62f-4489-a06c-a84a12dc991a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "63d9ff5b-ef76-4ef2-ac78-01f2c64a6d15",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2bf5adb6-12fa-4b13-b9fe-81079e68d422",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5d2d6f13-264b-46b3-b73f-286c7f25bc6c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0611283d-350b-47ff-ab7d-f11d60e4146e",
+      "documentation": "This method retrieves the details of a single campaign, as specified with the campaign_id query parameter. This method returns all the details of a campaign (including the campaign's the selection rules), except the for the listing IDs or inventory reference IDs included in the campaign. These IDs are returned by getAds. Call getCampaigns to retrieve a list of the seller's campaign IDs.",
+      "method": "get",
+      "endpoint": "ad_campaign/:campaign_id",
+      "responses": [
+        {
+          "uuid": "61904223-9395-4f89-8635-ab0f8c1bb2ef",
+          "body": "{\n  \"campaignCriterion\": {\n    \"autoSelectFutureInventory\": {{faker 'random.boolean'}},\n    \"criterionType\": \"\",\n    \"selectionRules\": [\n      {\n        \"brands\": [\n          \"\"\n        ],\n        \"categoryIds\": [\n          \"\"\n        ],\n        \"categoryScope\": \"\",\n        \"listingConditionIds\": [\n          \"\"\n        ],\n        \"maxPrice\": {\n          \"currency\": \"\",\n          \"value\": \"\"\n        },\n        \"minPrice\": {\n          \"currency\": \"\",\n          \"value\": \"\"\n        }\n      }\n    ]\n  },\n  \"campaignId\": \"\",\n  \"campaignName\": \"\",\n  \"campaignStatus\": \"\",\n  \"endDate\": \"\",\n  \"fundingStrategy\": {\n    \"bidPercentage\": \"\",\n    \"fundingModel\": \"\"\n  },\n  \"marketplaceId\": \"\",\n  \"startDate\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "37421e47-43ec-4df3-8dfa-dcfe85824717",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "aebb47ee-dcf8-4e03-966d-62d93b150a7a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c742d1c6-b1b0-4b7e-be3b-55b868d4b494",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f0974535-ae22-44b5-90d1-11e18c45e2e5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5b0ccae8-c223-4a7f-aea0-af8d67701f37",
+      "documentation": "This method retrieves Promoted Listings ads that are associated with listings created with either the Trading API or the Inventory API. The method retrieves ads related to the specified campaign. Specify the Promoted Listings campaign to target with the campaign_id path parameter. Because of the large number of possible results, you can use query parameters to paginate the result set by specifying a limit, which dictates how many ads to return on each page of the response. You can also specify how many ads to skip in the result set before returning the first result using the offset path parameter. Call getCampaigns to retrieve the current campaign IDs for the seller.",
+      "method": "get",
+      "endpoint": "ad_campaign/:campaign_id/ad",
+      "responses": [
+        {
+          "uuid": "7f88399d-95ec-479e-89b9-337100518bf9",
+          "body": "{\n  \"ads\": [\n    {\n      \"adId\": \"\",\n      \"bidPercentage\": \"\",\n      \"inventoryReferenceId\": \"\",\n      \"inventoryReferenceType\": \"\",\n      \"listingId\": \"\"\n    }\n  ],\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"total\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "932eca18-3292-4825-b08d-152d98e3f309",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7187c9ed-2d82-476e-a8ba-94faa448e94a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3b06e374-4cc3-4613-bcb3-71566bce4e06",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cb6847d3-a40d-4391-b588-476db261acaa",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3eb21298-f4a7-4afb-8ae7-fb957d9640c5",
+      "documentation": "This method works with listings created with either the Trading API or the Inventory API. The method: Creates an ad for the specified listing ID. Sets the bid percentage (also known as the &quot;ad rate&quot;) for the ad. Associates the ad with the specified campaign. To create an ad for a listing, specify its listingId, plus the bidPercentage for the ad in the payload of the request. Specify the campaign to associate the ad with using the campaign_id path parameter. Listing IDs are generated by eBay when a seller creates listings with the Trading API or Inventory API. Each campaign can have ads for a maximum of 50,000 items, and each item in a multiple-variation listing is considered as an single item. Use createCampaign to create a new campaign and use getCampaigns to get a list of existing campaigns.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/ad",
+      "responses": [
+        {
+          "uuid": "8dbd1c66-a91a-4513-8ab8-0ee0d5306fe5",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Created",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "22fd9084-649c-47a4-9982-f46114af77f2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d2a9a7d5-e4ed-4c8a-b70d-8bb56b64b198",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e74b03d8-902c-4355-be3e-25c9a799ddf7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0e3ebd11-7c2d-41cb-bbb1-24e282fd6847",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "eb201217-6bbc-4729-849e-bf22608cd4ab",
+      "documentation": "This method removes the specified ad from the specified campaign. Pass the ID of the ad to delete with the ID of the campaign associated with the ad as path parameters to the call. Call getCampaigns to get the current list of the seller's campaign IDs.",
+      "method": "delete",
+      "endpoint": "ad_campaign/:campaign_id/ad/:ad_id",
+      "responses": [
+        {
+          "uuid": "1404135e-2a38-4bb1-bcf8-a2a17b17e357",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "102f2433-a86b-47ad-8969-f69dbec1341f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "32b18836-5402-4fb0-b7e8-fd75453e5727",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8b2b2c23-8130-43e4-8efc-b4a758d4586f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b0dda76f-9e96-45aa-90c0-4a1c87f0faa3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "245059ae-2fd0-418f-8d83-c259e113d2d1",
+      "documentation": "This method retrieves the specified ad from the specified campaign. In the request, supply the campaign_id and ad_id as path parameters. Call getCampaigns to retrieve a list of the seller's current campaign IDs and call getAds to retrieve their current ad IDs.",
+      "method": "get",
+      "endpoint": "ad_campaign/:campaign_id/ad/:ad_id",
+      "responses": [
+        {
+          "uuid": "dfa9fa6a-92b8-455c-be3c-8541ab4b1380",
+          "body": "{\n  \"adId\": \"\",\n  \"bidPercentage\": \"\",\n  \"inventoryReferenceId\": \"\",\n  \"inventoryReferenceType\": \"\",\n  \"listingId\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3ed2d2c9-6344-4f37-85bf-654793bd9041",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fa1ae302-53f5-4f07-a4ff-b98111cd639c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "833ffb5c-6993-4f22-80bc-b1f77c5fde2b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bf97e3d3-d62d-4f17-becf-2d5bc97adaa2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "db986c08-6671-4214-9433-5e3e5acbeb50",
+      "documentation": "This method updates the bid percentage (also known as the &quot;ad rate&quot;) for the specified ad in the specified campaign. In the request, supply the campaign_id and ad_id as path parameters, and supply the new bidPercentage value in the payload of the call. Call getCampaigns to retrieve a seller's current campaign IDs and call getAds to get their ad IDs.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/ad/:ad_id/update_bid",
+      "responses": [
+        {
+          "uuid": "f3fec121-13b4-421a-b993-2db3425ad6a4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2ac455f7-d4c3-46dd-bfc7-a6d57f29401c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c380f804-099c-4722-a88a-b009928ae9c2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0b55df6d-c337-4b86-9929-a4322acf3ae2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c889cf53-bdc5-4a8b-94b6-a1f54b9f2816",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9028b28b-43c0-443d-bcab-98a9794243a1",
+      "documentation": "This method adds multiple listings that are managed with the Inventory API to an existing Promoted Listings campaign. For each listing specified in the request, this method: Creates an ad for the listing. Sets the bid percentage (also known as the ad rate) for the ad. Associates the ad with the specified campaign. To create an ad for a listing, specify its inventoryReferenceId and inventoryReferenceType, plus the bidPercentage for the ad in the payload of the request. Specify the campaign to associate the ads to with using the campaign_id path parameter. In the Inventory API, an inventory reference ID is either a seller-defined SKU value or an inventoryItemGroupKey (a seller-defined ID for a multiple-variation listing). You can specify a maximum of 500 items per call and each campaign can have ads for a maximum of 50,000 items. Be aware when using this call that each variation in a multiple-variation listing creates an individual ad. Use createCampaign to create a new campaign and use getCampaigns to get a list of existing campaigns.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/bulk_create_ads_by_inventory_reference",
+      "responses": [
+        {
+          "uuid": "21dcd0e9-6e5b-4fdb-98e5-3b73ebe24b46",
+          "body": "{\n  \"responses\": [\n    {\n      \"ads\": [\n        {\n          \"adId\": \"\",\n          \"href\": \"\"\n        }\n      ],\n      \"errors\": [\n        {\n          \"category\": \"\",\n          \"domain\": \"\",\n          \"errorId\": {{faker 'random.number'}},\n          \"inputRefIds\": [\n            \"\"\n          ],\n          \"longMessage\": \"\",\n          \"message\": \"\",\n          \"outputRefIds\": [\n            \"\"\n          ],\n          \"parameters\": [\n            {\n              \"name\": \"\",\n              \"value\": \"\"\n            }\n          ],\n          \"subdomain\": \"\"\n        }\n      ],\n      \"inventoryReferenceId\": \"\",\n      \"inventoryReferenceType\": \"\",\n      \"statusCode\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9ffa2d3a-354a-4950-afc8-f1781c440954",
+          "body": "",
+          "latency": 0,
+          "statusCode": 207,
+          "label": "Multi Status",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "66d0a947-4afd-4802-839c-ddcba104ae44",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "36ebcb77-a1dc-4401-9c0e-271436a47f43",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1606dd9e-4115-4707-8883-eb1a05329342",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "942849a3-5700-48c3-a1b9-d511519cfcea",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0ef5bd1f-4bdf-4098-9727-0a0e5b332ead",
+      "documentation": "This method adds multiple listings to an existing Promoted Listings campaign using listingId values generated by either the Trading API or Inventory API. For each listing ID specified in the request, this method: Creates an ad for the listing. Sets the bid percentage (also known as the ad rate) for the ad. Associates the ad with the specified campaign. To create an ad for a listing, specify its listingId, plus the bidPercentage for the ad in the payload of the request. Specify the campaign to associate the ads with using the campaign_id path parameter. Listing IDs are generated by eBay when a seller creates listings with the Trading API. You can specify a maximum of 500 listings per call and each campaign can have ads for a maximum of 50,000 items. Be aware when using this call that each variation in a multiple-variation listing creates an individual ad. Use createCampaign to create a new campaign and use getCampaigns to get a list of existing campaigns.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/bulk_create_ads_by_listing_id",
+      "responses": [
+        {
+          "uuid": "f1b2f8d5-8f26-461d-adf5-284c8a4d1773",
+          "body": "{\n  \"responses\": [\n    {\n      \"adId\": \"\",\n      \"errors\": [\n        {\n          \"category\": \"\",\n          \"domain\": \"\",\n          \"errorId\": {{faker 'random.number'}},\n          \"inputRefIds\": [\n            \"\"\n          ],\n          \"longMessage\": \"\",\n          \"message\": \"\",\n          \"outputRefIds\": [\n            \"\"\n          ],\n          \"parameters\": [\n            {\n              \"name\": \"\",\n              \"value\": \"\"\n            }\n          ],\n          \"subdomain\": \"\"\n        }\n      ],\n      \"href\": \"\",\n      \"listingId\": \"\",\n      \"statusCode\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "51ad4906-eb57-4717-b19d-c9fc264f5c56",
+          "body": "",
+          "latency": 0,
+          "statusCode": 207,
+          "label": "Multi Status",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dfa800e7-d385-4918-8015-b108b4bec9b1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "472d05f6-f2bb-446e-b1e2-f529c4b99d39",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e2d2a3f6-17fe-4cc7-885b-7a4a48823288",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "facb3151-0c62-436d-90f8-0309a97ae253",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5173fe2b-8e81-4724-bea3-9805e4dc6e0c",
+      "documentation": "This method works with listings created with the Inventory API. The method deletes a set of ads, as specified by a list of inventory reference IDs, from the specified campaign. Inventory reference IDs are seller-defined IDs that are used with the Inventory API. Pass the campaign_id as a path parameter and populate the payload with a list of inventoryReferenceId and inventoryReferenceType pairs that you want to delete. Get the campaign IDs for a seller by calling getCampaigns and call getAds to get a list of the seller's inventory reference IDs.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/bulk_delete_ads_by_inventory_reference",
+      "responses": [
+        {
+          "uuid": "46573662-ad01-4536-a0a6-cbbac5eb2352",
+          "body": "{\n  \"responses\": [\n    {\n      \"adIds\": [\n        \"\"\n      ],\n      \"errors\": [\n        {\n          \"category\": \"\",\n          \"domain\": \"\",\n          \"errorId\": {{faker 'random.number'}},\n          \"inputRefIds\": [\n            \"\"\n          ],\n          \"longMessage\": \"\",\n          \"message\": \"\",\n          \"outputRefIds\": [\n            \"\"\n          ],\n          \"parameters\": [\n            {\n              \"name\": \"\",\n              \"value\": \"\"\n            }\n          ],\n          \"subdomain\": \"\"\n        }\n      ],\n      \"inventoryReferenceId\": \"\",\n      \"inventoryReferenceType\": \"\",\n      \"statusCode\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "57e28ddc-f44d-42de-ba57-ca8fe5965281",
+          "body": "",
+          "latency": 0,
+          "statusCode": 207,
+          "label": "Multi Status",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1c0a16fc-65a9-4b23-ba23-76d3205d44fc",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d260cc6e-80c0-4111-9c20-5753b1c0e462",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2147b685-837f-473a-913f-179c82900b88",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7300d398-f8d6-4df5-93a8-43e9a9a65541",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "867bfb17-38c4-4457-9503-4408736e28ee",
+      "documentation": "This method works with listing IDs created with either the Trading API or the Inventory API. The method deletes a set of ads, as specified by a list of listingID values from a Promoted Listings campaign. A listing ID value is generated by eBay when a seller creates a listing with either the Trading API and Inventory API. Pass the campaign_id as a path parameter and populate the payload with the set of listing IDs that you want to delete. Get the campaign IDs for a seller by calling getCampaigns and call getAds to get a list of the seller's inventory reference IDs.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/bulk_delete_ads_by_listing_id",
+      "responses": [
+        {
+          "uuid": "3466b28a-c4fd-481b-9c65-7ba380846981",
+          "body": "{\n  \"responses\": [\n    {\n      \"adId\": \"\",\n      \"errors\": [\n        {\n          \"category\": \"\",\n          \"domain\": \"\",\n          \"errorId\": {{faker 'random.number'}},\n          \"inputRefIds\": [\n            \"\"\n          ],\n          \"longMessage\": \"\",\n          \"message\": \"\",\n          \"outputRefIds\": [\n            \"\"\n          ],\n          \"parameters\": [\n            {\n              \"name\": \"\",\n              \"value\": \"\"\n            }\n          ],\n          \"subdomain\": \"\"\n        }\n      ],\n      \"listingId\": \"\",\n      \"statusCode\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5d2e756f-ecbf-4c9e-919f-294dcfd5fe1f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 207,
+          "label": "Multi Status",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c0b122ba-eb30-4dcd-b118-209da7e9d05f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "354eb7eb-b322-4a2c-b601-2f413f51f6dd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "13dd920b-c854-442b-870e-810ba4ac5504",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8657c531-fcf5-4457-8927-9e3517ab53d7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "18cf8957-c26a-44bf-95c2-2f8e7119cbb3",
+      "documentation": "This method works with listings that are managed with the Inventory API. The method updates the bidPercentage values for a set of ads associated with the specified campaign. Specify the campaign_id as a path parameter and supply a list of inventoryReferenceId and inventoryReferenceType pairs with the updated bidPercentage values in the request body. In the Inventory API, an inventory reference ID is either a seller-defined SKU value or an inventoryItemGroupKey (a seller-defined ID for a multiple-variation listing). Get the campaign IDs for a seller by calling getCampaigns and call getAds to get a list of the seller's inventory reference IDs.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/bulk_update_ads_bid_by_inventory_reference",
+      "responses": [
+        {
+          "uuid": "b037ea6c-02c5-470f-a024-8d2a0e8ac4f3",
+          "body": "{\n  \"responses\": [\n    {\n      \"ads\": [\n        {\n          \"adId\": \"\",\n          \"href\": \"\"\n        }\n      ],\n      \"errors\": [\n        {\n          \"category\": \"\",\n          \"domain\": \"\",\n          \"errorId\": {{faker 'random.number'}},\n          \"inputRefIds\": [\n            \"\"\n          ],\n          \"longMessage\": \"\",\n          \"message\": \"\",\n          \"outputRefIds\": [\n            \"\"\n          ],\n          \"parameters\": [\n            {\n              \"name\": \"\",\n              \"value\": \"\"\n            }\n          ],\n          \"subdomain\": \"\"\n        }\n      ],\n      \"inventoryReferenceId\": \"\",\n      \"inventoryReferenceType\": \"\",\n      \"statusCode\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d32d63a2-0ee8-4d86-a5fc-a431c2dcb648",
+          "body": "",
+          "latency": 0,
+          "statusCode": 207,
+          "label": "Multi Status",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1c8f1c39-e5b6-42a7-af21-4e79b39b1f22",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "42ec4571-476b-4220-b0ef-21ef448bfd95",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bd94276d-fcf7-402c-b81e-a460739c6dfd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d774b6e0-b0dd-4657-b991-6f7bab15169a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2255e7a9-2975-489b-b220-20d4a24ba6b3",
+      "documentation": "This method works with listings created with either the Trading API or the Inventory API. The method updates the bidPercentage values for a set of ads associated with the specified campaign. Specify the campaign_id as a path parameter and supply a set of listing IDs with their associated updated bidPercentage values in the request body. An eBay listing ID is generated when a listing is created with the Trading API. Get the campaign IDs for a seller by calling getCampaigns and call getAds to get a list of the seller's inventory reference IDs.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/bulk_update_ads_bid_by_listing_id",
+      "responses": [
+        {
+          "uuid": "6784f361-fd74-4703-b87b-d7a6f2372c59",
+          "body": "{\n  \"responses\": [\n    {\n      \"adId\": \"\",\n      \"errors\": [\n        {\n          \"category\": \"\",\n          \"domain\": \"\",\n          \"errorId\": {{faker 'random.number'}},\n          \"inputRefIds\": [\n            \"\"\n          ],\n          \"longMessage\": \"\",\n          \"message\": \"\",\n          \"outputRefIds\": [\n            \"\"\n          ],\n          \"parameters\": [\n            {\n              \"name\": \"\",\n              \"value\": \"\"\n            }\n          ],\n          \"subdomain\": \"\"\n        }\n      ],\n      \"href\": \"\",\n      \"listingId\": \"\",\n      \"statusCode\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7013bb83-c63e-4190-a45e-58a1f5bdfce9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 207,
+          "label": "Multi Status",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "91ed673a-f1ec-4ad0-b8b6-4aba2707577d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "43615bf7-d090-4f1c-b389-019f351f29f4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7d3c8aa3-c671-48ea-a3c9-a7ecc93ce8b4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3f166155-4685-4b97-a35e-7cc59a2ac8ae",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0d26d250-73d0-435a-8704-59ac150dace0",
+      "documentation": "This method clones (makes a copy of) the specified campaign. To clone a campaign, supply the campaign_id as a path parameter in your call, there is no call payload. The ID of the newly-cloned campaign is returned in the Location response header. Call getCampaigns to retrieve a seller's current campaign IDs Requirement: In order to clone a campaign, the campaignStatus must be ENDED and the campaign must define a set of selection rules (it must be a rules-based campaign).",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/clone",
+      "responses": [
+        {
+          "uuid": "8da98ce4-1608-45b1-b3c7-b325a34bfc3e",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "603b77ca-4e22-427d-9091-9565a032f425",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "933ac19a-77d1-4b39-a9f9-f2e0b3308062",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fae39672-5c9c-4bb7-8772-a85e322edb28",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d2ad0665-5acc-4843-ae02-6ba92f044b7d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "31d733a6-4d64-466e-a3c2-1e7dc273a3cf",
+      "documentation": "This method works with listings that are managed with the Inventory API. The method: Creates an ad for the specified listing. Sets the bid percentage (also known as the &quot;ad rate&quot;) for the ad. Associates the ad with the specified campaign. To create an ad for a listing, specify its inventoryReferenceId and inventoryReferenceType, plus the bidPercentage for the ad in the payload of the request. Specify the campaign to associate the ad with using the campaign_id path parameter. In the Inventory API, an inventory reference ID is either a seller-defined SKU value or an inventoryItemGroupKey (a seller-defined ID for a multiple-variation listing). Each campaign can have ads for a maximum of 50,000 items, and each item in a multiple-variation listing is considered as an individual item. Use createCampaign to create a new campaign and use getCampaigns to get a list of existing campaigns.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/create_ads_by_inventory_reference",
+      "responses": [
+        {
+          "uuid": "f91d877f-02fd-4d35-af03-68ec221a4f34",
+          "body": "{\n  \"ads\": [\n    {\n      \"adId\": \"\",\n      \"href\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Created",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "287bd35e-2981-499f-959c-3b98f40650fc",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fa8ff44a-12eb-410e-92cb-ac5876823dd3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e998d8cf-ea36-4f7c-9536-9dd437619c7f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "eec75f2d-3c7e-4136-909f-a4b632a3084c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5dede572-8c7d-41b6-beb0-21faf1fc7921",
+      "documentation": "This method works with listings that are managed with the Inventory API. The method deletes ads using a list of seller-defined inventory reference IDs, used with the Inventory API, that are associated with the specified campaign ID. Specify the campaign ID (as a path parameter) and a list of inventoryReferenceId and inventoryReferenceType pairs to be deleted. Call getCampaigns to get a list of the seller's current campaign IDs.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/delete_ads_by_inventory_reference",
+      "responses": [
+        {
+          "uuid": "a9a1e71b-6870-4cf6-aeca-1143fe4ae08d",
+          "body": "{\n  \"adIds\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a44f5e71-623e-443a-a8ec-72fdaf566a3d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "eb152cb1-ff99-4e35-8f6c-a83d6aece4fc",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2b9733e8-b28d-4f76-bc99-3626fb5c9908",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bbfae68a-eb5f-42fb-9358-c0471bcf895a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f308dab9-bfed-4ff1-82d2-1b9b48694700",
+      "documentation": "This method ends an active (RUNNINGM) or paused campaign. Specify the campaign you want to end by supplying its campaign ID in a query parameter. Call getCampaigns to retrieve the campaign_id and the campaign status (RUNNING, PAUSED, ENDED, and so on) for all the seller's campaigns.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/end",
+      "responses": [
+        {
+          "uuid": "69f1c2e0-7ee9-4a23-8956-b400b420816f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3429cd99-1bf6-4edd-8300-4ce58cefa59d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cd59e62b-c4d7-41bd-8ed3-c138892bc5c4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "91e68760-619c-4048-a71c-805779ea587f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dbd5ae07-e351-489b-8db9-d86739934cba",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b08ed537-96a1-489f-9351-1275ef6dc9c3",
+      "documentation": "This method retrieves Promoted Listings ads associated with listings that are managed with the Inventory API from the specified campaign. Supply the campaign_id as a path parameter and use query parameters to specify the inventory_reference_id and inventory_reference_type pairs. In the Inventory API, an inventory reference ID is either a seller-defined SKU value or an inventoryItemGroupKey (a seller-defined ID for an inventory item group, which is an entity that's used in the Inventory API to create a multiple-variation listing). To indicate a listing managed by the Inventory API, you must always specify both an inventory_reference_id and the associated inventory_reference_type. Call getCampaigns to retrieve all of the seller's the current campaign IDs.",
+      "method": "get",
+      "endpoint": "ad_campaign/:campaign_id/get_ads_by_inventory_reference",
+      "responses": [
+        {
+          "uuid": "a630c54a-5370-4ae2-b995-0452bc8c8ba4",
+          "body": "{\n  \"ads\": [\n    {\n      \"adId\": \"\",\n      \"bidPercentage\": \"\",\n      \"inventoryReferenceId\": \"\",\n      \"inventoryReferenceType\": \"\",\n      \"listingId\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "08f46df0-db3c-4446-914d-d64b0b4bf871",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "43192cbb-37ce-4552-8f8c-43206c89eb1d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d50d9e84-3ec6-471d-a6e3-673d7fab1918",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8cc0c20f-596c-4257-90d1-864663a84f39",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "703821ee-025f-49a9-9fa7-201525b10d9f",
+      "documentation": "This method pauses an active (RUNNING) campaign. You can restarted by calling resumeCampaign, as long as the campaign's end date is in the future. Note: The listings associated with a paused campaign cannot be added into another campaign. Call getCampaigns to retrieve the campaign_id and the campaign status (RUNNING, PAUSED, ENDED, and so on) for all the seller's campaigns.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/pause",
+      "responses": [
+        {
+          "uuid": "5de399af-e4f0-4960-a856-e4547862cd49",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dc8fbb3d-92d1-4199-aa0d-46f61307f025",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "55984596-29d2-49cc-8891-d65adf2b3f78",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "51da4764-7419-4a01-8e34-3933a4723e0d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "979f7336-b816-4535-836d-a04fc0fbe67f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a04d5977-cacd-4438-b417-70b56edcfa86",
+      "documentation": "This method resumes a paused campaign, as long as it's end date is in the future. Supply the campaign_id for the campaign you want to restart as a query parameter in the request. Call getCampaigns to retrieve the campaign_id and the campaign status (RUNNING, PAUSED, ENDED, and so on) for all the seller's campaigns.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/resume",
+      "responses": [
+        {
+          "uuid": "7278cec3-d324-4da0-96e3-f7de7b1e6dd7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "99bc1282-be3d-4174-a4ae-2d0085fee117",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9f44eceb-1ea3-4e2f-986f-87293395ddbf",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3fb4df24-b267-4807-b47d-e078b57e911b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ef65a0b3-80f3-4b61-a263-b65c52404c2c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b3b66c18-3fc0-4542-9411-5b3bcd158081",
+      "documentation": "This method replaces the name and the start and end dates of a campaign. Specify the campaign_id you want to update as a URI parameter, and configure the campaignName and startDate in the request payload. If you want to change only the end date of the campaign, specify the current campaign name and set startDate to the current date (you cannot use a start date that is in the past), and set the endDate as desired. Note that if you do not set a new end date in this call, any current endDate value will be set to null. To preserve the currently-set end date, you must specify the value again in your request. Call getCampaigns to retrieve a seller's campaign details, including the campaign ID, campaign name, and the start and end dates of the campaign.",
+      "method": "post",
+      "endpoint": "ad_campaign/:campaign_id/update_campaign_identification",
+      "responses": [
+        {
+          "uuid": "75dee7a6-c2b1-4a76-aefc-085b160c4e70",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8c1d05a2-acfd-4ff3-abf3-5150050f378e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d9381a98-bada-4472-a1d4-7fa33b198860",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f56dbe53-720a-498e-9fde-f52617f26631",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7144cd93-5b88-4ebe-8171-2721f6929419",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9e29f0a8-819a-4612-b1ac-c5aefd88a0b0",
+      "documentation": "This call downloads the report as specified by the report_id path parameter. Call createReportTask to schedule and generate a Promoted Listings report. All date values are returned in UTC format (yyyy-MM-ddThh:mm:ss.sssZ).",
+      "method": "get",
+      "endpoint": "ad_report/:report_id",
+      "responses": [
+        {
+          "uuid": "4eb35ca2-2ced-4ce5-9537-fc16facd7ae1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/tab-separated-values"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ee06d51d-bcc8-4b08-a89e-8ceee5b4e760",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "21a4c893-ea6d-4776-bcdb-641dc1e661fd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "501204cd-1692-444c-86db-1960cad968a2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7a805562-5210-4b73-b586-ae2c9f205994",
+      "documentation": "This call retrieves information that details the fields used in each of the Promoted Listings reports. Use the returned information to configure the different types of Promoted Listings reports. The request for this method does not use a payload or any URI parameters.",
+      "method": "get",
+      "endpoint": "ad_report_metadata",
+      "responses": [
+        {
+          "uuid": "ee56a11f-0da2-4481-85e7-84cf82e6092c",
+          "body": "{\n  \"reportMetadata\": [\n    {\n      \"dimensionMetadata\": [\n        {\n          \"dataType\": \"\",\n          \"dimensionKey\": \"\",\n          \"dimensionKeyAnnotations\": [\n            {\n              \"annotationKey\": \"\",\n              \"dataType\": \"\"\n            }\n          ]\n        }\n      ],\n      \"maxNumberOfDimensionsToRequest\": {{faker 'random.number'}},\n      \"maxNumberOfMetricsToRequest\": {{faker 'random.number'}},\n      \"metricMetadata\": [\n        {\n          \"dataType\": \"\",\n          \"metricKey\": \"\"\n        }\n      ],\n      \"reportType\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7a651074-e6ca-43f4-848f-19497e97065e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9631dbd6-9490-46b1-87c0-665862e5cc2d",
+      "documentation": "This call retrieves metadata that details the fields used by a specific Promoted Listings report type. Use the report_type path parameter to indicate metadata to retrieve. This method does not use a request payload.",
+      "method": "get",
+      "endpoint": "ad_report_metadata/:report_type",
+      "responses": [
+        {
+          "uuid": "ba487d7b-4dea-4752-bb01-718057385487",
+          "body": "{\n  \"dimensionMetadata\": [\n    {\n      \"dataType\": \"\",\n      \"dimensionKey\": \"\",\n      \"dimensionKeyAnnotations\": [\n        {\n          \"annotationKey\": \"\",\n          \"dataType\": \"\"\n        }\n      ]\n    }\n  ],\n  \"maxNumberOfDimensionsToRequest\": {{faker 'random.number'}},\n  \"maxNumberOfMetricsToRequest\": {{faker 'random.number'}},\n  \"metricMetadata\": [\n    {\n      \"dataType\": \"\",\n      \"metricKey\": \"\"\n    }\n  ],\n  \"reportType\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b91b8158-df9e-4972-b253-d7881389ccad",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e94218d3-3bb4-4c63-927b-241061889f0c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f38683f2-8b7e-49d1-b5f5-67016b3e005c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "437f8cc3-8fc5-45b6-93e6-b82b43e8e558",
+      "documentation": "This method returns information on all the existing report tasks related to a seller. Use the report_task_statuses query parameter to control which reports to return. You can paginate the result set by specifying a limit, which dictates how many report tasks to return on each page of the response. Use the offset parameter to specify how many reports to skip in the result set before returning the first result.",
+      "method": "get",
+      "endpoint": "ad_report_task",
+      "responses": [
+        {
+          "uuid": "fe62d1d4-b7c4-4d5f-bcac-e34d87243863",
+          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"reportTasks\": [\n    {\n      \"campaignIds\": [\n        \"\"\n      ],\n      \"dateFrom\": \"\",\n      \"dateTo\": \"\",\n      \"dimensions\": [\n        {\n          \"annotationKeys\": [\n            \"\"\n          ],\n          \"dimensionKey\": \"\"\n        }\n      ],\n      \"inventoryReferences\": [\n        {\n          \"inventoryReferenceId\": \"\",\n          \"inventoryReferenceType\": \"\"\n        }\n      ],\n      \"listingIds\": [\n        \"\"\n      ],\n      \"marketplaceId\": \"\",\n      \"metricKeys\": [\n        \"\"\n      ],\n      \"reportExpirationDate\": \"\",\n      \"reportFormat\": \"\",\n      \"reportHref\": \"\",\n      \"reportId\": \"\",\n      \"reportName\": \"\",\n      \"reportTaskCompletionDate\": \"\",\n      \"reportTaskCreationDate\": \"\",\n      \"reportTaskExpectedCompletionDate\": \"\",\n      \"reportTaskId\": \"\",\n      \"reportTaskStatus\": \"\",\n      \"reportTaskStatusMessage\": \"\",\n      \"reportType\": \"\"\n    }\n  ],\n  \"total\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8b2465b3-5a42-45b0-8f1f-f91388860ad9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "de282af9-92ec-4535-a681-f3085d521a85",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "467e46c2-d4d1-412f-9aad-25deda95eece",
+      "documentation": "This method creates a report task, which generates a Promoted Listings report based on the values specified in the call. The report is generated based on the criteria you specify, including the report type, the report's dimensions and metrics, the report's start and end dates, the listings to include in the report, and more. Metrics are the quantitative measurements in the report while dimensions specify the attributes of the data included in the reports. When creating a report task, you can specify the items you want included in the report. The items you specify, using either listingId or inventoryReference values, must be in a Promoted Listings campaign for them to be included in the report. For details on the required and optional fields for each report type, see Creating Promoted Listings reports. This call returns the URL to the report task in the Location response header, and the URL includes the report-task ID. Reports often take time to generate and it's common for this call to return an HTTP status of 202, which indicates the report is being generated. Call getReportTasks (or getReportTask with the report-task ID) to determine the status of a Promoted Listings report. When a report is complete, eBay sets its status to SUCCESS and you can download it using the URL returned in the reportHref field of the getReportTask call. Report files are tab-separated value gzip files with a file extension of .tsv.gz. Note: This call fails if you don't submit all the required fields for the specified report type. Fields not supported by the specified report type are ignored. Call getReportMetadata to retrieve a list of the fields you need to configure for each Promoted Listings report type.",
+      "method": "post",
+      "endpoint": "ad_report_task",
+      "responses": [
+        {
+          "uuid": "b3bc2033-3a23-4db0-85dd-5157171429ec",
+          "body": "",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "Accepted",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8b06e5bf-fb91-473e-b3de-ba8cfcc86f51",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "104537fa-b4d7-4fec-8b54-b8be6d88f18a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2628df6a-9a58-4a3f-b830-29622332f5fb",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "08febd80-ae99-4d87-a919-b00a311dffa6",
+      "documentation": "This call deletes the report task specified by the report_task_id path parameter. This method also deletes any reports generated by the report task. Report task IDs are generated by eBay when you call createReportTask. Get a complete list of a seller's report-task IDs by calling getReportTasks.",
+      "method": "delete",
+      "endpoint": "ad_report_task/:report_task_id",
+      "responses": [
+        {
+          "uuid": "ff4c487b-fa94-4718-b4f0-a1bbade110d7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6f9528ce-d64c-410a-a007-a4ce601bb7e9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "974b46f7-d885-4324-a864-25e0bab1fc1c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "eb8b9eac-2a3b-4e4e-97b3-f475d4d79311",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d1de8c55-4607-40bb-88f8-f424adf4a3b2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e9119450-9b9d-4b28-9b35-8c29f676ede5",
+      "documentation": "This call returns the details of a specific Promoted Listings report task, as specified by the report_task_id path parameter. The report task includes the report criteria (such as the report dimensions, metrics, and included listing) and the report-generation rules (such as starting and ending dates for the specified report task). Report-task IDs are generated by eBay when you call createReportTask. Get a complete list of a seller's report-task IDs by calling getReportTasks.",
+      "method": "get",
+      "endpoint": "ad_report_task/:report_task_id",
+      "responses": [
+        {
+          "uuid": "ba1f4e77-39cb-4b94-aab8-ddb6ddc2e3c3",
+          "body": "{\n  \"campaignIds\": [\n    \"\"\n  ],\n  \"dateFrom\": \"\",\n  \"dateTo\": \"\",\n  \"dimensions\": [\n    {\n      \"annotationKeys\": [\n        \"\"\n      ],\n      \"dimensionKey\": \"\"\n    }\n  ],\n  \"inventoryReferences\": [\n    {\n      \"inventoryReferenceId\": \"\",\n      \"inventoryReferenceType\": \"\"\n    }\n  ],\n  \"listingIds\": [\n    \"\"\n  ],\n  \"marketplaceId\": \"\",\n  \"metricKeys\": [\n    \"\"\n  ],\n  \"reportExpirationDate\": \"\",\n  \"reportFormat\": \"\",\n  \"reportHref\": \"\",\n  \"reportId\": \"\",\n  \"reportName\": \"\",\n  \"reportTaskCompletionDate\": \"\",\n  \"reportTaskCreationDate\": \"\",\n  \"reportTaskExpectedCompletionDate\": \"\",\n  \"reportTaskId\": \"\",\n  \"reportTaskStatus\": \"\",\n  \"reportTaskStatusMessage\": \"\",\n  \"reportType\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e4fde7a2-c603-4574-ba4e-fffd183c93ae",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "52b2368d-dcdd-495f-b4ec-eaf3ce1fa616",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7da2d209-1cbc-4a73-9598-4ab8fcd760f3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "92bf4be6-612c-43b1-bcb7-b8cdfdd30c3b",
+      "documentation": "This method creates an item price markdown promotion (know simply as a &quot;markdown promotion&quot;) where a discount amount is applied directly to the items included the promotion. Discounts can be specified as either a monetary amount or a percentage off the standard sales price. eBay highlights promoted items by placing teasers for the items throughout the online sales flows. Unlike an item promotion, a markdown promotion does not require the buyer meet a &quot;threshold&quot; before the offer takes effect. With markdown promotions, all the buyer needs to do is purchase the item to receive the promotion benefit. Important: There are some restrictions for which listings are available for price markdown promotions. For details, see Promotions Manager requirements and restrictions. In addition, we recommend you list items at competitive prices before including them in your markdown promotions. For an extensive list of pricing recommendations, see the Growth tab in Seller Hub. There are two ways to add items to markdown promotions: Key-based promotions select items using either the listing IDs or inventory reference IDs of the items you want to promote. Note that if you use inventory reference IDs, you must specify both the inventoryReferenceId and the associated inventoryReferenceType of the item(s) you want to include the promotion. Rule-based promotions select items using a list of eBay category IDs or seller Store category IDs. Rules can further constrain items in a promotion by minimum and maximum prices, brands, and item conditions. New promotions must be created in either a DRAFT or a SCHEDULED state. Use the DRAFT state when you are initially creating a promotion and you want to be sure it's correctly configured before scheduling it to run. When you create a promotion, the promotion ID is returned in the Location response header. Use this ID to reference the promotion in subsequent requests (such as to schedule a promotion that's in a DRAFT state). Tip: Refer to Promotions Manager in the Selling Integration Guide for details and examples showing how to create and manage seller promotions. Markdown promotions are available on all eBay marketplaces. For more information, see Promotions Manager requirements and restrictions.",
+      "method": "post",
+      "endpoint": "item_price_markdown",
+      "responses": [
+        {
+          "uuid": "2791adbe-c894-4de5-af24-8faa88fe0227",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Created",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c8ddb5e0-5a8a-4436-805e-1c6b6beab87d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "16674eba-8f82-43c6-96f1-502b132cf80d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Conflict",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "32543255-1273-4b51-a768-0918241493fa",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c1b356c7-b102-44db-855c-2ee754d11d18",
+      "documentation": "This method deletes the item price markdown promotion specified by the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. You can delete any promotion with the exception of those that are currently active (RUNNING). To end a running promotion, call updateItemPriceMarkdownPromotion and adjust the endDate field as appropriate.",
+      "method": "delete",
+      "endpoint": "item_price_markdown/:promotion_id",
+      "responses": [
+        {
+          "uuid": "2eca1998-2189-43fb-a2e4-a3bf2954db5e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f6813c3f-86e0-4752-9a4f-ae991fe5f685",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d5d0eaca-ccc1-4b86-bfd3-79c02beeddbf",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9e9e3903-cbca-46d9-9350-ae56a4502db3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "62c9cad6-7985-4780-aa85-aeeadb97755e",
+      "documentation": "This method returns the complete details of the item price markdown promotion that's indicated by the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions.",
+      "method": "get",
+      "endpoint": "item_price_markdown/:promotion_id",
+      "responses": [
+        {
+          "uuid": "c0513ad8-5a07-446a-9d27-07051f15616a",
+          "body": "{\n  \"applyFreeShipping\": {{faker 'random.boolean'}},\n  \"autoSelectFutureInventory\": {{faker 'random.boolean'}},\n  \"blockPriceIncreaseInItemRevision\": {{faker 'random.boolean'}},\n  \"description\": \"\",\n  \"endDate\": \"\",\n  \"marketplaceId\": \"\",\n  \"name\": \"\",\n  \"priority\": \"\",\n  \"promotionImageUrl\": \"\",\n  \"promotionStatus\": \"\",\n  \"selectedInventoryDiscounts\": [\n    {\n      \"discountBenefit\": {\n        \"amountOffItem\": {\n          \"currency\": \"\",\n          \"value\": \"\"\n        },\n        \"amountOffOrder\": {\n          \"currency\": \"\",\n          \"value\": \"\"\n        },\n        \"percentageOffItem\": \"\",\n        \"percentageOffOrder\": \"\"\n      },\n      \"discountId\": \"\",\n      \"inventoryCriterion\": {\n        \"inventoryCriterionType\": \"\",\n        \"inventoryItems\": [\n          {\n            \"inventoryReferenceId\": \"\"\n          }\n        ],\n        \"listingIds\": [\n          \"\"\n        ],\n        \"ruleCriteria\": {\n          \"excludeInventoryItems\": [\n            {\n              \"inventoryReferenceId\": \"\"\n            }\n          ],\n          \"excludeListingIds\": [\n            \"\"\n          ],\n          \"markupInventoryItems\": [\n            {\n              \"inventoryReferenceId\": \"\"\n            }\n          ],\n          \"markupListingIds\": [\n            \"\"\n          ],\n          \"selectionRules\": [\n            {\n              \"brands\": [\n                \"\"\n              ],\n              \"categoryIds\": [\n                \"\"\n              ],\n              \"categoryScope\": \"\",\n              \"listingConditionIds\": [\n                \"\"\n              ],\n              \"maxPrice\": {\n                \"currency\": \"\",\n                \"value\": \"\"\n              },\n              \"minPrice\": {\n                \"currency\": \"\",\n                \"value\": \"\"\n              }\n            }\n          ]\n        }\n      },\n      \"ruleOrder\": {{faker 'random.number'}}\n    }\n  ],\n  \"startDate\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "86b7fce0-64b6-4da7-8c6d-9602945b264c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1607b860-e368-447a-afd6-e2898f8818e0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0d56ed84-7751-4b42-82c4-e4fe46a09df8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b5f0873b-5812-4243-830d-2ff4145c1e0a",
+      "documentation": "This method updates the specified item price markdown promotion with the new configuration that you supply in the payload of the request. Specify the promotion you want to update using the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. When updating a promotion, supply all the fields that you used to configure the original promotion (and not just the fields you are updating). eBay replaces the specified promotion with the values you supply in the update request and if you don't pass a field that currently has a value, the update request fails. The parameters you are allowed to update with this request depend on the status of the promotion you're updating: DRAFT or SCHEDULED promotions: You can update any of the parameters in these promotions that have not yet started to run, including the discountRules. RUNNING promotions: You can change the endDate and the item's inventory but you cannot change the promotional discount or the promotion's start date. ENDED promotions: Nothing can be changed.",
+      "method": "put",
+      "endpoint": "item_price_markdown/:promotion_id",
+      "responses": [
+        {
+          "uuid": "6d92b835-503d-46f3-b1cf-94482d4ac91d",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7d1c5378-e165-49ac-aa66-2baa7bc03bce",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2dafca46-ed1d-407b-9af6-751c406449b2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5d2a3826-4218-41ea-9eb6-ff043eb94b51",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c2a9afc6-cedc-4f37-b2ec-f2e06fb7c507",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b3350478-e381-4c6b-8adb-e903b070f65b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e08d7d4a-8d98-4cd3-b053-20bef0c7572b",
+      "documentation": "This method creates an item promotion, where the buyer receives a discount when they meet the buying criteria that's set for the promotion. Known here as &quot;threshold promotions&quot;, these promotions trigger when a threshold is met. eBay highlights promoted items by placing teasers for the promoted items throughout the online buyer flows. Discounts are specified as either a monetary amount or a percentage off the standard sales price of a listing, letting you offer deals such as &quot;Buy 1 Get 1&quot; and &quot;Buy $50, get 20% off&quot;. Volume pricing promotions increase the value of the discount as the buyer increases the quantity they purchase. Coded Coupons provide unique codes that a buyer can use during checkout to receive a discount. The seller can specify the number of times a buyer can use the coupon and the maximum amount across all purchases that can be discounted using the coupon. The coupon code can also be made public (appearing on the seller&rsquo;s Offer page, search pages, the item listing, and the checkout page) or private (only on the seller&rsquo;s Offer page, but the seller can include the code in email and social media). Note: Coded Coupons are currently available in the US, UK, DE, FR, IT, ES, and AU marketplaces. There are two ways to add items to a threshold promotion: Key-based promotions select items using either the listing IDs or inventory reference IDs of the items you want to promote. Note that if you use inventory reference IDs, you must specify both the inventoryReferenceId and the associated inventoryReferenceType of the item(s) you want to include the promotion. Rule-based promotions select items using a list of eBay category IDs or seller Store category IDs. Rules can further constrain items in a promotion by minimum and maximum prices, brands, and item conditions. You must create a new promotion in either a DRAFT or SCHEDULED state. Use the DRAFT state when you are initially creating a promotion and you want to be sure it's correctly configured before scheduling it to run. When you create a promotion, the promotion ID is returned in the Location response header. Use this ID to reference the promotion in subsequent requests. Tip: Refer to the Selling Integration Guide for details and examples showing how to create and manage threshold promotions using the Promotions Manager. For information on the eBay marketplaces that support item promotions, see Promotions Manager requirements and restrictions.",
+      "method": "post",
+      "endpoint": "item_promotion",
+      "responses": [
+        {
+          "uuid": "01b2cc36-50fe-46d1-b69c-50d8ce270403",
+          "body": "{\n  \"warnings\": [\n    {\n      \"category\": \"\",\n      \"domain\": \"\",\n      \"errorId\": {{faker 'random.number'}},\n      \"inputRefIds\": [\n        \"\"\n      ],\n      \"longMessage\": \"\",\n      \"message\": \"\",\n      \"outputRefIds\": [\n        \"\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"\",\n          \"value\": \"\"\n        }\n      ],\n      \"subdomain\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Created",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Location",
+              "value": ""
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4efec00b-e8cc-4c5c-b709-0eca5d6f4f1c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8cbcba79-5ea3-4b95-9295-ccf3fdc085d5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8ba9aade-a584-4022-a733-477cdedcfe75",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ab9ef8f7-d9ed-48b0-89eb-29cdfdcfe732",
+      "documentation": "This method deletes the threshold promotion specified by the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. You can delete any promotion with the exception of those that are currently active (RUNNING). To end a running threshold promotion, call updateItemPromotion and adjust the endDate field as appropriate.",
+      "method": "delete",
+      "endpoint": "item_promotion/:promotion_id",
+      "responses": [
+        {
+          "uuid": "f24f34b8-c770-4bdc-88f6-af5f5476e96e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5945a845-7755-4a1a-ad37-e812b0abe47d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "aa580fc4-02af-4c32-b0d3-894c47335b8e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5968792d-706d-40a9-aaac-45b2680d4f46",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0eff50a5-b017-4369-a1b6-f16fec9fa2e5",
+      "documentation": "This method returns the complete details of the threshold promotion specified by the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions.",
+      "method": "get",
+      "endpoint": "item_promotion/:promotion_id",
+      "responses": [
+        {
+          "uuid": "b21d5e9d-48e8-49d7-a4e7-e71f94ab6c2a",
+          "body": "{\n  \"applyDiscountToSingleItemOnly\": {{faker 'random.boolean'}},\n  \"budget\": {\n    \"currency\": \"\",\n    \"value\": \"\"\n  },\n  \"couponConfiguration\": {\n    \"couponCode\": \"\",\n    \"couponType\": \"\",\n    \"maxCouponRedemptionPerUser\": {{faker 'random.number'}}\n  },\n  \"description\": \"\",\n  \"discountRules\": [\n    {\n      \"discountBenefit\": {\n        \"amountOffItem\": {\n          \"currency\": \"\",\n          \"value\": \"\"\n        },\n        \"amountOffOrder\": {\n          \"currency\": \"\",\n          \"value\": \"\"\n        },\n        \"percentageOffItem\": \"\",\n        \"percentageOffOrder\": \"\"\n      },\n      \"discountSpecification\": {\n        \"forEachAmount\": {\n          \"currency\": \"\",\n          \"value\": \"\"\n        },\n        \"forEachQuantity\": {{faker 'random.number'}},\n        \"minAmount\": {\n          \"currency\": \"\",\n          \"value\": \"\"\n        },\n        \"minQuantity\": {{faker 'random.number'}},\n        \"numberOfDiscountedItems\": {{faker 'random.number'}}\n      },\n      \"maxDiscountAmount\": {\n        \"currency\": \"\",\n        \"value\": \"\"\n      },\n      \"ruleOrder\": {{faker 'random.number'}}\n    }\n  ],\n  \"endDate\": \"\",\n  \"inventoryCriterion\": {\n    \"inventoryCriterionType\": \"\",\n    \"inventoryItems\": [\n      {\n        \"inventoryReferenceId\": \"\"\n      }\n    ],\n    \"listingIds\": [\n      \"\"\n    ],\n    \"ruleCriteria\": {\n      \"excludeInventoryItems\": [\n        {\n          \"inventoryReferenceId\": \"\"\n        }\n      ],\n      \"excludeListingIds\": [\n        \"\"\n      ],\n      \"markupInventoryItems\": [\n        {\n          \"inventoryReferenceId\": \"\"\n        }\n      ],\n      \"markupListingIds\": [\n        \"\"\n      ],\n      \"selectionRules\": [\n        {\n          \"brands\": [\n            \"\"\n          ],\n          \"categoryIds\": [\n            \"\"\n          ],\n          \"categoryScope\": \"\",\n          \"listingConditionIds\": [\n            \"\"\n          ],\n          \"maxPrice\": {\n            \"currency\": \"\",\n            \"value\": \"\"\n          },\n          \"minPrice\": {\n            \"currency\": \"\",\n            \"value\": \"\"\n          }\n        }\n      ]\n    }\n  },\n  \"marketplaceId\": \"\",\n  \"name\": \"\",\n  \"priority\": \"\",\n  \"promotionId\": \"\",\n  \"promotionImageUrl\": \"\",\n  \"promotionStatus\": \"\",\n  \"promotionType\": \"\",\n  \"startDate\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "17d94c66-7952-4de4-9137-fc814a77adcf",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "083b689f-2f7d-41ce-815f-b1a11c1f8230",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ec8b2f2e-9b93-43c1-82ff-8bb75cbfe17e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d84ff067-b7c7-469d-93c3-cf92be490be2",
+      "documentation": "This method updates the specified threshold promotion with the new configuration that you supply in the request. Indicate the promotion you want to update using the promotion_id path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. When updating a promotion, supply all the fields that you used to configure the original promotion (and not just the fields you are updating). eBay replaces the specified promotion with the values you supply in the update request and if you don't pass a field that currently has a value, the update request will fail. The parameters you are allowed to update with this request depend on the status of the promotion you're updating: DRAFT or SCHEDULED promotions: You can update any of the parameters in these promotions that have not yet started to run, including the discountRules. RUNNING or PAUSED promotions: You can change the endDate and the item's inventory but you cannot change the promotional discount or the promotion's start date. ENDED promotions: Nothing can be changed. Tip: When updating a RUNNING or PAUSED promotion, set the status field to SCHEDULED for the update request. When the promotion is updated, the previous status (either RUNNING or PAUSED) is retained.",
+      "method": "put",
+      "endpoint": "item_promotion/:promotion_id",
+      "responses": [
+        {
+          "uuid": "360433a0-6061-4410-a409-66bbc948713a",
+          "body": "{\n  \"warnings\": [\n    {\n      \"category\": \"\",\n      \"domain\": \"\",\n      \"errorId\": {{faker 'random.number'}},\n      \"inputRefIds\": [\n        \"\"\n      ],\n      \"longMessage\": \"\",\n      \"message\": \"\",\n      \"outputRefIds\": [\n        \"\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"\",\n          \"value\": \"\"\n        }\n      ],\n      \"subdomain\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3c8aae00-9fc4-429a-b345-2727b361a2f1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8f557d28-9beb-435c-be41-aee456284733",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7dbadba7-a795-490e-9d8a-f6dcb7812edb",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fcb15306-edfe-4d2c-b7c9-4056294faae1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "Business Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ba91b9ca-022c-42a4-8780-8bda2ed648b2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "55ed0469-da55-4e83-af7c-d6a7571df530",
+      "documentation": "This method returns a list of a seller's undeleted promotions. The call returns up to 200 currently-available promotions on the specified marketplace. While the response body does not include the promotion's discountRules or inventoryCriterion containers, it does include the promotionHref (which you can use to retrieve the complete details of the promotion). Use query parameters to sort and filter the results by the number of promotions to return, the promotion state or type, and the eBay marketplace. You can also supply keywords to limit the response to the promotions that contain that keywords in the title of the promotion. Maximum returned: 200",
+      "method": "get",
+      "endpoint": "promotion",
+      "responses": [
+        {
+          "uuid": "23274350-f6d1-4ed0-9bf6-bf88738f664f",
+          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"promotions\": [\n    {\n      \"couponCode\": \"\",\n      \"description\": \"\",\n      \"endDate\": \"\",\n      \"marketplaceId\": \"\",\n      \"name\": \"\",\n      \"priority\": \"\",\n      \"promotionHref\": \"\",\n      \"promotionId\": \"\",\n      \"promotionImageUrl\": \"\",\n      \"promotionStatus\": \"\",\n      \"promotionType\": \"\",\n      \"startDate\": \"\"\n    }\n  ],\n  \"total\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b2650c2d-9a32-4b14-bedc-062dc61fbfe8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6814cb40-11d1-429f-9987-72842f919af7",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7a8edddf-f67f-4258-99d8-f908a52c8148",
+      "documentation": "This method returns the set of listings associated with the promotion_id specified in the path parameter. Call getPromotions to retrieve the IDs of a seller's promotions. The listing details are returned in a paginated set and you can control and results returned using the following query parameters: limit, offset, q, sort, and status. Maximum associated listings returned: 200 Default number of listings returned: 200",
+      "method": "get",
+      "endpoint": "promotion/:promotion_id/get_listing_set",
+      "responses": [
+        {
+          "uuid": "eeafdff3-84b2-46cf-ab7c-2880fa983908",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5c607cef-03a9-4af8-8eb7-c5e37439b972",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7bb1d2cd-3774-4dd3-a980-79d0c9db58cb",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5315173c-20bf-42cd-b073-c1680ebdcaa4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a21c8ba9-a239-45be-94c8-050c37ef6861",
+      "documentation": "This method pauses a currently-active (RUNNING) threshold promotion and changes the state of the promotion from RUNNING to PAUSED. Pausing a promotion makes the promotion temporarily unavailable to buyers and any currently-incomplete transactions will not receive the promotional offer until the promotion is resumed. Also, promotion teasers are not displayed when a promotion is paused. Pass the ID of the promotion you want to pause using the promotion_id path parameter. Call getPromotions to retrieve the IDs of the seller's promotions. Note: You can only pause threshold promotions (you cannot pause markdown promotions).",
+      "method": "post",
+      "endpoint": "promotion/:promotion_id/pause",
+      "responses": [
+        {
+          "uuid": "c80a1484-ddc5-46dc-ae7a-e0f390cad860",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "648cb3d6-bfc7-4a04-904b-03a98d8c3a6f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5089304b-a614-49a6-8279-980f4cd519cf",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6d9c2cc4-a450-45c8-9f5c-fb3e6ce518f8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "262ba6e8-6ac5-4668-b649-acbc43be8c70",
+      "documentation": "This method restarts a threshold promotion that was previously paused and changes the state of the promotion from PAUSED to RUNNING. Only promotions that have been previously paused can be resumed. Resuming a promotion reinstates the promotional teasers and any transactions that were in motion before the promotion was paused will again be eligible for the promotion. Pass the ID of the promotion you want to resume using the promotion_id path parameter. Call getPromotions to retrieve the IDs of the seller's promotions.",
+      "method": "post",
+      "endpoint": "promotion/:promotion_id/resume",
+      "responses": [
+        {
+          "uuid": "b49e5fe5-9bca-403e-b67c-cfce95630d13",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "50f0e113-7f23-4520-97b4-1b813357c393",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "955e7047-e12e-47cd-82cf-fe3f6b531d59",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9ff1521d-d9ec-4e1b-964c-515e82891c3c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c1a1b28b-eeb3-4853-9b38-50f804f6e6ac",
+      "documentation": "This method generates a report that lists the seller's running, paused, and ended promotions for the specified eBay marketplace. The result set can be filtered by the promotion status and the number of results to return. You can also supply keywords to limit the report to promotions that contain the specified keywords. Specify the eBay marketplace for which you want the report run using the marketplace_id query parameter. Supply additional query parameters to control the report as needed.",
+      "method": "get",
+      "endpoint": "promotion_report",
+      "responses": [
+        {
+          "uuid": "5390239e-1cad-4286-808e-8c7f88f7e575",
+          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"promotionReports\": [\n    {\n      \"averageItemDiscount\": {\n        \"currency\": \"\",\n        \"value\": \"\"\n      },\n      \"averageItemRevenue\": {\n        \"currency\": \"\",\n        \"value\": \"\"\n      },\n      \"averageOrderDiscount\": {\n        \"currency\": \"\",\n        \"value\": \"\"\n      },\n      \"averageOrderRevenue\": {\n        \"currency\": \"\",\n        \"value\": \"\"\n      },\n      \"averageOrderSize\": \"\",\n      \"baseSale\": {\n        \"currency\": \"\",\n        \"value\": \"\"\n      },\n      \"itemsSoldQuantity\": {{faker 'random.number'}},\n      \"numberOfOrdersSold\": {{faker 'random.number'}},\n      \"percentageSalesLift\": \"\",\n      \"promotionHref\": \"\",\n      \"promotionId\": \"\",\n      \"promotionReportId\": \"\",\n      \"promotionSale\": {\n        \"currency\": \"\",\n        \"value\": \"\"\n      },\n      \"promotionType\": \"\",\n      \"totalDiscount\": {\n        \"currency\": \"\",\n        \"value\": \"\"\n      },\n      \"totalSale\": {\n        \"currency\": \"\",\n        \"value\": \"\"\n      }\n    }\n  ],\n  \"total\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "abac48fd-183a-4929-a090-532d65fa141d",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d1f2f9d9-b652-435d-aea6-6b187138db9c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5fb26c36-451c-4f09-ac25-712c7708f404",
+      "documentation": "This method generates a report that summarizes the seller's promotions for the specified eBay marketplace. The report returns information on RUNNING, PAUSED, and ENDED promotions (deleted reports are not returned) and summarizes the seller's campaign performance for all promotions on a given site. For information about summary reports, see Reading the item promotion Summary report.",
+      "method": "get",
+      "endpoint": "promotion_summary_report",
+      "responses": [
+        {
+          "uuid": "a0a12f71-afb5-480a-bbce-2313bc2e8bf7",
+          "body": "{\n  \"baseSale\": {\n    \"currency\": \"\",\n    \"value\": \"\"\n  },\n  \"lastUpdated\": \"\",\n  \"percentageSalesLift\": \"\",\n  \"promotionSale\": {\n    \"currency\": \"\",\n    \"value\": \"\"\n  },\n  \"totalSale\": {\n    \"currency\": \"\",\n    \"value\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ec82e5a3-3dfa-47e3-859d-93052cb88d4b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "edb324b9-8acc-4d01-82d3-d40ebb4cde34",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7eed01ca-28c7-4c16-8ea4-724d318737f0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,624 @@
+{
+  "uuid": "a3f98892-51b2-41d6-93ed-210616ff5e6c",
+  "lastMigration": 19,
+  "name": "Application API",
+  "endpointPrefix": "v2/applications",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "381dbcf7-e862-4fa3-a6b4-11e5d2bbf49c",
+      "documentation": "List available applications",
+      "method": "get",
+      "endpoint": "",
+      "responses": [
+        {
+          "uuid": "a7b4e6e6-5dd8-4ae5-b4c1-d61fb6210723",
+          "body": "{\n  \"_embedded\": {\n    \"applications\": [\n      {\n        \"capabilities\": {\n          \"messages\": {\n            \"webhooks\": {\n              \"inbound_url\": {\n                \"address\": \"https://example.com/webhooks/inbound\",\n                \"http_method\": \"POST\"\n              },\n              \"status_url\": {\n                \"address\": \"https://example.com/webhooks/status\",\n                \"http_method\": \"POST\"\n              }\n            }\n          },\n          \"rtc\": {\n            \"webhooks\": {\n              \"event_url\": {\n                \"address\": \"https://example.com/webhooks/event\",\n                \"http_method\": \"POST\"\n              }\n            }\n          },\n          \"vbc\": {},\n          \"voice\": {\n            \"webhooks\": {\n              \"answer_url\": {\n                \"address\": \"https://example.com/webhooks/answer\",\n                \"connection_timeout\": 500,\n                \"http_method\": \"POST\",\n                \"socket_timeout\": 3000\n              },\n              \"event_url\": {\n                \"address\": \"https://example.com/webhooks/event\",\n                \"connection_timeout\": 500,\n                \"http_method\": \"POST\",\n                \"socket_timeout\": 3000\n              },\n              \"fallback_answer_url\": {\n                \"address\": \"https://fallback.example.com/webhooks/answer\",\n                \"connection_timeout\": 500,\n                \"http_method\": \"POST\",\n                \"socket_timeout\": 3000\n              }\n            }\n          }\n        },\n        \"id\": \"78d335fa-323d-0114-9c3d-d6f0d48968cf\",\n        \"name\": \"My Application\",\n        \"privacy\": {\n          \"improve_ai\": true\n        }\n      }\n    ]\n  },\n  \"page\": 1,\n  \"page_size\": 10,\n  \"total_items\": 6,\n  \"total_pages\": 1\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "01f711f1-6d25-412e-8918-b13b68dcb365",
+          "body": "{\n  \"detail\": \"The request failed due to validation errors\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"invalid_parameters\": [\n    {\n      \"name\": \"page_size\",\n      \"reason\": \"must be between 1 and 100\"\n    }\n  ],\n  \"title\": \"Bad Request\",\n  \"type\": \"https://developer.nexmo.com/api-errors/application#list-validation\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Invalid Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "208bff4e-e631-4243-8bee-8e86f158b987",
+          "body": "{\n  \"detail\": \"You did not provide correct credentials.\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Invalid credentials supplied\",\n  \"type\": \"https://developer.nexmo.com/api-errors#unauthorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Credential is missing or invalid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a4ff1647-2f19-4842-8419-d1aeb1640970",
+          "body": "{\n  \"detail\": \"Request method 'TRACE' not supported\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Request method not allowed\",\n  \"type\": \"https://developer.nexmo.com/api-errors#wrong-verb\"\n}",
+          "latency": 0,
+          "statusCode": 405,
+          "label": "Invalid Request Method",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "54e4771c-9281-4209-9ced-1d49f47ff5a8",
+          "body": "{\n  \"detail\": \"Invalid Accept header provided. Must be one of the following: 'application/json'\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Invalid Accept header\",\n  \"type\": \"https://developer.nexmo.com/api-errors#accept-header\"\n}",
+          "latency": 0,
+          "statusCode": 406,
+          "label": "Invalid Accept Header",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e60ca563-5485-46a3-b3b1-546660125324",
+      "documentation": "Create an application",
+      "method": "post",
+      "endpoint": "",
+      "responses": [
+        {
+          "uuid": "dcd1112a-72b3-4206-97e9-7e9642c048bb",
+          "body": "{\n  \"capabilities\": {\n    \"messages\": {\n      \"webhooks\": {\n        \"inbound_url\": {\n          \"address\": \"https://example.com/webhooks/inbound\",\n          \"http_method\": \"POST\"\n        },\n        \"status_url\": {\n          \"address\": \"https://example.com/webhooks/status\",\n          \"http_method\": \"POST\"\n        }\n      }\n    },\n    \"rtc\": {\n      \"webhooks\": {\n        \"event_url\": {\n          \"address\": \"https://example.com/webhooks/event\",\n          \"http_method\": \"POST\"\n        }\n      }\n    },\n    \"vbc\": {},\n    \"voice\": {\n      \"webhooks\": {\n        \"answer_url\": {\n          \"address\": \"https://example.com/webhooks/answer\",\n          \"connection_timeout\": 500,\n          \"http_method\": \"POST\",\n          \"socket_timeout\": 3000\n        },\n        \"event_url\": {\n          \"address\": \"https://example.com/webhooks/event\",\n          \"connection_timeout\": 500,\n          \"http_method\": \"POST\",\n          \"socket_timeout\": 3000\n        },\n        \"fallback_answer_url\": {\n          \"address\": \"https://fallback.example.com/webhooks/answer\",\n          \"connection_timeout\": 500,\n          \"http_method\": \"POST\",\n          \"socket_timeout\": 3000\n        }\n      }\n    }\n  },\n  \"id\": \"78d335fa-323d-0114-9c3d-d6f0d48968cf\",\n  \"name\": \"My Application\",\n  \"privacy\": {\n    \"improve_ai\": true\n  }\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "72483a38-c955-43d5-8698-9416b490a396",
+          "body": "{\n  \"detail\": \"The request failed due to validation errors\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"invalid_parameters\": [\n    {\n      \"name\": \"capabilities.voice.webhooks.answer_url.http_method\",\n      \"reason\": \"must be one of: GET, POST\"\n    }\n  ],\n  \"title\": \"Bad Request\",\n  \"type\": \"https://developer.nexmo.com/api-errors/application#payload-validation\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Invalid Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f333d147-2c20-4bb8-a966-415b010caf50",
+          "body": "{\n  \"detail\": \"You did not provide correct credentials.\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Invalid credentials supplied\",\n  \"type\": \"https://developer.nexmo.com/api-errors#unauthorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Credential is missing or invalid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1a94cdb2-a52e-44a3-9df3-07b2de747201",
+          "body": "{\n  \"detail\": \"Request method 'TRACE' not supported\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Request method not allowed\",\n  \"type\": \"https://developer.nexmo.com/api-errors#wrong-verb\"\n}",
+          "latency": 0,
+          "statusCode": 405,
+          "label": "Invalid Request Method",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "411c40ac-8b64-4c07-81d0-cf7e6172a360",
+          "body": "{\n  \"detail\": \"Invalid Accept header provided. Must be one of the following: 'application/json'\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Invalid Accept header\",\n  \"type\": \"https://developer.nexmo.com/api-errors#accept-header\"\n}",
+          "latency": 0,
+          "statusCode": 406,
+          "label": "Invalid Accept Header",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6010a5b3-92b6-4a48-9078-defcac9842d5",
+          "body": "{\n  \"detail\": \"Unsupported Content-Type header provided. Must be one of the following: 'application/json'\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Unsupported Content-Type header\",\n  \"type\": \"https://developer.nexmo.com/api-errors#content-type-header\"\n}",
+          "latency": 0,
+          "statusCode": 415,
+          "label": "Unsupported Content Type Header",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "34bbe9af-87a2-4c3f-ad2d-e20d7fdf02d6",
+      "documentation": "Delete an application",
+      "method": "delete",
+      "endpoint": ":id",
+      "responses": [
+        {
+          "uuid": "1da045bd-f230-45aa-8929-f619629ae628",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "80157a23-89ab-4c39-b269-382b755ec16f",
+          "body": "{\n  \"detail\": \"You did not provide correct credentials.\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Invalid credentials supplied\",\n  \"type\": \"https://developer.nexmo.com/api-errors#unauthorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Credential is missing or invalid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d40282e7-075e-46ea-8ca9-e32cedf1a6d8",
+          "body": "{\n  \"detail\": \"ID 'ABC123' does not exist, or you do not have access\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Not Found\",\n  \"type\": \"https://developer.nexmo.com/api-errors#not-found\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Resource Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d505b895-af18-4539-9ff2-42adc6945ebb",
+          "body": "{\n  \"detail\": \"Request method 'TRACE' not supported\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Request method not allowed\",\n  \"type\": \"https://developer.nexmo.com/api-errors#wrong-verb\"\n}",
+          "latency": 0,
+          "statusCode": 405,
+          "label": "Invalid Request Method",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "496f91a6-3abe-4e16-b0b9-1c78be97bbff",
+          "body": "{\n  \"detail\": \"Invalid Accept header provided. Must be one of the following: 'application/json'\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Invalid Accept header\",\n  \"type\": \"https://developer.nexmo.com/api-errors#accept-header\"\n}",
+          "latency": 0,
+          "statusCode": 406,
+          "label": "Invalid Accept Header",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ae74cbfa-5bfd-42c7-95be-3e8fd24f4efe",
+      "documentation": "Get an application",
+      "method": "get",
+      "endpoint": ":id",
+      "responses": [
+        {
+          "uuid": "4934dec4-6e43-45ba-bef2-2bd915ba6334",
+          "body": "{\n  \"capabilities\": {\n    \"messages\": {\n      \"webhooks\": {\n        \"inbound_url\": {\n          \"address\": \"https://example.com/webhooks/inbound\",\n          \"http_method\": \"POST\"\n        },\n        \"status_url\": {\n          \"address\": \"https://example.com/webhooks/status\",\n          \"http_method\": \"POST\"\n        }\n      }\n    },\n    \"rtc\": {\n      \"webhooks\": {\n        \"event_url\": {\n          \"address\": \"https://example.com/webhooks/event\",\n          \"http_method\": \"POST\"\n        }\n      }\n    },\n    \"vbc\": {},\n    \"voice\": {\n      \"webhooks\": {\n        \"answer_url\": {\n          \"address\": \"https://example.com/webhooks/answer\",\n          \"connection_timeout\": 500,\n          \"http_method\": \"POST\",\n          \"socket_timeout\": 3000\n        },\n        \"event_url\": {\n          \"address\": \"https://example.com/webhooks/event\",\n          \"connection_timeout\": 500,\n          \"http_method\": \"POST\",\n          \"socket_timeout\": 3000\n        },\n        \"fallback_answer_url\": {\n          \"address\": \"https://fallback.example.com/webhooks/answer\",\n          \"connection_timeout\": 500,\n          \"http_method\": \"POST\",\n          \"socket_timeout\": 3000\n        }\n      }\n    }\n  },\n  \"id\": \"78d335fa-323d-0114-9c3d-d6f0d48968cf\",\n  \"name\": \"My Application\",\n  \"privacy\": {\n    \"improve_ai\": true\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d452a908-2f54-4a75-9586-c4cadae0fe76",
+          "body": "{\n  \"detail\": \"You did not provide correct credentials.\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Invalid credentials supplied\",\n  \"type\": \"https://developer.nexmo.com/api-errors#unauthorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Credential is missing or invalid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e6268272-35f0-4176-9505-3c18d9b764d3",
+          "body": "{\n  \"detail\": \"ID 'ABC123' does not exist, or you do not have access\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Not Found\",\n  \"type\": \"https://developer.nexmo.com/api-errors#not-found\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Resource Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9b883016-953e-4d44-b196-a26a993224ab",
+          "body": "{\n  \"detail\": \"Request method 'TRACE' not supported\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Request method not allowed\",\n  \"type\": \"https://developer.nexmo.com/api-errors#wrong-verb\"\n}",
+          "latency": 0,
+          "statusCode": 405,
+          "label": "Invalid Request Method",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "cee44c9b-5029-4f26-83b6-2787af86f968",
+          "body": "{\n  \"detail\": \"Invalid Accept header provided. Must be one of the following: 'application/json'\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Invalid Accept header\",\n  \"type\": \"https://developer.nexmo.com/api-errors#accept-header\"\n}",
+          "latency": 0,
+          "statusCode": 406,
+          "label": "Invalid Accept Header",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0c158b12-ca75-4389-84a6-4479d4976e4e",
+      "documentation": "Update an application",
+      "method": "put",
+      "endpoint": ":id",
+      "responses": [
+        {
+          "uuid": "0ee2aef7-2fc0-4e1b-9df6-5c62dd830611",
+          "body": "{\n  \"capabilities\": {\n    \"messages\": {\n      \"webhooks\": {\n        \"inbound_url\": {\n          \"address\": \"https://example.com/webhooks/inbound\",\n          \"http_method\": \"POST\"\n        },\n        \"status_url\": {\n          \"address\": \"https://example.com/webhooks/status\",\n          \"http_method\": \"POST\"\n        }\n      }\n    },\n    \"rtc\": {\n      \"webhooks\": {\n        \"event_url\": {\n          \"address\": \"https://example.com/webhooks/event\",\n          \"http_method\": \"POST\"\n        }\n      }\n    },\n    \"vbc\": {},\n    \"voice\": {\n      \"webhooks\": {\n        \"answer_url\": {\n          \"address\": \"https://example.com/webhooks/answer\",\n          \"connection_timeout\": 500,\n          \"http_method\": \"POST\",\n          \"socket_timeout\": 3000\n        },\n        \"event_url\": {\n          \"address\": \"https://example.com/webhooks/event\",\n          \"connection_timeout\": 500,\n          \"http_method\": \"POST\",\n          \"socket_timeout\": 3000\n        },\n        \"fallback_answer_url\": {\n          \"address\": \"https://fallback.example.com/webhooks/answer\",\n          \"connection_timeout\": 500,\n          \"http_method\": \"POST\",\n          \"socket_timeout\": 3000\n        }\n      }\n    }\n  },\n  \"id\": \"78d335fa-323d-0114-9c3d-d6f0d48968cf\",\n  \"name\": \"My Application\",\n  \"privacy\": {\n    \"improve_ai\": true\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bcf31717-0f2d-4d5b-b4db-57b124f034b2",
+          "body": "{\n  \"detail\": \"The request failed due to validation errors\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"invalid_parameters\": [\n    {\n      \"name\": \"capabilities.voice.webhooks.answer_url.http_method\",\n      \"reason\": \"must be one of: GET, POST\"\n    }\n  ],\n  \"title\": \"Bad Request\",\n  \"type\": \"https://developer.nexmo.com/api-errors/application#payload-validation\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Invalid Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d1fd780f-0aec-4f96-9a13-723d23a5ede8",
+          "body": "{\n  \"detail\": \"You did not provide correct credentials.\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Invalid credentials supplied\",\n  \"type\": \"https://developer.nexmo.com/api-errors#unauthorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Credential is missing or invalid",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f7d98219-3acb-475f-b854-c1d719c0c8ac",
+          "body": "{\n  \"detail\": \"ID 'ABC123' does not exist, or you do not have access\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Not Found\",\n  \"type\": \"https://developer.nexmo.com/api-errors#not-found\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Resource Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "97f3427c-9976-4e51-8683-9dd4b50181c6",
+          "body": "{\n  \"detail\": \"Request method 'TRACE' not supported\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Request method not allowed\",\n  \"type\": \"https://developer.nexmo.com/api-errors#wrong-verb\"\n}",
+          "latency": 0,
+          "statusCode": 405,
+          "label": "Invalid Request Method",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "01bc9c49-b851-413f-abe6-1cf30ef28f43",
+          "body": "{\n  \"detail\": \"Invalid Accept header provided. Must be one of the following: 'application/json'\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Invalid Accept header\",\n  \"type\": \"https://developer.nexmo.com/api-errors#accept-header\"\n}",
+          "latency": 0,
+          "statusCode": 406,
+          "label": "Invalid Accept Header",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6da92fd0-d367-4a4f-a45c-0e2a162f8d3f",
+          "body": "{\n  \"detail\": \"Unsupported Content-Type header provided. Must be one of the following: 'application/json'\",\n  \"instance\": \"797a8f199c45014ab7b08bfe9cc1c12c\",\n  \"title\": \"Unsupported Content-Type header\",\n  \"type\": \"https://developer.nexmo.com/api-errors#content-type-header\"\n}",
+          "latency": 0,
+          "statusCode": 415,
+          "label": "Unsupported Content Type Header",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,2140 @@
+{
+  "uuid": "6860331f-96fd-41ce-ac07-220004084d9b",
+  "lastMigration": 19,
+  "name": "Amazon Timestream Write",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "b950463b-c95d-4fd8-aaa9-e783a3dea35c",
+      "documentation": "Creates a new Timestream database. If the KMS key is not specified, the database will be encrypted with a Timestream managed KMS key located in your account. Refer to <a href=\"https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk\">AWS managed KMS keys</a> for more info. Service quotas apply. For more information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html\">Access Management</a> in the Timestream Developer Guide. ",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.CreateDatabase",
+      "responses": [
+        {
+          "uuid": "8de68cf7-e290-4ff7-a5bd-cc24dfc848e8",
+          "body": "{\n  \"Database\": {\n    \"Arn\": \"\",\n    \"DatabaseName\": \"\",\n    \"TableCount\": {{faker 'random.number'}},\n    \"KmsKeyId\": \"\",\n    \"CreationTime\": \"{{faker 'date.recent' 365}}\",\n    \"LastUpdatedTime\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "65ab4d83-b0ba-4c8d-8648-96e019555c06",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ConflictException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "987f99f2-7978-49a2-9644-0ccca52e4a99",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "18a89aae-f2af-463e-882e-0f5d6c7996cd",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "AccessDeniedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4cd8c161-9a8b-48ea-a45b-2d0b9be0928d",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ServiceQuotaExceededException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9302f5bb-9345-427e-b755-01b359db8049",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "14148df2-fe4d-4968-8292-cdba88c150fe",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 485,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2880d890-434b-4f6b-a580-1659be92dc94",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 486,
+          "label": "InternalServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "1cd634ba-2018-4e29-934b-8cfa437c00ac",
+      "documentation": "The CreateTable operation adds a new table to an existing database in your account. In an AWS account, table names must be at least unique within each Region if they are in the same database. You may have identical table names in the same Region if the tables are in seperate databases. While creating the table, you must specify the table name, database name, and the retention properties. Service quotas apply. For more information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html\">Access Management</a> in the Timestream Developer Guide. ",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.CreateTable",
+      "responses": [
+        {
+          "uuid": "549bf249-cc6f-4c76-8f9e-60d07e21d2a9",
+          "body": "{\n  \"Table\": {\n    \"Arn\": \"\",\n    \"TableName\": \"\",\n    \"DatabaseName\": \"\",\n    \"TableStatus\": \"\",\n    \"RetentionProperties\": {\n      \"MemoryStoreRetentionPeriodInHours\": {{faker 'random.number'}},\n      \"MagneticStoreRetentionPeriodInDays\": {{faker 'random.number'}}\n    },\n    \"CreationTime\": \"{{faker 'date.recent' 365}}\",\n    \"LastUpdatedTime\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e2e5a6c7-643f-4388-8bef-a916f8368da5",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ConflictException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "84d4cc4a-2d98-457d-9535-1c71dd053ee3",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "625800f3-67e4-471c-a6a8-a97b0a76a9e3",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "AccessDeniedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "6cd3c771-a325-4650-a4aa-c0094cc1bad7",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b57c1086-60d5-4fac-a02a-a9ef4316f4d1",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "ServiceQuotaExceededException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "53819fcd-f717-4a1c-9f60-72b4ba240a59",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 485,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ee93eabb-c27f-4857-a702-2445f6ddc36c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 486,
+          "label": "InternalServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2656ae9d-662a-4e3d-b99c-aa028fdb9e52",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 487,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "dc4fcde6-e087-449a-8f09-8ea5afde3d7e",
+      "documentation": "<p>Deletes a given Timestream database. <i>This is an irreversible operation. After a database is deleted, the time series data from its tables cannot be recovered.</i> </p> <p>All tables in the database must be deleted first, or a ValidationException error will be thrown. </p> <p>Due to the nature of distributed retries, the operation can return either success or a ResourceNotFoundException. Clients should consider them equivalent.</p>",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.DeleteDatabase",
+      "responses": [
+        {
+          "uuid": "f2383c99-70cd-49e0-bdd7-c3f7361b8460",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b9633746-3761-4e95-bdd9-6f4827092314",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InternalServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f76a6a07-e729-43a6-bdef-33e31775b734",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d22bfc92-013c-4201-8213-80e3c74f386a",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dd3ecf18-d973-4ca0-b0c5-bee0450fcc9c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "2960db79-b5b2-4bf6-b30c-c8b1ade01594",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "AccessDeniedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "5aac93ea-768f-4219-ad83-afef7fc449be",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 485,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "78aeaa7b-a3e8-45e1-9d2d-811e27d2b437",
+      "documentation": "<p>Deletes a given Timestream table. This is an irreversible operation. After a Timestream database table is deleted, the time series data stored in the table cannot be recovered. </p> <p>Due to the nature of distributed retries, the operation can return either success or a ResourceNotFoundException. Clients should consider them equivalent.</p>",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.DeleteTable",
+      "responses": [
+        {
+          "uuid": "1c140a2c-8466-44be-8438-ad9f86c0c6f0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1cea8fc9-5c66-4786-870d-44a9cbcb7360",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InternalServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "927177b8-b7fc-4caa-9ef0-419301fe2b10",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4f23e5a9-afb3-4d82-b10b-6f7675d752cb",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ed8423aa-9241-43c8-9bbf-43f9b44e47f9",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3db1ffa2-72b4-40bf-a0e8-09eaea360454",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "AccessDeniedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c8414512-e4cd-4b64-8ac9-dd5f7c1b8fda",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 485,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b447417d-c294-4a98-83b6-1b9426a37044",
+      "documentation": "Returns information about the database, including the database name, time that the database was created, and the total number of tables found within the database. Service quotas apply. For more information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html\">Access Management</a> in the Timestream Developer Guide.",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.DescribeDatabase",
+      "responses": [
+        {
+          "uuid": "f6114fe3-5a21-4ebb-a600-ea8bd1ee2c52",
+          "body": "{\n  \"Database\": {\n    \"Arn\": \"\",\n    \"DatabaseName\": \"\",\n    \"TableCount\": {{faker 'random.number'}},\n    \"KmsKeyId\": \"\",\n    \"CreationTime\": \"{{faker 'date.recent' 365}}\",\n    \"LastUpdatedTime\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bc131ff4-9d23-4848-bd47-ce3e680af8ab",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "964e7a13-8bf4-466b-8626-63b1de9ee063",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a20a00e0-35ec-43f6-b717-e760107d50b3",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "AccessDeniedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3bcb8fe9-5e60-4ea9-9062-bc4cf587ad79",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "960929ca-e088-4886-9447-6dd8f58024cd",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "InternalServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b1199b2f-a15f-4c57-a476-264c3b90f9a1",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 485,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "dab955db-baed-4ba0-b941-2c7d2a5e5fce",
+      "documentation": "<p>DescribeEndpoints returns a list of available endpoints to make Timestream API calls against. This API is available through both Write and Query.</p> <p>Because Timestream’s SDKs are designed to transparently work with the service’s architecture, including the management and mapping of the service endpoints, <i>it is not recommended that you use this API unless</i>:</p> <ul> <li> <p>Your application uses a programming language that does not yet have SDK support</p> </li> <li> <p>You require better control over the client-side implementation</p> </li> </ul> <p>For detailed information on how to use DescribeEndpoints, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/Using-API.endpoint-discovery.html\">The Endpoint Discovery Pattern and REST APIs</a>.</p>",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.DescribeEndpoints",
+      "responses": [
+        {
+          "uuid": "48fc6e5b-5b3d-4789-8bee-6b51cbcc1343",
+          "body": "{\n  \"Endpoints\": [\n    {\n      \"Address\": \"\",\n      \"CachePeriodInMinutes\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f7b265b1-3112-4420-84a5-24c6bc212f85",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InternalServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "95e9d61d-2a19-42be-ae80-1701b2174a66",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f688d0fc-dccf-49ed-adc9-59c5b216c969",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "85cfe21e-7992-4ab1-8449-7625eabf1db8",
+      "documentation": "Returns information about the table, including the table name, database name, retention duration of the memory store and the magnetic store. Service quotas apply. For more information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html\">Access Management</a> in the Timestream Developer Guide. ",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.DescribeTable",
+      "responses": [
+        {
+          "uuid": "5fd3f007-3df7-4518-ab96-2842f2517795",
+          "body": "{\n  \"Table\": {\n    \"Arn\": \"\",\n    \"TableName\": \"\",\n    \"DatabaseName\": \"\",\n    \"TableStatus\": \"\",\n    \"RetentionProperties\": {\n      \"MemoryStoreRetentionPeriodInHours\": {{faker 'random.number'}},\n      \"MagneticStoreRetentionPeriodInDays\": {{faker 'random.number'}}\n    },\n    \"CreationTime\": \"{{faker 'date.recent' 365}}\",\n    \"LastUpdatedTime\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b024f71d-cc4f-4df9-adfa-72a2c483ac98",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ffbd467b-113c-4758-9e62-093eed879063",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ccbd34fe-dd7f-406e-b514-36a2984e0d90",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "AccessDeniedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3731c554-0b11-41e5-aa54-864d4eff9eae",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "930d5b8e-331d-4812-a7a2-8104e9a1b4c6",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "InternalServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "20ce325d-1e48-45eb-8d82-fe8b5eba99df",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 485,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "91eb9069-4350-4bff-8c9a-917f17309a7f",
+      "documentation": "Returns a list of your Timestream databases. Service quotas apply. For more information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html\">Access Management</a> in the Timestream Developer Guide. ",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.ListDatabases",
+      "responses": [
+        {
+          "uuid": "6385a9a4-1957-440b-85e0-b156c0df705e",
+          "body": "{\n  \"Databases\": [\n    {\n      \"Arn\": \"\",\n      \"DatabaseName\": \"\",\n      \"TableCount\": {{faker 'random.number'}},\n      \"KmsKeyId\": \"\",\n      \"CreationTime\": \"{{faker 'date.recent' 365}}\",\n      \"LastUpdatedTime\": \"{{faker 'date.recent' 365}}\"\n    }\n  ],\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "446583d5-de6c-4de8-83eb-15ea5fc54d48",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InternalServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4ea7f6df-862c-46e8-9fbe-de01ff749c95",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bb346ef9-f592-4340-83ee-a7ebf24ccc2d",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "08641e79-bce8-482b-baf8-8a53d68c9cfe",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "AccessDeniedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a5683c3d-a8bc-4bbe-851f-d902ca297373",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8b3542db-ee18-4909-807d-2f4ee42d39c0",
+      "documentation": "A list of tables, along with the name, status and retention properties of each table. ",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.ListTables",
+      "responses": [
+        {
+          "uuid": "c154820c-613a-4d33-90e3-787c2e7d25d0",
+          "body": "{\n  \"Tables\": [\n    {\n      \"Arn\": \"\",\n      \"TableName\": \"\",\n      \"DatabaseName\": \"\",\n      \"TableStatus\": \"\",\n      \"RetentionProperties\": {\n        \"MemoryStoreRetentionPeriodInHours\": {{faker 'random.number'}},\n        \"MagneticStoreRetentionPeriodInDays\": {{faker 'random.number'}}\n      },\n      \"CreationTime\": \"{{faker 'date.recent' 365}}\",\n      \"LastUpdatedTime\": \"{{faker 'date.recent' 365}}\"\n    }\n  ],\n  \"NextToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9e6c0345-7d05-44c6-be5e-e740ef708399",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InternalServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a8f13712-6113-463d-9fa6-bf9469d6759d",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "baa7d2e9-9e1d-4bb0-bf5a-06df4526064c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8dc81b65-c0c9-4e9d-95aa-cebc95bba51c",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b289e7e1-e749-4126-9082-4ffead60b771",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "AccessDeniedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "31b6ab3c-5618-45f1-aa4e-2d30e4133d5f",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 485,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "090a903a-d82a-4dd2-a8bb-5314f5a4fd10",
+      "documentation": " List all tags on a Timestream resource. ",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.ListTagsForResource",
+      "responses": [
+        {
+          "uuid": "287581d9-ac53-423c-8406-2596fe3977b4",
+          "body": "{\n  \"Tags\": [\n    {\n      \"Key\": \"\",\n      \"Value\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ab5040dd-8433-49be-9b81-02da07b77a06",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "f4061d58-89ce-4a40-8e7c-8aa202f84920",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "19a07bb3-de70-49c8-bd0b-b703677ab152",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "e239d2b5-3207-4277-a8af-3345b7957eed",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "61051e15-2a92-4e53-8b33-91ca1c741218",
+      "documentation": " Associate a set of tags with a Timestream resource. You can then activate these user-defined tags so that they appear on the Billing and Cost Management console for cost allocation tracking. ",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.TagResource",
+      "responses": [
+        {
+          "uuid": "5f6c039f-bdcc-4951-b1f6-6ed5ab007531",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d2ef8010-d940-46af-84a4-803c6a17f6cc",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "310d3f1c-7641-4cc3-8d53-de316fc507f5",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServiceQuotaExceededException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bbdb2b8a-5eb3-49a8-8411-b47768f67dc3",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ea379f5e-5463-49af-a9fc-4a7da5216934",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1a736b3d-9236-4b4c-a952-bc035cbb66a5",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "905920af-236b-4a45-8789-24bcf97ac0c8",
+      "documentation": " Removes the association of tags from a Timestream resource. ",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.UntagResource",
+      "responses": [
+        {
+          "uuid": "f74ea200-f860-4bea-9a8b-596fb2fd8833",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "147fac6f-6075-4d65-ac27-ee70b334a309",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4a48b07d-a861-4edd-9762-939f2be40200",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ServiceQuotaExceededException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8ca79869-a7ab-412d-a7d0-e375cd9d37a1",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "54f2675b-6480-4c07-a303-7e61da21f263",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "15ae3f68-9da9-49ca-97c4-416ceaf8a38a",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e47b3ad1-68b1-4acb-bd29-f2ea14c03279",
+      "documentation": " Modifies the KMS key for an existing database. While updating the database, you must specify the database name and the identifier of the new KMS key to be used (<code>KmsKeyId</code>). If there are any concurrent <code>UpdateDatabase</code> requests, first writer wins. ",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.UpdateDatabase",
+      "responses": [
+        {
+          "uuid": "832c8807-5789-4a55-b440-0a8a3a5a389c",
+          "body": "{\n  \"Database\": {\n    \"Arn\": \"\",\n    \"DatabaseName\": \"\",\n    \"TableCount\": {{faker 'random.number'}},\n    \"KmsKeyId\": \"\",\n    \"CreationTime\": \"{{faker 'date.recent' 365}}\",\n    \"LastUpdatedTime\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "177f1ab1-6632-45be-8e7b-6a2821882b54",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ff9f7686-5baf-47c4-a1d8-84251b5640b5",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "AccessDeniedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7e037a48-c0ce-4ec6-a92c-a1c2fe17d8cc",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3bcc1d80-5aab-47aa-9fdc-b5a91929e958",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ServiceQuotaExceededException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ad897c57-e886-4882-8cb8-880ac8659076",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "8ff2437e-362a-4cff-8cfe-9711a11fcd23",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 485,
+          "label": "InternalServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1640e425-176a-4f41-b138-2b40c3246845",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 486,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0194f1c2-9e06-4169-af54-3989725a01ff",
+      "documentation": "<p>Modifies the retention duration of the memory store and magnetic store for your Timestream table. Note that the change in retention duration takes effect immediately. For example, if the retention period of the memory store was initially set to 2 hours and then changed to 24 hours, the memory store will be capable of holding 24 hours of data, but will be populated with 24 hours of data 22 hours after this change was made. Timestream does not retrieve data from the magnetic store to populate the memory store. </p> <p>Service quotas apply. For more information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html\">Access Management</a> in the Timestream Developer Guide.</p>",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.UpdateTable",
+      "responses": [
+        {
+          "uuid": "51e21037-c246-420c-b138-f9c727e9c451",
+          "body": "{\n  \"Table\": {\n    \"Arn\": \"\",\n    \"TableName\": \"\",\n    \"DatabaseName\": \"\",\n    \"TableStatus\": \"\",\n    \"RetentionProperties\": {\n      \"MemoryStoreRetentionPeriodInHours\": {{faker 'random.number'}},\n      \"MagneticStoreRetentionPeriodInDays\": {{faker 'random.number'}}\n    },\n    \"CreationTime\": \"{{faker 'date.recent' 365}}\",\n    \"LastUpdatedTime\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "655b3fa9-2603-431b-a477-f96aa25f0e15",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InternalServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "23c52286-595d-45a5-b78d-09a7bd4fc1de",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "bfe343eb-76cd-4626-a340-2637bae0e383",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b98df6d5-5903-4c32-8483-850efc13aafa",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "ae50b953-6d37-4014-b006-f728775e6759",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "AccessDeniedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "86055eda-7406-4478-8284-46dc9b7f5409",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 485,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "806324ea-2379-4442-8bc2-fb6c23533b6f",
+      "documentation": "The WriteRecords operation enables you to write your time series data into Timestream. You can specify a single data point or a batch of data points to be inserted into the system. Timestream offers you with a flexible schema that auto detects the column names and data types for your Timestream tables based on the dimension names and data types of the data points you specify when invoking writes into the database. Timestream support eventual consistency read semantics. This means that when you query data immediately after writing a batch of data into Timestream, the query results might not reflect the results of a recently completed write operation. The results may also include some stale data. If you repeat the query request after a short time, the results should return the latest data. Service quotas apply. For more information, see <a href=\"https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html\">Access Management</a> in the Timestream Developer Guide. ",
+      "method": "post",
+      "endpoint": "#X-Amz-Target=Timestream_20181101.WriteRecords",
+      "responses": [
+        {
+          "uuid": "4c06e3bb-f4f8-4daf-94bd-ad0e9d9f90d8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d628b3fe-839b-4bc1-95fe-7ad5b7610a05",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 480,
+          "label": "InternalServerException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "1693fb88-f367-46c8-ae87-2061798ff090",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 481,
+          "label": "ThrottlingException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "10ddca0d-1165-45b5-9a98-5caf10648d5d",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 482,
+          "label": "ValidationException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "fbd0bc7f-5bea-469b-a081-09c891129c3e",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 483,
+          "label": "ResourceNotFoundException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "22b2477a-7c7f-4b60-a41c-9cd756c0ffff",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 484,
+          "label": "AccessDeniedException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4e0600c1-56f3-41e7-8370-575d4373cd88",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 485,
+          "label": "RejectedRecordsException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "37b46f44-f8f1-4f70-a225-acb0e40c6123",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 486,
+          "label": "InvalidEndpointException",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

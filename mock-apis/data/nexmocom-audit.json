@@ -1,0 +1,279 @@
+{
+  "uuid": "0fc1da04-b326-4ce1-ac81-625e447ebc53",
+  "lastMigration": 19,
+  "name": "Audit API",
+  "endpointPrefix": "beta/audit",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "a8dd1377-75a5-4419-8af2-693c3d8b6952",
+      "documentation": "Retrieve audit events",
+      "method": "get",
+      "endpoint": "events",
+      "responses": [
+        {
+          "uuid": "e0824226-0df1-4826-b360-665dce755c4e",
+          "body": "{\n  \"_embedded\": {\n    \"events\": [\n      {\n        \"_links\": {\n          \"self\": {\n            \"href\": \"https://api.nexmo.com/beta/audit/events/aaaaaaaa-bbbb-cccc-dddd-0123456789ab\"\n          }\n        },\n        \"account_id\": \"abcd1234\",\n        \"context\": {\n          \"created\": {\n            \"accountId\": \"abcdef01\",\n            \"answer_url\": {\n              \"method\": \"GET\",\n              \"url\": \"https://example.org/call\"\n            },\n            \"appId\": \"aaaaaaaa-bbbb-cccc-dddd-0123456789ab\",\n            \"event_url\": {\n              \"method\": \"POST\",\n              \"url\": \"https://example.org/event\"\n            },\n            \"name\": \"My voice app\",\n            \"type\": \"voice\"\n          }\n        },\n        \"created_at\": \"2018-07-04T11:41:32\",\n        \"event_type\": \"{{oneOf (array 'USER_STATUS' 'USER_UPDATE' 'USER_BILLING_UPDATE' 'USER_CREATE' 'USER_LOGIN' 'USER_LOGOUT' 'USER_PRODUCT_SEARCH' 'USER_API_KEYS_UPDATE' 'ACCOUNT_SECRET_DELETE' 'ACCOUNT_SECRET_CREATE' 'ACCOUNT_UPDATE_SPAMMER' 'ACCOUNT_UPDATE_SETTINGS_API' 'NUMBER_ASSIGN' 'NUMBER_UPDATED' 'NUMBER_RELEASE' 'NUMBER_LINKED' 'NUMBER_UNLINKED' 'APP_CREATE' 'APP_UPDATE' 'APP_DELETE' 'APP_DISABLE' 'APP_ENABLE' 'IP_WHITELIST_CREATE' 'IP_WHITELIST_DELETE' 'AUTORELOAD_ENABLE' 'AUTORELOAD_UPDATE' 'AUTORELOAD_DISABLE')}}\",\n        \"event_type_description\": \"Application created.\",\n        \"id\": \"aaaaaaaa-bbbb-cccc-dddd-0123456789ab\",\n        \"source\": \"{{oneOf (array 'CD' 'DEVAPI')}}\",\n        \"source_country\": \"GB\",\n        \"source_description\": \"{{oneOf (array 'Customer Dashboard' 'Developer API')}}\",\n        \"source_ip\": \"192.0.2.0\",\n        \"user_email\": \"user@example.org\",\n        \"user_id\": 1234567\n      }\n    ]\n  },\n  \"_links\": {\n    \"last\": {\n      \"href\": \"http://api.nexmo.com/beta/audit/events?page=2&size=30\"\n    },\n    \"next\": {\n      \"href\": \"http://api.nexmo.com/beta/audit/events?page=2&size=30\"\n    },\n    \"self\": {\n      \"href\": \"http://api.nexmo.com/beta/audit/events\"\n    }\n  },\n  \"page\": {\n    \"number\": 1,\n    \"size\": 100,\n    \"totalElements\": 120,\n    \"totalPages\": 2\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "0898ead0-8942-41c6-bf67-4b55835e3782",
+          "body": "{\n  \"error\": \"Unauthorized\",\n  \"message\": \"Full authentication is required. JWT was not found in \\\"Authorization\\\" HTTP header.\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "a75d24d8-4d4c-4e16-bd82-9038537d8a93",
+          "body": "{\n  \"error\": \"Forbidden\",\n  \"message\": \"An example goes here\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "859d2782-66bc-42fa-abcc-1cfff8e9eb56",
+          "body": "{\n  \"error\": \"Not Found\",\n  \"message\": \"Event with provided id: aaaaaaaa-bbbb-cccc-dddd-0123456789ab was not found\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3fe558d9-7336-4282-92c4-13d70bf45b05",
+      "documentation": "Retrieve audit event types",
+      "method": "options",
+      "endpoint": "events",
+      "responses": [
+        {
+          "uuid": "b5fce056-5f8f-4746-ac08-1a5cf69bdfb3",
+          "body": "{\n  \"eventTypes\": [\n    {\n      \"description\": \"Application created.\",\n      \"type\": \"{{oneOf (array 'USER_STATUS' 'USER_UPDATE' 'USER_BILLING_UPDATE' 'USER_CREATE' 'USER_LOGIN' 'USER_LOGOUT' 'USER_PRODUCT_SEARCH' 'USER_API_KEYS_UPDATE' 'ACCOUNT_SECRET_DELETE' 'ACCOUNT_SECRET_CREATE' 'ACCOUNT_UPDATE_SPAMMER' 'ACCOUNT_UPDATE_SETTINGS_API' 'NUMBER_ASSIGN' 'NUMBER_UPDATED' 'NUMBER_RELEASE' 'NUMBER_LINKED' 'NUMBER_UNLINKED' 'APP_CREATE' 'APP_UPDATE' 'APP_DELETE' 'APP_DISABLE' 'APP_ENABLE' 'IP_WHITELIST_CREATE' 'IP_WHITELIST_DELETE' 'AUTORELOAD_ENABLE' 'AUTORELOAD_UPDATE' 'AUTORELOAD_DISABLE')}}\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "9e483b83-f53d-4478-9b4a-44543f173762",
+          "body": "{\n  \"error\": \"No Content\",\n  \"message\": \"No content\",\n  \"status\": 204\n}",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "34207614-7ed5-468e-8e4f-c87d80dc283e",
+          "body": "{\n  \"error\": \"Unauthorized\",\n  \"message\": \"Full authentication is required. JWT was not found in \\\"Authorization\\\" HTTP header.\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "698e4f55-2819-48f1-a2de-9c8308405337",
+          "body": "{\n  \"error\": \"Forbidden\",\n  \"message\": \"An example goes here\",\n  \"status\": 403\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Forbidden",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "cf119aa1-20be-431f-b823-0875472ee7c6",
+      "documentation": "Retrieve individual audit event",
+      "method": "get",
+      "endpoint": "events/:id",
+      "responses": [
+        {
+          "uuid": "c115e694-9d8d-4638-961a-3d12a5b6a1f1",
+          "body": "{\n  \"_links\": {\n    \"self\": {\n      \"href\": \"https://api.nexmo.com/beta/audit/events/aaaaaaaa-bbbb-cccc-dddd-0123456789ab\"\n    }\n  },\n  \"account_id\": \"abcd1234\",\n  \"context\": {\n    \"created\": {\n      \"accountId\": \"abcdef01\",\n      \"answer_url\": {\n        \"method\": \"GET\",\n        \"url\": \"https://example.org/call\"\n      },\n      \"appId\": \"aaaaaaaa-bbbb-cccc-dddd-0123456789ab\",\n      \"event_url\": {\n        \"method\": \"POST\",\n        \"url\": \"https://example.org/event\"\n      },\n      \"name\": \"My voice app\",\n      \"type\": \"voice\"\n    }\n  },\n  \"created_at\": \"2018-07-04T11:41:32\",\n  \"event_type\": \"{{oneOf (array 'USER_STATUS' 'USER_UPDATE' 'USER_BILLING_UPDATE' 'USER_CREATE' 'USER_LOGIN' 'USER_LOGOUT' 'USER_PRODUCT_SEARCH' 'USER_API_KEYS_UPDATE' 'ACCOUNT_SECRET_DELETE' 'ACCOUNT_SECRET_CREATE' 'ACCOUNT_UPDATE_SPAMMER' 'ACCOUNT_UPDATE_SETTINGS_API' 'NUMBER_ASSIGN' 'NUMBER_UPDATED' 'NUMBER_RELEASE' 'NUMBER_LINKED' 'NUMBER_UNLINKED' 'APP_CREATE' 'APP_UPDATE' 'APP_DELETE' 'APP_DISABLE' 'APP_ENABLE' 'IP_WHITELIST_CREATE' 'IP_WHITELIST_DELETE' 'AUTORELOAD_ENABLE' 'AUTORELOAD_UPDATE' 'AUTORELOAD_DISABLE')}}\",\n  \"event_type_description\": \"Application created.\",\n  \"id\": \"aaaaaaaa-bbbb-cccc-dddd-0123456789ab\",\n  \"source\": \"{{oneOf (array 'CD' 'DEVAPI')}}\",\n  \"source_country\": \"GB\",\n  \"source_description\": \"{{oneOf (array 'Customer Dashboard' 'Developer API')}}\",\n  \"source_ip\": \"192.0.2.0\",\n  \"user_email\": \"user@example.org\",\n  \"user_id\": 1234567\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d71ff96f-59e4-48e2-bd07-b1a12c2a9593",
+          "body": "{\n  \"error\": \"Unauthorized\",\n  \"message\": \"Full authentication is required. JWT was not found in \\\"Authorization\\\" HTTP header.\",\n  \"status\": 401\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "624c9011-1a6a-4342-a3dc-b8c425092197",
+          "body": "{\n  \"error\": \"Not Found\",\n  \"message\": \"Event with provided id: aaaaaaaa-bbbb-cccc-dddd-0123456789ab was not found\",\n  \"status\": 404\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

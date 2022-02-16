@@ -1,0 +1,937 @@
+{
+  "uuid": "af2cf67f-1e4d-4ab5-b9f9-9def8d081eb9",
+  "lastMigration": 19,
+  "name": "Retail API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "c0d307de-977a-4ef9-b1b2-d0b8cfb7e6f9",
+      "documentation": "Completes the specified prefix with keyword suggestions. This feature is only available for users who have Retail Search enabled. Please submit a form [here](https://cloud.google.com/contact) to contact cloud sales if you are interested in using Retail Search.",
+      "method": "get",
+      "endpoint": "v2alpha/:catalog:completeQuery",
+      "responses": [
+        {
+          "uuid": "249fb778-c7c5-4925-ac6a-341a49fc1e11",
+          "body": "{\n  \"attributionToken\": \"\",\n  \"completionResults\": [\n    {\n      \"attributes\": {},\n      \"suggestion\": \"\"\n    }\n  ],\n  \"recentSearchResults\": [\n    {\n      \"recentSearch\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9bbef62f-7837-4ebe-91d1-b50eff02792b",
+      "documentation": "Get which branch is currently default branch set by CatalogService.SetDefaultBranch method under a specified parent catalog.",
+      "method": "get",
+      "endpoint": "v2alpha/:catalog:getDefaultBranch",
+      "responses": [
+        {
+          "uuid": "6df54911-50c1-4d4c-a1e4-038576303301",
+          "body": "{\n  \"branch\": \"\",\n  \"note\": \"\",\n  \"setTime\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c44dccf7-9f97-4a14-90f7-27e6697b5660",
+      "documentation": "Set a specified branch id as default branch. API methods such as SearchService.Search, ProductService.GetProduct, ProductService.ListProducts will treat requests using \"default_branch\" to the actual branch id set as default. For example, if `projects/*/locations/*/catalogs/*/branches/1` is set as default, setting SearchRequest.branch to `projects/*/locations/*/catalogs/*/branches/default_branch` is equivalent to setting SearchRequest.branch to `projects/*/locations/*/catalogs/*/branches/1`. Using multiple branches can be useful when developers would like to have a staging branch to test and verify for future usage. When it becomes ready, developers switch on the staging branch using this API while keeping using `projects/*/locations/*/catalogs/*/branches/default_branch` as SearchRequest.branch to route the traffic to this staging branch. CAUTION: If you have live predict/search traffic, switching the default branch could potentially cause outages if the ID space of the new branch is very different from the old one. More specifically: * PredictionService will only return product IDs from branch {newBranch}. * SearchService will only return product IDs from branch {newBranch} (if branch is not explicitly set). * UserEventService will only join events with products from branch {newBranch}.",
+      "method": "post",
+      "endpoint": "v2alpha/:catalog:setDefaultBranch",
+      "responses": [
+        {
+          "uuid": "78f5350e-417c-4b7d-aa54-0586ebdc536c",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "24b56d55-e578-4ca3-999c-4001396a33fe",
+      "documentation": "Deletes a ServingConfig. Returns a NotFound error if the ServingConfig does not exist.",
+      "method": "delete",
+      "endpoint": "v2alpha/:name",
+      "responses": [
+        {
+          "uuid": "ee519e40-6f39-4d81-8c08-d5c49d88655d",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "950a24ba-dfd5-4dab-b638-4ac2fa2ce071",
+      "documentation": "Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.",
+      "method": "get",
+      "endpoint": "v2alpha/:name",
+      "responses": [
+        {
+          "uuid": "17eb337c-3d85-4644-94b5-09ee15c04ad1",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a2fa41a5-fb8e-469f-8bd6-7196781a53e8",
+      "documentation": "Updates a ServingConfig.",
+      "method": "patch",
+      "endpoint": "v2alpha/:name",
+      "responses": [
+        {
+          "uuid": "a919f0f5-33cb-4862-9881-bd415b83fc77",
+          "body": "{\n  \"boostControlIds\": [\n    \"\"\n  ],\n  \"displayName\": \"\",\n  \"diversityLevel\": \"\",\n  \"doNotAssociateControlIds\": [\n    \"\"\n  ],\n  \"dynamicFacetSpec\": {\n    \"mode\": \"{{oneOf (array 'MODE_UNSPECIFIED' 'DISABLED' 'ENABLED')}}\"\n  },\n  \"enableCategoryFilterLevel\": \"\",\n  \"facetControlIds\": [\n    \"\"\n  ],\n  \"filterControlIds\": [\n    \"\"\n  ],\n  \"ignoreControlIds\": [\n    \"\"\n  ],\n  \"modelId\": \"\",\n  \"name\": \"\",\n  \"onewaySynonymsControlIds\": [\n    \"\"\n  ],\n  \"priceRerankingLevel\": \"\",\n  \"redirectControlIds\": [\n    \"\"\n  ],\n  \"replacementControlIds\": [\n    \"\"\n  ],\n  \"solutionTypes\": [\n    \"{{oneOf (array 'SOLUTION_TYPE_UNSPECIFIED' 'SOLUTION_TYPE_RECOMMENDATION' 'SOLUTION_TYPE_SEARCH')}}\"\n  ],\n  \"twowaySynonymsControlIds\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4e719e66-044a-42a1-8718-496d35408748",
+      "documentation": "Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`. NOTE: the `name` binding allows API services to override the binding to use different resource name schemes, such as `users/*/operations`. To override the binding, API services can add a binding such as `\"/v1/{name=users/*}/operations\"` to their service configuration. For backwards compatibility, the default name includes the operations collection id, however overriding users must ensure the name binding is the parent resource, without the operations collection id.",
+      "method": "get",
+      "endpoint": "v2alpha/:name/operations",
+      "responses": [
+        {
+          "uuid": "f2d40867-0321-45cf-bc7d-37e3848233bd",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"operations\": [\n    {\n      \"done\": {{faker 'random.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'random.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"metadata\": {},\n      \"name\": \"\",\n      \"response\": {}\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "28f6b386-e71a-4550-be51-56b9f3b556b3",
+      "documentation": "Updates inventory information for a Product while respecting the last update timestamps of each inventory field. This process is asynchronous and does not require the Product to exist before updating fulfillment information. If the request is valid, the update will be enqueued and processed downstream. As a consequence, when a response is returned, updates are not immediately manifested in the Product queried by GetProduct or ListProducts. When inventory is updated with CreateProduct and UpdateProduct, the specified inventory field value(s) will overwrite any existing value(s) while ignoring the last update time for this field. Furthermore, the last update time for the specified inventory fields will be overwritten to the time of the CreateProduct or UpdateProduct request. If no inventory fields are set in CreateProductRequest.product, then any pre-existing inventory information for this product will be used. If no inventory fields are set in UpdateProductRequest.set_mask, then any existing inventory information will be preserved. Pre-existing inventory information can only be updated with SetInventory, AddFulfillmentPlaces, and RemoveFulfillmentPlaces. This feature is only available for users who have Retail Search enabled. Please submit a form [here](https://cloud.google.com/contact) to contact cloud sales if you are interested in using Retail Search.",
+      "method": "post",
+      "endpoint": "v2alpha/:name:setInventory",
+      "responses": [
+        {
+          "uuid": "282f1376-4812-4949-9181-1845464c50b8",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9c00cdb8-ce4d-4926-822f-c8de77e6f091",
+      "documentation": "Lists all the Catalogs associated with the project.",
+      "method": "get",
+      "endpoint": "v2alpha/:parent/catalogs",
+      "responses": [
+        {
+          "uuid": "17f53dec-db78-4f39-bb5a-8e7f7137b990",
+          "body": "{\n  \"catalogs\": [\n    {\n      \"displayName\": \"\",\n      \"merchantCenterLinkingConfig\": {\n        \"links\": [\n          {\n            \"branchId\": \"\",\n            \"destinations\": [\n              \"\"\n            ],\n            \"languageCode\": \"\",\n            \"merchantCenterAccountId\": \"\",\n            \"regionCode\": \"\"\n          }\n        ]\n      },\n      \"name\": \"\",\n      \"productLevelConfig\": {\n        \"ingestionProductType\": \"\",\n        \"merchantCenterProductIdField\": \"\"\n      }\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "2b79f351-43a8-47fd-96f6-434179bc0cfd",
+      "documentation": "Bulk import of processed completion dataset. Request processing may be synchronous. Partial updating is not supported. This feature is only available for users who have Retail Search enabled. Please submit a form [here](https://cloud.google.com/contact) to contact cloud sales if you are interested in using Retail Search.",
+      "method": "post",
+      "endpoint": "v2alpha/:parent/completionData:import",
+      "responses": [
+        {
+          "uuid": "21f05b21-fb05-499b-a5b8-8fc2780ca6be",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "75649f54-8ed1-498e-8d78-c8fe916dfed7",
+      "documentation": "Lists all Controls linked to this catalog.",
+      "method": "get",
+      "endpoint": "v2alpha/:parent/controls",
+      "responses": [
+        {
+          "uuid": "e31ca816-5953-4b84-9c51-34252130b328",
+          "body": "{\n  \"controls\": [\n    {\n      \"associatedServingConfigIds\": [\n        \"\"\n      ],\n      \"displayName\": \"\",\n      \"facetSpec\": {\n        \"enableDynamicPosition\": {{faker 'random.boolean'}},\n        \"excludedFilterKeys\": [\n          \"\"\n        ],\n        \"facetKey\": {\n          \"contains\": [\n            \"\"\n          ],\n          \"intervals\": [\n            {\n              \"exclusiveMaximum\": {{faker 'random.float'}},\n              \"exclusiveMinimum\": {{faker 'random.float'}},\n              \"maximum\": {{faker 'random.float'}},\n              \"minimum\": {{faker 'random.float'}}\n            }\n          ],\n          \"key\": \"\",\n          \"orderBy\": \"\",\n          \"prefixes\": [\n            \"\"\n          ],\n          \"query\": \"\",\n          \"restrictedValues\": [\n            \"\"\n          ]\n        },\n        \"limit\": {{faker 'random.number'}}\n      },\n      \"name\": \"\",\n      \"rule\": {\n        \"boostAction\": {\n          \"boost\": {{faker 'random.float'}},\n          \"productsFilter\": \"\"\n        },\n        \"condition\": {\n          \"activeTimeRange\": [\n            {\n              \"endTime\": \"\",\n              \"startTime\": \"\"\n            }\n          ],\n          \"queryTerms\": [\n            {\n              \"fullMatch\": {{faker 'random.boolean'}},\n              \"value\": \"\"\n            }\n          ]\n        },\n        \"doNotAssociateAction\": {\n          \"doNotAssociateTerms\": [\n            \"\"\n          ],\n          \"queryTerms\": [\n            \"\"\n          ],\n          \"terms\": [\n            \"\"\n          ]\n        },\n        \"filterAction\": {\n          \"filter\": \"\"\n        },\n        \"ignoreAction\": {\n          \"ignoreTerms\": [\n            \"\"\n          ]\n        },\n        \"onewaySynonymsAction\": {\n          \"onewayTerms\": [\n            \"\"\n          ],\n          \"queryTerms\": [\n            \"\"\n          ],\n          \"synonyms\": [\n            \"\"\n          ]\n        },\n        \"redirectAction\": {\n          \"redirectUri\": \"\"\n        },\n        \"replacementAction\": {\n          \"queryTerms\": [\n            \"\"\n          ],\n          \"replacementTerm\": \"\",\n          \"term\": \"\"\n        },\n        \"twowaySynonymsAction\": {\n          \"synonyms\": [\n            \"\"\n          ]\n        }\n      },\n      \"solutionTypes\": [\n        \"{{oneOf (array 'SOLUTION_TYPE_UNSPECIFIED' 'SOLUTION_TYPE_RECOMMENDATION' 'SOLUTION_TYPE_SEARCH')}}\"\n      ]\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "94d53d95-54e7-4f59-a46c-69256bdafe5f",
+      "documentation": "Creates a Control. If the Control to create already exists, an ALREADY_EXISTS error is returned.",
+      "method": "post",
+      "endpoint": "v2alpha/:parent/controls",
+      "responses": [
+        {
+          "uuid": "de871782-d250-440b-b573-da865953d7d5",
+          "body": "{\n  \"associatedServingConfigIds\": [\n    \"\"\n  ],\n  \"displayName\": \"\",\n  \"facetSpec\": {\n    \"enableDynamicPosition\": {{faker 'random.boolean'}},\n    \"excludedFilterKeys\": [\n      \"\"\n    ],\n    \"facetKey\": {\n      \"contains\": [\n        \"\"\n      ],\n      \"intervals\": [\n        {\n          \"exclusiveMaximum\": {{faker 'random.float'}},\n          \"exclusiveMinimum\": {{faker 'random.float'}},\n          \"maximum\": {{faker 'random.float'}},\n          \"minimum\": {{faker 'random.float'}}\n        }\n      ],\n      \"key\": \"\",\n      \"orderBy\": \"\",\n      \"prefixes\": [\n        \"\"\n      ],\n      \"query\": \"\",\n      \"restrictedValues\": [\n        \"\"\n      ]\n    },\n    \"limit\": {{faker 'random.number'}}\n  },\n  \"name\": \"\",\n  \"rule\": {\n    \"boostAction\": {\n      \"boost\": {{faker 'random.float'}},\n      \"productsFilter\": \"\"\n    },\n    \"condition\": {\n      \"activeTimeRange\": [\n        {\n          \"endTime\": \"\",\n          \"startTime\": \"\"\n        }\n      ],\n      \"queryTerms\": [\n        {\n          \"fullMatch\": {{faker 'random.boolean'}},\n          \"value\": \"\"\n        }\n      ]\n    },\n    \"doNotAssociateAction\": {\n      \"doNotAssociateTerms\": [\n        \"\"\n      ],\n      \"queryTerms\": [\n        \"\"\n      ],\n      \"terms\": [\n        \"\"\n      ]\n    },\n    \"filterAction\": {\n      \"filter\": \"\"\n    },\n    \"ignoreAction\": {\n      \"ignoreTerms\": [\n        \"\"\n      ]\n    },\n    \"onewaySynonymsAction\": {\n      \"onewayTerms\": [\n        \"\"\n      ],\n      \"queryTerms\": [\n        \"\"\n      ],\n      \"synonyms\": [\n        \"\"\n      ]\n    },\n    \"redirectAction\": {\n      \"redirectUri\": \"\"\n    },\n    \"replacementAction\": {\n      \"queryTerms\": [\n        \"\"\n      ],\n      \"replacementTerm\": \"\",\n      \"term\": \"\"\n    },\n    \"twowaySynonymsAction\": {\n      \"synonyms\": [\n        \"\"\n      ]\n    }\n  },\n  \"solutionTypes\": [\n    \"{{oneOf (array 'SOLUTION_TYPE_UNSPECIFIED' 'SOLUTION_TYPE_RECOMMENDATION' 'SOLUTION_TYPE_SEARCH')}}\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ca2bb8b5-8174-4eac-8b6d-f50800200d56",
+      "documentation": "Gets a list of Products.",
+      "method": "get",
+      "endpoint": "v2alpha/:parent/products",
+      "responses": [
+        {
+          "uuid": "8d7dc33d-b98d-486e-a869-9cbbf73821ed",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "07208177-a6b3-4b14-9762-50b15722f6b9",
+      "documentation": "Creates a Product.",
+      "method": "post",
+      "endpoint": "v2alpha/:parent/products",
+      "responses": [
+        {
+          "uuid": "ffa16efb-b146-4ec2-8fcd-93df07fd88b0",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "87c734c2-0b1a-480e-a63f-2eec5eec1241",
+      "documentation": "Bulk import of multiple Products. Request processing may be synchronous. No partial updating is supported. Non-existing items are created. Note that it is possible for a subset of the Products to be successfully updated.",
+      "method": "post",
+      "endpoint": "v2alpha/:parent/products:import",
+      "responses": [
+        {
+          "uuid": "d57ce907-b447-4fe9-bd80-6e77e3e3b915",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8216a9a4-8658-455e-b62e-c4a8b79a22c5",
+      "documentation": "Lists all ServingConfigs linked to this catalog.",
+      "method": "get",
+      "endpoint": "v2alpha/:parent/servingConfigs",
+      "responses": [
+        {
+          "uuid": "3b2e64d5-e429-445b-8e27-32346b5bdc31",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"servingConfigs\": [\n    {\n      \"boostControlIds\": [\n        \"\"\n      ],\n      \"displayName\": \"\",\n      \"diversityLevel\": \"\",\n      \"doNotAssociateControlIds\": [\n        \"\"\n      ],\n      \"dynamicFacetSpec\": {\n        \"mode\": \"{{oneOf (array 'MODE_UNSPECIFIED' 'DISABLED' 'ENABLED')}}\"\n      },\n      \"enableCategoryFilterLevel\": \"\",\n      \"facetControlIds\": [\n        \"\"\n      ],\n      \"filterControlIds\": [\n        \"\"\n      ],\n      \"ignoreControlIds\": [\n        \"\"\n      ],\n      \"modelId\": \"\",\n      \"name\": \"\",\n      \"onewaySynonymsControlIds\": [\n        \"\"\n      ],\n      \"priceRerankingLevel\": \"\",\n      \"redirectControlIds\": [\n        \"\"\n      ],\n      \"replacementControlIds\": [\n        \"\"\n      ],\n      \"solutionTypes\": [\n        \"{{oneOf (array 'SOLUTION_TYPE_UNSPECIFIED' 'SOLUTION_TYPE_RECOMMENDATION' 'SOLUTION_TYPE_SEARCH')}}\"\n      ],\n      \"twowaySynonymsControlIds\": [\n        \"\"\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4d6cc3cd-110b-43b6-9302-5e497181bda8",
+      "documentation": "Creates a ServingConfig. A maximum of 100 ServingConfigs are allowed in a Catalog, otherwise a FAILED_PRECONDITION error is returned.",
+      "method": "post",
+      "endpoint": "v2alpha/:parent/servingConfigs",
+      "responses": [
+        {
+          "uuid": "7bbdad97-d71a-448d-a3ce-485c81345520",
+          "body": "{\n  \"boostControlIds\": [\n    \"\"\n  ],\n  \"displayName\": \"\",\n  \"diversityLevel\": \"\",\n  \"doNotAssociateControlIds\": [\n    \"\"\n  ],\n  \"dynamicFacetSpec\": {\n    \"mode\": \"{{oneOf (array 'MODE_UNSPECIFIED' 'DISABLED' 'ENABLED')}}\"\n  },\n  \"enableCategoryFilterLevel\": \"\",\n  \"facetControlIds\": [\n    \"\"\n  ],\n  \"filterControlIds\": [\n    \"\"\n  ],\n  \"ignoreControlIds\": [\n    \"\"\n  ],\n  \"modelId\": \"\",\n  \"name\": \"\",\n  \"onewaySynonymsControlIds\": [\n    \"\"\n  ],\n  \"priceRerankingLevel\": \"\",\n  \"redirectControlIds\": [\n    \"\"\n  ],\n  \"replacementControlIds\": [\n    \"\"\n  ],\n  \"solutionTypes\": [\n    \"{{oneOf (array 'SOLUTION_TYPE_UNSPECIFIED' 'SOLUTION_TYPE_RECOMMENDATION' 'SOLUTION_TYPE_SEARCH')}}\"\n  ],\n  \"twowaySynonymsControlIds\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b967c536-7bae-40ff-9e8e-b8e11ea32b0a",
+      "documentation": "Writes a single user event from the browser. This uses a GET request to due to browser restriction of POST-ing to a 3rd party domain. This method is used only by the Retail API JavaScript pixel and Google Tag Manager. Users should not call this method directly.",
+      "method": "get",
+      "endpoint": "v2alpha/:parent/userEvents:collect",
+      "responses": [
+        {
+          "uuid": "7c7e1b3e-4ffb-4386-a7c9-27f8dab53bd8",
+          "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5bbd3cc7-0ce4-4ac6-aab1-cbfe2373fc45",
+      "documentation": "Bulk import of User events. Request processing might be synchronous. Events that already exist are skipped. Use this method for backfilling historical user events. Operation.response is of type ImportResponse. Note that it is possible for a subset of the items to be successfully inserted. Operation.metadata is of type ImportMetadata.",
+      "method": "post",
+      "endpoint": "v2alpha/:parent/userEvents:import",
+      "responses": [
+        {
+          "uuid": "d57f9653-983e-4e3b-b173-1eca72bd93dd",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "747a970f-9fe7-4bb8-a23f-3c6d0ad11bf0",
+      "documentation": "Deletes permanently all user events specified by the filter provided. Depending on the number of events specified by the filter, this operation could take hours or days to complete. To test a filter, use the list command first.",
+      "method": "post",
+      "endpoint": "v2alpha/:parent/userEvents:purge",
+      "responses": [
+        {
+          "uuid": "17a186d3-ed4d-43b5-bf8d-7318f6d235d1",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "de217191-a533-49a9-9abc-f4a4bbd1cd2e",
+      "documentation": "Triggers a user event rejoin operation with latest product catalog. Events will not be annotated with detailed product information if product is missing from the catalog at the time the user event is ingested, and these events are stored as unjoined events with a limited usage on training and serving. This API can be used to trigger a 'join' operation on specified events with latest version of product catalog. It can also be used to correct events joined with wrong product catalog.",
+      "method": "post",
+      "endpoint": "v2alpha/:parent/userEvents:rejoin",
+      "responses": [
+        {
+          "uuid": "920740e1-3110-432f-aa05-1081522e6f79",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "df9efd20-8ac4-4552-8c81-bcde48464559",
+      "documentation": "Writes a single user event.",
+      "method": "post",
+      "endpoint": "v2alpha/:parent/userEvents:write",
+      "responses": [
+        {
+          "uuid": "5dfa8b24-0038-432f-9417-1b7c2d9284f4",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c0bb63c3-5b9f-4258-a719-d4c8667307aa",
+      "documentation": "Makes a recommendation prediction.",
+      "method": "post",
+      "endpoint": "v2alpha/:placement:predict",
+      "responses": [
+        {
+          "uuid": "2b8c78ac-9dd5-453d-b0e5-a6cb0a455fc9",
+          "body": "{\n  \"attributionToken\": \"\",\n  \"missingIds\": [\n    \"\"\n  ],\n  \"results\": [\n    {\n      \"id\": \"\",\n      \"metadata\": {}\n    }\n  ],\n  \"validateOnly\": {{faker 'random.boolean'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c007ca64-4be0-4a4f-8775-d616ae2ba5dc",
+      "documentation": "Performs a search. This feature is only available for users who have Retail Search enabled. Please submit a form [here](https://cloud.google.com/contact) to contact cloud sales if you are interested in using Retail Search.",
+      "method": "post",
+      "endpoint": "v2alpha/:placement:search",
+      "responses": [
+        {
+          "uuid": "91b03165-aace-4faa-ba66-5855b00db8d2",
+          "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c3d1deea-e5ca-4403-9b7e-9388acf5cc97",
+      "documentation": "Incrementally adds place IDs to Product.fulfillment_info.place_ids. This process is asynchronous and does not require the Product to exist before updating fulfillment information. If the request is valid, the update will be enqueued and processed downstream. As a consequence, when a response is returned, the added place IDs are not immediately manifested in the Product queried by GetProduct or ListProducts. This feature is only available for users who have Retail Search enabled. Please submit a form [here](https://cloud.google.com/contact) to contact cloud sales if you are interested in using Retail Search.",
+      "method": "post",
+      "endpoint": "v2alpha/:product:addFulfillmentPlaces",
+      "responses": [
+        {
+          "uuid": "655aec9e-c1b3-47ed-9f48-ccfff0fe4568",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d9d4e7ca-1b29-42e8-be3c-8ebec234a18b",
+      "documentation": "Updates local inventory information for a Product at a list of places, while respecting the last update timestamps of each inventory field. This process is asynchronous and does not require the Product to exist before updating inventory information. If the request is valid, the update will be enqueued and processed downstream. As a consequence, when a response is returned, updates are not immediately manifested in the Product queried by GetProduct or ListProducts. Local inventory information can only be modified using this method. CreateProduct and UpdateProduct has no effect on local inventories. This feature is only available for users who have Retail Search enabled. Please submit a form [here](https://cloud.google.com/contact) to contact Cloud sales if you are interested in using Retail Search.",
+      "method": "post",
+      "endpoint": "v2alpha/:product:addLocalInventories",
+      "responses": [
+        {
+          "uuid": "4c06ce82-4e99-4a47-bbe9-9ab80687bffb",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "70bae2f1-893a-46e5-b15b-1acbec59ea71",
+      "documentation": "Incrementally removes place IDs from a Product.fulfillment_info.place_ids. This process is asynchronous and does not require the Product to exist before updating fulfillment information. If the request is valid, the update will be enqueued and processed downstream. As a consequence, when a response is returned, the removed place IDs are not immediately manifested in the Product queried by GetProduct or ListProducts. This feature is only available for users who have Retail Search enabled. Please submit a form [here](https://cloud.google.com/contact) to contact cloud sales if you are interested in using Retail Search.",
+      "method": "post",
+      "endpoint": "v2alpha/:product:removeFulfillmentPlaces",
+      "responses": [
+        {
+          "uuid": "08c28dd2-1168-4027-a832-6905c6a0d097",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "842884b6-1b92-478b-8032-dd9eed73b12d",
+      "documentation": "Remove local inventory information for a Product at a list of places at a removal timestamp. This process is asynchronous. If the request is valid, the removal will be enqueued and processed downstream. As a consequence, when a response is returned, removals are not immediately manifested in the Product queried by GetProduct or ListProducts. Local inventory information can only be removed using this method. CreateProduct and UpdateProduct has no effect on local inventories. This feature is only available for users who have Retail Search enabled. Please submit a form [here](https://cloud.google.com/contact) to contact Cloud sales if you are interested in using Retail Search.",
+      "method": "post",
+      "endpoint": "v2alpha/:product:removeLocalInventories",
+      "responses": [
+        {
+          "uuid": "0fada5e6-c0be-43e1-a3eb-406ffd4e57bb",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "70b7eea4-b1f7-4c17-8440-f45711d3f6ac",
+      "documentation": "Enables a Control on the specified ServingConfig. The control is added in the last position of the list of controls it belongs to (e.g. if it's a facet spec control it will be applied in the last position of servingConfig.facetSpecIds) Returns a ALREADY_EXISTS error if the control has already been applied. Returns a FAILED_PRECONDITION error if the addition could exceed maximum number of control allowed for that type of control.",
+      "method": "post",
+      "endpoint": "v2alpha/:servingConfig:addControl",
+      "responses": [
+        {
+          "uuid": "2c2e5de7-1b90-46e1-be46-08110a3efa16",
+          "body": "{\n  \"boostControlIds\": [\n    \"\"\n  ],\n  \"displayName\": \"\",\n  \"diversityLevel\": \"\",\n  \"doNotAssociateControlIds\": [\n    \"\"\n  ],\n  \"dynamicFacetSpec\": {\n    \"mode\": \"{{oneOf (array 'MODE_UNSPECIFIED' 'DISABLED' 'ENABLED')}}\"\n  },\n  \"enableCategoryFilterLevel\": \"\",\n  \"facetControlIds\": [\n    \"\"\n  ],\n  \"filterControlIds\": [\n    \"\"\n  ],\n  \"ignoreControlIds\": [\n    \"\"\n  ],\n  \"modelId\": \"\",\n  \"name\": \"\",\n  \"onewaySynonymsControlIds\": [\n    \"\"\n  ],\n  \"priceRerankingLevel\": \"\",\n  \"redirectControlIds\": [\n    \"\"\n  ],\n  \"replacementControlIds\": [\n    \"\"\n  ],\n  \"solutionTypes\": [\n    \"{{oneOf (array 'SOLUTION_TYPE_UNSPECIFIED' 'SOLUTION_TYPE_RECOMMENDATION' 'SOLUTION_TYPE_SEARCH')}}\"\n  ],\n  \"twowaySynonymsControlIds\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "78840a56-50bf-4238-b071-afb18227e7e1",
+      "documentation": "Disables a Control on the specified ServingConfig. The control is removed from the ServingConfig. Returns a NOT_FOUND error if the Control is not enabled for the ServingConfig.",
+      "method": "post",
+      "endpoint": "v2alpha/:servingConfig:removeControl",
+      "responses": [
+        {
+          "uuid": "b4188a7b-089a-48b6-868e-96f568db9a02",
+          "body": "{\n  \"boostControlIds\": [\n    \"\"\n  ],\n  \"displayName\": \"\",\n  \"diversityLevel\": \"\",\n  \"doNotAssociateControlIds\": [\n    \"\"\n  ],\n  \"dynamicFacetSpec\": {\n    \"mode\": \"{{oneOf (array 'MODE_UNSPECIFIED' 'DISABLED' 'ENABLED')}}\"\n  },\n  \"enableCategoryFilterLevel\": \"\",\n  \"facetControlIds\": [\n    \"\"\n  ],\n  \"filterControlIds\": [\n    \"\"\n  ],\n  \"ignoreControlIds\": [\n    \"\"\n  ],\n  \"modelId\": \"\",\n  \"name\": \"\",\n  \"onewaySynonymsControlIds\": [\n    \"\"\n  ],\n  \"priceRerankingLevel\": \"\",\n  \"redirectControlIds\": [\n    \"\"\n  ],\n  \"replacementControlIds\": [\n    \"\"\n  ],\n  \"solutionTypes\": [\n    \"{{oneOf (array 'SOLUTION_TYPE_UNSPECIFIED' 'SOLUTION_TYPE_RECOMMENDATION' 'SOLUTION_TYPE_SEARCH')}}\"\n  ],\n  \"twowaySynonymsControlIds\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}
