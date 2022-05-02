@@ -1,5 +1,5 @@
 {
-  "uuid": "520aea7e-2ba1-4733-baf1-838c9881c051",
+  "uuid": "7f4ad9f1-86ac-4f2b-889b-5d56e7483fa7",
   "lastMigration": 19,
   "name": "Cloud Runtime Configuration API",
   "endpointPrefix": "",
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "39c4c1f5-5699-45d1-82ca-d0d08b3e2499",
-      "documentation": "Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.",
+      "uuid": "c1bccb48-e238-4a18-86ae-f57ff56db63b",
+      "documentation": "Deletes the waiter with the specified name.",
       "method": "delete",
-      "endpoint": "v1/:name",
+      "endpoint": "v1beta1/:name",
       "responses": [
         {
-          "uuid": "662d49d1-ca7d-4237-98cc-f946436d433c",
+          "uuid": "ce82bf3d-8aa5-4dd5-a00b-7146daa68c9a",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -38,14 +38,14 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "73199308-9151-497b-80d2-1858b117c8b5",
-      "documentation": "Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`. NOTE: the `name` binding allows API services to override the binding to use different resource name schemes, such as `users/*/operations`. To override the binding, API services can add a binding such as `\"/v1/{name=users/*}/operations\"` to their service configuration. For backwards compatibility, the default name includes the operations collection id, however overriding users must ensure the name binding is the parent resource, without the operations collection id.",
+      "uuid": "2396443a-8675-4ab7-bedf-a14a4eeb9c73",
+      "documentation": "Gets information about a single waiter.",
       "method": "get",
-      "endpoint": "v1/:name",
+      "endpoint": "v1beta1/:name",
       "responses": [
         {
-          "uuid": "0a5d865c-feab-4a11-890d-04c6185b4b74",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"operations\": [\n    {\n      \"done\": {{faker 'random.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'random.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"metadata\": {},\n      \"name\": \"\",\n      \"response\": {}\n    }\n  ]\n}",
+          "uuid": "c9bbdc4c-fab1-4121-94ca-4033517b59f5",
+          "body": "{\n  \"createTime\": \"\",\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"failure\": {\n    \"cardinality\": {\n      \"number\": {{faker 'random.number'}},\n      \"path\": \"\"\n    }\n  },\n  \"name\": \"\",\n  \"success\": {\n    \"cardinality\": {\n      \"number\": {{faker 'random.number'}},\n      \"path\": \"\"\n    }\n  },\n  \"timeout\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -68,14 +68,314 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "dc8a9bef-66e6-4abf-9cda-120a237755e8",
-      "documentation": "Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.",
-      "method": "post",
-      "endpoint": "v1/:name:cancel",
+      "uuid": "9216c21d-b094-427e-ad10-b60b3213db29",
+      "documentation": "Updates an existing variable with a new value.",
+      "method": "put",
+      "endpoint": "v1beta1/:name",
       "responses": [
         {
-          "uuid": "29f7d288-d8ba-488e-bae4-d8e2bef066b2",
-          "body": "{}",
+          "uuid": "b21bf940-1c1c-44de-a150-dc57610982a0",
+          "body": "{\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'VARIABLE_STATE_UNSPECIFIED' 'UPDATED' 'DELETED')}}\",\n  \"text\": \"\",\n  \"updateTime\": \"\",\n  \"value\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "edc17b87-4c20-4d4a-bb99-268363a37cd7",
+      "documentation": "Watches a specific variable and waits for a change in the variable's value. When there is a change, this method returns the new value or times out. If a variable is deleted while being watched, the `variableState` state is set to `DELETED` and the method returns the last known variable `value`. If you set the deadline for watching to a larger value than internal timeout (60 seconds), the current variable value is returned and the `variableState` will be `VARIABLE_STATE_UNSPECIFIED`. To learn more about creating a watcher, read the [Watching a Variable for Changes](/deployment-manager/runtime-configurator/watching-a-variable) documentation.",
+      "method": "post",
+      "endpoint": "v1beta1/:name:watch",
+      "responses": [
+        {
+          "uuid": "c9d61728-9cca-4db0-acd8-c4a5eaa6f69a",
+          "body": "{\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'VARIABLE_STATE_UNSPECIFIED' 'UPDATED' 'DELETED')}}\",\n  \"text\": \"\",\n  \"updateTime\": \"\",\n  \"value\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a628cc8c-d862-445c-ad6c-80fac3d0314a",
+      "documentation": "Lists all the RuntimeConfig resources within project.",
+      "method": "get",
+      "endpoint": "v1beta1/:parent/configs",
+      "responses": [
+        {
+          "uuid": "9ebe3d0a-6b27-4be7-86e5-b274d4ad6286",
+          "body": "{\n  \"configs\": [\n    {\n      \"description\": \"\",\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5f1f49f6-16c1-4096-a71c-f709afa19147",
+      "documentation": "Creates a new RuntimeConfig resource. The configuration name must be unique within project.",
+      "method": "post",
+      "endpoint": "v1beta1/:parent/configs",
+      "responses": [
+        {
+          "uuid": "6ec55264-8bc9-4829-9b88-543aaa098082",
+          "body": "{\n  \"description\": \"\",\n  \"name\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7e65d7fd-985f-4c35-b0c7-fac17fbc9a2d",
+      "documentation": "Lists variables within given a configuration, matching any provided filters. This only lists variable names, not the values, unless `return_values` is true, in which case only variables that user has IAM permission to GetVariable will be returned.",
+      "method": "get",
+      "endpoint": "v1beta1/:parent/variables",
+      "responses": [
+        {
+          "uuid": "4b9aa12d-42cf-4ef0-84c7-0cb05bab77c8",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"variables\": [\n    {\n      \"name\": \"\",\n      \"state\": \"{{oneOf (array 'VARIABLE_STATE_UNSPECIFIED' 'UPDATED' 'DELETED')}}\",\n      \"text\": \"\",\n      \"updateTime\": \"\",\n      \"value\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "13363e94-9ebd-4cef-b153-cd9c9ad54d61",
+      "documentation": "Creates a variable within the given configuration. You cannot create a variable with a name that is a prefix of an existing variable name, or a name that has an existing variable name as a prefix. To learn more about creating a variable, read the [Setting and Getting Data](/deployment-manager/runtime-configurator/set-and-get-variables) documentation.",
+      "method": "post",
+      "endpoint": "v1beta1/:parent/variables",
+      "responses": [
+        {
+          "uuid": "7ab6c16a-f0e3-40b3-b5dd-9812e65c8aea",
+          "body": "{\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'VARIABLE_STATE_UNSPECIFIED' 'UPDATED' 'DELETED')}}\",\n  \"text\": \"\",\n  \"updateTime\": \"\",\n  \"value\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6af251ae-cc9e-42a8-8000-e686fb730331",
+      "documentation": "List waiters within the given configuration.",
+      "method": "get",
+      "endpoint": "v1beta1/:parent/waiters",
+      "responses": [
+        {
+          "uuid": "5e4a2194-fa56-44a0-8aba-ce603516297c",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"waiters\": [\n    {\n      \"createTime\": \"\",\n      \"done\": {{faker 'random.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'random.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"failure\": {\n        \"cardinality\": {\n          \"number\": {{faker 'random.number'}},\n          \"path\": \"\"\n        }\n      },\n      \"name\": \"\",\n      \"success\": {\n        \"cardinality\": {\n          \"number\": {{faker 'random.number'}},\n          \"path\": \"\"\n        }\n      },\n      \"timeout\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d7f73c35-a15e-495c-b7df-9016858321e2",
+      "documentation": "Creates a Waiter resource. This operation returns a long-running Operation resource which can be polled for completion. However, a waiter with the given name will exist (and can be retrieved) prior to the operation completing. If the operation fails, the failed Waiter resource will still exist and must be deleted prior to subsequent creation attempts.",
+      "method": "post",
+      "endpoint": "v1beta1/:parent/waiters",
+      "responses": [
+        {
+          "uuid": "64ea6e8c-d972-4daa-8fde-2417a0a81910",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d6b5f720-157d-4ad4-be48-044393213d5d",
+      "documentation": "Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.",
+      "method": "get",
+      "endpoint": "v1beta1/:resource:getIamPolicy",
+      "responses": [
+        {
+          "uuid": "363f6dcb-525b-4ca3-b39f-ac4444891ca2",
+          "body": "{\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "f86550b6-0025-403c-84d7-f45fcd976fce",
+      "documentation": "Sets the access control policy on the specified resource. Replaces any existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.",
+      "method": "post",
+      "endpoint": "v1beta1/:resource:setIamPolicy",
+      "responses": [
+        {
+          "uuid": "3108c4a4-6300-4635-80c4-fdffd56cf05d",
+          "body": "{\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ef83b729-d218-449a-a231-16f8cf10f90c",
+      "documentation": "Returns permissions that a caller has on the specified resource. If the resource does not exist, this will return an empty set of permissions, not a `NOT_FOUND` error. Note: This operation is designed to be used for building permission-aware UIs and command-line tools, not for authorization checking. This operation may \"fail open\" without warning.",
+      "method": "post",
+      "endpoint": "v1beta1/:resource:testIamPermissions",
+      "responses": [
+        {
+          "uuid": "7d5f4dc2-539c-4fe4-b76d-c771ad41f5b8",
+          "body": "{\n  \"permissions\": [\n    \"\"\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",

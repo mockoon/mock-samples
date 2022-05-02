@@ -1,5 +1,5 @@
 {
-  "uuid": "a56d7334-1ce8-4689-8f7f-7388d4970e22",
+  "uuid": "7b04fa30-31bc-4605-ab63-c0548c2508d1",
   "lastMigration": 19,
   "name": "Synthetics",
   "endpointPrefix": "",
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "ac17f974-bacf-4cbd-8f49-16e692564911",
+      "uuid": "aba4ae64-efbf-405f-9f03-3ed88e201d25",
       "documentation": "<p>Creates a canary. Canaries are scripts that monitor your endpoints and APIs from the outside-in. Canaries help you check the availability and latency of your web services and troubleshoot anomalies by investigating load time data, screenshots of the UI, logs, and metrics. You can set up a canary to run continuously or just once. </p> <p>Do not use <code>CreateCanary</code> to modify an existing canary. Use <a href=\"https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_UpdateCanary.html\">UpdateCanary</a> instead.</p> <p>To create canaries, you must have the <code>CloudWatchSyntheticsFullAccess</code> policy. If you are creating a new IAM role for the canary, you also need the the <code>iam:CreateRole</code>, <code>iam:CreatePolicy</code> and <code>iam:AttachRolePolicy</code> permissions. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Roles\">Necessary Roles and Permissions</a>.</p> <p>Do not include secrets or proprietary information in your canary names. The canary name makes up part of the Amazon Resource Name (ARN) for the canary, and the ARN is included in outbound calls over the internet. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/servicelens_canaries_security.html\">Security Considerations for Synthetics Canaries</a>.</p>",
       "method": "post",
       "endpoint": "canary",
       "responses": [
         {
-          "uuid": "261524d3-7252-40b1-94ad-be7de015bb44",
+          "uuid": "b43bdad3-1bf6-40f1-89ee-cfe11c24c85c",
           "body": "{\n  \"Canary\": {\n    \"Id\": \"\",\n    \"Name\": \"\",\n    \"Code\": {\n      \"SourceLocationArn\": \"\",\n      \"Handler\": \"\"\n    },\n    \"ExecutionRoleArn\": \"\",\n    \"Schedule\": {\n      \"Expression\": \"\",\n      \"DurationInSeconds\": {{faker 'random.number'}}\n    },\n    \"RunConfig\": {\n      \"TimeoutInSeconds\": {{faker 'random.number'}},\n      \"MemoryInMB\": {{faker 'random.number'}},\n      \"ActiveTracing\": {{faker 'random.boolean'}}\n    },\n    \"SuccessRetentionPeriodInDays\": {{faker 'random.number'}},\n    \"FailureRetentionPeriodInDays\": {{faker 'random.number'}},\n    \"Status\": {\n      \"State\": \"\",\n      \"StateReason\": \"\",\n      \"StateReasonCode\": \"\"\n    },\n    \"Timeline\": {\n      \"Created\": \"{{faker 'date.recent' 365}}\",\n      \"LastModified\": \"{{faker 'date.recent' 365}}\",\n      \"LastStarted\": \"{{faker 'date.recent' 365}}\",\n      \"LastStopped\": \"{{faker 'date.recent' 365}}\"\n    },\n    \"ArtifactS3Location\": \"\",\n    \"EngineArn\": \"\",\n    \"RuntimeVersion\": \"\",\n    \"VpcConfig\": {\n      \"VpcId\": \"\",\n      \"SubnetIds\": [\n        \"\"\n      ],\n      \"SecurityGroupIds\": [\n        \"\"\n      ]\n    },\n    \"VisualReference\": {\n      \"BaseScreenshots\": [\n        {\n          \"ScreenshotName\": \"\",\n          \"IgnoreCoordinates\": [\n            \"\"\n          ]\n        }\n      ],\n      \"BaseCanaryRunId\": \"\"\n    },\n    \"Tags\": {}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -33,7 +33,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "c1b00932-bf46-488b-b8e5-f6852c2fef0f",
+          "uuid": "98bc59ba-0ae6-4e1a-8090-f1c4a6a978d4",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -52,7 +52,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "2b12563d-0224-4af9-81c9-11ceee17bc38",
+          "uuid": "b72bf9a8-b13d-4b33-b046-fd044e7fa909",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -76,13 +76,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "73ccad26-ed99-4b6f-ac9a-2855282d78bb",
+      "uuid": "5304c42b-ed84-42d2-bcc8-8c374a8d354c",
       "documentation": "<p>Permanently deletes the specified canary.</p> <p>When you delete a canary, resources used and created by the canary are not automatically deleted. After you delete a canary that you do not intend to use again, you should also delete the following:</p> <ul> <li> <p>The Lambda functions and layers used by this canary. These have the prefix <code>cwsyn-<i>MyCanaryName</i> </code>.</p> </li> <li> <p>The CloudWatch alarms created for this canary. These alarms have a name of <code>Synthetics-SharpDrop-Alarm-<i>MyCanaryName</i> </code>.</p> </li> <li> <p>Amazon S3 objects and buckets, such as the canary's artifact location.</p> </li> <li> <p>IAM roles created for the canary. If they were created in the console, these roles have the name <code> role/service-role/CloudWatchSyntheticsRole-<i>MyCanaryName</i> </code>.</p> </li> <li> <p>CloudWatch Logs log groups created for the canary. These logs groups have the name <code>/aws/lambda/cwsyn-<i>MyCanaryName</i> </code>. </p> </li> </ul> <p>Before you delete a canary, you might want to use <code>GetCanary</code> to display the information about this canary. Make note of the information returned by this operation so that you can delete these resources after you delete the canary.</p>",
       "method": "delete",
       "endpoint": "canary/:name",
       "responses": [
         {
-          "uuid": "c5fcb1b8-e8df-4dc8-9868-50ecee1d5fbd",
+          "uuid": "c9d8e54c-de3f-4967-b3b0-0193b1262723",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -101,7 +101,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "e2dfb4d1-7e1a-4bbe-b582-a4692c20cbb8",
+          "uuid": "bf44f052-2258-4da6-bda0-d6a91c3adea8",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -120,7 +120,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "d0180793-be08-4327-8ba0-fc4e3c538839",
+          "uuid": "eeb05039-6046-4aa5-a19f-0a132da99b36",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -139,7 +139,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "84f49d2a-a4dd-4a72-ba95-5b2f86a746f4",
+          "uuid": "8a3b9c9f-96fd-4eb9-96c1-488f98e9b452",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -158,7 +158,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "65894960-b91d-45a5-ad7c-ee7c72f5423c",
+          "uuid": "7b3f3b1e-eaec-45eb-92cc-ac39df4c19c2",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 483,
@@ -182,13 +182,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "e9d41fd4-72b0-4488-a66b-76f1b7deca85",
+      "uuid": "9845aeae-8e54-42b0-9951-2d233547223c",
       "documentation": "Retrieves complete information about one canary. You must specify the name of the canary that you want. To get a list of canaries and their names, use <a href=\"https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_DescribeCanaries.html\">DescribeCanaries</a>.",
       "method": "get",
       "endpoint": "canary/:name",
       "responses": [
         {
-          "uuid": "026e9c19-9760-451d-8d50-a54e69fa8fba",
+          "uuid": "a6553e8f-8c4e-448f-8f0f-72f3a86fdf4d",
           "body": "{\n  \"Canary\": {\n    \"Id\": \"\",\n    \"Name\": \"\",\n    \"Code\": {\n      \"SourceLocationArn\": \"\",\n      \"Handler\": \"\"\n    },\n    \"ExecutionRoleArn\": \"\",\n    \"Schedule\": {\n      \"Expression\": \"\",\n      \"DurationInSeconds\": {{faker 'random.number'}}\n    },\n    \"RunConfig\": {\n      \"TimeoutInSeconds\": {{faker 'random.number'}},\n      \"MemoryInMB\": {{faker 'random.number'}},\n      \"ActiveTracing\": {{faker 'random.boolean'}}\n    },\n    \"SuccessRetentionPeriodInDays\": {{faker 'random.number'}},\n    \"FailureRetentionPeriodInDays\": {{faker 'random.number'}},\n    \"Status\": {\n      \"State\": \"\",\n      \"StateReason\": \"\",\n      \"StateReasonCode\": \"\"\n    },\n    \"Timeline\": {\n      \"Created\": \"{{faker 'date.recent' 365}}\",\n      \"LastModified\": \"{{faker 'date.recent' 365}}\",\n      \"LastStarted\": \"{{faker 'date.recent' 365}}\",\n      \"LastStopped\": \"{{faker 'date.recent' 365}}\"\n    },\n    \"ArtifactS3Location\": \"\",\n    \"EngineArn\": \"\",\n    \"RuntimeVersion\": \"\",\n    \"VpcConfig\": {\n      \"VpcId\": \"\",\n      \"SubnetIds\": [\n        \"\"\n      ],\n      \"SecurityGroupIds\": [\n        \"\"\n      ]\n    },\n    \"VisualReference\": {\n      \"BaseScreenshots\": [\n        {\n          \"ScreenshotName\": \"\",\n          \"IgnoreCoordinates\": [\n            \"\"\n          ]\n        }\n      ],\n      \"BaseCanaryRunId\": \"\"\n    },\n    \"Tags\": {}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -207,7 +207,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "cd0f6ce5-6504-49ee-9d58-5b2238ae31f4",
+          "uuid": "668ad09c-76fa-4645-a2b4-8235a50f001a",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -226,7 +226,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "f7f5d800-edad-4b47-80f8-6374341fb880",
+          "uuid": "a3a00bbb-58a2-4bdd-bf71-445552758bab",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -250,13 +250,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "449cf290-dd3d-4dfb-9f7f-a581ede1c64a",
+      "uuid": "5ee8b57c-3973-4a04-96cd-0aa4c8e66ff0",
       "documentation": "<p>Use this operation to change the settings of a canary that has already been created.</p> <p>You can't use this operation to update the tags of an existing canary. To change the tags of an existing canary, use <a href=\"https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_TagResource.html\">TagResource</a>.</p>",
       "method": "patch",
       "endpoint": "canary/:name",
       "responses": [
         {
-          "uuid": "3abbd64e-f5d9-4245-a863-d97078780398",
+          "uuid": "b63707b8-5684-4709-9026-fb50b23c7276",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -275,7 +275,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "eac89745-b93d-40a0-be42-19cbe8e4ecaf",
+          "uuid": "e5cd465c-e6dd-418f-a31a-2d27a7c16f3b",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -294,7 +294,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "b0c16d15-183e-4fb4-9009-e6313ec33c0e",
+          "uuid": "89feb09f-3316-4246-b62d-808bd81c9440",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -313,7 +313,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "1094b81e-d78c-47fe-bb42-2f5e0791a2be",
+          "uuid": "1dcc1877-fe84-43fe-916e-105fbe96433e",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -332,7 +332,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "935a842c-f8de-479e-816d-fc1780d7dd42",
+          "uuid": "32f5c946-fe41-40c4-a56d-711d943a36ed",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 483,
@@ -356,13 +356,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "c41022cb-4931-457f-9a03-c634c493cf47",
+      "uuid": "08bf9a61-f407-409d-840c-7589aaaa31ce",
       "documentation": "<p>This operation returns a list of the canaries in your account, along with full details about each canary.</p> <p>This operation does not have resource-level authorization, so if a user is able to use <code>DescribeCanaries</code>, the user can see all of the canaries in the account. A deny policy can only be used to restrict access to all canaries. It cannot be used on specific resources. </p>",
       "method": "post",
       "endpoint": "canaries",
       "responses": [
         {
-          "uuid": "3c09007b-b98c-4846-b16e-c7fcc0e10089",
+          "uuid": "87a2d0cb-47ee-439d-9791-321e0de20f48",
           "body": "{\n  \"Canaries\": [\n    {\n      \"Id\": \"\",\n      \"Name\": \"\",\n      \"Code\": {\n        \"SourceLocationArn\": \"\",\n        \"Handler\": \"\"\n      },\n      \"ExecutionRoleArn\": \"\",\n      \"Schedule\": {\n        \"Expression\": \"\",\n        \"DurationInSeconds\": {{faker 'random.number'}}\n      },\n      \"RunConfig\": {\n        \"TimeoutInSeconds\": {{faker 'random.number'}},\n        \"MemoryInMB\": {{faker 'random.number'}},\n        \"ActiveTracing\": {{faker 'random.boolean'}}\n      },\n      \"SuccessRetentionPeriodInDays\": {{faker 'random.number'}},\n      \"FailureRetentionPeriodInDays\": {{faker 'random.number'}},\n      \"Status\": {\n        \"State\": \"\",\n        \"StateReason\": \"\",\n        \"StateReasonCode\": \"\"\n      },\n      \"Timeline\": {\n        \"Created\": \"{{faker 'date.recent' 365}}\",\n        \"LastModified\": \"{{faker 'date.recent' 365}}\",\n        \"LastStarted\": \"{{faker 'date.recent' 365}}\",\n        \"LastStopped\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"ArtifactS3Location\": \"\",\n      \"EngineArn\": \"\",\n      \"RuntimeVersion\": \"\",\n      \"VpcConfig\": {\n        \"VpcId\": \"\",\n        \"SubnetIds\": [\n          \"\"\n        ],\n        \"SecurityGroupIds\": [\n          \"\"\n        ]\n      },\n      \"VisualReference\": {\n        \"BaseScreenshots\": [\n          {\n            \"ScreenshotName\": \"\",\n            \"IgnoreCoordinates\": [\n              \"\"\n            ]\n          }\n        ],\n        \"BaseCanaryRunId\": \"\"\n      },\n      \"Tags\": {}\n    }\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -381,7 +381,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "4647e28a-15e8-421e-8b8c-b462b53790ac",
+          "uuid": "1b3abaec-8cd5-4a4d-9b8c-7c018a73276f",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -400,7 +400,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "30f20cf9-8b5d-4d27-85a8-153c8e3533e8",
+          "uuid": "3d10a70d-4236-4c72-9cae-7a246df814b3",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -424,13 +424,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "694f4598-05ec-498c-8f9e-be9529575afe",
+      "uuid": "452c98ba-f76f-49a3-989f-2d860426bce5",
       "documentation": "Use this operation to see information from the most recent run of each canary that you have created.",
       "method": "post",
       "endpoint": "canaries/last-run",
       "responses": [
         {
-          "uuid": "5509f8ea-7bb0-4462-8ef9-576526a6e142",
+          "uuid": "5cfc0938-7dae-4ef3-8c1a-4e6e62b7176c",
           "body": "{\n  \"CanariesLastRun\": [\n    {\n      \"CanaryName\": \"\",\n      \"LastRun\": {\n        \"Id\": \"\",\n        \"Name\": \"\",\n        \"Status\": {\n          \"State\": \"\",\n          \"StateReason\": \"\",\n          \"StateReasonCode\": \"\"\n        },\n        \"Timeline\": {\n          \"Started\": \"{{faker 'date.recent' 365}}\",\n          \"Completed\": \"{{faker 'date.recent' 365}}\"\n        },\n        \"ArtifactS3Location\": \"\"\n      }\n    }\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -449,7 +449,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "b34475a1-6788-4df8-95bf-c63ab08db169",
+          "uuid": "3e444b80-9244-4d9e-aec4-d8fbed185720",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -468,7 +468,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "3e072685-3ad8-404d-9c2b-5e055be239d9",
+          "uuid": "2679017e-101b-448d-8f20-79cd740ea791",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -492,13 +492,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "e32af1f1-5ea5-4570-b15e-e858a44b22c7",
+      "uuid": "aa5a4db9-10a8-42ba-a516-957d62ce85ce",
       "documentation": "Returns a list of Synthetics canary runtime versions. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Library.html\"> Canary Runtime Versions</a>.",
       "method": "post",
       "endpoint": "runtime-versions",
       "responses": [
         {
-          "uuid": "6c45e122-1ad1-4bc1-ac3c-557ab507113b",
+          "uuid": "324b4638-a9f9-43d0-914e-71a591a60759",
           "body": "{\n  \"RuntimeVersions\": [\n    {\n      \"VersionName\": \"\",\n      \"Description\": \"\",\n      \"ReleaseDate\": \"{{faker 'date.recent' 365}}\",\n      \"DeprecationDate\": \"{{faker 'date.recent' 365}}\"\n    }\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -517,7 +517,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "356f3a24-ac2c-4bdf-a98a-6ee589a2b15f",
+          "uuid": "161a2a72-52ca-4a80-b231-f4e06aca90d7",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -536,7 +536,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "547139e7-0c4f-48f6-8885-44f0c6b73159",
+          "uuid": "986093a1-d6e0-4ea8-b520-25cae8747f31",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -560,13 +560,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "e27b4735-7a05-45fb-ae6b-063f9f1e180b",
+      "uuid": "ed81ed73-b1c4-4f53-84d8-58e4f780fdd3",
       "documentation": "Retrieves a list of runs for a specified canary.",
       "method": "post",
       "endpoint": "canary/:name/runs",
       "responses": [
         {
-          "uuid": "87b537b2-b53b-4c49-89a5-e51d7eb8d0c6",
+          "uuid": "56dc7dfa-c6fd-42ba-b242-9764b3088eff",
           "body": "{\n  \"CanaryRuns\": [\n    {\n      \"Id\": \"\",\n      \"Name\": \"\",\n      \"Status\": {\n        \"State\": \"\",\n        \"StateReason\": \"\",\n        \"StateReasonCode\": \"\"\n      },\n      \"Timeline\": {\n        \"Started\": \"{{faker 'date.recent' 365}}\",\n        \"Completed\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"ArtifactS3Location\": \"\"\n    }\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -585,7 +585,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "3af37474-9387-43a5-b123-4c33925ffd86",
+          "uuid": "6848514c-1b1c-458e-b92e-c8aa35a3a5c0",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -604,7 +604,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "e71230c4-a562-489e-8e3c-517e4b268bcf",
+          "uuid": "5350b3de-1713-4a41-852e-118a61ab1eda",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -623,7 +623,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "a04df9b9-21e0-4aae-b15d-d6c3b0258dc8",
+          "uuid": "b6ba9620-3bc6-40f7-a380-8e735e5a8f4b",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -647,13 +647,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "605a1af5-016d-45d6-bb5b-97e874c4356a",
+      "uuid": "2272a870-d59a-467b-bbd6-1897560eb575",
       "documentation": "Displays the tags associated with a canary.",
       "method": "get",
       "endpoint": "tags/:resourceArn",
       "responses": [
         {
-          "uuid": "1bc0e21b-8889-436c-a23e-b62794cce4ea",
+          "uuid": "c4340ff9-59a9-4822-88e5-1193d86c5f0a",
           "body": "{\n  \"Tags\": {}\n}",
           "latency": 0,
           "statusCode": 200,
@@ -672,7 +672,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "ef8f7e90-bd30-42b5-9e9a-4bec7b339ddc",
+          "uuid": "7bcae68c-d17c-4c9e-9f49-315402ca061a",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -691,7 +691,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "40ff9aaf-6dc5-4651-8903-f6dfff54abbe",
+          "uuid": "2446f5a3-05fc-4e0f-9fa9-4558acf21fbb",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -710,7 +710,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "f321a41a-b540-4261-9792-db95f7e050a2",
+          "uuid": "98f07eb1-5a09-4106-873a-d4809deaee8a",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -734,13 +734,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "a4701eca-a165-4b05-bcd2-051d6d12c3f0",
+      "uuid": "12114bb6-40e5-4ad8-b306-8d1fcd27f840",
       "documentation": "<p>Assigns one or more tags (key-value pairs) to the specified canary. </p> <p>Tags can help you organize and categorize your resources. You can also use them to scope user permissions, by granting a user permission to access or change only resources with certain tag values.</p> <p>Tags don't have any semantic meaning to Amazon Web Services and are interpreted strictly as strings of characters.</p> <p>You can use the <code>TagResource</code> action with a canary that already has tags. If you specify a new tag key for the alarm, this tag is appended to the list of tags associated with the alarm. If you specify a tag key that is already associated with the alarm, the new tag value that you specify replaces the previous value for that tag.</p> <p>You can associate as many as 50 tags with a canary.</p>",
       "method": "post",
       "endpoint": "tags/:resourceArn",
       "responses": [
         {
-          "uuid": "0caa4a67-bd41-4f9f-9326-6aef9677e9d3",
+          "uuid": "068c6070-d19c-481e-8476-41303795b875",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -759,7 +759,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "6874938a-094e-445a-bb29-badb6ddb899f",
+          "uuid": "8da3e822-b5a5-4953-853c-59097a9f9244",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -778,7 +778,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "e6552677-8ce6-44ba-97b8-bbb41c8cd6bb",
+          "uuid": "57f33c6b-798a-4c7c-8ac4-42e60f3a6bf3",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -797,7 +797,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "f205db30-2f74-4edb-aa5e-4038847c96c8",
+          "uuid": "3d2aca3e-8756-4fb5-b4f6-f789bce03a63",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -821,13 +821,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "fb045acf-8e0c-4d35-977b-9ac014643659",
+      "uuid": "9c78249b-8e05-46d8-bba9-fce9d592fd12",
       "documentation": "Use this operation to run a canary that has already been created. The frequency of the canary runs is determined by the value of the canary's <code>Schedule</code>. To see a canary's schedule, use <a href=\"https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_GetCanary.html\">GetCanary</a>.",
       "method": "post",
       "endpoint": "canary/:name/start",
       "responses": [
         {
-          "uuid": "29536992-c024-4c27-a555-193984265890",
+          "uuid": "2ed600c3-cb47-48e0-ad1a-35677009b898",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -846,7 +846,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "8e6e21f2-d059-4a66-9347-ea98b23f87b8",
+          "uuid": "c0debdc6-8300-46aa-95f9-198bf767d8b3",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -865,7 +865,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "134cdb66-ccf8-4d5d-91ad-ed214e9895da",
+          "uuid": "f5e3b81e-7114-4544-bdd8-48157e333b2e",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -884,7 +884,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "2ad2b21c-32a2-47ac-abf7-5a6764a0ffdd",
+          "uuid": "a5f96cdf-1875-4b2c-8791-502c99aff924",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -903,7 +903,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "d8a82c41-4358-40d5-9cb2-1b31ae649fb5",
+          "uuid": "28070477-9282-4834-a8ce-71e1fc10645f",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 483,
@@ -927,13 +927,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "a67ef532-1035-41fc-b806-55416142f5e7",
+      "uuid": "07f0eabe-d4a1-49a7-a2de-4719bcdb589c",
       "documentation": "<p>Stops the canary to prevent all future runs. If the canary is currently running, Synthetics stops waiting for the current run of the specified canary to complete. The run that is in progress completes on its own, publishes metrics, and uploads artifacts, but it is not recorded in Synthetics as a completed run.</p> <p>You can use <code>StartCanary</code> to start it running again with the canary’s current schedule at any point in the future. </p>",
       "method": "post",
       "endpoint": "canary/:name/stop",
       "responses": [
         {
-          "uuid": "ef8b265c-9476-4d53-82cf-170774f8a066",
+          "uuid": "49b6a712-80be-484c-baf6-337acc3aeb53",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -952,7 +952,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "1f00c0fe-3910-404b-997a-20a2ad3851f9",
+          "uuid": "0e5f86e8-b329-499b-8741-242c9df59555",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -971,7 +971,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "32e47fe6-5cf0-422c-bfdd-ccc5fda75c95",
+          "uuid": "b02ea509-ed08-4668-9756-94919d855a04",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -990,7 +990,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "e7ad4260-65d1-417e-a6de-daa95ecf5fcf",
+          "uuid": "e63e4102-098c-4d65-ab76-58c26473a26f",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -1009,7 +1009,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "11ab5ad2-de7d-4e4c-bb34-4692670d3c70",
+          "uuid": "db213643-1183-4f91-83a6-71850171ee9a",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 483,
@@ -1033,13 +1033,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "b13a0978-b94e-44b2-9abf-3901c93a4618",
+      "uuid": "be5b32b7-aa5c-4b85-80ee-1e1ac3e20483",
       "documentation": "Removes one or more tags from the specified canary.",
       "method": "delete",
       "endpoint": "tags/:resourceArn#tagKeys",
       "responses": [
         {
-          "uuid": "c6adfb79-0cf7-45f5-b3c0-7135318c1c0b",
+          "uuid": "4fec3af7-5929-4da2-80a9-e5178307f47c",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -1058,7 +1058,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "df17486a-582e-4440-a5b6-df44046ae8e0",
+          "uuid": "4a9233f4-43fe-4bbb-9195-26cc5c33947e",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1077,7 +1077,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "7c2e82c4-0531-4cec-9869-d6cb716f4c8c",
+          "uuid": "d1f08ee2-a422-41f9-a312-9c9073c5e350",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1096,7 +1096,7 @@
           "fallbackTo404": false
         },
         {
-          "uuid": "d6599bf4-3933-4c46-8db0-322d4c6b6f2d",
+          "uuid": "287d50ca-1375-44e4-940a-16b45ea1a1df",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,

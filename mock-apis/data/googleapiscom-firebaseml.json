@@ -1,5 +1,5 @@
 {
-  "uuid": "5e858a30-5d4f-460c-90bc-3270c7043f2a",
+  "uuid": "d14a2bd5-e8ef-4d4c-8778-c4851e28cedf",
   "lastMigration": 19,
   "name": "Firebase ML API",
   "endpointPrefix": "",
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "16364969-ab71-4847-b97d-ab92b9844d34",
-      "documentation": "Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.",
+      "uuid": "d4a6e1bf-6c57-47ba-9e20-10635c0b9424",
+      "documentation": "Deletes a model",
       "method": "delete",
-      "endpoint": "v1/:name",
+      "endpoint": "v1beta2/:name",
       "responses": [
         {
-          "uuid": "92022579-732e-4c7d-a019-30c1e9f3cd6b",
+          "uuid": "65640022-4667-4cab-bb6c-5ac1a1304039",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -38,14 +38,14 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "3f7d2fe5-cdeb-421c-bbaf-080c3b2ab4e2",
-      "documentation": "Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`. NOTE: the `name` binding allows API services to override the binding to use different resource name schemes, such as `users/*/operations`. To override the binding, API services can add a binding such as `\"/v1/{name=users/*}/operations\"` to their service configuration. For backwards compatibility, the default name includes the operations collection id, however overriding users must ensure the name binding is the parent resource, without the operations collection id.",
+      "uuid": "4e7eeea2-d21a-4381-aac2-21f60f0837be",
+      "documentation": "Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.",
       "method": "get",
-      "endpoint": "v1/:name",
+      "endpoint": "v1beta2/:name",
       "responses": [
         {
-          "uuid": "f456878f-11b9-4cdf-ac84-9f5017dbddb3",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"operations\": [\n    {\n      \"done\": {{faker 'random.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'random.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"metadata\": {},\n      \"name\": \"\",\n      \"response\": {}\n    }\n  ]\n}",
+          "uuid": "95cabd7a-7568-4f30-871d-90f66d785487",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -68,14 +68,104 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "b5784dd5-f069-4d10-968b-df4a2ebf6e46",
-      "documentation": "Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.",
-      "method": "post",
-      "endpoint": "v1/:name:cancel",
+      "uuid": "98c92de7-d2e7-493e-8995-aaf0325c8bc2",
+      "documentation": "Updates a model. The longrunning operation will eventually return a Model.",
+      "method": "patch",
+      "endpoint": "v1beta2/:name",
       "responses": [
         {
-          "uuid": "569354c9-2d88-4e32-9a6f-c7804d1a70fc",
-          "body": "{}",
+          "uuid": "88ab8b86-ae43-46ac-ab94-07aca95f7bbe",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "42108ddb-522c-45c9-9a5d-eeadcbd84323",
+      "documentation": "Gets Download information for a model. This is meant for downloading model resources onto devices. It gives very limited information about the model.",
+      "method": "get",
+      "endpoint": "v1beta2/:name:download",
+      "responses": [
+        {
+          "uuid": "02642513-93c8-4a3f-a6f5-be5fc8191a24",
+          "body": "{\n  \"downloadUri\": \"\",\n  \"expireTime\": \"\",\n  \"modelFormat\": \"{{oneOf (array 'MODEL_FORMAT_UNSPECIFIED' 'TFLITE')}}\",\n  \"sizeBytes\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "28ebc6e8-ad53-4f4d-922c-2295637252be",
+      "documentation": "Lists the models",
+      "method": "get",
+      "endpoint": "v1beta2/:parent/models",
+      "responses": [
+        {
+          "uuid": "850239ab-dbb2-4bfd-bac1-1b9949cbfda8",
+          "body": "{\n  \"models\": [\n    {\n      \"activeOperations\": [\n        {\n          \"done\": {{faker 'random.boolean'}},\n          \"error\": {\n            \"code\": {{faker 'random.number'}},\n            \"details\": [\n              {}\n            ],\n            \"message\": \"\"\n          },\n          \"metadata\": {},\n          \"name\": \"\",\n          \"response\": {}\n        }\n      ],\n      \"createTime\": \"\",\n      \"displayName\": \"\",\n      \"etag\": \"\",\n      \"modelHash\": \"\",\n      \"name\": \"\",\n      \"state\": {\n        \"published\": {{faker 'random.boolean'}},\n        \"validationError\": {\n          \"code\": {{faker 'random.number'}},\n          \"details\": [\n            {}\n          ],\n          \"message\": \"\"\n        }\n      },\n      \"tags\": [\n        \"\"\n      ],\n      \"tfliteModel\": {\n        \"automlModel\": \"\",\n        \"gcsTfliteUri\": \"\",\n        \"sizeBytes\": \"\"\n      },\n      \"updateTime\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8322e3b0-dbd4-4105-912e-a56b15e876ec",
+      "documentation": "Creates a model in Firebase ML. The longrunning operation will eventually return a Model",
+      "method": "post",
+      "endpoint": "v1beta2/:parent/models",
+      "responses": [
+        {
+          "uuid": "991f9d31-86db-4aa9-905f-5f1280b76c31",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",

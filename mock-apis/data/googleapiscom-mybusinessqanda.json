@@ -1,5 +1,5 @@
 {
-  "uuid": "f98f6d53-4460-4539-b1c4-e48bda871ca8",
+  "uuid": "86be4128-2695-48ed-bf0d-67e7948acf6b",
   "lastMigration": 19,
   "name": "My Business Q&A API",
   "endpointPrefix": "",
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "a788e3ca-2fbf-4afe-99e8-6f31f105e7dd",
+      "uuid": "24b18c03-dd82-4481-9117-6bcc31720de2",
       "documentation": "Deletes a specific question written by the current user.",
       "method": "delete",
       "endpoint": "v1/:name",
       "responses": [
         {
-          "uuid": "7e029a54-62ae-4982-85b3-641f95c1c35d",
+          "uuid": "616909c1-81be-4c3f-993a-8445df3a797a",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -38,13 +38,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "a3b65b3b-77f9-45f1-ab31-6ffefcbcc0b5",
+      "uuid": "0d852b5d-c5b1-448b-8c72-27ec5276d24b",
       "documentation": "Updates a specific question written by the current user.",
       "method": "patch",
       "endpoint": "v1/:name",
       "responses": [
         {
-          "uuid": "3870bda1-6c1c-432d-8168-49d55ac128ee",
+          "uuid": "617e00ca-b96f-4805-a634-8c0bd8fac2fd",
           "body": "{\n  \"author\": {\n    \"displayName\": \"\",\n    \"profilePhotoUri\": \"\",\n    \"type\": \"{{oneOf (array 'AUTHOR_TYPE_UNSPECIFIED' 'REGULAR_USER' 'LOCAL_GUIDE' 'MERCHANT')}}\"\n  },\n  \"createTime\": \"\",\n  \"name\": \"\",\n  \"text\": \"\",\n  \"topAnswers\": [\n    {\n      \"author\": {\n        \"displayName\": \"\",\n        \"profilePhotoUri\": \"\",\n        \"type\": \"{{oneOf (array 'AUTHOR_TYPE_UNSPECIFIED' 'REGULAR_USER' 'LOCAL_GUIDE' 'MERCHANT')}}\"\n      },\n      \"createTime\": \"\",\n      \"name\": \"\",\n      \"text\": \"\",\n      \"updateTime\": \"\",\n      \"upvoteCount\": {{faker 'random.number'}}\n    }\n  ],\n  \"totalAnswerCount\": {{faker 'random.number'}},\n  \"updateTime\": \"\",\n  \"upvoteCount\": {{faker 'random.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
@@ -68,13 +68,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "8b4637c3-7f60-494f-9247-11b185e3e67f",
+      "uuid": "69bc3f80-4891-4eb3-abfc-54fbd778a5d1",
       "documentation": "Deletes the answer written by the current user to a question.",
       "method": "delete",
-      "endpoint": "v1/:name/answers",
+      "endpoint": "v1/:name/answers:delete",
       "responses": [
         {
-          "uuid": "e25d1828-6cd9-4885-ae2c-3b09a5d9fdac",
+          "uuid": "bfb4454c-af67-4106-9707-b8d4e896a873",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -98,13 +98,73 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "e5d3825e-c103-4080-8853-19127e9308e2",
-      "documentation": "Returns the paginated list of answers for a specified question.",
+      "uuid": "64bbeb8e-c995-431f-b8f5-d4376e4c014c",
+      "documentation": "Returns the paginated list of questions and some of its answers for a specified location. This operation is only valid if the specified location is verified.",
       "method": "get",
       "endpoint": "v1/:parent",
       "responses": [
         {
-          "uuid": "618e85a8-0dd0-414b-a9e6-2e0c2bfe8b49",
+          "uuid": "7ce2c374-4cfe-4ebb-aca4-0c60e20c6010",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"questions\": [\n    {\n      \"author\": {\n        \"displayName\": \"\",\n        \"profilePhotoUri\": \"\",\n        \"type\": \"{{oneOf (array 'AUTHOR_TYPE_UNSPECIFIED' 'REGULAR_USER' 'LOCAL_GUIDE' 'MERCHANT')}}\"\n      },\n      \"createTime\": \"\",\n      \"name\": \"\",\n      \"text\": \"\",\n      \"topAnswers\": [\n        {\n          \"author\": {\n            \"displayName\": \"\",\n            \"profilePhotoUri\": \"\",\n            \"type\": \"{{oneOf (array 'AUTHOR_TYPE_UNSPECIFIED' 'REGULAR_USER' 'LOCAL_GUIDE' 'MERCHANT')}}\"\n          },\n          \"createTime\": \"\",\n          \"name\": \"\",\n          \"text\": \"\",\n          \"updateTime\": \"\",\n          \"upvoteCount\": {{faker 'random.number'}}\n        }\n      ],\n      \"totalAnswerCount\": {{faker 'random.number'}},\n      \"updateTime\": \"\",\n      \"upvoteCount\": {{faker 'random.number'}}\n    }\n  ],\n  \"totalSize\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "0a312838-a14e-4ff8-b8f7-92cd9ae9a918",
+      "documentation": "Adds a question for the specified location.",
+      "method": "post",
+      "endpoint": "v1/:parent",
+      "responses": [
+        {
+          "uuid": "6bdeceed-f9e1-4bdf-95ba-d37c59089648",
+          "body": "{\n  \"author\": {\n    \"displayName\": \"\",\n    \"profilePhotoUri\": \"\",\n    \"type\": \"{{oneOf (array 'AUTHOR_TYPE_UNSPECIFIED' 'REGULAR_USER' 'LOCAL_GUIDE' 'MERCHANT')}}\"\n  },\n  \"createTime\": \"\",\n  \"name\": \"\",\n  \"text\": \"\",\n  \"topAnswers\": [\n    {\n      \"author\": {\n        \"displayName\": \"\",\n        \"profilePhotoUri\": \"\",\n        \"type\": \"{{oneOf (array 'AUTHOR_TYPE_UNSPECIFIED' 'REGULAR_USER' 'LOCAL_GUIDE' 'MERCHANT')}}\"\n      },\n      \"createTime\": \"\",\n      \"name\": \"\",\n      \"text\": \"\",\n      \"updateTime\": \"\",\n      \"upvoteCount\": {{faker 'random.number'}}\n    }\n  ],\n  \"totalAnswerCount\": {{faker 'random.number'}},\n  \"updateTime\": \"\",\n  \"upvoteCount\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "fb98fcbc-c9f5-42c5-9def-61fdeb6e25e5",
+      "documentation": "Returns the paginated list of answers for a specified question.",
+      "method": "get",
+      "endpoint": "v1/:parent/answers",
+      "responses": [
+        {
+          "uuid": "9b3b0b28-0f86-4988-8577-9773b7d2f9d6",
           "body": "{\n  \"answers\": [\n    {\n      \"author\": {\n        \"displayName\": \"\",\n        \"profilePhotoUri\": \"\",\n        \"type\": \"{{oneOf (array 'AUTHOR_TYPE_UNSPECIFIED' 'REGULAR_USER' 'LOCAL_GUIDE' 'MERCHANT')}}\"\n      },\n      \"createTime\": \"\",\n      \"name\": \"\",\n      \"text\": \"\",\n      \"updateTime\": \"\",\n      \"upvoteCount\": {{faker 'random.number'}}\n    }\n  ],\n  \"nextPageToken\": \"\",\n  \"totalSize\": {{faker 'random.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
@@ -128,43 +188,13 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "82a427a2-ff42-41ed-9cd7-1fab1c32f6b2",
-      "documentation": "Adds a question for the specified location.",
-      "method": "post",
-      "endpoint": "v1/:parent",
-      "responses": [
-        {
-          "uuid": "f8c9e11b-cef7-44ed-87c0-d21a927655dc",
-          "body": "{\n  \"author\": {\n    \"displayName\": \"\",\n    \"profilePhotoUri\": \"\",\n    \"type\": \"{{oneOf (array 'AUTHOR_TYPE_UNSPECIFIED' 'REGULAR_USER' 'LOCAL_GUIDE' 'MERCHANT')}}\"\n  },\n  \"createTime\": \"\",\n  \"name\": \"\",\n  \"text\": \"\",\n  \"topAnswers\": [\n    {\n      \"author\": {\n        \"displayName\": \"\",\n        \"profilePhotoUri\": \"\",\n        \"type\": \"{{oneOf (array 'AUTHOR_TYPE_UNSPECIFIED' 'REGULAR_USER' 'LOCAL_GUIDE' 'MERCHANT')}}\"\n      },\n      \"createTime\": \"\",\n      \"name\": \"\",\n      \"text\": \"\",\n      \"updateTime\": \"\",\n      \"upvoteCount\": {{faker 'random.number'}}\n    }\n  ],\n  \"totalAnswerCount\": {{faker 'random.number'}},\n  \"updateTime\": \"\",\n  \"upvoteCount\": {{faker 'random.number'}}\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "c96dc369-f597-4100-b4b7-ececb33d9704",
+      "uuid": "bbf197eb-28ca-492a-8b16-7a2c41921886",
       "documentation": "Creates an answer or updates the existing answer written by the user for the specified question. A user can only create one answer per question.",
       "method": "post",
       "endpoint": "v1/:parent/answers:upsert",
       "responses": [
         {
-          "uuid": "42186e0e-f31a-447c-a711-f82a842b0ed7",
+          "uuid": "e0e5dc78-d48e-4593-8a44-7abb57789dc4",
           "body": "{\n  \"author\": {\n    \"displayName\": \"\",\n    \"profilePhotoUri\": \"\",\n    \"type\": \"{{oneOf (array 'AUTHOR_TYPE_UNSPECIFIED' 'REGULAR_USER' 'LOCAL_GUIDE' 'MERCHANT')}}\"\n  },\n  \"createTime\": \"\",\n  \"name\": \"\",\n  \"text\": \"\",\n  \"updateTime\": \"\",\n  \"upvoteCount\": {{faker 'random.number'}}\n}",
           "latency": 0,
           "statusCode": 200,

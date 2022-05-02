@@ -1,5 +1,5 @@
 {
-  "uuid": "b7a082ea-73fb-43f2-983e-cc8edad688c1",
+  "uuid": "77232099-8b49-4fb9-8fe0-023df691d55e",
   "lastMigration": 19,
   "name": "Access Approval API",
   "endpointPrefix": "",
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "53e85bf7-a12f-40d6-bb69-9e13ca00fbf0",
+      "uuid": "52557ce5-37d3-406b-aec8-b405919d29b7",
       "documentation": "Deletes the settings associated with a project, folder, or organization. This will have the effect of disabling Access Approval for the project, folder, or organization, but only if all ancestors also have Access Approval disabled. If Access Approval is enabled at a higher level of the hierarchy, then Access Approval will still be enabled at this level as the settings are inherited.",
       "method": "delete",
       "endpoint": "v1/:name",
       "responses": [
         {
-          "uuid": "5364f6c1-6964-4d69-a22a-9e5868136b59",
+          "uuid": "a05ced96-0de0-459b-ac07-d84aaae83079",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -38,14 +38,14 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "84ff2342-a00e-4722-b861-48712fb8164f",
+      "uuid": "f7dd4d96-3764-4149-870c-0cf8f17376a1",
       "documentation": "Gets an approval request. Returns NOT_FOUND if the request does not exist.",
       "method": "get",
       "endpoint": "v1/:name",
       "responses": [
         {
-          "uuid": "62d3f1b9-3873-4c46-b064-c099acbb3932",
-          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"expireTime\": \"\"\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'random.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'random.boolean'}}\n  }\n}",
+          "uuid": "586d8059-9c16-47d1-83d4-b24e7c04d772",
+          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"autoApproved\": {{faker 'random.boolean'}},\n    \"expireTime\": \"\",\n    \"signatureInfo\": {\n      \"customerKmsKeyVersion\": \"\",\n      \"googlePublicKeyPem\": \"\",\n      \"signature\": \"\"\n    }\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'random.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'random.boolean'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -68,14 +68,14 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "8de7ccf2-96f6-49e3-9f3f-310597cf8530",
+      "uuid": "5babb1ce-9831-4892-8b85-598189eaa0e7",
       "documentation": "Updates the settings associated with a project, folder, or organization. Settings to update are determined by the value of field_mask.",
       "method": "patch",
       "endpoint": "v1/:name",
       "responses": [
         {
-          "uuid": "31fa89e4-e184-4858-a97b-b526a56c1617",
-          "body": "{\n  \"enrolledAncestor\": {{faker 'random.boolean'}},\n  \"enrolledServices\": [\n    {\n      \"cloudProduct\": \"\",\n      \"enrollmentLevel\": \"{{oneOf (array 'ENROLLMENT_LEVEL_UNSPECIFIED' 'BLOCK_ALL')}}\"\n    }\n  ],\n  \"name\": \"\",\n  \"notificationEmails\": [\n    \"\"\n  ]\n}",
+          "uuid": "d5c9776e-1366-486f-a176-14ed329910a5",
+          "body": "{\n  \"activeKeyVersion\": \"\",\n  \"ancestorHasActiveKeyVersion\": {{faker 'random.boolean'}},\n  \"enrolledAncestor\": {{faker 'random.boolean'}},\n  \"enrolledServices\": [\n    {\n      \"cloudProduct\": \"\",\n      \"enrollmentLevel\": \"{{oneOf (array 'ENROLLMENT_LEVEL_UNSPECIFIED' 'BLOCK_ALL')}}\"\n    }\n  ],\n  \"invalidKeyVersion\": {{faker 'random.boolean'}},\n  \"name\": \"\",\n  \"notificationEmails\": [\n    \"\"\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -98,14 +98,14 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "055bf7e7-aa1e-419f-89ae-71e86a70b645",
+      "uuid": "b6eec033-ad4a-405b-97d3-fdab6ab8e6dd",
       "documentation": "Approves a request and returns the updated ApprovalRequest. Returns NOT_FOUND if the request does not exist. Returns FAILED_PRECONDITION if the request exists but is not in a pending state.",
       "method": "post",
       "endpoint": "v1/:name:approve",
       "responses": [
         {
-          "uuid": "f14b7ab5-a37e-4b5b-889d-825cd6c8b3db",
-          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"expireTime\": \"\"\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'random.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'random.boolean'}}\n  }\n}",
+          "uuid": "f5f1763d-b246-45bf-82c9-d792aa13a2f6",
+          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"autoApproved\": {{faker 'random.boolean'}},\n    \"expireTime\": \"\",\n    \"signatureInfo\": {\n      \"customerKmsKeyVersion\": \"\",\n      \"googlePublicKeyPem\": \"\",\n      \"signature\": \"\"\n    }\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'random.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'random.boolean'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -128,14 +128,14 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "442fc257-5b36-414f-a789-d4b48c61aaae",
+      "uuid": "5c6e1ea7-f8e4-4d25-8433-377017c1a67a",
       "documentation": "Dismisses a request. Returns the updated ApprovalRequest. NOTE: This does not deny access to the resource if another request has been made and approved. It is equivalent in effect to ignoring the request altogether. Returns NOT_FOUND if the request does not exist. Returns FAILED_PRECONDITION if the request exists but is not in a pending state.",
       "method": "post",
       "endpoint": "v1/:name:dismiss",
       "responses": [
         {
-          "uuid": "88bdf1c6-5985-4a79-b184-f5993b58053a",
-          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"expireTime\": \"\"\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'random.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'random.boolean'}}\n  }\n}",
+          "uuid": "c1208751-1db7-423c-af37-5049b0039a79",
+          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"autoApproved\": {{faker 'random.boolean'}},\n    \"expireTime\": \"\",\n    \"signatureInfo\": {\n      \"customerKmsKeyVersion\": \"\",\n      \"googlePublicKeyPem\": \"\",\n      \"signature\": \"\"\n    }\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'random.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'random.boolean'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -158,14 +158,14 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "36a4dbfa-18fc-4df5-9934-afc29be93221",
+      "uuid": "29630a40-c6ff-4da8-8385-c47a5b186bb6",
       "documentation": "Lists approval requests associated with a project, folder, or organization. Approval requests can be filtered by state (pending, active, dismissed). The order is reverse chronological.",
       "method": "get",
       "endpoint": "v1/:parent/approvalRequests",
       "responses": [
         {
-          "uuid": "c0c0f55d-a0cf-4277-890e-11b95c1db863",
-          "body": "{\n  \"approvalRequests\": [\n    {\n      \"approve\": {\n        \"approveTime\": \"\",\n        \"expireTime\": \"\"\n      },\n      \"dismiss\": {\n        \"dismissTime\": \"\",\n        \"implicit\": {{faker 'random.boolean'}}\n      },\n      \"name\": \"\",\n      \"requestTime\": \"\",\n      \"requestedExpiration\": \"\",\n      \"requestedLocations\": {\n        \"principalOfficeCountry\": \"\",\n        \"principalPhysicalLocationCountry\": \"\"\n      },\n      \"requestedReason\": {\n        \"detail\": \"\",\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW')}}\"\n      },\n      \"requestedResourceName\": \"\",\n      \"requestedResourceProperties\": {\n        \"excludesDescendants\": {{faker 'random.boolean'}}\n      }\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "uuid": "fe1f46e1-4fe1-47db-b26e-20ecea176079",
+          "body": "{\n  \"approvalRequests\": [\n    {\n      \"approve\": {\n        \"approveTime\": \"\",\n        \"autoApproved\": {{faker 'random.boolean'}},\n        \"expireTime\": \"\",\n        \"signatureInfo\": {\n          \"customerKmsKeyVersion\": \"\",\n          \"googlePublicKeyPem\": \"\",\n          \"signature\": \"\"\n        }\n      },\n      \"dismiss\": {\n        \"dismissTime\": \"\",\n        \"implicit\": {{faker 'random.boolean'}}\n      },\n      \"name\": \"\",\n      \"requestTime\": \"\",\n      \"requestedExpiration\": \"\",\n      \"requestedLocations\": {\n        \"principalOfficeCountry\": \"\",\n        \"principalPhysicalLocationCountry\": \"\"\n      },\n      \"requestedReason\": {\n        \"detail\": \"\",\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n      },\n      \"requestedResourceName\": \"\",\n      \"requestedResourceProperties\": {\n        \"excludesDescendants\": {{faker 'random.boolean'}}\n      }\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",

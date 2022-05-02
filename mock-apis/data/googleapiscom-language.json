@@ -1,5 +1,5 @@
 {
-  "uuid": "59e3246a-c661-4a5a-b832-6b52927a19f2",
+  "uuid": "80e1d2e5-4fb7-40df-8809-52acc1d5b5d8",
   "lastMigration": 19,
   "name": "Cloud Natural Language API",
   "endpointPrefix": "",
@@ -8,14 +8,14 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "2bc6a1b3-7ead-4774-9699-5990344a03bd",
+      "uuid": "688a27cd-8cf9-4310-9f00-77e87cbf247f",
       "documentation": "Finds named entities (currently proper names and common nouns) in the text along with entity types, salience, mentions for each entity, and other properties.",
       "method": "post",
-      "endpoint": "v1beta1/documents:analyzeEntities",
+      "endpoint": "v1beta2/documents:analyzeEntities",
       "responses": [
         {
-          "uuid": "aca6331f-d80a-4fdb-9e6d-265a0074d8f9",
-          "body": "{\n  \"entities\": [\n    {\n      \"mentions\": [\n        {\n          \"text\": {\n            \"beginOffset\": {{faker 'random.number'}},\n            \"content\": \"\"\n          },\n          \"type\": \"{{oneOf (array 'TYPE_UNKNOWN' 'PROPER' 'COMMON')}}\"\n        }\n      ],\n      \"metadata\": {},\n      \"name\": \"\",\n      \"salience\": {{faker 'random.float'}},\n      \"type\": \"{{oneOf (array 'UNKNOWN' 'PERSON' 'LOCATION' 'ORGANIZATION' 'EVENT' 'WORK_OF_ART' 'CONSUMER_GOOD' 'OTHER')}}\"\n    }\n  ],\n  \"language\": \"\"\n}",
+          "uuid": "4fbaa739-98ea-4c2b-9b79-68152ac29bdd",
+          "body": "{\n  \"entities\": [\n    {\n      \"mentions\": [\n        {\n          \"sentiment\": {\n            \"magnitude\": {{faker 'random.float'}},\n            \"score\": {{faker 'random.float'}}\n          },\n          \"text\": {\n            \"beginOffset\": {{faker 'random.number'}},\n            \"content\": \"\"\n          },\n          \"type\": \"{{oneOf (array 'TYPE_UNKNOWN' 'PROPER' 'COMMON')}}\"\n        }\n      ],\n      \"metadata\": {},\n      \"name\": \"\",\n      \"salience\": {{faker 'random.float'}},\n      \"sentiment\": {\n        \"magnitude\": {{faker 'random.float'}},\n        \"score\": {{faker 'random.float'}}\n      },\n      \"type\": \"{{oneOf (array 'UNKNOWN' 'PERSON' 'LOCATION' 'ORGANIZATION' 'EVENT' 'WORK_OF_ART' 'CONSUMER_GOOD' 'OTHER' 'PHONE_NUMBER' 'ADDRESS' 'DATE' 'NUMBER' 'PRICE')}}\"\n    }\n  ],\n  \"language\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -38,14 +38,44 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "f0cafbcc-fee2-4b31-af1c-1a393b8f8296",
+      "uuid": "dd86dcc6-5418-4423-9fdf-56a74f3b9ab2",
+      "documentation": "Finds entities, similar to AnalyzeEntities in the text and analyzes sentiment associated with each entity and its mentions.",
+      "method": "post",
+      "endpoint": "v1beta2/documents:analyzeEntitySentiment",
+      "responses": [
+        {
+          "uuid": "aa2a0571-ab83-46e6-a801-8bdcdb24d56c",
+          "body": "{\n  \"entities\": [\n    {\n      \"mentions\": [\n        {\n          \"sentiment\": {\n            \"magnitude\": {{faker 'random.float'}},\n            \"score\": {{faker 'random.float'}}\n          },\n          \"text\": {\n            \"beginOffset\": {{faker 'random.number'}},\n            \"content\": \"\"\n          },\n          \"type\": \"{{oneOf (array 'TYPE_UNKNOWN' 'PROPER' 'COMMON')}}\"\n        }\n      ],\n      \"metadata\": {},\n      \"name\": \"\",\n      \"salience\": {{faker 'random.float'}},\n      \"sentiment\": {\n        \"magnitude\": {{faker 'random.float'}},\n        \"score\": {{faker 'random.float'}}\n      },\n      \"type\": \"{{oneOf (array 'UNKNOWN' 'PERSON' 'LOCATION' 'ORGANIZATION' 'EVENT' 'WORK_OF_ART' 'CONSUMER_GOOD' 'OTHER' 'PHONE_NUMBER' 'ADDRESS' 'DATE' 'NUMBER' 'PRICE')}}\"\n    }\n  ],\n  \"language\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d22ed1c3-5afb-4147-8e81-c151bd5d8498",
       "documentation": "Analyzes the sentiment of the provided text.",
       "method": "post",
-      "endpoint": "v1beta1/documents:analyzeSentiment",
+      "endpoint": "v1beta2/documents:analyzeSentiment",
       "responses": [
         {
-          "uuid": "21354e00-6ba8-4b9f-a29f-a4447559dd7c",
-          "body": "{\n  \"documentSentiment\": {\n    \"magnitude\": {{faker 'random.float'}},\n    \"polarity\": {{faker 'random.float'}},\n    \"score\": {{faker 'random.float'}}\n  },\n  \"language\": \"\",\n  \"sentences\": [\n    {\n      \"sentiment\": {\n        \"magnitude\": {{faker 'random.float'}},\n        \"polarity\": {{faker 'random.float'}},\n        \"score\": {{faker 'random.float'}}\n      },\n      \"text\": {\n        \"beginOffset\": {{faker 'random.number'}},\n        \"content\": \"\"\n      }\n    }\n  ]\n}",
+          "uuid": "fe6dd42d-ed5c-4f7c-8331-ce7a00619b9c",
+          "body": "{\n  \"documentSentiment\": {\n    \"magnitude\": {{faker 'random.float'}},\n    \"score\": {{faker 'random.float'}}\n  },\n  \"language\": \"\",\n  \"sentences\": [\n    {\n      \"sentiment\": {\n        \"magnitude\": {{faker 'random.float'}},\n        \"score\": {{faker 'random.float'}}\n      },\n      \"text\": {\n        \"beginOffset\": {{faker 'random.number'}},\n        \"content\": \"\"\n      }\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -68,14 +98,14 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "176fb8b3-7622-49d1-910c-02f2edf0aa37",
+      "uuid": "2db7bae5-ffb7-4b3a-8068-f3a7a09f8eab",
       "documentation": "Analyzes the syntax of the text and provides sentence boundaries and tokenization along with part of speech tags, dependency trees, and other properties.",
       "method": "post",
-      "endpoint": "v1beta1/documents:analyzeSyntax",
+      "endpoint": "v1beta2/documents:analyzeSyntax",
       "responses": [
         {
-          "uuid": "b6a31be0-4539-449b-aa2d-4047e1c7913c",
-          "body": "{\n  \"language\": \"\",\n  \"sentences\": [\n    {\n      \"sentiment\": {\n        \"magnitude\": {{faker 'random.float'}},\n        \"polarity\": {{faker 'random.float'}},\n        \"score\": {{faker 'random.float'}}\n      },\n      \"text\": {\n        \"beginOffset\": {{faker 'random.number'}},\n        \"content\": \"\"\n      }\n    }\n  ],\n  \"tokens\": [\n    {\n      \"dependencyEdge\": {\n        \"headTokenIndex\": {{faker 'random.number'}},\n        \"label\": \"{{oneOf (array 'UNKNOWN' 'ABBREV' 'ACOMP' 'ADVCL' 'ADVMOD' 'AMOD' 'APPOS' 'ATTR' 'AUX' 'AUXPASS' 'CC' 'CCOMP' 'CONJ' 'CSUBJ' 'CSUBJPASS' 'DEP' 'DET' 'DISCOURSE' 'DOBJ' 'EXPL' 'GOESWITH' 'IOBJ' 'MARK' 'MWE' 'MWV' 'NEG' 'NN' 'NPADVMOD' 'NSUBJ' 'NSUBJPASS' 'NUM' 'NUMBER' 'P' 'PARATAXIS' 'PARTMOD' 'PCOMP' 'POBJ' 'POSS' 'POSTNEG' 'PRECOMP' 'PRECONJ' 'PREDET' 'PREF' 'PREP' 'PRONL' 'PRT' 'PS' 'QUANTMOD' 'RCMOD' 'RCMODREL' 'RDROP' 'REF' 'REMNANT' 'REPARANDUM' 'ROOT' 'SNUM' 'SUFF' 'TMOD' 'TOPIC' 'VMOD' 'VOCATIVE' 'XCOMP' 'SUFFIX' 'TITLE' 'ADVPHMOD' 'AUXCAUS' 'AUXVV' 'DTMOD' 'FOREIGN' 'KW' 'LIST' 'NOMC' 'NOMCSUBJ' 'NOMCSUBJPASS' 'NUMC' 'COP' 'DISLOCATED' 'ASP' 'GMOD' 'GOBJ' 'INFMOD' 'MES' 'NCOMP')}}\"\n      },\n      \"lemma\": \"\",\n      \"partOfSpeech\": {\n        \"aspect\": \"{{oneOf (array 'ASPECT_UNKNOWN' 'PERFECTIVE' 'IMPERFECTIVE' 'PROGRESSIVE')}}\",\n        \"case\": \"{{oneOf (array 'CASE_UNKNOWN' 'ACCUSATIVE' 'ADVERBIAL' 'COMPLEMENTIVE' 'DATIVE' 'GENITIVE' 'INSTRUMENTAL' 'LOCATIVE' 'NOMINATIVE' 'OBLIQUE' 'PARTITIVE' 'PREPOSITIONAL' 'REFLEXIVE_CASE' 'RELATIVE_CASE' 'VOCATIVE')}}\",\n        \"form\": \"{{oneOf (array 'FORM_UNKNOWN' 'ADNOMIAL' 'AUXILIARY' 'COMPLEMENTIZER' 'FINAL_ENDING' 'GERUND' 'REALIS' 'IRREALIS' 'SHORT' 'LONG' 'ORDER' 'SPECIFIC')}}\",\n        \"gender\": \"{{oneOf (array 'GENDER_UNKNOWN' 'FEMININE' 'MASCULINE' 'NEUTER')}}\",\n        \"mood\": \"{{oneOf (array 'MOOD_UNKNOWN' 'CONDITIONAL_MOOD' 'IMPERATIVE' 'INDICATIVE' 'INTERROGATIVE' 'JUSSIVE' 'SUBJUNCTIVE')}}\",\n        \"number\": \"{{oneOf (array 'NUMBER_UNKNOWN' 'SINGULAR' 'PLURAL' 'DUAL')}}\",\n        \"person\": \"{{oneOf (array 'PERSON_UNKNOWN' 'FIRST' 'SECOND' 'THIRD' 'REFLEXIVE_PERSON')}}\",\n        \"proper\": \"{{oneOf (array 'PROPER_UNKNOWN' 'PROPER' 'NOT_PROPER')}}\",\n        \"reciprocity\": \"{{oneOf (array 'RECIPROCITY_UNKNOWN' 'RECIPROCAL' 'NON_RECIPROCAL')}}\",\n        \"tag\": \"{{oneOf (array 'UNKNOWN' 'ADJ' 'ADP' 'ADV' 'CONJ' 'DET' 'NOUN' 'NUM' 'PRON' 'PRT' 'PUNCT' 'VERB' 'X' 'AFFIX')}}\",\n        \"tense\": \"{{oneOf (array 'TENSE_UNKNOWN' 'CONDITIONAL_TENSE' 'FUTURE' 'PAST' 'PRESENT' 'IMPERFECT' 'PLUPERFECT')}}\",\n        \"voice\": \"{{oneOf (array 'VOICE_UNKNOWN' 'ACTIVE' 'CAUSATIVE' 'PASSIVE')}}\"\n      },\n      \"text\": {\n        \"beginOffset\": {{faker 'random.number'}},\n        \"content\": \"\"\n      }\n    }\n  ]\n}",
+          "uuid": "b3247add-e135-4a5b-9f08-548bd199a47a",
+          "body": "{\n  \"language\": \"\",\n  \"sentences\": [\n    {\n      \"sentiment\": {\n        \"magnitude\": {{faker 'random.float'}},\n        \"score\": {{faker 'random.float'}}\n      },\n      \"text\": {\n        \"beginOffset\": {{faker 'random.number'}},\n        \"content\": \"\"\n      }\n    }\n  ],\n  \"tokens\": [\n    {\n      \"dependencyEdge\": {\n        \"headTokenIndex\": {{faker 'random.number'}},\n        \"label\": \"{{oneOf (array 'UNKNOWN' 'ABBREV' 'ACOMP' 'ADVCL' 'ADVMOD' 'AMOD' 'APPOS' 'ATTR' 'AUX' 'AUXPASS' 'CC' 'CCOMP' 'CONJ' 'CSUBJ' 'CSUBJPASS' 'DEP' 'DET' 'DISCOURSE' 'DOBJ' 'EXPL' 'GOESWITH' 'IOBJ' 'MARK' 'MWE' 'MWV' 'NEG' 'NN' 'NPADVMOD' 'NSUBJ' 'NSUBJPASS' 'NUM' 'NUMBER' 'P' 'PARATAXIS' 'PARTMOD' 'PCOMP' 'POBJ' 'POSS' 'POSTNEG' 'PRECOMP' 'PRECONJ' 'PREDET' 'PREF' 'PREP' 'PRONL' 'PRT' 'PS' 'QUANTMOD' 'RCMOD' 'RCMODREL' 'RDROP' 'REF' 'REMNANT' 'REPARANDUM' 'ROOT' 'SNUM' 'SUFF' 'TMOD' 'TOPIC' 'VMOD' 'VOCATIVE' 'XCOMP' 'SUFFIX' 'TITLE' 'ADVPHMOD' 'AUXCAUS' 'AUXVV' 'DTMOD' 'FOREIGN' 'KW' 'LIST' 'NOMC' 'NOMCSUBJ' 'NOMCSUBJPASS' 'NUMC' 'COP' 'DISLOCATED' 'ASP' 'GMOD' 'GOBJ' 'INFMOD' 'MES' 'NCOMP')}}\"\n      },\n      \"lemma\": \"\",\n      \"partOfSpeech\": {\n        \"aspect\": \"{{oneOf (array 'ASPECT_UNKNOWN' 'PERFECTIVE' 'IMPERFECTIVE' 'PROGRESSIVE')}}\",\n        \"case\": \"{{oneOf (array 'CASE_UNKNOWN' 'ACCUSATIVE' 'ADVERBIAL' 'COMPLEMENTIVE' 'DATIVE' 'GENITIVE' 'INSTRUMENTAL' 'LOCATIVE' 'NOMINATIVE' 'OBLIQUE' 'PARTITIVE' 'PREPOSITIONAL' 'REFLEXIVE_CASE' 'RELATIVE_CASE' 'VOCATIVE')}}\",\n        \"form\": \"{{oneOf (array 'FORM_UNKNOWN' 'ADNOMIAL' 'AUXILIARY' 'COMPLEMENTIZER' 'FINAL_ENDING' 'GERUND' 'REALIS' 'IRREALIS' 'SHORT' 'LONG' 'ORDER' 'SPECIFIC')}}\",\n        \"gender\": \"{{oneOf (array 'GENDER_UNKNOWN' 'FEMININE' 'MASCULINE' 'NEUTER')}}\",\n        \"mood\": \"{{oneOf (array 'MOOD_UNKNOWN' 'CONDITIONAL_MOOD' 'IMPERATIVE' 'INDICATIVE' 'INTERROGATIVE' 'JUSSIVE' 'SUBJUNCTIVE')}}\",\n        \"number\": \"{{oneOf (array 'NUMBER_UNKNOWN' 'SINGULAR' 'PLURAL' 'DUAL')}}\",\n        \"person\": \"{{oneOf (array 'PERSON_UNKNOWN' 'FIRST' 'SECOND' 'THIRD' 'REFLEXIVE_PERSON')}}\",\n        \"proper\": \"{{oneOf (array 'PROPER_UNKNOWN' 'PROPER' 'NOT_PROPER')}}\",\n        \"reciprocity\": \"{{oneOf (array 'RECIPROCITY_UNKNOWN' 'RECIPROCAL' 'NON_RECIPROCAL')}}\",\n        \"tag\": \"{{oneOf (array 'UNKNOWN' 'ADJ' 'ADP' 'ADV' 'CONJ' 'DET' 'NOUN' 'NUM' 'PRON' 'PRT' 'PUNCT' 'VERB' 'X' 'AFFIX')}}\",\n        \"tense\": \"{{oneOf (array 'TENSE_UNKNOWN' 'CONDITIONAL_TENSE' 'FUTURE' 'PAST' 'PRESENT' 'IMPERFECT' 'PLUPERFECT')}}\",\n        \"voice\": \"{{oneOf (array 'VOICE_UNKNOWN' 'ACTIVE' 'CAUSATIVE' 'PASSIVE')}}\"\n      },\n      \"text\": {\n        \"beginOffset\": {{faker 'random.number'}},\n        \"content\": \"\"\n      }\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -98,14 +128,44 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "05ffa571-ff72-4286-9da9-b94b4add5993",
-      "documentation": "A convenience method that provides all the features that analyzeSentiment, analyzeEntities, and analyzeSyntax provide in one call.",
+      "uuid": "90c4bf92-8b91-492b-8d0e-6ceef60595f9",
+      "documentation": "A convenience method that provides all syntax, sentiment, entity, and classification features in one call.",
       "method": "post",
-      "endpoint": "v1beta1/documents:annotateText",
+      "endpoint": "v1beta2/documents:annotateText",
       "responses": [
         {
-          "uuid": "93d1138e-06d4-4c34-9c1c-ead56afdf9bb",
-          "body": "{\n  \"documentSentiment\": {\n    \"magnitude\": {{faker 'random.float'}},\n    \"polarity\": {{faker 'random.float'}},\n    \"score\": {{faker 'random.float'}}\n  },\n  \"entities\": [\n    {\n      \"mentions\": [\n        {\n          \"text\": {\n            \"beginOffset\": {{faker 'random.number'}},\n            \"content\": \"\"\n          },\n          \"type\": \"{{oneOf (array 'TYPE_UNKNOWN' 'PROPER' 'COMMON')}}\"\n        }\n      ],\n      \"metadata\": {},\n      \"name\": \"\",\n      \"salience\": {{faker 'random.float'}},\n      \"type\": \"{{oneOf (array 'UNKNOWN' 'PERSON' 'LOCATION' 'ORGANIZATION' 'EVENT' 'WORK_OF_ART' 'CONSUMER_GOOD' 'OTHER')}}\"\n    }\n  ],\n  \"language\": \"\",\n  \"sentences\": [\n    {\n      \"sentiment\": {\n        \"magnitude\": {{faker 'random.float'}},\n        \"polarity\": {{faker 'random.float'}},\n        \"score\": {{faker 'random.float'}}\n      },\n      \"text\": {\n        \"beginOffset\": {{faker 'random.number'}},\n        \"content\": \"\"\n      }\n    }\n  ],\n  \"tokens\": [\n    {\n      \"dependencyEdge\": {\n        \"headTokenIndex\": {{faker 'random.number'}},\n        \"label\": \"{{oneOf (array 'UNKNOWN' 'ABBREV' 'ACOMP' 'ADVCL' 'ADVMOD' 'AMOD' 'APPOS' 'ATTR' 'AUX' 'AUXPASS' 'CC' 'CCOMP' 'CONJ' 'CSUBJ' 'CSUBJPASS' 'DEP' 'DET' 'DISCOURSE' 'DOBJ' 'EXPL' 'GOESWITH' 'IOBJ' 'MARK' 'MWE' 'MWV' 'NEG' 'NN' 'NPADVMOD' 'NSUBJ' 'NSUBJPASS' 'NUM' 'NUMBER' 'P' 'PARATAXIS' 'PARTMOD' 'PCOMP' 'POBJ' 'POSS' 'POSTNEG' 'PRECOMP' 'PRECONJ' 'PREDET' 'PREF' 'PREP' 'PRONL' 'PRT' 'PS' 'QUANTMOD' 'RCMOD' 'RCMODREL' 'RDROP' 'REF' 'REMNANT' 'REPARANDUM' 'ROOT' 'SNUM' 'SUFF' 'TMOD' 'TOPIC' 'VMOD' 'VOCATIVE' 'XCOMP' 'SUFFIX' 'TITLE' 'ADVPHMOD' 'AUXCAUS' 'AUXVV' 'DTMOD' 'FOREIGN' 'KW' 'LIST' 'NOMC' 'NOMCSUBJ' 'NOMCSUBJPASS' 'NUMC' 'COP' 'DISLOCATED' 'ASP' 'GMOD' 'GOBJ' 'INFMOD' 'MES' 'NCOMP')}}\"\n      },\n      \"lemma\": \"\",\n      \"partOfSpeech\": {\n        \"aspect\": \"{{oneOf (array 'ASPECT_UNKNOWN' 'PERFECTIVE' 'IMPERFECTIVE' 'PROGRESSIVE')}}\",\n        \"case\": \"{{oneOf (array 'CASE_UNKNOWN' 'ACCUSATIVE' 'ADVERBIAL' 'COMPLEMENTIVE' 'DATIVE' 'GENITIVE' 'INSTRUMENTAL' 'LOCATIVE' 'NOMINATIVE' 'OBLIQUE' 'PARTITIVE' 'PREPOSITIONAL' 'REFLEXIVE_CASE' 'RELATIVE_CASE' 'VOCATIVE')}}\",\n        \"form\": \"{{oneOf (array 'FORM_UNKNOWN' 'ADNOMIAL' 'AUXILIARY' 'COMPLEMENTIZER' 'FINAL_ENDING' 'GERUND' 'REALIS' 'IRREALIS' 'SHORT' 'LONG' 'ORDER' 'SPECIFIC')}}\",\n        \"gender\": \"{{oneOf (array 'GENDER_UNKNOWN' 'FEMININE' 'MASCULINE' 'NEUTER')}}\",\n        \"mood\": \"{{oneOf (array 'MOOD_UNKNOWN' 'CONDITIONAL_MOOD' 'IMPERATIVE' 'INDICATIVE' 'INTERROGATIVE' 'JUSSIVE' 'SUBJUNCTIVE')}}\",\n        \"number\": \"{{oneOf (array 'NUMBER_UNKNOWN' 'SINGULAR' 'PLURAL' 'DUAL')}}\",\n        \"person\": \"{{oneOf (array 'PERSON_UNKNOWN' 'FIRST' 'SECOND' 'THIRD' 'REFLEXIVE_PERSON')}}\",\n        \"proper\": \"{{oneOf (array 'PROPER_UNKNOWN' 'PROPER' 'NOT_PROPER')}}\",\n        \"reciprocity\": \"{{oneOf (array 'RECIPROCITY_UNKNOWN' 'RECIPROCAL' 'NON_RECIPROCAL')}}\",\n        \"tag\": \"{{oneOf (array 'UNKNOWN' 'ADJ' 'ADP' 'ADV' 'CONJ' 'DET' 'NOUN' 'NUM' 'PRON' 'PRT' 'PUNCT' 'VERB' 'X' 'AFFIX')}}\",\n        \"tense\": \"{{oneOf (array 'TENSE_UNKNOWN' 'CONDITIONAL_TENSE' 'FUTURE' 'PAST' 'PRESENT' 'IMPERFECT' 'PLUPERFECT')}}\",\n        \"voice\": \"{{oneOf (array 'VOICE_UNKNOWN' 'ACTIVE' 'CAUSATIVE' 'PASSIVE')}}\"\n      },\n      \"text\": {\n        \"beginOffset\": {{faker 'random.number'}},\n        \"content\": \"\"\n      }\n    }\n  ]\n}",
+          "uuid": "c7a11ef7-e9ce-46ae-800d-6714594504c0",
+          "body": "{\n  \"categories\": [\n    {\n      \"confidence\": {{faker 'random.float'}},\n      \"name\": \"\"\n    }\n  ],\n  \"documentSentiment\": {\n    \"magnitude\": {{faker 'random.float'}},\n    \"score\": {{faker 'random.float'}}\n  },\n  \"entities\": [\n    {\n      \"mentions\": [\n        {\n          \"sentiment\": {\n            \"magnitude\": {{faker 'random.float'}},\n            \"score\": {{faker 'random.float'}}\n          },\n          \"text\": {\n            \"beginOffset\": {{faker 'random.number'}},\n            \"content\": \"\"\n          },\n          \"type\": \"{{oneOf (array 'TYPE_UNKNOWN' 'PROPER' 'COMMON')}}\"\n        }\n      ],\n      \"metadata\": {},\n      \"name\": \"\",\n      \"salience\": {{faker 'random.float'}},\n      \"sentiment\": {\n        \"magnitude\": {{faker 'random.float'}},\n        \"score\": {{faker 'random.float'}}\n      },\n      \"type\": \"{{oneOf (array 'UNKNOWN' 'PERSON' 'LOCATION' 'ORGANIZATION' 'EVENT' 'WORK_OF_ART' 'CONSUMER_GOOD' 'OTHER' 'PHONE_NUMBER' 'ADDRESS' 'DATE' 'NUMBER' 'PRICE')}}\"\n    }\n  ],\n  \"language\": \"\",\n  \"sentences\": [\n    {\n      \"sentiment\": {\n        \"magnitude\": {{faker 'random.float'}},\n        \"score\": {{faker 'random.float'}}\n      },\n      \"text\": {\n        \"beginOffset\": {{faker 'random.number'}},\n        \"content\": \"\"\n      }\n    }\n  ],\n  \"tokens\": [\n    {\n      \"dependencyEdge\": {\n        \"headTokenIndex\": {{faker 'random.number'}},\n        \"label\": \"{{oneOf (array 'UNKNOWN' 'ABBREV' 'ACOMP' 'ADVCL' 'ADVMOD' 'AMOD' 'APPOS' 'ATTR' 'AUX' 'AUXPASS' 'CC' 'CCOMP' 'CONJ' 'CSUBJ' 'CSUBJPASS' 'DEP' 'DET' 'DISCOURSE' 'DOBJ' 'EXPL' 'GOESWITH' 'IOBJ' 'MARK' 'MWE' 'MWV' 'NEG' 'NN' 'NPADVMOD' 'NSUBJ' 'NSUBJPASS' 'NUM' 'NUMBER' 'P' 'PARATAXIS' 'PARTMOD' 'PCOMP' 'POBJ' 'POSS' 'POSTNEG' 'PRECOMP' 'PRECONJ' 'PREDET' 'PREF' 'PREP' 'PRONL' 'PRT' 'PS' 'QUANTMOD' 'RCMOD' 'RCMODREL' 'RDROP' 'REF' 'REMNANT' 'REPARANDUM' 'ROOT' 'SNUM' 'SUFF' 'TMOD' 'TOPIC' 'VMOD' 'VOCATIVE' 'XCOMP' 'SUFFIX' 'TITLE' 'ADVPHMOD' 'AUXCAUS' 'AUXVV' 'DTMOD' 'FOREIGN' 'KW' 'LIST' 'NOMC' 'NOMCSUBJ' 'NOMCSUBJPASS' 'NUMC' 'COP' 'DISLOCATED' 'ASP' 'GMOD' 'GOBJ' 'INFMOD' 'MES' 'NCOMP')}}\"\n      },\n      \"lemma\": \"\",\n      \"partOfSpeech\": {\n        \"aspect\": \"{{oneOf (array 'ASPECT_UNKNOWN' 'PERFECTIVE' 'IMPERFECTIVE' 'PROGRESSIVE')}}\",\n        \"case\": \"{{oneOf (array 'CASE_UNKNOWN' 'ACCUSATIVE' 'ADVERBIAL' 'COMPLEMENTIVE' 'DATIVE' 'GENITIVE' 'INSTRUMENTAL' 'LOCATIVE' 'NOMINATIVE' 'OBLIQUE' 'PARTITIVE' 'PREPOSITIONAL' 'REFLEXIVE_CASE' 'RELATIVE_CASE' 'VOCATIVE')}}\",\n        \"form\": \"{{oneOf (array 'FORM_UNKNOWN' 'ADNOMIAL' 'AUXILIARY' 'COMPLEMENTIZER' 'FINAL_ENDING' 'GERUND' 'REALIS' 'IRREALIS' 'SHORT' 'LONG' 'ORDER' 'SPECIFIC')}}\",\n        \"gender\": \"{{oneOf (array 'GENDER_UNKNOWN' 'FEMININE' 'MASCULINE' 'NEUTER')}}\",\n        \"mood\": \"{{oneOf (array 'MOOD_UNKNOWN' 'CONDITIONAL_MOOD' 'IMPERATIVE' 'INDICATIVE' 'INTERROGATIVE' 'JUSSIVE' 'SUBJUNCTIVE')}}\",\n        \"number\": \"{{oneOf (array 'NUMBER_UNKNOWN' 'SINGULAR' 'PLURAL' 'DUAL')}}\",\n        \"person\": \"{{oneOf (array 'PERSON_UNKNOWN' 'FIRST' 'SECOND' 'THIRD' 'REFLEXIVE_PERSON')}}\",\n        \"proper\": \"{{oneOf (array 'PROPER_UNKNOWN' 'PROPER' 'NOT_PROPER')}}\",\n        \"reciprocity\": \"{{oneOf (array 'RECIPROCITY_UNKNOWN' 'RECIPROCAL' 'NON_RECIPROCAL')}}\",\n        \"tag\": \"{{oneOf (array 'UNKNOWN' 'ADJ' 'ADP' 'ADV' 'CONJ' 'DET' 'NOUN' 'NUM' 'PRON' 'PRT' 'PUNCT' 'VERB' 'X' 'AFFIX')}}\",\n        \"tense\": \"{{oneOf (array 'TENSE_UNKNOWN' 'CONDITIONAL_TENSE' 'FUTURE' 'PAST' 'PRESENT' 'IMPERFECT' 'PLUPERFECT')}}\",\n        \"voice\": \"{{oneOf (array 'VOICE_UNKNOWN' 'ACTIVE' 'CAUSATIVE' 'PASSIVE')}}\"\n      },\n      \"text\": {\n        \"beginOffset\": {{faker 'random.number'}},\n        \"content\": \"\"\n      }\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d27b33ae-2ea4-4532-bfad-7ca53e5b3447",
+      "documentation": "Classifies a document into categories.",
+      "method": "post",
+      "endpoint": "v1beta2/documents:classifyText",
+      "responses": [
+        {
+          "uuid": "6ccf5c39-9c8b-48d3-8c7e-89df6c0e298b",
+          "body": "{\n  \"categories\": [\n    {\n      \"confidence\": {{faker 'random.float'}},\n      \"name\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",

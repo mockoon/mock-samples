@@ -1,5 +1,5 @@
 {
-  "uuid": "8b2bc570-17fd-41d8-9111-fae2a0aeb1d2",
+  "uuid": "0860346d-7dcc-400d-a1b5-c5e59cc5c5b5",
   "lastMigration": 19,
   "name": "Real-time Bidding API",
   "endpointPrefix": "",
@@ -8,14 +8,74 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "34587f02-9bbd-4262-9d15-e19a93ce79a1",
-      "documentation": "Lists all the bidder accounts that belong to the caller.",
+      "uuid": "23d90e25-6f61-424c-9dc3-6ed20f3b2b77",
+      "documentation": "Activates an existing bidding function. An activated function is available for invocation for the server-side TURTLEDOVE simulations.",
+      "method": "post",
+      "endpoint": "v1alpha/:name:activate",
+      "responses": [
+        {
+          "uuid": "05309cb0-811c-44a1-ab4f-705690ba5df6",
+          "body": "{\n  \"biddingFunction\": \"\",\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'ARCHIVED')}}\",\n  \"type\": \"{{oneOf (array 'FUNCTION_TYPE_UNSPECIFIED' 'TURTLEDOVE_SIMULATION_BIDDING_FUNCTION' 'FLEDGE_BIDDING_FUNCTION')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ffcc7d81-b106-471d-8605-9517ce7e60f4",
+      "documentation": "Archives an existing bidding function. An archived function will not be available for function invocation for the server-side TURTLEDOVE simulations unless it is activated.",
+      "method": "post",
+      "endpoint": "v1alpha/:name:archive",
+      "responses": [
+        {
+          "uuid": "105d7e58-e2a7-42fc-9447-ba18d3dcc257",
+          "body": "{\n  \"biddingFunction\": \"\",\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'ARCHIVED')}}\",\n  \"type\": \"{{oneOf (array 'FUNCTION_TYPE_UNSPECIFIED' 'TURTLEDOVE_SIMULATION_BIDDING_FUNCTION' 'FLEDGE_BIDDING_FUNCTION')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "851c4b2c-4eb3-4ca0-8eec-58f5dc88b43a",
+      "documentation": "Lists the bidding functions that a bidder currently has registered.",
       "method": "get",
-      "endpoint": "v1/bidders",
+      "endpoint": "v1alpha/:parent/biddingFunctions",
       "responses": [
         {
-          "uuid": "ac863cf1-a544-4de1-8460-7a178c5963f3",
-          "body": "{\n  \"bidders\": [\n    {\n      \"bypassNonguaranteedDealsPretargeting\": {{faker 'random.boolean'}},\n      \"cookieMatchingNetworkId\": \"\",\n      \"cookieMatchingUrl\": \"\",\n      \"dealsBillingId\": \"\",\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "uuid": "ee02fb20-3e72-44d4-b9a6-0425816d5b85",
+          "body": "{\n  \"biddingFunctions\": [\n    {\n      \"biddingFunction\": \"\",\n      \"name\": \"\",\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'ARCHIVED')}}\",\n      \"type\": \"{{oneOf (array 'FUNCTION_TYPE_UNSPECIFIED' 'TURTLEDOVE_SIMULATION_BIDDING_FUNCTION' 'FLEDGE_BIDDING_FUNCTION')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -38,704 +98,14 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "57ddbea7-12fc-4ab1-a55d-7cf9e3ce07f7",
-      "documentation": "Lists all buyer account information the calling buyer user or service account is permissioned to manage.",
-      "method": "get",
-      "endpoint": "v1/buyers",
-      "responses": [
-        {
-          "uuid": "ffa6d023-5b62-4bb1-8a1a-d2f559ece38f",
-          "body": "{\n  \"buyers\": [\n    {\n      \"activeCreativeCount\": \"\",\n      \"bidder\": \"\",\n      \"billingIds\": [\n        \"\"\n      ],\n      \"displayName\": \"\",\n      \"maximumActiveCreativeCount\": \"\",\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "ef49e394-5d75-4ffb-b081-78cd2ac9a42b",
-      "documentation": "Deletes a pretargeting configuration.",
-      "method": "delete",
-      "endpoint": "v1/:name",
-      "responses": [
-        {
-          "uuid": "e3223892-2f7e-499a-b3c4-0bf3910e0069",
-          "body": "{}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "e2b67f56-9555-4684-bd03-0e19afeea689",
-      "documentation": "Gets a user list by its name.",
-      "method": "get",
-      "endpoint": "v1/:name",
-      "responses": [
-        {
-          "uuid": "6d2ecf0a-6151-46c9-aec0-af030afa0f99",
-          "body": "{\n  \"description\": \"\",\n  \"displayName\": \"\",\n  \"membershipDurationDays\": \"\",\n  \"name\": \"\",\n  \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'OPEN' 'CLOSED')}}\",\n  \"urlRestriction\": {\n    \"endDate\": {\n      \"day\": {{faker 'random.number'}},\n      \"month\": {{faker 'random.number'}},\n      \"year\": {{faker 'random.number'}}\n    },\n    \"restrictionType\": \"{{oneOf (array 'RESTRICTION_TYPE_UNSPECIFIED' 'CONTAINS' 'EQUALS' 'STARTS_WITH' 'ENDS_WITH' 'DOES_NOT_EQUAL' 'DOES_NOT_CONTAIN' 'DOES_NOT_START_WITH' 'DOES_NOT_END_WITH')}}\",\n    \"startDate\": {\n      \"day\": {{faker 'random.number'}},\n      \"month\": {{faker 'random.number'}},\n      \"year\": {{faker 'random.number'}}\n    },\n    \"url\": \"\"\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "5cf87ed6-8f8d-47d7-abb8-fe820da7d31c",
-      "documentation": "Updates a creative.",
-      "method": "patch",
-      "endpoint": "v1/:name",
-      "responses": [
-        {
-          "uuid": "ff44bd0b-48cd-4647-af8b-e43d0bce8826",
-          "body": "{\n  \"accountId\": \"\",\n  \"adChoicesDestinationUrl\": \"\",\n  \"advertiserName\": \"\",\n  \"agencyId\": \"\",\n  \"apiUpdateTime\": \"\",\n  \"creativeFormat\": \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VIDEO' 'NATIVE')}}\",\n  \"creativeId\": \"\",\n  \"creativeServingDecision\": {\n    \"adTechnologyProviders\": {\n      \"detectedGvlIds\": [\n        \"\"\n      ],\n      \"detectedProviderIds\": [\n        \"\"\n      ],\n      \"unidentifiedProviderDomains\": [\n        \"\"\n      ]\n    },\n    \"chinaPolicyCompliance\": {\n      \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n      \"topics\": [\n        {\n          \"evidences\": [\n            {\n              \"destinationNotCrawlable\": {\n                \"crawlTime\": \"\",\n                \"crawledUrl\": \"\",\n                \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n              },\n              \"destinationNotWorking\": {\n                \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                \"expandedUrl\": \"\",\n                \"httpError\": {{faker 'random.number'}},\n                \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                \"lastCheckTime\": \"\",\n                \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n              },\n              \"destinationUrl\": {\n                \"destinationUrl\": \"\"\n              },\n              \"domainCall\": {\n                \"topHttpCallDomains\": [\n                  {\n                    \"domain\": \"\",\n                    \"httpCallCount\": {{faker 'random.number'}}\n                  }\n                ],\n                \"totalHttpCallCount\": {{faker 'random.number'}}\n              },\n              \"downloadSize\": {\n                \"topUrlDownloadSizeBreakdowns\": [\n                  {\n                    \"downloadSizeKb\": {{faker 'random.number'}},\n                    \"normalizedUrl\": \"\"\n                  }\n                ],\n                \"totalDownloadSizeKb\": {{faker 'random.number'}}\n              },\n              \"httpCall\": {\n                \"urls\": [\n                  \"\"\n                ]\n              },\n              \"httpCookie\": {\n                \"cookieNames\": [\n                  \"\"\n                ],\n                \"maxCookieCount\": {{faker 'random.number'}}\n              }\n            }\n          ],\n          \"helpCenterUrl\": \"\",\n          \"policyTopic\": \"\"\n        }\n      ]\n    },\n    \"dealsPolicyCompliance\": {\n      \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n      \"topics\": [\n        {\n          \"evidences\": [\n            {\n              \"destinationNotCrawlable\": {\n                \"crawlTime\": \"\",\n                \"crawledUrl\": \"\",\n                \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n              },\n              \"destinationNotWorking\": {\n                \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                \"expandedUrl\": \"\",\n                \"httpError\": {{faker 'random.number'}},\n                \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                \"lastCheckTime\": \"\",\n                \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n              },\n              \"destinationUrl\": {\n                \"destinationUrl\": \"\"\n              },\n              \"domainCall\": {\n                \"topHttpCallDomains\": [\n                  {\n                    \"domain\": \"\",\n                    \"httpCallCount\": {{faker 'random.number'}}\n                  }\n                ],\n                \"totalHttpCallCount\": {{faker 'random.number'}}\n              },\n              \"downloadSize\": {\n                \"topUrlDownloadSizeBreakdowns\": [\n                  {\n                    \"downloadSizeKb\": {{faker 'random.number'}},\n                    \"normalizedUrl\": \"\"\n                  }\n                ],\n                \"totalDownloadSizeKb\": {{faker 'random.number'}}\n              },\n              \"httpCall\": {\n                \"urls\": [\n                  \"\"\n                ]\n              },\n              \"httpCookie\": {\n                \"cookieNames\": [\n                  \"\"\n                ],\n                \"maxCookieCount\": {{faker 'random.number'}}\n              }\n            }\n          ],\n          \"helpCenterUrl\": \"\",\n          \"policyTopic\": \"\"\n        }\n      ]\n    },\n    \"detectedAdvertisers\": [\n      {\n        \"advertiserId\": \"\",\n        \"advertiserName\": \"\",\n        \"brandId\": \"\",\n        \"brandName\": \"\"\n      }\n    ],\n    \"detectedAttributes\": [\n      \"{{oneOf (array 'ATTRIBUTE_UNSPECIFIED' 'IMAGE_RICH_MEDIA' 'ADOBE_FLASH_FLV' 'IS_TAGGED' 'IS_COOKIE_TARGETED' 'IS_USER_INTEREST_TARGETED' 'EXPANDING_DIRECTION_NONE' 'EXPANDING_DIRECTION_UP' 'EXPANDING_DIRECTION_DOWN' 'EXPANDING_DIRECTION_LEFT' 'EXPANDING_DIRECTION_RIGHT' 'EXPANDING_DIRECTION_UP_LEFT' 'EXPANDING_DIRECTION_UP_RIGHT' 'EXPANDING_DIRECTION_DOWN_LEFT' 'EXPANDING_DIRECTION_DOWN_RIGHT' 'CREATIVE_TYPE_HTML' 'CREATIVE_TYPE_VAST_VIDEO' 'EXPANDING_DIRECTION_UP_OR_DOWN' 'EXPANDING_DIRECTION_LEFT_OR_RIGHT' 'EXPANDING_DIRECTION_ANY_DIAGONAL' 'EXPANDING_ACTION_ROLLOVER_TO_EXPAND' 'INSTREAM_VAST_VIDEO_TYPE_VPAID_FLASH' 'RICH_MEDIA_CAPABILITY_TYPE_MRAID' 'RICH_MEDIA_CAPABILITY_TYPE_FLASH' 'RICH_MEDIA_CAPABILITY_TYPE_HTML5' 'SKIPPABLE_INSTREAM_VIDEO' 'RICH_MEDIA_CAPABILITY_TYPE_SSL' 'RICH_MEDIA_CAPABILITY_TYPE_NON_SSL' 'RICH_MEDIA_CAPABILITY_TYPE_INTERSTITIAL' 'NON_SKIPPABLE_INSTREAM_VIDEO' 'NATIVE_ELIGIBILITY_ELIGIBLE' 'NON_VPAID' 'NATIVE_ELIGIBILITY_NOT_ELIGIBLE' 'ANY_INTERSTITIAL' 'NON_INTERSTITIAL' 'IN_BANNER_VIDEO' 'RENDERING_SIZELESS_ADX' 'OMSDK_1_0')}}\"\n    ],\n    \"detectedClickThroughUrls\": [\n      \"\"\n    ],\n    \"detectedDomains\": [\n      \"\"\n    ],\n    \"detectedLanguages\": [\n      \"\"\n    ],\n    \"detectedProductCategories\": [\n      {{faker 'random.number'}}\n    ],\n    \"detectedSensitiveCategories\": [\n      {{faker 'random.number'}}\n    ],\n    \"detectedVendorIds\": [\n      {{faker 'random.number'}}\n    ],\n    \"lastStatusUpdate\": \"\",\n    \"networkPolicyCompliance\": {\n      \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n      \"topics\": [\n        {\n          \"evidences\": [\n            {\n              \"destinationNotCrawlable\": {\n                \"crawlTime\": \"\",\n                \"crawledUrl\": \"\",\n                \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n              },\n              \"destinationNotWorking\": {\n                \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                \"expandedUrl\": \"\",\n                \"httpError\": {{faker 'random.number'}},\n                \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                \"lastCheckTime\": \"\",\n                \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n              },\n              \"destinationUrl\": {\n                \"destinationUrl\": \"\"\n              },\n              \"domainCall\": {\n                \"topHttpCallDomains\": [\n                  {\n                    \"domain\": \"\",\n                    \"httpCallCount\": {{faker 'random.number'}}\n                  }\n                ],\n                \"totalHttpCallCount\": {{faker 'random.number'}}\n              },\n              \"downloadSize\": {\n                \"topUrlDownloadSizeBreakdowns\": [\n                  {\n                    \"downloadSizeKb\": {{faker 'random.number'}},\n                    \"normalizedUrl\": \"\"\n                  }\n                ],\n                \"totalDownloadSizeKb\": {{faker 'random.number'}}\n              },\n              \"httpCall\": {\n                \"urls\": [\n                  \"\"\n                ]\n              },\n              \"httpCookie\": {\n                \"cookieNames\": [\n                  \"\"\n                ],\n                \"maxCookieCount\": {{faker 'random.number'}}\n              }\n            }\n          ],\n          \"helpCenterUrl\": \"\",\n          \"policyTopic\": \"\"\n        }\n      ]\n    },\n    \"platformPolicyCompliance\": {\n      \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n      \"topics\": [\n        {\n          \"evidences\": [\n            {\n              \"destinationNotCrawlable\": {\n                \"crawlTime\": \"\",\n                \"crawledUrl\": \"\",\n                \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n              },\n              \"destinationNotWorking\": {\n                \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                \"expandedUrl\": \"\",\n                \"httpError\": {{faker 'random.number'}},\n                \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                \"lastCheckTime\": \"\",\n                \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n              },\n              \"destinationUrl\": {\n                \"destinationUrl\": \"\"\n              },\n              \"domainCall\": {\n                \"topHttpCallDomains\": [\n                  {\n                    \"domain\": \"\",\n                    \"httpCallCount\": {{faker 'random.number'}}\n                  }\n                ],\n                \"totalHttpCallCount\": {{faker 'random.number'}}\n              },\n              \"downloadSize\": {\n                \"topUrlDownloadSizeBreakdowns\": [\n                  {\n                    \"downloadSizeKb\": {{faker 'random.number'}},\n                    \"normalizedUrl\": \"\"\n                  }\n                ],\n                \"totalDownloadSizeKb\": {{faker 'random.number'}}\n              },\n              \"httpCall\": {\n                \"urls\": [\n                  \"\"\n                ]\n              },\n              \"httpCookie\": {\n                \"cookieNames\": [\n                  \"\"\n                ],\n                \"maxCookieCount\": {{faker 'random.number'}}\n              }\n            }\n          ],\n          \"helpCenterUrl\": \"\",\n          \"policyTopic\": \"\"\n        }\n      ]\n    },\n    \"russiaPolicyCompliance\": {\n      \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n      \"topics\": [\n        {\n          \"evidences\": [\n            {\n              \"destinationNotCrawlable\": {\n                \"crawlTime\": \"\",\n                \"crawledUrl\": \"\",\n                \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n              },\n              \"destinationNotWorking\": {\n                \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                \"expandedUrl\": \"\",\n                \"httpError\": {{faker 'random.number'}},\n                \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                \"lastCheckTime\": \"\",\n                \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n              },\n              \"destinationUrl\": {\n                \"destinationUrl\": \"\"\n              },\n              \"domainCall\": {\n                \"topHttpCallDomains\": [\n                  {\n                    \"domain\": \"\",\n                    \"httpCallCount\": {{faker 'random.number'}}\n                  }\n                ],\n                \"totalHttpCallCount\": {{faker 'random.number'}}\n              },\n              \"downloadSize\": {\n                \"topUrlDownloadSizeBreakdowns\": [\n                  {\n                    \"downloadSizeKb\": {{faker 'random.number'}},\n                    \"normalizedUrl\": \"\"\n                  }\n                ],\n                \"totalDownloadSizeKb\": {{faker 'random.number'}}\n              },\n              \"httpCall\": {\n                \"urls\": [\n                  \"\"\n                ]\n              },\n              \"httpCookie\": {\n                \"cookieNames\": [\n                  \"\"\n                ],\n                \"maxCookieCount\": {{faker 'random.number'}}\n              }\n            }\n          ],\n          \"helpCenterUrl\": \"\",\n          \"policyTopic\": \"\"\n        }\n      ]\n    }\n  },\n  \"dealIds\": [\n    \"\"\n  ],\n  \"declaredAttributes\": [\n    \"{{oneOf (array 'ATTRIBUTE_UNSPECIFIED' 'IMAGE_RICH_MEDIA' 'ADOBE_FLASH_FLV' 'IS_TAGGED' 'IS_COOKIE_TARGETED' 'IS_USER_INTEREST_TARGETED' 'EXPANDING_DIRECTION_NONE' 'EXPANDING_DIRECTION_UP' 'EXPANDING_DIRECTION_DOWN' 'EXPANDING_DIRECTION_LEFT' 'EXPANDING_DIRECTION_RIGHT' 'EXPANDING_DIRECTION_UP_LEFT' 'EXPANDING_DIRECTION_UP_RIGHT' 'EXPANDING_DIRECTION_DOWN_LEFT' 'EXPANDING_DIRECTION_DOWN_RIGHT' 'CREATIVE_TYPE_HTML' 'CREATIVE_TYPE_VAST_VIDEO' 'EXPANDING_DIRECTION_UP_OR_DOWN' 'EXPANDING_DIRECTION_LEFT_OR_RIGHT' 'EXPANDING_DIRECTION_ANY_DIAGONAL' 'EXPANDING_ACTION_ROLLOVER_TO_EXPAND' 'INSTREAM_VAST_VIDEO_TYPE_VPAID_FLASH' 'RICH_MEDIA_CAPABILITY_TYPE_MRAID' 'RICH_MEDIA_CAPABILITY_TYPE_FLASH' 'RICH_MEDIA_CAPABILITY_TYPE_HTML5' 'SKIPPABLE_INSTREAM_VIDEO' 'RICH_MEDIA_CAPABILITY_TYPE_SSL' 'RICH_MEDIA_CAPABILITY_TYPE_NON_SSL' 'RICH_MEDIA_CAPABILITY_TYPE_INTERSTITIAL' 'NON_SKIPPABLE_INSTREAM_VIDEO' 'NATIVE_ELIGIBILITY_ELIGIBLE' 'NON_VPAID' 'NATIVE_ELIGIBILITY_NOT_ELIGIBLE' 'ANY_INTERSTITIAL' 'NON_INTERSTITIAL' 'IN_BANNER_VIDEO' 'RENDERING_SIZELESS_ADX' 'OMSDK_1_0')}}\"\n  ],\n  \"declaredClickThroughUrls\": [\n    \"\"\n  ],\n  \"declaredRestrictedCategories\": [\n    \"{{oneOf (array 'RESTRICTED_CATEGORY_UNSPECIFIED' 'ALCOHOL')}}\"\n  ],\n  \"declaredVendorIds\": [\n    {{faker 'random.number'}}\n  ],\n  \"html\": {\n    \"height\": {{faker 'random.number'}},\n    \"snippet\": \"\",\n    \"width\": {{faker 'random.number'}}\n  },\n  \"impressionTrackingUrls\": [\n    \"\"\n  ],\n  \"name\": \"\",\n  \"native\": {\n    \"advertiserName\": \"\",\n    \"appIcon\": {\n      \"height\": {{faker 'random.number'}},\n      \"url\": \"\",\n      \"width\": {{faker 'random.number'}}\n    },\n    \"body\": \"\",\n    \"callToAction\": \"\",\n    \"clickLinkUrl\": \"\",\n    \"clickTrackingUrl\": \"\",\n    \"headline\": \"\",\n    \"image\": {\n      \"height\": {{faker 'random.number'}},\n      \"url\": \"\",\n      \"width\": {{faker 'random.number'}}\n    },\n    \"logo\": {\n      \"height\": {{faker 'random.number'}},\n      \"url\": \"\",\n      \"width\": {{faker 'random.number'}}\n    },\n    \"priceDisplayText\": \"\",\n    \"starRating\": {{faker 'random.float'}},\n    \"videoUrl\": \"\",\n    \"videoVastXml\": \"\"\n  },\n  \"restrictedCategories\": [\n    \"{{oneOf (array 'RESTRICTED_CATEGORY_UNSPECIFIED' 'ALCOHOL')}}\"\n  ],\n  \"version\": {{faker 'random.number'}},\n  \"video\": {\n    \"videoMetadata\": {\n      \"duration\": \"\",\n      \"isValidVast\": {{faker 'random.boolean'}},\n      \"isVpaid\": {{faker 'random.boolean'}},\n      \"mediaFiles\": [\n        {\n          \"bitrate\": \"\",\n          \"mimeType\": \"{{oneOf (array 'VIDEO_MIME_TYPE_UNSPECIFIED' 'MIME_VIDEO_XFLV' 'MIME_VIDEO_WEBM' 'MIME_VIDEO_MP4' 'MIME_VIDEO_OGG' 'MIME_VIDEO_YT_HOSTED' 'MIME_VIDEO_X_MS_WMV' 'MIME_VIDEO_3GPP' 'MIME_VIDEO_MOV' 'MIME_APPLICATION_SWF' 'MIME_APPLICATION_SURVEY' 'MIME_APPLICATION_JAVASCRIPT' 'MIME_APPLICATION_SILVERLIGHT' 'MIME_APPLICATION_MPEGURL' 'MIME_APPLICATION_MPEGDASH' 'MIME_AUDIO_MP4A' 'MIME_AUDIO_MP3' 'MIME_AUDIO_OGG')}}\"\n        }\n      ],\n      \"skipOffset\": \"\",\n      \"vastVersion\": \"{{oneOf (array 'VAST_VERSION_UNSPECIFIED' 'VAST_VERSION_1_0' 'VAST_VERSION_2_0' 'VAST_VERSION_3_0' 'VAST_VERSION_4_0')}}\"\n    },\n    \"videoUrl\": \"\",\n    \"videoVastXml\": \"\"\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "19e2b541-5e93-42f4-9d90-479a26150ca7",
-      "documentation": "Update the given user list. Only user lists with URLRestrictions can be updated.",
-      "method": "put",
-      "endpoint": "v1/:name",
-      "responses": [
-        {
-          "uuid": "9f5ca5e5-a761-49c0-a935-382f87f7e000",
-          "body": "{\n  \"description\": \"\",\n  \"displayName\": \"\",\n  \"membershipDurationDays\": \"\",\n  \"name\": \"\",\n  \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'OPEN' 'CLOSED')}}\",\n  \"urlRestriction\": {\n    \"endDate\": {\n      \"day\": {{faker 'random.number'}},\n      \"month\": {{faker 'random.number'}},\n      \"year\": {{faker 'random.number'}}\n    },\n    \"restrictionType\": \"{{oneOf (array 'RESTRICTION_TYPE_UNSPECIFIED' 'CONTAINS' 'EQUALS' 'STARTS_WITH' 'ENDS_WITH' 'DOES_NOT_EQUAL' 'DOES_NOT_CONTAIN' 'DOES_NOT_START_WITH' 'DOES_NOT_END_WITH')}}\",\n    \"startDate\": {\n      \"day\": {{faker 'random.number'}},\n      \"month\": {{faker 'random.number'}},\n      \"year\": {{faker 'random.number'}}\n    },\n    \"url\": \"\"\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "0790b472-2e56-4bd1-a433-c6522437bf26",
-      "documentation": "Activates a pretargeting configuration.",
+      "uuid": "7fe4ddb1-b9e5-447f-8c0e-1b5fe0767da4",
+      "documentation": "Creates a new bidding function.",
       "method": "post",
-      "endpoint": "v1/:name:activate",
+      "endpoint": "v1alpha/:parent/biddingFunctions",
       "responses": [
         {
-          "uuid": "07833e13-2c02-41ce-8eec-9ee3efa96415",
-          "body": "{\n  \"allowedUserTargetingModes\": [\n    \"{{oneOf (array 'USER_TARGETING_MODE_UNSPECIFIED' 'REMARKETING_ADS' 'INTEREST_BASED_TARGETING')}}\"\n  ],\n  \"appTargeting\": {\n    \"mobileAppCategoryTargeting\": {\n      \"excludedIds\": [\n        \"\"\n      ],\n      \"includedIds\": [\n        \"\"\n      ]\n    },\n    \"mobileAppTargeting\": {\n      \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n      \"values\": [\n        \"\"\n      ]\n    }\n  },\n  \"billingId\": \"\",\n  \"displayName\": \"\",\n  \"excludedContentLabelIds\": [\n    \"\"\n  ],\n  \"geoTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"includedCreativeDimensions\": [\n    {\n      \"height\": \"\",\n      \"width\": \"\"\n    }\n  ],\n  \"includedEnvironments\": [\n    \"{{oneOf (array 'ENVIRONMENT_UNSPECIFIED' 'APP' 'WEB')}}\"\n  ],\n  \"includedFormats\": [\n    \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VAST' 'NATIVE')}}\"\n  ],\n  \"includedLanguages\": [\n    \"\"\n  ],\n  \"includedMobileOperatingSystemIds\": [\n    \"\"\n  ],\n  \"includedPlatforms\": [\n    \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'PHONE' 'TABLET' 'CONNECTED_TV')}}\"\n  ],\n  \"includedUserIdTypes\": [\n    \"{{oneOf (array 'USER_ID_TYPE_UNSPECIFIED' 'HOSTED_MATCH_DATA' 'GOOGLE_COOKIE' 'DEVICE_ID')}}\"\n  ],\n  \"interstitialTargeting\": \"{{oneOf (array 'INTERSTITIAL_TARGETING_UNSPECIFIED' 'ONLY_INTERSTITIAL_REQUESTS' 'ONLY_NON_INTERSTITIAL_REQUESTS')}}\",\n  \"invalidGeoIds\": [\n    \"\"\n  ],\n  \"maximumQps\": \"\",\n  \"minimumViewabilityDecile\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"publisherTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'SUSPENDED')}}\",\n  \"userListTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"verticalTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"webTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "cdd189ff-2829-40c7-bf36-3b789acb49d5",
-      "documentation": "Change the status of a user list to CLOSED. This prevents new users from being added to the user list.",
-      "method": "post",
-      "endpoint": "v1/:name:close",
-      "responses": [
-        {
-          "uuid": "c0f1f206-3a0d-44d1-95ae-3d73afd737e5",
-          "body": "{\n  \"description\": \"\",\n  \"displayName\": \"\",\n  \"membershipDurationDays\": \"\",\n  \"name\": \"\",\n  \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'OPEN' 'CLOSED')}}\",\n  \"urlRestriction\": {\n    \"endDate\": {\n      \"day\": {{faker 'random.number'}},\n      \"month\": {{faker 'random.number'}},\n      \"year\": {{faker 'random.number'}}\n    },\n    \"restrictionType\": \"{{oneOf (array 'RESTRICTION_TYPE_UNSPECIFIED' 'CONTAINS' 'EQUALS' 'STARTS_WITH' 'ENDS_WITH' 'DOES_NOT_EQUAL' 'DOES_NOT_CONTAIN' 'DOES_NOT_START_WITH' 'DOES_NOT_END_WITH')}}\",\n    \"startDate\": {\n      \"day\": {{faker 'random.number'}},\n      \"month\": {{faker 'random.number'}},\n      \"year\": {{faker 'random.number'}}\n    },\n    \"url\": \"\"\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "0d6b2f23-0bd6-4b35-82db-63721d9a2e67",
-      "documentation": "Gets remarketing tag for a buyer. A remarketing tag is a piece of JavaScript code that can be placed on a web page. When a user visits a page containing a remarketing tag, Google adds the user to a user list.",
-      "method": "get",
-      "endpoint": "v1/:name:getRemarketingTag",
-      "responses": [
-        {
-          "uuid": "2358cf45-4a04-48b8-a606-c4102b7fad74",
-          "body": "{\n  \"snippet\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "1e6e4426-5f18-4d82-8448-8ca31d5e1035",
-      "documentation": "Change the status of a user list to OPEN. This allows new users to be added to the user list.",
-      "method": "post",
-      "endpoint": "v1/:name:open",
-      "responses": [
-        {
-          "uuid": "bd00963b-395c-4748-bdc1-53d13be46f65",
-          "body": "{\n  \"description\": \"\",\n  \"displayName\": \"\",\n  \"membershipDurationDays\": \"\",\n  \"name\": \"\",\n  \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'OPEN' 'CLOSED')}}\",\n  \"urlRestriction\": {\n    \"endDate\": {\n      \"day\": {{faker 'random.number'}},\n      \"month\": {{faker 'random.number'}},\n      \"year\": {{faker 'random.number'}}\n    },\n    \"restrictionType\": \"{{oneOf (array 'RESTRICTION_TYPE_UNSPECIFIED' 'CONTAINS' 'EQUALS' 'STARTS_WITH' 'ENDS_WITH' 'DOES_NOT_EQUAL' 'DOES_NOT_CONTAIN' 'DOES_NOT_START_WITH' 'DOES_NOT_END_WITH')}}\",\n    \"startDate\": {\n      \"day\": {{faker 'random.number'}},\n      \"month\": {{faker 'random.number'}},\n      \"year\": {{faker 'random.number'}}\n    },\n    \"url\": \"\"\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "1e26b9db-a8a6-4aae-ba5c-36ec6935b718",
-      "documentation": "Suspends a pretargeting configuration.",
-      "method": "post",
-      "endpoint": "v1/:name:suspend",
-      "responses": [
-        {
-          "uuid": "019b8762-91f0-4a06-835e-b5ea882f94aa",
-          "body": "{\n  \"allowedUserTargetingModes\": [\n    \"{{oneOf (array 'USER_TARGETING_MODE_UNSPECIFIED' 'REMARKETING_ADS' 'INTEREST_BASED_TARGETING')}}\"\n  ],\n  \"appTargeting\": {\n    \"mobileAppCategoryTargeting\": {\n      \"excludedIds\": [\n        \"\"\n      ],\n      \"includedIds\": [\n        \"\"\n      ]\n    },\n    \"mobileAppTargeting\": {\n      \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n      \"values\": [\n        \"\"\n      ]\n    }\n  },\n  \"billingId\": \"\",\n  \"displayName\": \"\",\n  \"excludedContentLabelIds\": [\n    \"\"\n  ],\n  \"geoTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"includedCreativeDimensions\": [\n    {\n      \"height\": \"\",\n      \"width\": \"\"\n    }\n  ],\n  \"includedEnvironments\": [\n    \"{{oneOf (array 'ENVIRONMENT_UNSPECIFIED' 'APP' 'WEB')}}\"\n  ],\n  \"includedFormats\": [\n    \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VAST' 'NATIVE')}}\"\n  ],\n  \"includedLanguages\": [\n    \"\"\n  ],\n  \"includedMobileOperatingSystemIds\": [\n    \"\"\n  ],\n  \"includedPlatforms\": [\n    \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'PHONE' 'TABLET' 'CONNECTED_TV')}}\"\n  ],\n  \"includedUserIdTypes\": [\n    \"{{oneOf (array 'USER_ID_TYPE_UNSPECIFIED' 'HOSTED_MATCH_DATA' 'GOOGLE_COOKIE' 'DEVICE_ID')}}\"\n  ],\n  \"interstitialTargeting\": \"{{oneOf (array 'INTERSTITIAL_TARGETING_UNSPECIFIED' 'ONLY_INTERSTITIAL_REQUESTS' 'ONLY_NON_INTERSTITIAL_REQUESTS')}}\",\n  \"invalidGeoIds\": [\n    \"\"\n  ],\n  \"maximumQps\": \"\",\n  \"minimumViewabilityDecile\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"publisherTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'SUSPENDED')}}\",\n  \"userListTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"verticalTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"webTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "0ac549aa-34a2-43ce-a434-47c0de1efc20",
-      "documentation": "Lists creatives.",
-      "method": "get",
-      "endpoint": "v1/:parent/creatives",
-      "responses": [
-        {
-          "uuid": "13743fd9-4798-49bf-bfb1-710de11e0276",
-          "body": "{\n  \"creatives\": [\n    {\n      \"accountId\": \"\",\n      \"adChoicesDestinationUrl\": \"\",\n      \"advertiserName\": \"\",\n      \"agencyId\": \"\",\n      \"apiUpdateTime\": \"\",\n      \"creativeFormat\": \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VIDEO' 'NATIVE')}}\",\n      \"creativeId\": \"\",\n      \"creativeServingDecision\": {\n        \"adTechnologyProviders\": {\n          \"detectedGvlIds\": [\n            \"\"\n          ],\n          \"detectedProviderIds\": [\n            \"\"\n          ],\n          \"unidentifiedProviderDomains\": [\n            \"\"\n          ]\n        },\n        \"chinaPolicyCompliance\": {\n          \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n          \"topics\": [\n            {\n              \"evidences\": [\n                {\n                  \"destinationNotCrawlable\": {\n                    \"crawlTime\": \"\",\n                    \"crawledUrl\": \"\",\n                    \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n                  },\n                  \"destinationNotWorking\": {\n                    \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                    \"expandedUrl\": \"\",\n                    \"httpError\": {{faker 'random.number'}},\n                    \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                    \"lastCheckTime\": \"\",\n                    \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                    \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                    \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n                  },\n                  \"destinationUrl\": {\n                    \"destinationUrl\": \"\"\n                  },\n                  \"domainCall\": {\n                    \"topHttpCallDomains\": [\n                      {\n                        \"domain\": \"\",\n                        \"httpCallCount\": {{faker 'random.number'}}\n                      }\n                    ],\n                    \"totalHttpCallCount\": {{faker 'random.number'}}\n                  },\n                  \"downloadSize\": {\n                    \"topUrlDownloadSizeBreakdowns\": [\n                      {\n                        \"downloadSizeKb\": {{faker 'random.number'}},\n                        \"normalizedUrl\": \"\"\n                      }\n                    ],\n                    \"totalDownloadSizeKb\": {{faker 'random.number'}}\n                  },\n                  \"httpCall\": {\n                    \"urls\": [\n                      \"\"\n                    ]\n                  },\n                  \"httpCookie\": {\n                    \"cookieNames\": [\n                      \"\"\n                    ],\n                    \"maxCookieCount\": {{faker 'random.number'}}\n                  }\n                }\n              ],\n              \"helpCenterUrl\": \"\",\n              \"policyTopic\": \"\"\n            }\n          ]\n        },\n        \"dealsPolicyCompliance\": {\n          \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n          \"topics\": [\n            {\n              \"evidences\": [\n                {\n                  \"destinationNotCrawlable\": {\n                    \"crawlTime\": \"\",\n                    \"crawledUrl\": \"\",\n                    \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n                  },\n                  \"destinationNotWorking\": {\n                    \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                    \"expandedUrl\": \"\",\n                    \"httpError\": {{faker 'random.number'}},\n                    \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                    \"lastCheckTime\": \"\",\n                    \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                    \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                    \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n                  },\n                  \"destinationUrl\": {\n                    \"destinationUrl\": \"\"\n                  },\n                  \"domainCall\": {\n                    \"topHttpCallDomains\": [\n                      {\n                        \"domain\": \"\",\n                        \"httpCallCount\": {{faker 'random.number'}}\n                      }\n                    ],\n                    \"totalHttpCallCount\": {{faker 'random.number'}}\n                  },\n                  \"downloadSize\": {\n                    \"topUrlDownloadSizeBreakdowns\": [\n                      {\n                        \"downloadSizeKb\": {{faker 'random.number'}},\n                        \"normalizedUrl\": \"\"\n                      }\n                    ],\n                    \"totalDownloadSizeKb\": {{faker 'random.number'}}\n                  },\n                  \"httpCall\": {\n                    \"urls\": [\n                      \"\"\n                    ]\n                  },\n                  \"httpCookie\": {\n                    \"cookieNames\": [\n                      \"\"\n                    ],\n                    \"maxCookieCount\": {{faker 'random.number'}}\n                  }\n                }\n              ],\n              \"helpCenterUrl\": \"\",\n              \"policyTopic\": \"\"\n            }\n          ]\n        },\n        \"detectedAdvertisers\": [\n          {\n            \"advertiserId\": \"\",\n            \"advertiserName\": \"\",\n            \"brandId\": \"\",\n            \"brandName\": \"\"\n          }\n        ],\n        \"detectedAttributes\": [\n          \"{{oneOf (array 'ATTRIBUTE_UNSPECIFIED' 'IMAGE_RICH_MEDIA' 'ADOBE_FLASH_FLV' 'IS_TAGGED' 'IS_COOKIE_TARGETED' 'IS_USER_INTEREST_TARGETED' 'EXPANDING_DIRECTION_NONE' 'EXPANDING_DIRECTION_UP' 'EXPANDING_DIRECTION_DOWN' 'EXPANDING_DIRECTION_LEFT' 'EXPANDING_DIRECTION_RIGHT' 'EXPANDING_DIRECTION_UP_LEFT' 'EXPANDING_DIRECTION_UP_RIGHT' 'EXPANDING_DIRECTION_DOWN_LEFT' 'EXPANDING_DIRECTION_DOWN_RIGHT' 'CREATIVE_TYPE_HTML' 'CREATIVE_TYPE_VAST_VIDEO' 'EXPANDING_DIRECTION_UP_OR_DOWN' 'EXPANDING_DIRECTION_LEFT_OR_RIGHT' 'EXPANDING_DIRECTION_ANY_DIAGONAL' 'EXPANDING_ACTION_ROLLOVER_TO_EXPAND' 'INSTREAM_VAST_VIDEO_TYPE_VPAID_FLASH' 'RICH_MEDIA_CAPABILITY_TYPE_MRAID' 'RICH_MEDIA_CAPABILITY_TYPE_FLASH' 'RICH_MEDIA_CAPABILITY_TYPE_HTML5' 'SKIPPABLE_INSTREAM_VIDEO' 'RICH_MEDIA_CAPABILITY_TYPE_SSL' 'RICH_MEDIA_CAPABILITY_TYPE_NON_SSL' 'RICH_MEDIA_CAPABILITY_TYPE_INTERSTITIAL' 'NON_SKIPPABLE_INSTREAM_VIDEO' 'NATIVE_ELIGIBILITY_ELIGIBLE' 'NON_VPAID' 'NATIVE_ELIGIBILITY_NOT_ELIGIBLE' 'ANY_INTERSTITIAL' 'NON_INTERSTITIAL' 'IN_BANNER_VIDEO' 'RENDERING_SIZELESS_ADX' 'OMSDK_1_0')}}\"\n        ],\n        \"detectedClickThroughUrls\": [\n          \"\"\n        ],\n        \"detectedDomains\": [\n          \"\"\n        ],\n        \"detectedLanguages\": [\n          \"\"\n        ],\n        \"detectedProductCategories\": [\n          {{faker 'random.number'}}\n        ],\n        \"detectedSensitiveCategories\": [\n          {{faker 'random.number'}}\n        ],\n        \"detectedVendorIds\": [\n          {{faker 'random.number'}}\n        ],\n        \"lastStatusUpdate\": \"\",\n        \"networkPolicyCompliance\": {\n          \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n          \"topics\": [\n            {\n              \"evidences\": [\n                {\n                  \"destinationNotCrawlable\": {\n                    \"crawlTime\": \"\",\n                    \"crawledUrl\": \"\",\n                    \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n                  },\n                  \"destinationNotWorking\": {\n                    \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                    \"expandedUrl\": \"\",\n                    \"httpError\": {{faker 'random.number'}},\n                    \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                    \"lastCheckTime\": \"\",\n                    \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                    \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                    \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n                  },\n                  \"destinationUrl\": {\n                    \"destinationUrl\": \"\"\n                  },\n                  \"domainCall\": {\n                    \"topHttpCallDomains\": [\n                      {\n                        \"domain\": \"\",\n                        \"httpCallCount\": {{faker 'random.number'}}\n                      }\n                    ],\n                    \"totalHttpCallCount\": {{faker 'random.number'}}\n                  },\n                  \"downloadSize\": {\n                    \"topUrlDownloadSizeBreakdowns\": [\n                      {\n                        \"downloadSizeKb\": {{faker 'random.number'}},\n                        \"normalizedUrl\": \"\"\n                      }\n                    ],\n                    \"totalDownloadSizeKb\": {{faker 'random.number'}}\n                  },\n                  \"httpCall\": {\n                    \"urls\": [\n                      \"\"\n                    ]\n                  },\n                  \"httpCookie\": {\n                    \"cookieNames\": [\n                      \"\"\n                    ],\n                    \"maxCookieCount\": {{faker 'random.number'}}\n                  }\n                }\n              ],\n              \"helpCenterUrl\": \"\",\n              \"policyTopic\": \"\"\n            }\n          ]\n        },\n        \"platformPolicyCompliance\": {\n          \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n          \"topics\": [\n            {\n              \"evidences\": [\n                {\n                  \"destinationNotCrawlable\": {\n                    \"crawlTime\": \"\",\n                    \"crawledUrl\": \"\",\n                    \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n                  },\n                  \"destinationNotWorking\": {\n                    \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                    \"expandedUrl\": \"\",\n                    \"httpError\": {{faker 'random.number'}},\n                    \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                    \"lastCheckTime\": \"\",\n                    \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                    \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                    \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n                  },\n                  \"destinationUrl\": {\n                    \"destinationUrl\": \"\"\n                  },\n                  \"domainCall\": {\n                    \"topHttpCallDomains\": [\n                      {\n                        \"domain\": \"\",\n                        \"httpCallCount\": {{faker 'random.number'}}\n                      }\n                    ],\n                    \"totalHttpCallCount\": {{faker 'random.number'}}\n                  },\n                  \"downloadSize\": {\n                    \"topUrlDownloadSizeBreakdowns\": [\n                      {\n                        \"downloadSizeKb\": {{faker 'random.number'}},\n                        \"normalizedUrl\": \"\"\n                      }\n                    ],\n                    \"totalDownloadSizeKb\": {{faker 'random.number'}}\n                  },\n                  \"httpCall\": {\n                    \"urls\": [\n                      \"\"\n                    ]\n                  },\n                  \"httpCookie\": {\n                    \"cookieNames\": [\n                      \"\"\n                    ],\n                    \"maxCookieCount\": {{faker 'random.number'}}\n                  }\n                }\n              ],\n              \"helpCenterUrl\": \"\",\n              \"policyTopic\": \"\"\n            }\n          ]\n        },\n        \"russiaPolicyCompliance\": {\n          \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n          \"topics\": [\n            {\n              \"evidences\": [\n                {\n                  \"destinationNotCrawlable\": {\n                    \"crawlTime\": \"\",\n                    \"crawledUrl\": \"\",\n                    \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n                  },\n                  \"destinationNotWorking\": {\n                    \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                    \"expandedUrl\": \"\",\n                    \"httpError\": {{faker 'random.number'}},\n                    \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                    \"lastCheckTime\": \"\",\n                    \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                    \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                    \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n                  },\n                  \"destinationUrl\": {\n                    \"destinationUrl\": \"\"\n                  },\n                  \"domainCall\": {\n                    \"topHttpCallDomains\": [\n                      {\n                        \"domain\": \"\",\n                        \"httpCallCount\": {{faker 'random.number'}}\n                      }\n                    ],\n                    \"totalHttpCallCount\": {{faker 'random.number'}}\n                  },\n                  \"downloadSize\": {\n                    \"topUrlDownloadSizeBreakdowns\": [\n                      {\n                        \"downloadSizeKb\": {{faker 'random.number'}},\n                        \"normalizedUrl\": \"\"\n                      }\n                    ],\n                    \"totalDownloadSizeKb\": {{faker 'random.number'}}\n                  },\n                  \"httpCall\": {\n                    \"urls\": [\n                      \"\"\n                    ]\n                  },\n                  \"httpCookie\": {\n                    \"cookieNames\": [\n                      \"\"\n                    ],\n                    \"maxCookieCount\": {{faker 'random.number'}}\n                  }\n                }\n              ],\n              \"helpCenterUrl\": \"\",\n              \"policyTopic\": \"\"\n            }\n          ]\n        }\n      },\n      \"dealIds\": [\n        \"\"\n      ],\n      \"declaredAttributes\": [\n        \"{{oneOf (array 'ATTRIBUTE_UNSPECIFIED' 'IMAGE_RICH_MEDIA' 'ADOBE_FLASH_FLV' 'IS_TAGGED' 'IS_COOKIE_TARGETED' 'IS_USER_INTEREST_TARGETED' 'EXPANDING_DIRECTION_NONE' 'EXPANDING_DIRECTION_UP' 'EXPANDING_DIRECTION_DOWN' 'EXPANDING_DIRECTION_LEFT' 'EXPANDING_DIRECTION_RIGHT' 'EXPANDING_DIRECTION_UP_LEFT' 'EXPANDING_DIRECTION_UP_RIGHT' 'EXPANDING_DIRECTION_DOWN_LEFT' 'EXPANDING_DIRECTION_DOWN_RIGHT' 'CREATIVE_TYPE_HTML' 'CREATIVE_TYPE_VAST_VIDEO' 'EXPANDING_DIRECTION_UP_OR_DOWN' 'EXPANDING_DIRECTION_LEFT_OR_RIGHT' 'EXPANDING_DIRECTION_ANY_DIAGONAL' 'EXPANDING_ACTION_ROLLOVER_TO_EXPAND' 'INSTREAM_VAST_VIDEO_TYPE_VPAID_FLASH' 'RICH_MEDIA_CAPABILITY_TYPE_MRAID' 'RICH_MEDIA_CAPABILITY_TYPE_FLASH' 'RICH_MEDIA_CAPABILITY_TYPE_HTML5' 'SKIPPABLE_INSTREAM_VIDEO' 'RICH_MEDIA_CAPABILITY_TYPE_SSL' 'RICH_MEDIA_CAPABILITY_TYPE_NON_SSL' 'RICH_MEDIA_CAPABILITY_TYPE_INTERSTITIAL' 'NON_SKIPPABLE_INSTREAM_VIDEO' 'NATIVE_ELIGIBILITY_ELIGIBLE' 'NON_VPAID' 'NATIVE_ELIGIBILITY_NOT_ELIGIBLE' 'ANY_INTERSTITIAL' 'NON_INTERSTITIAL' 'IN_BANNER_VIDEO' 'RENDERING_SIZELESS_ADX' 'OMSDK_1_0')}}\"\n      ],\n      \"declaredClickThroughUrls\": [\n        \"\"\n      ],\n      \"declaredRestrictedCategories\": [\n        \"{{oneOf (array 'RESTRICTED_CATEGORY_UNSPECIFIED' 'ALCOHOL')}}\"\n      ],\n      \"declaredVendorIds\": [\n        {{faker 'random.number'}}\n      ],\n      \"html\": {\n        \"height\": {{faker 'random.number'}},\n        \"snippet\": \"\",\n        \"width\": {{faker 'random.number'}}\n      },\n      \"impressionTrackingUrls\": [\n        \"\"\n      ],\n      \"name\": \"\",\n      \"native\": {\n        \"advertiserName\": \"\",\n        \"appIcon\": {\n          \"height\": {{faker 'random.number'}},\n          \"url\": \"\",\n          \"width\": {{faker 'random.number'}}\n        },\n        \"body\": \"\",\n        \"callToAction\": \"\",\n        \"clickLinkUrl\": \"\",\n        \"clickTrackingUrl\": \"\",\n        \"headline\": \"\",\n        \"image\": {\n          \"height\": {{faker 'random.number'}},\n          \"url\": \"\",\n          \"width\": {{faker 'random.number'}}\n        },\n        \"logo\": {\n          \"height\": {{faker 'random.number'}},\n          \"url\": \"\",\n          \"width\": {{faker 'random.number'}}\n        },\n        \"priceDisplayText\": \"\",\n        \"starRating\": {{faker 'random.float'}},\n        \"videoUrl\": \"\",\n        \"videoVastXml\": \"\"\n      },\n      \"restrictedCategories\": [\n        \"{{oneOf (array 'RESTRICTED_CATEGORY_UNSPECIFIED' 'ALCOHOL')}}\"\n      ],\n      \"version\": {{faker 'random.number'}},\n      \"video\": {\n        \"videoMetadata\": {\n          \"duration\": \"\",\n          \"isValidVast\": {{faker 'random.boolean'}},\n          \"isVpaid\": {{faker 'random.boolean'}},\n          \"mediaFiles\": [\n            {\n              \"bitrate\": \"\",\n              \"mimeType\": \"{{oneOf (array 'VIDEO_MIME_TYPE_UNSPECIFIED' 'MIME_VIDEO_XFLV' 'MIME_VIDEO_WEBM' 'MIME_VIDEO_MP4' 'MIME_VIDEO_OGG' 'MIME_VIDEO_YT_HOSTED' 'MIME_VIDEO_X_MS_WMV' 'MIME_VIDEO_3GPP' 'MIME_VIDEO_MOV' 'MIME_APPLICATION_SWF' 'MIME_APPLICATION_SURVEY' 'MIME_APPLICATION_JAVASCRIPT' 'MIME_APPLICATION_SILVERLIGHT' 'MIME_APPLICATION_MPEGURL' 'MIME_APPLICATION_MPEGDASH' 'MIME_AUDIO_MP4A' 'MIME_AUDIO_MP3' 'MIME_AUDIO_OGG')}}\"\n            }\n          ],\n          \"skipOffset\": \"\",\n          \"vastVersion\": \"{{oneOf (array 'VAST_VERSION_UNSPECIFIED' 'VAST_VERSION_1_0' 'VAST_VERSION_2_0' 'VAST_VERSION_3_0' 'VAST_VERSION_4_0')}}\"\n        },\n        \"videoUrl\": \"\",\n        \"videoVastXml\": \"\"\n      }\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "d347c201-ce0a-4813-b2c6-5376225260a8",
-      "documentation": "Creates a creative.",
-      "method": "post",
-      "endpoint": "v1/:parent/creatives",
-      "responses": [
-        {
-          "uuid": "e17e3aea-76ae-45bd-a764-a0687fd9e5c1",
-          "body": "{\n  \"accountId\": \"\",\n  \"adChoicesDestinationUrl\": \"\",\n  \"advertiserName\": \"\",\n  \"agencyId\": \"\",\n  \"apiUpdateTime\": \"\",\n  \"creativeFormat\": \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VIDEO' 'NATIVE')}}\",\n  \"creativeId\": \"\",\n  \"creativeServingDecision\": {\n    \"adTechnologyProviders\": {\n      \"detectedGvlIds\": [\n        \"\"\n      ],\n      \"detectedProviderIds\": [\n        \"\"\n      ],\n      \"unidentifiedProviderDomains\": [\n        \"\"\n      ]\n    },\n    \"chinaPolicyCompliance\": {\n      \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n      \"topics\": [\n        {\n          \"evidences\": [\n            {\n              \"destinationNotCrawlable\": {\n                \"crawlTime\": \"\",\n                \"crawledUrl\": \"\",\n                \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n              },\n              \"destinationNotWorking\": {\n                \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                \"expandedUrl\": \"\",\n                \"httpError\": {{faker 'random.number'}},\n                \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                \"lastCheckTime\": \"\",\n                \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n              },\n              \"destinationUrl\": {\n                \"destinationUrl\": \"\"\n              },\n              \"domainCall\": {\n                \"topHttpCallDomains\": [\n                  {\n                    \"domain\": \"\",\n                    \"httpCallCount\": {{faker 'random.number'}}\n                  }\n                ],\n                \"totalHttpCallCount\": {{faker 'random.number'}}\n              },\n              \"downloadSize\": {\n                \"topUrlDownloadSizeBreakdowns\": [\n                  {\n                    \"downloadSizeKb\": {{faker 'random.number'}},\n                    \"normalizedUrl\": \"\"\n                  }\n                ],\n                \"totalDownloadSizeKb\": {{faker 'random.number'}}\n              },\n              \"httpCall\": {\n                \"urls\": [\n                  \"\"\n                ]\n              },\n              \"httpCookie\": {\n                \"cookieNames\": [\n                  \"\"\n                ],\n                \"maxCookieCount\": {{faker 'random.number'}}\n              }\n            }\n          ],\n          \"helpCenterUrl\": \"\",\n          \"policyTopic\": \"\"\n        }\n      ]\n    },\n    \"dealsPolicyCompliance\": {\n      \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n      \"topics\": [\n        {\n          \"evidences\": [\n            {\n              \"destinationNotCrawlable\": {\n                \"crawlTime\": \"\",\n                \"crawledUrl\": \"\",\n                \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n              },\n              \"destinationNotWorking\": {\n                \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                \"expandedUrl\": \"\",\n                \"httpError\": {{faker 'random.number'}},\n                \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                \"lastCheckTime\": \"\",\n                \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n              },\n              \"destinationUrl\": {\n                \"destinationUrl\": \"\"\n              },\n              \"domainCall\": {\n                \"topHttpCallDomains\": [\n                  {\n                    \"domain\": \"\",\n                    \"httpCallCount\": {{faker 'random.number'}}\n                  }\n                ],\n                \"totalHttpCallCount\": {{faker 'random.number'}}\n              },\n              \"downloadSize\": {\n                \"topUrlDownloadSizeBreakdowns\": [\n                  {\n                    \"downloadSizeKb\": {{faker 'random.number'}},\n                    \"normalizedUrl\": \"\"\n                  }\n                ],\n                \"totalDownloadSizeKb\": {{faker 'random.number'}}\n              },\n              \"httpCall\": {\n                \"urls\": [\n                  \"\"\n                ]\n              },\n              \"httpCookie\": {\n                \"cookieNames\": [\n                  \"\"\n                ],\n                \"maxCookieCount\": {{faker 'random.number'}}\n              }\n            }\n          ],\n          \"helpCenterUrl\": \"\",\n          \"policyTopic\": \"\"\n        }\n      ]\n    },\n    \"detectedAdvertisers\": [\n      {\n        \"advertiserId\": \"\",\n        \"advertiserName\": \"\",\n        \"brandId\": \"\",\n        \"brandName\": \"\"\n      }\n    ],\n    \"detectedAttributes\": [\n      \"{{oneOf (array 'ATTRIBUTE_UNSPECIFIED' 'IMAGE_RICH_MEDIA' 'ADOBE_FLASH_FLV' 'IS_TAGGED' 'IS_COOKIE_TARGETED' 'IS_USER_INTEREST_TARGETED' 'EXPANDING_DIRECTION_NONE' 'EXPANDING_DIRECTION_UP' 'EXPANDING_DIRECTION_DOWN' 'EXPANDING_DIRECTION_LEFT' 'EXPANDING_DIRECTION_RIGHT' 'EXPANDING_DIRECTION_UP_LEFT' 'EXPANDING_DIRECTION_UP_RIGHT' 'EXPANDING_DIRECTION_DOWN_LEFT' 'EXPANDING_DIRECTION_DOWN_RIGHT' 'CREATIVE_TYPE_HTML' 'CREATIVE_TYPE_VAST_VIDEO' 'EXPANDING_DIRECTION_UP_OR_DOWN' 'EXPANDING_DIRECTION_LEFT_OR_RIGHT' 'EXPANDING_DIRECTION_ANY_DIAGONAL' 'EXPANDING_ACTION_ROLLOVER_TO_EXPAND' 'INSTREAM_VAST_VIDEO_TYPE_VPAID_FLASH' 'RICH_MEDIA_CAPABILITY_TYPE_MRAID' 'RICH_MEDIA_CAPABILITY_TYPE_FLASH' 'RICH_MEDIA_CAPABILITY_TYPE_HTML5' 'SKIPPABLE_INSTREAM_VIDEO' 'RICH_MEDIA_CAPABILITY_TYPE_SSL' 'RICH_MEDIA_CAPABILITY_TYPE_NON_SSL' 'RICH_MEDIA_CAPABILITY_TYPE_INTERSTITIAL' 'NON_SKIPPABLE_INSTREAM_VIDEO' 'NATIVE_ELIGIBILITY_ELIGIBLE' 'NON_VPAID' 'NATIVE_ELIGIBILITY_NOT_ELIGIBLE' 'ANY_INTERSTITIAL' 'NON_INTERSTITIAL' 'IN_BANNER_VIDEO' 'RENDERING_SIZELESS_ADX' 'OMSDK_1_0')}}\"\n    ],\n    \"detectedClickThroughUrls\": [\n      \"\"\n    ],\n    \"detectedDomains\": [\n      \"\"\n    ],\n    \"detectedLanguages\": [\n      \"\"\n    ],\n    \"detectedProductCategories\": [\n      {{faker 'random.number'}}\n    ],\n    \"detectedSensitiveCategories\": [\n      {{faker 'random.number'}}\n    ],\n    \"detectedVendorIds\": [\n      {{faker 'random.number'}}\n    ],\n    \"lastStatusUpdate\": \"\",\n    \"networkPolicyCompliance\": {\n      \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n      \"topics\": [\n        {\n          \"evidences\": [\n            {\n              \"destinationNotCrawlable\": {\n                \"crawlTime\": \"\",\n                \"crawledUrl\": \"\",\n                \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n              },\n              \"destinationNotWorking\": {\n                \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                \"expandedUrl\": \"\",\n                \"httpError\": {{faker 'random.number'}},\n                \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                \"lastCheckTime\": \"\",\n                \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n              },\n              \"destinationUrl\": {\n                \"destinationUrl\": \"\"\n              },\n              \"domainCall\": {\n                \"topHttpCallDomains\": [\n                  {\n                    \"domain\": \"\",\n                    \"httpCallCount\": {{faker 'random.number'}}\n                  }\n                ],\n                \"totalHttpCallCount\": {{faker 'random.number'}}\n              },\n              \"downloadSize\": {\n                \"topUrlDownloadSizeBreakdowns\": [\n                  {\n                    \"downloadSizeKb\": {{faker 'random.number'}},\n                    \"normalizedUrl\": \"\"\n                  }\n                ],\n                \"totalDownloadSizeKb\": {{faker 'random.number'}}\n              },\n              \"httpCall\": {\n                \"urls\": [\n                  \"\"\n                ]\n              },\n              \"httpCookie\": {\n                \"cookieNames\": [\n                  \"\"\n                ],\n                \"maxCookieCount\": {{faker 'random.number'}}\n              }\n            }\n          ],\n          \"helpCenterUrl\": \"\",\n          \"policyTopic\": \"\"\n        }\n      ]\n    },\n    \"platformPolicyCompliance\": {\n      \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n      \"topics\": [\n        {\n          \"evidences\": [\n            {\n              \"destinationNotCrawlable\": {\n                \"crawlTime\": \"\",\n                \"crawledUrl\": \"\",\n                \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n              },\n              \"destinationNotWorking\": {\n                \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                \"expandedUrl\": \"\",\n                \"httpError\": {{faker 'random.number'}},\n                \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                \"lastCheckTime\": \"\",\n                \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n              },\n              \"destinationUrl\": {\n                \"destinationUrl\": \"\"\n              },\n              \"domainCall\": {\n                \"topHttpCallDomains\": [\n                  {\n                    \"domain\": \"\",\n                    \"httpCallCount\": {{faker 'random.number'}}\n                  }\n                ],\n                \"totalHttpCallCount\": {{faker 'random.number'}}\n              },\n              \"downloadSize\": {\n                \"topUrlDownloadSizeBreakdowns\": [\n                  {\n                    \"downloadSizeKb\": {{faker 'random.number'}},\n                    \"normalizedUrl\": \"\"\n                  }\n                ],\n                \"totalDownloadSizeKb\": {{faker 'random.number'}}\n              },\n              \"httpCall\": {\n                \"urls\": [\n                  \"\"\n                ]\n              },\n              \"httpCookie\": {\n                \"cookieNames\": [\n                  \"\"\n                ],\n                \"maxCookieCount\": {{faker 'random.number'}}\n              }\n            }\n          ],\n          \"helpCenterUrl\": \"\",\n          \"policyTopic\": \"\"\n        }\n      ]\n    },\n    \"russiaPolicyCompliance\": {\n      \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'PENDING_REVIEW' 'DISAPPROVED' 'APPROVED')}}\",\n      \"topics\": [\n        {\n          \"evidences\": [\n            {\n              \"destinationNotCrawlable\": {\n                \"crawlTime\": \"\",\n                \"crawledUrl\": \"\",\n                \"reason\": \"{{oneOf (array 'REASON_UNSPECIFIED' 'UNREACHABLE_ROBOTS' 'TIMEOUT_ROBOTS' 'ROBOTED_DENIED' 'UNKNOWN')}}\"\n              },\n              \"destinationNotWorking\": {\n                \"dnsError\": \"{{oneOf (array 'DNS_ERROR_UNSPECIFIED' 'ERROR_DNS' 'GOOGLE_CRAWLER_DNS_ISSUE')}}\",\n                \"expandedUrl\": \"\",\n                \"httpError\": {{faker 'random.number'}},\n                \"invalidPage\": \"{{oneOf (array 'INVALID_PAGE_UNSPECIFIED' 'EMPTY_OR_ERROR_PAGE')}}\",\n                \"lastCheckTime\": \"\",\n                \"platform\": \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'ANDROID' 'IOS')}}\",\n                \"redirectionError\": \"{{oneOf (array 'REDIRECTION_ERROR_UNSPECIFIED' 'TOO_MANY_REDIRECTS' 'INVALID_REDIRECT' 'EMPTY_REDIRECT' 'REDIRECT_ERROR_UNKNOWN')}}\",\n                \"urlRejected\": \"{{oneOf (array 'URL_REJECTED_UNSPECIFIED' 'BAD_REQUEST' 'MALFORMED_URL' 'URL_REJECTED_UNKNOWN')}}\"\n              },\n              \"destinationUrl\": {\n                \"destinationUrl\": \"\"\n              },\n              \"domainCall\": {\n                \"topHttpCallDomains\": [\n                  {\n                    \"domain\": \"\",\n                    \"httpCallCount\": {{faker 'random.number'}}\n                  }\n                ],\n                \"totalHttpCallCount\": {{faker 'random.number'}}\n              },\n              \"downloadSize\": {\n                \"topUrlDownloadSizeBreakdowns\": [\n                  {\n                    \"downloadSizeKb\": {{faker 'random.number'}},\n                    \"normalizedUrl\": \"\"\n                  }\n                ],\n                \"totalDownloadSizeKb\": {{faker 'random.number'}}\n              },\n              \"httpCall\": {\n                \"urls\": [\n                  \"\"\n                ]\n              },\n              \"httpCookie\": {\n                \"cookieNames\": [\n                  \"\"\n                ],\n                \"maxCookieCount\": {{faker 'random.number'}}\n              }\n            }\n          ],\n          \"helpCenterUrl\": \"\",\n          \"policyTopic\": \"\"\n        }\n      ]\n    }\n  },\n  \"dealIds\": [\n    \"\"\n  ],\n  \"declaredAttributes\": [\n    \"{{oneOf (array 'ATTRIBUTE_UNSPECIFIED' 'IMAGE_RICH_MEDIA' 'ADOBE_FLASH_FLV' 'IS_TAGGED' 'IS_COOKIE_TARGETED' 'IS_USER_INTEREST_TARGETED' 'EXPANDING_DIRECTION_NONE' 'EXPANDING_DIRECTION_UP' 'EXPANDING_DIRECTION_DOWN' 'EXPANDING_DIRECTION_LEFT' 'EXPANDING_DIRECTION_RIGHT' 'EXPANDING_DIRECTION_UP_LEFT' 'EXPANDING_DIRECTION_UP_RIGHT' 'EXPANDING_DIRECTION_DOWN_LEFT' 'EXPANDING_DIRECTION_DOWN_RIGHT' 'CREATIVE_TYPE_HTML' 'CREATIVE_TYPE_VAST_VIDEO' 'EXPANDING_DIRECTION_UP_OR_DOWN' 'EXPANDING_DIRECTION_LEFT_OR_RIGHT' 'EXPANDING_DIRECTION_ANY_DIAGONAL' 'EXPANDING_ACTION_ROLLOVER_TO_EXPAND' 'INSTREAM_VAST_VIDEO_TYPE_VPAID_FLASH' 'RICH_MEDIA_CAPABILITY_TYPE_MRAID' 'RICH_MEDIA_CAPABILITY_TYPE_FLASH' 'RICH_MEDIA_CAPABILITY_TYPE_HTML5' 'SKIPPABLE_INSTREAM_VIDEO' 'RICH_MEDIA_CAPABILITY_TYPE_SSL' 'RICH_MEDIA_CAPABILITY_TYPE_NON_SSL' 'RICH_MEDIA_CAPABILITY_TYPE_INTERSTITIAL' 'NON_SKIPPABLE_INSTREAM_VIDEO' 'NATIVE_ELIGIBILITY_ELIGIBLE' 'NON_VPAID' 'NATIVE_ELIGIBILITY_NOT_ELIGIBLE' 'ANY_INTERSTITIAL' 'NON_INTERSTITIAL' 'IN_BANNER_VIDEO' 'RENDERING_SIZELESS_ADX' 'OMSDK_1_0')}}\"\n  ],\n  \"declaredClickThroughUrls\": [\n    \"\"\n  ],\n  \"declaredRestrictedCategories\": [\n    \"{{oneOf (array 'RESTRICTED_CATEGORY_UNSPECIFIED' 'ALCOHOL')}}\"\n  ],\n  \"declaredVendorIds\": [\n    {{faker 'random.number'}}\n  ],\n  \"html\": {\n    \"height\": {{faker 'random.number'}},\n    \"snippet\": \"\",\n    \"width\": {{faker 'random.number'}}\n  },\n  \"impressionTrackingUrls\": [\n    \"\"\n  ],\n  \"name\": \"\",\n  \"native\": {\n    \"advertiserName\": \"\",\n    \"appIcon\": {\n      \"height\": {{faker 'random.number'}},\n      \"url\": \"\",\n      \"width\": {{faker 'random.number'}}\n    },\n    \"body\": \"\",\n    \"callToAction\": \"\",\n    \"clickLinkUrl\": \"\",\n    \"clickTrackingUrl\": \"\",\n    \"headline\": \"\",\n    \"image\": {\n      \"height\": {{faker 'random.number'}},\n      \"url\": \"\",\n      \"width\": {{faker 'random.number'}}\n    },\n    \"logo\": {\n      \"height\": {{faker 'random.number'}},\n      \"url\": \"\",\n      \"width\": {{faker 'random.number'}}\n    },\n    \"priceDisplayText\": \"\",\n    \"starRating\": {{faker 'random.float'}},\n    \"videoUrl\": \"\",\n    \"videoVastXml\": \"\"\n  },\n  \"restrictedCategories\": [\n    \"{{oneOf (array 'RESTRICTED_CATEGORY_UNSPECIFIED' 'ALCOHOL')}}\"\n  ],\n  \"version\": {{faker 'random.number'}},\n  \"video\": {\n    \"videoMetadata\": {\n      \"duration\": \"\",\n      \"isValidVast\": {{faker 'random.boolean'}},\n      \"isVpaid\": {{faker 'random.boolean'}},\n      \"mediaFiles\": [\n        {\n          \"bitrate\": \"\",\n          \"mimeType\": \"{{oneOf (array 'VIDEO_MIME_TYPE_UNSPECIFIED' 'MIME_VIDEO_XFLV' 'MIME_VIDEO_WEBM' 'MIME_VIDEO_MP4' 'MIME_VIDEO_OGG' 'MIME_VIDEO_YT_HOSTED' 'MIME_VIDEO_X_MS_WMV' 'MIME_VIDEO_3GPP' 'MIME_VIDEO_MOV' 'MIME_APPLICATION_SWF' 'MIME_APPLICATION_SURVEY' 'MIME_APPLICATION_JAVASCRIPT' 'MIME_APPLICATION_SILVERLIGHT' 'MIME_APPLICATION_MPEGURL' 'MIME_APPLICATION_MPEGDASH' 'MIME_AUDIO_MP4A' 'MIME_AUDIO_MP3' 'MIME_AUDIO_OGG')}}\"\n        }\n      ],\n      \"skipOffset\": \"\",\n      \"vastVersion\": \"{{oneOf (array 'VAST_VERSION_UNSPECIFIED' 'VAST_VERSION_1_0' 'VAST_VERSION_2_0' 'VAST_VERSION_3_0' 'VAST_VERSION_4_0')}}\"\n    },\n    \"videoUrl\": \"\",\n    \"videoVastXml\": \"\"\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "2eacbdd6-c9e5-49cc-8b6d-d4e707cf4db6",
-      "documentation": "Watches all creatives pertaining to a bidder. It is sufficient to invoke this endpoint once per bidder. A Pub/Sub topic will be created and notifications will be pushed to the topic when any of the bidder's creatives change status. All of the bidder's service accounts will have access to read from the topic. Subsequent invocations of this method will return the existing Pub/Sub configuration.",
-      "method": "post",
-      "endpoint": "v1/:parent/creatives:watch",
-      "responses": [
-        {
-          "uuid": "8cd82a1a-95cb-4adb-9adc-27576332fa60",
-          "body": "{\n  \"subscription\": \"\",\n  \"topic\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "fbb3a460-2980-45fa-a96b-f6f3f0432e2e",
-      "documentation": "Lists all the bidder's endpoints.",
-      "method": "get",
-      "endpoint": "v1/:parent/endpoints",
-      "responses": [
-        {
-          "uuid": "0bfb5e2b-272c-45b6-aaf8-ec67bd3dd88b",
-          "body": "{\n  \"endpoints\": [\n    {\n      \"bidProtocol\": \"{{oneOf (array 'BID_PROTOCOL_UNSPECIFIED' 'GOOGLE_RTB' 'OPENRTB_2_2' 'OPENRTB_2_3' 'OPENRTB_PROTOBUF_2_3' 'OPENRTB_2_4' 'OPENRTB_PROTOBUF_2_4' 'OPENRTB_2_5' 'OPENRTB_PROTOBUF_2_5')}}\",\n      \"maximumQps\": \"\",\n      \"name\": \"\",\n      \"tradingLocation\": \"{{oneOf (array 'TRADING_LOCATION_UNSPECIFIED' 'US_WEST' 'US_EAST' 'EUROPE' 'ASIA')}}\",\n      \"url\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "2596009f-5290-4377-a230-5decc5891c6b",
-      "documentation": "Lists all pretargeting configurations for a single bidder.",
-      "method": "get",
-      "endpoint": "v1/:parent/pretargetingConfigs",
-      "responses": [
-        {
-          "uuid": "86488d38-20ca-4dea-8350-3fb1adf3bdbc",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"pretargetingConfigs\": [\n    {\n      \"allowedUserTargetingModes\": [\n        \"{{oneOf (array 'USER_TARGETING_MODE_UNSPECIFIED' 'REMARKETING_ADS' 'INTEREST_BASED_TARGETING')}}\"\n      ],\n      \"appTargeting\": {\n        \"mobileAppCategoryTargeting\": {\n          \"excludedIds\": [\n            \"\"\n          ],\n          \"includedIds\": [\n            \"\"\n          ]\n        },\n        \"mobileAppTargeting\": {\n          \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n          \"values\": [\n            \"\"\n          ]\n        }\n      },\n      \"billingId\": \"\",\n      \"displayName\": \"\",\n      \"excludedContentLabelIds\": [\n        \"\"\n      ],\n      \"geoTargeting\": {\n        \"excludedIds\": [\n          \"\"\n        ],\n        \"includedIds\": [\n          \"\"\n        ]\n      },\n      \"includedCreativeDimensions\": [\n        {\n          \"height\": \"\",\n          \"width\": \"\"\n        }\n      ],\n      \"includedEnvironments\": [\n        \"{{oneOf (array 'ENVIRONMENT_UNSPECIFIED' 'APP' 'WEB')}}\"\n      ],\n      \"includedFormats\": [\n        \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VAST' 'NATIVE')}}\"\n      ],\n      \"includedLanguages\": [\n        \"\"\n      ],\n      \"includedMobileOperatingSystemIds\": [\n        \"\"\n      ],\n      \"includedPlatforms\": [\n        \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'PHONE' 'TABLET' 'CONNECTED_TV')}}\"\n      ],\n      \"includedUserIdTypes\": [\n        \"{{oneOf (array 'USER_ID_TYPE_UNSPECIFIED' 'HOSTED_MATCH_DATA' 'GOOGLE_COOKIE' 'DEVICE_ID')}}\"\n      ],\n      \"interstitialTargeting\": \"{{oneOf (array 'INTERSTITIAL_TARGETING_UNSPECIFIED' 'ONLY_INTERSTITIAL_REQUESTS' 'ONLY_NON_INTERSTITIAL_REQUESTS')}}\",\n      \"invalidGeoIds\": [\n        \"\"\n      ],\n      \"maximumQps\": \"\",\n      \"minimumViewabilityDecile\": {{faker 'random.number'}},\n      \"name\": \"\",\n      \"publisherTargeting\": {\n        \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n        \"values\": [\n          \"\"\n        ]\n      },\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'SUSPENDED')}}\",\n      \"userListTargeting\": {\n        \"excludedIds\": [\n          \"\"\n        ],\n        \"includedIds\": [\n          \"\"\n        ]\n      },\n      \"verticalTargeting\": {\n        \"excludedIds\": [\n          \"\"\n        ],\n        \"includedIds\": [\n          \"\"\n        ]\n      },\n      \"webTargeting\": {\n        \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n        \"values\": [\n          \"\"\n        ]\n      }\n    }\n  ]\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "d8989149-459a-4d73-b077-1af3d7b1a4b6",
-      "documentation": "Creates a pretargeting configuration. A pretargeting configuration's state (PretargetingConfig.state) is active upon creation, and it will start to affect traffic shortly after. A bidder may create a maximum of 10 pretargeting configurations. Attempts to exceed this maximum results in a 400 bad request error.",
-      "method": "post",
-      "endpoint": "v1/:parent/pretargetingConfigs",
-      "responses": [
-        {
-          "uuid": "684d2809-9ca5-4379-89e1-82b6cb79698b",
-          "body": "{\n  \"allowedUserTargetingModes\": [\n    \"{{oneOf (array 'USER_TARGETING_MODE_UNSPECIFIED' 'REMARKETING_ADS' 'INTEREST_BASED_TARGETING')}}\"\n  ],\n  \"appTargeting\": {\n    \"mobileAppCategoryTargeting\": {\n      \"excludedIds\": [\n        \"\"\n      ],\n      \"includedIds\": [\n        \"\"\n      ]\n    },\n    \"mobileAppTargeting\": {\n      \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n      \"values\": [\n        \"\"\n      ]\n    }\n  },\n  \"billingId\": \"\",\n  \"displayName\": \"\",\n  \"excludedContentLabelIds\": [\n    \"\"\n  ],\n  \"geoTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"includedCreativeDimensions\": [\n    {\n      \"height\": \"\",\n      \"width\": \"\"\n    }\n  ],\n  \"includedEnvironments\": [\n    \"{{oneOf (array 'ENVIRONMENT_UNSPECIFIED' 'APP' 'WEB')}}\"\n  ],\n  \"includedFormats\": [\n    \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VAST' 'NATIVE')}}\"\n  ],\n  \"includedLanguages\": [\n    \"\"\n  ],\n  \"includedMobileOperatingSystemIds\": [\n    \"\"\n  ],\n  \"includedPlatforms\": [\n    \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'PHONE' 'TABLET' 'CONNECTED_TV')}}\"\n  ],\n  \"includedUserIdTypes\": [\n    \"{{oneOf (array 'USER_ID_TYPE_UNSPECIFIED' 'HOSTED_MATCH_DATA' 'GOOGLE_COOKIE' 'DEVICE_ID')}}\"\n  ],\n  \"interstitialTargeting\": \"{{oneOf (array 'INTERSTITIAL_TARGETING_UNSPECIFIED' 'ONLY_INTERSTITIAL_REQUESTS' 'ONLY_NON_INTERSTITIAL_REQUESTS')}}\",\n  \"invalidGeoIds\": [\n    \"\"\n  ],\n  \"maximumQps\": \"\",\n  \"minimumViewabilityDecile\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"publisherTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'SUSPENDED')}}\",\n  \"userListTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"verticalTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"webTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "c743b108-428c-4cae-9b31-837c15636053",
-      "documentation": "Lists the user lists visible to the current user.",
-      "method": "get",
-      "endpoint": "v1/:parent/userLists",
-      "responses": [
-        {
-          "uuid": "1cf6b6b5-bc10-4b16-8660-1c3b8a990077",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"userLists\": [\n    {\n      \"description\": \"\",\n      \"displayName\": \"\",\n      \"membershipDurationDays\": \"\",\n      \"name\": \"\",\n      \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'OPEN' 'CLOSED')}}\",\n      \"urlRestriction\": {\n        \"endDate\": {\n          \"day\": {{faker 'random.number'}},\n          \"month\": {{faker 'random.number'}},\n          \"year\": {{faker 'random.number'}}\n        },\n        \"restrictionType\": \"{{oneOf (array 'RESTRICTION_TYPE_UNSPECIFIED' 'CONTAINS' 'EQUALS' 'STARTS_WITH' 'ENDS_WITH' 'DOES_NOT_EQUAL' 'DOES_NOT_CONTAIN' 'DOES_NOT_START_WITH' 'DOES_NOT_END_WITH')}}\",\n        \"startDate\": {\n          \"day\": {{faker 'random.number'}},\n          \"month\": {{faker 'random.number'}},\n          \"year\": {{faker 'random.number'}}\n        },\n        \"url\": \"\"\n      }\n    }\n  ]\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "803f6c11-5796-45e2-827a-45912da3228d",
-      "documentation": "Create a new user list.",
-      "method": "post",
-      "endpoint": "v1/:parent/userLists",
-      "responses": [
-        {
-          "uuid": "f623ff4b-ede3-4503-9995-9a956304ec8f",
-          "body": "{\n  \"description\": \"\",\n  \"displayName\": \"\",\n  \"membershipDurationDays\": \"\",\n  \"name\": \"\",\n  \"status\": \"{{oneOf (array 'STATUS_UNSPECIFIED' 'OPEN' 'CLOSED')}}\",\n  \"urlRestriction\": {\n    \"endDate\": {\n      \"day\": {{faker 'random.number'}},\n      \"month\": {{faker 'random.number'}},\n      \"year\": {{faker 'random.number'}}\n    },\n    \"restrictionType\": \"{{oneOf (array 'RESTRICTION_TYPE_UNSPECIFIED' 'CONTAINS' 'EQUALS' 'STARTS_WITH' 'ENDS_WITH' 'DOES_NOT_EQUAL' 'DOES_NOT_CONTAIN' 'DOES_NOT_START_WITH' 'DOES_NOT_END_WITH')}}\",\n    \"startDate\": {\n      \"day\": {{faker 'random.number'}},\n      \"month\": {{faker 'random.number'}},\n      \"year\": {{faker 'random.number'}}\n    },\n    \"url\": \"\"\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "d11ca994-e0b2-4216-9e4d-391515122da4",
-      "documentation": "Adds targeted apps to the pretargeting configuration.",
-      "method": "post",
-      "endpoint": "v1/:pretargetingConfig:addTargetedApps",
-      "responses": [
-        {
-          "uuid": "8e1cf4b0-0b5d-49eb-8da6-a7e39e7e5ca1",
-          "body": "{\n  \"allowedUserTargetingModes\": [\n    \"{{oneOf (array 'USER_TARGETING_MODE_UNSPECIFIED' 'REMARKETING_ADS' 'INTEREST_BASED_TARGETING')}}\"\n  ],\n  \"appTargeting\": {\n    \"mobileAppCategoryTargeting\": {\n      \"excludedIds\": [\n        \"\"\n      ],\n      \"includedIds\": [\n        \"\"\n      ]\n    },\n    \"mobileAppTargeting\": {\n      \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n      \"values\": [\n        \"\"\n      ]\n    }\n  },\n  \"billingId\": \"\",\n  \"displayName\": \"\",\n  \"excludedContentLabelIds\": [\n    \"\"\n  ],\n  \"geoTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"includedCreativeDimensions\": [\n    {\n      \"height\": \"\",\n      \"width\": \"\"\n    }\n  ],\n  \"includedEnvironments\": [\n    \"{{oneOf (array 'ENVIRONMENT_UNSPECIFIED' 'APP' 'WEB')}}\"\n  ],\n  \"includedFormats\": [\n    \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VAST' 'NATIVE')}}\"\n  ],\n  \"includedLanguages\": [\n    \"\"\n  ],\n  \"includedMobileOperatingSystemIds\": [\n    \"\"\n  ],\n  \"includedPlatforms\": [\n    \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'PHONE' 'TABLET' 'CONNECTED_TV')}}\"\n  ],\n  \"includedUserIdTypes\": [\n    \"{{oneOf (array 'USER_ID_TYPE_UNSPECIFIED' 'HOSTED_MATCH_DATA' 'GOOGLE_COOKIE' 'DEVICE_ID')}}\"\n  ],\n  \"interstitialTargeting\": \"{{oneOf (array 'INTERSTITIAL_TARGETING_UNSPECIFIED' 'ONLY_INTERSTITIAL_REQUESTS' 'ONLY_NON_INTERSTITIAL_REQUESTS')}}\",\n  \"invalidGeoIds\": [\n    \"\"\n  ],\n  \"maximumQps\": \"\",\n  \"minimumViewabilityDecile\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"publisherTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'SUSPENDED')}}\",\n  \"userListTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"verticalTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"webTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "b5e9a5a7-9ac4-4f44-9dbe-944d3648c5d1",
-      "documentation": "Adds targeted publishers to the pretargeting config.",
-      "method": "post",
-      "endpoint": "v1/:pretargetingConfig:addTargetedPublishers",
-      "responses": [
-        {
-          "uuid": "fbaa6d88-8fe6-4bab-ae4c-ae8e62fea826",
-          "body": "{\n  \"allowedUserTargetingModes\": [\n    \"{{oneOf (array 'USER_TARGETING_MODE_UNSPECIFIED' 'REMARKETING_ADS' 'INTEREST_BASED_TARGETING')}}\"\n  ],\n  \"appTargeting\": {\n    \"mobileAppCategoryTargeting\": {\n      \"excludedIds\": [\n        \"\"\n      ],\n      \"includedIds\": [\n        \"\"\n      ]\n    },\n    \"mobileAppTargeting\": {\n      \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n      \"values\": [\n        \"\"\n      ]\n    }\n  },\n  \"billingId\": \"\",\n  \"displayName\": \"\",\n  \"excludedContentLabelIds\": [\n    \"\"\n  ],\n  \"geoTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"includedCreativeDimensions\": [\n    {\n      \"height\": \"\",\n      \"width\": \"\"\n    }\n  ],\n  \"includedEnvironments\": [\n    \"{{oneOf (array 'ENVIRONMENT_UNSPECIFIED' 'APP' 'WEB')}}\"\n  ],\n  \"includedFormats\": [\n    \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VAST' 'NATIVE')}}\"\n  ],\n  \"includedLanguages\": [\n    \"\"\n  ],\n  \"includedMobileOperatingSystemIds\": [\n    \"\"\n  ],\n  \"includedPlatforms\": [\n    \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'PHONE' 'TABLET' 'CONNECTED_TV')}}\"\n  ],\n  \"includedUserIdTypes\": [\n    \"{{oneOf (array 'USER_ID_TYPE_UNSPECIFIED' 'HOSTED_MATCH_DATA' 'GOOGLE_COOKIE' 'DEVICE_ID')}}\"\n  ],\n  \"interstitialTargeting\": \"{{oneOf (array 'INTERSTITIAL_TARGETING_UNSPECIFIED' 'ONLY_INTERSTITIAL_REQUESTS' 'ONLY_NON_INTERSTITIAL_REQUESTS')}}\",\n  \"invalidGeoIds\": [\n    \"\"\n  ],\n  \"maximumQps\": \"\",\n  \"minimumViewabilityDecile\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"publisherTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'SUSPENDED')}}\",\n  \"userListTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"verticalTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"webTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "e63795d8-4a8d-418f-9717-bee07abb1423",
-      "documentation": "Adds targeted sites to the pretargeting configuration.",
-      "method": "post",
-      "endpoint": "v1/:pretargetingConfig:addTargetedSites",
-      "responses": [
-        {
-          "uuid": "26800369-ed75-4cf7-b6c6-b0aba71f3634",
-          "body": "{\n  \"allowedUserTargetingModes\": [\n    \"{{oneOf (array 'USER_TARGETING_MODE_UNSPECIFIED' 'REMARKETING_ADS' 'INTEREST_BASED_TARGETING')}}\"\n  ],\n  \"appTargeting\": {\n    \"mobileAppCategoryTargeting\": {\n      \"excludedIds\": [\n        \"\"\n      ],\n      \"includedIds\": [\n        \"\"\n      ]\n    },\n    \"mobileAppTargeting\": {\n      \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n      \"values\": [\n        \"\"\n      ]\n    }\n  },\n  \"billingId\": \"\",\n  \"displayName\": \"\",\n  \"excludedContentLabelIds\": [\n    \"\"\n  ],\n  \"geoTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"includedCreativeDimensions\": [\n    {\n      \"height\": \"\",\n      \"width\": \"\"\n    }\n  ],\n  \"includedEnvironments\": [\n    \"{{oneOf (array 'ENVIRONMENT_UNSPECIFIED' 'APP' 'WEB')}}\"\n  ],\n  \"includedFormats\": [\n    \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VAST' 'NATIVE')}}\"\n  ],\n  \"includedLanguages\": [\n    \"\"\n  ],\n  \"includedMobileOperatingSystemIds\": [\n    \"\"\n  ],\n  \"includedPlatforms\": [\n    \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'PHONE' 'TABLET' 'CONNECTED_TV')}}\"\n  ],\n  \"includedUserIdTypes\": [\n    \"{{oneOf (array 'USER_ID_TYPE_UNSPECIFIED' 'HOSTED_MATCH_DATA' 'GOOGLE_COOKIE' 'DEVICE_ID')}}\"\n  ],\n  \"interstitialTargeting\": \"{{oneOf (array 'INTERSTITIAL_TARGETING_UNSPECIFIED' 'ONLY_INTERSTITIAL_REQUESTS' 'ONLY_NON_INTERSTITIAL_REQUESTS')}}\",\n  \"invalidGeoIds\": [\n    \"\"\n  ],\n  \"maximumQps\": \"\",\n  \"minimumViewabilityDecile\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"publisherTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'SUSPENDED')}}\",\n  \"userListTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"verticalTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"webTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "174a5c53-b950-48de-9435-00d116bb7454",
-      "documentation": "Removes targeted apps from the pretargeting configuration.",
-      "method": "post",
-      "endpoint": "v1/:pretargetingConfig:removeTargetedApps",
-      "responses": [
-        {
-          "uuid": "868807dd-38e7-4dfa-81b1-c085e9ac1276",
-          "body": "{\n  \"allowedUserTargetingModes\": [\n    \"{{oneOf (array 'USER_TARGETING_MODE_UNSPECIFIED' 'REMARKETING_ADS' 'INTEREST_BASED_TARGETING')}}\"\n  ],\n  \"appTargeting\": {\n    \"mobileAppCategoryTargeting\": {\n      \"excludedIds\": [\n        \"\"\n      ],\n      \"includedIds\": [\n        \"\"\n      ]\n    },\n    \"mobileAppTargeting\": {\n      \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n      \"values\": [\n        \"\"\n      ]\n    }\n  },\n  \"billingId\": \"\",\n  \"displayName\": \"\",\n  \"excludedContentLabelIds\": [\n    \"\"\n  ],\n  \"geoTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"includedCreativeDimensions\": [\n    {\n      \"height\": \"\",\n      \"width\": \"\"\n    }\n  ],\n  \"includedEnvironments\": [\n    \"{{oneOf (array 'ENVIRONMENT_UNSPECIFIED' 'APP' 'WEB')}}\"\n  ],\n  \"includedFormats\": [\n    \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VAST' 'NATIVE')}}\"\n  ],\n  \"includedLanguages\": [\n    \"\"\n  ],\n  \"includedMobileOperatingSystemIds\": [\n    \"\"\n  ],\n  \"includedPlatforms\": [\n    \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'PHONE' 'TABLET' 'CONNECTED_TV')}}\"\n  ],\n  \"includedUserIdTypes\": [\n    \"{{oneOf (array 'USER_ID_TYPE_UNSPECIFIED' 'HOSTED_MATCH_DATA' 'GOOGLE_COOKIE' 'DEVICE_ID')}}\"\n  ],\n  \"interstitialTargeting\": \"{{oneOf (array 'INTERSTITIAL_TARGETING_UNSPECIFIED' 'ONLY_INTERSTITIAL_REQUESTS' 'ONLY_NON_INTERSTITIAL_REQUESTS')}}\",\n  \"invalidGeoIds\": [\n    \"\"\n  ],\n  \"maximumQps\": \"\",\n  \"minimumViewabilityDecile\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"publisherTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'SUSPENDED')}}\",\n  \"userListTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"verticalTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"webTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "d615b901-0dbe-42ff-b681-91d5ad69ab0f",
-      "documentation": "Removes targeted publishers from the pretargeting config.",
-      "method": "post",
-      "endpoint": "v1/:pretargetingConfig:removeTargetedPublishers",
-      "responses": [
-        {
-          "uuid": "639a8066-b6c1-42e6-a6b4-aba186bee4a1",
-          "body": "{\n  \"allowedUserTargetingModes\": [\n    \"{{oneOf (array 'USER_TARGETING_MODE_UNSPECIFIED' 'REMARKETING_ADS' 'INTEREST_BASED_TARGETING')}}\"\n  ],\n  \"appTargeting\": {\n    \"mobileAppCategoryTargeting\": {\n      \"excludedIds\": [\n        \"\"\n      ],\n      \"includedIds\": [\n        \"\"\n      ]\n    },\n    \"mobileAppTargeting\": {\n      \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n      \"values\": [\n        \"\"\n      ]\n    }\n  },\n  \"billingId\": \"\",\n  \"displayName\": \"\",\n  \"excludedContentLabelIds\": [\n    \"\"\n  ],\n  \"geoTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"includedCreativeDimensions\": [\n    {\n      \"height\": \"\",\n      \"width\": \"\"\n    }\n  ],\n  \"includedEnvironments\": [\n    \"{{oneOf (array 'ENVIRONMENT_UNSPECIFIED' 'APP' 'WEB')}}\"\n  ],\n  \"includedFormats\": [\n    \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VAST' 'NATIVE')}}\"\n  ],\n  \"includedLanguages\": [\n    \"\"\n  ],\n  \"includedMobileOperatingSystemIds\": [\n    \"\"\n  ],\n  \"includedPlatforms\": [\n    \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'PHONE' 'TABLET' 'CONNECTED_TV')}}\"\n  ],\n  \"includedUserIdTypes\": [\n    \"{{oneOf (array 'USER_ID_TYPE_UNSPECIFIED' 'HOSTED_MATCH_DATA' 'GOOGLE_COOKIE' 'DEVICE_ID')}}\"\n  ],\n  \"interstitialTargeting\": \"{{oneOf (array 'INTERSTITIAL_TARGETING_UNSPECIFIED' 'ONLY_INTERSTITIAL_REQUESTS' 'ONLY_NON_INTERSTITIAL_REQUESTS')}}\",\n  \"invalidGeoIds\": [\n    \"\"\n  ],\n  \"maximumQps\": \"\",\n  \"minimumViewabilityDecile\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"publisherTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'SUSPENDED')}}\",\n  \"userListTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"verticalTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"webTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "948f0c44-28b1-4b08-8688-d7342ccdea11",
-      "documentation": "Removes targeted sites from the pretargeting configuration.",
-      "method": "post",
-      "endpoint": "v1/:pretargetingConfig:removeTargetedSites",
-      "responses": [
-        {
-          "uuid": "c480b930-d15d-4dc5-b333-7dd126b09e0b",
-          "body": "{\n  \"allowedUserTargetingModes\": [\n    \"{{oneOf (array 'USER_TARGETING_MODE_UNSPECIFIED' 'REMARKETING_ADS' 'INTEREST_BASED_TARGETING')}}\"\n  ],\n  \"appTargeting\": {\n    \"mobileAppCategoryTargeting\": {\n      \"excludedIds\": [\n        \"\"\n      ],\n      \"includedIds\": [\n        \"\"\n      ]\n    },\n    \"mobileAppTargeting\": {\n      \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n      \"values\": [\n        \"\"\n      ]\n    }\n  },\n  \"billingId\": \"\",\n  \"displayName\": \"\",\n  \"excludedContentLabelIds\": [\n    \"\"\n  ],\n  \"geoTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"includedCreativeDimensions\": [\n    {\n      \"height\": \"\",\n      \"width\": \"\"\n    }\n  ],\n  \"includedEnvironments\": [\n    \"{{oneOf (array 'ENVIRONMENT_UNSPECIFIED' 'APP' 'WEB')}}\"\n  ],\n  \"includedFormats\": [\n    \"{{oneOf (array 'CREATIVE_FORMAT_UNSPECIFIED' 'HTML' 'VAST' 'NATIVE')}}\"\n  ],\n  \"includedLanguages\": [\n    \"\"\n  ],\n  \"includedMobileOperatingSystemIds\": [\n    \"\"\n  ],\n  \"includedPlatforms\": [\n    \"{{oneOf (array 'PLATFORM_UNSPECIFIED' 'PERSONAL_COMPUTER' 'PHONE' 'TABLET' 'CONNECTED_TV')}}\"\n  ],\n  \"includedUserIdTypes\": [\n    \"{{oneOf (array 'USER_ID_TYPE_UNSPECIFIED' 'HOSTED_MATCH_DATA' 'GOOGLE_COOKIE' 'DEVICE_ID')}}\"\n  ],\n  \"interstitialTargeting\": \"{{oneOf (array 'INTERSTITIAL_TARGETING_UNSPECIFIED' 'ONLY_INTERSTITIAL_REQUESTS' 'ONLY_NON_INTERSTITIAL_REQUESTS')}}\",\n  \"invalidGeoIds\": [\n    \"\"\n  ],\n  \"maximumQps\": \"\",\n  \"minimumViewabilityDecile\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"publisherTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  },\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'SUSPENDED')}}\",\n  \"userListTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"verticalTargeting\": {\n    \"excludedIds\": [\n      \"\"\n    ],\n    \"includedIds\": [\n      \"\"\n    ]\n  },\n  \"webTargeting\": {\n    \"targetingMode\": \"{{oneOf (array 'TARGETING_MODE_UNSPECIFIED' 'INCLUSIVE' 'EXCLUSIVE')}}\",\n    \"values\": [\n      \"\"\n    ]\n  }\n}",
+          "uuid": "d922a3cb-2c14-46e5-9a7a-dece728cfef6",
+          "body": "{\n  \"biddingFunction\": \"\",\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'ARCHIVED')}}\",\n  \"type\": \"{{oneOf (array 'FUNCTION_TYPE_UNSPECIFIED' 'TURTLEDOVE_SIMULATION_BIDDING_FUNCTION' 'FLEDGE_BIDDING_FUNCTION')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",

@@ -1,5 +1,5 @@
 {
-  "uuid": "6377dd41-03c3-4ce4-9371-baa7fb3d1ecc",
+  "uuid": "71e4d099-d5d9-4651-8349-31d7af297a63",
   "lastMigration": 19,
   "name": "Cloud Pub/Sub API",
   "endpointPrefix": "",
@@ -8,14 +8,44 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "1b793018-dc63-438c-af06-4039a9eab64a",
+      "uuid": "01551f4c-2ae5-4ae6-aaf4-98ecf58698ce",
+      "documentation": "Creates the given topic with the given name.",
+      "method": "put",
+      "endpoint": "v1beta2/:name",
+      "responses": [
+        {
+          "uuid": "87084864-4bf8-470d-a0f5-37debef0ec66",
+          "body": "{\n  \"name\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b9675282-c796-43a3-960d-681dad31cf54",
       "documentation": "Lists matching subscriptions.",
       "method": "get",
-      "endpoint": "v1beta1a/subscriptions",
+      "endpoint": "v1beta2/:project/subscriptions",
       "responses": [
         {
-          "uuid": "ab483e6a-f6d6-4753-b23e-1bd4afcda237",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"subscription\": [\n    {\n      \"ackDeadlineSeconds\": {{faker 'random.number'}},\n      \"name\": \"\",\n      \"pushConfig\": {\n        \"pushEndpoint\": \"\"\n      },\n      \"topic\": \"\"\n    }\n  ]\n}",
+          "uuid": "009f5057-df95-4319-b408-06322d81ff93",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"subscriptions\": [\n    {\n      \"ackDeadlineSeconds\": {{faker 'random.number'}},\n      \"name\": \"\",\n      \"pushConfig\": {\n        \"attributes\": {},\n        \"oidcToken\": {\n          \"audience\": \"\",\n          \"serviceAccountEmail\": \"\"\n        },\n        \"pushEndpoint\": \"\"\n      },\n      \"topic\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -38,254 +68,14 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "34f4186f-bf3a-4d94-88d6-70a1e015d08f",
-      "documentation": "Creates a subscription on a given topic for a given subscriber. If the subscription already exists, returns ALREADY_EXISTS. If the corresponding topic doesn't exist, returns NOT_FOUND. If the name is not provided in the request, the server will assign a random name for this subscription on the same project as the topic.",
-      "method": "post",
-      "endpoint": "v1beta1a/subscriptions",
-      "responses": [
-        {
-          "uuid": "af41fafd-62ea-494d-9796-69cf21c17317",
-          "body": "{\n  \"ackDeadlineSeconds\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"pushConfig\": {\n    \"pushEndpoint\": \"\"\n  },\n  \"topic\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "bdda7e72-700d-43ae-942c-e1afcb7fe790",
-      "documentation": "Acknowledges a particular received message: the Pub/Sub system can remove the given message from the subscription. Acknowledging a message whose Ack deadline has expired may succeed, but the message could have been already redelivered. Acknowledging a message more than once will not result in an error. This is only used for messages received via pull.",
-      "method": "post",
-      "endpoint": "v1beta1a/subscriptions/acknowledge",
-      "responses": [
-        {
-          "uuid": "4023d03e-1a0d-47c4-a9a7-dd19abe86653",
-          "body": "{}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "f811f9b1-ce6a-47fd-be99-61bd515e3bbf",
-      "documentation": "Modifies the Ack deadline for a message received from a pull request.",
-      "method": "post",
-      "endpoint": "v1beta1a/subscriptions/modifyAckDeadline",
-      "responses": [
-        {
-          "uuid": "54c5baf6-3200-4d30-aa50-23319cd1cc05",
-          "body": "{}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "33769206-4729-4fe4-880a-baa6934a19de",
-      "documentation": "Modifies the PushConfig for a specified subscription. This method can be used to suspend the flow of messages to an endpoint by clearing the PushConfig field in the request. Messages will be accumulated for delivery even if no push configuration is defined or while the configuration is modified.",
-      "method": "post",
-      "endpoint": "v1beta1a/subscriptions/modifyPushConfig",
-      "responses": [
-        {
-          "uuid": "850bd794-18c8-474f-8f3d-64ababdc5844",
-          "body": "{}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "592ca18b-4e55-46a7-9abe-8ba9613024d5",
-      "documentation": "Pulls a single message from the server. If return_immediately is true, and no messages are available in the subscription, this method returns FAILED_PRECONDITION. The system is free to return an UNAVAILABLE error if no messages are available in a reasonable amount of time (to reduce system load).",
-      "method": "post",
-      "endpoint": "v1beta1a/subscriptions/pull",
-      "responses": [
-        {
-          "uuid": "3c9dd643-8da6-40ea-96b6-6a03fe0532f6",
-          "body": "{\n  \"ackId\": \"\",\n  \"pubsubEvent\": {\n    \"deleted\": {{faker 'random.boolean'}},\n    \"message\": {\n      \"data\": \"\",\n      \"label\": [\n        {\n          \"key\": \"\",\n          \"numValue\": \"\",\n          \"strValue\": \"\"\n        }\n      ],\n      \"messageId\": \"\",\n      \"publishTime\": \"\"\n    },\n    \"subscription\": \"\",\n    \"truncated\": {{faker 'random.boolean'}}\n  }\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "88f78e79-7f59-4406-95be-38dbff7ef98e",
-      "documentation": "Pulls messages from the server. Returns an empty list if there are no messages available in the backlog. The system is free to return UNAVAILABLE if there are too many pull requests outstanding for the given subscription.",
-      "method": "post",
-      "endpoint": "v1beta1a/subscriptions/pullBatch",
-      "responses": [
-        {
-          "uuid": "ee6e8590-df24-4b08-9eb4-e62cb040f663",
-          "body": "{\n  \"pullResponses\": [\n    {\n      \"ackId\": \"\",\n      \"pubsubEvent\": {\n        \"deleted\": {{faker 'random.boolean'}},\n        \"message\": {\n          \"data\": \"\",\n          \"label\": [\n            {\n              \"key\": \"\",\n              \"numValue\": \"\",\n              \"strValue\": \"\"\n            }\n          ],\n          \"messageId\": \"\",\n          \"publishTime\": \"\"\n        },\n        \"subscription\": \"\",\n        \"truncated\": {{faker 'random.boolean'}}\n      }\n    }\n  ]\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "921fe11b-f005-4e9d-8745-663091f6ead8",
-      "documentation": "Deletes an existing subscription. All pending messages in the subscription are immediately dropped. Calls to Pull after deletion will return NOT_FOUND.",
-      "method": "delete",
-      "endpoint": "v1beta1a/subscriptions/:subscription",
-      "responses": [
-        {
-          "uuid": "61ad4b5f-2d3b-4461-971c-a408f2cd9323",
-          "body": "{}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "65a2b385-095b-49aa-a94b-374605cfcc57",
-      "documentation": "Gets the configuration details of a subscription.",
-      "method": "get",
-      "endpoint": "v1beta1a/subscriptions/:subscription",
-      "responses": [
-        {
-          "uuid": "cebd30c7-a8cb-4120-bea5-f9e013fde8fb",
-          "body": "{\n  \"ackDeadlineSeconds\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"pushConfig\": {\n    \"pushEndpoint\": \"\"\n  },\n  \"topic\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "8e69ee20-cc65-4b15-9d2e-3e3f1af13841",
+      "uuid": "6002b345-d4f0-4cdf-a980-6741fd2a12a1",
       "documentation": "Lists matching topics.",
       "method": "get",
-      "endpoint": "v1beta1a/topics",
+      "endpoint": "v1beta2/:project/topics",
       "responses": [
         {
-          "uuid": "205b0e22-944c-4be6-a841-2f06ce742417",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"topic\": [\n    {\n      \"name\": \"\"\n    }\n  ]\n}",
+          "uuid": "cc1b571b-9f1d-453e-9e8a-5e7fc8f418b3",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"topics\": [\n    {\n      \"name\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -308,134 +98,374 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "646ea739-186b-4cc0-aa21-a6b1a991140d",
-      "documentation": "Creates the given topic with the given name.",
-      "method": "post",
-      "endpoint": "v1beta1a/topics",
-      "responses": [
-        {
-          "uuid": "8714128d-9ccf-42bc-82f1-75a781a97b91",
-          "body": "{\n  \"name\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "2e445ded-1684-4526-a8c6-96d59c3b21b8",
-      "documentation": "Adds a message to the topic. Returns NOT_FOUND if the topic does not exist.",
-      "method": "post",
-      "endpoint": "v1beta1a/topics/publish",
-      "responses": [
-        {
-          "uuid": "22c161ae-9a31-4494-8849-f43ea0c34ec6",
-          "body": "{}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "6bee060e-df84-48d2-9fc1-cf7d47a50a13",
-      "documentation": "Adds one or more messages to the topic. Returns NOT_FOUND if the topic does not exist.",
-      "method": "post",
-      "endpoint": "v1beta1a/topics/publishBatch",
-      "responses": [
-        {
-          "uuid": "c47def26-1d08-484a-90bc-e26ade9f7dda",
-          "body": "{\n  \"messageIds\": [\n    \"\"\n  ]\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "7ff230fb-a7dc-4b7c-96dc-30cfe53d3a5a",
-      "documentation": "Deletes the topic with the given name. Returns NOT_FOUND if the topic does not exist. After a topic is deleted, a new topic may be created with the same name.",
-      "method": "delete",
-      "endpoint": "v1beta1a/topics/:topic",
-      "responses": [
-        {
-          "uuid": "a2525747-487d-4298-9527-c28b32c31b82",
-          "body": "{}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "ffc71101-48cb-4226-8e5a-86e93aeab8a4",
-      "documentation": "Gets the configuration of a topic. Since the topic only has the name attribute, this method is only useful to check the existence of a topic. If other attributes are added in the future, they will be returned here.",
+      "uuid": "4993ccd8-b479-45d1-a7f5-640b2df914d4",
+      "documentation": "Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.",
       "method": "get",
-      "endpoint": "v1beta1a/topics/:topic",
+      "endpoint": "v1beta2/:resource:getIamPolicy",
       "responses": [
         {
-          "uuid": "226ef2e8-da64-4cff-b897-e869dbfb57c0",
+          "uuid": "8855d86a-2331-43bb-9235-09497ab63ab3",
+          "body": "{\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "d9c65e9c-1176-49f2-9037-762a0f777d94",
+      "documentation": "Sets the access control policy on the specified resource. Replaces any existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.",
+      "method": "post",
+      "endpoint": "v1beta2/:resource:setIamPolicy",
+      "responses": [
+        {
+          "uuid": "c5f8557c-a87a-4c62-b4e0-2458caa75b11",
+          "body": "{\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "78f9fe88-40b8-46f3-a992-c0aabe89b743",
+      "documentation": "Returns permissions that a caller has on the specified resource. If the resource does not exist, this will return an empty set of permissions, not a `NOT_FOUND` error. Note: This operation is designed to be used for building permission-aware UIs and command-line tools, not for authorization checking. This operation may \"fail open\" without warning.",
+      "method": "post",
+      "endpoint": "v1beta2/:resource:testIamPermissions",
+      "responses": [
+        {
+          "uuid": "bf4697ad-7da8-4058-97ea-095d4be16ba3",
+          "body": "{\n  \"permissions\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b1682867-bb66-449b-9183-69326ff45af6",
+      "documentation": "Deletes an existing subscription. All pending messages in the subscription are immediately dropped. Calls to `Pull` after deletion will return `NOT_FOUND`. After a subscription is deleted, a new one may be created with the same name, but the new one has no association with the old subscription, or its topic unless the same topic is specified.",
+      "method": "delete",
+      "endpoint": "v1beta2/:subscription",
+      "responses": [
+        {
+          "uuid": "ce780a3f-39ed-4f0d-9594-2dc9cf509804",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "6f29fe46-5c56-4996-8fbf-e8d55cd32ede",
+      "documentation": "Gets the configuration details of a subscription.",
+      "method": "get",
+      "endpoint": "v1beta2/:subscription",
+      "responses": [
+        {
+          "uuid": "049601c8-d805-422c-ab9f-f41dc14e2473",
+          "body": "{\n  \"ackDeadlineSeconds\": {{faker 'random.number'}},\n  \"name\": \"\",\n  \"pushConfig\": {\n    \"attributes\": {},\n    \"oidcToken\": {\n      \"audience\": \"\",\n      \"serviceAccountEmail\": \"\"\n    },\n    \"pushEndpoint\": \"\"\n  },\n  \"topic\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5b95077c-99c1-445b-a011-45d7739ac963",
+      "documentation": "Acknowledges the messages associated with the `ack_ids` in the `AcknowledgeRequest`. The Pub/Sub system can remove the relevant messages from the subscription. Acknowledging a message whose ack deadline has expired may succeed, but such a message may be redelivered later. Acknowledging a message more than once will not result in an error.",
+      "method": "post",
+      "endpoint": "v1beta2/:subscription:acknowledge",
+      "responses": [
+        {
+          "uuid": "c96503c2-1762-4a5f-b35e-ed414e991dd5",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e893c087-c009-42b3-8fad-e0dec2537b95",
+      "documentation": "Modifies the ack deadline for a specific message. This method is useful to indicate that more time is needed to process a message by the subscriber, or to make the message available for redelivery if the processing was interrupted. Note that this does not modify the subscription-level `ackDeadlineSeconds` used for subsequent messages.",
+      "method": "post",
+      "endpoint": "v1beta2/:subscription:modifyAckDeadline",
+      "responses": [
+        {
+          "uuid": "715cb274-5f0f-4d7b-8255-2b43b4ca5991",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8427750d-6e52-4457-bf84-116287952591",
+      "documentation": "Modifies the `PushConfig` for a specified subscription. This may be used to change a push subscription to a pull one (signified by an empty `PushConfig`) or vice versa, or change the endpoint URL and other attributes of a push subscription. Messages will accumulate for delivery continuously through the call regardless of changes to the `PushConfig`.",
+      "method": "post",
+      "endpoint": "v1beta2/:subscription:modifyPushConfig",
+      "responses": [
+        {
+          "uuid": "368b49c6-e3c4-4113-b19d-766ffe951bb5",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a1d5ed6e-90fb-433b-a220-c45e0342e37c",
+      "documentation": "Pulls messages from the server. Returns an empty list if there are no messages available in the backlog. The server may return `UNAVAILABLE` if there are too many concurrent pull requests pending for the given subscription.",
+      "method": "post",
+      "endpoint": "v1beta2/:subscription:pull",
+      "responses": [
+        {
+          "uuid": "fddd60f6-3b56-44ea-88c2-2fa0101c8b95",
+          "body": "{\n  \"receivedMessages\": [\n    {\n      \"ackId\": \"\",\n      \"message\": {\n        \"attributes\": {},\n        \"data\": \"\",\n        \"messageId\": \"\",\n        \"publishTime\": \"\"\n      }\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "fd412f12-1997-4f7b-b72f-c92fdeaa1f04",
+      "documentation": "Deletes the topic with the given name. Returns `NOT_FOUND` if the topic does not exist. After a topic is deleted, a new topic may be created with the same name; this is an entirely new topic with none of the old configuration or subscriptions. Existing subscriptions to this topic are not deleted, but their `topic` field is set to `_deleted-topic_`.",
+      "method": "delete",
+      "endpoint": "v1beta2/:topic",
+      "responses": [
+        {
+          "uuid": "dafb55f5-55fb-4255-a0b8-4e38043646eb",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4a3b8701-1e09-4fec-ba4e-db522fc40ed2",
+      "documentation": "Gets the configuration of a topic.",
+      "method": "get",
+      "endpoint": "v1beta2/:topic",
+      "responses": [
+        {
+          "uuid": "23a41d47-3b79-4d73-8fb3-1a3145f620b1",
           "body": "{\n  \"name\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "3b124832-291a-45e8-a3a8-7a56b6340118",
+      "documentation": "Lists the name of the subscriptions for this topic.",
+      "method": "get",
+      "endpoint": "v1beta2/:topic/subscriptions",
+      "responses": [
+        {
+          "uuid": "f6476062-a26f-49ef-b520-bacee9992ae3",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"subscriptions\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7df67a7b-1d9b-4b58-8fab-f8ccbf39e275",
+      "documentation": "Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic does not exist. The message payload must not be empty; it must contain either a non-empty data field, or at least one attribute.",
+      "method": "post",
+      "endpoint": "v1beta2/:topic:publish",
+      "responses": [
+        {
+          "uuid": "dbdce472-de37-4fe5-adf7-13ef8ad26d1a",
+          "body": "{\n  \"messageIds\": [\n    \"\"\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",

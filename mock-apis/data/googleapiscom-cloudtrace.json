@@ -1,5 +1,5 @@
 {
-  "uuid": "bc9b544e-4ee5-43b2-b8e2-ea3e9d2be4f3",
+  "uuid": "36371c57-cf56-4d37-9b68-2ebed4908e9c",
   "lastMigration": 19,
   "name": "Cloud Trace API",
   "endpointPrefix": "",
@@ -8,14 +8,14 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "38c9a986-2eba-4778-bda4-7ca7bbaf80e6",
-      "documentation": "Creates a new span.",
-      "method": "post",
-      "endpoint": "v2/:name",
+      "uuid": "59e3157d-eff9-4979-a92c-2185a58a6c96",
+      "documentation": "Deletes a sink.",
+      "method": "delete",
+      "endpoint": "v2beta1/:name",
       "responses": [
         {
-          "uuid": "c01efc88-69c7-4b6e-8b6c-7f62be1110c3",
-          "body": "{\n  \"attributes\": {\n    \"attributeMap\": {},\n    \"droppedAttributesCount\": {{faker 'random.number'}}\n  },\n  \"childSpanCount\": {{faker 'random.number'}},\n  \"displayName\": {\n    \"truncatedByteCount\": {{faker 'random.number'}},\n    \"value\": \"\"\n  },\n  \"endTime\": \"\",\n  \"links\": {\n    \"droppedLinksCount\": {{faker 'random.number'}},\n    \"link\": [\n      {\n        \"attributes\": {\n          \"attributeMap\": {},\n          \"droppedAttributesCount\": {{faker 'random.number'}}\n        },\n        \"spanId\": \"\",\n        \"traceId\": \"\",\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CHILD_LINKED_SPAN' 'PARENT_LINKED_SPAN')}}\"\n      }\n    ]\n  },\n  \"name\": \"\",\n  \"parentSpanId\": \"\",\n  \"sameProcessAsParentSpan\": {{faker 'random.boolean'}},\n  \"spanId\": \"\",\n  \"spanKind\": \"{{oneOf (array 'SPAN_KIND_UNSPECIFIED' 'INTERNAL' 'SERVER' 'CLIENT' 'PRODUCER' 'CONSUMER')}}\",\n  \"stackTrace\": {\n    \"stackFrames\": {\n      \"droppedFramesCount\": {{faker 'random.number'}},\n      \"frame\": [\n        {\n          \"columnNumber\": \"\",\n          \"fileName\": {\n            \"truncatedByteCount\": {{faker 'random.number'}},\n            \"value\": \"\"\n          },\n          \"functionName\": {\n            \"truncatedByteCount\": {{faker 'random.number'}},\n            \"value\": \"\"\n          },\n          \"lineNumber\": \"\",\n          \"loadModule\": {\n            \"buildId\": {\n              \"truncatedByteCount\": {{faker 'random.number'}},\n              \"value\": \"\"\n            },\n            \"module\": {\n              \"truncatedByteCount\": {{faker 'random.number'}},\n              \"value\": \"\"\n            }\n          },\n          \"originalFunctionName\": {\n            \"truncatedByteCount\": {{faker 'random.number'}},\n            \"value\": \"\"\n          },\n          \"sourceVersion\": {\n            \"truncatedByteCount\": {{faker 'random.number'}},\n            \"value\": \"\"\n          }\n        }\n      ]\n    },\n    \"stackTraceHashId\": \"\"\n  },\n  \"startTime\": \"\",\n  \"status\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"timeEvents\": {\n    \"droppedAnnotationsCount\": {{faker 'random.number'}},\n    \"droppedMessageEventsCount\": {{faker 'random.number'}},\n    \"timeEvent\": [\n      {\n        \"annotation\": {\n          \"attributes\": {\n            \"attributeMap\": {},\n            \"droppedAttributesCount\": {{faker 'random.number'}}\n          },\n          \"description\": {\n            \"truncatedByteCount\": {{faker 'random.number'}},\n            \"value\": \"\"\n          }\n        },\n        \"messageEvent\": {\n          \"compressedSizeBytes\": \"\",\n          \"id\": \"\",\n          \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'SENT' 'RECEIVED')}}\",\n          \"uncompressedSizeBytes\": \"\"\n        },\n        \"time\": \"\"\n      }\n    ]\n  }\n}",
+          "uuid": "f291f233-a848-4424-99e8-74eaeb92e5fe",
+          "body": "{}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -38,14 +38,104 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "fc4ce63b-1504-4450-9dea-abb04d6ffdb1",
-      "documentation": "Sends new spans to new or existing traces. You cannot update existing spans.",
-      "method": "post",
-      "endpoint": "v2/:name/traces:batchWrite",
+      "uuid": "9670acea-d464-4544-b38e-70d15df664d0",
+      "documentation": "Get a trace sink by name under the parent resource (GCP project).",
+      "method": "get",
+      "endpoint": "v2beta1/:name",
       "responses": [
         {
-          "uuid": "070d1965-c524-444d-9f48-7936c31969c7",
-          "body": "{}",
+          "uuid": "2f84aeea-61bb-429f-9591-7108b73c1388",
+          "body": "{\n  \"name\": \"\",\n  \"outputConfig\": {\n    \"destination\": \"\"\n  },\n  \"writerIdentity\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e4a13cae-bbdc-49ba-a199-c1094aedf2de",
+      "documentation": "Updates a sink. This method updates fields in the existing sink according to the provided update mask. The sink's name cannot be changed nor any output-only fields (e.g. the writer_identity).",
+      "method": "patch",
+      "endpoint": "v2beta1/:name",
+      "responses": [
+        {
+          "uuid": "e14ad30b-293a-4acc-b281-0848c4af7de2",
+          "body": "{\n  \"name\": \"\",\n  \"outputConfig\": {\n    \"destination\": \"\"\n  },\n  \"writerIdentity\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "62a79294-89fd-4b83-87ef-229571595760",
+      "documentation": "List all sinks for the parent resource (GCP project).",
+      "method": "get",
+      "endpoint": "v2beta1/:parent/traceSinks",
+      "responses": [
+        {
+          "uuid": "ac3a9054-ceeb-4468-98f2-fc07e49c8235",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"sinks\": [\n    {\n      \"name\": \"\",\n      \"outputConfig\": {\n        \"destination\": \"\"\n      },\n      \"writerIdentity\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "61208423-c229-4ccf-8f00-b4cc0a509ebf",
+      "documentation": "Creates a sink that exports trace spans to a destination. The export of newly-ingested traces begins immediately, unless the sink's `writer_identity` is not permitted to write to the destination. A sink can export traces only from the resource owning the sink (the 'parent').",
+      "method": "post",
+      "endpoint": "v2beta1/:parent/traceSinks",
+      "responses": [
+        {
+          "uuid": "e7381821-d5a1-4906-aff8-55314bcf541b",
+          "body": "{\n  \"name\": \"\",\n  \"outputConfig\": {\n    \"destination\": \"\"\n  },\n  \"writerIdentity\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",

@@ -1,5 +1,5 @@
 {
-  "uuid": "e3606ef8-90f1-4710-ac47-6373a0d9d495",
+  "uuid": "2a7fe038-d24c-49ae-b358-4f41b0f06069",
   "lastMigration": 19,
   "name": "Cloud Document AI API",
   "endpointPrefix": "",
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "dd657547-0057-4907-a6a7-e53dcb2c4ad2",
-      "documentation": "Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.",
-      "method": "get",
-      "endpoint": "v1beta2/:name",
+      "uuid": "701da85e-aabe-4e19-ab66-f58d8a06d754",
+      "documentation": "Send a document for Human Review. The input document should be processed by the specified processor.",
+      "method": "post",
+      "endpoint": "v1beta3/:humanReviewConfig:reviewDocument",
       "responses": [
         {
-          "uuid": "5bf7b4bb-28c3-4b0b-802e-5c268b7388df",
+          "uuid": "5edbebf3-a0d7-4d73-bffe-c6ebf1999421",
           "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
@@ -38,13 +38,103 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "e6f63750-e174-4a88-8d06-60ec0ad6c54a",
+      "uuid": "19d012c4-561a-4aef-8a81-ed4bb131884f",
+      "documentation": "Deletes the processor version, all artifacts under the processor version will be deleted.",
+      "method": "delete",
+      "endpoint": "v1beta3/:name",
+      "responses": [
+        {
+          "uuid": "ecaaa9fe-4f13-44d2-aa60-1c56165e3a29",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c53f700e-ceb3-483c-8122-70daf43a0046",
+      "documentation": "Gets a processor version detail.",
+      "method": "get",
+      "endpoint": "v1beta3/:name",
+      "responses": [
+        {
+          "uuid": "21670b0d-2693-4bc5-8727-26944c904be1",
+          "body": "{\n  \"createTime\": \"\",\n  \"deprecationInfo\": {\n    \"deprecationTime\": \"\",\n    \"replacementProcessorVersion\": \"\"\n  },\n  \"displayName\": \"\",\n  \"googleManaged\": {{faker 'random.boolean'}},\n  \"kmsKeyName\": \"\",\n  \"kmsKeyVersionName\": \"\",\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'DEPLOYED' 'DEPLOYING' 'UNDEPLOYED' 'UNDEPLOYING' 'CREATING' 'DELETING' 'FAILED')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "571f1595-41e5-411c-b436-18bd5cdc842a",
+      "documentation": "Lists information about the supported locations for this service.",
+      "method": "get",
+      "endpoint": "v1beta3/:name/locations",
+      "responses": [
+        {
+          "uuid": "4cbae82d-6c6c-4843-a2c8-17a6af86676f",
+          "body": "{\n  \"locations\": [\n    {\n      \"displayName\": \"\",\n      \"labels\": {},\n      \"locationId\": \"\",\n      \"metadata\": {},\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "ff4faecf-d05d-4e4b-8295-79b423e6675a",
       "documentation": "LRO endpoint to batch process many documents. The output is written to Cloud Storage as JSON in the [Document] format.",
       "method": "post",
-      "endpoint": "v1beta2/:parent/documents:batchProcess",
+      "endpoint": "v1beta3/:name:batchProcess",
       "responses": [
         {
-          "uuid": "2c735635-c2c6-4c00-af4c-8998ce4f8479",
+          "uuid": "3dc4a7d3-f129-4e4a-885c-89ceb997f70c",
           "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
@@ -68,14 +158,314 @@
       "sequentialResponse": false
     },
     {
-      "uuid": "eddc6853-0135-4623-9f6e-f74d74e58f66",
-      "documentation": "Processes a single document.",
+      "uuid": "9194c805-007c-47d9-8403-a466975d5fad",
+      "documentation": "Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.",
       "method": "post",
-      "endpoint": "v1beta2/:parent/documents:process",
+      "endpoint": "v1beta3/:name:cancel",
       "responses": [
         {
-          "uuid": "a44e4c24-08a6-4c0e-ab1e-543a2111a4a2",
+          "uuid": "4879e4f3-c334-4746-a8b4-0500b1ad756d",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a93bbe07-61e4-4888-b57c-a365a63e2a47",
+      "documentation": "Deploys the processor version.",
+      "method": "post",
+      "endpoint": "v1beta3/:name:deploy",
+      "responses": [
+        {
+          "uuid": "b9318f83-25d3-44bb-8ed8-33ec2e5c5795",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "aec00f6d-6b2a-4d06-afac-7f2ac3ab329a",
+      "documentation": "Disables a processor",
+      "method": "post",
+      "endpoint": "v1beta3/:name:disable",
+      "responses": [
+        {
+          "uuid": "6e85d675-74af-48f5-965a-9ebb335b4231",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c6290f89-6111-4ae0-b29a-25d47c4df751",
+      "documentation": "Enables a processor",
+      "method": "post",
+      "endpoint": "v1beta3/:name:enable",
+      "responses": [
+        {
+          "uuid": "71016e8d-2363-4e80-9cf0-8d981494b9a1",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7bab908b-2b3f-4092-ae57-ab5dc930cf0b",
+      "documentation": "Processes a single document.",
+      "method": "post",
+      "endpoint": "v1beta3/:name:process",
+      "responses": [
+        {
+          "uuid": "f1cd91df-a327-441c-874f-0ed24e12b8b3",
           "body": "\"\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "4d67810a-fa0c-4f9e-87d9-de5d191947e5",
+      "documentation": "Undeploys the processor version.",
+      "method": "post",
+      "endpoint": "v1beta3/:name:undeploy",
+      "responses": [
+        {
+          "uuid": "a8d62faf-3892-4281-8b3e-675b119251ff",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e47940fc-f15f-4297-ab23-f8d97c148548",
+      "documentation": "Lists all versions of a processor.",
+      "method": "get",
+      "endpoint": "v1beta3/:parent/processorVersions",
+      "responses": [
+        {
+          "uuid": "4e1cedbe-a25e-47c5-9fa8-1c21a547fa45",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"processorVersions\": [\n    {\n      \"createTime\": \"\",\n      \"deprecationInfo\": {\n        \"deprecationTime\": \"\",\n        \"replacementProcessorVersion\": \"\"\n      },\n      \"displayName\": \"\",\n      \"googleManaged\": {{faker 'random.boolean'}},\n      \"kmsKeyName\": \"\",\n      \"kmsKeyVersionName\": \"\",\n      \"name\": \"\",\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'DEPLOYED' 'DEPLOYING' 'UNDEPLOYED' 'UNDEPLOYING' 'CREATING' 'DELETING' 'FAILED')}}\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e94516f5-ba83-406b-9f18-14adbbec6e6d",
+      "documentation": "Lists all processors which belong to this project.",
+      "method": "get",
+      "endpoint": "v1beta3/:parent/processors",
+      "responses": [
+        {
+          "uuid": "d5f7b20a-48d3-445a-8760-8188b87413ad",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"processors\": [\n    {\n      \"createTime\": \"\",\n      \"defaultProcessorVersion\": \"\",\n      \"displayName\": \"\",\n      \"kmsKeyName\": \"\",\n      \"name\": \"\",\n      \"processEndpoint\": \"\",\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ENABLED' 'DISABLED' 'ENABLING' 'DISABLING' 'CREATING' 'FAILED' 'DELETING')}}\",\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "743ed8a3-e794-4a17-b98b-5881b05a5665",
+      "documentation": "Creates a processor from the type processor that the user chose. The processor will be at \"ENABLED\" state by default after its creation.",
+      "method": "post",
+      "endpoint": "v1beta3/:parent/processors",
+      "responses": [
+        {
+          "uuid": "5191a776-c228-409b-a997-baf3a0f5fac4",
+          "body": "{\n  \"createTime\": \"\",\n  \"defaultProcessorVersion\": \"\",\n  \"displayName\": \"\",\n  \"kmsKeyName\": \"\",\n  \"name\": \"\",\n  \"processEndpoint\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ENABLED' 'DISABLED' 'ENABLING' 'DISABLING' 'CREATING' 'FAILED' 'DELETING')}}\",\n  \"type\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "38fc2400-c0fa-4941-88be-f5e30d994539",
+      "documentation": "Fetches processor types. Note that we do not use ListProcessorTypes here because it is not paginated.",
+      "method": "get",
+      "endpoint": "v1beta3/:parent:fetchProcessorTypes",
+      "responses": [
+        {
+          "uuid": "00ad5cb1-a67a-430e-99c5-2d4c92b696ed",
+          "body": "{\n  \"processorTypes\": [\n    {\n      \"allowCreation\": {{faker 'random.boolean'}},\n      \"availableLocations\": [\n        {\n          \"locationId\": \"\"\n        }\n      ],\n      \"category\": \"\",\n      \"launchStage\": \"{{oneOf (array 'LAUNCH_STAGE_UNSPECIFIED' 'UNIMPLEMENTED' 'PRELAUNCH' 'EARLY_ACCESS' 'ALPHA' 'BETA' 'GA' 'DEPRECATED')}}\",\n      \"name\": \"\",\n      \"type\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "5da461e0-1d9b-4637-b785-77cfee8b9942",
+      "documentation": "Set the default (active) version of a Processor that will be used in ProcessDocument and BatchProcessDocuments.",
+      "method": "post",
+      "endpoint": "v1beta3/:processor:setDefaultProcessorVersion",
+      "responses": [
+        {
+          "uuid": "d40fd3f8-4e1f-40dc-8155-1f69cac3bdb1",
+          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
