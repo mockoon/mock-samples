@@ -39,7 +39,7 @@ In both cases, a new environment will be created and ready to use after running 
 
 To run the mock samples with the [CLI](https://github.com/mockoon/cli) you can diractly run the following command using the sample raw file GitHub URL: 
 
-`mockoon-cli start --data https://raw.githubusercontent.com/mockoon/mock-samples/main/apis/giphy.json`
+`mockoon-cli start --data https://raw.githubusercontent.com/mockoon/mock-apis/data/giphycom.json`
 
 ## Support/feedback
 
