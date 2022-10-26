@@ -1,6 +1,6 @@
 {
-  "uuid": "202daacd-440c-4642-83fd-dab35b1f3c33",
-  "lastMigration": 19,
+  "uuid": "0eaaca38-5691-481d-98ba-c28baa04364b",
+  "lastMigration": 24,
   "name": "Negotiation API",
   "endpointPrefix": "sell/negotiation/v1",
   "latency": 0,
@@ -8,14 +8,14 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "4bbd5f72-df0b-42e6-b783-bc46a701685b",
+      "uuid": "2e7cbcfb-2202-46b2-a646-a2e8fa886178",
       "documentation": "This method evaluates a seller's current listings and returns the set of IDs that are eligible for a seller-initiated discount offer to a buyer. A listing ID is returned only when one or more buyers have shown an &quot;interest&quot; in the listing. If any buyers have shown interest in a listing, the seller can initiate a &quot;negotiation&quot; with them by calling sendOfferToInterestedBuyers, which sends all interested buyers a message that offers the listing at a discount. For details about how to create seller offers to buyers, see Sending offers to buyers.",
       "method": "get",
       "endpoint": "find_eligible_items",
       "responses": [
         {
-          "uuid": "e5a03ac9-c1c3-4eeb-8733-a2bbd81e559f",
-          "body": "{\n  \"eligibleItems\": [\n    {\n      \"listingId\": \"\"\n    }\n  ],\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"total\": {{faker 'random.number'}}\n}",
+          "uuid": "af4c11bd-4547-48a5-80ea-ac28e421cbfe",
+          "body": "{\n  \"eligibleItems\": [\n    {\n      \"listingId\": \"\"\n    }\n  ],\n  \"href\": \"\",\n  \"limit\": {{faker 'datatype.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'datatype.number'}},\n  \"prev\": \"\",\n  \"total\": {{faker 'datatype.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -25,15 +25,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "25bb5cbf-62f6-480d-9e07-b6844a29e400",
+          "uuid": "0545f297-19f8-48d6-846c-53947e1c6b59",
           "body": "",
           "latency": 0,
           "statusCode": 204,
@@ -44,15 +47,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "42751e68-ca91-4a21-805a-ef4e29640c0f",
+          "uuid": "0c9b01d9-40f9-4f49-968b-a6a616d59382",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -63,15 +69,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "f36c7b97-3bca-4bb7-85ef-7bbdffc9140a",
+          "uuid": "959bbced-30e1-4f7f-9409-c8f430451650",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -82,27 +91,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "adcdb585-5501-4274-a947-4eddd285b653",
+      "uuid": "7810f19b-50c0-44cd-a351-0e89795f7c76",
       "documentation": "This method sends eligible buyers offers to purchase items in a listing at a discount. When a buyer has shown interest in a listing, they become &quot;eligible&quot; to receive a seller-initiated offer to purchase the item(s). Sellers use findEligibleItems to get the set of listings that have interested buyers. If a listing has interested buyers, sellers can use this method (sendOfferToInterestedBuyers) to send an offer to the buyers who are interested in the listing. The offer gives buyers the ability to purchase the associated listings at a discounted price. For details about how to create seller offers to buyers, see Sending offers to buyers.",
       "method": "post",
       "endpoint": "send_offer_to_interested_buyers",
       "responses": [
         {
-          "uuid": "24d622f2-e744-48e7-9c94-0cfcbae54643",
-          "body": "{\n  \"offers\": [\n    {\n      \"allowCounterOffer\": {{faker 'random.boolean'}},\n      \"buyer\": {\n        \"maskedUsername\": \"\"\n      },\n      \"creationDate\": \"\",\n      \"initiatedBy\": \"\",\n      \"lastModifiedDate\": \"\",\n      \"message\": \"\",\n      \"offerDuration\": {\n        \"unit\": \"\",\n        \"value\": {{faker 'random.number'}}\n      },\n      \"offerId\": \"\",\n      \"offerStatus\": \"\",\n      \"offerType\": \"\",\n      \"offeredItems\": [\n        {\n          \"discountPercentage\": \"\",\n          \"listingId\": \"\",\n          \"price\": {\n            \"currency\": \"\",\n            \"value\": \"\"\n          },\n          \"quantity\": {{faker 'random.number'}}\n        }\n      ],\n      \"revision\": \"\"\n    }\n  ]\n}",
+          "uuid": "c15e443e-0c59-4407-bed1-e72d4351c230",
+          "body": "{\n  \"offers\": [\n    {\n      \"allowCounterOffer\": {{faker 'datatype.boolean'}},\n      \"buyer\": {\n        \"maskedUsername\": \"\"\n      },\n      \"creationDate\": \"\",\n      \"initiatedBy\": \"\",\n      \"lastModifiedDate\": \"\",\n      \"message\": \"\",\n      \"offerDuration\": {\n        \"unit\": \"\",\n        \"value\": {{faker 'datatype.number'}}\n      },\n      \"offerId\": \"\",\n      \"offerStatus\": \"\",\n      \"offerType\": \"\",\n      \"offeredItems\": [\n        {\n          \"discountPercentage\": \"\",\n          \"listingId\": \"\",\n          \"price\": {\n            \"currency\": \"\",\n            \"value\": \"\"\n          },\n          \"quantity\": {{faker 'datatype.number'}}\n        }\n      ],\n      \"revision\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -112,15 +123,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "287d3397-85c0-413b-8a14-695418494b58",
+          "uuid": "4365a8c0-2b7e-4856-9baf-e3f44a61ae60",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -131,15 +145,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "8b013c31-1ef2-4b71-a166-9ccfe23f1f6b",
+          "uuid": "2746dc62-8209-435b-a553-bf461de77054",
           "body": "",
           "latency": 0,
           "statusCode": 409,
@@ -150,15 +167,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "f9bc1f4d-a130-4130-b737-b236c2009c7d",
+          "uuid": "07c5d230-f29b-4c3b-8369-bcd241ca2bd6",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -169,17 +189,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -207,5 +229,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

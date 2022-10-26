@@ -1,6 +1,6 @@
 {
-  "uuid": "578a9ccd-16fd-4d94-bb73-721c2169df34",
-  "lastMigration": 19,
+  "uuid": "dbff85d3-8d84-4317-aa2f-c550d54ed092",
+  "lastMigration": 24,
   "name": "Amazon Athena",
   "endpointPrefix": "",
   "latency": 0,
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "b74b5784-4e62-48be-b857-db024bcee445",
+      "uuid": "fd932f43-631a-4c9e-a125-7c2784cef6d2",
       "documentation": "Returns the details of a single named query or a list of up to 50 queries, which you provide as an array of query ID strings. Requires you to have access to the workgroup in which the queries were saved. Use <a>ListNamedQueriesInput</a> to get the list of named query IDs in the specified workgroup. If information could not be retrieved for a submitted query ID, information about the query ID submitted is listed under <a>UnprocessedNamedQueryId</a>. Named queries differ from executed queries. Use <a>BatchGetQueryExecutionInput</a> to get details about each unique query execution, and <a>ListQueryExecutionsInput</a> to get a list of query execution IDs.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.BatchGetNamedQuery",
       "responses": [
         {
-          "uuid": "e9261b19-6333-4d98-ac11-0fb03334293f",
+          "uuid": "24e10210-fc72-46c7-af64-5af57434b687",
           "body": "{\n  \"NamedQueries\": [\n    {\n      \"Name\": \"\",\n      \"Description\": \"\",\n      \"Database\": \"\",\n      \"QueryString\": \"\",\n      \"NamedQueryId\": \"\",\n      \"WorkGroup\": \"\"\n    }\n  ],\n  \"UnprocessedNamedQueryIds\": [\n    {\n      \"NamedQueryId\": \"\",\n      \"ErrorCode\": \"\",\n      \"ErrorMessage\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -25,15 +25,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "e66ea8d4-2372-42ec-b05f-860c10877537",
+          "uuid": "0200f91f-366a-4af1-84f5-20636a0d787c",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -44,15 +47,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "5d214a0f-1ec2-40e2-b43e-ba67728e444a",
+          "uuid": "b056d688-4bd8-490e-b08c-1f7b5aeb9501",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -63,27 +69,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8d86f060-77d0-4afc-accb-13513f1ab8eb",
+      "uuid": "21cdbc9f-b636-409b-a27a-0311b63463de",
       "documentation": "Returns the details of a single query execution or a list of up to 50 query executions, which you provide as an array of query execution ID strings. Requires you to have access to the workgroup in which the queries ran. To get a list of query execution IDs, use <a>ListQueryExecutionsInput$WorkGroup</a>. Query executions differ from named (saved) queries. Use <a>BatchGetNamedQueryInput</a> to get details about named queries.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.BatchGetQueryExecution",
       "responses": [
         {
-          "uuid": "876097cf-1098-46cd-84a0-7fec7fb3f7cd",
-          "body": "{\n  \"QueryExecutions\": [\n    {\n      \"QueryExecutionId\": \"\",\n      \"Query\": \"\",\n      \"StatementType\": \"\",\n      \"ResultConfiguration\": {\n        \"OutputLocation\": \"\",\n        \"EncryptionConfiguration\": {\n          \"EncryptionOption\": \"\",\n          \"KmsKey\": \"\"\n        }\n      },\n      \"QueryExecutionContext\": {\n        \"Database\": \"\",\n        \"Catalog\": \"\"\n      },\n      \"Status\": {\n        \"State\": \"\",\n        \"StateChangeReason\": \"\",\n        \"SubmissionDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"CompletionDateTime\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"Statistics\": {\n        \"EngineExecutionTimeInMillis\": {{faker 'random.number'}},\n        \"DataScannedInBytes\": {{faker 'random.number'}},\n        \"DataManifestLocation\": \"\",\n        \"TotalExecutionTimeInMillis\": {{faker 'random.number'}},\n        \"QueryQueueTimeInMillis\": {{faker 'random.number'}},\n        \"QueryPlanningTimeInMillis\": {{faker 'random.number'}},\n        \"ServiceProcessingTimeInMillis\": {{faker 'random.number'}}\n      },\n      \"WorkGroup\": \"\",\n      \"EngineVersion\": {\n        \"SelectedEngineVersion\": \"\",\n        \"EffectiveEngineVersion\": \"\"\n      }\n    }\n  ],\n  \"UnprocessedQueryExecutionIds\": [\n    {\n      \"QueryExecutionId\": \"\",\n      \"ErrorCode\": \"\",\n      \"ErrorMessage\": \"\"\n    }\n  ]\n}",
+          "uuid": "b294229d-18b5-48ba-bed6-622f50aed97a",
+          "body": "{\n  \"QueryExecutions\": [\n    {\n      \"QueryExecutionId\": \"\",\n      \"Query\": \"\",\n      \"StatementType\": \"\",\n      \"ResultConfiguration\": {\n        \"OutputLocation\": \"\",\n        \"EncryptionConfiguration\": {\n          \"EncryptionOption\": \"\",\n          \"KmsKey\": \"\"\n        }\n      },\n      \"QueryExecutionContext\": {\n        \"Database\": \"\",\n        \"Catalog\": \"\"\n      },\n      \"Status\": {\n        \"State\": \"\",\n        \"StateChangeReason\": \"\",\n        \"SubmissionDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"CompletionDateTime\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"Statistics\": {\n        \"EngineExecutionTimeInMillis\": {{faker 'datatype.number'}},\n        \"DataScannedInBytes\": {{faker 'datatype.number'}},\n        \"DataManifestLocation\": \"\",\n        \"TotalExecutionTimeInMillis\": {{faker 'datatype.number'}},\n        \"QueryQueueTimeInMillis\": {{faker 'datatype.number'}},\n        \"QueryPlanningTimeInMillis\": {{faker 'datatype.number'}},\n        \"ServiceProcessingTimeInMillis\": {{faker 'datatype.number'}}\n      },\n      \"WorkGroup\": \"\",\n      \"EngineVersion\": {\n        \"SelectedEngineVersion\": \"\",\n        \"EffectiveEngineVersion\": \"\"\n      }\n    }\n  ],\n  \"UnprocessedQueryExecutionIds\": [\n    {\n      \"QueryExecutionId\": \"\",\n      \"ErrorCode\": \"\",\n      \"ErrorMessage\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -93,15 +101,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "2bd3e086-8a53-49d4-baae-f9d3a3a81cc5",
+          "uuid": "cddbe341-2a0a-475e-be3b-dfe1f7f3dbc6",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -112,15 +123,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "20789867-3754-4a3b-b4b5-3af8987b9f83",
+          "uuid": "3023e68c-0dc9-4674-92b4-0d74ae0f801f",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -131,26 +145,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b4d6f909-13a8-4c4f-b576-fd5f1c3f6ec4",
+      "uuid": "8214e8c3-6d0c-4ff7-bf11-921c0493c301",
       "documentation": "Creates (registers) a data catalog with the specified name and properties. Catalogs created are visible to all users of the same Amazon Web Services account.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.CreateDataCatalog",
       "responses": [
         {
-          "uuid": "46c21fa8-c003-4f97-ba35-878b962a73b9",
+          "uuid": "87c1f296-646e-4781-a769-dc735cdc80a3",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -161,15 +177,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "168d82b9-193d-4625-a6eb-64c9d66e51fd",
+          "uuid": "257d78c3-a751-4889-bef8-b8b4adb1fc26",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -180,15 +199,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "6764e260-02a7-4875-86cc-b049cab024e3",
+          "uuid": "79008708-98c3-4ded-8735-1291ac8bc5ce",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -199,26 +221,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b6a2463e-3f44-43f0-9f9a-bc5be5f74059",
+      "uuid": "ed2be15d-16ff-4c47-96e6-c9e76edb6ad3",
       "documentation": "<p>Creates a named query in the specified workgroup. Requires that you have access to the workgroup.</p> <p>For code samples using the Amazon Web Services SDK for Java, see <a href=\"http://docs.aws.amazon.com/athena/latest/ug/code-samples.html\">Examples and Code Samples</a> in the <i>Amazon Athena User Guide</i>.</p>",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.CreateNamedQuery",
       "responses": [
         {
-          "uuid": "77badb49-07fc-48e0-9993-3cfc81e4ddd3",
+          "uuid": "13a6887f-d99d-4d91-80ca-8f5071eb55fc",
           "body": "{\n  \"NamedQueryId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -229,15 +253,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "7d0c2260-66a4-4711-901e-2a38e4a01d3b",
+          "uuid": "719fef88-68af-4d7a-8619-31bbd2ce150e",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -248,15 +275,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "529724f7-6cc0-47ad-8945-dbb77d2a78dd",
+          "uuid": "7bc9a9e5-c842-480e-b117-33c6bbe770c9",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -267,26 +297,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "eaee2f73-5fcb-4f7b-a0a5-1f37ee90b3e1",
+      "uuid": "5843b47a-6cb2-4df2-bfd6-770591992eb8",
       "documentation": "Creates a prepared statement for use with SQL queries in Athena.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.CreatePreparedStatement",
       "responses": [
         {
-          "uuid": "1fa946f6-2293-41bf-bff6-8ff1f7290475",
+          "uuid": "0332cc5f-1371-4147-b544-26e1cbbb186b",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -297,15 +329,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "3df95402-978e-4311-8836-62e09ce74abb",
+          "uuid": "24fe5cd2-c677-48e4-a99a-5a51eab9b3cf",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -316,15 +351,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "cfc6c8d7-6c71-4264-b5de-62812e83f45b",
+          "uuid": "bdae1305-6840-47d8-a7f4-d441e87ecddd",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -335,26 +373,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2b609982-4d39-4b54-9f9a-4a1f7d0ce458",
+      "uuid": "55ce230e-77d4-41c9-9a41-fa8e1a3ee8a6",
       "documentation": "Creates a workgroup with the specified name.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.CreateWorkGroup",
       "responses": [
         {
-          "uuid": "bed5bb99-527b-4805-88ef-ba2089075d05",
+          "uuid": "59bb10ab-1d6d-41a7-beaa-ae31154b6b3b",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -365,15 +405,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "dcd18233-5beb-4d5d-9536-92f6c4c87c8c",
+          "uuid": "9af8c082-ff66-46cf-ae4c-c785a3d31c1f",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -384,15 +427,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "0f040e5a-6d0d-4a11-ab1c-2c8411be1755",
+          "uuid": "6c7c708d-edbd-4076-9d25-dfa14180da4a",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -403,26 +449,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2cc68d5d-e7b4-415e-9015-ad2f5e294722",
+      "uuid": "30ca02c0-a08a-478c-a556-e31de68f6215",
       "documentation": "Deletes a data catalog.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.DeleteDataCatalog",
       "responses": [
         {
-          "uuid": "8eaf231f-ae33-4b72-9caf-fbf22953e1b6",
+          "uuid": "3073b36d-c090-4b9d-bc34-602f6627d437",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -433,15 +481,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "f05302c5-c367-4fb8-8b1e-984214134a72",
+          "uuid": "09b6da5a-6797-450b-a2c1-00e7f1d3c8a7",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -452,15 +503,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "9e428c60-27fa-4019-8b4f-7489906a727a",
+          "uuid": "9c0da238-a672-4b63-b400-d28b4c1cb35a",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -471,26 +525,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "703affb8-bc02-4ee2-86f7-a20c3b6baed7",
+      "uuid": "e5ffb1cd-43dc-4a12-886e-86ebcbcdfa93",
       "documentation": "<p>Deletes the named query if you have access to the workgroup in which the query was saved.</p> <p>For code samples using the Amazon Web Services SDK for Java, see <a href=\"http://docs.aws.amazon.com/athena/latest/ug/code-samples.html\">Examples and Code Samples</a> in the <i>Amazon Athena User Guide</i>.</p>",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.DeleteNamedQuery",
       "responses": [
         {
-          "uuid": "9d05e252-241d-47ea-bd51-752ee31d4bd4",
+          "uuid": "907884d2-0cdb-47c3-b419-502194cf8ee1",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -501,15 +557,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "ccfa1bcc-29be-4667-8b42-d02540055140",
+          "uuid": "0972f3ad-2c41-4be7-984c-1bbbee56ab41",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -520,15 +579,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "eb1cdff7-f05e-40fe-8fbe-04a92c6bc46a",
+          "uuid": "a2bb0e93-ea6a-4033-88ff-a016c61b897d",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -539,26 +601,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "4d129c37-f079-4792-ab20-1413da9ec139",
+      "uuid": "858c5759-54ad-4579-81ac-a82e93d6d76f",
       "documentation": "Deletes the prepared statement with the specified name from the specified workgroup.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.DeletePreparedStatement",
       "responses": [
         {
-          "uuid": "fc6a6ba6-0b12-4095-af38-65d3ccb93103",
+          "uuid": "f1b26608-62bc-4793-8cf9-901e797d6de9",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -569,15 +633,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "77238b82-f540-4248-ac5b-d66dadf0aa56",
+          "uuid": "62351b16-5db1-446b-b9c8-4a0d4a6fcf8c",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -588,15 +655,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "6329a229-b580-45c1-bbcd-7904551ada44",
+          "uuid": "ab94648a-78f8-4350-9dcf-bcc5a5acf69d",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -607,15 +677,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "7e01a1a1-3e4d-4419-9313-b8a1f261d931",
+          "uuid": "8fa6a9a9-7f40-42ad-a2f7-aabcaef73ef8",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -626,26 +699,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "70b72c4f-41b2-45d2-bd42-758eee680f03",
+      "uuid": "52e10eb4-89b8-4b14-8434-21dd8c8c10f8",
       "documentation": "Deletes the workgroup with the specified name. The primary workgroup cannot be deleted.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.DeleteWorkGroup",
       "responses": [
         {
-          "uuid": "64bd921e-6a2d-4328-8b1a-75069b91a3c2",
+          "uuid": "ea6f9382-0b51-4834-a3c0-bb63cd2202e0",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -656,15 +731,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "1672abc8-f73e-4141-ae3d-006fbbb5c555",
+          "uuid": "e0ee4f17-e071-465e-ac4b-5f5873b66e11",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -675,15 +753,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "0934a993-3beb-4955-b5ac-37f0506425c1",
+          "uuid": "cead9f5a-273b-4091-bc42-45bbf67b4f15",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -694,26 +775,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f660f9a9-c750-45d0-8ea8-c7d69edd1687",
+      "uuid": "fbbaf4cd-a3eb-425a-9abd-39311dfc6943",
       "documentation": "Returns the specified data catalog.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.GetDataCatalog",
       "responses": [
         {
-          "uuid": "3e86d9ae-96a4-459a-8962-de45be24d50f",
+          "uuid": "2bfbf65e-91c5-4bc3-b8b0-8ceef02a2db3",
           "body": "{\n  \"DataCatalog\": {\n    \"Name\": \"\",\n    \"Description\": \"\",\n    \"Type\": \"\",\n    \"Parameters\": {}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -724,15 +807,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "86e07474-2068-4af8-914c-3ae50c965622",
+          "uuid": "6d24c71f-9678-4732-b320-e0398debcb69",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -743,15 +829,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "a35540c1-1c5b-42d9-8e66-a911bd76c627",
+          "uuid": "a8db9fc1-08dc-4c26-8690-c4eb2731846c",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -762,26 +851,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "419efa0b-3462-4762-8aae-317f0adf5273",
+      "uuid": "7b963f56-323b-4d39-b300-3ad41bfc0720",
       "documentation": "Returns a database object for the specified database and data catalog.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.GetDatabase",
       "responses": [
         {
-          "uuid": "3ad32a95-946e-42f9-93b7-843fff0dc9e3",
+          "uuid": "601de778-5e89-4fc7-9c7e-bb3ba01e7275",
           "body": "{\n  \"Database\": {\n    \"Name\": \"\",\n    \"Description\": \"\",\n    \"Parameters\": {}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -792,15 +883,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "5c86e282-7a69-4853-b519-a727e6486d47",
+          "uuid": "1d461b33-316e-445c-a9f1-71d26986d87e",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -811,15 +905,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "7ae682a0-e575-4e12-9c16-d52021b54c66",
+          "uuid": "f887bda2-25d6-496d-b55f-03616ad5fe1f",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -830,15 +927,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "4dbcd532-cd64-4b28-b44a-87e48f220217",
+          "uuid": "9986f022-fe17-4193-91d4-65be75a8ab46",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -849,26 +949,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "1ea895b9-685d-443e-be30-d42683b830fc",
+      "uuid": "ce2f3c23-6285-4220-b4ee-6918da0fc414",
       "documentation": "Returns information about a single query. Requires that you have access to the workgroup in which the query was saved.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.GetNamedQuery",
       "responses": [
         {
-          "uuid": "78b087aa-4ab7-4327-9f1a-346c2ba0f6c0",
+          "uuid": "c25eca94-648b-42b8-85ce-2aac9dc037d1",
           "body": "{\n  \"NamedQuery\": {\n    \"Name\": \"\",\n    \"Description\": \"\",\n    \"Database\": \"\",\n    \"QueryString\": \"\",\n    \"NamedQueryId\": \"\",\n    \"WorkGroup\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -879,15 +981,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "a103a616-689e-42a5-b1f1-27c0081ed553",
+          "uuid": "cfb84a5b-2b2a-4382-947e-b2f610ebf7f6",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -898,15 +1003,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "3b4ad0b2-7e27-4796-bf8f-4cb719645b12",
+          "uuid": "9c5ec6c0-2394-4e01-92bb-9a60ed1ff5fa",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -917,26 +1025,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "e074bca7-3b30-42f4-bd25-d9412f8ec891",
+      "uuid": "085ebe28-810f-4f44-8b96-cc0ff7622ad0",
       "documentation": "Retrieves the prepared statement with the specified name from the specified workgroup.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.GetPreparedStatement",
       "responses": [
         {
-          "uuid": "5605c251-a20a-429c-aa93-bbfd9961b142",
+          "uuid": "ae18cb74-2917-4cd2-899a-40b10b50b897",
           "body": "{\n  \"PreparedStatement\": {\n    \"StatementName\": \"\",\n    \"QueryStatement\": \"\",\n    \"WorkGroupName\": \"\",\n    \"Description\": \"\",\n    \"LastModifiedTime\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -947,15 +1057,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "3d620b35-d52b-47db-87f8-e6c3b6ab0965",
+          "uuid": "04ea9c15-a628-44b1-98f9-1e776d844165",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -966,15 +1079,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "eaafdda8-521c-4fe3-b564-1bc7c91f1e1e",
+          "uuid": "1ca69ee9-641e-472e-8e56-96a7b211e06f",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -985,15 +1101,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "dac14daa-08a1-41c0-97c6-333eec4a84f3",
+          "uuid": "a2f2fd57-ef04-4020-96ff-8635db2b833c",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -1004,27 +1123,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f60c02d6-4314-42f5-8ea2-427447805a2b",
+      "uuid": "2a78d279-2fa7-4d37-82f8-6f1a5e8d24a9",
       "documentation": "Returns information about a single execution of a query if you have access to the workgroup in which the query ran. Each time a query executes, information about the query execution is saved with a unique ID.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.GetQueryExecution",
       "responses": [
         {
-          "uuid": "8dfcec48-7747-44db-bc50-95d354983eb0",
-          "body": "{\n  \"QueryExecution\": {\n    \"QueryExecutionId\": \"\",\n    \"Query\": \"\",\n    \"StatementType\": \"\",\n    \"ResultConfiguration\": {\n      \"OutputLocation\": \"\",\n      \"EncryptionConfiguration\": {\n        \"EncryptionOption\": \"\",\n        \"KmsKey\": \"\"\n      }\n    },\n    \"QueryExecutionContext\": {\n      \"Database\": \"\",\n      \"Catalog\": \"\"\n    },\n    \"Status\": {\n      \"State\": \"\",\n      \"StateChangeReason\": \"\",\n      \"SubmissionDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"CompletionDateTime\": \"{{faker 'date.recent' 365}}\"\n    },\n    \"Statistics\": {\n      \"EngineExecutionTimeInMillis\": {{faker 'random.number'}},\n      \"DataScannedInBytes\": {{faker 'random.number'}},\n      \"DataManifestLocation\": \"\",\n      \"TotalExecutionTimeInMillis\": {{faker 'random.number'}},\n      \"QueryQueueTimeInMillis\": {{faker 'random.number'}},\n      \"QueryPlanningTimeInMillis\": {{faker 'random.number'}},\n      \"ServiceProcessingTimeInMillis\": {{faker 'random.number'}}\n    },\n    \"WorkGroup\": \"\",\n    \"EngineVersion\": {\n      \"SelectedEngineVersion\": \"\",\n      \"EffectiveEngineVersion\": \"\"\n    }\n  }\n}",
+          "uuid": "445ff6d6-2e27-4e07-aae7-5e10009cf2e9",
+          "body": "{\n  \"QueryExecution\": {\n    \"QueryExecutionId\": \"\",\n    \"Query\": \"\",\n    \"StatementType\": \"\",\n    \"ResultConfiguration\": {\n      \"OutputLocation\": \"\",\n      \"EncryptionConfiguration\": {\n        \"EncryptionOption\": \"\",\n        \"KmsKey\": \"\"\n      }\n    },\n    \"QueryExecutionContext\": {\n      \"Database\": \"\",\n      \"Catalog\": \"\"\n    },\n    \"Status\": {\n      \"State\": \"\",\n      \"StateChangeReason\": \"\",\n      \"SubmissionDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"CompletionDateTime\": \"{{faker 'date.recent' 365}}\"\n    },\n    \"Statistics\": {\n      \"EngineExecutionTimeInMillis\": {{faker 'datatype.number'}},\n      \"DataScannedInBytes\": {{faker 'datatype.number'}},\n      \"DataManifestLocation\": \"\",\n      \"TotalExecutionTimeInMillis\": {{faker 'datatype.number'}},\n      \"QueryQueueTimeInMillis\": {{faker 'datatype.number'}},\n      \"QueryPlanningTimeInMillis\": {{faker 'datatype.number'}},\n      \"ServiceProcessingTimeInMillis\": {{faker 'datatype.number'}}\n    },\n    \"WorkGroup\": \"\",\n    \"EngineVersion\": {\n      \"SelectedEngineVersion\": \"\",\n      \"EffectiveEngineVersion\": \"\"\n    }\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -1034,15 +1155,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "11e9ad09-d84f-47a6-a02d-3e4febea6834",
+          "uuid": "afe16f68-8cf9-44bf-99fe-433773ab1489",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1053,15 +1177,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "765692ec-5166-43f8-8a05-1c3a8752a9f2",
+          "uuid": "e9327f78-228f-4a15-84a9-fe668dadcc3c",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1072,27 +1199,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8bfb1f87-606b-4779-a6cf-73e1efb154c4",
+      "uuid": "c2cec5fd-6e86-48a8-857e-844eba5192b5",
       "documentation": "<p>Streams the results of a single query execution specified by <code>QueryExecutionId</code> from the Athena query results location in Amazon S3. For more information, see <a href=\"https://docs.aws.amazon.com/athena/latest/ug/querying.html\">Query Results</a> in the <i>Amazon Athena User Guide</i>. This request does not execute the query but returns results. Use <a>StartQueryExecution</a> to run a query.</p> <p>To stream query results successfully, the IAM principal with permission to call <code>GetQueryResults</code> also must have permissions to the Amazon S3 <code>GetObject</code> action for the Athena query results location.</p> <important> <p>IAM principals with permission to the Amazon S3 <code>GetObject</code> action for the query results location are able to retrieve query results from Amazon S3 even if permission to the <code>GetQueryResults</code> action is denied. To restrict user or role access, ensure that Amazon S3 permissions to the Athena query location are denied.</p> </important>",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.GetQueryResults",
       "responses": [
         {
-          "uuid": "9f8e0222-3fd3-483d-8a8a-4c16dbc21197",
-          "body": "{\n  \"UpdateCount\": {{faker 'random.number'}},\n  \"ResultSet\": {\n    \"Rows\": [\n      {\n        \"Data\": [\n          {\n            \"VarCharValue\": \"\"\n          }\n        ]\n      }\n    ],\n    \"ResultSetMetadata\": {\n      \"ColumnInfo\": [\n        {\n          \"CatalogName\": \"\",\n          \"SchemaName\": \"\",\n          \"TableName\": \"\",\n          \"Name\": \"\",\n          \"Label\": \"\",\n          \"Type\": \"\",\n          \"Precision\": {{faker 'random.number'}},\n          \"Scale\": {{faker 'random.number'}},\n          \"Nullable\": \"\",\n          \"CaseSensitive\": {{faker 'random.boolean'}}\n        }\n      ]\n    }\n  },\n  \"NextToken\": \"\"\n}",
+          "uuid": "82ab472f-bd81-4bd2-91db-62b0d74aa758",
+          "body": "{\n  \"UpdateCount\": {{faker 'datatype.number'}},\n  \"ResultSet\": {\n    \"Rows\": [\n      {\n        \"Data\": [\n          {\n            \"VarCharValue\": \"\"\n          }\n        ]\n      }\n    ],\n    \"ResultSetMetadata\": {\n      \"ColumnInfo\": [\n        {\n          \"CatalogName\": \"\",\n          \"SchemaName\": \"\",\n          \"TableName\": \"\",\n          \"Name\": \"\",\n          \"Label\": \"\",\n          \"Type\": \"\",\n          \"Precision\": {{faker 'datatype.number'}},\n          \"Scale\": {{faker 'datatype.number'}},\n          \"Nullable\": \"\",\n          \"CaseSensitive\": {{faker 'datatype.boolean'}}\n        }\n      ]\n    }\n  },\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -1102,15 +1231,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "0ea8f47c-3933-4937-967d-cee4fd1170ee",
+          "uuid": "883b838c-3719-41e2-8938-848fa393f542",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1121,15 +1253,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "ea50cd98-f400-4ad3-a120-6738673eda1b",
+          "uuid": "85c27304-06e0-44fb-b4c4-8a8c4d5216f4",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1140,26 +1275,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8baf9b76-720f-463b-a8c0-e6517e34dd6a",
+      "uuid": "23aa4ad0-276e-4681-9357-1f20bee46d43",
       "documentation": "Returns table metadata for the specified catalog, database, and table.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.GetTableMetadata",
       "responses": [
         {
-          "uuid": "6a10e1f9-07e4-4619-a93f-6c1377e6322d",
+          "uuid": "19e107cf-3e0b-4ee7-9806-3af33b539427",
           "body": "{\n  \"TableMetadata\": {\n    \"Name\": \"\",\n    \"CreateTime\": \"{{faker 'date.recent' 365}}\",\n    \"LastAccessTime\": \"{{faker 'date.recent' 365}}\",\n    \"TableType\": \"\",\n    \"Columns\": [\n      {\n        \"Name\": \"\",\n        \"Type\": \"\",\n        \"Comment\": \"\"\n      }\n    ],\n    \"PartitionKeys\": [\n      {\n        \"Name\": \"\",\n        \"Type\": \"\",\n        \"Comment\": \"\"\n      }\n    ],\n    \"Parameters\": {}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1170,15 +1307,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "e4732adc-baa5-4fd3-98b0-cd9182df91ec",
+          "uuid": "2750189d-6887-4ad7-b32f-4676e24bc997",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1189,15 +1329,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "6a2b7729-087c-48c1-be8e-39392206bf54",
+          "uuid": "373ca382-0d89-4029-94a8-b36fe03670a8",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1208,15 +1351,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "efa3006c-0f4e-4312-8775-e44fd8f35324",
+          "uuid": "8b4467c8-ca1b-4952-ab0c-6149c14d2edf",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -1227,27 +1373,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "91ed42f6-ad42-4839-9649-cb1930528f96",
+      "uuid": "cea8f669-dd6e-4706-ab10-6470ef23c6bd",
       "documentation": "Returns information about the workgroup with the specified name.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.GetWorkGroup",
       "responses": [
         {
-          "uuid": "97a210d1-a736-489c-af9c-e1acb202a647",
-          "body": "{\n  \"WorkGroup\": {\n    \"Name\": \"\",\n    \"State\": \"\",\n    \"Configuration\": {\n      \"ResultConfiguration\": {\n        \"OutputLocation\": \"\",\n        \"EncryptionConfiguration\": {\n          \"EncryptionOption\": \"\",\n          \"KmsKey\": \"\"\n        }\n      },\n      \"EnforceWorkGroupConfiguration\": {{faker 'random.boolean'}},\n      \"PublishCloudWatchMetricsEnabled\": {{faker 'random.boolean'}},\n      \"BytesScannedCutoffPerQuery\": {{faker 'random.number'}},\n      \"RequesterPaysEnabled\": {{faker 'random.boolean'}},\n      \"EngineVersion\": {\n        \"SelectedEngineVersion\": \"\",\n        \"EffectiveEngineVersion\": \"\"\n      }\n    },\n    \"Description\": \"\",\n    \"CreationTime\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
+          "uuid": "e769df32-0df7-4498-9cd6-d2cfe25470f7",
+          "body": "{\n  \"WorkGroup\": {\n    \"Name\": \"\",\n    \"State\": \"\",\n    \"Configuration\": {\n      \"ResultConfiguration\": {\n        \"OutputLocation\": \"\",\n        \"EncryptionConfiguration\": {\n          \"EncryptionOption\": \"\",\n          \"KmsKey\": \"\"\n        }\n      },\n      \"EnforceWorkGroupConfiguration\": {{faker 'datatype.boolean'}},\n      \"PublishCloudWatchMetricsEnabled\": {{faker 'datatype.boolean'}},\n      \"BytesScannedCutoffPerQuery\": {{faker 'datatype.number'}},\n      \"RequesterPaysEnabled\": {{faker 'datatype.boolean'}},\n      \"EngineVersion\": {\n        \"SelectedEngineVersion\": \"\",\n        \"EffectiveEngineVersion\": \"\"\n      }\n    },\n    \"Description\": \"\",\n    \"CreationTime\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -1257,15 +1405,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "11d4c808-b60c-427a-a1fc-a987508f15d3",
+          "uuid": "1b629a61-4293-46b0-9371-9da27e2b5007",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1276,15 +1427,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "1a22f613-b396-4921-ab2c-a69ecb2c742e",
+          "uuid": "7d2ccb05-51bf-4398-919a-bf8a35fffa89",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1295,26 +1449,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "dd5de4de-4a91-4d5b-97de-71e3ae8fa3df",
+      "uuid": "b563f793-8006-4048-b0b6-b081d106eb44",
       "documentation": "Lists the data catalogs in the current Amazon Web Services account.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.ListDataCatalogs",
       "responses": [
         {
-          "uuid": "638a9bc4-1873-40af-8f30-0ee8cf2b143e",
+          "uuid": "b7421a92-a7f0-4ada-b02f-2e1a698f6188",
           "body": "{\n  \"DataCatalogsSummary\": [\n    {\n      \"CatalogName\": \"\",\n      \"Type\": \"\"\n    }\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1325,15 +1481,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "d2a4be45-b3cc-4483-a08d-df3849db4bc1",
+          "uuid": "e517f12e-604c-43a1-b053-2b0880bf7c23",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1344,15 +1503,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "c3e6a310-585c-4408-bd52-a23059fd59d1",
+          "uuid": "c05eaac6-71b4-4550-b209-c2389d467227",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1363,26 +1525,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "20448573-c913-4adb-b2ee-f95f93fbc307",
+      "uuid": "f2ab5992-801b-4b62-bfa4-3bc2cb2d8790",
       "documentation": "Lists the databases in the specified data catalog.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.ListDatabases",
       "responses": [
         {
-          "uuid": "e3fbedca-2c56-439e-9723-09968a5f2ea0",
+          "uuid": "10fb5aa3-2dbc-430e-a22d-aaeca843ea1e",
           "body": "{\n  \"DatabaseList\": [\n    {\n      \"Name\": \"\",\n      \"Description\": \"\",\n      \"Parameters\": {}\n    }\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1393,15 +1557,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "0775440c-6e01-401b-91a0-3eaa1ae3bce5",
+          "uuid": "bc8bf356-91f2-434d-b525-6c35068aae9e",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1412,15 +1579,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "015f50b6-9ba2-40fe-a69b-5715f22bd343",
+          "uuid": "08f72108-1eb6-453e-9430-e81dc7174554",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1431,15 +1601,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "95db60c1-19ca-44ee-af91-dd8ec750e1dd",
+          "uuid": "54b2e473-4295-4332-9668-41ee4c9c4ee1",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -1450,26 +1623,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9c00d7fb-f473-4687-b7ba-19d2d07a34be",
+      "uuid": "64cd2392-0d39-4229-8e65-5a3d14aeb272",
       "documentation": "Returns a list of engine versions that are available to choose from, including the Auto option.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.ListEngineVersions",
       "responses": [
         {
-          "uuid": "efa710d8-d803-4e5d-88e5-e60a9604fad7",
+          "uuid": "ad3c3b07-5d1d-4e0b-9ea4-9d9fbc3ee298",
           "body": "{\n  \"EngineVersions\": [\n    {\n      \"SelectedEngineVersion\": \"\",\n      \"EffectiveEngineVersion\": \"\"\n    }\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1480,15 +1655,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "62cedb0d-a67f-4f9f-82b3-1491495523b9",
+          "uuid": "158ddc73-d7be-4225-b3f4-59457ac98171",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1499,15 +1677,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "25c0aa4f-fd79-45bb-9f64-969c4dc2aaaf",
+          "uuid": "50c33d50-24ca-473c-b3fd-ae4245881312",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1518,26 +1699,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "33d80304-2af6-40fc-aa00-8e9ca5c35897",
+      "uuid": "cbce30d3-d6ea-4400-acb3-f99ce96d7a38",
       "documentation": "<p>Provides a list of available query IDs only for queries saved in the specified workgroup. Requires that you have access to the specified workgroup. If a workgroup is not specified, lists the saved queries for the primary workgroup.</p> <p>For code samples using the Amazon Web Services SDK for Java, see <a href=\"http://docs.aws.amazon.com/athena/latest/ug/code-samples.html\">Examples and Code Samples</a> in the <i>Amazon Athena User Guide</i>.</p>",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.ListNamedQueries",
       "responses": [
         {
-          "uuid": "4292c28b-ef66-4cb1-8e5f-25bcb3336def",
+          "uuid": "8d810e37-d22e-4c3c-9715-fdaafd38e578",
           "body": "{\n  \"NamedQueryIds\": [\n    \"\"\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1548,15 +1731,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "b7c285af-3621-4b56-ba08-8d9e81ca26e0",
+          "uuid": "32b2dde8-e294-40b2-b21e-4d4967a083f0",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1567,15 +1753,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "0a750b0b-3e63-487c-a81c-9ef96d2cd85c",
+          "uuid": "acd0fc51-ef42-4366-85b0-6badb6a3cf42",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1586,26 +1775,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "17547845-2082-4b3e-b8d9-ac135753e234",
+      "uuid": "254eb6b3-2b34-4df1-8a22-59ca180e8059",
       "documentation": "Lists the prepared statements in the specfied workgroup.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.ListPreparedStatements",
       "responses": [
         {
-          "uuid": "d8f4eac5-38dc-418b-8f06-6edf0278d5ad",
+          "uuid": "f4b8d553-1844-45c9-ba78-0dcc397618af",
           "body": "{\n  \"PreparedStatements\": [\n    {\n      \"StatementName\": \"\",\n      \"LastModifiedTime\": \"{{faker 'date.recent' 365}}\"\n    }\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1616,15 +1807,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "04a2a73a-d518-4c7d-bb2f-f6a70aa70827",
+          "uuid": "ff3a3ca2-5d09-4d5a-937c-0b85306a36d6",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1635,15 +1829,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "d873ff43-7a3e-42f4-afbc-d20d11ca32c2",
+          "uuid": "2ed5dc69-a7b4-4bb6-80fa-af061446837d",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1654,26 +1851,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "69329b0a-bb24-43f3-b591-6c83177c6756",
+      "uuid": "25efe398-c319-4911-919f-f5033459a226",
       "documentation": "<p>Provides a list of available query execution IDs for the queries in the specified workgroup. If a workgroup is not specified, returns a list of query execution IDs for the primary workgroup. Requires you to have access to the workgroup in which the queries ran.</p> <p>For code samples using the Amazon Web Services SDK for Java, see <a href=\"http://docs.aws.amazon.com/athena/latest/ug/code-samples.html\">Examples and Code Samples</a> in the <i>Amazon Athena User Guide</i>.</p>",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.ListQueryExecutions",
       "responses": [
         {
-          "uuid": "1401da40-d06e-45eb-bb15-ad43a3697ea6",
+          "uuid": "aac2e581-8fa8-4524-9cd0-72e15b2599ca",
           "body": "{\n  \"QueryExecutionIds\": [\n    \"\"\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1684,15 +1883,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "86429eab-91a3-4fa7-83b9-0b4246835d49",
+          "uuid": "578f0564-3386-4aaf-909c-2bb27ac58643",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1703,15 +1905,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "1f1291b5-1905-4118-bb49-7121358b7a22",
+          "uuid": "312edbe7-4549-4669-ab37-e500022fe9e8",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1722,26 +1927,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8c09e1cd-4a65-46fd-a594-c0be1849738a",
+      "uuid": "5ef01359-a130-44e4-9e3c-2651e422be28",
       "documentation": "Lists the metadata for the tables in the specified data catalog database.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.ListTableMetadata",
       "responses": [
         {
-          "uuid": "5ce4cf96-9463-4e32-b8fa-78c27bf4212d",
+          "uuid": "8a7bb179-2f0e-4128-bf24-1eb3fb7b3635",
           "body": "{\n  \"TableMetadataList\": [\n    {\n      \"Name\": \"\",\n      \"CreateTime\": \"{{faker 'date.recent' 365}}\",\n      \"LastAccessTime\": \"{{faker 'date.recent' 365}}\",\n      \"TableType\": \"\",\n      \"Columns\": [\n        {\n          \"Name\": \"\",\n          \"Type\": \"\",\n          \"Comment\": \"\"\n        }\n      ],\n      \"PartitionKeys\": [\n        {\n          \"Name\": \"\",\n          \"Type\": \"\",\n          \"Comment\": \"\"\n        }\n      ],\n      \"Parameters\": {}\n    }\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1752,15 +1959,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "c8821430-cc41-4b88-bd2b-1d3c7a8ef0fe",
+          "uuid": "17102fb8-30b9-40b4-a2a7-bed21b11ce52",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1771,15 +1981,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "2f200825-882f-4b41-9a07-f2c1465520a6",
+          "uuid": "2a1717e8-0ed0-4233-bf7b-67296d7b0923",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1790,15 +2003,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "68773ef5-65e8-4ee5-ade0-a9590029396f",
+          "uuid": "cfaad841-9e97-48be-9660-e4a8c8aaa193",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -1809,26 +2025,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "fca01a76-a9e0-432a-9095-cfda16c916b9",
+      "uuid": "66da76fc-22ab-449a-b2f7-1f408a977380",
       "documentation": "Lists the tags associated with an Athena workgroup or data catalog resource.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.ListTagsForResource",
       "responses": [
         {
-          "uuid": "5118e11a-fbc7-44f9-8d73-41dbf46cc43d",
+          "uuid": "8ddd7da5-7b8b-4f0a-bfba-969aa6168329",
           "body": "{\n  \"Tags\": [\n    {\n      \"Key\": \"\",\n      \"Value\": \"\"\n    }\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1839,15 +2057,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "d02856bb-11f8-4d1e-8984-c732b6c3f8fe",
+          "uuid": "2e1a2dd4-7231-43a6-b38f-d3aecfc825ce",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1858,15 +2079,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "6ed6c552-cb06-492b-b9cf-ff42ea03b685",
+          "uuid": "9a08c08f-febe-49b3-8873-ce611cd3efd9",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1877,15 +2101,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "ac107ae2-e0f9-4dc8-879c-4b2a2a9ab8b4",
+          "uuid": "82457170-bb7e-4ee1-96db-e5b72325e978",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -1896,26 +2123,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "ad746cd8-e851-4c7f-a162-518a5b448c32",
+      "uuid": "bfd28696-2959-4b4a-9dd3-e1a276336d25",
       "documentation": "Lists available workgroups for the account.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.ListWorkGroups",
       "responses": [
         {
-          "uuid": "5ddbee2b-adb9-46fb-964b-f21035ca61c8",
+          "uuid": "8a990d10-b1e3-48f5-ba87-203bfc380172",
           "body": "{\n  \"WorkGroups\": [\n    {\n      \"Name\": \"\",\n      \"State\": \"\",\n      \"Description\": \"\",\n      \"CreationTime\": \"{{faker 'date.recent' 365}}\",\n      \"EngineVersion\": {\n        \"SelectedEngineVersion\": \"\",\n        \"EffectiveEngineVersion\": \"\"\n      }\n    }\n  ],\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1926,15 +2155,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "000a2e09-5ea6-4e1a-85bc-2052620fd780",
+          "uuid": "f6531fda-d7ea-4f36-918a-39c9d7a78bbe",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -1945,15 +2177,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "a1ae20a5-340a-48a8-a98f-978231efbdf6",
+          "uuid": "b28214bd-ad4f-43e3-8c10-7465c34f3de3",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -1964,26 +2199,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "fb3acd05-24a2-42c9-b6fd-b0c8644f3d59",
+      "uuid": "be91cd6a-dbfb-478f-85b2-176f85024e54",
       "documentation": "Runs the SQL query statements contained in the <code>Query</code>. Requires you to have access to the workgroup in which the query ran. Running queries against an external catalog requires <a>GetDataCatalog</a> permission to the catalog. For code samples using the Amazon Web Services SDK for Java, see <a href=\"http://docs.aws.amazon.com/athena/latest/ug/code-samples.html\">Examples and Code Samples</a> in the <i>Amazon Athena User Guide</i>.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.StartQueryExecution",
       "responses": [
         {
-          "uuid": "00db052d-a8fd-4974-8fcc-ede2d4b143e1",
+          "uuid": "5b1de451-4f8c-469c-8764-1c00be172015",
           "body": "{\n  \"QueryExecutionId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1994,15 +2231,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "508cda8a-72a8-4148-ad98-4eaeb13fbf40",
+          "uuid": "c9f7104f-8fbe-47cd-b715-6f75de1574b1",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -2013,15 +2253,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "622cddee-3be7-46d7-a812-c712d134b008",
+          "uuid": "8a0198f5-ed16-44c9-b49f-eb07580b1ccf",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -2032,15 +2275,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "6313cde4-5b60-40d6-bd47-df230e477aff",
+          "uuid": "977855d0-7a02-403c-8b15-371dc0a6c208",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -2051,26 +2297,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f7bc69fa-955e-47b5-9562-c8b37f22f1bf",
+      "uuid": "c6e6db70-f0e6-496c-a30f-745dd6e83eca",
       "documentation": "<p>Stops a query execution. Requires you to have access to the workgroup in which the query ran.</p> <p>For code samples using the Amazon Web Services SDK for Java, see <a href=\"http://docs.aws.amazon.com/athena/latest/ug/code-samples.html\">Examples and Code Samples</a> in the <i>Amazon Athena User Guide</i>.</p>",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.StopQueryExecution",
       "responses": [
         {
-          "uuid": "8d0d91b8-085d-4277-b528-633ca5b00f53",
+          "uuid": "40f8c965-2a4b-428b-ad82-0cfad8d7caa2",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -2081,15 +2329,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "574abaf1-cbd3-465e-82b4-0a6b86632aa2",
+          "uuid": "117f61f0-08cc-4cc7-ad60-efea94b7989c",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -2100,15 +2351,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "951c7b6d-e1a7-4978-a20b-5b7aecf876e3",
+          "uuid": "8dae427f-cfe4-4c31-87b9-01c9fd829ccb",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -2119,26 +2373,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "1dcbccb0-6274-4250-b1f3-c1bea7ed1980",
+      "uuid": "a6aca7d3-b803-4001-847e-8b174392c5e7",
       "documentation": "Adds one or more tags to an Athena resource. A tag is a label that you assign to a resource. In Athena, a resource can be a workgroup or data catalog. Each tag consists of a key and an optional value, both of which you define. For example, you can use tags to categorize Athena workgroups or data catalogs by purpose, owner, or environment. Use a consistent set of tag keys to make it easier to search and filter workgroups or data catalogs in your account. For best practices, see <a href=\"https://aws.amazon.com/answers/account-management/aws-tagging-strategies/\">Tagging Best Practices</a>. Tag keys can be from 1 to 128 UTF-8 Unicode characters, and tag values can be from 0 to 256 UTF-8 Unicode characters. Tags can use letters and numbers representable in UTF-8, and the following characters: + - = . _ : / @. Tag keys and values are case-sensitive. Tag keys must be unique per resource. If you specify more than one tag, separate them by commas.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.TagResource",
       "responses": [
         {
-          "uuid": "48f0ba1f-30d1-4f65-8341-c763d817b269",
+          "uuid": "afdcaad9-16da-4c2e-9d65-071a0194583f",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -2149,15 +2405,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "a69d38c0-d832-44e1-921a-1a9d363f9535",
+          "uuid": "a35e7ecb-3e25-402d-9c84-5ba699e02609",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -2168,15 +2427,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "1c577db8-64a0-4206-bbbc-8d48e40b4a70",
+          "uuid": "3418e79a-a963-43dc-b508-ec9a5052443b",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -2187,15 +2449,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "21dfa68c-a2f9-49fe-a10f-12a773854907",
+          "uuid": "ec03d642-ded8-44ad-bacd-c04472b3bfe7",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -2206,26 +2471,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "cae5a07e-2042-4c7d-bf72-ee2e6c98e56f",
+      "uuid": "992c66a9-c0cd-466f-9c3c-6ce82c16cfb7",
       "documentation": "Removes one or more tags from a data catalog or workgroup resource.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.UntagResource",
       "responses": [
         {
-          "uuid": "ff56ac2f-1c33-4310-b9da-c24d624326b6",
+          "uuid": "59dc0a2b-e9bf-4551-8e70-5e8bae18fbe8",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -2236,15 +2503,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "2308b020-499f-4bff-b177-ebd835771980",
+          "uuid": "f4a1f7bc-9edb-4958-9d2c-20a0d2ae7d02",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -2255,15 +2525,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "a7563144-8101-4a87-bf25-6b81719baa68",
+          "uuid": "9327098e-85e6-4a0a-bc52-ab867cbf5425",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -2274,15 +2547,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "c7428876-bfe7-4774-acf1-235d7f0b7261",
+          "uuid": "23488d5b-e026-4ed1-aaea-c4e8e62cd02d",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -2293,26 +2569,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9648f012-6335-48a0-9d09-6f4e90935b2d",
+      "uuid": "3ac1d00b-d3d8-4847-b716-1cd3b9354078",
       "documentation": "Updates the data catalog that has the specified name.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.UpdateDataCatalog",
       "responses": [
         {
-          "uuid": "25bf6efe-6c2c-4d1d-a9a9-6f9ff495a54f",
+          "uuid": "da7e31a1-a1df-4418-960f-bd0997125991",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -2323,15 +2601,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "b213379b-3733-4ac2-84fd-b1fbf12ce60b",
+          "uuid": "40cc0a66-a388-4dbc-b75b-1cae924829ef",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -2342,15 +2623,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "83701a36-0315-442d-a85b-4aecf6144173",
+          "uuid": "da060b0e-486d-432b-bb3c-843493910cd1",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -2361,26 +2645,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "58f85b60-9c1c-432c-895e-162e853b892f",
+      "uuid": "712e51e9-febd-4cd6-9e61-78f4385db6c0",
       "documentation": "Updates a prepared statement.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.UpdatePreparedStatement",
       "responses": [
         {
-          "uuid": "afcc2080-e788-4af2-a013-f1e6245f29ba",
+          "uuid": "4547db88-61f4-461b-ab81-997071c76a20",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -2391,15 +2677,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "4b6ff91e-5d66-4c13-ab75-f2edb5e9b753",
+          "uuid": "da46df92-10b7-448f-9bc5-23164a680df8",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -2410,15 +2699,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "4f7342b3-059a-40ff-ba55-7a9a82531279",
+          "uuid": "4550c737-416a-45f9-8424-dc67d42a2a60",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -2429,15 +2721,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "7e91b5ee-b791-40ce-95c9-720cb44a4550",
+          "uuid": "309d4d33-7b5b-47fd-9722-1d88d992bf6b",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 482,
@@ -2448,26 +2743,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2c8b90fb-9347-462c-951d-97b92f4995eb",
+      "uuid": "380399e0-c4c6-4fac-8349-958c7fa2ed85",
       "documentation": "Updates the workgroup with the specified name. The workgroup's name cannot be changed.",
       "method": "post",
       "endpoint": "#X-Amz-Target=AmazonAthena.UpdateWorkGroup",
       "responses": [
         {
-          "uuid": "5d16cefb-4a91-4265-967e-dc40f4b6b9d5",
+          "uuid": "be2ba405-9e69-4cb0-8522-7cb5d4f4d2b9",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -2478,15 +2775,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "b8d174d8-ea7d-408c-8c8d-accc12af7cf9",
+          "uuid": "4ffebb80-5a10-4576-8906-bc0dcf4e9466",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 480,
@@ -2497,15 +2797,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "224a5ae1-19fb-4aa9-99a9-680e0de8bae9",
+          "uuid": "782f58b9-a1ef-4f21-aa2e-01c4d197c6b1",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 481,
@@ -2516,17 +2819,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -2554,5 +2859,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

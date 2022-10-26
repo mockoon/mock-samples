@@ -1,6 +1,6 @@
 {
-  "uuid": "22bdd2e3-9e12-40d7-affd-b7b3e6e5f3c5",
-  "lastMigration": 19,
+  "uuid": "76a9a484-3c50-4dc9-a386-0d838772dd39",
+  "lastMigration": 24,
   "name": "Amazon SimpleDB",
   "endpointPrefix": "",
   "latency": 0,
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "d062c20e-d0ba-47eb-85ef-fb82646a2090",
+      "uuid": "500a0387-c931-4cd0-82f9-32a92fa10725",
       "documentation": "<p> Performs multiple DeleteAttributes operations in a single call, which reduces round trips and latencies. This enables Amazon SimpleDB to optimize requests, which generally yields better throughput. </p> <note> <p> If you specify BatchDeleteAttributes without attributes or values, all the attributes for the item are deleted. </p> <p> BatchDeleteAttributes is an idempotent operation; running it multiple times on the same item or attribute doesn't result in an error. </p> <p> The BatchDeleteAttributes operation succeeds or fails in its entirety. There are no partial deletes. You can execute multiple BatchDeleteAttributes operations and other operations in parallel. However, large numbers of concurrent BatchDeleteAttributes calls can result in Service Unavailable (503) responses. </p> <p> This operation is vulnerable to exceeding the maximum URL size when making a REST request using the HTTP GET method. </p> <p> This operation does not support conditions using Expected.X.Name, Expected.X.Value, or Expected.X.Exists. </p> </note> <p> The following limitations are enforced for this operation: <ul> <li>1 MB request size</li> <li>25 item limit per BatchDeleteAttributes operation</li> </ul> </p>",
       "method": "get",
       "endpoint": "#Action=BatchDeleteAttributes",
       "responses": [
         {
-          "uuid": "54cc2b37-3e4c-491c-ba0d-916924e3bf29",
+          "uuid": "f7e57632-6c54-49da-9bf0-2ce05a2fe966",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -25,26 +25,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "18f29d88-1a45-4cd0-aae2-f040e64a410b",
+      "uuid": "056315d9-f598-4547-8511-24c594566d8c",
       "documentation": "<p> Performs multiple DeleteAttributes operations in a single call, which reduces round trips and latencies. This enables Amazon SimpleDB to optimize requests, which generally yields better throughput. </p> <note> <p> If you specify BatchDeleteAttributes without attributes or values, all the attributes for the item are deleted. </p> <p> BatchDeleteAttributes is an idempotent operation; running it multiple times on the same item or attribute doesn't result in an error. </p> <p> The BatchDeleteAttributes operation succeeds or fails in its entirety. There are no partial deletes. You can execute multiple BatchDeleteAttributes operations and other operations in parallel. However, large numbers of concurrent BatchDeleteAttributes calls can result in Service Unavailable (503) responses. </p> <p> This operation is vulnerable to exceeding the maximum URL size when making a REST request using the HTTP GET method. </p> <p> This operation does not support conditions using Expected.X.Name, Expected.X.Value, or Expected.X.Exists. </p> </note> <p> The following limitations are enforced for this operation: <ul> <li>1 MB request size</li> <li>25 item limit per BatchDeleteAttributes operation</li> </ul> </p>",
       "method": "post",
       "endpoint": "#Action=BatchDeleteAttributes",
       "responses": [
         {
-          "uuid": "9ce1d955-0c9e-444c-8933-b8318fe14905",
+          "uuid": "51fae08b-663d-453e-8f3e-31aea63219cd",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -55,26 +57,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "1c96344d-3b14-4112-9853-eb457a95794c",
+      "uuid": "f2314f00-43bf-422a-9b6c-8c694f095509",
       "documentation": "<p> The <code>BatchPutAttributes</code> operation creates or replaces attributes within one or more items. By using this operation, the client can perform multiple <a>PutAttribute</a> operation with a single call. This helps yield savings in round trips and latencies, enabling Amazon SimpleDB to optimize requests and generally produce better throughput. </p> <p> The client may specify the item name with the <code>Item.X.ItemName</code> parameter. The client may specify new attributes using a combination of the <code>Item.X.Attribute.Y.Name</code> and <code>Item.X.Attribute.Y.Value</code> parameters. The client may specify the first attribute for the first item using the parameters <code>Item.0.Attribute.0.Name</code> and <code>Item.0.Attribute.0.Value</code>, and for the second attribute for the first item by the parameters <code>Item.0.Attribute.1.Name</code> and <code>Item.0.Attribute.1.Value</code>, and so on. </p> <p> Attributes are uniquely identified within an item by their name/value combination. For example, a single item can have the attributes <code>{ \"first_name\", \"first_value\" }</code> and <code>{ \"first_name\", \"second_value\" }</code>. However, it cannot have two attribute instances where both the <code>Item.X.Attribute.Y.Name</code> and <code>Item.X.Attribute.Y.Value</code> are the same. </p> <p> Optionally, the requester can supply the <code>Replace</code> parameter for each individual value. Setting this value to <code>true</code> will cause the new attribute values to replace the existing attribute values. For example, if an item <code>I</code> has the attributes <code>{ 'a', '1' }, { 'b', '2'}</code> and <code>{ 'b', '3' }</code> and the requester does a BatchPutAttributes of <code>{'I', 'b', '4' }</code> with the Replace parameter set to true, the final attributes of the item will be <code>{ 'a', '1' }</code> and <code>{ 'b', '4' }</code>, replacing the previous values of the 'b' attribute with the new value. </p> <note> You cannot specify an empty string as an item or as an attribute name. The <code>BatchPutAttributes</code> operation succeeds or fails in its entirety. There are no partial puts. </note> <important> This operation is vulnerable to exceeding the maximum URL size when making a REST request using the HTTP GET method. This operation does not support conditions using <code>Expected.X.Name</code>, <code>Expected.X.Value</code>, or <code>Expected.X.Exists</code>. </important> <p> You can execute multiple <code>BatchPutAttributes</code> operations and other operations in parallel. However, large numbers of concurrent <code>BatchPutAttributes</code> calls can result in Service Unavailable (503) responses. </p> <p> The following limitations are enforced for this operation: <ul> <li>256 attribute name-value pairs per item</li> <li>1 MB request size</li> <li>1 billion attributes per domain</li> <li>10 GB of total user data storage per domain</li> <li>25 item limit per <code>BatchPutAttributes</code> operation</li> </ul> </p>",
       "method": "get",
       "endpoint": "#Action=BatchPutAttributes",
       "responses": [
         {
-          "uuid": "6086e2cf-93f3-4a6b-94ec-88d1e908f33e",
+          "uuid": "47eb28a7-7b6f-47f5-be4b-8c066c25a771",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -85,15 +89,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "884040ea-eb68-40e7-9e0a-bd5b919aa2f0",
+          "uuid": "34b20545-78de-4dba-9e13-a144dd0fc320",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -104,15 +111,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "4d14a840-7023-4d74-be1b-23586cfe5f16",
+          "uuid": "ba3ccb9e-5121-414b-8975-5f3ca1649a98",
           "body": "",
           "latency": 0,
           "statusCode": 409,
@@ -123,26 +133,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "16a6e933-cf6d-4f86-ad22-1f9530f62936",
+      "uuid": "6047d6ad-f9a2-413d-8863-32fa0b594fcf",
       "documentation": "<p> The <code>BatchPutAttributes</code> operation creates or replaces attributes within one or more items. By using this operation, the client can perform multiple <a>PutAttribute</a> operation with a single call. This helps yield savings in round trips and latencies, enabling Amazon SimpleDB to optimize requests and generally produce better throughput. </p> <p> The client may specify the item name with the <code>Item.X.ItemName</code> parameter. The client may specify new attributes using a combination of the <code>Item.X.Attribute.Y.Name</code> and <code>Item.X.Attribute.Y.Value</code> parameters. The client may specify the first attribute for the first item using the parameters <code>Item.0.Attribute.0.Name</code> and <code>Item.0.Attribute.0.Value</code>, and for the second attribute for the first item by the parameters <code>Item.0.Attribute.1.Name</code> and <code>Item.0.Attribute.1.Value</code>, and so on. </p> <p> Attributes are uniquely identified within an item by their name/value combination. For example, a single item can have the attributes <code>{ \"first_name\", \"first_value\" }</code> and <code>{ \"first_name\", \"second_value\" }</code>. However, it cannot have two attribute instances where both the <code>Item.X.Attribute.Y.Name</code> and <code>Item.X.Attribute.Y.Value</code> are the same. </p> <p> Optionally, the requester can supply the <code>Replace</code> parameter for each individual value. Setting this value to <code>true</code> will cause the new attribute values to replace the existing attribute values. For example, if an item <code>I</code> has the attributes <code>{ 'a', '1' }, { 'b', '2'}</code> and <code>{ 'b', '3' }</code> and the requester does a BatchPutAttributes of <code>{'I', 'b', '4' }</code> with the Replace parameter set to true, the final attributes of the item will be <code>{ 'a', '1' }</code> and <code>{ 'b', '4' }</code>, replacing the previous values of the 'b' attribute with the new value. </p> <note> You cannot specify an empty string as an item or as an attribute name. The <code>BatchPutAttributes</code> operation succeeds or fails in its entirety. There are no partial puts. </note> <important> This operation is vulnerable to exceeding the maximum URL size when making a REST request using the HTTP GET method. This operation does not support conditions using <code>Expected.X.Name</code>, <code>Expected.X.Value</code>, or <code>Expected.X.Exists</code>. </important> <p> You can execute multiple <code>BatchPutAttributes</code> operations and other operations in parallel. However, large numbers of concurrent <code>BatchPutAttributes</code> calls can result in Service Unavailable (503) responses. </p> <p> The following limitations are enforced for this operation: <ul> <li>256 attribute name-value pairs per item</li> <li>1 MB request size</li> <li>1 billion attributes per domain</li> <li>10 GB of total user data storage per domain</li> <li>25 item limit per <code>BatchPutAttributes</code> operation</li> </ul> </p>",
       "method": "post",
       "endpoint": "#Action=BatchPutAttributes",
       "responses": [
         {
-          "uuid": "fa50f578-e585-4766-81a2-09e76583f2b3",
+          "uuid": "301f2bb7-ac47-4663-8e67-8005a7d0286b",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -153,15 +165,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "db25441d-0ef1-4c37-9586-a266ea395b58",
+          "uuid": "520c37f9-5993-4b2b-8efd-086cbc3fe10f",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -172,15 +187,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "1a6c8886-13e9-4ccb-a895-725dc8546987",
+          "uuid": "650532cd-53e5-4792-9ee5-8260329c14f1",
           "body": "",
           "latency": 0,
           "statusCode": 409,
@@ -191,26 +209,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "0b70adf0-90fd-40d3-9bc0-dd8122c4503e",
+      "uuid": "f275b8b1-267f-4ff0-8d1c-03c977455f1d",
       "documentation": "<p> The <code>CreateDomain</code> operation creates a new domain. The domain name should be unique among the domains associated with the Access Key ID provided in the request. The <code>CreateDomain</code> operation may take 10 or more seconds to complete. </p> <note> CreateDomain is an idempotent operation; running it multiple times using the same domain name will not result in an error response. </note> <p> The client can create up to 100 domains per account. </p> <p> If the client requires additional domains, go to <a href=\"http://aws.amazon.com/contact-us/simpledb-limit-request/\"> http://aws.amazon.com/contact-us/simpledb-limit-request/</a>. </p>",
       "method": "get",
       "endpoint": "#Action=CreateDomain",
       "responses": [
         {
-          "uuid": "2a030bb5-0ab3-4aaf-87da-94701ce78a6a",
+          "uuid": "f15ce176-1529-457b-99c0-c9dbbf4d53a0",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -221,15 +241,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "d5e368a0-2d81-40c8-b288-ddf616b9ebe8",
+          "uuid": "80ab479a-be51-473e-863b-ef91447b59bc",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -240,15 +263,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "7447a1e7-ba77-40df-b7e1-b6c719eeb36d",
+          "uuid": "6f6e85de-6dcf-4565-820a-da55cd615529",
           "body": "",
           "latency": 0,
           "statusCode": 409,
@@ -259,26 +285,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "27d20f75-a51c-4aa6-b5a1-bc9d886584a0",
+      "uuid": "54f6f17c-6b58-4c69-8e7c-bfc0b3795ecf",
       "documentation": "<p> The <code>CreateDomain</code> operation creates a new domain. The domain name should be unique among the domains associated with the Access Key ID provided in the request. The <code>CreateDomain</code> operation may take 10 or more seconds to complete. </p> <note> CreateDomain is an idempotent operation; running it multiple times using the same domain name will not result in an error response. </note> <p> The client can create up to 100 domains per account. </p> <p> If the client requires additional domains, go to <a href=\"http://aws.amazon.com/contact-us/simpledb-limit-request/\"> http://aws.amazon.com/contact-us/simpledb-limit-request/</a>. </p>",
       "method": "post",
       "endpoint": "#Action=CreateDomain",
       "responses": [
         {
-          "uuid": "191a2f01-688b-40fb-a8ae-e4a0491e54f2",
+          "uuid": "65590f83-6b66-4dcb-bfc9-db42a8f66c2f",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -289,15 +317,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "e3dceb13-3412-4c54-ac47-1eafa8b941c0",
+          "uuid": "c564dbdf-cb6f-43e9-ad73-9f8fcb84d529",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -308,15 +339,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "da76ecf4-70fa-4da1-94fd-49c3a1885eef",
+          "uuid": "db4976a7-2d0a-4cb8-abe5-9cdc4d992e6c",
           "body": "",
           "latency": 0,
           "statusCode": 409,
@@ -327,26 +361,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "e1690a7f-6ebf-4b17-9050-639ee476991a",
+      "uuid": "f5417390-07db-43eb-9990-76044f2a15b9",
       "documentation": "<p> Deletes one or more attributes associated with an item. If all attributes of the item are deleted, the item is deleted. </p> <note> If <code>DeleteAttributes</code> is called without being passed any attributes or values specified, all the attributes for the item are deleted. </note> <p> <code>DeleteAttributes</code> is an idempotent operation; running it multiple times on the same item or attribute does not result in an error response. </p> <p> Because Amazon SimpleDB makes multiple copies of item data and uses an eventual consistency update model, performing a <a>GetAttributes</a> or <a>Select</a> operation (read) immediately after a <code>DeleteAttributes</code> or <a>PutAttributes</a> operation (write) might not return updated item data. </p>",
       "method": "get",
       "endpoint": "#Action=DeleteAttributes",
       "responses": [
         {
-          "uuid": "5d7899df-7a3b-4a17-8c8a-b9093755fba0",
+          "uuid": "9dd2721e-b4d1-49f4-808b-ef848c07d706",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -357,15 +393,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "c710160f-a461-4ddf-903e-19c8752d4a93",
+          "uuid": "cf1ec4f7-79d3-4d4f-ba57-08dc01c6fd24",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -376,15 +415,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "b21da4ed-d248-4536-8178-abe2d29fd18d",
+          "uuid": "0677739a-cf26-4f4d-ae33-6f3a3e77aebc",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -395,26 +437,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8bc27529-1a1a-4589-9c86-cf2174d6c4ab",
+      "uuid": "946bede1-ff60-4fff-82ac-58a3066ca486",
       "documentation": "<p> Deletes one or more attributes associated with an item. If all attributes of the item are deleted, the item is deleted. </p> <note> If <code>DeleteAttributes</code> is called without being passed any attributes or values specified, all the attributes for the item are deleted. </note> <p> <code>DeleteAttributes</code> is an idempotent operation; running it multiple times on the same item or attribute does not result in an error response. </p> <p> Because Amazon SimpleDB makes multiple copies of item data and uses an eventual consistency update model, performing a <a>GetAttributes</a> or <a>Select</a> operation (read) immediately after a <code>DeleteAttributes</code> or <a>PutAttributes</a> operation (write) might not return updated item data. </p>",
       "method": "post",
       "endpoint": "#Action=DeleteAttributes",
       "responses": [
         {
-          "uuid": "7a6cdcb4-e76a-4708-af1a-6c5fabdbfcd5",
+          "uuid": "612b8384-b799-4dad-851a-8e16df0a21ef",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -425,15 +469,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "3fb16187-b182-4c82-b01a-e5dc5a2a4ecd",
+          "uuid": "86630bcb-a68f-466c-92c8-a9e213a51c74",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -444,15 +491,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "be887e1a-e3fd-406b-af8b-da81626f8fa3",
+          "uuid": "4523907b-9903-459f-a98a-01c69598f122",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -463,26 +513,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b148cc97-464a-4089-97bd-0d78e4ec4494",
+      "uuid": "30afc2b1-9d31-47a9-9399-1c60403bf786",
       "documentation": "<p> The <code>DeleteDomain</code> operation deletes a domain. Any items (and their attributes) in the domain are deleted as well. The <code>DeleteDomain</code> operation might take 10 or more seconds to complete. </p> <note> Running <code>DeleteDomain</code> on a domain that does not exist or running the function multiple times using the same domain name will not result in an error response. </note>",
       "method": "get",
       "endpoint": "#Action=DeleteDomain",
       "responses": [
         {
-          "uuid": "76b5df84-b3e5-4945-92c7-4cdbb59dba13",
+          "uuid": "9fa50689-887f-4c2f-b50d-641a80f4ce55",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -493,15 +545,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "a39c9902-c2cc-4aca-a617-09a00f173dad",
+          "uuid": "344ec45b-d162-4b48-8a23-5fa8e9e30ddd",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -512,26 +567,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "4dd297bb-34c0-49f2-9e64-0da81dda0175",
+      "uuid": "d8b4f224-8e6d-48b1-9789-faeb0922ce0e",
       "documentation": "<p> The <code>DeleteDomain</code> operation deletes a domain. Any items (and their attributes) in the domain are deleted as well. The <code>DeleteDomain</code> operation might take 10 or more seconds to complete. </p> <note> Running <code>DeleteDomain</code> on a domain that does not exist or running the function multiple times using the same domain name will not result in an error response. </note>",
       "method": "post",
       "endpoint": "#Action=DeleteDomain",
       "responses": [
         {
-          "uuid": "d9c44fca-98b2-426d-812a-daee621de075",
+          "uuid": "b798216a-11d2-4130-9e39-ff24b9fb5d8e",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -542,15 +599,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "03b6ed29-b74e-452e-9ee0-284e4b994950",
+          "uuid": "469f8e72-c05f-4867-ac93-f5d06ba46e35",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -561,26 +621,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "dc14d90e-96a3-45b5-879b-0d1cf8ea81df",
+      "uuid": "ef283a06-915b-4de2-8a5d-3a05a0e71590",
       "documentation": " Returns information about the domain, including when the domain was created, the number of items and attributes in the domain, and the size of the attribute names and values. ",
       "method": "get",
       "endpoint": "#Action=DomainMetadata",
       "responses": [
         {
-          "uuid": "43e9bad0-87e6-4188-9b3e-d1a6e0066b2e",
+          "uuid": "e5cadc32-2f3d-485c-bd1b-a418ea400e13",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -591,15 +653,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "5b8d5e86-e3e9-4552-9cef-dbbf03008c2d",
+          "uuid": "d5888d57-fe4e-4d76-aea1-817ed6c0233f",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -610,26 +675,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "d5dbdeb6-d489-4f7e-bd67-d283cca4273f",
+      "uuid": "372a74a9-b9c7-43fa-80d6-4e13a809cf3b",
       "documentation": " Returns information about the domain, including when the domain was created, the number of items and attributes in the domain, and the size of the attribute names and values. ",
       "method": "post",
       "endpoint": "#Action=DomainMetadata",
       "responses": [
         {
-          "uuid": "75339968-0431-442b-b679-7aed79340797",
+          "uuid": "335ee469-1c6e-449c-a9e1-b67aeddd47ca",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -640,15 +707,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "16fac5cc-2c8b-4ab8-bd74-c66ed2d10504",
+          "uuid": "9ed58ebc-4f51-4bf5-9c63-c495ce6da941",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -659,26 +729,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "0a6a7908-2cb9-4506-89cc-d09211b08879",
+      "uuid": "f681fcaf-e057-4694-9a15-cada4c02b0f5",
       "documentation": "<p> Returns all of the attributes associated with the specified item. Optionally, the attributes returned can be limited to one or more attributes by specifying an attribute name parameter. </p> <p> If the item does not exist on the replica that was accessed for this operation, an empty set is returned. The system does not return an error as it cannot guarantee the item does not exist on other replicas. </p> <note> If GetAttributes is called without being passed any attribute names, all the attributes for the item are returned. </note>",
       "method": "get",
       "endpoint": "#Action=GetAttributes",
       "responses": [
         {
-          "uuid": "7160db16-6cc2-49b7-8748-d451c224c4dc",
+          "uuid": "926cf2d2-6a18-49dc-9d66-9c157ec8ae63",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -689,15 +761,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "c4f7a7b4-e023-4fdf-9171-eda09a9b2457",
+          "uuid": "cfb96a66-b58c-4f14-a372-cf93d7646819",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -708,26 +783,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8cc52846-1036-4ac4-b20c-de5dc9690706",
+      "uuid": "f082e380-4106-4932-bce7-4e74f0f532fa",
       "documentation": "<p> Returns all of the attributes associated with the specified item. Optionally, the attributes returned can be limited to one or more attributes by specifying an attribute name parameter. </p> <p> If the item does not exist on the replica that was accessed for this operation, an empty set is returned. The system does not return an error as it cannot guarantee the item does not exist on other replicas. </p> <note> If GetAttributes is called without being passed any attribute names, all the attributes for the item are returned. </note>",
       "method": "post",
       "endpoint": "#Action=GetAttributes",
       "responses": [
         {
-          "uuid": "6df2f555-e8e2-41d0-bd04-cf2813ca1b4e",
+          "uuid": "903d719a-863d-49ac-8970-b197e605bfa6",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -738,15 +815,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "48663cda-8f73-48ae-8271-8c5f673816ae",
+          "uuid": "dc702332-61a8-469a-b139-292881553236",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -757,26 +837,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "5ef88ccb-56f3-4587-82c0-e1146ef85da4",
+      "uuid": "8285ac61-4f66-40e8-948b-1a17ef08c080",
       "documentation": " The <code>ListDomains</code> operation lists all domains associated with the Access Key ID. It returns domain names up to the limit set by <a href=\"#MaxNumberOfDomains\">MaxNumberOfDomains</a>. A <a href=\"#NextToken\">NextToken</a> is returned if there are more than <code>MaxNumberOfDomains</code> domains. Calling <code>ListDomains</code> successive times with the <code>NextToken</code> provided by the operation returns up to <code>MaxNumberOfDomains</code> more domain names with each successive operation call. ",
       "method": "get",
       "endpoint": "#Action=ListDomains",
       "responses": [
         {
-          "uuid": "bda23949-88ea-44a9-96de-8f6951a89085",
+          "uuid": "c0cc0279-625a-4ba5-8edc-e5b59bbfb2dc",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -787,15 +869,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "f56ccc0f-bdf6-4d60-ab57-c0e02fbcf953",
+          "uuid": "6f4fab9f-1067-4225-b843-7750c5d9b39e",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -806,26 +891,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "c40f249e-c5c4-4942-9c82-689e564485e9",
+      "uuid": "3356c6c1-4a67-45d2-97b7-b61f220732dc",
       "documentation": " The <code>ListDomains</code> operation lists all domains associated with the Access Key ID. It returns domain names up to the limit set by <a href=\"#MaxNumberOfDomains\">MaxNumberOfDomains</a>. A <a href=\"#NextToken\">NextToken</a> is returned if there are more than <code>MaxNumberOfDomains</code> domains. Calling <code>ListDomains</code> successive times with the <code>NextToken</code> provided by the operation returns up to <code>MaxNumberOfDomains</code> more domain names with each successive operation call. ",
       "method": "post",
       "endpoint": "#Action=ListDomains",
       "responses": [
         {
-          "uuid": "db5951d1-609b-4ab0-b7b5-4f85f391aaa0",
+          "uuid": "8dd26236-7ad6-4885-891a-b72a8d56122d",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -836,15 +923,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "f31e02e6-23e4-4340-85f7-2004edb926e4",
+          "uuid": "2d68f237-0f19-48b5-a9e4-6ac535dc9f89",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -855,26 +945,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "60f53269-2470-41a0-bce4-f263491780d8",
+      "uuid": "49aa6c8c-8f2e-41b0-a407-c017523afe67",
       "documentation": "<p> The PutAttributes operation creates or replaces attributes in an item. The client may specify new attributes using a combination of the <code>Attribute.X.Name</code> and <code>Attribute.X.Value</code> parameters. The client specifies the first attribute by the parameters <code>Attribute.0.Name</code> and <code>Attribute.0.Value</code>, the second attribute by the parameters <code>Attribute.1.Name</code> and <code>Attribute.1.Value</code>, and so on. </p> <p> Attributes are uniquely identified in an item by their name/value combination. For example, a single item can have the attributes <code>{ \"first_name\", \"first_value\" }</code> and <code>{ \"first_name\", second_value\" }</code>. However, it cannot have two attribute instances where both the <code>Attribute.X.Name</code> and <code>Attribute.X.Value</code> are the same. </p> <p> Optionally, the requestor can supply the <code>Replace</code> parameter for each individual attribute. Setting this value to <code>true</code> causes the new attribute value to replace the existing attribute value(s). For example, if an item has the attributes <code>{ 'a', '1' }</code>, <code>{ 'b', '2'}</code> and <code>{ 'b', '3' }</code> and the requestor calls <code>PutAttributes</code> using the attributes <code>{ 'b', '4' }</code> with the <code>Replace</code> parameter set to true, the final attributes of the item are changed to <code>{ 'a', '1' }</code> and <code>{ 'b', '4' }</code>, which replaces the previous values of the 'b' attribute with the new value. </p> <note> Using <code>PutAttributes</code> to replace attribute values that do not exist will not result in an error response. </note> <p> You cannot specify an empty string as an attribute name. </p> <p> Because Amazon SimpleDB makes multiple copies of client data and uses an eventual consistency update model, an immediate <a>GetAttributes</a> or <a>Select</a> operation (read) immediately after a <a>PutAttributes</a> or <a>DeleteAttributes</a> operation (write) might not return the updated data. </p> <p> The following limitations are enforced for this operation: <ul> <li>256 total attribute name-value pairs per item</li> <li>One billion attributes per domain</li> <li>10 GB of total user data storage per domain</li> </ul> </p>",
       "method": "get",
       "endpoint": "#Action=PutAttributes",
       "responses": [
         {
-          "uuid": "2a592a39-c1bf-4344-89b3-00a0a61e82ec",
+          "uuid": "6ba05783-7a27-44f1-aa14-05260dbfabe8",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -885,15 +977,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "e145d1f1-f2b7-4323-b24d-d5ee798b5939",
+          "uuid": "69020df8-cc43-4674-a36f-4e7464ae8bf7",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -904,15 +999,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "70a2b4fb-4611-4ab2-93da-ad21efa87d58",
+          "uuid": "ab75b30e-9e12-4c1c-9c37-04f025fc1202",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -923,15 +1021,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "5ed1762c-7bb6-4c12-88c3-78281947ae47",
+          "uuid": "5077aeed-02e7-4bb7-a4d4-30881ea89bf4",
           "body": "",
           "latency": 0,
           "statusCode": 409,
@@ -942,26 +1043,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a632be80-16b0-4684-afb9-b2114f5c9309",
+      "uuid": "e10e19e3-538f-4c5c-9090-d52ee31ce4ca",
       "documentation": "<p> The PutAttributes operation creates or replaces attributes in an item. The client may specify new attributes using a combination of the <code>Attribute.X.Name</code> and <code>Attribute.X.Value</code> parameters. The client specifies the first attribute by the parameters <code>Attribute.0.Name</code> and <code>Attribute.0.Value</code>, the second attribute by the parameters <code>Attribute.1.Name</code> and <code>Attribute.1.Value</code>, and so on. </p> <p> Attributes are uniquely identified in an item by their name/value combination. For example, a single item can have the attributes <code>{ \"first_name\", \"first_value\" }</code> and <code>{ \"first_name\", second_value\" }</code>. However, it cannot have two attribute instances where both the <code>Attribute.X.Name</code> and <code>Attribute.X.Value</code> are the same. </p> <p> Optionally, the requestor can supply the <code>Replace</code> parameter for each individual attribute. Setting this value to <code>true</code> causes the new attribute value to replace the existing attribute value(s). For example, if an item has the attributes <code>{ 'a', '1' }</code>, <code>{ 'b', '2'}</code> and <code>{ 'b', '3' }</code> and the requestor calls <code>PutAttributes</code> using the attributes <code>{ 'b', '4' }</code> with the <code>Replace</code> parameter set to true, the final attributes of the item are changed to <code>{ 'a', '1' }</code> and <code>{ 'b', '4' }</code>, which replaces the previous values of the 'b' attribute with the new value. </p> <note> Using <code>PutAttributes</code> to replace attribute values that do not exist will not result in an error response. </note> <p> You cannot specify an empty string as an attribute name. </p> <p> Because Amazon SimpleDB makes multiple copies of client data and uses an eventual consistency update model, an immediate <a>GetAttributes</a> or <a>Select</a> operation (read) immediately after a <a>PutAttributes</a> or <a>DeleteAttributes</a> operation (write) might not return the updated data. </p> <p> The following limitations are enforced for this operation: <ul> <li>256 total attribute name-value pairs per item</li> <li>One billion attributes per domain</li> <li>10 GB of total user data storage per domain</li> </ul> </p>",
       "method": "post",
       "endpoint": "#Action=PutAttributes",
       "responses": [
         {
-          "uuid": "69f7a30a-0496-45e9-a29d-ec5718f9902b",
+          "uuid": "c38b2410-a51b-43f7-b974-de5a69ae4366",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -972,15 +1075,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "968bdd94-6b11-4901-bf51-ffc61c3c3536",
+          "uuid": "f37a9dc3-7e63-4251-afad-b5d293193e36",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -991,15 +1097,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "ec695bc2-fd33-449b-bf4e-65d441696fac",
+          "uuid": "fbd9defe-30ee-4048-8ab4-99cfe84e4fe6",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -1010,15 +1119,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "ca1ea948-98c1-4d5c-840b-6d8c3f997d30",
+          "uuid": "e4271e46-4f7e-4ea5-9249-2578140e11cc",
           "body": "",
           "latency": 0,
           "statusCode": 409,
@@ -1029,26 +1141,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "bf90f942-6270-4159-bacc-9f669df2f04f",
+      "uuid": "f17a7fa6-3989-4a64-8321-bb7d120d7bf3",
       "documentation": "<p> The <code>Select</code> operation returns a set of attributes for <code>ItemNames</code> that match the select expression. <code>Select</code> is similar to the standard SQL SELECT statement. </p> <p> The total size of the response cannot exceed 1 MB in total size. Amazon SimpleDB automatically adjusts the number of items returned per page to enforce this limit. For example, if the client asks to retrieve 2500 items, but each individual item is 10 kB in size, the system returns 100 items and an appropriate <code>NextToken</code> so the client can access the next page of results. </p> <p> For information on how to construct select expressions, see Using Select to Create Amazon SimpleDB Queries in the Developer Guide. </p>",
       "method": "get",
       "endpoint": "#Action=Select",
       "responses": [
         {
-          "uuid": "c16cc827-9351-4288-823b-28e7a0d7dafd",
+          "uuid": "d95315e8-250e-471a-a963-0f640ec7d200",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1059,15 +1173,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "2b505853-ad1c-4dc5-ab13-a82dd16eb4df",
+          "uuid": "02a045a1-f675-42de-b226-b4546a385a8d",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -1078,15 +1195,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "eb7f5a8d-7aba-4c20-9f11-4a964746e63c",
+          "uuid": "53a47cbb-cf7b-45e9-815a-bd38ad6c0fd1",
           "body": "",
           "latency": 0,
           "statusCode": 408,
@@ -1097,26 +1217,28 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "293314c8-199b-455a-8536-a19c9f9bc8ab",
+      "uuid": "bf00ca5e-02d1-40b4-bedc-feee1c4f2988",
       "documentation": "<p> The <code>Select</code> operation returns a set of attributes for <code>ItemNames</code> that match the select expression. <code>Select</code> is similar to the standard SQL SELECT statement. </p> <p> The total size of the response cannot exceed 1 MB in total size. Amazon SimpleDB automatically adjusts the number of items returned per page to enforce this limit. For example, if the client asks to retrieve 2500 items, but each individual item is 10 kB in size, the system returns 100 items and an appropriate <code>NextToken</code> so the client can access the next page of results. </p> <p> For information on how to construct select expressions, see Using Select to Create Amazon SimpleDB Queries in the Developer Guide. </p>",
       "method": "post",
       "endpoint": "#Action=Select",
       "responses": [
         {
-          "uuid": "9b350aba-90c0-439b-a234-6f36e931b01a",
+          "uuid": "3c8b4fd1-5318-48dc-a981-994bb0b74d54",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1127,15 +1249,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "39955273-a3fd-4527-b7c1-98b533e36adf",
+          "uuid": "bff2bcea-89db-44f2-8396-289945744682",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -1146,15 +1271,18 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "214d63ee-3e23-44d8-8015-efa1c8f94e14",
+          "uuid": "df573d99-dd2e-41f4-9673-925674765b5b",
           "body": "",
           "latency": 0,
           "statusCode": 408,
@@ -1165,17 +1293,19 @@
               "value": "text/xml"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -1203,5 +1333,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

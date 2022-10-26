@@ -1,6 +1,6 @@
 {
-  "uuid": "0b6df703-e0e2-4626-b66d-b64a9e9ecf6d",
-  "lastMigration": 19,
+  "uuid": "b5efefcd-a013-49d6-8436-625070d2e1a3",
+  "lastMigration": 24,
   "name": "Custom Vision Prediction Client",
   "endpointPrefix": "customvision/v3.0/prediction",
   "latency": 0,
@@ -8,14 +8,14 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "3da8ba5c-90de-4969-b3aa-9fdf42c937d7",
+      "uuid": "54ada30d-8051-441f-bc93-7e5df7b6a457",
       "documentation": "Classify an image and saves the result.",
       "method": "post",
       "endpoint": ":projectId/classify/iterations/:publishedName/image",
       "responses": [
         {
-          "uuid": "e3233b12-eebf-4799-b3cb-625408bbb3ed",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'random.uuid'}}\",\n  \"iteration\": \"{{faker 'random.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'random.float'}},\n        \"left\": {{faker 'random.float'}},\n        \"top\": {{faker 'random.float'}},\n        \"width\": {{faker 'random.float'}}\n      },\n      \"probability\": {{faker 'random.float'}},\n      \"tagId\": \"{{faker 'random.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'random.uuid'}}\"\n}",
+          "uuid": "02a4c8c9-9725-4901-8f47-795db35f670a",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"iteration\": \"{{faker 'datatype.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      },\n      \"probability\": {{faker 'datatype.float'}},\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'datatype.uuid'}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
@@ -25,15 +25,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "3982631c-dbeb-419b-bbe8-774ec464c6f9",
+          "uuid": "ff88f7a3-5dd4-4c5c-9ec4-0352efab35e4",
           "body": "{\n  \"code\": \"{{oneOf (array 'NoError' 'BadRequest' 'BadRequestExceededBatchSize' 'BadRequestNotSupported' 'BadRequestInvalidIds' 'BadRequestProjectName' 'BadRequestProjectNameNotUnique' 'BadRequestProjectDescription' 'BadRequestProjectUnknownDomain' 'BadRequestProjectUnknownClassification' 'BadRequestProjectUnsupportedDomainTypeChange' 'BadRequestProjectUnsupportedExportPlatform' 'BadRequestIterationName' 'BadRequestIterationNameNotUnique' 'BadRequestIterationDescription' 'BadRequestIterationIsNotTrained' 'BadRequestWorkspaceCannotBeModified' 'BadRequestWorkspaceNotDeletable' 'BadRequestTagName' 'BadRequestTagNameNotUnique' 'BadRequestTagDescription' 'BadRequestTagType' 'BadRequestMultipleNegativeTag' 'BadRequestImageTags' 'BadRequestImageRegions' 'BadRequestNegativeAndRegularTagOnSameImage' 'BadRequestRequiredParamIsNull' 'BadRequestIterationIsPublished' 'BadRequestInvalidPublishName' 'BadRequestInvalidPublishTarget' 'BadRequestUnpublishFailed' 'BadRequestSubscriptionApi' 'BadRequestExceedProjectLimit' 'BadRequestExceedIterationPerProjectLimit' 'BadRequestExceedTagPerProjectLimit' 'BadRequestExceedTagPerImageLimit' 'BadRequestExceededQuota' 'BadRequestCannotMigrateProjectWithName' 'BadRequestNotLimitedTrial' 'BadRequestImageBatch' 'BadRequestImageStream' 'BadRequestImageUrl' 'BadRequestImageFormat' 'BadRequestImageSizeBytes' 'BadRequestImageExceededCount' 'BadRequestTrainingNotNeeded' 'BadRequestTrainingNotNeededButTrainingPipelineUpdated' 'BadRequestTrainingValidationFailed' 'BadRequestClassificationTrainingValidationFailed' 'BadRequestMultiClassClassificationTrainingValidationFailed' 'BadRequestMultiLabelClassificationTrainingValidationFailed' 'BadRequestDetectionTrainingValidationFailed' 'BadRequestTrainingAlreadyInProgress' 'BadRequestDetectionTrainingNotAllowNegativeTag' 'BadRequestInvalidEmailAddress' 'BadRequestDomainNotSupportedForAdvancedTraining' 'BadRequestExportPlatformNotSupportedForAdvancedTraining' 'BadRequestReservedBudgetInHoursNotEnoughForAdvancedTraining' 'BadRequestExportValidationFailed' 'BadRequestExportAlreadyInProgress' 'BadRequestPredictionIdsMissing' 'BadRequestPredictionIdsExceededCount' 'BadRequestPredictionTagsExceededCount' 'BadRequestPredictionResultsExceededCount' 'BadRequestPredictionInvalidApplicationName' 'BadRequestPredictionInvalidQueryParameters' 'BadRequestInvalid' 'UnsupportedMediaType' 'Forbidden' 'ForbiddenUser' 'ForbiddenUserResource' 'ForbiddenUserSignupDisabled' 'ForbiddenUserSignupAllowanceExceeded' 'ForbiddenUserDoesNotExist' 'ForbiddenUserDisabled' 'ForbiddenUserInsufficientCapability' 'ForbiddenDRModeEnabled' 'ForbiddenInvalid' 'NotFound' 'NotFoundProject' 'NotFoundProjectDefaultIteration' 'NotFoundIteration' 'NotFoundIterationPerformance' 'NotFoundTag' 'NotFoundImage' 'NotFoundDomain' 'NotFoundApimSubscription' 'NotFoundInvalid' 'Conflict' 'ConflictInvalid' 'ErrorUnknown' 'ErrorProjectInvalidWorkspace' 'ErrorProjectInvalidPipelineConfiguration' 'ErrorProjectInvalidDomain' 'ErrorProjectTrainingRequestFailed' 'ErrorProjectExportRequestFailed' 'ErrorFeaturizationServiceUnavailable' 'ErrorFeaturizationQueueTimeout' 'ErrorFeaturizationInvalidFeaturizer' 'ErrorFeaturizationAugmentationUnavailable' 'ErrorFeaturizationUnrecognizedJob' 'ErrorFeaturizationAugmentationError' 'ErrorExporterInvalidPlatform' 'ErrorExporterInvalidFeaturizer' 'ErrorExporterInvalidClassifier' 'ErrorPredictionServiceUnavailable' 'ErrorPredictionModelNotFound' 'ErrorPredictionModelNotCached' 'ErrorPrediction' 'ErrorPredictionStorage' 'ErrorRegionProposal' 'ErrorInvalid')}}\",\n  \"message\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -44,27 +47,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "167b8976-09d0-4c87-b999-ba4b69983b87",
+      "uuid": "b601ed82-079e-4eed-93f6-b7b5b559e9cc",
       "documentation": "Classify an image without saving the result.",
       "method": "post",
       "endpoint": ":projectId/classify/iterations/:publishedName/image/nostore",
       "responses": [
         {
-          "uuid": "46d68049-2772-4aa8-bcde-cbb40af8a3a6",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'random.uuid'}}\",\n  \"iteration\": \"{{faker 'random.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'random.float'}},\n        \"left\": {{faker 'random.float'}},\n        \"top\": {{faker 'random.float'}},\n        \"width\": {{faker 'random.float'}}\n      },\n      \"probability\": {{faker 'random.float'}},\n      \"tagId\": \"{{faker 'random.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'random.uuid'}}\"\n}",
+          "uuid": "7f5ddcc5-9b34-4bcc-bf84-75a059abbb38",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"iteration\": \"{{faker 'datatype.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      },\n      \"probability\": {{faker 'datatype.float'}},\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'datatype.uuid'}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
@@ -74,15 +79,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "a03ba897-926e-4c8b-92c2-d6e353dbde2a",
+          "uuid": "9f69361c-0c60-43e5-8bdd-f746b6bc4858",
           "body": "{\n  \"code\": \"{{oneOf (array 'NoError' 'BadRequest' 'BadRequestExceededBatchSize' 'BadRequestNotSupported' 'BadRequestInvalidIds' 'BadRequestProjectName' 'BadRequestProjectNameNotUnique' 'BadRequestProjectDescription' 'BadRequestProjectUnknownDomain' 'BadRequestProjectUnknownClassification' 'BadRequestProjectUnsupportedDomainTypeChange' 'BadRequestProjectUnsupportedExportPlatform' 'BadRequestIterationName' 'BadRequestIterationNameNotUnique' 'BadRequestIterationDescription' 'BadRequestIterationIsNotTrained' 'BadRequestWorkspaceCannotBeModified' 'BadRequestWorkspaceNotDeletable' 'BadRequestTagName' 'BadRequestTagNameNotUnique' 'BadRequestTagDescription' 'BadRequestTagType' 'BadRequestMultipleNegativeTag' 'BadRequestImageTags' 'BadRequestImageRegions' 'BadRequestNegativeAndRegularTagOnSameImage' 'BadRequestRequiredParamIsNull' 'BadRequestIterationIsPublished' 'BadRequestInvalidPublishName' 'BadRequestInvalidPublishTarget' 'BadRequestUnpublishFailed' 'BadRequestSubscriptionApi' 'BadRequestExceedProjectLimit' 'BadRequestExceedIterationPerProjectLimit' 'BadRequestExceedTagPerProjectLimit' 'BadRequestExceedTagPerImageLimit' 'BadRequestExceededQuota' 'BadRequestCannotMigrateProjectWithName' 'BadRequestNotLimitedTrial' 'BadRequestImageBatch' 'BadRequestImageStream' 'BadRequestImageUrl' 'BadRequestImageFormat' 'BadRequestImageSizeBytes' 'BadRequestImageExceededCount' 'BadRequestTrainingNotNeeded' 'BadRequestTrainingNotNeededButTrainingPipelineUpdated' 'BadRequestTrainingValidationFailed' 'BadRequestClassificationTrainingValidationFailed' 'BadRequestMultiClassClassificationTrainingValidationFailed' 'BadRequestMultiLabelClassificationTrainingValidationFailed' 'BadRequestDetectionTrainingValidationFailed' 'BadRequestTrainingAlreadyInProgress' 'BadRequestDetectionTrainingNotAllowNegativeTag' 'BadRequestInvalidEmailAddress' 'BadRequestDomainNotSupportedForAdvancedTraining' 'BadRequestExportPlatformNotSupportedForAdvancedTraining' 'BadRequestReservedBudgetInHoursNotEnoughForAdvancedTraining' 'BadRequestExportValidationFailed' 'BadRequestExportAlreadyInProgress' 'BadRequestPredictionIdsMissing' 'BadRequestPredictionIdsExceededCount' 'BadRequestPredictionTagsExceededCount' 'BadRequestPredictionResultsExceededCount' 'BadRequestPredictionInvalidApplicationName' 'BadRequestPredictionInvalidQueryParameters' 'BadRequestInvalid' 'UnsupportedMediaType' 'Forbidden' 'ForbiddenUser' 'ForbiddenUserResource' 'ForbiddenUserSignupDisabled' 'ForbiddenUserSignupAllowanceExceeded' 'ForbiddenUserDoesNotExist' 'ForbiddenUserDisabled' 'ForbiddenUserInsufficientCapability' 'ForbiddenDRModeEnabled' 'ForbiddenInvalid' 'NotFound' 'NotFoundProject' 'NotFoundProjectDefaultIteration' 'NotFoundIteration' 'NotFoundIterationPerformance' 'NotFoundTag' 'NotFoundImage' 'NotFoundDomain' 'NotFoundApimSubscription' 'NotFoundInvalid' 'Conflict' 'ConflictInvalid' 'ErrorUnknown' 'ErrorProjectInvalidWorkspace' 'ErrorProjectInvalidPipelineConfiguration' 'ErrorProjectInvalidDomain' 'ErrorProjectTrainingRequestFailed' 'ErrorProjectExportRequestFailed' 'ErrorFeaturizationServiceUnavailable' 'ErrorFeaturizationQueueTimeout' 'ErrorFeaturizationInvalidFeaturizer' 'ErrorFeaturizationAugmentationUnavailable' 'ErrorFeaturizationUnrecognizedJob' 'ErrorFeaturizationAugmentationError' 'ErrorExporterInvalidPlatform' 'ErrorExporterInvalidFeaturizer' 'ErrorExporterInvalidClassifier' 'ErrorPredictionServiceUnavailable' 'ErrorPredictionModelNotFound' 'ErrorPredictionModelNotCached' 'ErrorPrediction' 'ErrorPredictionStorage' 'ErrorRegionProposal' 'ErrorInvalid')}}\",\n  \"message\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -93,27 +101,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "6e21ca4e-e4af-4490-8383-d62a49b824ef",
+      "uuid": "cd69048b-f581-4963-b00f-5b03d87828b7",
       "documentation": "Classify an image url and saves the result.",
       "method": "post",
       "endpoint": ":projectId/classify/iterations/:publishedName/url",
       "responses": [
         {
-          "uuid": "b4affcc7-a961-427c-a91e-0d07aeacb153",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'random.uuid'}}\",\n  \"iteration\": \"{{faker 'random.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'random.float'}},\n        \"left\": {{faker 'random.float'}},\n        \"top\": {{faker 'random.float'}},\n        \"width\": {{faker 'random.float'}}\n      },\n      \"probability\": {{faker 'random.float'}},\n      \"tagId\": \"{{faker 'random.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'random.uuid'}}\"\n}",
+          "uuid": "b0dbfeb2-c9c4-485f-a66a-ea1d6fd8aab6",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"iteration\": \"{{faker 'datatype.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      },\n      \"probability\": {{faker 'datatype.float'}},\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'datatype.uuid'}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
@@ -123,15 +133,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "84771460-debf-4688-b958-778e5a98c7df",
+          "uuid": "d07f109b-d44e-4c86-b518-18514f5c634f",
           "body": "{\n  \"code\": \"{{oneOf (array 'NoError' 'BadRequest' 'BadRequestExceededBatchSize' 'BadRequestNotSupported' 'BadRequestInvalidIds' 'BadRequestProjectName' 'BadRequestProjectNameNotUnique' 'BadRequestProjectDescription' 'BadRequestProjectUnknownDomain' 'BadRequestProjectUnknownClassification' 'BadRequestProjectUnsupportedDomainTypeChange' 'BadRequestProjectUnsupportedExportPlatform' 'BadRequestIterationName' 'BadRequestIterationNameNotUnique' 'BadRequestIterationDescription' 'BadRequestIterationIsNotTrained' 'BadRequestWorkspaceCannotBeModified' 'BadRequestWorkspaceNotDeletable' 'BadRequestTagName' 'BadRequestTagNameNotUnique' 'BadRequestTagDescription' 'BadRequestTagType' 'BadRequestMultipleNegativeTag' 'BadRequestImageTags' 'BadRequestImageRegions' 'BadRequestNegativeAndRegularTagOnSameImage' 'BadRequestRequiredParamIsNull' 'BadRequestIterationIsPublished' 'BadRequestInvalidPublishName' 'BadRequestInvalidPublishTarget' 'BadRequestUnpublishFailed' 'BadRequestSubscriptionApi' 'BadRequestExceedProjectLimit' 'BadRequestExceedIterationPerProjectLimit' 'BadRequestExceedTagPerProjectLimit' 'BadRequestExceedTagPerImageLimit' 'BadRequestExceededQuota' 'BadRequestCannotMigrateProjectWithName' 'BadRequestNotLimitedTrial' 'BadRequestImageBatch' 'BadRequestImageStream' 'BadRequestImageUrl' 'BadRequestImageFormat' 'BadRequestImageSizeBytes' 'BadRequestImageExceededCount' 'BadRequestTrainingNotNeeded' 'BadRequestTrainingNotNeededButTrainingPipelineUpdated' 'BadRequestTrainingValidationFailed' 'BadRequestClassificationTrainingValidationFailed' 'BadRequestMultiClassClassificationTrainingValidationFailed' 'BadRequestMultiLabelClassificationTrainingValidationFailed' 'BadRequestDetectionTrainingValidationFailed' 'BadRequestTrainingAlreadyInProgress' 'BadRequestDetectionTrainingNotAllowNegativeTag' 'BadRequestInvalidEmailAddress' 'BadRequestDomainNotSupportedForAdvancedTraining' 'BadRequestExportPlatformNotSupportedForAdvancedTraining' 'BadRequestReservedBudgetInHoursNotEnoughForAdvancedTraining' 'BadRequestExportValidationFailed' 'BadRequestExportAlreadyInProgress' 'BadRequestPredictionIdsMissing' 'BadRequestPredictionIdsExceededCount' 'BadRequestPredictionTagsExceededCount' 'BadRequestPredictionResultsExceededCount' 'BadRequestPredictionInvalidApplicationName' 'BadRequestPredictionInvalidQueryParameters' 'BadRequestInvalid' 'UnsupportedMediaType' 'Forbidden' 'ForbiddenUser' 'ForbiddenUserResource' 'ForbiddenUserSignupDisabled' 'ForbiddenUserSignupAllowanceExceeded' 'ForbiddenUserDoesNotExist' 'ForbiddenUserDisabled' 'ForbiddenUserInsufficientCapability' 'ForbiddenDRModeEnabled' 'ForbiddenInvalid' 'NotFound' 'NotFoundProject' 'NotFoundProjectDefaultIteration' 'NotFoundIteration' 'NotFoundIterationPerformance' 'NotFoundTag' 'NotFoundImage' 'NotFoundDomain' 'NotFoundApimSubscription' 'NotFoundInvalid' 'Conflict' 'ConflictInvalid' 'ErrorUnknown' 'ErrorProjectInvalidWorkspace' 'ErrorProjectInvalidPipelineConfiguration' 'ErrorProjectInvalidDomain' 'ErrorProjectTrainingRequestFailed' 'ErrorProjectExportRequestFailed' 'ErrorFeaturizationServiceUnavailable' 'ErrorFeaturizationQueueTimeout' 'ErrorFeaturizationInvalidFeaturizer' 'ErrorFeaturizationAugmentationUnavailable' 'ErrorFeaturizationUnrecognizedJob' 'ErrorFeaturizationAugmentationError' 'ErrorExporterInvalidPlatform' 'ErrorExporterInvalidFeaturizer' 'ErrorExporterInvalidClassifier' 'ErrorPredictionServiceUnavailable' 'ErrorPredictionModelNotFound' 'ErrorPredictionModelNotCached' 'ErrorPrediction' 'ErrorPredictionStorage' 'ErrorRegionProposal' 'ErrorInvalid')}}\",\n  \"message\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -142,27 +155,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "65db50ea-542c-40ff-b1e1-054addc2594a",
+      "uuid": "747b8134-6718-496c-9dad-228b996af15c",
       "documentation": "Classify an image url without saving the result.",
       "method": "post",
       "endpoint": ":projectId/classify/iterations/:publishedName/url/nostore",
       "responses": [
         {
-          "uuid": "d614ace3-51f5-4a05-8555-fdab489fb833",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'random.uuid'}}\",\n  \"iteration\": \"{{faker 'random.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'random.float'}},\n        \"left\": {{faker 'random.float'}},\n        \"top\": {{faker 'random.float'}},\n        \"width\": {{faker 'random.float'}}\n      },\n      \"probability\": {{faker 'random.float'}},\n      \"tagId\": \"{{faker 'random.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'random.uuid'}}\"\n}",
+          "uuid": "35dcf99e-24cc-45c7-91cb-5460f32498c0",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"iteration\": \"{{faker 'datatype.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      },\n      \"probability\": {{faker 'datatype.float'}},\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'datatype.uuid'}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
@@ -172,15 +187,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "333e9f0a-96df-454e-a7d1-b057b253089a",
+          "uuid": "61177d15-682d-4158-9e16-fc0d05d5f497",
           "body": "{\n  \"code\": \"{{oneOf (array 'NoError' 'BadRequest' 'BadRequestExceededBatchSize' 'BadRequestNotSupported' 'BadRequestInvalidIds' 'BadRequestProjectName' 'BadRequestProjectNameNotUnique' 'BadRequestProjectDescription' 'BadRequestProjectUnknownDomain' 'BadRequestProjectUnknownClassification' 'BadRequestProjectUnsupportedDomainTypeChange' 'BadRequestProjectUnsupportedExportPlatform' 'BadRequestIterationName' 'BadRequestIterationNameNotUnique' 'BadRequestIterationDescription' 'BadRequestIterationIsNotTrained' 'BadRequestWorkspaceCannotBeModified' 'BadRequestWorkspaceNotDeletable' 'BadRequestTagName' 'BadRequestTagNameNotUnique' 'BadRequestTagDescription' 'BadRequestTagType' 'BadRequestMultipleNegativeTag' 'BadRequestImageTags' 'BadRequestImageRegions' 'BadRequestNegativeAndRegularTagOnSameImage' 'BadRequestRequiredParamIsNull' 'BadRequestIterationIsPublished' 'BadRequestInvalidPublishName' 'BadRequestInvalidPublishTarget' 'BadRequestUnpublishFailed' 'BadRequestSubscriptionApi' 'BadRequestExceedProjectLimit' 'BadRequestExceedIterationPerProjectLimit' 'BadRequestExceedTagPerProjectLimit' 'BadRequestExceedTagPerImageLimit' 'BadRequestExceededQuota' 'BadRequestCannotMigrateProjectWithName' 'BadRequestNotLimitedTrial' 'BadRequestImageBatch' 'BadRequestImageStream' 'BadRequestImageUrl' 'BadRequestImageFormat' 'BadRequestImageSizeBytes' 'BadRequestImageExceededCount' 'BadRequestTrainingNotNeeded' 'BadRequestTrainingNotNeededButTrainingPipelineUpdated' 'BadRequestTrainingValidationFailed' 'BadRequestClassificationTrainingValidationFailed' 'BadRequestMultiClassClassificationTrainingValidationFailed' 'BadRequestMultiLabelClassificationTrainingValidationFailed' 'BadRequestDetectionTrainingValidationFailed' 'BadRequestTrainingAlreadyInProgress' 'BadRequestDetectionTrainingNotAllowNegativeTag' 'BadRequestInvalidEmailAddress' 'BadRequestDomainNotSupportedForAdvancedTraining' 'BadRequestExportPlatformNotSupportedForAdvancedTraining' 'BadRequestReservedBudgetInHoursNotEnoughForAdvancedTraining' 'BadRequestExportValidationFailed' 'BadRequestExportAlreadyInProgress' 'BadRequestPredictionIdsMissing' 'BadRequestPredictionIdsExceededCount' 'BadRequestPredictionTagsExceededCount' 'BadRequestPredictionResultsExceededCount' 'BadRequestPredictionInvalidApplicationName' 'BadRequestPredictionInvalidQueryParameters' 'BadRequestInvalid' 'UnsupportedMediaType' 'Forbidden' 'ForbiddenUser' 'ForbiddenUserResource' 'ForbiddenUserSignupDisabled' 'ForbiddenUserSignupAllowanceExceeded' 'ForbiddenUserDoesNotExist' 'ForbiddenUserDisabled' 'ForbiddenUserInsufficientCapability' 'ForbiddenDRModeEnabled' 'ForbiddenInvalid' 'NotFound' 'NotFoundProject' 'NotFoundProjectDefaultIteration' 'NotFoundIteration' 'NotFoundIterationPerformance' 'NotFoundTag' 'NotFoundImage' 'NotFoundDomain' 'NotFoundApimSubscription' 'NotFoundInvalid' 'Conflict' 'ConflictInvalid' 'ErrorUnknown' 'ErrorProjectInvalidWorkspace' 'ErrorProjectInvalidPipelineConfiguration' 'ErrorProjectInvalidDomain' 'ErrorProjectTrainingRequestFailed' 'ErrorProjectExportRequestFailed' 'ErrorFeaturizationServiceUnavailable' 'ErrorFeaturizationQueueTimeout' 'ErrorFeaturizationInvalidFeaturizer' 'ErrorFeaturizationAugmentationUnavailable' 'ErrorFeaturizationUnrecognizedJob' 'ErrorFeaturizationAugmentationError' 'ErrorExporterInvalidPlatform' 'ErrorExporterInvalidFeaturizer' 'ErrorExporterInvalidClassifier' 'ErrorPredictionServiceUnavailable' 'ErrorPredictionModelNotFound' 'ErrorPredictionModelNotCached' 'ErrorPrediction' 'ErrorPredictionStorage' 'ErrorRegionProposal' 'ErrorInvalid')}}\",\n  \"message\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -191,27 +209,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "ba8e1e15-5ab5-42cf-9b00-dcb0a6217bd5",
+      "uuid": "b1101f1a-4d45-48be-b5bb-92f805593b30",
       "documentation": "Detect objects in an image and saves the result.",
       "method": "post",
       "endpoint": ":projectId/detect/iterations/:publishedName/image",
       "responses": [
         {
-          "uuid": "9e726bc6-759b-4476-9166-fe96671a4110",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'random.uuid'}}\",\n  \"iteration\": \"{{faker 'random.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'random.float'}},\n        \"left\": {{faker 'random.float'}},\n        \"top\": {{faker 'random.float'}},\n        \"width\": {{faker 'random.float'}}\n      },\n      \"probability\": {{faker 'random.float'}},\n      \"tagId\": \"{{faker 'random.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'random.uuid'}}\"\n}",
+          "uuid": "1c8b1913-5ca2-4b27-9f9e-017812b3cea7",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"iteration\": \"{{faker 'datatype.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      },\n      \"probability\": {{faker 'datatype.float'}},\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'datatype.uuid'}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
@@ -221,15 +241,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "b539b253-6bcd-4d46-b482-a9d41f2ded8c",
+          "uuid": "0361648e-9895-42c9-8c31-9f136ad1a80f",
           "body": "{\n  \"code\": \"{{oneOf (array 'NoError' 'BadRequest' 'BadRequestExceededBatchSize' 'BadRequestNotSupported' 'BadRequestInvalidIds' 'BadRequestProjectName' 'BadRequestProjectNameNotUnique' 'BadRequestProjectDescription' 'BadRequestProjectUnknownDomain' 'BadRequestProjectUnknownClassification' 'BadRequestProjectUnsupportedDomainTypeChange' 'BadRequestProjectUnsupportedExportPlatform' 'BadRequestIterationName' 'BadRequestIterationNameNotUnique' 'BadRequestIterationDescription' 'BadRequestIterationIsNotTrained' 'BadRequestWorkspaceCannotBeModified' 'BadRequestWorkspaceNotDeletable' 'BadRequestTagName' 'BadRequestTagNameNotUnique' 'BadRequestTagDescription' 'BadRequestTagType' 'BadRequestMultipleNegativeTag' 'BadRequestImageTags' 'BadRequestImageRegions' 'BadRequestNegativeAndRegularTagOnSameImage' 'BadRequestRequiredParamIsNull' 'BadRequestIterationIsPublished' 'BadRequestInvalidPublishName' 'BadRequestInvalidPublishTarget' 'BadRequestUnpublishFailed' 'BadRequestSubscriptionApi' 'BadRequestExceedProjectLimit' 'BadRequestExceedIterationPerProjectLimit' 'BadRequestExceedTagPerProjectLimit' 'BadRequestExceedTagPerImageLimit' 'BadRequestExceededQuota' 'BadRequestCannotMigrateProjectWithName' 'BadRequestNotLimitedTrial' 'BadRequestImageBatch' 'BadRequestImageStream' 'BadRequestImageUrl' 'BadRequestImageFormat' 'BadRequestImageSizeBytes' 'BadRequestImageExceededCount' 'BadRequestTrainingNotNeeded' 'BadRequestTrainingNotNeededButTrainingPipelineUpdated' 'BadRequestTrainingValidationFailed' 'BadRequestClassificationTrainingValidationFailed' 'BadRequestMultiClassClassificationTrainingValidationFailed' 'BadRequestMultiLabelClassificationTrainingValidationFailed' 'BadRequestDetectionTrainingValidationFailed' 'BadRequestTrainingAlreadyInProgress' 'BadRequestDetectionTrainingNotAllowNegativeTag' 'BadRequestInvalidEmailAddress' 'BadRequestDomainNotSupportedForAdvancedTraining' 'BadRequestExportPlatformNotSupportedForAdvancedTraining' 'BadRequestReservedBudgetInHoursNotEnoughForAdvancedTraining' 'BadRequestExportValidationFailed' 'BadRequestExportAlreadyInProgress' 'BadRequestPredictionIdsMissing' 'BadRequestPredictionIdsExceededCount' 'BadRequestPredictionTagsExceededCount' 'BadRequestPredictionResultsExceededCount' 'BadRequestPredictionInvalidApplicationName' 'BadRequestPredictionInvalidQueryParameters' 'BadRequestInvalid' 'UnsupportedMediaType' 'Forbidden' 'ForbiddenUser' 'ForbiddenUserResource' 'ForbiddenUserSignupDisabled' 'ForbiddenUserSignupAllowanceExceeded' 'ForbiddenUserDoesNotExist' 'ForbiddenUserDisabled' 'ForbiddenUserInsufficientCapability' 'ForbiddenDRModeEnabled' 'ForbiddenInvalid' 'NotFound' 'NotFoundProject' 'NotFoundProjectDefaultIteration' 'NotFoundIteration' 'NotFoundIterationPerformance' 'NotFoundTag' 'NotFoundImage' 'NotFoundDomain' 'NotFoundApimSubscription' 'NotFoundInvalid' 'Conflict' 'ConflictInvalid' 'ErrorUnknown' 'ErrorProjectInvalidWorkspace' 'ErrorProjectInvalidPipelineConfiguration' 'ErrorProjectInvalidDomain' 'ErrorProjectTrainingRequestFailed' 'ErrorProjectExportRequestFailed' 'ErrorFeaturizationServiceUnavailable' 'ErrorFeaturizationQueueTimeout' 'ErrorFeaturizationInvalidFeaturizer' 'ErrorFeaturizationAugmentationUnavailable' 'ErrorFeaturizationUnrecognizedJob' 'ErrorFeaturizationAugmentationError' 'ErrorExporterInvalidPlatform' 'ErrorExporterInvalidFeaturizer' 'ErrorExporterInvalidClassifier' 'ErrorPredictionServiceUnavailable' 'ErrorPredictionModelNotFound' 'ErrorPredictionModelNotCached' 'ErrorPrediction' 'ErrorPredictionStorage' 'ErrorRegionProposal' 'ErrorInvalid')}}\",\n  \"message\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -240,27 +263,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "4efba340-9183-430c-8f50-587b81e6ac70",
+      "uuid": "b0667d9b-93a1-4ec9-8fe8-381f041b316b",
       "documentation": "Detect objects in an image without saving the result.",
       "method": "post",
       "endpoint": ":projectId/detect/iterations/:publishedName/image/nostore",
       "responses": [
         {
-          "uuid": "3655f001-7445-4db6-819f-e7f4179972ce",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'random.uuid'}}\",\n  \"iteration\": \"{{faker 'random.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'random.float'}},\n        \"left\": {{faker 'random.float'}},\n        \"top\": {{faker 'random.float'}},\n        \"width\": {{faker 'random.float'}}\n      },\n      \"probability\": {{faker 'random.float'}},\n      \"tagId\": \"{{faker 'random.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'random.uuid'}}\"\n}",
+          "uuid": "02fc543c-cb80-491d-8e43-cc2faa87f450",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"iteration\": \"{{faker 'datatype.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      },\n      \"probability\": {{faker 'datatype.float'}},\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'datatype.uuid'}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
@@ -270,15 +295,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "7fdf1dc8-8a53-4dd2-a1b9-4f892c9d44b9",
+          "uuid": "ee90755b-426b-4786-a4c5-690279c74270",
           "body": "{\n  \"code\": \"{{oneOf (array 'NoError' 'BadRequest' 'BadRequestExceededBatchSize' 'BadRequestNotSupported' 'BadRequestInvalidIds' 'BadRequestProjectName' 'BadRequestProjectNameNotUnique' 'BadRequestProjectDescription' 'BadRequestProjectUnknownDomain' 'BadRequestProjectUnknownClassification' 'BadRequestProjectUnsupportedDomainTypeChange' 'BadRequestProjectUnsupportedExportPlatform' 'BadRequestIterationName' 'BadRequestIterationNameNotUnique' 'BadRequestIterationDescription' 'BadRequestIterationIsNotTrained' 'BadRequestWorkspaceCannotBeModified' 'BadRequestWorkspaceNotDeletable' 'BadRequestTagName' 'BadRequestTagNameNotUnique' 'BadRequestTagDescription' 'BadRequestTagType' 'BadRequestMultipleNegativeTag' 'BadRequestImageTags' 'BadRequestImageRegions' 'BadRequestNegativeAndRegularTagOnSameImage' 'BadRequestRequiredParamIsNull' 'BadRequestIterationIsPublished' 'BadRequestInvalidPublishName' 'BadRequestInvalidPublishTarget' 'BadRequestUnpublishFailed' 'BadRequestSubscriptionApi' 'BadRequestExceedProjectLimit' 'BadRequestExceedIterationPerProjectLimit' 'BadRequestExceedTagPerProjectLimit' 'BadRequestExceedTagPerImageLimit' 'BadRequestExceededQuota' 'BadRequestCannotMigrateProjectWithName' 'BadRequestNotLimitedTrial' 'BadRequestImageBatch' 'BadRequestImageStream' 'BadRequestImageUrl' 'BadRequestImageFormat' 'BadRequestImageSizeBytes' 'BadRequestImageExceededCount' 'BadRequestTrainingNotNeeded' 'BadRequestTrainingNotNeededButTrainingPipelineUpdated' 'BadRequestTrainingValidationFailed' 'BadRequestClassificationTrainingValidationFailed' 'BadRequestMultiClassClassificationTrainingValidationFailed' 'BadRequestMultiLabelClassificationTrainingValidationFailed' 'BadRequestDetectionTrainingValidationFailed' 'BadRequestTrainingAlreadyInProgress' 'BadRequestDetectionTrainingNotAllowNegativeTag' 'BadRequestInvalidEmailAddress' 'BadRequestDomainNotSupportedForAdvancedTraining' 'BadRequestExportPlatformNotSupportedForAdvancedTraining' 'BadRequestReservedBudgetInHoursNotEnoughForAdvancedTraining' 'BadRequestExportValidationFailed' 'BadRequestExportAlreadyInProgress' 'BadRequestPredictionIdsMissing' 'BadRequestPredictionIdsExceededCount' 'BadRequestPredictionTagsExceededCount' 'BadRequestPredictionResultsExceededCount' 'BadRequestPredictionInvalidApplicationName' 'BadRequestPredictionInvalidQueryParameters' 'BadRequestInvalid' 'UnsupportedMediaType' 'Forbidden' 'ForbiddenUser' 'ForbiddenUserResource' 'ForbiddenUserSignupDisabled' 'ForbiddenUserSignupAllowanceExceeded' 'ForbiddenUserDoesNotExist' 'ForbiddenUserDisabled' 'ForbiddenUserInsufficientCapability' 'ForbiddenDRModeEnabled' 'ForbiddenInvalid' 'NotFound' 'NotFoundProject' 'NotFoundProjectDefaultIteration' 'NotFoundIteration' 'NotFoundIterationPerformance' 'NotFoundTag' 'NotFoundImage' 'NotFoundDomain' 'NotFoundApimSubscription' 'NotFoundInvalid' 'Conflict' 'ConflictInvalid' 'ErrorUnknown' 'ErrorProjectInvalidWorkspace' 'ErrorProjectInvalidPipelineConfiguration' 'ErrorProjectInvalidDomain' 'ErrorProjectTrainingRequestFailed' 'ErrorProjectExportRequestFailed' 'ErrorFeaturizationServiceUnavailable' 'ErrorFeaturizationQueueTimeout' 'ErrorFeaturizationInvalidFeaturizer' 'ErrorFeaturizationAugmentationUnavailable' 'ErrorFeaturizationUnrecognizedJob' 'ErrorFeaturizationAugmentationError' 'ErrorExporterInvalidPlatform' 'ErrorExporterInvalidFeaturizer' 'ErrorExporterInvalidClassifier' 'ErrorPredictionServiceUnavailable' 'ErrorPredictionModelNotFound' 'ErrorPredictionModelNotCached' 'ErrorPrediction' 'ErrorPredictionStorage' 'ErrorRegionProposal' 'ErrorInvalid')}}\",\n  \"message\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -289,27 +317,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "003d36e7-3c89-4450-ae62-8bcb60118801",
+      "uuid": "6d5da537-8a41-461f-8e06-d00bc9527587",
       "documentation": "Detect objects in an image url and saves the result.",
       "method": "post",
       "endpoint": ":projectId/detect/iterations/:publishedName/url",
       "responses": [
         {
-          "uuid": "ec4db2be-bafe-4337-b07a-e8c3ed8f1051",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'random.uuid'}}\",\n  \"iteration\": \"{{faker 'random.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'random.float'}},\n        \"left\": {{faker 'random.float'}},\n        \"top\": {{faker 'random.float'}},\n        \"width\": {{faker 'random.float'}}\n      },\n      \"probability\": {{faker 'random.float'}},\n      \"tagId\": \"{{faker 'random.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'random.uuid'}}\"\n}",
+          "uuid": "49c960c1-e75d-408b-897a-f849d24b70c9",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"iteration\": \"{{faker 'datatype.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      },\n      \"probability\": {{faker 'datatype.float'}},\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'datatype.uuid'}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
@@ -319,15 +349,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "039a5014-aa3f-4588-b588-4673855cc0ca",
+          "uuid": "96a556a8-22ac-4d03-9df3-afde681fe929",
           "body": "{\n  \"code\": \"{{oneOf (array 'NoError' 'BadRequest' 'BadRequestExceededBatchSize' 'BadRequestNotSupported' 'BadRequestInvalidIds' 'BadRequestProjectName' 'BadRequestProjectNameNotUnique' 'BadRequestProjectDescription' 'BadRequestProjectUnknownDomain' 'BadRequestProjectUnknownClassification' 'BadRequestProjectUnsupportedDomainTypeChange' 'BadRequestProjectUnsupportedExportPlatform' 'BadRequestIterationName' 'BadRequestIterationNameNotUnique' 'BadRequestIterationDescription' 'BadRequestIterationIsNotTrained' 'BadRequestWorkspaceCannotBeModified' 'BadRequestWorkspaceNotDeletable' 'BadRequestTagName' 'BadRequestTagNameNotUnique' 'BadRequestTagDescription' 'BadRequestTagType' 'BadRequestMultipleNegativeTag' 'BadRequestImageTags' 'BadRequestImageRegions' 'BadRequestNegativeAndRegularTagOnSameImage' 'BadRequestRequiredParamIsNull' 'BadRequestIterationIsPublished' 'BadRequestInvalidPublishName' 'BadRequestInvalidPublishTarget' 'BadRequestUnpublishFailed' 'BadRequestSubscriptionApi' 'BadRequestExceedProjectLimit' 'BadRequestExceedIterationPerProjectLimit' 'BadRequestExceedTagPerProjectLimit' 'BadRequestExceedTagPerImageLimit' 'BadRequestExceededQuota' 'BadRequestCannotMigrateProjectWithName' 'BadRequestNotLimitedTrial' 'BadRequestImageBatch' 'BadRequestImageStream' 'BadRequestImageUrl' 'BadRequestImageFormat' 'BadRequestImageSizeBytes' 'BadRequestImageExceededCount' 'BadRequestTrainingNotNeeded' 'BadRequestTrainingNotNeededButTrainingPipelineUpdated' 'BadRequestTrainingValidationFailed' 'BadRequestClassificationTrainingValidationFailed' 'BadRequestMultiClassClassificationTrainingValidationFailed' 'BadRequestMultiLabelClassificationTrainingValidationFailed' 'BadRequestDetectionTrainingValidationFailed' 'BadRequestTrainingAlreadyInProgress' 'BadRequestDetectionTrainingNotAllowNegativeTag' 'BadRequestInvalidEmailAddress' 'BadRequestDomainNotSupportedForAdvancedTraining' 'BadRequestExportPlatformNotSupportedForAdvancedTraining' 'BadRequestReservedBudgetInHoursNotEnoughForAdvancedTraining' 'BadRequestExportValidationFailed' 'BadRequestExportAlreadyInProgress' 'BadRequestPredictionIdsMissing' 'BadRequestPredictionIdsExceededCount' 'BadRequestPredictionTagsExceededCount' 'BadRequestPredictionResultsExceededCount' 'BadRequestPredictionInvalidApplicationName' 'BadRequestPredictionInvalidQueryParameters' 'BadRequestInvalid' 'UnsupportedMediaType' 'Forbidden' 'ForbiddenUser' 'ForbiddenUserResource' 'ForbiddenUserSignupDisabled' 'ForbiddenUserSignupAllowanceExceeded' 'ForbiddenUserDoesNotExist' 'ForbiddenUserDisabled' 'ForbiddenUserInsufficientCapability' 'ForbiddenDRModeEnabled' 'ForbiddenInvalid' 'NotFound' 'NotFoundProject' 'NotFoundProjectDefaultIteration' 'NotFoundIteration' 'NotFoundIterationPerformance' 'NotFoundTag' 'NotFoundImage' 'NotFoundDomain' 'NotFoundApimSubscription' 'NotFoundInvalid' 'Conflict' 'ConflictInvalid' 'ErrorUnknown' 'ErrorProjectInvalidWorkspace' 'ErrorProjectInvalidPipelineConfiguration' 'ErrorProjectInvalidDomain' 'ErrorProjectTrainingRequestFailed' 'ErrorProjectExportRequestFailed' 'ErrorFeaturizationServiceUnavailable' 'ErrorFeaturizationQueueTimeout' 'ErrorFeaturizationInvalidFeaturizer' 'ErrorFeaturizationAugmentationUnavailable' 'ErrorFeaturizationUnrecognizedJob' 'ErrorFeaturizationAugmentationError' 'ErrorExporterInvalidPlatform' 'ErrorExporterInvalidFeaturizer' 'ErrorExporterInvalidClassifier' 'ErrorPredictionServiceUnavailable' 'ErrorPredictionModelNotFound' 'ErrorPredictionModelNotCached' 'ErrorPrediction' 'ErrorPredictionStorage' 'ErrorRegionProposal' 'ErrorInvalid')}}\",\n  \"message\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -338,27 +371,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2fb2cb68-a51e-40db-9cd7-6b538968014f",
+      "uuid": "1ef1b469-5799-41d9-92fe-8ebea7aaa634",
       "documentation": "Detect objects in an image url without saving the result.",
       "method": "post",
       "endpoint": ":projectId/detect/iterations/:publishedName/url/nostore",
       "responses": [
         {
-          "uuid": "ffe9540d-1715-413d-b940-f02087016d34",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'random.uuid'}}\",\n  \"iteration\": \"{{faker 'random.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'random.float'}},\n        \"left\": {{faker 'random.float'}},\n        \"top\": {{faker 'random.float'}},\n        \"width\": {{faker 'random.float'}}\n      },\n      \"probability\": {{faker 'random.float'}},\n      \"tagId\": \"{{faker 'random.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'random.uuid'}}\"\n}",
+          "uuid": "47f29248-5f29-43ac-a05a-ea609eb0a436",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"iteration\": \"{{faker 'datatype.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      },\n      \"probability\": {{faker 'datatype.float'}},\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'datatype.uuid'}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
@@ -368,15 +403,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "29da7c53-9544-4849-9d16-03cb566f2fdc",
+          "uuid": "7176cd8e-75b5-4df2-a72f-ee3b16b838c9",
           "body": "{\n  \"code\": \"{{oneOf (array 'NoError' 'BadRequest' 'BadRequestExceededBatchSize' 'BadRequestNotSupported' 'BadRequestInvalidIds' 'BadRequestProjectName' 'BadRequestProjectNameNotUnique' 'BadRequestProjectDescription' 'BadRequestProjectUnknownDomain' 'BadRequestProjectUnknownClassification' 'BadRequestProjectUnsupportedDomainTypeChange' 'BadRequestProjectUnsupportedExportPlatform' 'BadRequestIterationName' 'BadRequestIterationNameNotUnique' 'BadRequestIterationDescription' 'BadRequestIterationIsNotTrained' 'BadRequestWorkspaceCannotBeModified' 'BadRequestWorkspaceNotDeletable' 'BadRequestTagName' 'BadRequestTagNameNotUnique' 'BadRequestTagDescription' 'BadRequestTagType' 'BadRequestMultipleNegativeTag' 'BadRequestImageTags' 'BadRequestImageRegions' 'BadRequestNegativeAndRegularTagOnSameImage' 'BadRequestRequiredParamIsNull' 'BadRequestIterationIsPublished' 'BadRequestInvalidPublishName' 'BadRequestInvalidPublishTarget' 'BadRequestUnpublishFailed' 'BadRequestSubscriptionApi' 'BadRequestExceedProjectLimit' 'BadRequestExceedIterationPerProjectLimit' 'BadRequestExceedTagPerProjectLimit' 'BadRequestExceedTagPerImageLimit' 'BadRequestExceededQuota' 'BadRequestCannotMigrateProjectWithName' 'BadRequestNotLimitedTrial' 'BadRequestImageBatch' 'BadRequestImageStream' 'BadRequestImageUrl' 'BadRequestImageFormat' 'BadRequestImageSizeBytes' 'BadRequestImageExceededCount' 'BadRequestTrainingNotNeeded' 'BadRequestTrainingNotNeededButTrainingPipelineUpdated' 'BadRequestTrainingValidationFailed' 'BadRequestClassificationTrainingValidationFailed' 'BadRequestMultiClassClassificationTrainingValidationFailed' 'BadRequestMultiLabelClassificationTrainingValidationFailed' 'BadRequestDetectionTrainingValidationFailed' 'BadRequestTrainingAlreadyInProgress' 'BadRequestDetectionTrainingNotAllowNegativeTag' 'BadRequestInvalidEmailAddress' 'BadRequestDomainNotSupportedForAdvancedTraining' 'BadRequestExportPlatformNotSupportedForAdvancedTraining' 'BadRequestReservedBudgetInHoursNotEnoughForAdvancedTraining' 'BadRequestExportValidationFailed' 'BadRequestExportAlreadyInProgress' 'BadRequestPredictionIdsMissing' 'BadRequestPredictionIdsExceededCount' 'BadRequestPredictionTagsExceededCount' 'BadRequestPredictionResultsExceededCount' 'BadRequestPredictionInvalidApplicationName' 'BadRequestPredictionInvalidQueryParameters' 'BadRequestInvalid' 'UnsupportedMediaType' 'Forbidden' 'ForbiddenUser' 'ForbiddenUserResource' 'ForbiddenUserSignupDisabled' 'ForbiddenUserSignupAllowanceExceeded' 'ForbiddenUserDoesNotExist' 'ForbiddenUserDisabled' 'ForbiddenUserInsufficientCapability' 'ForbiddenDRModeEnabled' 'ForbiddenInvalid' 'NotFound' 'NotFoundProject' 'NotFoundProjectDefaultIteration' 'NotFoundIteration' 'NotFoundIterationPerformance' 'NotFoundTag' 'NotFoundImage' 'NotFoundDomain' 'NotFoundApimSubscription' 'NotFoundInvalid' 'Conflict' 'ConflictInvalid' 'ErrorUnknown' 'ErrorProjectInvalidWorkspace' 'ErrorProjectInvalidPipelineConfiguration' 'ErrorProjectInvalidDomain' 'ErrorProjectTrainingRequestFailed' 'ErrorProjectExportRequestFailed' 'ErrorFeaturizationServiceUnavailable' 'ErrorFeaturizationQueueTimeout' 'ErrorFeaturizationInvalidFeaturizer' 'ErrorFeaturizationAugmentationUnavailable' 'ErrorFeaturizationUnrecognizedJob' 'ErrorFeaturizationAugmentationError' 'ErrorExporterInvalidPlatform' 'ErrorExporterInvalidFeaturizer' 'ErrorExporterInvalidClassifier' 'ErrorPredictionServiceUnavailable' 'ErrorPredictionModelNotFound' 'ErrorPredictionModelNotCached' 'ErrorPrediction' 'ErrorPredictionStorage' 'ErrorRegionProposal' 'ErrorInvalid')}}\",\n  \"message\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -387,17 +425,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -425,5 +465,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

@@ -1,6 +1,6 @@
 {
-  "uuid": "c1053367-9361-4f28-bc68-b8f5c778bda4",
-  "lastMigration": 19,
+  "uuid": "1cba21b3-b80c-45b0-9ce2-9631d30eb074",
+  "lastMigration": 24,
   "name": "My Business Verifications API",
   "endpointPrefix": "",
   "latency": 0,
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "de372bf3-dae9-4b0e-8998-70fed4751724",
+      "uuid": "de2df399-1f2c-4694-85ff-ec1ece132496",
       "documentation": "Generates a token for the provided location data as a vetted [partner](https://support.google.com/business/answer/7674102). Throws PERMISSION_DENIED if the caller is not a vetted partner account. Throws FAILED_PRECONDITION if the caller's VettedStatus is INVALID.",
       "method": "post",
       "endpoint": "v1/verificationTokens:generate",
       "responses": [
         {
-          "uuid": "40f87e8d-bb97-4b4b-a35d-a9b24dcca650",
+          "uuid": "f375dd2a-2268-4619-a306-9c61c9829e3b",
           "body": "{\n  \"token\": {\n    \"tokenString\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -25,27 +25,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "d68654ae-b709-4c24-b4ce-e0d32dc206ca",
+      "uuid": "05f9fcb2-68b4-497c-9a48-63467c60c53c",
       "documentation": "Reports all eligible verification options for a location in a specific language.",
       "method": "post",
       "endpoint": "v1/:location:fetchVerificationOptions",
       "responses": [
         {
-          "uuid": "d61a05f8-d094-4012-b997-d02a41f5c456",
-          "body": "{\n  \"options\": [\n    {\n      \"addressData\": {\n        \"address\": {\n          \"addressLines\": [\n            \"\"\n          ],\n          \"administrativeArea\": \"\",\n          \"languageCode\": \"\",\n          \"locality\": \"\",\n          \"organization\": \"\",\n          \"postalCode\": \"\",\n          \"recipients\": [\n            \"\"\n          ],\n          \"regionCode\": \"\",\n          \"revision\": {{faker 'random.number'}},\n          \"sortingCode\": \"\",\n          \"sublocality\": \"\"\n        },\n        \"business\": \"\",\n        \"expectedDeliveryDaysRegion\": {{faker 'random.number'}}\n      },\n      \"emailData\": {\n        \"domain\": \"\",\n        \"isUserNameEditable\": {{faker 'random.boolean'}},\n        \"user\": \"\"\n      },\n      \"phoneNumber\": \"\",\n      \"verificationMethod\": \"{{oneOf (array 'VERIFICATION_METHOD_UNSPECIFIED' 'ADDRESS' 'EMAIL' 'PHONE_CALL' 'SMS' 'AUTO' 'VETTED_PARTNER')}}\"\n    }\n  ]\n}",
+          "uuid": "661707c9-28d8-42f6-b9e4-838f286577a4",
+          "body": "{\n  \"options\": [\n    {\n      \"addressData\": {\n        \"address\": {\n          \"addressLines\": [\n            \"\"\n          ],\n          \"administrativeArea\": \"\",\n          \"languageCode\": \"\",\n          \"locality\": \"\",\n          \"organization\": \"\",\n          \"postalCode\": \"\",\n          \"recipients\": [\n            \"\"\n          ],\n          \"regionCode\": \"\",\n          \"revision\": {{faker 'datatype.number'}},\n          \"sortingCode\": \"\",\n          \"sublocality\": \"\"\n        },\n        \"business\": \"\",\n        \"expectedDeliveryDaysRegion\": {{faker 'datatype.number'}}\n      },\n      \"emailData\": {\n        \"domain\": \"\",\n        \"isUserNameEditable\": {{faker 'datatype.boolean'}},\n        \"user\": \"\"\n      },\n      \"phoneNumber\": \"\",\n      \"verificationMethod\": \"{{oneOf (array 'VERIFICATION_METHOD_UNSPECIFIED' 'ADDRESS' 'EMAIL' 'PHONE_CALL' 'SMS' 'AUTO' 'VETTED_PARTNER')}}\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -55,27 +57,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "c61562fb-99a8-4632-95c4-85d7f1e49d92",
+      "uuid": "547c45e3-f1ff-43ef-b8d7-43555be6cc40",
       "documentation": "Gets the VoiceOfMerchant state.",
       "method": "get",
       "endpoint": "v1/:name/VoiceOfMerchantState",
       "responses": [
         {
-          "uuid": "8ecd23cb-57ee-4ab0-b950-d1c937478bfc",
-          "body": "{\n  \"complyWithGuidelines\": {\n    \"recommendationReason\": \"{{oneOf (array 'RECOMMENDATION_REASON_UNSPECIFIED' 'BUSINESS_LOCATION_SUSPENDED' 'BUSINESS_LOCATION_DISABLED')}}\"\n  },\n  \"hasBusinessAuthority\": {{faker 'random.boolean'}},\n  \"hasVoiceOfMerchant\": {{faker 'random.boolean'}},\n  \"resolveOwnershipConflict\": {},\n  \"verify\": {\n    \"hasPendingVerification\": {{faker 'random.boolean'}}\n  },\n  \"waitForVoiceOfMerchant\": {}\n}",
+          "uuid": "d3f15cf9-3996-4408-af1e-088960ad5281",
+          "body": "{\n  \"complyWithGuidelines\": {\n    \"recommendationReason\": \"{{oneOf (array 'RECOMMENDATION_REASON_UNSPECIFIED' 'BUSINESS_LOCATION_SUSPENDED' 'BUSINESS_LOCATION_DISABLED')}}\"\n  },\n  \"hasBusinessAuthority\": {{faker 'datatype.boolean'}},\n  \"hasVoiceOfMerchant\": {{faker 'datatype.boolean'}},\n  \"resolveOwnershipConflict\": {},\n  \"verify\": {\n    \"hasPendingVerification\": {{faker 'datatype.boolean'}}\n  },\n  \"waitForVoiceOfMerchant\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -85,26 +89,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9798cc07-59f5-43a0-bfb7-20e0af9ca1c5",
+      "uuid": "b585690d-30ac-4da4-a318-d381a249f9b2",
       "documentation": "Completes a `PENDING` verification. It is only necessary for non `AUTO` verification methods. `AUTO` verification request is instantly `VERIFIED` upon creation.",
       "method": "post",
       "endpoint": "v1/:name:complete",
       "responses": [
         {
-          "uuid": "0c21ff36-b354-455c-aa93-4988af580f85",
+          "uuid": "bd817a03-1ca4-43e8-bf9e-2d4f1f8d605d",
           "body": "{\n  \"verification\": {\n    \"createTime\": \"\",\n    \"method\": \"{{oneOf (array 'VERIFICATION_METHOD_UNSPECIFIED' 'ADDRESS' 'EMAIL' 'PHONE_CALL' 'SMS' 'AUTO' 'VETTED_PARTNER')}}\",\n    \"name\": \"\",\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'COMPLETED' 'FAILED')}}\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -115,26 +121,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "ab375331-52e6-49f1-98f5-70bff80f1474",
+      "uuid": "5c85508d-6b64-46c0-8ad4-aedc49a0e313",
       "documentation": "Starts the verification process for a location.",
       "method": "post",
       "endpoint": "v1/:name:verify",
       "responses": [
         {
-          "uuid": "679d7dff-a3fa-40da-8314-8f488c565520",
+          "uuid": "173498f4-0f6b-4da5-acb2-4b694c85b9e0",
           "body": "{\n  \"verification\": {\n    \"createTime\": \"\",\n    \"method\": \"{{oneOf (array 'VERIFICATION_METHOD_UNSPECIFIED' 'ADDRESS' 'EMAIL' 'PHONE_CALL' 'SMS' 'AUTO' 'VETTED_PARTNER')}}\",\n    \"name\": \"\",\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'COMPLETED' 'FAILED')}}\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -145,26 +153,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "728376c7-dfb4-4051-8fe8-27204afb1063",
+      "uuid": "e5e96267-3266-4570-b8b0-4be2d820f307",
       "documentation": "List verifications of a location, ordered by create time.",
       "method": "get",
       "endpoint": "v1/:parent/verifications",
       "responses": [
         {
-          "uuid": "a3931dff-93eb-4ae0-b39b-67584784aa4b",
+          "uuid": "049b8ff1-94ab-47b9-b813-7c93acd765a6",
           "body": "{\n  \"nextPageToken\": \"\",\n  \"verifications\": [\n    {\n      \"createTime\": \"\",\n      \"method\": \"{{oneOf (array 'VERIFICATION_METHOD_UNSPECIFIED' 'ADDRESS' 'EMAIL' 'PHONE_CALL' 'SMS' 'AUTO' 'VETTED_PARTNER')}}\",\n      \"name\": \"\",\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'PENDING' 'COMPLETED' 'FAILED')}}\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -175,17 +185,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -213,5 +225,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

@@ -1,6 +1,6 @@
 {
-  "uuid": "c231ea06-0e96-46e7-92d2-35343777728d",
-  "lastMigration": 19,
+  "uuid": "7f2a505b-3b94-4160-a553-1c9989e9629e",
+  "lastMigration": 24,
   "name": "Feed API",
   "endpointPrefix": "sell/feed/v1",
   "latency": 0,
@@ -8,14 +8,14 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "04d5fa3b-e3fd-474c-8dce-c50cfc9c64ef",
+      "uuid": "fa2e5bad-9b76-40de-8e76-d55985264c63",
       "documentation": "Use this method to return an array of customer service metric tasks. You can limit the tasks returned by specifying a date range. Note: You can pass in either the look_back_days or date_range, but not both.",
       "method": "get",
       "endpoint": "customer_service_metric_task",
       "responses": [
         {
-          "uuid": "27c34318-d406-4822-b8a1-8a3c91e591e0",
-          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"tasks\": [\n    {\n      \"completionDate\": \"\",\n      \"creationDate\": \"\",\n      \"detailHref\": \"\",\n      \"feedType\": \"\",\n      \"filterCriteria\": {\n        \"customerServiceMetricType\": \"\",\n        \"evaluationMarketplaceId\": \"\",\n        \"listingCategories\": [\n          \"\"\n        ],\n        \"shippingRegions\": [\n          \"\"\n        ]\n      },\n      \"schemaVersion\": \"\",\n      \"status\": \"\",\n      \"taskId\": \"\"\n    }\n  ],\n  \"total\": {{faker 'random.number'}}\n}",
+          "uuid": "2fc9e0cd-453c-449e-9367-4c8a71a1d3f8",
+          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'datatype.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'datatype.number'}},\n  \"prev\": \"\",\n  \"tasks\": [\n    {\n      \"completionDate\": \"\",\n      \"creationDate\": \"\",\n      \"detailHref\": \"\",\n      \"feedType\": \"\",\n      \"filterCriteria\": {\n        \"customerServiceMetricType\": \"\",\n        \"evaluationMarketplaceId\": \"\",\n        \"listingCategories\": [\n          \"\"\n        ],\n        \"shippingRegions\": [\n          \"\"\n        ]\n      },\n      \"schemaVersion\": \"\",\n      \"status\": \"\",\n      \"taskId\": \"\"\n    }\n  ],\n  \"total\": {{faker 'datatype.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -25,15 +25,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "bb95f459-e4c8-4637-bf8b-84ec9b3efe72",
+          "uuid": "2bc478a3-dc24-48fc-b971-45232e3da2cf",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -44,15 +47,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "5e043015-d551-4112-ae33-0c3795b896c3",
+          "uuid": "6db82a98-c849-430c-9292-9d9c8cfb2312",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -63,15 +69,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "4ebd8c92-fa4c-4773-943f-90bdde8b85aa",
+          "uuid": "a4e7c90e-cdc3-4323-a16a-fc706591bdaa",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -82,26 +91,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "0ef5ab51-4e60-4231-a7b4-9a6176db5026",
+      "uuid": "2ea8a71e-5729-4afb-9a07-10ffd4b717a8",
       "documentation": "Use this method to create a customer service metrics download task with filter criteria for the customer service metrics report. When using this method, specify the feedType and filterCriteria including both evaluationMarketplaceId and customerServiceMetricType for the report. The method returns the location response header containing the call URI to use with getCustomerServiceMetricTask to retrieve status and details on the task. Only CURRENT Customer Service Metrics reports can be generated with the Sell Feed API. PROJECTED reports are not supported at this time. See the getCustomerServiceMetric method document in the Analytics API for more information about these two types of reports. Note: Before calling this API, retrieve the summary of the seller's performance and rating for the customer service metric by calling getCustomerServiceMetric (part of the Analytics API). You can then populate the create task request fields with the values from the response. This technique eliminates failed tasks that request a report for a customerServiceMetricType and evaluationMarketplaceId that are without evaluation.",
       "method": "post",
       "endpoint": "customer_service_metric_task",
       "responses": [
         {
-          "uuid": "05d8c5ae-9dce-4d7e-a666-7654b0e53822",
+          "uuid": "af8770d9-02aa-4838-8261-cd2e45080add",
           "body": "",
           "latency": 0,
           "statusCode": 202,
@@ -112,15 +123,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "daf6f18f-9620-49c3-a8c9-f42a4afa48e7",
+          "uuid": "6a6f5533-74af-4cf1-b146-f62a4fe2dae0",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -131,15 +145,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "f667588c-a40a-4663-9ec2-00268ad24f44",
+          "uuid": "cbd0a3c0-29ae-463e-9e31-8934995edf41",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -150,15 +167,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "e5365812-0811-4b1c-b016-094beea6589f",
+          "uuid": "f1c679a3-f942-4222-8401-03618319d2a2",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -169,26 +189,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "e6b8a045-880a-469f-ba8b-83b09d181c4c",
+      "uuid": "35924eec-f0f5-4de6-bb5e-ea9e8278f078",
       "documentation": "Use this method to retrieve customer service metric task details for the specified task. The input is task_id.",
       "method": "get",
       "endpoint": "customer_service_metric_task/:task_id",
       "responses": [
         {
-          "uuid": "1928617c-85e1-4d3a-a280-097dd287a2cf",
+          "uuid": "c1ee00a2-3709-4dc7-b47a-f1a2e92132fe",
           "body": "{\n  \"completionDate\": \"\",\n  \"creationDate\": \"\",\n  \"detailHref\": \"\",\n  \"feedType\": \"\",\n  \"filterCriteria\": {\n    \"customerServiceMetricType\": \"\",\n    \"evaluationMarketplaceId\": \"\",\n    \"listingCategories\": [\n      \"\"\n    ],\n    \"shippingRegions\": [\n      \"\"\n    ]\n  },\n  \"schemaVersion\": \"\",\n  \"status\": \"\",\n  \"taskId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -199,15 +221,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "fdea6805-9832-4c90-bf43-0113223fb977",
+          "uuid": "45565807-8458-48ef-80bb-6471d901a732",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -218,15 +243,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "7f98260c-968c-4ac5-a221-09ee6dccecd2",
+          "uuid": "0de40612-2ead-4348-b5c3-0bbcacf6ece7",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -237,15 +265,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "462614f8-5098-4f8c-b174-5b731d33ae1d",
+          "uuid": "2dea6619-f18f-4489-b191-b79b4320c55a",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -256,15 +287,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "63d18f46-0ad2-4891-a4ec-5263e6e1cd44",
+          "uuid": "4747f9ac-7334-4fcd-a48c-532662edf87f",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -275,27 +309,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2976b69d-a152-4024-a788-80696210c7fe",
+      "uuid": "0175b5c7-3cfe-493d-9fc0-f830d3abc741",
       "documentation": "This method searches for multiple tasks of a specific feed type, and includes date filters and pagination.",
       "method": "get",
       "endpoint": "inventory_task",
       "responses": [
         {
-          "uuid": "992a2ff1-2826-4da7-a130-fb5b99f30571",
-          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"tasks\": [\n    {\n      \"completionDate\": \"\",\n      \"creationDate\": \"\",\n      \"detailHref\": \"\",\n      \"feedType\": \"\",\n      \"filterCriteria\": {\n        \"creationDateRange\": {\n          \"from\": \"\",\n          \"to\": \"\"\n        },\n        \"listingFormat\": \"\",\n        \"listingStatus\": \"\",\n        \"modifiedDateRange\": {\n          \"from\": \"\",\n          \"to\": \"\"\n        }\n      },\n      \"inventoryFileTemplate\": \"\",\n      \"schemaVersion\": \"\",\n      \"status\": \"\",\n      \"taskId\": \"\",\n      \"uploadSummary\": {\n        \"failureCount\": {{faker 'random.number'}},\n        \"successCount\": {{faker 'random.number'}}\n      }\n    }\n  ],\n  \"total\": {{faker 'random.number'}}\n}",
+          "uuid": "d3543f7c-bc91-480d-9d11-5eb03101a965",
+          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'datatype.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'datatype.number'}},\n  \"prev\": \"\",\n  \"tasks\": [\n    {\n      \"completionDate\": \"\",\n      \"creationDate\": \"\",\n      \"detailHref\": \"\",\n      \"feedType\": \"\",\n      \"filterCriteria\": {\n        \"creationDateRange\": {\n          \"from\": \"\",\n          \"to\": \"\"\n        },\n        \"listingFormat\": \"\",\n        \"listingStatus\": \"\",\n        \"modifiedDateRange\": {\n          \"from\": \"\",\n          \"to\": \"\"\n        }\n      },\n      \"inventoryFileTemplate\": \"\",\n      \"schemaVersion\": \"\",\n      \"status\": \"\",\n      \"taskId\": \"\",\n      \"uploadSummary\": {\n        \"failureCount\": {{faker 'datatype.number'}},\n        \"successCount\": {{faker 'datatype.number'}}\n      }\n    }\n  ],\n  \"total\": {{faker 'datatype.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -305,15 +341,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "027262e4-71d4-4510-a6df-64de3fccb568",
+          "uuid": "77958e8c-7d79-40d8-9d99-12afd8bff15e",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -324,15 +363,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "577bf411-67e1-4f01-8f3a-e2475cabae87",
+          "uuid": "23501ad0-ec6b-4461-b9db-81364562aa12",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -343,15 +385,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "0f195804-7567-4d90-8100-894f5e0cc0db",
+          "uuid": "48acb228-2d03-4582-970b-e1ae5a101f4b",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -362,26 +407,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "1ec63258-6f38-436d-967b-310dc2fb41e7",
+      "uuid": "203be704-bbd2-4cc7-b0cc-aec9540526e1",
       "documentation": "This method creates an inventory-related download task for a specified feed type with optional filter criteria. When using this method, specify the feedType. This method returns the location response header containing the getInventoryTask call URI to retrieve the inventory task you just created. The URL includes the eBay-assigned task ID, which you can use to reference the inventory task. To retrieve the status of the task, use the getInventoryTask method to retrieve a single task ID or the getInventoryTasks method to retrieve multiple task IDs. Note: The scope depends on the feed type. An error message results when an unsupported scope or feed type is specified.Presently, this method supports Active Inventory Report. The ActiveInventoryReport returns a report that contains price and quantity information for all of the active listings for a specific seller. A seller can use this information to maintain their inventory on eBay.",
       "method": "post",
       "endpoint": "inventory_task",
       "responses": [
         {
-          "uuid": "5aedefbf-9a4d-4d1c-b3f1-d2f2ed01c883",
+          "uuid": "d0ef4e8d-30bb-42a5-ae49-21a514bc308f",
           "body": "",
           "latency": 0,
           "statusCode": 202,
@@ -392,15 +439,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "d4dc50c3-b160-46a6-acc4-54324ea4e9f0",
+          "uuid": "10965765-3952-4626-984d-c9c4613b9bda",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -411,15 +461,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "8a95a03c-7bf2-4f5c-a50a-2beef0265d50",
+          "uuid": "baa30703-8929-4b87-972a-1a85d839c862",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -430,15 +483,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "92a04de9-cec0-41db-9942-5ac9e6b37f23",
+          "uuid": "34a60f1e-ed75-4875-acae-ee67d0c707e8",
           "body": "",
           "latency": 0,
           "statusCode": 409,
@@ -449,15 +505,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "5bfcb5f5-c9d4-4268-bf72-b6829c7f4274",
+          "uuid": "25511285-15d4-444a-ab3d-8e661ac1076a",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -468,27 +527,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "55d75cdb-73cf-4930-85cf-9cb2eb0ee948",
+      "uuid": "c675cf31-8d4b-48fb-af4a-a67449bc61f4",
       "documentation": "This method retrieves the task details and status of the specified inventory-related task. The input is task_id.",
       "method": "get",
       "endpoint": "inventory_task/:task_id",
       "responses": [
         {
-          "uuid": "d332b87c-0c29-45cc-91ea-d4e562c34b4e",
-          "body": "{\n  \"completionDate\": \"\",\n  \"creationDate\": \"\",\n  \"detailHref\": \"\",\n  \"feedType\": \"\",\n  \"filterCriteria\": {\n    \"creationDateRange\": {\n      \"from\": \"\",\n      \"to\": \"\"\n    },\n    \"listingFormat\": \"\",\n    \"listingStatus\": \"\",\n    \"modifiedDateRange\": {\n      \"from\": \"\",\n      \"to\": \"\"\n    }\n  },\n  \"inventoryFileTemplate\": \"\",\n  \"schemaVersion\": \"\",\n  \"status\": \"\",\n  \"taskId\": \"\",\n  \"uploadSummary\": {\n    \"failureCount\": {{faker 'random.number'}},\n    \"successCount\": {{faker 'random.number'}}\n  }\n}",
+          "uuid": "561e19de-a909-49bd-b6ba-c7e1b27bb6c2",
+          "body": "{\n  \"completionDate\": \"\",\n  \"creationDate\": \"\",\n  \"detailHref\": \"\",\n  \"feedType\": \"\",\n  \"filterCriteria\": {\n    \"creationDateRange\": {\n      \"from\": \"\",\n      \"to\": \"\"\n    },\n    \"listingFormat\": \"\",\n    \"listingStatus\": \"\",\n    \"modifiedDateRange\": {\n      \"from\": \"\",\n      \"to\": \"\"\n    }\n  },\n  \"inventoryFileTemplate\": \"\",\n  \"schemaVersion\": \"\",\n  \"status\": \"\",\n  \"taskId\": \"\",\n  \"uploadSummary\": {\n    \"failureCount\": {{faker 'datatype.number'}},\n    \"successCount\": {{faker 'datatype.number'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -498,15 +559,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "a75dfadf-0742-4d27-b4ac-e9c96472cb7f",
+          "uuid": "47815cfd-2676-434a-b120-d5edd162ca9f",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -517,15 +581,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "62720990-0b09-4821-ae2b-134402874c08",
+          "uuid": "0b6a6d4a-250c-4cf8-9641-50b0e7261c83",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -536,15 +603,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "0147791b-ac5b-494a-ae5f-5e17c2a9e916",
+          "uuid": "eda23c5c-9ea1-41f9-860f-7787a11a4957",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -555,15 +625,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "2da120cb-1a66-4ee0-9a70-3f4bada3ee42",
+          "uuid": "210385d4-ddf0-4142-8edf-9eadbfac349e",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -574,27 +647,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2f5d814f-2f24-440a-a3f3-d9563a785a21",
+      "uuid": "2b7c038a-df29-4681-b3f2-32f73c1e6132",
       "documentation": "This method returns the details and status for an array of order tasks based on a specified feed_type or schedule_id. Specifying both feed_type and schedule_id results in an error. Since schedules are based on feed types, you can specify a schedule (schedule_id) that returns the needed feed_type. If specifying the feed_type, limit which order tasks are returned by specifying filters such as the creation date range or period of time using look_back_days. If specifying a schedule_id, the schedule template (that the schedule_id is based on) determines which order tasks are returned (see schedule_id for additional information). Each schedule_id applies to one feed_type.",
       "method": "get",
       "endpoint": "order_task",
       "responses": [
         {
-          "uuid": "4d18640b-ea9b-45ae-965f-5d1ed5f78f56",
-          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"tasks\": [\n    {\n      \"completionDate\": \"\",\n      \"creationDate\": \"\",\n      \"detailHref\": \"\",\n      \"feedType\": \"\",\n      \"filterCriteria\": {\n        \"creationDateRange\": {\n          \"from\": \"\",\n          \"to\": \"\"\n        },\n        \"modifiedDateRange\": {\n          \"from\": \"\",\n          \"to\": \"\"\n        },\n        \"orderStatus\": \"\"\n      },\n      \"schemaVersion\": \"\",\n      \"status\": \"\",\n      \"taskId\": \"\",\n      \"uploadSummary\": {\n        \"failureCount\": {{faker 'random.number'}},\n        \"successCount\": {{faker 'random.number'}}\n      }\n    }\n  ],\n  \"total\": {{faker 'random.number'}}\n}",
+          "uuid": "4547fcc7-8502-457d-8db7-b15993834e4c",
+          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'datatype.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'datatype.number'}},\n  \"prev\": \"\",\n  \"tasks\": [\n    {\n      \"completionDate\": \"\",\n      \"creationDate\": \"\",\n      \"detailHref\": \"\",\n      \"feedType\": \"\",\n      \"filterCriteria\": {\n        \"creationDateRange\": {\n          \"from\": \"\",\n          \"to\": \"\"\n        },\n        \"modifiedDateRange\": {\n          \"from\": \"\",\n          \"to\": \"\"\n        },\n        \"orderStatus\": \"\"\n      },\n      \"schemaVersion\": \"\",\n      \"status\": \"\",\n      \"taskId\": \"\",\n      \"uploadSummary\": {\n        \"failureCount\": {{faker 'datatype.number'}},\n        \"successCount\": {{faker 'datatype.number'}}\n      }\n    }\n  ],\n  \"total\": {{faker 'datatype.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -604,15 +679,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "af3bdc54-5b53-46c1-9f19-597c94eeba3c",
+          "uuid": "99c7f6dc-c343-4bbf-862d-d66f6c385fc2",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -623,15 +701,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "0731a367-4c9b-486f-b02a-99372be2c107",
+          "uuid": "a7b5bfb1-96d3-4502-ab32-0e59fd7740d7",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -642,15 +723,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "eb2c1db4-dbd8-4da5-a828-61c8dee744be",
+          "uuid": "6ba9bd92-e532-4705-b00d-1631f7a633aa",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -661,26 +745,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a28bc7e7-a7dd-4195-af19-2a93c2ff68bf",
+      "uuid": "3e68c756-bd5c-4c92-be99-06401229e8c7",
       "documentation": "This method creates an order download task with filter criteria for the order report. When using this method, specify the feedType, schemaVersion, and filterCriteria for the report. The method returns the location response header containing the getOrderTask call URI to retrieve the order task you just created. The URL includes the eBay-assigned task ID, which you can use to reference the order task. To retrieve the status of the task, use the getOrderTask method to retrieve a single task ID or the getOrderTasks method to retrieve multiple order task IDs. Note: The scope depends on the feed type. An error message results when an unsupported scope or feed type is specified. The following list contains this method's authorization scope and its corresponding feed type: https://api.ebay.com/oauth/api_scope/sell.fulfillment: LMS_ORDER_REPORT For details about how this method is used, see General feed types in the Selling Integration Guide. Note: At this time, the createOrderTask method only supports order creation date filters and not modified order date filters. Do not include the modifiedDateRange filter in your request payload.",
       "method": "post",
       "endpoint": "order_task",
       "responses": [
         {
-          "uuid": "e951baeb-a466-4ca0-aff2-501fcbefd42f",
+          "uuid": "c296f3ed-c230-40ae-8e5d-be067c621956",
           "body": "",
           "latency": 0,
           "statusCode": 202,
@@ -691,15 +777,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "1bb05a50-e88d-4a1a-bd12-cd3df7cd77fc",
+          "uuid": "a9419d87-281c-480e-aba3-2cc964338d3f",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -710,15 +799,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "a5d9e8bd-e825-409c-9310-32252c0f715a",
+          "uuid": "b5e0e3b9-feae-495d-b188-7a1d4ce71fbf",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -729,15 +821,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "a8027712-585b-4fa0-9354-78fe53755953",
+          "uuid": "e1d7b959-d9af-4471-ad50-af7742a1fd59",
           "body": "",
           "latency": 0,
           "statusCode": 409,
@@ -748,15 +843,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "7f6f1765-467a-4c4e-9c85-145d353aaa88",
+          "uuid": "3f53fd06-6644-4d78-b9ed-973092c425e4",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -767,27 +865,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "88f8b941-f38b-495d-8cc6-438683971e04",
+      "uuid": "def913b7-c3ba-44cb-9994-a16d64392ac1",
       "documentation": "This method retrieves the task details and status of the specified task. The input is task_id. For details about how this method is used, see Working with Order Feeds in the Selling Integration Guide.",
       "method": "get",
       "endpoint": "order_task/:task_id",
       "responses": [
         {
-          "uuid": "872f0239-2240-425f-ad93-13e651722607",
-          "body": "{\n  \"completionDate\": \"\",\n  \"creationDate\": \"\",\n  \"detailHref\": \"\",\n  \"feedType\": \"\",\n  \"filterCriteria\": {\n    \"creationDateRange\": {\n      \"from\": \"\",\n      \"to\": \"\"\n    },\n    \"modifiedDateRange\": {\n      \"from\": \"\",\n      \"to\": \"\"\n    },\n    \"orderStatus\": \"\"\n  },\n  \"schemaVersion\": \"\",\n  \"status\": \"\",\n  \"taskId\": \"\",\n  \"uploadSummary\": {\n    \"failureCount\": {{faker 'random.number'}},\n    \"successCount\": {{faker 'random.number'}}\n  }\n}",
+          "uuid": "7ceb83fb-38b3-4b86-9b22-c9513b6af03e",
+          "body": "{\n  \"completionDate\": \"\",\n  \"creationDate\": \"\",\n  \"detailHref\": \"\",\n  \"feedType\": \"\",\n  \"filterCriteria\": {\n    \"creationDateRange\": {\n      \"from\": \"\",\n      \"to\": \"\"\n    },\n    \"modifiedDateRange\": {\n      \"from\": \"\",\n      \"to\": \"\"\n    },\n    \"orderStatus\": \"\"\n  },\n  \"schemaVersion\": \"\",\n  \"status\": \"\",\n  \"taskId\": \"\",\n  \"uploadSummary\": {\n    \"failureCount\": {{faker 'datatype.number'}},\n    \"successCount\": {{faker 'datatype.number'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -797,15 +897,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "ff98ed24-9224-4fd4-b9f0-c5e3029c5f3f",
+          "uuid": "a13689f2-1a1b-460b-96a0-1c241f5a947d",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -816,15 +919,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "5fe968a1-353b-4978-aec9-b5941ea70c67",
+          "uuid": "f85a53e6-d898-4dd5-a686-fd95234739f4",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -835,15 +941,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "0eb3716b-b7e4-42b6-968f-927a4a394165",
+          "uuid": "1937e900-8f3b-43ba-8aed-77cb2b508da4",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -854,15 +963,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "2b025b70-1e5b-43d3-9d03-9d1523b2f92e",
+          "uuid": "c7b7df98-8425-47d0-8d82-6357cefc1504",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -873,27 +985,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f9ae15f5-4eef-4f25-828c-e02351cedbcf",
+      "uuid": "7b84e847-cbc8-4082-b975-e3e21956b1a7",
       "documentation": "This method retrieves an array containing the details and status of all schedules based on the specified feed_type. Use this method to find a schedule if you do not know the schedule_id.",
       "method": "get",
       "endpoint": "schedule",
       "responses": [
         {
-          "uuid": "eb1b668c-d116-408d-8773-7996bc2648f5",
-          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"schedules\": [\n    {\n      \"creationDate\": \"\",\n      \"feedType\": \"\",\n      \"lastModifiedDate\": \"\",\n      \"preferredTriggerDayOfMonth\": {{faker 'random.number'}},\n      \"preferredTriggerDayOfWeek\": \"\",\n      \"preferredTriggerHour\": \"\",\n      \"scheduleEndDate\": \"\",\n      \"scheduleId\": \"\",\n      \"scheduleName\": \"\",\n      \"scheduleStartDate\": \"\",\n      \"scheduleTemplateId\": \"\",\n      \"schemaVersion\": \"\",\n      \"status\": \"\",\n      \"statusReason\": \"\"\n    }\n  ],\n  \"total\": {{faker 'random.number'}}\n}",
+          "uuid": "9ab947fd-0c28-4166-a7a9-11f654b1c4a4",
+          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'datatype.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'datatype.number'}},\n  \"prev\": \"\",\n  \"schedules\": [\n    {\n      \"creationDate\": \"\",\n      \"feedType\": \"\",\n      \"lastModifiedDate\": \"\",\n      \"preferredTriggerDayOfMonth\": {{faker 'datatype.number'}},\n      \"preferredTriggerDayOfWeek\": \"\",\n      \"preferredTriggerHour\": \"\",\n      \"scheduleEndDate\": \"\",\n      \"scheduleId\": \"\",\n      \"scheduleName\": \"\",\n      \"scheduleStartDate\": \"\",\n      \"scheduleTemplateId\": \"\",\n      \"schemaVersion\": \"\",\n      \"status\": \"\",\n      \"statusReason\": \"\"\n    }\n  ],\n  \"total\": {{faker 'datatype.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -903,15 +1017,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "d9855edf-ac94-4ed0-a9e5-0f013d54797a",
+          "uuid": "29943f68-51a2-44ec-8596-3038ae0e318b",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -922,15 +1039,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "ea47313f-dc54-4b49-9d1c-255faeb582b3",
+          "uuid": "d1769f82-6a07-459a-a7e1-e1cb7e6b9678",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -941,15 +1061,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "72fd63a0-2bc8-4086-bc5d-ae792d78a3f1",
+          "uuid": "f143ba82-0c16-437a-a29f-927cd941ec19",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -960,26 +1083,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "3c186be6-abfa-4215-9053-da6dd15b7522",
+      "uuid": "730a429c-d6b7-459e-8b9a-92e91acfe0b1",
       "documentation": "This method creates a schedule, which is a subscription to the specified schedule template. A schedule periodically generates a report for the feedType specified by the template. Specify the same feedType as the feedType of the associated schedule template. When creating the schedule, if available from the template, you can specify a preferred trigger hour, day of the week, or day of the month. These and other fields are conditionally available as specified by the template. Note: Make sure to include all fields required by the schedule template (scheduleTemplateId). Call the getScheduleTemplate method (or the getScheduleTemplates method), to find out which fields are required or optional. If a field is optional and a default value is provided by the template, the default value will be used if omitted from the payload.A successful call returns the location response header containing the getSchedule call URI to retrieve the schedule you just created. The URL includes the eBay-assigned schedule ID, which you can use to reference the schedule task. To retrieve the details of the create schedule task, use the getSchedule method for a single schedule ID or the getSchedules method to retrieve all schedule details for the specified feed_type. The number of schedules for each feedType is limited. Error code 160031 is returned when you have reached this maximum. Note: Except for schedules with a HALF-HOUR frequency, all schedules will ideally run at the start of each hour ('00' minutes). Actual start time may vary time may vary due to load and other factors.",
       "method": "post",
       "endpoint": "schedule",
       "responses": [
         {
-          "uuid": "22ffe7c9-4eed-43ce-aa47-8c6b21700bd8",
+          "uuid": "132a7f9f-0264-4571-80f1-51fface681c5",
           "body": "{}",
           "latency": 0,
           "statusCode": 201,
@@ -994,15 +1119,18 @@
               "value": ""
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "c7a12d6b-c426-4d30-b048-165b0398e7ae",
+          "uuid": "7d1f0343-b15a-47ec-ac75-159ea7cf3db8",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -1013,15 +1141,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "c42f1447-867e-4731-a88a-ed2c84708144",
+          "uuid": "158a49bb-8cf0-4fd1-8288-9f60ed14e913",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -1032,15 +1163,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "3c2cc5bd-a538-402f-8a0a-4dcc09ebf3fd",
+          "uuid": "717a43eb-80d5-4910-bbb1-91c9dd6bb030",
           "body": "",
           "latency": 0,
           "statusCode": 409,
@@ -1051,15 +1185,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "425307e1-ac11-4adf-ab1c-e0e7cb39dcc5",
+          "uuid": "67e1de2c-4ba2-4ca2-b942-12f51fa9a74f",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -1070,26 +1207,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "d678e203-491a-4ff5-9735-a8629b4f0447",
+      "uuid": "58c22b38-e2bf-4775-ba43-e7cc71d2b4de",
       "documentation": "This method deletes an existing schedule. Specify the schedule to delete using the schedule_id path parameter.",
       "method": "delete",
       "endpoint": "schedule/:schedule_id",
       "responses": [
         {
-          "uuid": "5960a061-a0b3-4a58-8281-d392ad275780",
+          "uuid": "c69eafaf-6dbc-401b-99c9-4bfda89254f2",
           "body": "",
           "latency": 0,
           "statusCode": 204,
@@ -1100,15 +1239,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "cee8bbd3-ce88-45e2-afdb-143230bc5efc",
+          "uuid": "b50eb09e-26d1-4733-b3ec-443d88412c75",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -1119,15 +1261,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "094a0487-4c22-4c74-95df-d96c19254a1d",
+          "uuid": "bba40b87-38e2-4cd9-ac80-d33283fb98bb",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -1138,15 +1283,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "f21ef7d5-9499-44c0-8d8e-240db8a688e6",
+          "uuid": "29e17065-6945-4760-a2ad-87202767c06d",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -1157,27 +1305,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "c4565c9a-ced7-4c64-b63d-0c06cb1f9614",
+      "uuid": "a00fda9d-3964-4c67-9b51-8712ed63a0a4",
       "documentation": "This method retrieves schedule details and status of the specified schedule. Specify the schedule to retrieve using the schedule_id. Use the getSchedules method to find a schedule if you do not know the schedule_id.",
       "method": "get",
       "endpoint": "schedule/:schedule_id",
       "responses": [
         {
-          "uuid": "b545f9fc-2eff-474a-970e-d72713f05afb",
-          "body": "{\n  \"creationDate\": \"\",\n  \"feedType\": \"\",\n  \"lastModifiedDate\": \"\",\n  \"preferredTriggerDayOfMonth\": {{faker 'random.number'}},\n  \"preferredTriggerDayOfWeek\": \"\",\n  \"preferredTriggerHour\": \"\",\n  \"scheduleEndDate\": \"\",\n  \"scheduleId\": \"\",\n  \"scheduleName\": \"\",\n  \"scheduleStartDate\": \"\",\n  \"scheduleTemplateId\": \"\",\n  \"schemaVersion\": \"\",\n  \"status\": \"\",\n  \"statusReason\": \"\"\n}",
+          "uuid": "81439bd3-35be-4b8f-b3b6-c6b5691c8402",
+          "body": "{\n  \"creationDate\": \"\",\n  \"feedType\": \"\",\n  \"lastModifiedDate\": \"\",\n  \"preferredTriggerDayOfMonth\": {{faker 'datatype.number'}},\n  \"preferredTriggerDayOfWeek\": \"\",\n  \"preferredTriggerHour\": \"\",\n  \"scheduleEndDate\": \"\",\n  \"scheduleId\": \"\",\n  \"scheduleName\": \"\",\n  \"scheduleStartDate\": \"\",\n  \"scheduleTemplateId\": \"\",\n  \"schemaVersion\": \"\",\n  \"status\": \"\",\n  \"statusReason\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -1187,15 +1337,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "935831c1-7fdc-49a3-94f9-1a32e1d612e5",
+          "uuid": "e0488999-87b0-4304-aea2-425e98daea78",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -1206,15 +1359,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "7c423be2-710e-4256-8a9f-7f676dd498d8",
+          "uuid": "e8e8538d-b2ac-490e-9db7-e73696c945bc",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -1225,15 +1381,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "9d081f5b-1ca2-424b-8824-effea0a68327",
+          "uuid": "4511c960-e17a-409f-998f-c9083c206a11",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -1244,15 +1403,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "feba171f-cdcc-44b7-9cce-2dc72f9a0afd",
+          "uuid": "3fb604b7-fbc7-445c-8912-586710afe1f3",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -1263,26 +1425,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "ca4cd7ec-e042-4b54-950e-30d3b86dd4c2",
+      "uuid": "d2d45318-f0ec-45d1-94f0-c9d6ee99d0a7",
       "documentation": "This method updates an existing schedule. Specify the schedule to update using the schedule_id path parameter. If the schedule template has changed after the schedule was created or updated, the input will be validated using the changed template. Note: Make sure to include all fields required by the schedule template (scheduleTemplateId). Call the getScheduleTemplate method (or the getScheduleTemplates method), to find out which fields are required or optional. If you do not know the scheduleTemplateId, call the getSchedule method to find out.",
       "method": "put",
       "endpoint": "schedule/:schedule_id",
       "responses": [
         {
-          "uuid": "df9ec350-f4c4-417a-a9a7-561b7dc3e9be",
+          "uuid": "77b3b02c-7905-4340-a29f-73757e721c05",
           "body": "",
           "latency": 0,
           "statusCode": 204,
@@ -1293,15 +1457,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "d17fb711-c61b-4825-b3c9-49c0c544aa92",
+          "uuid": "9997d039-c4a9-44ed-b0c3-df11b55a62ae",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -1312,15 +1479,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "344cd63c-1dee-4663-9179-20755f92a0c1",
+          "uuid": "48e0d0d8-c223-4ecd-a0bb-54b455562662",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -1331,15 +1501,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "769c1d4f-7b52-4cbd-ad6b-8e34ba747f69",
+          "uuid": "e6694d54-5335-4269-8fb5-d80408ee46f2",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -1350,15 +1523,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "ced2a47f-941d-42b7-9e05-35b4932e4edd",
+          "uuid": "dc0aa0e7-bab4-4325-97a1-e00983862b3c",
           "body": "",
           "latency": 0,
           "statusCode": 409,
@@ -1369,15 +1545,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "ee77f52a-693f-48bd-8036-33f3254d08eb",
+          "uuid": "5b0d260b-3ad7-49e8-913d-0d67754c04c0",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -1388,26 +1567,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "7a2b3414-5e15-4ef7-819b-dea6f22d26ae",
+      "uuid": "e0150404-2523-4fd8-82d1-95e6f32fd7e9",
       "documentation": "This method downloads the latest result file generated by the schedule. The response of this call is a compressed or uncompressed CSV, XML, or JSON file, with the applicable file extension (for example: csv.gz). Specify the schedule_id path parameter to download its last generated file.",
       "method": "get",
       "endpoint": "schedule/:schedule_id/download_result_file",
       "responses": [
         {
-          "uuid": "f4fc2e1e-168b-4851-8bcf-1c06c8a34a4f",
+          "uuid": "fade8b9a-3882-440f-9ad8-bd8f7c23bc97",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1422,15 +1603,18 @@
               "value": ""
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "1685fc91-f336-48c0-8e5f-2e072845ca65",
+          "uuid": "c34990ce-cca7-446b-a604-8cae8830a8c8",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -1441,15 +1625,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "4a00702b-db3d-4fdf-803c-93d5cdc3308f",
+          "uuid": "3d9e9dca-0fb0-4159-9a9e-d564b4d4e5e1",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -1460,15 +1647,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "963d98f5-c0b5-4486-98ab-e93021dff59f",
+          "uuid": "a3ddba60-ce2d-4666-b33f-48139a59a8d9",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -1479,15 +1669,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "7a3fbc00-7081-4908-8603-1d2628f9388e",
+          "uuid": "81dda053-f480-4462-8007-9be9ae861066",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -1498,27 +1691,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "5611051c-ad28-4cf3-ae3a-923bf1687ee2",
+      "uuid": "4ee33b0f-4498-4edd-ab2e-01d886f1e3cf",
       "documentation": "This method retrieves an array containing the details and status of all schedule templates based on the specified feed_type. Use this method to find a schedule template if you do not know the schedule_template_id.",
       "method": "get",
       "endpoint": "schedule_template",
       "responses": [
         {
-          "uuid": "e5d0cedf-9454-4dbc-8352-c82afe6f09e4",
-          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"scheduleTemplates\": [\n    {\n      \"feedType\": \"\",\n      \"frequency\": \"\",\n      \"name\": \"\",\n      \"scheduleTemplateId\": \"\",\n      \"status\": \"\",\n      \"supportedConfigurations\": [\n        {\n          \"defaultValue\": \"\",\n          \"property\": \"\",\n          \"usage\": \"\"\n        }\n      ]\n    }\n  ],\n  \"total\": {{faker 'random.number'}}\n}",
+          "uuid": "be742987-a724-4e9c-93c8-8915e2936915",
+          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'datatype.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'datatype.number'}},\n  \"prev\": \"\",\n  \"scheduleTemplates\": [\n    {\n      \"feedType\": \"\",\n      \"frequency\": \"\",\n      \"name\": \"\",\n      \"scheduleTemplateId\": \"\",\n      \"status\": \"\",\n      \"supportedConfigurations\": [\n        {\n          \"defaultValue\": \"\",\n          \"property\": \"\",\n          \"usage\": \"\"\n        }\n      ]\n    }\n  ],\n  \"total\": {{faker 'datatype.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -1528,15 +1723,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "9d278d31-814a-4799-bc89-f2f3e2ed2c67",
+          "uuid": "d3404cdd-f967-47b6-8446-670100fe5547",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -1547,15 +1745,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "bc7413f8-1db6-46dd-80a4-3b1773ca141d",
+          "uuid": "1aa371d5-c845-4677-a7ee-acb5a03f0a40",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -1566,26 +1767,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "42862b55-9ad4-4e40-90ea-858739abb083",
+      "uuid": "247923ad-3b1c-4ff4-bd20-bc7959829785",
       "documentation": "This method retrieves the details of the specified template. Specify the template to retrieve using the schedule_template_id path parameter. Use the getScheduleTemplates method to find a schedule template if you do not know the schedule_template_id.",
       "method": "get",
       "endpoint": "schedule_template/:schedule_template_id",
       "responses": [
         {
-          "uuid": "e6aa066e-b033-42d8-8ed4-d3daf0a66704",
+          "uuid": "ea4dbffb-5d82-4d36-8f32-85c413e53102",
           "body": "{\n  \"feedType\": \"\",\n  \"frequency\": \"\",\n  \"name\": \"\",\n  \"scheduleTemplateId\": \"\",\n  \"status\": \"\",\n  \"supportedConfigurations\": [\n    {\n      \"defaultValue\": \"\",\n      \"property\": \"\",\n      \"usage\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1596,15 +1799,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "4fca9cc9-bef9-4e96-8696-f416c77664e2",
+          "uuid": "dcbf651d-ef26-4dcf-89fc-5c0ce8683475",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -1615,15 +1821,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "a1fd075d-c01e-4e16-aba1-1b961ca52e1c",
+          "uuid": "2c50c391-818f-47f1-ab4a-67fdcd2d64c7",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -1634,15 +1843,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "430e3f21-7959-46a8-abb1-c034fecb8485",
+          "uuid": "e8e62f5d-80d0-4503-b9a8-799608307190",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -1653,27 +1865,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "3ab595db-12a3-4efa-a279-a4cb60187b64",
+      "uuid": "4f5e7921-83b9-4365-9005-844c24f8946f",
       "documentation": "This method returns the details and status for an array of tasks based on a specified feed_type or scheduledId. Specifying both feed_type and scheduledId results in an error. Since schedules are based on feed types, you can specify a schedule (schedule_id) that returns the needed feed_type. If specifying the feed_type, limit which tasks are returned by specifying filters, such as the creation date range or period of time using look_back_days. Also, by specifying the feed_type, both on-demand and scheduled reports are returned. If specifying a scheduledId, the schedule template (that the schedule ID is based on) determines which tasks are returned (see schedule_id for additional information). Each scheduledId applies to one feed_type.",
       "method": "get",
       "endpoint": "task",
       "responses": [
         {
-          "uuid": "bcf9008b-694b-4c82-a330-f97208f06fe7",
-          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'random.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'random.number'}},\n  \"prev\": \"\",\n  \"tasks\": [\n    {\n      \"completionDate\": \"\",\n      \"creationDate\": \"\",\n      \"detailHref\": \"\",\n      \"feedType\": \"\",\n      \"schemaVersion\": \"\",\n      \"status\": \"\",\n      \"taskId\": \"\",\n      \"uploadSummary\": {\n        \"failureCount\": {{faker 'random.number'}},\n        \"successCount\": {{faker 'random.number'}}\n      }\n    }\n  ],\n  \"total\": {{faker 'random.number'}}\n}",
+          "uuid": "1d6c4e7e-124b-4f33-89bb-10d864ed9b23",
+          "body": "{\n  \"href\": \"\",\n  \"limit\": {{faker 'datatype.number'}},\n  \"next\": \"\",\n  \"offset\": {{faker 'datatype.number'}},\n  \"prev\": \"\",\n  \"tasks\": [\n    {\n      \"completionDate\": \"\",\n      \"creationDate\": \"\",\n      \"detailHref\": \"\",\n      \"feedType\": \"\",\n      \"schemaVersion\": \"\",\n      \"status\": \"\",\n      \"taskId\": \"\",\n      \"uploadSummary\": {\n        \"failureCount\": {{faker 'datatype.number'}},\n        \"successCount\": {{faker 'datatype.number'}}\n      }\n    }\n  ],\n  \"total\": {{faker 'datatype.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -1683,15 +1897,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "8fb51b96-3729-4862-aa81-21155e258390",
+          "uuid": "dedd5906-1060-4942-aa0d-ea3e5b40691a",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -1702,15 +1919,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "fe027363-b25d-4332-9f03-6d51b4dc141f",
+          "uuid": "adebb6af-1916-438b-a0e5-16e2239b87e6",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -1721,15 +1941,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "b7ccdbf9-7721-429c-a473-10a92088a16b",
+          "uuid": "3731676c-b0f8-4dc1-98dd-069285f42145",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -1740,26 +1963,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a3382907-8836-420e-b89a-cf6734739b4d",
+      "uuid": "9daef492-099f-4367-af57-dc19ffe4cb76",
       "documentation": "This method creates an upload task or a download task without filter criteria. When using this method, specify the feedType and the feed file schemaVersion. The feed type specified sets the task as a download or an upload task. For details about the upload and download flows, see Working with Order Feeds in the Selling Integration Guide. Note: The scope depends on the feed type. An error message results when an unsupported scope or feed type is specified. The following list contains this method's authorization scopes and their corresponding feed types: https://api.ebay.com/oauth/api_scope/sell.inventory: See LMS FeedTypes https://api.ebay.com/oauth/api_scope/sell.fulfillment: LMS_ORDER_ACK (specify for upload tasks). Also see LMS FeedTypes https://api.ebay.com/oauth/api_scope/sell.marketing: None* https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly: None* * Reserved for future release",
       "method": "post",
       "endpoint": "task",
       "responses": [
         {
-          "uuid": "ad6d0ce1-94a3-4f5e-94fe-f7dc5a1c8be2",
+          "uuid": "e123fba3-e08b-4f4c-a479-b2dd5ff9fdba",
           "body": "",
           "latency": 0,
           "statusCode": 202,
@@ -1770,15 +1995,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "3a903ef3-59d3-42de-8155-2fce9f59372f",
+          "uuid": "61e10d52-168a-44e8-a61e-ff313e05ef95",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -1789,15 +2017,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "ea3adf3f-29b4-463f-8a81-24a636d15c0c",
+          "uuid": "955b6900-7985-478b-98b9-d721092c921d",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -1808,15 +2039,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "6beed6b1-854e-4abf-8b3d-0283a935df65",
+          "uuid": "6c4e0900-8dbd-4a7c-9715-1df8a93b9307",
           "body": "",
           "latency": 0,
           "statusCode": 409,
@@ -1827,15 +2061,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "bdcfd000-7aa9-489e-978d-7cb4d2be5277",
+          "uuid": "1072c285-cf87-4d01-9147-ec4d9fde818c",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -1846,27 +2083,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b31ade40-d484-4bda-bbd7-4a761645b7db",
+      "uuid": "ade66d86-a126-4e02-8e10-9b231003dfb1",
       "documentation": "This method retrieves the details and status of the specified task. The input is task_id. For details of how this method is used, see Working with Order Feeds in the Selling Integration Guide.",
       "method": "get",
       "endpoint": "task/:task_id",
       "responses": [
         {
-          "uuid": "ae74cada-c483-437a-b1f9-679c0888fdd5",
-          "body": "{\n  \"completionDate\": \"\",\n  \"creationDate\": \"\",\n  \"detailHref\": \"\",\n  \"feedType\": \"\",\n  \"schemaVersion\": \"\",\n  \"status\": \"\",\n  \"taskId\": \"\",\n  \"uploadSummary\": {\n    \"failureCount\": {{faker 'random.number'}},\n    \"successCount\": {{faker 'random.number'}}\n  }\n}",
+          "uuid": "bdebeac1-7793-456e-bbe5-441bb1129185",
+          "body": "{\n  \"completionDate\": \"\",\n  \"creationDate\": \"\",\n  \"detailHref\": \"\",\n  \"feedType\": \"\",\n  \"schemaVersion\": \"\",\n  \"status\": \"\",\n  \"taskId\": \"\",\n  \"uploadSummary\": {\n    \"failureCount\": {{faker 'datatype.number'}},\n    \"successCount\": {{faker 'datatype.number'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
@@ -1876,15 +2115,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "d29e37d6-b566-4695-800d-99d1d65126c7",
+          "uuid": "d047cb75-14e5-4e5d-b88f-175fc95d8e9e",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -1895,15 +2137,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "e519d7ef-9448-435b-8ebc-1254256a8a52",
+          "uuid": "768162c7-1344-4014-b8b3-b6d796d5a089",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -1914,15 +2159,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "a4c8f844-7354-4f9a-ad91-7b236c83ad49",
+          "uuid": "e819d82d-f712-4b76-be94-7f21465238d4",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -1933,15 +2181,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "626fe35b-cead-4ffe-b60e-728150cd4bc5",
+          "uuid": "a5e29f02-4022-4d88-80cd-0417e4608a90",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -1952,26 +2203,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "fcbd161c-a9ee-4e4b-be64-210b3d0ecdb8",
+      "uuid": "a790e38b-48a7-4109-a5ea-cb03e453dd71",
       "documentation": "This method downloads the file previously uploaded using uploadFile. Specify the task_id from the uploadFile call. Note: With respect to LMS, this method applies to all feed types except LMS_ORDER_REPORT and LMS_ACTIVE_INVENTORY_REPORT. See LMS API Feeds in the Selling Integration Guide.",
       "method": "get",
       "endpoint": "task/:task_id/download_input_file",
       "responses": [
         {
-          "uuid": "9a406170-ee00-457d-adc5-68fe7a542064",
+          "uuid": "dc9bca09-8054-46fb-a5ef-65456b9b5292",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1986,15 +2239,18 @@
               "value": ""
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "82a3a6d1-411f-483e-b8c7-36ab7a9c468a",
+          "uuid": "101ae301-5c52-40d8-b3dc-898eab8f0a7d",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -2005,15 +2261,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "9d7ac941-4542-4583-986b-69394ff578d9",
+          "uuid": "4b7b5475-13e9-4b90-92ef-52496b0f768c",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -2024,15 +2283,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "b6e05263-ebf5-4df1-819d-03381d7f1a87",
+          "uuid": "53ff562c-e931-447a-a374-a6c2aa33dd61",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -2043,15 +2305,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "1e30b1f7-2d71-4f65-b5fb-f90fa4989309",
+          "uuid": "65c2f15a-6a16-4e81-8849-54eeb711d440",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -2062,26 +2327,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "e7abafb1-a713-4187-a55d-7a1c8ecd3ed3",
+      "uuid": "368851f9-1bdf-426a-8d5b-b45d9cf38bf2",
       "documentation": "This method retrieves the generated file that is associated with the specified task ID. The response of this call is a compressed or uncompressed CSV, XML, or JSON file, with the applicable file extension (for example: csv.gz). For details about how this method is used, see Working with Order Feeds in the Selling Integration Guide. Note: The status of the task to retrieve must be in the COMPLETED or COMPLETED_WITH_ERROR state before this method can retrieve the file. You can use the getTask or getTasks method to retrieve the status of the task.",
       "method": "get",
       "endpoint": "task/:task_id/download_result_file",
       "responses": [
         {
-          "uuid": "522e33cc-5fed-4321-8808-d580df33604e",
+          "uuid": "035e4f6c-71db-444d-b5d4-060cb4271b28",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2096,15 +2363,18 @@
               "value": ""
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "c170791d-41c5-487a-88d7-76114068ac8e",
+          "uuid": "a97cb146-1bc1-427e-9763-a247da472b9d",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -2115,15 +2385,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "d4ef418a-6ce7-43e0-b10e-d359a4182e15",
+          "uuid": "35188132-be65-4c94-ae66-bf8dcd54c291",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -2134,15 +2407,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "5d8ac725-a7ef-4106-ad84-efc3453fe137",
+          "uuid": "4eb49573-8187-46be-9284-b65aff7b8486",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -2153,15 +2429,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "f688be0f-2c0a-45df-a8bc-a9b68d35c79d",
+          "uuid": "e8049473-1fe9-46c2-9e6c-d96e5643a1cc",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -2172,26 +2451,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "3b00afe9-5a39-486f-883a-0f0e77a0c0d9",
+      "uuid": "b873b08b-ac70-44cf-acb9-94754aa680f5",
       "documentation": "This method associates the specified file with the specified task ID and uploads the input file. After the file has been uploaded, the processing of the file begins. Reports often take time to generate and it's common for this method to return an HTTP status of 202, which indicates the report is being generated. Use the getTask with the task ID or getTasks to determine the status of a report. The status flow is QUEUED &gt; IN_PROCESS &gt; COMPLETED or COMPLETED_WITH_ERROR. When the status is COMPLETED or COMPLETED_WITH_ERROR, this indicates the file has been processed and the order report can be downloaded. If there are errors, they will be indicated in the report file. For details of how this method is used in the upload flow, see Working with Order Feeds in the Selling Integration Guide. Note: This method applies to all File Exchange feed types and LMS feed types except LMS_ORDER_REPORT and LMS_ACTIVE_INVENTORY_REPORT. See LMS API Feeds in the Selling Integration Guide and File Exchange FeedTypes in the File Exchange Migration Guide. Note: You must use a Content-Type header with its value set to &quot;multipart/form-data&quot;. See Samples for information.",
       "method": "post",
       "endpoint": "task/:task_id/upload_file",
       "responses": [
         {
-          "uuid": "c9eed0ed-bc7f-43cf-b8bd-28de12c6d3ea",
+          "uuid": "fd5baef0-117b-4da8-b262-4781dff9fe39",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -2202,15 +2483,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "82ae9ace-a0a6-4fe7-bd87-bf3033e4204f",
+          "uuid": "39496739-0750-46f9-9144-63f9b8462f25",
           "body": "",
           "latency": 0,
           "statusCode": 400,
@@ -2221,15 +2505,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "a2e29219-c301-4aa0-9d5d-2adbb9330163",
+          "uuid": "8a71c2f1-336a-4448-a33a-5f92ae096067",
           "body": "",
           "latency": 0,
           "statusCode": 403,
@@ -2240,15 +2527,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "8e97b284-5e5f-4fd0-b948-f97a693235b0",
+          "uuid": "e5554882-a15b-4ff5-a699-db7856f98524",
           "body": "",
           "latency": 0,
           "statusCode": 404,
@@ -2259,15 +2549,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "5823f904-433f-451f-8d00-e08ecd6c92ec",
+          "uuid": "54361c08-23fe-43ff-9391-4b68919474ee",
           "body": "",
           "latency": 0,
           "statusCode": 500,
@@ -2278,17 +2571,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -2316,5 +2611,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

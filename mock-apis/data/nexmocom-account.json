@@ -1,6 +1,6 @@
 {
-  "uuid": "7c9e6236-898c-4641-951e-306dc6b55794",
-  "lastMigration": 19,
+  "uuid": "e3f91c7a-a7b9-4c39-bbb5-4029d2d9a102",
+  "lastMigration": 24,
   "name": "Account API",
   "endpointPrefix": "",
   "latency": 0,
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "10823165-5e4c-498f-9bfa-022d66bf53cd",
+      "uuid": "5ba72e7e-7169-473b-8a1c-6e806fac1f73",
       "documentation": "Get Account Balance",
       "method": "get",
       "endpoint": "account/get-balance",
       "responses": [
         {
-          "uuid": "c9ae32e9-09fc-45c1-8681-031c414d8f4b",
+          "uuid": "0d4ef068-d3a3-488c-82a1-daec0bcea1f0",
           "body": "{\n  \"autoReload\": \"{{oneOf (array 'true' 'false')}}\",\n  \"value\": 10.28\n}",
           "latency": 0,
           "statusCode": 200,
@@ -25,15 +25,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "500a0368-ce18-4c0c-933f-d1de8fbcd410",
+          "uuid": "51f7bdda-c65d-4e25-bf09-cdcc84a001b7",
           "body": "{\n  \"error-code\": \"401\",\n  \"error-code-label\": \"authentication failed\"\n}",
           "latency": 0,
           "statusCode": 401,
@@ -44,26 +47,60 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "bd191b94-8f35-4c65-8d2d-fefcdb300761",
+      "uuid": "d0a409a7-a2fe-4571-bf31-4344355b995f",
+      "documentation": "Register an email sender",
+      "method": "post",
+      "endpoint": "account/register-sender",
+      "responses": [
+        {
+          "uuid": "78a658da-0394-4652-8eb0-ec4128128b90",
+          "body": "{\n  \"application_ids\": [\n    \"6ec9eb7de1d34e77ac2c0ad597c9554a\",\n    \"5dba5838689f402dba0c77957e2181f3\"\n  ],\n  \"name\": \"optionalName\",\n  \"provider\": \"{{oneOf (array 'email')}}\",\n  \"value\": \"alice@company.com\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "31ee0a7b-d513-47a3-ae5d-8eb898f3e26d",
       "documentation": "Change Account Settings",
       "method": "post",
       "endpoint": "account/settings",
       "responses": [
         {
-          "uuid": "f643629b-ef07-444a-8c83-1d2cf9fd6a38",
+          "uuid": "354f6ae5-c060-4549-8d44-7822103d1c93",
           "body": "{\n  \"dr-callback-url\": \"https://example.com/webhooks/delivery-receipt\",\n  \"max-calls-per-second\": 30,\n  \"max-inbound-request\": 30,\n  \"max-outbound-request\": 30,\n  \"mo-callback-url\": \"https://example.com/webhooks/inbound-sms\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -74,15 +111,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "eec35a52-66d7-48d6-9a6c-b02296293ad3",
+          "uuid": "deda5437-c05d-4872-83a5-b673aae85afe",
           "body": "",
           "latency": 0,
           "statusCode": 401,
@@ -93,26 +133,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a5a80ed5-f529-4b91-bd52-55ef6203b032",
+      "uuid": "186c0194-ae48-4117-aedc-a449d1cc3cac",
       "documentation": "Top Up Account Balance",
       "method": "post",
       "endpoint": "account/top-up",
       "responses": [
         {
-          "uuid": "244f9736-a707-40ed-83a0-8ff0a734cf44",
+          "uuid": "9edb9a7b-f638-4151-b28f-dd66ef7917c2",
           "body": "{\n  \"error-code\": \"200\",\n  \"error-code-label\": \"success\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -123,15 +165,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "2247716d-aa3f-4e7e-8c07-4e5f975caeb5",
+          "uuid": "a2ad7a1f-ae02-4109-9a38-be612ab43052",
           "body": "{\n  \"error-code\": \"401\",\n  \"error-code-label\": \"authentication failed\"\n}",
           "latency": 0,
           "statusCode": 401,
@@ -142,26 +187,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "be0a2163-b388-46ed-a2fa-bfd3559ed90c",
+      "uuid": "e5b2c147-3886-41e1-927e-31f39ce13aca",
       "documentation": "Retrieve API Secrets",
       "method": "get",
       "endpoint": "accounts/:api_key/secrets",
       "responses": [
         {
-          "uuid": "61a16240-e77d-44d8-875b-6936d8813e6f",
+          "uuid": "db54d346-9e3b-4362-b93f-d33d1e78d46b",
           "body": "{\n  \"_embedded\": {\n    \"secrets\": [\n      {\n        \"_links\": {\n          \"self\": {\n            \"href\": \"\"\n          }\n        },\n        \"created_at\": \"2017-03-02T16:34:49Z\",\n        \"id\": \"ad6dc56f-07b5-46e1-a527-85530e625800\"\n      }\n    ]\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"\"\n    }\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -172,16 +219,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "81e972bc-f1ed-4d14-b95c-551403afb5f5",
-          "body": "{\n  \"detail\": \"Invalid credentials format. Expected: \\\"Authorization: (Base64(UTF-8(apiKey:secret)))\\\"\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Unauthorized\",\n  \"type\": \"https://developer.nexmo.com/\"\n}",
+          "uuid": "d777cd0c-04d4-4604-8c63-46d8503f741d",
+          "body": "{\n  \"detail\": \"You did not provide correct credentials.\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Unauthorized\",\n  \"type\": \"https://developer.nexmo.com/api-errors#unauthorized\"\n}",
           "latency": 0,
           "statusCode": 401,
           "label": "Credentials are missing or invalid",
@@ -191,15 +241,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "ad847a22-1ce5-4f36-9aa0-449f5fbb46b3",
+          "uuid": "291087b7-6452-47de-9be0-5531ee5c2f13",
           "body": "{\n  \"detail\": \"API key 'abc123' not found\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Invalid API Key\",\n  \"type\": \"https://developer.nexmo.com/api-errors#invalid-api-key\"\n}",
           "latency": 0,
           "statusCode": 404,
@@ -210,26 +263,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "7ca265ae-79ac-4ed0-aa75-f8d1ddcd02b9",
+      "uuid": "d4d3a0fc-42a9-478c-b517-af8bdd2379c5",
       "documentation": "Create API Secret",
       "method": "post",
       "endpoint": "accounts/:api_key/secrets",
       "responses": [
         {
-          "uuid": "274e15f1-1e07-49f2-8b22-a1dc66dd60ce",
+          "uuid": "28b17dbf-f201-4f1b-b2b1-bd6da7202820",
           "body": "{\n  \"_links\": {\n    \"self\": {\n      \"href\": \"\"\n    }\n  },\n  \"created_at\": \"2017-03-02T16:34:49Z\",\n  \"id\": \"ad6dc56f-07b5-46e1-a527-85530e625800\"\n}",
           "latency": 0,
           "statusCode": 201,
@@ -240,15 +295,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "1dc6ed9d-8657-4824-9e48-80fa9ed393a8",
+          "uuid": "c48cf4b8-4323-4c00-b1d7-5e2b8065293d",
           "body": "{\n  \"detail\": \"The request failed due to secret validation errors\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"invalid_parameters\": [\n    {\n      \"name\": \"secret\",\n      \"reason\": \"Does not meet complexity requirements\"\n    }\n  ],\n  \"title\": \"Bad Request\",\n  \"type\": \"https://developer.nexmo.com/api-errors/account/secret-management#validation\"\n}",
           "latency": 0,
           "statusCode": 400,
@@ -259,16 +317,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "ae4f891b-fd4e-4112-9fd6-172e987337ec",
-          "body": "{\n  \"detail\": \"Invalid credentials format. Expected: \\\"Authorization: (Base64(UTF-8(apiKey:secret)))\\\"\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Unauthorized\",\n  \"type\": \"https://developer.nexmo.com/\"\n}",
+          "uuid": "79bc7423-6d5b-4421-b7d7-0bf532a06ca4",
+          "body": "{\n  \"detail\": \"You did not provide correct credentials.\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Unauthorized\",\n  \"type\": \"https://developer.nexmo.com/api-errors#unauthorized\"\n}",
           "latency": 0,
           "statusCode": 401,
           "label": "Credentials are missing or invalid",
@@ -278,15 +339,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "ae08fac2-2530-4e5d-8730-6b520ada9bbb",
+          "uuid": "1bb8cbc9-929f-45b0-82ca-a55c1f998bf6",
           "body": "{\n  \"detail\": \"API key 'abc123' not found\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Invalid API Key\",\n  \"type\": \"https://developer.nexmo.com/api-errors#invalid-api-key\"\n}",
           "latency": 0,
           "statusCode": 404,
@@ -297,26 +361,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "18379eb0-be4b-4a79-8410-98f1d54f6058",
+      "uuid": "d9d06ad6-cfc6-4bb5-9408-31e9b247919c",
       "documentation": "Revoke an API Secret",
       "method": "delete",
       "endpoint": "accounts/:api_key/secrets/:secret_id",
       "responses": [
         {
-          "uuid": "0c9e30fe-0268-428e-a2cf-1a777e1822ff",
+          "uuid": "9ae3c6a4-8234-43be-9c54-67ff138dd3e9",
           "body": "",
           "latency": 0,
           "statusCode": 204,
@@ -327,16 +393,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "fca777c7-9039-4898-b920-09829bd463d7",
-          "body": "{\n  \"detail\": \"Invalid credentials format. Expected: \\\"Authorization: (Base64(UTF-8(apiKey:secret)))\\\"\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Unauthorized\",\n  \"type\": \"https://developer.nexmo.com/\"\n}",
+          "uuid": "d264fabb-06b7-4222-b8a2-1205de1350f5",
+          "body": "{\n  \"detail\": \"You did not provide correct credentials.\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Unauthorized\",\n  \"type\": \"https://developer.nexmo.com/api-errors#unauthorized\"\n}",
           "latency": 0,
           "statusCode": 401,
           "label": "Credentials are missing or invalid",
@@ -346,15 +415,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "eb0a1621-e6ba-41b4-bf16-ee1e06142757",
+          "uuid": "00eef03c-79b3-4d86-9cfa-36d6c9881ea7",
           "body": "{\n  \"detail\": \"Can not delete the last secret. The account must always have at least 1 secret active at any time\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Secret Deletion Forbidden\",\n  \"type\": \"https://developer.nexmo.com/api-errors/account/secret-management#delete-last-secret\"\n}",
           "latency": 0,
           "statusCode": 403,
@@ -365,15 +437,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "81e0b827-67f6-4e7e-82bf-9f034aeef695",
+          "uuid": "c219643b-776b-4f98-b3e2-c8a46a926ecb",
           "body": "{\n  \"detail\": \"API key 'abc123' not found\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Invalid API Key\",\n  \"type\": \"https://developer.nexmo.com/api-errors#invalid-api-key\"\n}",
           "latency": 0,
           "statusCode": 404,
@@ -384,26 +459,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "e80b4f22-d86f-43f7-b13a-f2a55a29d388",
+      "uuid": "6d6d4d72-77f2-4717-9df9-a35eef606d1d",
       "documentation": "Retrieve one API Secret",
       "method": "get",
       "endpoint": "accounts/:api_key/secrets/:secret_id",
       "responses": [
         {
-          "uuid": "32c522be-8fb6-4d52-b325-e16022433491",
+          "uuid": "4278b766-900d-408a-bf75-4750f4e6afe0",
           "body": "{\n  \"_links\": {\n    \"self\": {\n      \"href\": \"\"\n    }\n  },\n  \"created_at\": \"2017-03-02T16:34:49Z\",\n  \"id\": \"ad6dc56f-07b5-46e1-a527-85530e625800\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -414,16 +491,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "998e1732-70b2-47e4-bb73-92298661fc54",
-          "body": "{\n  \"detail\": \"Invalid credentials format. Expected: \\\"Authorization: (Base64(UTF-8(apiKey:secret)))\\\"\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Unauthorized\",\n  \"type\": \"https://developer.nexmo.com/\"\n}",
+          "uuid": "b458080c-3b71-4a20-b4f1-e63b6c4b4468",
+          "body": "{\n  \"detail\": \"You did not provide correct credentials.\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Unauthorized\",\n  \"type\": \"https://developer.nexmo.com/api-errors#unauthorized\"\n}",
           "latency": 0,
           "statusCode": 401,
           "label": "Credentials are missing or invalid",
@@ -433,15 +513,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "c296b062-83ea-459b-8e8e-4bf3fc8bfaad",
+          "uuid": "e2885644-aaaa-4a2a-873d-05fd7c13ec33",
           "body": "{\n  \"detail\": \"API key 'abc123' not found\",\n  \"instance\": \"bf0ca0bf927b3b52e3cb03217e1a1ddf\",\n  \"title\": \"Invalid API Key\",\n  \"type\": \"https://developer.nexmo.com/api-errors#invalid-api-key\"\n}",
           "latency": 0,
           "statusCode": 404,
@@ -452,17 +535,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -490,5 +575,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

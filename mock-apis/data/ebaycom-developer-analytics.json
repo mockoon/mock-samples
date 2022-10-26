@@ -1,6 +1,6 @@
 {
-  "uuid": "9da5df06-4862-418d-b1fc-7fbc72122940",
-  "lastMigration": 19,
+  "uuid": "d91add9e-7c09-43fb-8b5e-09f945597901",
+  "lastMigration": 24,
   "name": "Progress to Rate Limit API",
   "endpointPrefix": "developer/analytics/v1_beta",
   "latency": 0,
@@ -8,14 +8,14 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "85a6a586-fd7b-4c8e-a77d-54198293eb0a",
+      "uuid": "85644160-af41-44ae-82f7-b30418eaf046",
       "documentation": "This method retrieves the call limit and utilization data for an application. The data is retrieved for all RESTful APIs and resources. The response from getRateLimits includes a list of the applicable resources and the &quot;call limit&quot;, or quota, that is set for each resource. In addition to quota information, the response also includes the number of remaining calls available before the limit is reached, the time remaining before the quota resets, and the length of the &quot;time window&quot; to which the quota applies. By default, this method returns utilization data for all RESTful API resources. Use the api_name and api_context query parameters to filter the response to only the desired APIs. For more on call limits, see Compatible Application Check.",
       "method": "get",
       "endpoint": "rate_limit/",
       "responses": [
         {
-          "uuid": "01fb30be-3478-43c6-89d4-aa479a72af6b",
-          "body": "{\n  \"rateLimits\": [\n    {\n      \"apiContext\": \"\",\n      \"apiName\": \"\",\n      \"apiVersion\": \"\",\n      \"resources\": [\n        {\n          \"name\": \"\",\n          \"rates\": [\n            {\n              \"limit\": {{faker 'random.number'}},\n              \"remaining\": {{faker 'random.number'}},\n              \"reset\": \"\",\n              \"timeWindow\": {{faker 'random.number'}}\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+          "uuid": "784f0bd5-bdad-4acb-a8b8-f873cb14c556",
+          "body": "{\n  \"rateLimits\": [\n    {\n      \"apiContext\": \"\",\n      \"apiName\": \"\",\n      \"apiVersion\": \"\",\n      \"resources\": [\n        {\n          \"name\": \"\",\n          \"rates\": [\n            {\n              \"limit\": {{faker 'datatype.number'}},\n              \"remaining\": {{faker 'datatype.number'}},\n              \"reset\": \"\",\n              \"timeWindow\": {{faker 'datatype.number'}}\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
@@ -25,15 +25,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "27954ab3-9c52-4e0d-bb93-25ec3acf1556",
+          "uuid": "12bfc4dd-c6e7-457b-b31d-b7bc17789ae8",
           "body": "",
           "latency": 0,
           "statusCode": 204,
@@ -44,16 +47,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "59b97cb5-70be-49c9-8178-a919f8aa5cad",
-          "body": "{\n  \"errors\": [\n    {\n      \"category\": \"\",\n      \"domain\": \"\",\n      \"errorId\": {{faker 'random.number'}},\n      \"inputRefIds\": [\n        \"\"\n      ],\n      \"longMessage\": \"\",\n      \"message\": \"\",\n      \"outputRefIds\": [\n        \"\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"\",\n          \"value\": \"\"\n        }\n      ],\n      \"subdomain\": \"\"\n    }\n  ]\n}",
+          "uuid": "192e13f3-d886-47b5-87ba-2a141e74f02e",
+          "body": "{\n  \"errors\": [\n    {\n      \"category\": \"\",\n      \"domain\": \"\",\n      \"errorId\": {{faker 'datatype.number'}},\n      \"inputRefIds\": [\n        \"\"\n      ],\n      \"longMessage\": \"\",\n      \"message\": \"\",\n      \"outputRefIds\": [\n        \"\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"\",\n          \"value\": \"\"\n        }\n      ],\n      \"subdomain\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 500,
           "label": "Internal Server Error",
@@ -63,27 +69,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "125cfee8-3ef9-4c1a-b684-75e3763e435f",
+      "uuid": "a725237d-d5db-4dbc-9aa1-78769fc129c5",
       "documentation": "This method retrieves the call limit and utilization data for an application user. The call-limit data is returned for all RESTful APIs and resources that limit calls on a per-user basis. The response from getUserRateLimits includes a list of the applicable resources and the &quot;call limit&quot;, or quota, that is set for each resource. In addition to quota information, the response also includes the number of remaining calls available before the limit is reached, the time remaining before the quota resets, and the length of the &quot;time window&quot; to which the quota applies. By default, this method returns utilization data for all RESTful API resources that limit request access by user. Use the api_name and api_context query parameters to filter the response to only the desired APIs. For more on call limits, see Compatible Application Check.",
       "method": "get",
       "endpoint": "user_rate_limit/",
       "responses": [
         {
-          "uuid": "792edd34-fab2-4940-b336-052fbf3117ac",
-          "body": "{\n  \"rateLimits\": [\n    {\n      \"apiContext\": \"\",\n      \"apiName\": \"\",\n      \"apiVersion\": \"\",\n      \"resources\": [\n        {\n          \"name\": \"\",\n          \"rates\": [\n            {\n              \"limit\": {{faker 'random.number'}},\n              \"remaining\": {{faker 'random.number'}},\n              \"reset\": \"\",\n              \"timeWindow\": {{faker 'random.number'}}\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+          "uuid": "8208173a-2300-4593-a544-47e4f2a70c9d",
+          "body": "{\n  \"rateLimits\": [\n    {\n      \"apiContext\": \"\",\n      \"apiName\": \"\",\n      \"apiVersion\": \"\",\n      \"resources\": [\n        {\n          \"name\": \"\",\n          \"rates\": [\n            {\n              \"limit\": {{faker 'datatype.number'}},\n              \"remaining\": {{faker 'datatype.number'}},\n              \"reset\": \"\",\n              \"timeWindow\": {{faker 'datatype.number'}}\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
@@ -93,15 +101,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "6afeb568-4be8-47aa-afed-efb7e4eceefa",
+          "uuid": "313d92d1-8ac9-4f2c-8c15-bd9805c6e911",
           "body": "",
           "latency": 0,
           "statusCode": 204,
@@ -112,16 +123,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         },
         {
-          "uuid": "249ea572-6b7a-469e-8ea6-94e67f741968",
-          "body": "{\n  \"errors\": [\n    {\n      \"category\": \"\",\n      \"domain\": \"\",\n      \"errorId\": {{faker 'random.number'}},\n      \"inputRefIds\": [\n        \"\"\n      ],\n      \"longMessage\": \"\",\n      \"message\": \"\",\n      \"outputRefIds\": [\n        \"\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"\",\n          \"value\": \"\"\n        }\n      ],\n      \"subdomain\": \"\"\n    }\n  ]\n}",
+          "uuid": "f2624555-450a-4b66-8662-592be73d18ae",
+          "body": "{\n  \"errors\": [\n    {\n      \"category\": \"\",\n      \"domain\": \"\",\n      \"errorId\": {{faker 'datatype.number'}},\n      \"inputRefIds\": [\n        \"\"\n      ],\n      \"longMessage\": \"\",\n      \"message\": \"\",\n      \"outputRefIds\": [\n        \"\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"\",\n          \"value\": \"\"\n        }\n      ],\n      \"subdomain\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 500,
           "label": "Internal Server Error",
@@ -131,17 +145,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -169,5 +185,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

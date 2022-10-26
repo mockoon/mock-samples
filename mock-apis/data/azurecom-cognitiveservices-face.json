@@ -1,6 +1,6 @@
 {
-  "uuid": "6e880198-8b13-4601-b857-60c2f4b8c1f2",
-  "lastMigration": 19,
+  "uuid": "15f0ef65-3b25-40ce-8258-57637179b220",
+  "lastMigration": 24,
   "name": "Face Client",
   "endpointPrefix": "",
   "latency": 0,
@@ -8,14 +8,14 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "54d7e4e9-f4f0-4244-8cb1-19a8f81c301a",
+      "uuid": "65eff70c-e548-4f9c-b13b-ad6633417a25",
       "documentation": "Detect human faces in an image, return face rectangles, and optionally with faceIds, landmarks, and attributes.<br />\n* No image will be stored. Only the extracted face feature will be stored on server. The faceId is an identifier of the face feature and will be used in [Face - Identify](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395239), [Face - Verify](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523a), and [Face - Find Similar](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395237). The stored face feature(s) will expire and be deleted 24 hours after the original detection call.\n* Optional parameters include faceId, landmarks, and attributes. Attributes include age, gender, headPose, smile, facialHair, glasses, emotion, hair, makeup, occlusion, accessories, blur, exposure and noise. Some of the results returned for specific attributes may not be highly accurate.\n* JPEG, PNG, GIF (the first frame), and BMP format are supported. The allowed image file size is from 1KB to 6MB.\n* Up to 100 faces can be returned for an image. Faces are ranked by face rectangle size from large to small.\n* For optimal results when querying [Face - Identify](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395239), [Face - Verify](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523a), and [Face - Find Similar](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395237) ('returnFaceId' is true), please use faces that are: frontal, clear, and with a minimum size of 200x200 pixels (100 pixels between eyes).\n* The minimum detectable face size is 36x36 pixels in an image no larger than 1920x1080 pixels. Images with dimensions higher than 1920x1080 pixels will need a proportionally larger minimum face size.\n* Different 'detectionModel' values can be provided. To use and compare different detection models, please refer to [How to specify a detection model](https://docs.microsoft.com/en-us/azure/cognitive-services/face/face-api-how-to-topics/specify-detection-model)\n  | Model | Recommended use-case(s) |\n  | ---------- | -------- |\n  | 'detection_01': | The default detection model for [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236). Recommend for near frontal face detection. For scenarios with exceptionally large angle (head-pose) faces, occluded faces or wrong image orientation, the faces in such cases may not be detected. |\n  | 'detection_02': | Detection model released in 2019 May with improved accuracy especially on small, side and blurry faces. |\n\n* Different 'recognitionModel' values are provided. If follow-up operations like Verify, Identify, Find Similar are needed, please specify the recognition model with 'recognitionModel' parameter. The default value for 'recognitionModel' is 'recognition_01', if latest model needed, please explicitly specify the model you need in this parameter. Once specified, the detected faceIds will be associated with the specified recognition model. More details, please refer to [How to specify a recognition model](https://docs.microsoft.com/en-us/azure/cognitive-services/face/face-api-how-to-topics/specify-recognition-model)\n  | Model | Recommended use-case(s) |\n  | ---------- | -------- |\n  | 'recognition_01': | The default recognition model for [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236). All those faceIds created before 2019 March are bonded with this recognition model. |\n  | 'recognition_02': | Recognition model released in 2019 March. 'recognition_02' is recommended since its overall accuracy is improved compared with 'recognition_01'. |",
       "method": "post",
       "endpoint": "detect",
       "responses": [
         {
-          "uuid": "b6ed2215-020c-4484-9d4e-df1287f1dfce",
-          "body": "[\n  {\n    \"faceAttributes\": {\n      \"accessories\": [\n        {\n          \"confidence\": {{faker 'random.number'}},\n          \"type\": \"{{oneOf (array 'headWear' 'glasses' 'mask')}}\"\n        }\n      ],\n      \"age\": {{faker 'random.number'}},\n      \"blur\": {\n        \"blurLevel\": \"{{oneOf (array 'Low' 'Medium' 'High')}}\",\n        \"value\": {{faker 'random.number'}}\n      },\n      \"emotion\": {\n        \"anger\": {{faker 'random.number'}},\n        \"contempt\": {{faker 'random.number'}},\n        \"disgust\": {{faker 'random.number'}},\n        \"fear\": {{faker 'random.number'}},\n        \"happiness\": {{faker 'random.number'}},\n        \"neutral\": {{faker 'random.number'}},\n        \"sadness\": {{faker 'random.number'}},\n        \"surprise\": {{faker 'random.number'}}\n      },\n      \"exposure\": {\n        \"exposureLevel\": \"{{oneOf (array 'UnderExposure' 'GoodExposure' 'OverExposure')}}\",\n        \"value\": {{faker 'random.number'}}\n      },\n      \"facialHair\": {\n        \"beard\": {{faker 'random.number'}},\n        \"moustache\": {{faker 'random.number'}},\n        \"sideburns\": {{faker 'random.number'}}\n      },\n      \"gender\": \"{{oneOf (array 'male' 'female')}}\",\n      \"glasses\": \"{{oneOf (array 'noGlasses' 'readingGlasses' 'sunglasses' 'swimmingGoggles')}}\",\n      \"hair\": {\n        \"bald\": {{faker 'random.number'}},\n        \"hairColor\": [\n          {\n            \"color\": \"{{oneOf (array 'unknown' 'white' 'gray' 'blond' 'brown' 'red' 'black' 'other')}}\",\n            \"confidence\": {{faker 'random.number'}}\n          }\n        ],\n        \"invisible\": {{faker 'random.boolean'}}\n      },\n      \"headPose\": {\n        \"pitch\": {{faker 'random.number'}},\n        \"roll\": {{faker 'random.number'}},\n        \"yaw\": {{faker 'random.number'}}\n      },\n      \"makeup\": {\n        \"eyeMakeup\": {{faker 'random.boolean'}},\n        \"lipMakeup\": {{faker 'random.boolean'}}\n      },\n      \"noise\": {\n        \"noiseLevel\": \"{{oneOf (array 'Low' 'Medium' 'High')}}\",\n        \"value\": {{faker 'random.number'}}\n      },\n      \"occlusion\": {\n        \"eyeOccluded\": {{faker 'random.boolean'}},\n        \"foreheadOccluded\": {{faker 'random.boolean'}},\n        \"mouthOccluded\": {{faker 'random.boolean'}}\n      },\n      \"smile\": {{faker 'random.number'}}\n    },\n    \"faceId\": \"{{faker 'random.uuid'}}\",\n    \"faceLandmarks\": {\n      \"eyeLeftBottom\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"eyeLeftInner\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"eyeLeftOuter\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"eyeLeftTop\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"eyeRightBottom\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"eyeRightInner\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"eyeRightOuter\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"eyeRightTop\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"eyebrowLeftInner\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"eyebrowLeftOuter\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"eyebrowRightInner\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"eyebrowRightOuter\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"mouthLeft\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"mouthRight\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"noseLeftAlarOutTip\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"noseLeftAlarTop\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"noseRightAlarOutTip\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"noseRightAlarTop\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"noseRootLeft\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"noseRootRight\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"noseTip\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"pupilLeft\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"pupilRight\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"underLipBottom\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"underLipTop\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"upperLipBottom\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      },\n      \"upperLipTop\": {\n        \"x\": {{faker 'random.number'}},\n        \"y\": {{faker 'random.number'}}\n      }\n    },\n    \"faceRectangle\": {\n      \"height\": {{faker 'random.number'}},\n      \"left\": {{faker 'random.number'}},\n      \"top\": {{faker 'random.number'}},\n      \"width\": {{faker 'random.number'}}\n    },\n    \"recognitionModel\": \"{{oneOf (array 'recognition_01' 'recognition_02')}}\"\n  }\n]",
+          "uuid": "a474afa3-98ed-4fd4-b625-676a88d78050",
+          "body": "[\n  {\n    \"faceAttributes\": {\n      \"accessories\": [\n        {\n          \"confidence\": {{faker 'datatype.number'}},\n          \"type\": \"{{oneOf (array 'headWear' 'glasses' 'mask')}}\"\n        }\n      ],\n      \"age\": {{faker 'datatype.number'}},\n      \"blur\": {\n        \"blurLevel\": \"{{oneOf (array 'Low' 'Medium' 'High')}}\",\n        \"value\": {{faker 'datatype.number'}}\n      },\n      \"emotion\": {\n        \"anger\": {{faker 'datatype.number'}},\n        \"contempt\": {{faker 'datatype.number'}},\n        \"disgust\": {{faker 'datatype.number'}},\n        \"fear\": {{faker 'datatype.number'}},\n        \"happiness\": {{faker 'datatype.number'}},\n        \"neutral\": {{faker 'datatype.number'}},\n        \"sadness\": {{faker 'datatype.number'}},\n        \"surprise\": {{faker 'datatype.number'}}\n      },\n      \"exposure\": {\n        \"exposureLevel\": \"{{oneOf (array 'UnderExposure' 'GoodExposure' 'OverExposure')}}\",\n        \"value\": {{faker 'datatype.number'}}\n      },\n      \"facialHair\": {\n        \"beard\": {{faker 'datatype.number'}},\n        \"moustache\": {{faker 'datatype.number'}},\n        \"sideburns\": {{faker 'datatype.number'}}\n      },\n      \"gender\": \"{{oneOf (array 'male' 'female')}}\",\n      \"glasses\": \"{{oneOf (array 'noGlasses' 'readingGlasses' 'sunglasses' 'swimmingGoggles')}}\",\n      \"hair\": {\n        \"bald\": {{faker 'datatype.number'}},\n        \"hairColor\": [\n          {\n            \"color\": \"{{oneOf (array 'unknown' 'white' 'gray' 'blond' 'brown' 'red' 'black' 'other')}}\",\n            \"confidence\": {{faker 'datatype.number'}}\n          }\n        ],\n        \"invisible\": {{faker 'datatype.boolean'}}\n      },\n      \"headPose\": {\n        \"pitch\": {{faker 'datatype.number'}},\n        \"roll\": {{faker 'datatype.number'}},\n        \"yaw\": {{faker 'datatype.number'}}\n      },\n      \"makeup\": {\n        \"eyeMakeup\": {{faker 'datatype.boolean'}},\n        \"lipMakeup\": {{faker 'datatype.boolean'}}\n      },\n      \"noise\": {\n        \"noiseLevel\": \"{{oneOf (array 'Low' 'Medium' 'High')}}\",\n        \"value\": {{faker 'datatype.number'}}\n      },\n      \"occlusion\": {\n        \"eyeOccluded\": {{faker 'datatype.boolean'}},\n        \"foreheadOccluded\": {{faker 'datatype.boolean'}},\n        \"mouthOccluded\": {{faker 'datatype.boolean'}}\n      },\n      \"smile\": {{faker 'datatype.number'}}\n    },\n    \"faceId\": \"{{faker 'datatype.uuid'}}\",\n    \"faceLandmarks\": {\n      \"eyeLeftBottom\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"eyeLeftInner\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"eyeLeftOuter\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"eyeLeftTop\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"eyeRightBottom\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"eyeRightInner\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"eyeRightOuter\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"eyeRightTop\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"eyebrowLeftInner\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"eyebrowLeftOuter\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"eyebrowRightInner\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"eyebrowRightOuter\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"mouthLeft\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"mouthRight\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"noseLeftAlarOutTip\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"noseLeftAlarTop\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"noseRightAlarOutTip\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"noseRightAlarTop\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"noseRootLeft\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"noseRootRight\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"noseTip\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"pupilLeft\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"pupilRight\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"underLipBottom\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"underLipTop\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"upperLipBottom\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      },\n      \"upperLipTop\": {\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      }\n    },\n    \"faceRectangle\": {\n      \"height\": {{faker 'datatype.number'}},\n      \"left\": {{faker 'datatype.number'}},\n      \"top\": {{faker 'datatype.number'}},\n      \"width\": {{faker 'datatype.number'}}\n    },\n    \"recognitionModel\": \"{{oneOf (array 'recognition_01' 'recognition_02')}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns an array of face entries ranked by face rectangle size in descending order. An empty response indicates no faces detected.",
@@ -25,15 +25,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "2705a726-6898-42fd-8891-ee3d0bdf4ed6",
+          "uuid": "3ed0db4c-e477-440f-be9e-42cb97867681",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -44,26 +47,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a4247eac-3bd4-4e79-b4f0-c6e1065e41fc",
+      "uuid": "b8382644-179d-4fff-8002-007a27d0f919",
       "documentation": "List face lists’ faceListId, name, userData and recognitionModel. <br /> \nTo get face information inside faceList use [FaceList - Get](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039524c)\n",
       "method": "get",
       "endpoint": "facelists",
       "responses": [
         {
-          "uuid": "fff074dd-edc0-4798-b623-018691c54cab",
+          "uuid": "ad21d3c1-f8e4-40e3-865a-3226661e1675",
           "body": "[\n  {\n    \"recognitionModel\": \"{{oneOf (array 'recognition_01' 'recognition_02')}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
@@ -74,15 +79,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "9178e531-3fe9-4104-8dfc-9d8db4632f90",
+          "uuid": "f87d9b47-4ecf-42d9-9aa3-60b8092c9591",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -93,26 +101,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f3a9adf0-ecbe-4dd2-b2bd-83fce4b99d8a",
+      "uuid": "32bbafb3-4d8c-44b1-9b15-61e63ce3772a",
       "documentation": "Delete a specified face list.",
       "method": "delete",
       "endpoint": "facelists/:faceListId",
       "responses": [
         {
-          "uuid": "b9a63de2-fd4e-4d01-a836-1dd503911bbe",
+          "uuid": "c813e2f5-f0b4-4c47-816e-a44c3362f3f1",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -123,15 +133,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "a0f2976e-897f-4be7-ad63-525f463d4e11",
+          "uuid": "e69f87ca-2359-4530-93d2-40fccc951769",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -142,26 +155,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "e8eef741-c153-4a76-95d4-f88b84cd0f0b",
+      "uuid": "11a0d92c-7ea8-41c2-99c3-26156cb36dc7",
       "documentation": "Retrieve a face list’s faceListId, name, userData, recognitionModel and faces in the face list.\n",
       "method": "get",
       "endpoint": "facelists/:faceListId",
       "responses": [
         {
-          "uuid": "cc3b0511-e985-4cde-87e0-9bd21181ca4f",
+          "uuid": "c8aa99bd-0777-4eec-8fde-8fa1698ab363",
           "body": "{\n  \"recognitionModel\": \"{{oneOf (array 'recognition_01' 'recognition_02')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -172,15 +187,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "85c55898-980f-4724-aab0-9102d9c03be6",
+          "uuid": "d4aa6d4c-02c3-42a5-8ca9-5cbf7b14d397",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -191,26 +209,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "01e990a9-f0ac-4471-9e8d-d56a8512c560",
+      "uuid": "9c150354-f2e7-4f76-8b29-270117bd2d29",
       "documentation": "Update information of a face list.",
       "method": "patch",
       "endpoint": "facelists/:faceListId",
       "responses": [
         {
-          "uuid": "57415a1a-bc91-480e-81ab-98fbcb5543e4",
+          "uuid": "1a63a8b1-706c-4dff-be10-ae2553cbcffa",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -221,15 +241,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "12e18d06-91ef-4957-897b-ba64c63df6e6",
+          "uuid": "ae93f735-ccbd-43f1-ae9b-044d5cc226ca",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -240,26 +263,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "777af7d5-7224-4f37-b88c-c0158872bb13",
+      "uuid": "cd5143f9-0ac1-4f24-941a-f25dc5606459",
       "documentation": "Create an empty face list with user-specified faceListId, name, an optional userData and recognitionModel. Up to 64 face lists are allowed in one subscription.\n<br /> Face list is a list of faces, up to 1,000 faces, and used by [Face - Find Similar](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395237).\n<br /> After creation, user should use [FaceList - Add Face](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395250) to import the faces. No image will be stored. Only the extracted face features are stored on server until [FaceList - Delete](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039524f) is called.\n<br /> Find Similar is used for scenario like finding celebrity-like faces, similar face filtering, or as a light way face identification. But if the actual use is to identify person, please use [PersonGroup](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395244) / [LargePersonGroup](/docs/services/563879b61984550e40cbbe8d/operations/599acdee6ac60f11b48b5a9d) and [Face - Identify](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395239).\n<br /> Please consider [LargeFaceList](/docs/services/563879b61984550e40cbbe8d/operations/5a157b68d2de3616c086f2cc) when the face number is large. It can support up to 1,000,000 faces.\n<br />'recognitionModel' should be specified to associate with this face list. The default value for 'recognitionModel' is 'recognition_01', if the latest model needed, please explicitly specify the model you need in this parameter. New faces that are added to an existing face list will use the recognition model that's already associated with the collection. Existing face features in a face list can't be updated to features extracted by another version of recognition model.\n* 'recognition_01': The default recognition model for [FaceList- Create](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039524b). All those face lists created before 2019 March are bonded with this recognition model.\n* 'recognition_02': Recognition model released in 2019 March. 'recognition_02' is recommended since its overall accuracy is improved compared with 'recognition_01'.",
       "method": "put",
       "endpoint": "facelists/:faceListId",
       "responses": [
         {
-          "uuid": "b37041ab-ec3d-4564-8ffd-d19aab60a803",
+          "uuid": "779a512a-d5ae-4c46-9cca-c6d8476dc667",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -270,15 +295,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "e5cc3c98-dcb5-4b89-8778-8c12af0e095b",
+          "uuid": "5407b875-9373-4cf7-987b-fa7f1ed429e6",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -289,27 +317,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "c8ed2e7f-b83c-47a1-bf73-bbc5dc0c737e",
+      "uuid": "8911fd14-a3fd-4c6e-ab21-c5ba1026a046",
       "documentation": "Add a face to a specified face list, up to 1,000 faces.\n<br /> To deal with an image contains multiple faces, input face can be specified as an image with a targetFace rectangle. It returns a persistedFaceId representing the added face. No image will be stored. Only the extracted face feature will be stored on server until [FaceList - Delete Face](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395251) or [FaceList - Delete](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039524f) is called.\n<br /> Note persistedFaceId is different from faceId generated by [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236).\n* Higher face image quality means better detection and recognition precision. Please consider high-quality faces: frontal, clear, and face size is 200x200 pixels (100 pixels between eyes) or bigger.\n* JPEG, PNG, GIF (the first frame), and BMP format are supported. The allowed image file size is from 1KB to 6MB.\n* \"targetFace\" rectangle should contain one face. Zero or multiple faces will be regarded as an error. If the provided \"targetFace\" rectangle is not returned from [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236), there’s no guarantee to detect and add the face successfully.\n* Out of detectable face size (36x36 - 4096x4096 pixels), large head-pose, or large occlusions will cause failures.\n* Adding/deleting faces to/from a same face list are processed sequentially and to/from different face lists are in parallel.\n* The minimum detectable face size is 36x36 pixels in an image no larger than 1920x1080 pixels. Images with dimensions higher than 1920x1080 pixels will need a proportionally larger minimum face size.\n* Different 'detectionModel' values can be provided. To use and compare different detection models, please refer to [How to specify a detection model](https://docs.microsoft.com/en-us/azure/cognitive-services/face/face-api-how-to-topics/specify-detection-model)\n  | Model | Recommended use-case(s) |\n  | ---------- | -------- |\n  | 'detection_01': | The default detection model for [FaceList - Add Face](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395250). Recommend for near frontal face detection. For scenarios with exceptionally large angle (head-pose) faces, occluded faces or wrong image orientation, the faces in such cases may not be detected. |\n  | 'detection_02': | Detection model released in 2019 May with improved accuracy especially on small, side and blurry faces. |",
       "method": "post",
       "endpoint": "facelists/:faceListId/persistedfaces",
       "responses": [
         {
-          "uuid": "771fc0c9-17ab-400a-9ddf-13dd7d9d17cb",
-          "body": "{\n  \"persistedFaceId\": \"{{faker 'random.uuid'}}\",\n  \"userData\": \"\"\n}",
+          "uuid": "61401898-b70b-4ca9-98a6-ce050d2ca6d7",
+          "body": "{\n  \"persistedFaceId\": \"{{faker 'datatype.uuid'}}\",\n  \"userData\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns a new persistedFaceId.",
@@ -319,15 +349,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "f656b9c2-45a8-4b13-900e-a7dce8c836d7",
+          "uuid": "b4f332d9-c5d2-4994-987f-c5633faf71af",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -338,26 +371,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "031ae928-9994-435c-8fb0-6fc6d5842464",
+      "uuid": "33949c99-00b0-4eb5-8ed9-9c6fe8141cd8",
       "documentation": "Delete a face from a face list by specified faceListId and persistedFaceId.\n<br /> Adding/deleting faces to/from a same face list are processed sequentially and to/from different face lists are in parallel.",
       "method": "delete",
       "endpoint": "facelists/:faceListId/persistedfaces/:persistedFaceId",
       "responses": [
         {
-          "uuid": "2e1ae26b-1fad-47c0-afcc-b3a4751d9345",
+          "uuid": "b4d5607a-8ae5-4cda-8989-9c9f0cfac16a",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -368,15 +403,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "3669a4aa-edfe-4077-aa6e-08363a6f4192",
+          "uuid": "edc4b749-423a-4300-8b39-e1c55ce2824e",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -387,27 +425,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "1f7b399d-2677-448b-a56d-9cb0e74deb61",
+      "uuid": "6c4e7372-dce9-4612-82ba-0dc286956663",
       "documentation": "Given query face's faceId, to search the similar-looking faces from a faceId array, a face list or a large face list. faceId array contains the faces created by [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236), which will expire 24 hours after creation. A \"faceListId\" is created by [FaceList - Create](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039524b) containing persistedFaceIds that will not expire. And a \"largeFaceListId\" is created by [LargeFaceList - Create](/docs/services/563879b61984550e40cbbe8d/operations/5a157b68d2de3616c086f2cc) containing persistedFaceIds that will also not expire. Depending on the input the returned similar faces list contains faceIds or persistedFaceIds ranked by similarity.\n<br/>Find similar has two working modes, \"matchPerson\" and \"matchFace\". \"matchPerson\" is the default mode that it tries to find faces of the same person as possible by using internal same-person thresholds. It is useful to find a known person's other photos. Note that an empty list will be returned if no faces pass the internal thresholds. \"matchFace\" mode ignores same-person thresholds and returns ranked similar faces anyway, even the similarity is low. It can be used in the cases like searching celebrity-looking faces.\n<br/>The 'recognitionModel' associated with the query face's faceId should be the same as the 'recognitionModel' used by the target faceId array, face list or large face list.\n",
       "method": "post",
       "endpoint": "findsimilars",
       "responses": [
         {
-          "uuid": "4b84dda0-5a12-4ceb-8d02-43b1c3eb6435",
-          "body": "[\n  {\n    \"confidence\": {{faker 'random.number'}},\n    \"faceId\": \"{{faker 'random.uuid'}}\",\n    \"persistedFaceId\": \"{{faker 'random.uuid'}}\"\n  }\n]",
+          "uuid": "ccf33659-fe6f-4898-8590-1354d0982398",
+          "body": "[\n  {\n    \"confidence\": {{faker 'datatype.number'}},\n    \"faceId\": \"{{faker 'datatype.uuid'}}\",\n    \"persistedFaceId\": \"{{faker 'datatype.uuid'}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns an array of the most similar faces represented in faceId if the input parameter is faceIds or persistedFaceId if the input parameter is faceListId.",
@@ -417,15 +457,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "59b02db1-683c-40d1-9bfc-45d82f70babb",
+          "uuid": "90fefe49-8cf0-4090-ae5c-117bd9ec2c37",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -436,27 +479,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "cc094ae9-5faa-4abc-b580-8ba18ad0d4c2",
+      "uuid": "d3ab5964-d6b9-4ce6-b16e-a323382aec1d",
       "documentation": "Divide candidate faces into groups based on face similarity.<br />\n* The output is one or more disjointed face groups and a messyGroup. A face group contains faces that have similar looking, often of the same person. Face groups are ranked by group size, i.e. number of faces. Notice that faces belonging to a same person might be split into several groups in the result.\n* MessyGroup is a special face group containing faces that cannot find any similar counterpart face from original faces. The messyGroup will not appear in the result if all faces found their counterparts.\n* Group API needs at least 2 candidate faces and 1000 at most. We suggest to try [Face - Verify](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523a) when you only have 2 candidate faces.\n* The 'recognitionModel' associated with the query faces' faceIds should be the same.\n",
       "method": "post",
       "endpoint": "group",
       "responses": [
         {
-          "uuid": "ec54f5b9-bf29-45bf-8699-3197104e444a",
-          "body": "{\n  \"groups\": [\n    [\n      \"{{faker 'random.uuid'}}\"\n    ]\n  ],\n  \"messyGroup\": [\n    \"{{faker 'random.uuid'}}\"\n  ]\n}",
+          "uuid": "29f82ed3-2960-4f0b-abaa-935d040d54e3",
+          "body": "{\n  \"groups\": [\n    [\n      \"{{faker 'datatype.uuid'}}\"\n    ]\n  ],\n  \"messyGroup\": [\n    \"{{faker 'datatype.uuid'}}\"\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns one or more groups of similar faces (rank by group size) and a messyGroup.",
@@ -466,15 +511,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "ee65f112-8125-4530-84c8-d2ae96fb753f",
+          "uuid": "759e2fea-e4b3-4f57-8040-303a981b255f",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -485,27 +533,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "53d3d9a7-512b-4b84-a935-fcc2bc1f996c",
+      "uuid": "d09e442a-bd9d-4035-b29c-e40cc495dba7",
       "documentation": "1-to-many identification to find the closest matches of the specific query person face from a person group or large person group.\n<br/> For each face in the faceIds array, Face Identify will compute similarities between the query face and all the faces in the person group (given by personGroupId) or large person group (given by largePersonGroupId), and return candidate person(s) for that face ranked by similarity confidence. The person group/large person group should be trained to make it ready for identification. See more in [PersonGroup - Train](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395249) and [LargePersonGroup - Train](/docs/services/563879b61984550e40cbbe8d/operations/599ae2d16ac60f11b48b5aa4).\n<br/>\n \nRemarks:<br />\n* The algorithm allows more than one face to be identified independently at the same request, but no more than 10 faces.\n* Each person in the person group/large person group could have more than one face, but no more than 248 faces.\n* Higher face image quality means better identification precision. Please consider high-quality faces: frontal, clear, and face size is 200x200 pixels (100 pixels between eyes) or bigger.\n* Number of candidates returned is restricted by maxNumOfCandidatesReturned and confidenceThreshold. If no person is identified, the returned candidates will be an empty array.\n* Try [Face - Find Similar](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395237) when you need to find similar faces from a face list/large face list instead of a person group/large person group.\n* The 'recognitionModel' associated with the query faces' faceIds should be the same as the 'recognitionModel' used by the target person group or large person group.\n",
       "method": "post",
       "endpoint": "identify",
       "responses": [
         {
-          "uuid": "71e987aa-9fa7-489f-b2ca-e877d608699d",
-          "body": "[\n  {\n    \"candidates\": [\n      {\n        \"confidence\": {{faker 'random.number'}},\n        \"personId\": \"{{faker 'random.uuid'}}\"\n      }\n    ],\n    \"faceId\": \"{{faker 'random.uuid'}}\"\n  }\n]",
+          "uuid": "9d3ced38-482d-4960-9e9b-ec0b722ab474",
+          "body": "[\n  {\n    \"candidates\": [\n      {\n        \"confidence\": {{faker 'datatype.number'}},\n        \"personId\": \"{{faker 'datatype.uuid'}}\"\n      }\n    ],\n    \"faceId\": \"{{faker 'datatype.uuid'}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns the identified candidate person(s) for each query face.",
@@ -515,15 +565,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "d584106d-ab44-48fb-91ad-9441285d8204",
+          "uuid": "16e40084-93d0-4523-a871-66a929114b01",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -534,26 +587,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "e2e45c3d-5aec-4580-9deb-fea471144863",
+      "uuid": "b1a51ecf-7014-489f-91a0-9e952e047c15",
       "documentation": "List large face lists’ information of largeFaceListId, name, userData and recognitionModel. <br /> \nTo get face information inside largeFaceList use [LargeFaceList Face - Get](/docs/services/563879b61984550e40cbbe8d/operations/5a158cf2d2de3616c086f2d5)<br />\n* Large face lists are stored in alphabetical order of largeFaceListId.\n* \"start\" parameter (string, optional) is a user-provided largeFaceListId value that returned entries have larger ids by string comparison. \"start\" set to empty to indicate return from the first item.\n* \"top\" parameter (int, optional) specifies the number of entries to return. A maximal of 1000 entries can be returned in one call. To fetch more, you can specify \"start\" with the last returned entry’s Id of the current call.\n<br />\nFor example, total 5 large person lists: \"list1\", ..., \"list5\".\n<br /> \"start=&top=\" will return all 5 lists.\n<br /> \"start=&top=2\" will return \"list1\", \"list2\".\n<br /> \"start=list2&top=3\" will return \"list3\", \"list4\", \"list5\".\n",
       "method": "get",
       "endpoint": "largefacelists",
       "responses": [
         {
-          "uuid": "4f4fe025-f6da-4511-874f-b1cf7522f241",
+          "uuid": "81efaa81-e996-4304-a36c-374aa2fd7338",
           "body": "[\n  {\n    \"recognitionModel\": \"{{oneOf (array 'recognition_01' 'recognition_02')}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
@@ -564,15 +619,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "d4f86ce3-83f2-46c9-91c4-a9715626b8c7",
+          "uuid": "49a57f7e-e362-4109-a2a4-5d3f6df4f279",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -583,26 +641,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "ff60f963-8eb1-4699-9a28-9a82220abbaa",
+      "uuid": "53575960-4695-48c2-bab9-c403f7096c3f",
       "documentation": "Delete a specified large face list.",
       "method": "delete",
       "endpoint": "largefacelists/:largeFaceListId",
       "responses": [
         {
-          "uuid": "a8ee67c8-d12f-4580-9937-9aa10b2173b1",
+          "uuid": "f24a0c30-0771-47a9-975e-6b5ec4171250",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -613,15 +673,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "5fc1cc64-d472-48a4-ab46-8a7dbbceb36d",
+          "uuid": "88891201-5895-4fde-b19a-a49b0934caac",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -632,26 +695,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "7eb2c813-2fa6-4e48-a6d2-10f133e4d2d8",
+      "uuid": "4d3c4fbd-5f9e-4e95-aff3-9ac966c1aad4",
       "documentation": "Retrieve a large face list’s largeFaceListId, name, userData and recognitionModel.",
       "method": "get",
       "endpoint": "largefacelists/:largeFaceListId",
       "responses": [
         {
-          "uuid": "7a87c0c8-b0db-4950-bfe5-1972cb2ec4eb",
+          "uuid": "7e8b5af9-b997-40ff-bdf3-dbdeb3170e5e",
           "body": "{\n  \"recognitionModel\": \"{{oneOf (array 'recognition_01' 'recognition_02')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -662,15 +727,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "96c2fcaa-59df-4a41-80fb-f7af3c707160",
+          "uuid": "7856e968-aadd-4d7c-91fc-936871423d0a",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -681,26 +749,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "6b7e30d4-0627-4afd-a42a-f25ab356a165",
+      "uuid": "519c28d9-9101-450a-943a-448b7ee45a9d",
       "documentation": "Update information of a large face list.",
       "method": "patch",
       "endpoint": "largefacelists/:largeFaceListId",
       "responses": [
         {
-          "uuid": "51b7b9c7-beea-484a-972b-e8e5c20828e4",
+          "uuid": "9c5f7d84-7dea-424b-bc0c-e69368f0acf2",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -711,15 +781,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "7f823c71-7322-46d2-919f-e8d439433deb",
+          "uuid": "2ba9dc07-bcdd-491a-a165-a0b43788c64a",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -730,26 +803,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "3f39ca9c-3e10-479c-a4b3-86dab9b61acd",
+      "uuid": "f00520da-4b25-4dfc-a061-4809457b76af",
       "documentation": "Create an empty large face list with user-specified largeFaceListId, name, an optional userData and recognitionModel.\n<br /> Large face list is a list of faces, up to 1,000,000 faces, and used by [Face - Find Similar](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395237).\n<br /> After creation, user should use [LargeFaceList Face - Add](/docs/services/563879b61984550e40cbbe8d/operations/5a158c10d2de3616c086f2d3) to import the faces and [LargeFaceList - Train](/docs/services/563879b61984550e40cbbe8d/operations/5a158422d2de3616c086f2d1) to make it ready for [Face - Find Similar](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395237). No image will be stored. Only the extracted face features are stored on server until [LargeFaceList - Delete](/docs/services/563879b61984550e40cbbe8d/operations/5a1580d5d2de3616c086f2cd) is called.\n<br /> Find Similar is used for scenario like finding celebrity-like faces, similar face filtering, or as a light way face identification. But if the actual use is to identify person, please use [PersonGroup](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395244) / [LargePersonGroup](/docs/services/563879b61984550e40cbbe8d/operations/599acdee6ac60f11b48b5a9d) and [Face - Identify](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395239).\n<br/>'recognitionModel' should be specified to associate with this large face list. The default value for 'recognitionModel' is 'recognition_01', if the latest model needed, please explicitly specify the model you need in this parameter. New faces that are added to an existing large face list will use the recognition model that's already associated with the collection. Existing face features in a large face list can't be updated to features extracted by another version of recognition model.\n* 'recognition_01': The default recognition model for [LargeFaceList- Create](/docs/services/563879b61984550e40cbbe8d/operations/5a157b68d2de3616c086f2cc). All those large face lists created before 2019 March are bonded with this recognition model.\n* 'recognition_02': Recognition model released in 2019 March. 'recognition_02' is recommended since its overall accuracy is improved compared with 'recognition_01'.\n\nLarge face list quota:\n* Free-tier subscription quota: 64 large face lists.\n* S0-tier subscription quota: 1,000,000 large face lists.",
       "method": "put",
       "endpoint": "largefacelists/:largeFaceListId",
       "responses": [
         {
-          "uuid": "fd7bf164-29bc-49db-84b1-52231af36905",
+          "uuid": "5fc3e005-6404-4983-b0b3-49f10404ddaa",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -760,15 +835,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "e4659638-d8dc-44e4-a7f6-8b4da3f1a18e",
+          "uuid": "0da7b17f-09ba-4c85-8acf-e3d68e79a366",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -779,27 +857,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a9ed18ab-ba61-4027-b0e5-6dc9304d84e1",
+      "uuid": "680175cd-a250-4025-a1e3-14a36f806ed8",
       "documentation": "List all faces in a large face list, and retrieve face information (including userData and persistedFaceIds of registered faces of the face).",
       "method": "get",
       "endpoint": "largefacelists/:largeFaceListId/persistedfaces",
       "responses": [
         {
-          "uuid": "0bc9cc71-b51d-4daa-86ef-028ac348c5f0",
-          "body": "[\n  {\n    \"persistedFaceId\": \"{{faker 'random.uuid'}}\",\n    \"userData\": \"\"\n  }\n]",
+          "uuid": "bfcc7e7a-e3a0-4db3-b368-e8ac92f4eb9e",
+          "body": "[\n  {\n    \"persistedFaceId\": \"{{faker 'datatype.uuid'}}\",\n    \"userData\": \"\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns an array of face information that belong to the large face list.",
@@ -809,15 +889,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "71529b4a-d07b-4c0a-b591-cc60a4b1a2f5",
+          "uuid": "c74d07e4-6232-43b5-873c-92f379c58509",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -828,27 +911,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "e06aa9fa-581b-4ec1-a0d9-1d18821657c8",
+      "uuid": "26de3edb-0c30-49de-87c8-c42cd160e52e",
       "documentation": "Add a face to a specified large face list, up to 1,000,000 faces.\n<br /> To deal with an image contains multiple faces, input face can be specified as an image with a targetFace rectangle. It returns a persistedFaceId representing the added face. No image will be stored. Only the extracted face feature will be stored on server until [LargeFaceList Face - Delete](/docs/services/563879b61984550e40cbbe8d/operations/5a158c8ad2de3616c086f2d4) or [LargeFaceList - Delete](/docs/services/563879b61984550e40cbbe8d/operations/5a1580d5d2de3616c086f2cd) is called.\n<br /> Note persistedFaceId is different from faceId generated by [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236).\n* Higher face image quality means better recognition precision. Please consider high-quality faces: frontal, clear, and face size is 200x200 pixels (100 pixels between eyes) or bigger.\n* JPEG, PNG, GIF (the first frame), and BMP format are supported. The allowed image file size is from 1KB to 6MB.\n* \"targetFace\" rectangle should contain one face. Zero or multiple faces will be regarded as an error. If the provided \"targetFace\" rectangle is not returned from [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236), there’s no guarantee to detect and add the face successfully.\n* Out of detectable face size (36x36 - 4096x4096 pixels), large head-pose, or large occlusions will cause failures.\n* Adding/deleting faces to/from a same face list are processed sequentially and to/from different face lists are in parallel.\n* The minimum detectable face size is 36x36 pixels in an image no larger than 1920x1080 pixels. Images with dimensions higher than 1920x1080 pixels will need a proportionally larger minimum face size.\n* Different 'detectionModel' values can be provided. To use and compare different detection models, please refer to [How to specify a detection model](https://docs.microsoft.com/en-us/azure/cognitive-services/face/face-api-how-to-topics/specify-detection-model)\n  | Model | Recommended use-case(s) |\n  | ---------- | -------- |\n  | 'detection_01': | The default detection model for [LargeFaceList - Add Face](/docs/services/563879b61984550e40cbbe8d/operations/5a158c10d2de3616c086f2d3). Recommend for near frontal face detection. For scenarios with exceptionally large angle (head-pose) faces, occluded faces or wrong image orientation, the faces in such cases may not be detected. |\n  | 'detection_02': | Detection model released in 2019 May with improved accuracy especially on small, side and blurry faces. |\n\nQuota:\n* Free-tier subscription quota: 1,000 faces per large face list.\n* S0-tier subscription quota: 1,000,000 faces per large face list.",
       "method": "post",
       "endpoint": "largefacelists/:largeFaceListId/persistedfaces",
       "responses": [
         {
-          "uuid": "22d56453-0bc7-40af-ac55-611ce6ae95fd",
-          "body": "{\n  \"persistedFaceId\": \"{{faker 'random.uuid'}}\",\n  \"userData\": \"\"\n}",
+          "uuid": "4fbebe10-2d67-4072-b738-581a88215220",
+          "body": "{\n  \"persistedFaceId\": \"{{faker 'datatype.uuid'}}\",\n  \"userData\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns a new persistedFaceId.",
@@ -858,15 +943,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "711767b0-60dd-4fd5-b539-9286fbd3165a",
+          "uuid": "e96c41f0-9c0c-47d2-8067-d3eff54bc48e",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -877,26 +965,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "91064f09-412b-411b-9955-7809f20954cc",
+      "uuid": "2f0183c4-6453-4566-9a36-67ede095d55a",
       "documentation": "Delete a face from a large face list by specified largeFaceListId and persistedFaceId.\n<br /> Adding/deleting faces to/from a same large face list are processed sequentially and to/from different large face lists are in parallel.",
       "method": "delete",
       "endpoint": "largefacelists/:largeFaceListId/persistedfaces/:persistedFaceId",
       "responses": [
         {
-          "uuid": "39c8010e-5e43-4258-a8b2-5033e280fa1f",
+          "uuid": "48a966e4-708f-42f7-830c-20652b6ae627",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -907,15 +997,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "a773ec0d-be5c-45fa-8ee4-2aa554c74504",
+          "uuid": "c8b7ff21-39bf-45b5-ab2c-889ce61f1cd6",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -926,27 +1019,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "5da5e91b-d5ed-490f-b19b-16396be7e883",
+      "uuid": "46cf3082-28f0-49ff-8fcd-812e1b0d2df5",
       "documentation": "Retrieve information about a persisted face (specified by persistedFaceId and its belonging largeFaceListId).",
       "method": "get",
       "endpoint": "largefacelists/:largeFaceListId/persistedfaces/:persistedFaceId",
       "responses": [
         {
-          "uuid": "8cbd55c7-b3a4-4021-b4ae-3644cd62967e",
-          "body": "{\n  \"persistedFaceId\": \"{{faker 'random.uuid'}}\",\n  \"userData\": \"\"\n}",
+          "uuid": "133fef54-d59c-4046-91e5-9511ce798fc3",
+          "body": "{\n  \"persistedFaceId\": \"{{faker 'datatype.uuid'}}\",\n  \"userData\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns target persisted face's information (persistedFaceId and userData).",
@@ -956,15 +1051,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "11d31a09-2c09-44e3-ae9e-80d8e4b7bda4",
+          "uuid": "08c1710c-80c4-41df-8e10-8a523c53b5f1",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -975,26 +1073,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "3cb7a1c4-fd61-4f3d-8062-f826e33ccde5",
+      "uuid": "2394f302-c49e-4cb6-9058-599cdc0a63ca",
       "documentation": "Update a persisted face's userData field.",
       "method": "patch",
       "endpoint": "largefacelists/:largeFaceListId/persistedfaces/:persistedFaceId",
       "responses": [
         {
-          "uuid": "df3ed379-41e5-4b40-8cb8-ef4ded3bc09b",
+          "uuid": "6e509ef3-b012-429c-aa0f-4866a80647d0",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1005,15 +1105,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "e9c38f75-e3b3-4ac0-b61c-a433a1e3e95d",
+          "uuid": "f81a5fb0-0d5a-403e-9c9c-15a7230253dd",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1024,26 +1127,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "1c8f4516-2fa7-4ac3-9208-ea20b3c776cb",
+      "uuid": "5de3779d-6a69-4988-992b-04d74329f97f",
       "documentation": "Queue a large face list training task, the training task may not be started immediately.",
       "method": "post",
       "endpoint": "largefacelists/:largeFaceListId/train",
       "responses": [
         {
-          "uuid": "47878717-52b9-4563-9bad-88912309c827",
+          "uuid": "0fec8574-7371-432a-9115-5186129bf6e2",
           "body": "",
           "latency": 0,
           "statusCode": 202,
@@ -1054,15 +1159,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "0db86935-e653-4b6c-b535-9c4e4238ae84",
+          "uuid": "d7eedfa1-2686-4298-ab03-ed62cbd98298",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1073,26 +1181,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "809cc613-0014-4ee0-b621-ca067611333b",
+      "uuid": "e5da0812-403c-4744-b813-d639e623a1e4",
       "documentation": "Retrieve the training status of a large face list (completed or ongoing).",
       "method": "get",
       "endpoint": "largefacelists/:largeFaceListId/training",
       "responses": [
         {
-          "uuid": "38a4318e-7247-420e-b80e-2862ce11e651",
+          "uuid": "da902d9a-66c5-41a0-a3c4-bb6a957dd27c",
           "body": "{\n  \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n  \"lastActionDateTime\": \"{{faker 'date.recent' 365}}\",\n  \"lastSuccessfulTrainingDateTime\": \"{{faker 'date.recent' 365}}\",\n  \"message\": \"\",\n  \"status\": \"{{oneOf (array 'nonstarted' 'running' 'succeeded' 'failed')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1103,15 +1213,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "8f5cfe1d-56bb-4be2-b435-83e9bf05a614",
+          "uuid": "d910d827-33d6-488c-ae58-cef156befcd2",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1122,26 +1235,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b1916dea-5410-41ee-8acc-1c68d0b94fcc",
+      "uuid": "6d1622fa-ac05-4db9-ac97-eb568c36face",
       "documentation": "List all existing large person groups’ largePersonGroupId, name, userData and recognitionModel.<br />\n* Large person groups are stored in alphabetical order of largePersonGroupId.\n* \"start\" parameter (string, optional) is a user-provided largePersonGroupId value that returned entries have larger ids by string comparison. \"start\" set to empty to indicate return from the first item.\n* \"top\" parameter (int, optional) specifies the number of entries to return. A maximal of 1000 entries can be returned in one call. To fetch more, you can specify \"start\" with the last returned entry’s Id of the current call.\n<br />\nFor example, total 5 large person groups: \"group1\", ..., \"group5\".\n<br /> \"start=&top=\" will return all 5 groups.\n<br /> \"start=&top=2\" will return \"group1\", \"group2\".\n<br /> \"start=group2&top=3\" will return \"group3\", \"group4\", \"group5\".\n",
       "method": "get",
       "endpoint": "largepersongroups",
       "responses": [
         {
-          "uuid": "5959a232-df1b-49a3-ae7e-d99305fd5ba0",
+          "uuid": "6728d260-c1c5-4d0a-9042-91f1984357aa",
           "body": "[\n  {\n    \"recognitionModel\": \"{{oneOf (array 'recognition_01' 'recognition_02')}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
@@ -1152,15 +1267,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "20413f67-722b-44b4-9414-490c7cd3d271",
+          "uuid": "4cca6c76-a72e-48f6-9035-869a5d89bba3",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1171,26 +1289,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "3c668ad8-6c3c-4b3d-b117-03fc2bc20e89",
+      "uuid": "23083757-1be5-4d02-8c5d-e423181a93d8",
       "documentation": "Delete an existing large person group. Persisted face features of all people in the large person group will also be deleted.",
       "method": "delete",
       "endpoint": "largepersongroups/:largePersonGroupId",
       "responses": [
         {
-          "uuid": "769c406f-c2fb-43e9-864f-4635d1575011",
+          "uuid": "badbf2ae-15e5-4610-8bc8-317d439fe839",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1201,15 +1321,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "00686025-bd91-4896-855d-a64ae5171cee",
+          "uuid": "1cb4fb50-008d-4c42-a63f-b461464aba3e",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1220,26 +1343,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "bfacf459-2872-4c12-9390-2b4d66e60b7e",
+      "uuid": "ee40bf1d-1699-4702-aabb-dd18f265b20f",
       "documentation": "Retrieve the information of a large person group, including its name, userData and recognitionModel. This API returns large person group information only, use [LargePersonGroup Person - List](/docs/services/563879b61984550e40cbbe8d/operations/599adda06ac60f11b48b5aa1) instead to retrieve person information under the large person group.\n",
       "method": "get",
       "endpoint": "largepersongroups/:largePersonGroupId",
       "responses": [
         {
-          "uuid": "109e0cf9-7857-4370-b054-09c2352ec33c",
+          "uuid": "998711c0-878e-43e3-9e33-963a0ce610bb",
           "body": "{\n  \"recognitionModel\": \"{{oneOf (array 'recognition_01' 'recognition_02')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1250,15 +1375,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "92e2df57-ad9e-4033-a40c-ff923f4cd657",
+          "uuid": "00b8775a-ee14-4414-bc31-d5b2a1933ef0",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1269,26 +1397,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "33d3f193-02fd-487f-bc6c-24356a2e49d8",
+      "uuid": "0fdfd9ec-31e7-41b1-ae21-3592047128b7",
       "documentation": "Update an existing large person group's display name and userData. The properties which does not appear in request body will not be updated.",
       "method": "patch",
       "endpoint": "largepersongroups/:largePersonGroupId",
       "responses": [
         {
-          "uuid": "9aebdefb-1148-42f6-9a2f-b6ec8c80da20",
+          "uuid": "f1761db3-455d-44ba-b03c-ce00218cdfc5",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1299,15 +1429,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "539eb614-b92f-4462-9145-da0d77e71396",
+          "uuid": "e2fe7ccc-dce9-46d9-888f-c821e5dfe86b",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1318,26 +1451,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2b7c3ebd-c845-43f4-a8f6-a3088ccd69d3",
+      "uuid": "328980de-ac9b-4c18-a9f7-963d310d1cd8",
       "documentation": "Create a new large person group with user-specified largePersonGroupId, name, an optional userData and recognitionModel.\n<br /> A large person group is the container of the uploaded person data, including face recognition feature, and up to 1,000,000\npeople.\n<br /> After creation, use [LargePersonGroup Person - Create](/docs/services/563879b61984550e40cbbe8d/operations/599adcba3a7b9412a4d53f40) to add person into the group, and call [LargePersonGroup - Train](/docs/services/563879b61984550e40cbbe8d/operations/599ae2d16ac60f11b48b5aa4) to get this group ready for [Face - Identify](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395239).\n<br /> No image will be stored. Only the person's extracted face features and userData will be stored on server until [LargePersonGroup Person - Delete](/docs/services/563879b61984550e40cbbe8d/operations/599ade5c6ac60f11b48b5aa2) or [LargePersonGroup - Delete](/docs/services/563879b61984550e40cbbe8d/operations/599adc216ac60f11b48b5a9f) is called.\n<br/>'recognitionModel' should be specified to associate with this large person group. The default value for 'recognitionModel' is 'recognition_01', if the latest model needed, please explicitly specify the model you need in this parameter. New faces that are added to an existing large person group will use the recognition model that's already associated with the collection. Existing face features in a large person group can't be updated to features extracted by another version of recognition model.\n* 'recognition_01': The default recognition model for [LargePersonGroup - Create](/docs/services/563879b61984550e40cbbe8d/operations/599acdee6ac60f11b48b5a9d). All those large person groups created before 2019 March are bonded with this recognition model.\n* 'recognition_02': Recognition model released in 2019 March. 'recognition_02' is recommended since its overall accuracy is improved compared with 'recognition_01'.\n\nLarge person group quota:\n* Free-tier subscription quota: 1,000 large person groups.\n* S0-tier subscription quota: 1,000,000 large person groups.",
       "method": "put",
       "endpoint": "largepersongroups/:largePersonGroupId",
       "responses": [
         {
-          "uuid": "0a4bf02e-8573-425a-aa5f-f450b8b810d5",
+          "uuid": "f68fb987-bfba-4b49-852c-868c485dce45",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1348,15 +1483,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "b32a4b4a-e7ad-41ef-8d9d-29313302c54e",
+          "uuid": "905e98b1-e032-41da-8dd9-b4abcbc5e70d",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1367,26 +1505,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9adc2310-092b-411d-a54b-82062e8538bf",
+      "uuid": "0aa86bbe-5a2d-4208-b938-d0bf8085935e",
       "documentation": "List all persons in a large person group, and retrieve person information (including personId, name, userData and persistedFaceIds of registered faces of the person).",
       "method": "get",
       "endpoint": "largepersongroups/:largePersonGroupId/persons",
       "responses": [
         {
-          "uuid": "5242c2c9-1bcf-4ae7-a2b2-6a54a045ac25",
+          "uuid": "440867a4-b823-4d08-8ac5-a5a896a7622f",
           "body": "[\n  {\n    \"name\": \"\",\n    \"userData\": \"\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
@@ -1397,15 +1537,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "903441a8-7f89-4a1f-94dd-4898223c9993",
+          "uuid": "45904f53-11c7-485c-9f67-f86ad85c6b38",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1416,26 +1559,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "03be2b74-7954-486e-a443-e33826db0297",
+      "uuid": "b04f0035-8ca6-40ec-aa23-704d395cd946",
       "documentation": "Create a new person in a specified large person group.",
       "method": "post",
       "endpoint": "largepersongroups/:largePersonGroupId/persons",
       "responses": [
         {
-          "uuid": "bb1683a8-41e9-4ce3-9e04-63ea1f16d9e4",
+          "uuid": "5656d8ac-005e-4bb9-9745-b8169150dcf6",
           "body": "{\n  \"name\": \"\",\n  \"userData\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1446,15 +1591,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "24856e3b-9d1a-439d-ab59-b18291679f7f",
+          "uuid": "7900abdc-59b2-4f40-b20c-9f70559a0869",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1465,26 +1613,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "74adb255-4dff-495d-8da2-96ecd1b7ca5f",
+      "uuid": "c9cd2544-d3a2-45a8-8702-2ef58fae8544",
       "documentation": "Delete an existing person from a large person group. The persistedFaceId, userData, person name and face feature in the person entry will all be deleted.",
       "method": "delete",
       "endpoint": "largepersongroups/:largePersonGroupId/persons/:personId",
       "responses": [
         {
-          "uuid": "ab4bd0aa-d902-49a8-a628-7eacbeadda02",
+          "uuid": "2fa8f0d5-bda8-4fcd-8428-53207bf385fa",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1495,15 +1645,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "4379a6c2-0e85-46c0-9fb4-c8428ca1cb46",
+          "uuid": "c8e0c778-4616-46ec-bb9f-970a8db627ed",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1514,26 +1667,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "c98aab4c-9642-44cb-a3b2-8e526cacbe8f",
+      "uuid": "818327e2-9497-41d5-95ba-349800b1b7da",
       "documentation": "Retrieve a person's name and userData, and the persisted faceIds representing the registered person face feature.",
       "method": "get",
       "endpoint": "largepersongroups/:largePersonGroupId/persons/:personId",
       "responses": [
         {
-          "uuid": "9d3f139f-575b-49b7-84bf-eb5ac81ac5d7",
+          "uuid": "ea953a6b-e041-4544-b816-550960ad685c",
           "body": "{\n  \"name\": \"\",\n  \"userData\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1544,15 +1699,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "535b866b-f97f-40b2-823e-14c5ea1119b6",
+          "uuid": "54f02931-1b77-421b-9bcf-12b9bbe6126f",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1563,26 +1721,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f8b5d0c9-437c-45a6-92fc-5660c5490405",
+      "uuid": "ef06b0e2-f59e-41b4-9522-9bdb19b51025",
       "documentation": "Update name or userData of a person.",
       "method": "patch",
       "endpoint": "largepersongroups/:largePersonGroupId/persons/:personId",
       "responses": [
         {
-          "uuid": "0a323fd3-6270-4467-bb76-5723e283a7ad",
+          "uuid": "098e21ab-e091-4971-bd70-be2c9a02229a",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1593,15 +1753,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "ef8369cb-8b0f-4fa8-9ae5-a05d41a12639",
+          "uuid": "4592768c-831b-48c3-ab5e-fcee9ed773c4",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1612,27 +1775,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8257b85b-09e9-46dd-be98-e42cd437445d",
+      "uuid": "61292022-d655-4834-8c4b-c92011b74aab",
       "documentation": "Add a face to a person into a large person group for face identification or verification. To deal with an image contains multiple faces, input face can be specified as an image with a targetFace rectangle. It returns a persistedFaceId representing the added face. No image will be stored. Only the extracted face feature will be stored on server until [LargePersonGroup PersonFace - Delete](/docs/services/563879b61984550e40cbbe8d/operations/599ae2966ac60f11b48b5aa3), [LargePersonGroup Person - Delete](/docs/services/563879b61984550e40cbbe8d/operations/599ade5c6ac60f11b48b5aa2) or [LargePersonGroup - Delete](/docs/services/563879b61984550e40cbbe8d/operations/599adc216ac60f11b48b5a9f) is called.\n<br /> Note persistedFaceId is different from faceId generated by [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236).\n* Higher face image quality means better recognition precision. Please consider high-quality faces: frontal, clear, and face size is 200x200 pixels (100 pixels between eyes) or bigger.\n* Each person entry can hold up to 248 faces.\n* JPEG, PNG, GIF (the first frame), and BMP format are supported. The allowed image file size is from 1KB to 6MB.\n* \"targetFace\" rectangle should contain one face. Zero or multiple faces will be regarded as an error. If the provided \"targetFace\" rectangle is not returned from [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236), there’s no guarantee to detect and add the face successfully.\n* Out of detectable face size (36x36 - 4096x4096 pixels), large head-pose, or large occlusions will cause failures.\n* Adding/deleting faces to/from a same person will be processed sequentially. Adding/deleting faces to/from different persons are processed in parallel.\n* The minimum detectable face size is 36x36 pixels in an image no larger than 1920x1080 pixels. Images with dimensions higher than 1920x1080 pixels will need a proportionally larger minimum face size.\n* Different 'detectionModel' values can be provided. To use and compare different detection models, please refer to [How to specify a detection model](https://docs.microsoft.com/en-us/azure/cognitive-services/face/face-api-how-to-topics/specify-detection-model)\n  | Model | Recommended use-case(s) |\n  | ---------- | -------- |\n  | 'detection_01': | The default detection model for [LargePersonGroup Person - Add Face](/docs/services/563879b61984550e40cbbe8d/operations/599adf2a3a7b9412a4d53f42). Recommend for near frontal face detection. For scenarios with exceptionally large angle (head-pose) faces, occluded faces or wrong image orientation, the faces in such cases may not be detected. |\n  | 'detection_02': | Detection model released in 2019 May with improved accuracy especially on small, side and blurry faces. |",
       "method": "post",
       "endpoint": "largepersongroups/:largePersonGroupId/persons/:personId/persistedfaces",
       "responses": [
         {
-          "uuid": "0f2f48c5-b6db-4ae5-9998-2d0d5fccd59b",
-          "body": "{\n  \"persistedFaceId\": \"{{faker 'random.uuid'}}\",\n  \"userData\": \"\"\n}",
+          "uuid": "495fc2ff-5a93-449d-82bc-f834790f3610",
+          "body": "{\n  \"persistedFaceId\": \"{{faker 'datatype.uuid'}}\",\n  \"userData\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns the new persistedFaceId.",
@@ -1642,15 +1807,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "6b4f90d8-60f2-456c-b0d2-99c68343b683",
+          "uuid": "385cf2e8-8d00-45e3-9058-5b7a14216675",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1661,26 +1829,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "3cf07725-d0ad-477a-a07c-9f8795d4d3b2",
+      "uuid": "32b78de7-8d84-4f4b-b34d-b0b83e64eea0",
       "documentation": "Delete a face from a person in a large person group by specified largePersonGroupId, personId and persistedFaceId.\n<br /> Adding/deleting faces to/from a same person will be processed sequentially. Adding/deleting faces to/from different persons are processed in parallel.",
       "method": "delete",
       "endpoint": "largepersongroups/:largePersonGroupId/persons/:personId/persistedfaces/:persistedFaceId",
       "responses": [
         {
-          "uuid": "8532be92-b930-4e6a-8fb0-b1a0389e1e72",
+          "uuid": "7a943b72-092f-4661-9f86-5ca05a920aa4",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1691,15 +1861,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "c8fe8052-8600-4870-baba-9604f6891692",
+          "uuid": "06e05f9b-1c79-4e75-b5d8-93e660e1d7e6",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1710,27 +1883,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a7253b38-2a8c-4964-9e6c-f151e9f2b471",
+      "uuid": "b9beff95-3022-4767-928e-29a549175dbd",
       "documentation": "Retrieve information about a persisted face (specified by persistedFaceId, personId and its belonging largePersonGroupId).",
       "method": "get",
       "endpoint": "largepersongroups/:largePersonGroupId/persons/:personId/persistedfaces/:persistedFaceId",
       "responses": [
         {
-          "uuid": "49c1a9e6-42e3-4d30-a44f-d6bdff20434d",
-          "body": "{\n  \"persistedFaceId\": \"{{faker 'random.uuid'}}\",\n  \"userData\": \"\"\n}",
+          "uuid": "0fad0fbd-a58a-48a5-a1a1-3f3255e31284",
+          "body": "{\n  \"persistedFaceId\": \"{{faker 'datatype.uuid'}}\",\n  \"userData\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns target persisted face's information (persistedFaceId and userData).",
@@ -1740,15 +1915,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "87a2edb1-d9fc-4bb0-ab73-96aed73053fe",
+          "uuid": "335beb35-38b7-48f9-9dda-f74be33fb5bb",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1759,26 +1937,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "15b9eafe-1934-4064-b690-7fed3d1101d0",
+      "uuid": "5acec6df-09a9-4d62-bba2-0380ed258d61",
       "documentation": "Update a person persisted face's userData field.",
       "method": "patch",
       "endpoint": "largepersongroups/:largePersonGroupId/persons/:personId/persistedfaces/:persistedFaceId",
       "responses": [
         {
-          "uuid": "4ae5363e-af1e-4743-9e90-c12fbfab44ec",
+          "uuid": "d2fde28d-c87e-4f3e-af47-9d807dd86a15",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -1789,15 +1969,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "73a1c851-97da-4e44-900b-3bf115571a3d",
+          "uuid": "e01344e6-9e42-41ed-b36a-298052bf0337",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1808,26 +1991,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "10497dce-ff4a-4e3a-b884-065004c44a91",
+      "uuid": "f95a05a9-e338-4348-982d-b0baa8e6de13",
       "documentation": "Queue a large person group training task, the training task may not be started immediately.",
       "method": "post",
       "endpoint": "largepersongroups/:largePersonGroupId/train",
       "responses": [
         {
-          "uuid": "91e19f9c-e1af-484a-a5fa-4547491c172a",
+          "uuid": "f405243e-4c0f-4049-a546-31700790a6d8",
           "body": "",
           "latency": 0,
           "statusCode": 202,
@@ -1838,15 +2023,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "ac544adb-c04d-4958-b1a5-862d4a6dd295",
+          "uuid": "4e7f98f7-a1e2-4d43-8095-d9b08f78e30c",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1857,26 +2045,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "18ee2b6c-f0b2-41c0-b1a1-a13560a83146",
+      "uuid": "0cbc5c66-c312-41b1-b7fc-95f982a3df0b",
       "documentation": "Retrieve the training status of a large person group (completed or ongoing).",
       "method": "get",
       "endpoint": "largepersongroups/:largePersonGroupId/training",
       "responses": [
         {
-          "uuid": "527763ef-0fa4-453c-8728-1be4ef061ea3",
+          "uuid": "725fa5fd-5db7-4e37-a136-5c84584d4dfc",
           "body": "{\n  \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n  \"lastActionDateTime\": \"{{faker 'date.recent' 365}}\",\n  \"lastSuccessfulTrainingDateTime\": \"{{faker 'date.recent' 365}}\",\n  \"message\": \"\",\n  \"status\": \"{{oneOf (array 'nonstarted' 'running' 'succeeded' 'failed')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1887,15 +2077,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "6182a519-ec7e-4e68-8a2a-52314622e947",
+          "uuid": "50ad7e1e-21d8-4f68-a413-744fbad998ba",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1906,26 +2099,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "d8f55785-7719-46cd-a379-c93743058680",
+      "uuid": "e89cc468-8010-48c1-b5a4-600630158297",
       "documentation": "Retrieve the status of a take/apply snapshot operation.",
       "method": "get",
       "endpoint": "operations/:operationId",
       "responses": [
         {
-          "uuid": "e4ce6aa2-6ca8-4964-90e7-ef75c4afb69f",
+          "uuid": "a844aac8-b5be-49f8-a750-52acb3f77117",
           "body": "{\n  \"createdTime\": \"{{faker 'date.recent' 365}}\",\n  \"lastActionTime\": \"{{faker 'date.recent' 365}}\",\n  \"message\": \"\",\n  \"resourceLocation\": \"\",\n  \"status\": \"{{oneOf (array 'notstarted' 'running' 'succeeded' 'failed')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1936,15 +2131,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "fc356d59-8051-4b30-8092-0fc81540134a",
+          "uuid": "c1a6dd54-d89d-4743-b8cf-2a5f117997b9",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1955,26 +2153,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "975439e7-dced-4660-96c9-572a3e14d9ef",
+      "uuid": "3576b9ab-dac5-4bd8-a6cc-b42d2a6dcd65",
       "documentation": "List person groups’ personGroupId, name, userData and recognitionModel.<br />\n* Person groups are stored in alphabetical order of personGroupId.\n* \"start\" parameter (string, optional) is a user-provided personGroupId value that returned entries have larger ids by string comparison. \"start\" set to empty to indicate return from the first item.\n* \"top\" parameter (int, optional) specifies the number of entries to return. A maximal of 1000 entries can be returned in one call. To fetch more, you can specify \"start\" with the last returned entry’s Id of the current call.\n<br />\nFor example, total 5 person groups: \"group1\", ..., \"group5\".\n<br /> \"start=&top=\" will return all 5 groups.\n<br /> \"start=&top=2\" will return \"group1\", \"group2\".\n<br /> \"start=group2&top=3\" will return \"group3\", \"group4\", \"group5\".\n",
       "method": "get",
       "endpoint": "persongroups",
       "responses": [
         {
-          "uuid": "62db102e-11b9-4b71-a42d-c70fdf72281b",
+          "uuid": "237ff904-4c6e-4cb5-8360-c9a8873ee049",
           "body": "[\n  {\n    \"recognitionModel\": \"{{oneOf (array 'recognition_01' 'recognition_02')}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
@@ -1985,15 +2185,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "1dae2542-e572-49b8-8f5e-14e99000f703",
+          "uuid": "30600bcf-eb79-494e-8dd4-ee5380d7cdb4",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2004,26 +2207,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "853df6d9-3bd7-4575-9fae-e5c207fa9f5c",
+      "uuid": "fb3de9f4-9dcf-4255-84da-9fedbf163416",
       "documentation": "Delete an existing person group. Persisted face features of all people in the person group will also be deleted.",
       "method": "delete",
       "endpoint": "persongroups/:personGroupId",
       "responses": [
         {
-          "uuid": "1d8aaba0-8e41-4423-9960-2946cfc8de57",
+          "uuid": "900a24ef-6c0d-4b74-9d38-ec14d97d4015",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2034,15 +2239,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "f5578b03-7949-4530-aad2-773bd5dff40c",
+          "uuid": "1c30fd4b-f424-4d49-988b-a4af7dfb2ca2",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2053,26 +2261,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2c3023ec-24aa-4f70-8eeb-c3c4eade11be",
+      "uuid": "b9d922cc-dd40-4dc2-b281-cac3c5ab15b0",
       "documentation": "Retrieve person group name, userData and recognitionModel. To get person information under this personGroup, use [PersonGroup Person - List](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395241).",
       "method": "get",
       "endpoint": "persongroups/:personGroupId",
       "responses": [
         {
-          "uuid": "56f9c487-28f0-43f3-a223-5ab74bbaf093",
+          "uuid": "7e33b624-0edf-4579-bb6f-51f2fb2c78be",
           "body": "{\n  \"recognitionModel\": \"{{oneOf (array 'recognition_01' 'recognition_02')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2083,15 +2293,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "21ed109e-65f7-4cb5-a209-3981e7cc2bd0",
+          "uuid": "ea0bc4d9-49c7-4c34-acab-092884fdc1cb",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2102,26 +2315,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "cd8a634e-4a6a-4838-aedc-cfd297897ec9",
+      "uuid": "e296e36a-8bef-4d70-bec0-2e5a2767b4cd",
       "documentation": "Update an existing person group's display name and userData. The properties which does not appear in request body will not be updated.",
       "method": "patch",
       "endpoint": "persongroups/:personGroupId",
       "responses": [
         {
-          "uuid": "6ac782f4-3b97-4260-8ee9-b34efb9fbe4a",
+          "uuid": "80d35747-7da8-4664-9f2b-aeb450ed9282",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2132,15 +2347,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "23e59d34-256e-49fc-963d-6460dcfc31a3",
+          "uuid": "3bcd4533-8738-468a-993d-57c2649b5cc1",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2151,26 +2369,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "c829c86e-8b7e-4724-a4dd-f55ad0841ecb",
+      "uuid": "b4409d18-a11c-4b56-87a1-e04c7946a2f7",
       "documentation": "Create a new person group with specified personGroupId, name, user-provided userData and recognitionModel.\n<br /> A person group is the container of the uploaded person data, including face recognition features.\n<br /> After creation, use [PersonGroup Person - Create](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523c) to add persons into the group, and then call [PersonGroup - Train](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395249) to get this group ready for [Face - Identify](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395239).\n<br /> No image will be stored. Only the person's extracted face features and userData will be stored on server until [PersonGroup Person - Delete](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523d) or [PersonGroup - Delete](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395245) is called.\n<br/>'recognitionModel' should be specified to associate with this person group. The default value for 'recognitionModel' is 'recognition_01', if the latest model needed, please explicitly specify the model you need in this parameter. New faces that are added to an existing person group will use the recognition model that's already associated with the collection. Existing face features in a person group can't be updated to features extracted by another version of recognition model.\n* 'recognition_01': The default recognition model for [PersonGroup - Create](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395244). All those person groups created before 2019 March are bonded with this recognition model.\n* 'recognition_02': Recognition model released in 2019 March. 'recognition_02' is recommended since its overall accuracy is improved compared with 'recognition_01'.\n\nPerson group quota:\n* Free-tier subscription quota: 1,000 person groups. Each holds up to 1,000 persons.\n* S0-tier subscription quota: 1,000,000 person groups. Each holds up to 10,000 persons.\n* to handle larger scale face identification problem, please consider using [LargePersonGroup](/docs/services/563879b61984550e40cbbe8d/operations/599acdee6ac60f11b48b5a9d).",
       "method": "put",
       "endpoint": "persongroups/:personGroupId",
       "responses": [
         {
-          "uuid": "d88b84dd-d51e-4c0a-8e7d-4d1de4d34b7e",
+          "uuid": "cf801fac-acd3-4ee5-a80d-41d56445ae2d",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2181,15 +2401,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "aaa60866-157a-4080-bcba-b3ff62465de2",
+          "uuid": "490ca48b-ac4c-4422-bcec-222e4d01a3b6",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2200,26 +2423,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "fd54d487-fb62-49ae-b0f2-664ba8637cfb",
+      "uuid": "d810d895-9b31-45ff-a49c-4bccf3d03a1d",
       "documentation": "List all persons in a person group, and retrieve person information (including personId, name, userData and persistedFaceIds of registered faces of the person).",
       "method": "get",
       "endpoint": "persongroups/:personGroupId/persons",
       "responses": [
         {
-          "uuid": "75ba8e7f-fbe3-4bb7-a0cd-b482e09def03",
+          "uuid": "9a45c986-cfd1-4d4c-bf6a-620ea88373ba",
           "body": "[\n  {\n    \"name\": \"\",\n    \"userData\": \"\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
@@ -2230,15 +2455,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "0074337a-66b2-41dc-abef-ccbfb19cdefc",
+          "uuid": "02dd255c-b996-4a89-b75e-22354266fa81",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2249,26 +2477,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "796d538a-7b74-4c44-b1c7-9cdc95db4280",
+      "uuid": "01ef3b8d-97d5-4d06-914e-91f39af3dd2b",
       "documentation": "Create a new person in a specified person group.",
       "method": "post",
       "endpoint": "persongroups/:personGroupId/persons",
       "responses": [
         {
-          "uuid": "f111b3b2-0976-4ad7-90c5-07347f3c166a",
+          "uuid": "7bb4d76b-0fd9-43d2-8870-c832137e7ee7",
           "body": "{\n  \"name\": \"\",\n  \"userData\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2279,15 +2509,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "811e9cf7-0269-4098-808b-ad50c25e1eef",
+          "uuid": "4856448a-453e-430e-bec3-19c1360bec40",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2298,26 +2531,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "6b926135-bf49-426d-8fdb-c67da07d7089",
+      "uuid": "75afc329-763f-4bc6-adae-406863f3b355",
       "documentation": "Delete an existing person from a person group. The persistedFaceId, userData, person name and face feature in the person entry will all be deleted.",
       "method": "delete",
       "endpoint": "persongroups/:personGroupId/persons/:personId",
       "responses": [
         {
-          "uuid": "3e963c93-9c53-4432-aff5-82a524442b8d",
+          "uuid": "e6a992dc-82c4-4f66-a731-33845b498ee4",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2328,15 +2563,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "5a0f738a-5d47-45fe-9358-66fae2edd82d",
+          "uuid": "f1477d5c-549d-40cf-8450-fa0993c43118",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2347,26 +2585,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2b01e67c-d24f-440a-b311-edc07093f3b1",
+      "uuid": "c93d9957-ee03-4d6c-a10b-ea9ff763beca",
       "documentation": "Retrieve a person's information, including registered persisted faces, name and userData.",
       "method": "get",
       "endpoint": "persongroups/:personGroupId/persons/:personId",
       "responses": [
         {
-          "uuid": "e3e5c9ba-45cc-4557-b48f-6aae646fb073",
+          "uuid": "502f7f40-f129-4704-99ef-5086cc0d458a",
           "body": "{\n  \"name\": \"\",\n  \"userData\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2377,15 +2617,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "30557ec4-385f-4ef7-8a48-8745476b9740",
+          "uuid": "e53330b3-c104-416a-af22-bd7e7944488a",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2396,26 +2639,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "6ee3164b-baee-456e-80c1-1fedfb0d384d",
+      "uuid": "fc1d7d61-9bc7-40e5-b56a-3dafa6449f9a",
       "documentation": "Update name or userData of a person.",
       "method": "patch",
       "endpoint": "persongroups/:personGroupId/persons/:personId",
       "responses": [
         {
-          "uuid": "39ec9a8f-c1b6-4a03-b38b-d629000f2b2a",
+          "uuid": "009a114d-19d1-450f-8228-2fc50631a2ac",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2426,15 +2671,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "c02b24b8-0448-48b0-bbc0-7bf0b24bb1c0",
+          "uuid": "8d630de6-d402-4add-9719-3ae585e9de4e",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2445,27 +2693,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "e1acc797-1c07-4fbe-bdba-0c99cb901907",
+      "uuid": "276a19a3-f426-4c2d-ac9a-9f87bff90999",
       "documentation": "Add a face to a person into a person group for face identification or verification. To deal with an image contains multiple faces, input face can be specified as an image with a targetFace rectangle. It returns a persistedFaceId representing the added face. No image will be stored. Only the extracted face feature will be stored on server until [PersonGroup PersonFace - Delete](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523e), [PersonGroup Person - Delete](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523d) or [PersonGroup - Delete](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395245) is called.\n<br /> Note persistedFaceId is different from faceId generated by [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236).\n*   Higher face image quality means better recognition precision. Please consider high-quality faces: frontal, clear, and face size is 200x200 pixels (100 pixels between eyes) or bigger.\n*   Each person entry can hold up to 248 faces.\n*   JPEG, PNG, GIF (the first frame), and BMP format are supported. The allowed image file size is from 1KB to 6MB.\n*   \"targetFace\" rectangle should contain one face. Zero or multiple faces will be regarded as an error. If the provided \"targetFace\" rectangle is not returned from [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236), there’s no guarantee to detect and add the face successfully.\n*   Out of detectable face size (36x36 - 4096x4096 pixels), large head-pose, or large occlusions will cause failures.\n*   Adding/deleting faces to/from a same person will be processed sequentially. Adding/deleting faces to/from different persons are processed in parallel.\n* The minimum detectable face size is 36x36 pixels in an image no larger than 1920x1080 pixels. Images with dimensions higher than 1920x1080 pixels will need a proportionally larger minimum face size.\n* Different 'detectionModel' values can be provided. To use and compare different detection models, please refer to [How to specify a detection model](https://docs.microsoft.com/en-us/azure/cognitive-services/face/face-api-how-to-topics/specify-detection-model)\n  | Model | Recommended use-case(s) |\n  | ---------- | -------- |\n  | 'detection_01': | The default detection model for [PersonGroup Person - Add Face](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523b). Recommend for near frontal face detection. For scenarios with exceptionally large angle (head-pose) faces, occluded faces or wrong image orientation, the faces in such cases may not be detected. |\n  | 'detection_02': | Detection model released in 2019 May with improved accuracy especially on small, side and blurry faces. |",
       "method": "post",
       "endpoint": "persongroups/:personGroupId/persons/:personId/persistedfaces",
       "responses": [
         {
-          "uuid": "aafce134-edfa-4d65-a4f0-ac38cf89e35e",
-          "body": "{\n  \"persistedFaceId\": \"{{faker 'random.uuid'}}\",\n  \"userData\": \"\"\n}",
+          "uuid": "e1f553f5-79dc-4c81-9f57-6a2b687799fe",
+          "body": "{\n  \"persistedFaceId\": \"{{faker 'datatype.uuid'}}\",\n  \"userData\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns the new persistedFaceId.",
@@ -2475,15 +2725,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "7e851367-f74a-4979-8989-3d0241baa170",
+          "uuid": "f2c8efbd-820f-45b3-9ee0-44cf80d5eabb",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2494,26 +2747,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "6446b296-2074-48a5-9f1a-80ee3b0119c9",
+      "uuid": "2994e28a-fee0-4d93-9d88-b60a9622fa4d",
       "documentation": "Delete a face from a person in a person group by specified personGroupId, personId and persistedFaceId.\n<br /> Adding/deleting faces to/from a same person will be processed sequentially. Adding/deleting faces to/from different persons are processed in parallel.",
       "method": "delete",
       "endpoint": "persongroups/:personGroupId/persons/:personId/persistedfaces/:persistedFaceId",
       "responses": [
         {
-          "uuid": "dbaf3b9c-9be1-4f2f-aed9-4a5a5143275d",
+          "uuid": "9995514c-885c-4548-b894-f34e7cd80bd9",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2524,15 +2779,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "a67e25fb-bebf-4ca2-bef5-abeee89afb23",
+          "uuid": "013495e3-78fb-4e13-89e2-edf786698844",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2543,27 +2801,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "28ae326a-c0f2-423f-9946-a381d72e5a04",
+      "uuid": "cce58c0a-6bfa-48dc-b799-78d7013bfe08",
       "documentation": "Retrieve information about a persisted face (specified by persistedFaceId, personId and its belonging personGroupId).",
       "method": "get",
       "endpoint": "persongroups/:personGroupId/persons/:personId/persistedfaces/:persistedFaceId",
       "responses": [
         {
-          "uuid": "a9ad0ed5-f7d2-40d7-87f8-ef979923b189",
-          "body": "{\n  \"persistedFaceId\": \"{{faker 'random.uuid'}}\",\n  \"userData\": \"\"\n}",
+          "uuid": "8f4f33b5-a43f-4a10-97aa-e002a00666e6",
+          "body": "{\n  \"persistedFaceId\": \"{{faker 'datatype.uuid'}}\",\n  \"userData\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns target persisted face's information (persistedFaceId and userData).",
@@ -2573,15 +2833,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "bc6a7ab5-e048-47a4-b045-5c7e984fe6b4",
+          "uuid": "21cd865c-e3dd-4d64-ae5a-34131345ba79",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2592,26 +2855,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b7e3fb77-72ea-45cd-8212-4e116f675914",
+      "uuid": "16e1fa03-3f9f-4cd2-8fcd-85f1270f9153",
       "documentation": "Add a face to a person into a person group for face identification or verification. To deal with an image contains multiple faces, input face can be specified as an image with a targetFace rectangle. It returns a persistedFaceId representing the added face. No image will be stored. Only the extracted face feature will be stored on server until [PersonGroup PersonFace - Delete](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523e), [PersonGroup Person - Delete](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523d) or [PersonGroup - Delete](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395245) is called.\n<br /> Note persistedFaceId is different from faceId generated by [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236).\n* Higher face image quality means better recognition precision. Please consider high-quality faces: frontal, clear, and face size is 200x200 pixels (100 pixels between eyes) or bigger.\n* Each person entry can hold up to 248 faces.\n* JPEG, PNG, GIF (the first frame), and BMP format are supported. The allowed image file size is from 1KB to 6MB.\n* \"targetFace\" rectangle should contain one face. Zero or multiple faces will be regarded as an error. If the provided \"targetFace\" rectangle is not returned from [Face - Detect](/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236), there’s no guarantee to detect and add the face successfully.\n* Out of detectable face size (36x36 - 4096x4096 pixels), large head-pose, or large occlusions will cause failures.\n* Adding/deleting faces to/from a same person will be processed sequentially. Adding/deleting faces to/from different persons are processed in parallel.",
       "method": "patch",
       "endpoint": "persongroups/:personGroupId/persons/:personId/persistedfaces/:persistedFaceId",
       "responses": [
         {
-          "uuid": "c9bd7da5-640d-4c13-8312-182c1bf8446e",
+          "uuid": "2102e6ab-2789-4994-9b7f-94b49d7de277",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2622,15 +2887,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "1ae357cd-5ba6-402e-8c35-d92e317a4b29",
+          "uuid": "694bbc5e-b40f-4089-862e-25411a87c1fe",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2641,26 +2909,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "4291b42a-a1ca-427d-99d6-594dccbc7266",
+      "uuid": "d42c79e3-5691-4e26-9d26-c69bbbf03c9c",
       "documentation": "Queue a person group training task, the training task may not be started immediately.",
       "method": "post",
       "endpoint": "persongroups/:personGroupId/train",
       "responses": [
         {
-          "uuid": "548146cb-2582-4fc6-8511-55240293bd1e",
+          "uuid": "b60fe3ff-372c-4d18-b061-76643d44de7d",
           "body": "",
           "latency": 0,
           "statusCode": 202,
@@ -2671,15 +2941,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "94344766-0e08-4496-bea9-90932f3ed131",
+          "uuid": "5fe59b05-39a1-4a25-b97d-abf387b66430",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2690,26 +2963,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f830f53d-4963-4e73-bbaa-fe71d46af826",
+      "uuid": "a1f86ade-a73c-4040-949e-f98e3f6e18bd",
       "documentation": "Retrieve the training status of a person group (completed or ongoing).",
       "method": "get",
       "endpoint": "persongroups/:personGroupId/training",
       "responses": [
         {
-          "uuid": "0029ae39-84b7-4354-9a77-0b1eb3803943",
+          "uuid": "42b03d14-6776-4b4c-afab-7d3650007284",
           "body": "{\n  \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n  \"lastActionDateTime\": \"{{faker 'date.recent' 365}}\",\n  \"lastSuccessfulTrainingDateTime\": \"{{faker 'date.recent' 365}}\",\n  \"message\": \"\",\n  \"status\": \"{{oneOf (array 'nonstarted' 'running' 'succeeded' 'failed')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2720,15 +2995,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "d700c5b2-cef7-4c0b-bd8d-83496a799c9a",
+          "uuid": "b278cca4-3ac5-4b34-8388-367516bff90b",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2739,27 +3017,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "ab685450-d3e9-46c6-bcec-b802f4579852",
+      "uuid": "8d8da097-8c1e-44cb-967a-1f5e88a0ba2f",
       "documentation": "List all accessible snapshots with related information, including snapshots that were taken by the user, or snapshots to be applied to the user (subscription id was included in the applyScope in Snapshot - Take).",
       "method": "get",
       "endpoint": "snapshots",
       "responses": [
         {
-          "uuid": "a06ec1bd-3b12-436b-88cc-7a569a8ebdd9",
-          "body": "[\n  {\n    \"account\": \"\",\n    \"applyScope\": [\n      \"{{faker 'random.uuid'}}\"\n    ],\n    \"createdTime\": \"{{faker 'date.recent' 365}}\",\n    \"id\": \"{{faker 'random.uuid'}}\",\n    \"lastUpdateTime\": \"{{faker 'date.recent' 365}}\",\n    \"type\": \"{{oneOf (array 'FaceList' 'LargeFaceList' 'LargePersonGroup' 'PersonGroup')}}\",\n    \"userData\": \"\"\n  }\n]",
+          "uuid": "1081f09a-a731-4e33-83f7-a8f0d3123912",
+          "body": "[\n  {\n    \"account\": \"\",\n    \"applyScope\": [\n      \"{{faker 'datatype.uuid'}}\"\n    ],\n    \"createdTime\": \"{{faker 'date.recent' 365}}\",\n    \"id\": \"{{faker 'datatype.uuid'}}\",\n    \"lastUpdateTime\": \"{{faker 'date.recent' 365}}\",\n    \"type\": \"{{oneOf (array 'FaceList' 'LargeFaceList' 'LargePersonGroup' 'PersonGroup')}}\",\n    \"userData\": \"\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns an array of snapshots with snapshot information.",
@@ -2769,15 +3049,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "9aa9cce1-14be-4b73-a67a-9d780efb0ec8",
+          "uuid": "ac4b3d5f-2e9f-4d8e-959a-c6f308ee665e",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2788,26 +3071,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "909d24fa-4b5b-4d26-a9bf-edc71e4253d8",
+      "uuid": "05049eec-8edc-49d2-b578-d21a5133ed70",
       "documentation": "Submit an operation to take a snapshot of face list, large face list, person group or large person group, with user-specified snapshot type, source object id, apply scope and an optional user data.<br />\nThe snapshot interfaces are for users to backup and restore their face data from one face subscription to another, inside same region or across regions. The workflow contains two phases, user first calls Snapshot - Take to create a copy of the source object and store it as a snapshot, then calls Snapshot - Apply to paste the snapshot to target subscription. The snapshots are stored in a centralized location (per Azure instance), so that they can be applied cross accounts and regions.<br />\nTaking snapshot is an asynchronous operation. An operation id can be obtained from the \"Operation-Location\" field in response header, to be used in OperationStatus - Get for tracking the progress of creating the snapshot. The snapshot id will be included in the \"resourceLocation\" field in OperationStatus - Get response when the operation status is \"succeeded\".<br />\nSnapshot taking time depends on the number of person and face entries in the source object. It could be in seconds, or up to several hours for 1,000,000 persons with multiple faces.<br />\nSnapshots will be automatically expired and cleaned in 48 hours after it is created by Snapshot - Take. User can delete the snapshot using Snapshot - Delete by themselves any time before expiration.<br />\nTaking snapshot for a certain object will not block any other operations against the object. All read-only operations (Get/List and Identify/FindSimilar/Verify) can be conducted as usual. For all writable operations, including Add/Update/Delete the source object or its persons/faces and Train, they are not blocked but not recommended because writable updates may not be reflected on the snapshot during its taking. After snapshot taking is completed, all readable and writable operations can work as normal. Snapshot will also include the training results of the source object, which means target subscription the snapshot applied to does not need re-train the target object before calling Identify/FindSimilar.<br />\n* Free-tier subscription quota: 100 take operations per month.\n* S0-tier subscription quota: 100 take operations per day.",
       "method": "post",
       "endpoint": "snapshots",
       "responses": [
         {
-          "uuid": "3a2bfcf2-9b16-46a7-951f-88b13df17a3d",
+          "uuid": "0aa040aa-f450-42aa-b2ed-afdef475eb83",
           "body": "",
           "latency": 0,
           "statusCode": 202,
@@ -2822,15 +3107,18 @@
               "value": ""
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "e545a476-e588-42ba-9d6b-1c4db7903586",
+          "uuid": "ef80e84a-70be-44ee-9e17-6a21f2999c5a",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2841,26 +3129,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "bcf24fcf-0d1b-4562-957d-0d28511076ed",
+      "uuid": "5040bda7-4e7d-4d03-bde1-a3c105ff6717",
       "documentation": "Delete an existing snapshot according to the snapshotId. All object data and information in the snapshot will also be deleted. Only the source subscription who took the snapshot can delete the snapshot. If the user does not delete a snapshot with this API, the snapshot will still be automatically deleted in 48 hours after creation.",
       "method": "delete",
       "endpoint": "snapshots/:snapshotId",
       "responses": [
         {
-          "uuid": "2949324f-aff0-4f90-9260-88877d8ee3d8",
+          "uuid": "7d7e7e3c-a5d6-4471-a23c-840cef59033c",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2871,15 +3161,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "8c392239-d533-4ec6-bc80-f5eea0e2d777",
+          "uuid": "1b896569-cf37-44b0-99e3-8563edd70e6b",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2890,27 +3183,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "7f1e9293-e006-4488-bfc4-5f1576e521bb",
+      "uuid": "237ba46c-5f11-49b3-b6ed-f650b5f5d813",
       "documentation": "Retrieve information about a snapshot. Snapshot is only accessible to the source subscription who took it, and target subscriptions included in the applyScope in Snapshot - Take.",
       "method": "get",
       "endpoint": "snapshots/:snapshotId",
       "responses": [
         {
-          "uuid": "08126b29-3777-4438-b035-ccaba0f47321",
-          "body": "{\n  \"account\": \"\",\n  \"applyScope\": [\n    \"{{faker 'random.uuid'}}\"\n  ],\n  \"createdTime\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'random.uuid'}}\",\n  \"lastUpdateTime\": \"{{faker 'date.recent' 365}}\",\n  \"type\": \"{{oneOf (array 'FaceList' 'LargeFaceList' 'LargePersonGroup' 'PersonGroup')}}\",\n  \"userData\": \"\"\n}",
+          "uuid": "92d84c2f-29fe-4268-a7f5-262b7251f92b",
+          "body": "{\n  \"account\": \"\",\n  \"applyScope\": [\n    \"{{faker 'datatype.uuid'}}\"\n  ],\n  \"createdTime\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"lastUpdateTime\": \"{{faker 'date.recent' 365}}\",\n  \"type\": \"{{oneOf (array 'FaceList' 'LargeFaceList' 'LargePersonGroup' 'PersonGroup')}}\",\n  \"userData\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns the snapshot's information.",
@@ -2920,15 +3215,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "9f744c2d-8fee-4666-ac42-b7f0510c1c0b",
+          "uuid": "9b83677e-9173-41c4-b8fc-30ce8633bc48",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2939,26 +3237,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2158be07-c6c8-4bda-b1bd-968f7c5d0a5d",
+      "uuid": "6d861dd2-481d-4358-b0b7-c2d5879b0333",
       "documentation": "Update the information of a snapshot. Only the source subscription who took the snapshot can update the snapshot.",
       "method": "patch",
       "endpoint": "snapshots/:snapshotId",
       "responses": [
         {
-          "uuid": "036dac23-8337-409b-ab9d-2b695599be8a",
+          "uuid": "5575d101-82a2-4d44-922b-80c0f1030631",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -2969,15 +3269,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "a2fa1802-9b30-43c2-82ee-8ada8932cb63",
+          "uuid": "df6e8c78-879a-44d5-9d14-cf390341a8ed",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2988,26 +3291,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "cd80e298-a6df-4c1c-86b4-cf1aaf747a4e",
+      "uuid": "eb50e20d-fd23-464d-8d0f-57e2483776e0",
       "documentation": "Submit an operation to apply a snapshot to current subscription. For each snapshot, only subscriptions included in the applyScope of Snapshot - Take can apply it.<br />\nThe snapshot interfaces are for users to backup and restore their face data from one face subscription to another, inside same region or across regions. The workflow contains two phases, user first calls Snapshot - Take to create a copy of the source object and store it as a snapshot, then calls Snapshot - Apply to paste the snapshot to target subscription. The snapshots are stored in a centralized location (per Azure instance), so that they can be applied cross accounts and regions.<br />\nApplying snapshot is an asynchronous operation. An operation id can be obtained from the \"Operation-Location\" field in response header, to be used in OperationStatus - Get for tracking the progress of applying the snapshot. The target object id will be included in the \"resourceLocation\" field in OperationStatus - Get response when the operation status is \"succeeded\".<br />\nSnapshot applying time depends on the number of person and face entries in the snapshot object. It could be in seconds, or up to 1 hour for 1,000,000 persons with multiple faces.<br />\nSnapshots will be automatically expired and cleaned in 48 hours after it is created by Snapshot - Take. So the target subscription is required to apply the snapshot in 48 hours since its creation.<br />\nApplying a snapshot will not block any other operations against the target object, however it is not recommended because the correctness cannot be guaranteed during snapshot applying. After snapshot applying is completed, all operations towards the target object can work as normal. Snapshot also includes the training results of the source object, which means target subscription the snapshot applied to does not need re-train the target object before calling Identify/FindSimilar.<br />\nOne snapshot can be applied multiple times in parallel, while currently only CreateNew apply mode is supported, which means the apply operation will fail if target subscription already contains an object of same type and using the same objectId. Users can specify the \"objectId\" in request body to avoid such conflicts.<br />\n* Free-tier subscription quota: 100 apply operations per month.\n* S0-tier subscription quota: 100 apply operations per day.",
       "method": "post",
       "endpoint": "snapshots/:snapshotId/apply",
       "responses": [
         {
-          "uuid": "5aa7d744-eeb6-4aee-9a78-9962f587f6e3",
+          "uuid": "0dbd53b1-5367-41ba-8fa8-b229e4997ce0",
           "body": "",
           "latency": 0,
           "statusCode": 202,
@@ -3022,15 +3327,18 @@
               "value": ""
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "eb9d62ca-b86a-47dd-a80b-5148d944b79f",
+          "uuid": "ad7d32ad-4fb0-4ce6-94c1-680e6b0bb982",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -3041,27 +3349,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b1bec814-6d42-492f-a836-031d6ad3e2f7",
+      "uuid": "0f9956a2-30d8-45ad-9931-9b766cf6b3de",
       "documentation": "Verify whether two faces belong to a same person or whether one face belongs to a person.\n<br/>\nRemarks:<br />\n* Higher face image quality means better identification precision. Please consider high-quality faces: frontal, clear, and face size is 200x200 pixels (100 pixels between eyes) or bigger.\n* For the scenarios that are sensitive to accuracy please make your own judgment.\n* The 'recognitionModel' associated with the query faces' faceIds should be the same as the 'recognitionModel' used by the target face, person group or large person group.\n",
       "method": "post",
       "endpoint": "verify",
       "responses": [
         {
-          "uuid": "b368c2de-7dd5-45a5-9ccc-dc4bea827d2a",
-          "body": "{\n  \"confidence\": {{faker 'random.number'}},\n  \"isIdentical\": {{faker 'random.boolean'}}\n}",
+          "uuid": "bcc0bde0-e051-473c-a440-94881430405a",
+          "body": "{\n  \"confidence\": {{faker 'datatype.number'}},\n  \"isIdentical\": {{faker 'datatype.boolean'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "A successful call returns the verification result.",
@@ -3071,15 +3381,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "ec8ee83b-96ed-4af9-8c53-694255a9ce2c",
+          "uuid": "c1a4d488-0df0-45e0-8245-ce402429ecfd",
           "body": "{\n  \"error\": {\n    \"code\": \"\",\n    \"message\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -3090,17 +3403,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -3128,5 +3443,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

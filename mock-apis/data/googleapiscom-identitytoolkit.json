@@ -1,21 +1,21 @@
 {
-  "uuid": "836c0776-8b10-4c3b-8dc4-e99b5ffecdbf",
-  "lastMigration": 19,
-  "name": "Google Identity Toolkit API",
-  "endpointPrefix": "identitytoolkit/v3/relyingparty",
+  "uuid": "56b71c33-eee6-4ecb-8b71-defea14dddca",
+  "lastMigration": 24,
+  "name": "Identity Toolkit API",
+  "endpointPrefix": "",
   "latency": 0,
   "port": 3000,
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "48b2a90d-ef88-44cb-821e-afce02b5b066",
-      "documentation": "Creates the URI used by the IdP to authenticate the user.",
+      "uuid": "61c50dd3-becf-4a7f-a06f-f720f58820f0",
+      "documentation": "Finishes enrolling a second factor for the user.",
       "method": "post",
-      "endpoint": "createAuthUri",
+      "endpoint": "v2/accounts/mfaEnrollment:finalize",
       "responses": [
         {
-          "uuid": "31db98cd-b7d2-4c28-8fc6-3ae59e8143e8",
-          "body": "{\n  \"allProviders\": [\n    \"\"\n  ],\n  \"authUri\": \"\",\n  \"captchaRequired\": {{faker 'random.boolean'}},\n  \"forExistingProvider\": {{faker 'random.boolean'}},\n  \"kind\": \"identitytoolkit#CreateAuthUriResponse\",\n  \"providerId\": \"\",\n  \"registered\": {{faker 'random.boolean'}},\n  \"sessionId\": \"\",\n  \"signinMethods\": [\n    \"\"\n  ]\n}",
+          "uuid": "20c18531-76d8-4ab2-b30a-747c9918150e",
+          "body": "{\n  \"idToken\": \"\",\n  \"phoneAuthInfo\": {\n    \"androidVerificationProof\": \"\",\n    \"androidVerificationProofExpireTime\": \"\",\n    \"phoneNumber\": \"\"\n  },\n  \"refreshToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -25,27 +25,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a69e020b-ccea-419c-8fb9-ffd8f8dc0ab5",
-      "documentation": "Delete user account.",
+      "uuid": "14ba6485-a54f-4e83-a3c7-5482475d710e",
+      "documentation": "Step one of the MFA enrollment process. In SMS case, this sends an SMS verification code to the user.",
       "method": "post",
-      "endpoint": "deleteAccount",
+      "endpoint": "v2/accounts/mfaEnrollment:start",
       "responses": [
         {
-          "uuid": "2876d266-e134-47a0-ba13-dacf88c8dcec",
-          "body": "{\n  \"kind\": \"identitytoolkit#DeleteAccountResponse\"\n}",
+          "uuid": "e0826d14-8ec1-422d-847f-ec9267d6e336",
+          "body": "{\n  \"phoneSessionInfo\": {\n    \"sessionInfo\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -55,27 +57,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f8249ac8-e404-4aee-aa0f-313590fac57c",
-      "documentation": "Batch download user accounts.",
+      "uuid": "9c2179ff-e6da-4f02-8ba5-dad8ab845d5f",
+      "documentation": "Revokes one second factor from the enrolled second factors for an account.",
       "method": "post",
-      "endpoint": "downloadAccount",
+      "endpoint": "v2/accounts/mfaEnrollment:withdraw",
       "responses": [
         {
-          "uuid": "8b7c5df1-96a1-4e17-9cba-fa6be5e9e18c",
-          "body": "{\n  \"kind\": \"identitytoolkit#DownloadAccountResponse\",\n  \"nextPageToken\": \"\",\n  \"users\": [\n    {\n      \"createdAt\": \"\",\n      \"customAttributes\": \"\",\n      \"customAuth\": {{faker 'random.boolean'}},\n      \"disabled\": {{faker 'random.boolean'}},\n      \"displayName\": \"\",\n      \"email\": \"\",\n      \"emailVerified\": {{faker 'random.boolean'}},\n      \"lastLoginAt\": \"\",\n      \"localId\": \"\",\n      \"passwordHash\": \"\",\n      \"passwordUpdatedAt\": {{faker 'random.float'}},\n      \"phoneNumber\": \"\",\n      \"photoUrl\": \"\",\n      \"providerUserInfo\": [\n        {\n          \"displayName\": \"\",\n          \"email\": \"\",\n          \"federatedId\": \"\",\n          \"phoneNumber\": \"\",\n          \"photoUrl\": \"\",\n          \"providerId\": \"\",\n          \"rawId\": \"\",\n          \"screenName\": \"\"\n        }\n      ],\n      \"rawPassword\": \"\",\n      \"salt\": \"\",\n      \"screenName\": \"\",\n      \"validSince\": \"\",\n      \"version\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "uuid": "94e90552-ebbc-4cb7-858f-1942816c71bd",
+          "body": "{\n  \"idToken\": \"\",\n  \"refreshToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -85,27 +89,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9e190d6c-c5a6-4929-a2a2-639c5a4fd205",
-      "documentation": "Reset password for a user.",
+      "uuid": "eb7de683-1b14-4e3f-892d-55444d71e73b",
+      "documentation": "Verifies the MFA challenge and performs sign-in",
       "method": "post",
-      "endpoint": "emailLinkSignin",
+      "endpoint": "v2/accounts/mfaSignIn:finalize",
       "responses": [
         {
-          "uuid": "bc2100f1-30c3-423c-bafa-8689dec8002f",
-          "body": "{\n  \"email\": \"\",\n  \"expiresIn\": \"\",\n  \"idToken\": \"\",\n  \"isNewUser\": {{faker 'random.boolean'}},\n  \"kind\": \"identitytoolkit#EmailLinkSigninResponse\",\n  \"localId\": \"\",\n  \"refreshToken\": \"\"\n}",
+          "uuid": "e19a04e1-1bd5-4a94-8319-408b53f9ec2e",
+          "body": "{\n  \"idToken\": \"\",\n  \"phoneAuthInfo\": {\n    \"androidVerificationProof\": \"\",\n    \"androidVerificationProofExpireTime\": \"\",\n    \"phoneNumber\": \"\"\n  },\n  \"refreshToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -115,27 +121,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a2836c73-c847-41b4-bfea-1e9f9b3c43f0",
-      "documentation": "Returns the account info.",
+      "uuid": "35235fbb-8acd-456a-8a5f-66d9122c18b6",
+      "documentation": "Sends the MFA challenge",
       "method": "post",
-      "endpoint": "getAccountInfo",
+      "endpoint": "v2/accounts/mfaSignIn:start",
       "responses": [
         {
-          "uuid": "fb66b0f2-7bcc-4a0a-bb2a-89c190bf5613",
-          "body": "{\n  \"kind\": \"identitytoolkit#GetAccountInfoResponse\",\n  \"users\": [\n    {\n      \"createdAt\": \"\",\n      \"customAttributes\": \"\",\n      \"customAuth\": {{faker 'random.boolean'}},\n      \"disabled\": {{faker 'random.boolean'}},\n      \"displayName\": \"\",\n      \"email\": \"\",\n      \"emailVerified\": {{faker 'random.boolean'}},\n      \"lastLoginAt\": \"\",\n      \"localId\": \"\",\n      \"passwordHash\": \"\",\n      \"passwordUpdatedAt\": {{faker 'random.float'}},\n      \"phoneNumber\": \"\",\n      \"photoUrl\": \"\",\n      \"providerUserInfo\": [\n        {\n          \"displayName\": \"\",\n          \"email\": \"\",\n          \"federatedId\": \"\",\n          \"phoneNumber\": \"\",\n          \"photoUrl\": \"\",\n          \"providerId\": \"\",\n          \"rawId\": \"\",\n          \"screenName\": \"\"\n        }\n      ],\n      \"rawPassword\": \"\",\n      \"salt\": \"\",\n      \"screenName\": \"\",\n      \"validSince\": \"\",\n      \"version\": {{faker 'random.number'}}\n    }\n  ]\n}",
+          "uuid": "fc4818c2-ee6a-4794-9f10-31d617401cec",
+          "body": "{\n  \"phoneResponseInfo\": {\n    \"sessionInfo\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -145,57 +153,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "3b1602e2-4e04-417b-bd5a-6881189afbf7",
-      "documentation": "Get a code for user action confirmation.",
-      "method": "post",
-      "endpoint": "getOobConfirmationCode",
-      "responses": [
-        {
-          "uuid": "e930274e-cc91-4f62-aa7a-1e9ea802a917",
-          "body": "{\n  \"email\": \"\",\n  \"kind\": \"identitytoolkit#GetOobConfirmationCodeResponse\",\n  \"oobCode\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "8a64ecbe-e4e7-46b0-af9c-e92d2282876e",
-      "documentation": "Get project configuration.",
+      "uuid": "4bb7f500-f199-4cba-8d6f-5e4baa2483f5",
+      "documentation": "List all default supported Idps.",
       "method": "get",
-      "endpoint": "getProjectConfig",
+      "endpoint": "v2/defaultSupportedIdps",
       "responses": [
         {
-          "uuid": "4536b8b4-e19e-4a9e-b6f9-2c6045627ecf",
-          "body": "{\n  \"allowPasswordUser\": {{faker 'random.boolean'}},\n  \"apiKey\": \"\",\n  \"authorizedDomains\": [\n    \"\"\n  ],\n  \"changeEmailTemplate\": {\n    \"body\": \"\",\n    \"format\": \"\",\n    \"from\": \"\",\n    \"fromDisplayName\": \"\",\n    \"replyTo\": \"\",\n    \"subject\": \"\"\n  },\n  \"dynamicLinksDomain\": \"\",\n  \"enableAnonymousUser\": {{faker 'random.boolean'}},\n  \"idpConfig\": [\n    {\n      \"clientId\": \"\",\n      \"enabled\": {{faker 'random.boolean'}},\n      \"experimentPercent\": {{faker 'random.number'}},\n      \"provider\": \"\",\n      \"secret\": \"\",\n      \"whitelistedAudiences\": [\n        \"\"\n      ]\n    }\n  ],\n  \"legacyResetPasswordTemplate\": {\n    \"body\": \"\",\n    \"format\": \"\",\n    \"from\": \"\",\n    \"fromDisplayName\": \"\",\n    \"replyTo\": \"\",\n    \"subject\": \"\"\n  },\n  \"projectId\": \"\",\n  \"resetPasswordTemplate\": {\n    \"body\": \"\",\n    \"format\": \"\",\n    \"from\": \"\",\n    \"fromDisplayName\": \"\",\n    \"replyTo\": \"\",\n    \"subject\": \"\"\n  },\n  \"useEmailSending\": {{faker 'random.boolean'}},\n  \"verifyEmailTemplate\": {\n    \"body\": \"\",\n    \"format\": \"\",\n    \"from\": \"\",\n    \"fromDisplayName\": \"\",\n    \"replyTo\": \"\",\n    \"subject\": \"\"\n  }\n}",
+          "uuid": "c28a7c30-f2f2-47ce-bff7-a11f044bb496",
+          "body": "{\n  \"defaultSupportedIdps\": [\n    {\n      \"description\": \"\",\n      \"idpId\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -205,56 +185,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "e0a68207-63f3-4506-9c90-081d85bb3862",
-      "documentation": "Get recaptcha secure param.",
-      "method": "get",
-      "endpoint": "getRecaptchaParam",
+      "uuid": "5cf5f7dc-d7d9-4164-a4f9-d01396140a7d",
+      "documentation": "Delete an Oidc Idp configuration for an Identity Toolkit project.",
+      "method": "delete",
+      "endpoint": "v2/:name",
       "responses": [
         {
-          "uuid": "53f664a0-1352-4049-99b0-e817a985d0bf",
-          "body": "{\n  \"kind\": \"identitytoolkit#GetRecaptchaParamResponse\",\n  \"recaptchaSiteKey\": \"\",\n  \"recaptchaStoken\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "951100c7-0b1e-4ed4-a600-463ec64b8109",
-      "documentation": "Get token signing public key.",
-      "method": "get",
-      "endpoint": "publicKeys",
-      "responses": [
-        {
-          "uuid": "bcbde774-a1d3-4a9c-862a-c39b84c9e461",
+          "uuid": "2230acb9-d96f-4ecc-94ee-f478f427eec7",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -265,27 +217,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a2d0ee09-d076-451e-92f6-18503cdbd1b4",
-      "documentation": "Reset password for a user.",
-      "method": "post",
-      "endpoint": "resetPassword",
+      "uuid": "c3d7f8f9-66d8-403c-a2d5-2fc8d168ad82",
+      "documentation": "Retrieve an Oidc Idp configuration for an Identity Toolkit project.",
+      "method": "get",
+      "endpoint": "v2/:name",
       "responses": [
         {
-          "uuid": "1dc4ae5a-9ca0-4f94-8b93-d0488aec38b9",
-          "body": "{\n  \"email\": \"\",\n  \"kind\": \"identitytoolkit#ResetPasswordResponse\",\n  \"newEmail\": \"\",\n  \"requestType\": \"\"\n}",
+          "uuid": "efa897c4-9224-4807-9cd6-1112340b4536",
+          "body": "{\n  \"clientId\": \"\",\n  \"clientSecret\": \"\",\n  \"displayName\": \"\",\n  \"enabled\": {{faker 'datatype.boolean'}},\n  \"issuer\": \"\",\n  \"name\": \"\",\n  \"responseType\": {\n    \"code\": {{faker 'datatype.boolean'}},\n    \"idToken\": {{faker 'datatype.boolean'}},\n    \"token\": {{faker 'datatype.boolean'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -295,27 +249,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2a23b09c-3623-4cb8-9ef4-60e92e919a90",
-      "documentation": "Send SMS verification code.",
-      "method": "post",
-      "endpoint": "sendVerificationCode",
+      "uuid": "a6deaa5a-1e65-42e2-ab74-f1d942995747",
+      "documentation": "Update an Oidc Idp configuration for an Identity Toolkit project.",
+      "method": "patch",
+      "endpoint": "v2/:name",
       "responses": [
         {
-          "uuid": "aaf38991-7e61-4382-b10e-74bc31d247e2",
-          "body": "{\n  \"sessionInfo\": \"\"\n}",
+          "uuid": "dd6706ed-ae63-4755-a8ab-0ab2fedda82d",
+          "body": "{\n  \"clientId\": \"\",\n  \"clientSecret\": \"\",\n  \"displayName\": \"\",\n  \"enabled\": {{faker 'datatype.boolean'}},\n  \"issuer\": \"\",\n  \"name\": \"\",\n  \"responseType\": {\n    \"code\": {{faker 'datatype.boolean'}},\n    \"idToken\": {{faker 'datatype.boolean'}},\n    \"token\": {{faker 'datatype.boolean'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -325,27 +281,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "d9614fc5-22c7-490f-9f1a-ee7140c846c4",
-      "documentation": "Set account info for a user.",
-      "method": "post",
-      "endpoint": "setAccountInfo",
+      "uuid": "cf2f8417-da5c-433c-93b4-b07b8005aef3",
+      "documentation": "List all default supported Idp configurations for an Identity Toolkit project.",
+      "method": "get",
+      "endpoint": "v2/:parent/defaultSupportedIdpConfigs",
       "responses": [
         {
-          "uuid": "47bd6698-ddae-4fe2-8fe8-a41f76af1c6f",
-          "body": "{\n  \"displayName\": \"\",\n  \"email\": \"\",\n  \"emailVerified\": {{faker 'random.boolean'}},\n  \"expiresIn\": \"\",\n  \"idToken\": \"\",\n  \"kind\": \"identitytoolkit#SetAccountInfoResponse\",\n  \"localId\": \"\",\n  \"newEmail\": \"\",\n  \"passwordHash\": \"\",\n  \"photoUrl\": \"\",\n  \"providerUserInfo\": [\n    {\n      \"displayName\": \"\",\n      \"federatedId\": \"\",\n      \"photoUrl\": \"\",\n      \"providerId\": \"\"\n    }\n  ],\n  \"refreshToken\": \"\"\n}",
+          "uuid": "9ebf1fe9-60d8-40ac-a062-6523385a6c6f",
+          "body": "{\n  \"defaultSupportedIdpConfigs\": [\n    {\n      \"appleSignInConfig\": {\n        \"bundleIds\": [\n          \"\"\n        ],\n        \"codeFlowConfig\": {\n          \"keyId\": \"\",\n          \"privateKey\": \"\",\n          \"teamId\": \"\"\n        }\n      },\n      \"clientId\": \"\",\n      \"clientSecret\": \"\",\n      \"enabled\": {{faker 'datatype.boolean'}},\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -355,27 +313,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "ba526c45-b47b-42ae-b08b-81de39b23d61",
-      "documentation": "Set project configuration.",
+      "uuid": "237c2cb1-3cc6-4004-8938-2ee2691d5282",
+      "documentation": "Create a default supported Idp configuration for an Identity Toolkit project.",
       "method": "post",
-      "endpoint": "setProjectConfig",
+      "endpoint": "v2/:parent/defaultSupportedIdpConfigs",
       "responses": [
         {
-          "uuid": "de983eb7-d690-43bc-b049-b95353d93178",
-          "body": "{\n  \"projectId\": \"\"\n}",
+          "uuid": "8c41176d-0809-4e1d-8e93-313b3043087e",
+          "body": "{\n  \"appleSignInConfig\": {\n    \"bundleIds\": [\n      \"\"\n    ],\n    \"codeFlowConfig\": {\n      \"keyId\": \"\",\n      \"privateKey\": \"\",\n      \"teamId\": \"\"\n    }\n  },\n  \"clientId\": \"\",\n  \"clientSecret\": \"\",\n  \"enabled\": {{faker 'datatype.boolean'}},\n  \"name\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -385,27 +345,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "cfae6442-c0f7-46ea-9446-243baaca580e",
-      "documentation": "Sign out user.",
-      "method": "post",
-      "endpoint": "signOutUser",
+      "uuid": "a2f25f61-8077-4091-8e31-f120e30722bf",
+      "documentation": "List all inbound SAML configurations for an Identity Toolkit project.",
+      "method": "get",
+      "endpoint": "v2/:parent/inboundSamlConfigs",
       "responses": [
         {
-          "uuid": "cdb80398-8e4e-4bd0-a0d0-6541450d485d",
-          "body": "{\n  \"localId\": \"\"\n}",
+          "uuid": "a483f986-87bb-4aca-8444-f44d475f61f2",
+          "body": "{\n  \"inboundSamlConfigs\": [\n    {\n      \"displayName\": \"\",\n      \"enabled\": {{faker 'datatype.boolean'}},\n      \"idpConfig\": {\n        \"idpCertificates\": [\n          {\n            \"x509Certificate\": \"\"\n          }\n        ],\n        \"idpEntityId\": \"\",\n        \"signRequest\": {{faker 'datatype.boolean'}},\n        \"ssoUrl\": \"\"\n      },\n      \"name\": \"\",\n      \"spConfig\": {\n        \"callbackUri\": \"\",\n        \"spCertificates\": [\n          {\n            \"expiresAt\": \"\",\n            \"x509Certificate\": \"\"\n          }\n        ],\n        \"spEntityId\": \"\"\n      }\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -415,27 +377,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9375d61f-dcb3-4750-a4e9-ffdae336a081",
-      "documentation": "Signup new user.",
+      "uuid": "39c1c9f1-3250-440f-9070-30d2fe7380ca",
+      "documentation": "Create an inbound SAML configuration for an Identity Toolkit project.",
       "method": "post",
-      "endpoint": "signupNewUser",
+      "endpoint": "v2/:parent/inboundSamlConfigs",
       "responses": [
         {
-          "uuid": "e1a64682-8247-4edb-b1da-a2036a94eac6",
-          "body": "{\n  \"displayName\": \"\",\n  \"email\": \"\",\n  \"expiresIn\": \"\",\n  \"idToken\": \"\",\n  \"kind\": \"identitytoolkit#SignupNewUserResponse\",\n  \"localId\": \"\",\n  \"refreshToken\": \"\"\n}",
+          "uuid": "a675d74f-4881-46b1-81de-09e3d05e9b7c",
+          "body": "{\n  \"displayName\": \"\",\n  \"enabled\": {{faker 'datatype.boolean'}},\n  \"idpConfig\": {\n    \"idpCertificates\": [\n      {\n        \"x509Certificate\": \"\"\n      }\n    ],\n    \"idpEntityId\": \"\",\n    \"signRequest\": {{faker 'datatype.boolean'}},\n    \"ssoUrl\": \"\"\n  },\n  \"name\": \"\",\n  \"spConfig\": {\n    \"callbackUri\": \"\",\n    \"spCertificates\": [\n      {\n        \"expiresAt\": \"\",\n        \"x509Certificate\": \"\"\n      }\n    ],\n    \"spEntityId\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -445,27 +409,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "ef76ee49-8c78-42a3-b08a-44bda06c5b83",
-      "documentation": "Batch upload existing user accounts.",
-      "method": "post",
-      "endpoint": "uploadAccount",
+      "uuid": "1e3b9280-ecec-494c-9b23-ca2c9b60302e",
+      "documentation": "List all Oidc Idp configurations for an Identity Toolkit project.",
+      "method": "get",
+      "endpoint": "v2/:parent/oauthIdpConfigs",
       "responses": [
         {
-          "uuid": "d960d44a-85bb-4136-9b75-f6315f473c38",
-          "body": "{\n  \"error\": [\n    {\n      \"index\": {{faker 'random.number'}},\n      \"message\": \"\"\n    }\n  ],\n  \"kind\": \"identitytoolkit#UploadAccountResponse\"\n}",
+          "uuid": "69ac81c8-f94d-4fbe-a881-8b5af6bedef7",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"oauthIdpConfigs\": [\n    {\n      \"clientId\": \"\",\n      \"clientSecret\": \"\",\n      \"displayName\": \"\",\n      \"enabled\": {{faker 'datatype.boolean'}},\n      \"issuer\": \"\",\n      \"name\": \"\",\n      \"responseType\": {\n        \"code\": {{faker 'datatype.boolean'}},\n        \"idToken\": {{faker 'datatype.boolean'}},\n        \"token\": {{faker 'datatype.boolean'}}\n      }\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -475,27 +441,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "6e4ecd96-299a-4d27-a8ca-adbff117b6e6",
-      "documentation": "Verifies the assertion returned by the IdP.",
+      "uuid": "c5548bed-d0b5-4963-9c2b-a65ebfb8ffbd",
+      "documentation": "Create an Oidc Idp configuration for an Identity Toolkit project.",
       "method": "post",
-      "endpoint": "verifyAssertion",
+      "endpoint": "v2/:parent/oauthIdpConfigs",
       "responses": [
         {
-          "uuid": "60dd2313-83f8-4618-b867-4bbdd32ed344",
-          "body": "{\n  \"action\": \"\",\n  \"appInstallationUrl\": \"\",\n  \"appScheme\": \"\",\n  \"context\": \"\",\n  \"dateOfBirth\": \"\",\n  \"displayName\": \"\",\n  \"email\": \"\",\n  \"emailRecycled\": {{faker 'random.boolean'}},\n  \"emailVerified\": {{faker 'random.boolean'}},\n  \"errorMessage\": \"\",\n  \"expiresIn\": \"\",\n  \"federatedId\": \"\",\n  \"firstName\": \"\",\n  \"fullName\": \"\",\n  \"idToken\": \"\",\n  \"inputEmail\": \"\",\n  \"isNewUser\": {{faker 'random.boolean'}},\n  \"kind\": \"identitytoolkit#VerifyAssertionResponse\",\n  \"language\": \"\",\n  \"lastName\": \"\",\n  \"localId\": \"\",\n  \"needConfirmation\": {{faker 'random.boolean'}},\n  \"needEmail\": {{faker 'random.boolean'}},\n  \"nickName\": \"\",\n  \"oauthAccessToken\": \"\",\n  \"oauthAuthorizationCode\": \"\",\n  \"oauthExpireIn\": {{faker 'random.number'}},\n  \"oauthIdToken\": \"\",\n  \"oauthRequestToken\": \"\",\n  \"oauthScope\": \"\",\n  \"oauthTokenSecret\": \"\",\n  \"originalEmail\": \"\",\n  \"photoUrl\": \"\",\n  \"providerId\": \"\",\n  \"rawUserInfo\": \"\",\n  \"refreshToken\": \"\",\n  \"screenName\": \"\",\n  \"timeZone\": \"\",\n  \"verifiedProvider\": [\n    \"\"\n  ]\n}",
+          "uuid": "d80b4c74-522e-4b17-8b0e-879a71f01cae",
+          "body": "{\n  \"clientId\": \"\",\n  \"clientSecret\": \"\",\n  \"displayName\": \"\",\n  \"enabled\": {{faker 'datatype.boolean'}},\n  \"issuer\": \"\",\n  \"name\": \"\",\n  \"responseType\": {\n    \"code\": {{faker 'datatype.boolean'}},\n    \"idToken\": {{faker 'datatype.boolean'}},\n    \"token\": {{faker 'datatype.boolean'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -505,27 +473,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "bd650f54-de78-4bb8-9aac-923dfa2c12a4",
-      "documentation": "Verifies the developer asserted ID token.",
-      "method": "post",
-      "endpoint": "verifyCustomToken",
+      "uuid": "a00aa826-104d-4b3b-9f75-cef57e31c569",
+      "documentation": "List tenants under the given agent project. Requires read permission on the Agent project.",
+      "method": "get",
+      "endpoint": "v2/:parent/tenants",
       "responses": [
         {
-          "uuid": "7a003392-5a2e-4ac6-8c10-77decf5ed908",
-          "body": "{\n  \"expiresIn\": \"\",\n  \"idToken\": \"\",\n  \"isNewUser\": {{faker 'random.boolean'}},\n  \"kind\": \"identitytoolkit#VerifyCustomTokenResponse\",\n  \"refreshToken\": \"\"\n}",
+          "uuid": "18d0aca7-3e3d-47fc-9189-6ad39d37e4e3",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"tenants\": [\n    {\n      \"allowPasswordSignup\": {{faker 'datatype.boolean'}},\n      \"autodeleteAnonymousUsers\": {{faker 'datatype.boolean'}},\n      \"client\": {\n        \"permissions\": {\n          \"disabledUserDeletion\": {{faker 'datatype.boolean'}},\n          \"disabledUserSignup\": {{faker 'datatype.boolean'}}\n        }\n      },\n      \"disableAuth\": {{faker 'datatype.boolean'}},\n      \"displayName\": \"\",\n      \"enableAnonymousUser\": {{faker 'datatype.boolean'}},\n      \"enableEmailLinkSignin\": {{faker 'datatype.boolean'}},\n      \"hashConfig\": {\n        \"algorithm\": \"{{oneOf (array 'HASH_ALGORITHM_UNSPECIFIED' 'HMAC_SHA256' 'HMAC_SHA1' 'HMAC_MD5' 'SCRYPT' 'PBKDF_SHA1' 'MD5' 'HMAC_SHA512' 'SHA1' 'BCRYPT' 'PBKDF2_SHA256' 'SHA256' 'SHA512' 'STANDARD_SCRYPT')}}\",\n        \"memoryCost\": {{faker 'datatype.number'}},\n        \"rounds\": {{faker 'datatype.number'}},\n        \"saltSeparator\": \"\",\n        \"signerKey\": \"\"\n      },\n      \"inheritance\": {\n        \"emailSendingConfig\": {{faker 'datatype.boolean'}}\n      },\n      \"mfaConfig\": {\n        \"enabledProviders\": [\n          \"{{oneOf (array 'PROVIDER_UNSPECIFIED' 'PHONE_SMS')}}\"\n        ],\n        \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'DISABLED' 'ENABLED' 'MANDATORY')}}\"\n      },\n      \"monitoring\": {\n        \"requestLogging\": {\n          \"enabled\": {{faker 'datatype.boolean'}}\n        }\n      },\n      \"name\": \"\",\n      \"smsRegionConfig\": {\n        \"allowByDefault\": {\n          \"disallowedRegions\": [\n            \"\"\n          ]\n        },\n        \"allowlistOnly\": {\n          \"allowedRegions\": [\n            \"\"\n          ]\n        }\n      },\n      \"testPhoneNumbers\": {}\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -535,27 +505,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8c2e8cfb-51ed-43f1-b5a9-96dcfd2c9bb1",
-      "documentation": "Verifies the user entered password.",
+      "uuid": "c2ce3a1a-3349-4787-aff5-1a1efbbb05a0",
+      "documentation": "Create a tenant. Requires write permission on the Agent project.",
       "method": "post",
-      "endpoint": "verifyPassword",
+      "endpoint": "v2/:parent/tenants",
       "responses": [
         {
-          "uuid": "7d3902f9-e97f-4af5-ac26-bd7dddbd7400",
-          "body": "{\n  \"displayName\": \"\",\n  \"email\": \"\",\n  \"expiresIn\": \"\",\n  \"idToken\": \"\",\n  \"kind\": \"identitytoolkit#VerifyPasswordResponse\",\n  \"localId\": \"\",\n  \"oauthAccessToken\": \"\",\n  \"oauthAuthorizationCode\": \"\",\n  \"oauthExpireIn\": {{faker 'random.number'}},\n  \"photoUrl\": \"\",\n  \"refreshToken\": \"\",\n  \"registered\": {{faker 'random.boolean'}}\n}",
+          "uuid": "55bc6b12-a7de-4e40-8409-b3407ec194ea",
+          "body": "{\n  \"allowPasswordSignup\": {{faker 'datatype.boolean'}},\n  \"autodeleteAnonymousUsers\": {{faker 'datatype.boolean'}},\n  \"client\": {\n    \"permissions\": {\n      \"disabledUserDeletion\": {{faker 'datatype.boolean'}},\n      \"disabledUserSignup\": {{faker 'datatype.boolean'}}\n    }\n  },\n  \"disableAuth\": {{faker 'datatype.boolean'}},\n  \"displayName\": \"\",\n  \"enableAnonymousUser\": {{faker 'datatype.boolean'}},\n  \"enableEmailLinkSignin\": {{faker 'datatype.boolean'}},\n  \"hashConfig\": {\n    \"algorithm\": \"{{oneOf (array 'HASH_ALGORITHM_UNSPECIFIED' 'HMAC_SHA256' 'HMAC_SHA1' 'HMAC_MD5' 'SCRYPT' 'PBKDF_SHA1' 'MD5' 'HMAC_SHA512' 'SHA1' 'BCRYPT' 'PBKDF2_SHA256' 'SHA256' 'SHA512' 'STANDARD_SCRYPT')}}\",\n    \"memoryCost\": {{faker 'datatype.number'}},\n    \"rounds\": {{faker 'datatype.number'}},\n    \"saltSeparator\": \"\",\n    \"signerKey\": \"\"\n  },\n  \"inheritance\": {\n    \"emailSendingConfig\": {{faker 'datatype.boolean'}}\n  },\n  \"mfaConfig\": {\n    \"enabledProviders\": [\n      \"{{oneOf (array 'PROVIDER_UNSPECIFIED' 'PHONE_SMS')}}\"\n    ],\n    \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'DISABLED' 'ENABLED' 'MANDATORY')}}\"\n  },\n  \"monitoring\": {\n    \"requestLogging\": {\n      \"enabled\": {{faker 'datatype.boolean'}}\n    }\n  },\n  \"name\": \"\",\n  \"smsRegionConfig\": {\n    \"allowByDefault\": {\n      \"disallowedRegions\": [\n        \"\"\n      ]\n    },\n    \"allowlistOnly\": {\n      \"allowedRegions\": [\n        \"\"\n      ]\n    }\n  },\n  \"testPhoneNumbers\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -565,27 +537,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b95ebea8-c364-4dbd-93cd-3c228b7da1cd",
-      "documentation": "Verifies ownership of a phone number and creates/updates the user account accordingly.",
+      "uuid": "cb10597a-7503-4df8-85ea-2e76a37879e8",
+      "documentation": "Initialize Identity Platform for a Cloud project. Identity Platform is an end-to-end authentication system for third-party users to access your apps and services. These could include mobile/web apps, games, APIs and beyond. This is the publicly available variant of EnableIdentityPlatform that is only available to billing-enabled projects.",
       "method": "post",
-      "endpoint": "verifyPhoneNumber",
+      "endpoint": "v2/:project/identityPlatform:initializeAuth",
       "responses": [
         {
-          "uuid": "d66947fb-62c5-4051-af4b-de81df4a5494",
-          "body": "{\n  \"expiresIn\": \"\",\n  \"idToken\": \"\",\n  \"isNewUser\": {{faker 'random.boolean'}},\n  \"localId\": \"\",\n  \"phoneNumber\": \"\",\n  \"refreshToken\": \"\",\n  \"temporaryProof\": \"\",\n  \"temporaryProofExpiresIn\": \"\",\n  \"verificationProof\": \"\",\n  \"verificationProofExpiresIn\": \"\"\n}",
+          "uuid": "d950a223-07a2-4e3a-85db-2f5d5b785abf",
+          "body": "{}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -595,17 +569,115 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
+    },
+    {
+      "uuid": "cb56af2b-fd36-4fa9-a01d-c785b9c4e2f3",
+      "documentation": "Gets the access control policy for a resource. An error is returned if the resource does not exist. An empty policy is returned if the resource exists but does not have a policy set on it. Caller must have the right Google IAM permission on the resource.",
+      "method": "post",
+      "endpoint": "v2/:resource:getIamPolicy",
+      "responses": [
+        {
+          "uuid": "22ff9c66-f041-4be8-b32a-b9a8c91f95c9",
+          "body": "{\n  \"auditConfigs\": [\n    {\n      \"auditLogConfigs\": [\n        {\n          \"exemptedMembers\": [\n            \"\"\n          ],\n          \"logType\": \"{{oneOf (array 'LOG_TYPE_UNSPECIFIED' 'ADMIN_READ' 'DATA_WRITE' 'DATA_READ')}}\"\n        }\n      ],\n      \"service\": \"\"\n    }\n  ],\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'datatype.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "87b6560b-e90b-4eab-81e2-bf5958df3750",
+      "documentation": "Sets the access control policy for a resource. If the policy exists, it is replaced. Caller must have the right Google IAM permission on the resource.",
+      "method": "post",
+      "endpoint": "v2/:resource:setIamPolicy",
+      "responses": [
+        {
+          "uuid": "130625eb-36db-4cd2-ac76-d83f3d404498",
+          "body": "{\n  \"auditConfigs\": [\n    {\n      \"auditLogConfigs\": [\n        {\n          \"exemptedMembers\": [\n            \"\"\n          ],\n          \"logType\": \"{{oneOf (array 'LOG_TYPE_UNSPECIFIED' 'ADMIN_READ' 'DATA_WRITE' 'DATA_READ')}}\"\n        }\n      ],\n      \"service\": \"\"\n    }\n  ],\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'datatype.number'}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "1263d32f-b122-4f5f-bedf-d97d7bdba6fa",
+      "documentation": "Returns the caller's permissions on a resource. An error is returned if the resource does not exist. A caller is not required to have Google IAM permission to make this request.",
+      "method": "post",
+      "endpoint": "v2/:resource:testIamPermissions",
+      "responses": [
+        {
+          "uuid": "ea451f43-52f3-400f-ab4e-ca33aa5e20ef",
+          "body": "{\n  \"permissions\": [\n    \"\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -633,5 +705,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

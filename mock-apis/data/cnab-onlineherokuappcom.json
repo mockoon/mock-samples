@@ -1,6 +1,6 @@
 {
-  "uuid": "d4e13fdf-71a5-446c-99fb-26d069daea9c",
-  "lastMigration": 19,
+  "uuid": "f525d646-3762-43b1-8d2f-f3cce1b157d6",
+  "lastMigration": 24,
   "name": "Cnab Online",
   "endpointPrefix": "v1",
   "latency": 0,
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "f74824d9-fdd0-4d94-8a1a-692fb771031e",
+      "uuid": "5ba19cf7-362b-41b7-9ffc-2d548516788e",
       "documentation": "Faz o upload de um arquivo",
       "method": "post",
       "endpoint": "file",
       "responses": [
         {
-          "uuid": "79bfadc4-1f18-43e6-9c2c-c5d773709285",
+          "uuid": "79afcaa1-8ff3-4753-bb74-bc8a65c7c8e5",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -25,15 +25,18 @@
               "value": "multipart/form-data"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "122c79a2-f94d-4fe6-9694-5a9c13d286f8",
+          "uuid": "670df7a3-deb0-4507-81b0-a2a1764b366c",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -44,27 +47,29 @@
               "value": "multipart/form-data"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9ddb6229-0366-49ee-a244-44c930752e6f",
+      "uuid": "1bedb0be-05e5-4dce-bf4b-afc02ef28fa4",
       "documentation": "Retorna as informações básicas de um arquivo previamente processado",
       "method": "get",
       "endpoint": "file/:fileId",
       "responses": [
         {
-          "uuid": "4b5e65ea-0ea7-4552-bdbc-e616e420d700",
-          "body": "{\n  \"data\": {\n    \"attributes\": {\n      \"account_number\": \"\",\n      \"bank_code\": {{faker 'random.number'}},\n      \"bank_name\": \"\",\n      \"company_name\": \"\",\n      \"generation_date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"name\": \"\"\n    },\n    \"id\": \"\",\n    \"type\": \"\"\n  }\n}",
+          "uuid": "830dffc3-db5d-4046-af46-96ca0e8b582a",
+          "body": "{\n  \"data\": {\n    \"attributes\": {\n      \"account_number\": \"\",\n      \"bank_code\": {{faker 'datatype.number'}},\n      \"bank_name\": \"\",\n      \"company_name\": \"\",\n      \"generation_date\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"name\": \"\"\n    },\n    \"id\": \"\",\n    \"type\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Informações básicas do arquivo",
@@ -74,15 +79,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "87e34366-ae72-46c8-9d08-ab852076df65",
+          "uuid": "b666b512-00d1-4267-b951-042ec83c8b01",
           "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"\",\n      \"title\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -93,27 +101,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "02b9ac19-6667-4af0-a478-40838d60306e",
+      "uuid": "38741e28-5412-4207-814e-969d9c105898",
       "documentation": "Retorna todas as linhas e seus respectivos campos (de forma não processada, apenas indicando os campos reconhecidos)",
       "method": "get",
       "endpoint": "file/:fileId/lines",
       "responses": [
         {
-          "uuid": "81108584-4448-4235-8a20-a044b06d3de4",
-          "body": "{\n  \"data\": [\n    {\n      \"attributes\": {\n        \"identified_fields\": [\n          {\n            \"end\": {{faker 'random.number'}},\n            \"name\": \"\",\n            \"start\": {{faker 'random.number'}},\n            \"value\": \"\"\n          }\n        ],\n        \"raw_text\": \"\"\n      },\n      \"id\": \"\",\n      \"type\": \"\"\n    }\n  ]\n}",
+          "uuid": "73766cdd-8713-4807-b98f-d638b7dcb6d2",
+          "body": "{\n  \"data\": [\n    {\n      \"attributes\": {\n        \"identified_fields\": [\n          {\n            \"end\": {{faker 'datatype.number'}},\n            \"name\": \"\",\n            \"start\": {{faker 'datatype.number'}},\n            \"value\": \"\"\n          }\n        ],\n        \"raw_text\": \"\"\n      },\n      \"id\": \"\",\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Informações básicas do arquivo",
@@ -123,15 +133,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "107d6e45-b753-4d48-a032-23341e45e225",
+          "uuid": "80deddd5-9c0a-47fc-a2c3-276698a21ed4",
           "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"\",\n      \"title\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -142,27 +155,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a625feb3-5c73-4935-b001-98f357fd73ad",
+      "uuid": "01845de8-dc5b-4b8e-8efa-6fbf21cc814a",
       "documentation": "Retorna as informações de baixa de boletos e outros tipos de ocorrências",
       "method": "get",
       "endpoint": "file/:fileId/occurrences",
       "responses": [
         {
-          "uuid": "131f0420-192b-4143-9180-aa4ebb7e5cf0",
-          "body": "{\n  \"data\": [\n    {\n      \"attributes\": {\n        \"agency\": \"\",\n        \"bank_tax\": {{faker 'random.number'}},\n        \"charged_agency\": \"\",\n        \"code\": \"\",\n        \"code_name\": \"\",\n        \"credit_date\": \"\",\n        \"discount_value\": {{faker 'random.number'}},\n        \"document_number\": \"\",\n        \"due_date\": \"\",\n        \"iof_tax\": {{faker 'random.number'}},\n        \"is_dda\": \"\",\n        \"is_payment\": {{faker 'random.boolean'}},\n        \"is_rejected_payment\": {{faker 'random.boolean'}},\n        \"liquidation_code\": \"\",\n        \"liquidation_description\": \"\",\n        \"mulct_value\": \"\",\n        \"occurrence_date\": \"\",\n        \"others_credits_value\": {{faker 'random.number'}},\n        \"our_number\": \"\",\n        \"payer_allegation\": \"\",\n        \"rebate_value\": {{faker 'random.number'}},\n        \"received_value\": {{faker 'random.number'}},\n        \"sequencial_number\": {{faker 'random.number'}},\n        \"title_value\": {{faker 'random.number'}},\n        \"wallet\": \"\"\n      },\n      \"id\": {{faker 'random.number'}},\n      \"type\": \"\"\n    }\n  ]\n}",
+          "uuid": "dd6b347b-92b2-411d-a852-befdfee70a67",
+          "body": "{\n  \"data\": [\n    {\n      \"attributes\": {\n        \"agency\": \"\",\n        \"bank_tax\": {{faker 'datatype.number'}},\n        \"charged_agency\": \"\",\n        \"code\": \"\",\n        \"code_name\": \"\",\n        \"credit_date\": \"\",\n        \"discount_value\": {{faker 'datatype.number'}},\n        \"document_number\": \"\",\n        \"due_date\": \"\",\n        \"iof_tax\": {{faker 'datatype.number'}},\n        \"is_dda\": \"\",\n        \"is_payment\": {{faker 'datatype.boolean'}},\n        \"is_rejected_payment\": {{faker 'datatype.boolean'}},\n        \"liquidation_code\": \"\",\n        \"liquidation_description\": \"\",\n        \"mulct_value\": \"\",\n        \"occurrence_date\": \"\",\n        \"others_credits_value\": {{faker 'datatype.number'}},\n        \"our_number\": \"\",\n        \"payer_allegation\": \"\",\n        \"rebate_value\": {{faker 'datatype.number'}},\n        \"received_value\": {{faker 'datatype.number'}},\n        \"sequencial_number\": {{faker 'datatype.number'}},\n        \"title_value\": {{faker 'datatype.number'}},\n        \"wallet\": \"\"\n      },\n      \"id\": {{faker 'datatype.number'}},\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Informações básicas do arquivo",
@@ -172,15 +187,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "b53bb21c-9071-47e4-950d-1a1d2681f9f5",
+          "uuid": "663c8e38-34cd-4dd1-93b1-c3bfa7c97901",
           "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"\",\n      \"title\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -191,17 +209,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -229,5 +249,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

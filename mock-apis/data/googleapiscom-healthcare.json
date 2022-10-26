@@ -1,6 +1,6 @@
 {
-  "uuid": "50c396a3-020c-4227-b4c4-59373027709d",
-  "lastMigration": 19,
+  "uuid": "54235a4d-4520-4ad8-83af-5007a8cd6944",
+  "lastMigration": 24,
   "name": "Cloud Healthcare API",
   "endpointPrefix": "",
   "latency": 0,
@@ -8,14 +8,14 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "5c6b78a0-c013-49d3-bb23-4a27d777f0e0",
+      "uuid": "da7c5408-2ae4-4dda-ac3d-e811586d00ae",
       "documentation": "Checks if a particular data_id of a User data mapping in the specified consent store is consented for the specified use.",
       "method": "post",
       "endpoint": "v1beta1/:consentStore:checkDataAccess",
       "responses": [
         {
-          "uuid": "c7402331-b543-45ef-a6fb-20a3f2f8e138",
-          "body": "{\n  \"consentDetails\": {},\n  \"consented\": {{faker 'random.boolean'}}\n}",
+          "uuid": "c4a54446-1cab-4f4d-96b0-a77c775b7d37",
+          "body": "{\n  \"consentDetails\": {},\n  \"consented\": {{faker 'datatype.boolean'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -25,27 +25,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2d669278-2a1e-4332-95fb-7b9a7f97cec6",
+      "uuid": "68c15145-28a8-42c6-af97-48cd7f9c90fd",
       "documentation": "Evaluates the user's Consents for all matching User data mappings. Note: User data mappings are indexed asynchronously, which can cause a slight delay between the time mappings are created or updated and when they are included in EvaluateUserConsents results.",
       "method": "post",
       "endpoint": "v1beta1/:consentStore:evaluateUserConsents",
       "responses": [
         {
-          "uuid": "d20939c9-fb6a-4f42-940e-dd4cb7f2c624",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"results\": [\n    {\n      \"consentDetails\": {},\n      \"consented\": {{faker 'random.boolean'}},\n      \"dataId\": \"\"\n    }\n  ]\n}",
+          "uuid": "f935825b-1ce1-4f79-a4f5-678cf69dc223",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"results\": [\n    {\n      \"consentDetails\": {},\n      \"consented\": {{faker 'datatype.boolean'}},\n      \"dataId\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -55,27 +57,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "56726662-8a55-4bb4-ac97-79ea9dac6dc9",
+      "uuid": "c6372283-cf75-4f28-9b8f-69b1eed8c317",
       "documentation": "Queries all data_ids that are consented for a specified use in the given consent store and writes them to a specified destination. The returned Operation includes a progress counter for the number of User data mappings processed. If the request is successful, a detailed response is returned of type QueryAccessibleDataResponse, contained in the response field when the operation finishes. The metadata field type is OperationMetadata. Errors are logged to Cloud Logging (see [Viewing error logs in Cloud Logging](https://cloud.google.com/healthcare/docs/how-tos/logging)). For example, the following sample log entry shows a `failed to evaluate consent policy` error that occurred during a QueryAccessibleData call to consent store `projects/{project_id}/locations/{location_id}/datasets/{dataset_id}/consentStores/{consent_store_id}`. ```json jsonPayload: { @type: \"type.googleapis.com/google.cloud.healthcare.logging.QueryAccessibleDataLogEntry\" error: { code: 9 message: \"failed to evaluate consent policy\" } resourceName: \"projects/{project_id}/locations/{location_id}/datasets/{dataset_id}/consentStores/{consent_store_id}/consents/{consent_id}\" } logName: \"projects/{project_id}/logs/healthcare.googleapis.com%2Fquery_accessible_data\" operation: { id: \"projects/{project_id}/locations/{location_id}/datasets/{dataset_id}/operations/{operation_id}\" producer: \"healthcare.googleapis.com/QueryAccessibleData\" } receiveTimestamp: \"TIMESTAMP\" resource: { labels: { consent_store_id: \"{consent_store_id}\" dataset_id: \"{dataset_id}\" location: \"{location_id}\" project_id: \"{project_id}\" } type: \"healthcare_consent_store\" } severity: \"ERROR\" timestamp: \"TIMESTAMP\" ```",
       "method": "post",
       "endpoint": "v1beta1/:consentStore:queryAccessibleData",
       "responses": [
         {
-          "uuid": "c10018bb-2aaa-4d98-9c9f-a809b4352b9e",
-          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "uuid": "f6174737-fd88-4089-becb-9661cdc1d5e5",
+          "body": "{\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -85,26 +89,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "14dbc7b9-3897-4a1e-a6ab-9f238ba0a1e0",
+      "uuid": "7d858fe7-8686-4a54-908a-3ac2270d5d3f",
       "documentation": "Deletes an HL7v2 message.",
       "method": "delete",
       "endpoint": "v1beta1/:name",
       "responses": [
         {
-          "uuid": "c2492034-d390-40c1-94df-6e8f9cfdaf29",
+          "uuid": "9f975a1f-ee0f-477e-ba4c-8e7a8d92e7b5",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -115,27 +121,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "c9c4be21-83a3-4cd3-a38d-441e35a687bc",
+      "uuid": "5fbacd8d-1dab-4b5a-aeaa-3b448aa6f44c",
       "documentation": "Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.",
       "method": "get",
       "endpoint": "v1beta1/:name",
       "responses": [
         {
-          "uuid": "ca402513-5263-467e-a7bc-b394262bdece",
-          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "uuid": "97ea4799-663a-4798-b1a8-c2a3acf377fb",
+          "body": "{\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -145,26 +153,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "897a0fb2-1c1f-46d7-a32e-9726c7f1c25a",
+      "uuid": "0fefbed6-13ff-4685-a932-e044b5c3fbfa",
       "documentation": "Update the message. The contents of the message in Message.data and data extracted from the contents such as Message.create_time can't be altered. Only the Message.labels field is allowed to be updated. The labels in the request are merged with the existing set of labels. Existing labels with the same keys are updated.",
       "method": "patch",
       "endpoint": "v1beta1/:name",
       "responses": [
         {
-          "uuid": "2f3099d1-d7bd-4f88-aa4f-bd7a76157beb",
+          "uuid": "8039f133-e0bb-4509-82a6-a266c3a1c3b8",
           "body": "{\n  \"createTime\": \"\",\n  \"data\": \"\",\n  \"labels\": {},\n  \"messageType\": \"\",\n  \"name\": \"\",\n  \"parsedData\": {\n    \"segments\": [\n      {\n        \"fields\": {},\n        \"segmentId\": \"\",\n        \"setId\": \"\"\n      }\n    ]\n  },\n  \"patientIds\": [\n    {\n      \"type\": \"\",\n      \"value\": \"\"\n    }\n  ],\n  \"schematizedData\": {\n    \"data\": \"\",\n    \"error\": \"\"\n  },\n  \"sendFacility\": \"\",\n  \"sendTime\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -175,26 +185,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9a1d4fb7-cf6b-4665-9fa3-a5673aa46885",
-      "documentation": "Updates the entire contents of a resource. Implements the FHIR standard update interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#update), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#update), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#update)). If the specified resource does not exist and the FHIR store has enable_update_create set, creates the resource with the client-specified ID. It is strongly advised not to include or encode any sensitive data such as patient identifiers in client-specified resource IDs. Those IDs are part of the FHIR resource path recorded in Cloud Audit Logs and Pub/Sub notifications. Those IDs can also be contained in reference fields within other resources. The request body must contain a JSON-encoded FHIR resource, and the request headers must contain `Content-Type: application/fhir+json`. The resource must contain an `id` element having an identical value to the ID in the REST path of the request. On success, the response body contains a JSON-encoded representation of the updated resource, including the server-assigned version ID. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. For samples that show how to call `update`, see [Updating a FHIR resource](/healthcare/docs/how-tos/fhir-resources#updating_a_fhir_resource).",
+      "uuid": "e8d82c95-b57e-4c73-b63a-a3e8c59a80e7",
+      "documentation": "Updates the entire contents of a resource. Implements the FHIR standard update interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#update), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#update), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#update)). If the specified resource does not exist and the FHIR store has enable_update_create set, creates the resource with the client-specified ID. It is strongly advised not to include or encode any sensitive data such as patient identifiers in client-specified resource IDs. Those IDs are part of the FHIR resource path recorded in Cloud Audit Logs and Pub/Sub notifications. Those IDs can also be contained in reference fields within other resources. The request body must contain a JSON-encoded FHIR resource, and the request headers must contain `Content-Type: application/fhir+json`. The resource must contain an `id` element having an identical value to the ID in the REST path of the request. On success, the response body contains a JSON-encoded representation of the updated resource, including the server-assigned version ID. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. For samples that show how to call `update`, see [Updating a FHIR resource](https://cloud.google.com/healthcare/docs/how-tos/fhir-resources#updating_a_fhir_resource).",
       "method": "put",
       "endpoint": "v1beta1/:name",
       "responses": [
         {
-          "uuid": "5693cd14-88ee-4688-bc34-5874ba97ac70",
+          "uuid": "581d2216-d12f-4e2f-b751-2a3b43b53fed",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -205,26 +217,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "30cbb224-2a41-4ead-a4ae-17d63bcf794a",
-      "documentation": "Retrieves a Patient resource and resources related to that patient. Implements the FHIR extended operation Patient-everything ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/patient-operations.html#everything), [STU3](https://hl7.org/implement/standards/fhir/STU3/patient-operations.html#everything), [R4](https://hl7.org/implement/standards/fhir/R4/patient-operations.html#everything)). On success, the response body contains a JSON-encoded representation of a `Bundle` resource of type `searchset`, containing the results of the operation. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. The resources in scope for the response are: * The patient resource itself. * All the resources directly referenced by the patient resource. * Resources directly referencing the patient resource that meet the inclusion criteria. The inclusion criteria are based on the membership rules in the patient compartment definition ([DSTU2](https://hl7.org/fhir/DSTU2/compartment-patient.html), [STU3](http://www.hl7.org/fhir/stu3/compartmentdefinition-patient.html), [R4](https://hl7.org/fhir/R4/compartmentdefinition-patient.html)), which details the eligible resource types and referencing search parameters. For samples that show how to call `Patient-everything`, see [Getting all patient compartment resources](/healthcare/docs/how-tos/fhir-resources#getting_all_patient_compartment_resources).",
+      "uuid": "daac5b4f-f62b-4c47-bf02-6935da5159ab",
+      "documentation": "Retrieves a Patient resource and resources related to that patient. Implements the FHIR extended operation Patient-everything ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/patient-operations.html#everything), [STU3](https://hl7.org/implement/standards/fhir/STU3/patient-operations.html#everything), [R4](https://hl7.org/implement/standards/fhir/R4/patient-operations.html#everything)). On success, the response body contains a JSON-encoded representation of a `Bundle` resource of type `searchset`, containing the results of the operation. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. The resources in scope for the response are: * The patient resource itself. * All the resources directly referenced by the patient resource. * Resources directly referencing the patient resource that meet the inclusion criteria. The inclusion criteria are based on the membership rules in the patient compartment definition ([DSTU2](https://hl7.org/fhir/DSTU2/compartment-patient.html), [STU3](http://www.hl7.org/fhir/stu3/compartmentdefinition-patient.html), [R4](https://hl7.org/fhir/R4/compartmentdefinition-patient.html)), which details the eligible resource types and referencing search parameters. For samples that show how to call `Patient-everything`, see [Getting all patient compartment resources](https://cloud.google.com/healthcare/docs/how-tos/fhir-resources#getting_all_patient_compartment_resources).",
       "method": "get",
       "endpoint": "v1beta1/:name/$everything",
       "responses": [
         {
-          "uuid": "d1e4b464-7631-4398-9e82-0a282e3f5eef",
+          "uuid": "74e6c7ec-48ec-446d-b1fa-d08033e9ac56",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -235,26 +249,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "263081b9-5905-48be-bbf8-b8912a79cd6d",
-      "documentation": "Deletes all the historical versions of a resource (excluding the current version) from the FHIR store. To remove all versions of a resource, first delete the current version and then call this method. This is not a FHIR standard operation. For samples that show how to call `Resource-purge`, see [Deleting historical versions of a FHIR resource](/healthcare/docs/how-tos/fhir-resources#deleting_historical_versions_of_a_fhir_resource).",
+      "uuid": "f2f3277a-aec9-4497-aebb-ae51c67c2d11",
+      "documentation": "Deletes all the historical versions of a resource (excluding the current version) from the FHIR store. To remove all versions of a resource, first delete the current version and then call this method. This is not a FHIR standard operation. For samples that show how to call `Resource-purge`, see [Deleting historical versions of a FHIR resource](https://cloud.google.com/healthcare/docs/how-tos/fhir-resources#deleting_historical_versions_of_a_fhir_resource).",
       "method": "delete",
       "endpoint": "v1beta1/:name/$purge",
       "responses": [
         {
-          "uuid": "68439dee-1aae-4c99-a4c0-4f01f72419d4",
+          "uuid": "11b2f5ee-4a13-416e-9b32-231d451ccf2f",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -265,26 +281,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9a1be8b8-aaf8-484e-ab91-8e0d17eb4aad",
+      "uuid": "bbcf78ca-f7bd-4cac-b154-f0e300051add",
       "documentation": "Translates a code from one value set to another using a concept map. You can provide your own concept maps to translate any code system to another code system. Implements the FHIR standard $translate operation ([DSTU2](https://www.hl7.org/fhir/DSTU2/operation-conceptmap-translate.html), [STU3](https://www.hl7.org/fhir/STU3/operation-conceptmap-translate.html), [R4](https://www.hl7.org/fhir/R4/operation-conceptmap-translate.html)). On success, the response body contains a JSON-encoded representation of a FHIR Parameters resource, which includes the translation result. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead.",
       "method": "get",
       "endpoint": "v1beta1/:name/$translate",
       "responses": [
         {
-          "uuid": "186e0f8f-4306-402f-a6e9-90f9757013b8",
+          "uuid": "361328d1-4cee-41e4-8aeb-2875a326f154",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -295,26 +313,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "1235744e-6365-4a2f-9956-c5f0e6aefafe",
-      "documentation": "Lists all the versions of a resource (including the current version and deleted versions) from the FHIR store. Implements the per-resource form of the FHIR standard history interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#history), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#history), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#history)). On success, the response body contains a JSON-encoded representation of a `Bundle` resource of type `history`, containing the version history sorted from most recent to oldest versions. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. For samples that show how to call `history`, see [Listing FHIR resource versions](/healthcare/docs/how-tos/fhir-resources#listing_fhir_resource_versions).",
+      "uuid": "93db756e-6eaf-4704-9c1d-c65d5a9aeffb",
+      "documentation": "Lists all the versions of a resource (including the current version and deleted versions) from the FHIR store. Implements the per-resource form of the FHIR standard history interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#history), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#history), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#history)). On success, the response body contains a JSON-encoded representation of a `Bundle` resource of type `history`, containing the version history sorted from most recent to oldest versions. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. For samples that show how to call `history`, see [Listing FHIR resource versions](https://cloud.google.com/healthcare/docs/how-tos/fhir-resources#listing_fhir_resource_versions).",
       "method": "get",
       "endpoint": "v1beta1/:name/_history",
       "responses": [
         {
-          "uuid": "3abcd5e8-cea4-455c-9da7-d9e454042b1e",
+          "uuid": "a641db7b-f0cf-4537-bf48-16f1ca0da66a",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -325,26 +345,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "6df0b595-1c38-4364-ba4e-d5dd82eee621",
+      "uuid": "ea559d40-f267-4e56-861a-4ea13775e4ed",
       "documentation": "Gets the FHIR capability statement ([STU3](https://hl7.org/implement/standards/fhir/STU3/capabilitystatement.html), [R4](https://hl7.org/implement/standards/fhir/R4/capabilitystatement.html)), or the [conformance statement](https://hl7.org/implement/standards/fhir/DSTU2/conformance.html) in the DSTU2 case for the store, which contains a description of functionality supported by the server. Implements the FHIR standard capabilities interaction ([STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#capabilities), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#capabilities)), or the [conformance interaction](https://hl7.org/implement/standards/fhir/DSTU2/http.html#conformance) in the DSTU2 case. On success, the response body contains a JSON-encoded representation of a `CapabilityStatement` resource.",
       "method": "get",
       "endpoint": "v1beta1/:name/fhir/metadata",
       "responses": [
         {
-          "uuid": "3f7c2b5b-fd82-4018-be00-2e1dcf8904c6",
+          "uuid": "0011e465-1507-495f-b787-67386bd99b8d",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -355,26 +377,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9f609925-7b76-47be-9261-9bcdbf952d1c",
+      "uuid": "2ab8e7f1-6186-4efe-ac8c-462c836da3af",
       "documentation": "Lists information about the supported locations for this service.",
       "method": "get",
       "endpoint": "v1beta1/:name/locations",
       "responses": [
         {
-          "uuid": "ee751f46-4e65-49a4-9730-590cfeec7fbd",
+          "uuid": "3f75482f-0ca2-4208-8786-7a1a8e35741f",
           "body": "{\n  \"locations\": [\n    {\n      \"displayName\": \"\",\n      \"labels\": {},\n      \"locationId\": \"\",\n      \"metadata\": {},\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -385,27 +409,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b57c5f7b-e721-462d-ac37-137da431c88c",
+      "uuid": "14852c49-81cf-4b77-a757-3e399618b817",
       "documentation": "Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`. NOTE: the `name` binding allows API services to override the binding to use different resource name schemes, such as `users/*/operations`. To override the binding, API services can add a binding such as `\"/v1/{name=users/*}/operations\"` to their service configuration. For backwards compatibility, the default name includes the operations collection id, however overriding users must ensure the name binding is the parent resource, without the operations collection id.",
       "method": "get",
       "endpoint": "v1beta1/:name/operations",
       "responses": [
         {
-          "uuid": "b3812df0-00c0-45d7-b351-537c364a9647",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"operations\": [\n    {\n      \"done\": {{faker 'random.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'random.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"metadata\": {},\n      \"name\": \"\",\n      \"response\": {}\n    }\n  ]\n}",
+          "uuid": "449b2d9a-d3ba-4666-805b-94b622d66775",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"operations\": [\n    {\n      \"done\": {{faker 'datatype.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'datatype.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"metadata\": {},\n      \"name\": \"\",\n      \"response\": {}\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -415,26 +441,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8d5fd2a8-637a-447d-aeb6-b5aecde05558",
+      "uuid": "7479c7e0-7ff8-4c16-a1a1-e55ba0412f67",
       "documentation": "Activates the latest revision of the specified Consent by committing a new revision with `state` updated to `ACTIVE`. If the latest revision of the specified Consent is in the `ACTIVE` state, no new revision is committed. A FAILED_PRECONDITION error occurs if the latest revision of the specified consent is in the `REJECTED` or `REVOKED` state.",
       "method": "post",
       "endpoint": "v1beta1/:name:activate",
       "responses": [
         {
-          "uuid": "e5faf9ad-c5a5-4cbb-9c20-2afeb7b518e3",
+          "uuid": "c4c2ab5d-11fb-44bd-9160-d84339692ccb",
           "body": "{\n  \"consentArtifact\": \"\",\n  \"expireTime\": \"\",\n  \"metadata\": {},\n  \"name\": \"\",\n  \"policies\": [\n    {\n      \"authorizationRule\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"resourceAttributes\": [\n        {\n          \"attributeDefinitionId\": \"\",\n          \"values\": [\n            \"\"\n          ]\n        }\n      ]\n    }\n  ],\n  \"revisionCreateTime\": \"\",\n  \"revisionId\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'ARCHIVED' 'REVOKED' 'DRAFT' 'REJECTED')}}\",\n  \"ttl\": \"\",\n  \"userId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -445,26 +473,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b0601c02-8195-4ad8-a60f-dd439a79bdfa",
+      "uuid": "e9474a6b-0737-4d9f-af2e-f688e3ec4d47",
       "documentation": "Archives the specified User data mapping.",
       "method": "post",
       "endpoint": "v1beta1/:name:archive",
       "responses": [
         {
-          "uuid": "1e3cf621-d807-423f-9e34-14d86e8f226b",
+          "uuid": "1a6078b4-ba84-40cf-8903-88d50a527fcf",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -475,26 +505,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "d993ce2a-54cc-49d0-b9ee-c7150231d477",
+      "uuid": "b0e86882-4221-4e46-bf78-30c1f94b7576",
       "documentation": "Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.",
       "method": "post",
       "endpoint": "v1beta1/:name:cancel",
       "responses": [
         {
-          "uuid": "a3aa531d-a5a0-4db8-bf7c-943bfc22acb4",
+          "uuid": "cfc2503f-0d09-4d7e-80f7-5eca1342d7d8",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -505,27 +537,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "999fca9a-b739-4c63-8765-fea4c572e103",
+      "uuid": "2ac81ff4-e1ec-4803-b69a-aaab0be79b98",
       "documentation": "Configure the search parameters for the FHIR store and reindex resources in the FHIR store according to the defined search parameters. The search parameters provided in this request will replace any previous search configuration. The target SearchParameter resources need to exist in the store before calling ConfigureSearch, otherwise an error will occur. This method returns an Operation that can be used to track the progress of the reindexing by calling GetOperation.",
       "method": "post",
       "endpoint": "v1beta1/:name:configureSearch",
       "responses": [
         {
-          "uuid": "0017e63a-6307-4cde-88f0-6e6354ac433a",
-          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "uuid": "fa8eb32c-ef7b-40a9-a4b3-71be8aa6bb9e",
+          "body": "{\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -535,26 +569,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "179d4faf-6b0e-402d-975a-8e79f4b4610d",
+      "uuid": "1b2e153a-4f0f-4593-bfca-a5bce4175ba3",
       "documentation": "Deletes the specified revision of a Consent. An INVALID_ARGUMENT error occurs if the specified revision is the latest revision.",
       "method": "delete",
       "endpoint": "v1beta1/:name:deleteRevision",
       "responses": [
         {
-          "uuid": "cef1a88e-7715-4a92-a309-08abf0865a49",
+          "uuid": "dc8e6cad-3678-42db-afd5-b823bd3395cb",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -565,27 +601,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2d7272a8-704b-4a01-8d13-b77495c16d2a",
+      "uuid": "66253272-c6d0-4108-a863-e46f58699ed5",
       "documentation": "Evaluate an Annotation store against a ground truth Annotation store. When the operation finishes successfully, a detailed response is returned of type EvaluateAnnotationStoreResponse, contained in the response. The metadata field type is OperationMetadata. Errors are logged to Cloud Logging (see [Viewing error logs in Cloud Logging](https://cloud.google.com/healthcare/docs/how-tos/logging)).",
       "method": "post",
       "endpoint": "v1beta1/:name:evaluate",
       "responses": [
         {
-          "uuid": "e00c37bd-ca28-42e9-bad7-ed3e8fc7ba0e",
-          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "uuid": "9e392771-4b09-4fff-9278-dfdbd8a6811d",
+          "body": "{\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -595,27 +633,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "5770e961-41a7-4952-bfed-63e7363fefc2",
+      "uuid": "a3c10234-2934-457e-980b-75ecf3a93c96",
       "documentation": "Exports the messages to a destination. To filter messages to be exported, define a filter using the start and end time, relative to the message generation time (MSH.7). This API returns an Operation that can be used to track the status of the job by calling GetOperation. Immediate fatal errors appear in the error field. Otherwise, when the operation finishes, a detailed response of type ExportMessagesResponse is returned in the response field. The metadata field type for this operation is OperationMetadata.",
       "method": "post",
       "endpoint": "v1beta1/:name:export",
       "responses": [
         {
-          "uuid": "119716ca-9ee2-4f94-a5ff-b8c7800aee9a",
-          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "uuid": "48b48a7a-461b-4056-8fd8-cad3cec5d0a5",
+          "body": "{\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -625,27 +665,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2ae1d07f-0cc0-488a-bdf6-690378992d56",
+      "uuid": "8dcc5879-a34f-4c7d-94aa-c395cea4df22",
       "documentation": "Import messages to the HL7v2 store by loading data from the specified sources. This method is optimized to load large quantities of data using import semantics that ignore some HL7v2 store configuration options and are not suitable for all use cases. It is primarily intended to load data into an empty HL7v2 store that is not being used by other clients. An existing message will be overwritten if a duplicate message is imported. A duplicate message is a message with the same raw bytes as a message that already exists in this HL7v2 store. When a message is overwritten, its labels will also be overwritten. The import operation is idempotent unless the input data contains multiple valid messages with the same raw bytes but different labels. In that case, after the import completes, the store contains exactly one message with those raw bytes but there is no ordering guarantee on which version of the labels it has. The operation result counters do not count duplicated raw bytes as an error and count one success for each message in the input, which might result in a success count larger than the number of messages in the HL7v2 store. If some messages fail to import, for example due to parsing errors, successfully imported messages are not rolled back. This method returns an Operation that can be used to track the status of the import by calling GetOperation. Immediate fatal errors appear in the error field, errors are also logged to Cloud Logging (see [Viewing error logs in Cloud Logging](https://cloud.google.com/healthcare/docs/how-tos/logging)). Otherwise, when the operation finishes, a response of type ImportMessagesResponse is returned in the response field. The metadata field type for this operation is OperationMetadata.",
       "method": "post",
       "endpoint": "v1beta1/:name:import",
       "responses": [
         {
-          "uuid": "365e91f1-e56c-4b39-bde3-5c95080d6861",
-          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "uuid": "b356b656-9506-457f-ba24-ca1c30839af7",
+          "body": "{\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -655,26 +697,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "962e5c02-53ee-4f2c-b691-fcabf1eea3a8",
+      "uuid": "eb52377a-e4b5-4b20-a4c4-8fa86297b3fe",
       "documentation": "Lists the revisions of the specified Consent in reverse chronological order.",
       "method": "get",
       "endpoint": "v1beta1/:name:listRevisions",
       "responses": [
         {
-          "uuid": "60bb58fb-3aec-466d-b9e1-d4494c8e4362",
+          "uuid": "b0d9106a-f6e2-414a-8567-cb8edb38842a",
           "body": "{\n  \"consents\": [\n    {\n      \"consentArtifact\": \"\",\n      \"expireTime\": \"\",\n      \"metadata\": {},\n      \"name\": \"\",\n      \"policies\": [\n        {\n          \"authorizationRule\": {\n            \"description\": \"\",\n            \"expression\": \"\",\n            \"location\": \"\",\n            \"title\": \"\"\n          },\n          \"resourceAttributes\": [\n            {\n              \"attributeDefinitionId\": \"\",\n              \"values\": [\n                \"\"\n              ]\n            }\n          ]\n        }\n      ],\n      \"revisionCreateTime\": \"\",\n      \"revisionId\": \"\",\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'ARCHIVED' 'REVOKED' 'DRAFT' 'REJECTED')}}\",\n      \"ttl\": \"\",\n      \"userId\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -685,26 +729,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f383a6fc-6a85-4aff-b85d-eaac7a548b68",
+      "uuid": "7b85b3cd-6f1b-4c67-ad8b-b400f2b40b7c",
       "documentation": "Rejects the latest revision of the specified Consent by committing a new revision with `state` updated to `REJECTED`. If the latest revision of the specified Consent is in the `REJECTED` state, no new revision is committed. A FAILED_PRECONDITION error occurs if the latest revision of the specified Consent is in the `ACTIVE` or `REVOKED` state.",
       "method": "post",
       "endpoint": "v1beta1/:name:reject",
       "responses": [
         {
-          "uuid": "d7a0f42f-ae05-4356-8cac-7abc6d019c2b",
+          "uuid": "92afb85c-4cd7-481f-8993-7d07a3476f3c",
           "body": "{\n  \"consentArtifact\": \"\",\n  \"expireTime\": \"\",\n  \"metadata\": {},\n  \"name\": \"\",\n  \"policies\": [\n    {\n      \"authorizationRule\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"resourceAttributes\": [\n        {\n          \"attributeDefinitionId\": \"\",\n          \"values\": [\n            \"\"\n          ]\n        }\n      ]\n    }\n  ],\n  \"revisionCreateTime\": \"\",\n  \"revisionId\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'ARCHIVED' 'REVOKED' 'DRAFT' 'REJECTED')}}\",\n  \"ttl\": \"\",\n  \"userId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -715,26 +761,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "99242a24-f4ef-41e7-97e3-5a45af8effcb",
+      "uuid": "1b6d6612-f556-4664-8ef9-99ef5d5c0c70",
       "documentation": "Revokes the latest revision of the specified Consent by committing a new revision with `state` updated to `REVOKED`. If the latest revision of the specified Consent is in the `REVOKED` state, no new revision is committed. A FAILED_PRECONDITION error occurs if the latest revision of the given consent is in `DRAFT` or `REJECTED` state.",
       "method": "post",
       "endpoint": "v1beta1/:name:revoke",
       "responses": [
         {
-          "uuid": "5da0d77c-66e8-447d-b844-0ddf19c54f29",
+          "uuid": "2b43c3b1-f2b5-4c46-a1ba-303d4b8ea0e5",
           "body": "{\n  \"consentArtifact\": \"\",\n  \"expireTime\": \"\",\n  \"metadata\": {},\n  \"name\": \"\",\n  \"policies\": [\n    {\n      \"authorizationRule\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"resourceAttributes\": [\n        {\n          \"attributeDefinitionId\": \"\",\n          \"values\": [\n            \"\"\n          ]\n        }\n      ]\n    }\n  ],\n  \"revisionCreateTime\": \"\",\n  \"revisionId\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'ARCHIVED' 'REVOKED' 'DRAFT' 'REJECTED')}}\",\n  \"ttl\": \"\",\n  \"userId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -745,27 +793,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "eafe4e1c-a338-40d8-a89f-392c8eb075fd",
+      "uuid": "56e5f384-91ed-4444-b1a8-9665802d6af1",
       "documentation": "Analyze heathcare entity in a document. Its response includes the recognized entity mentions and the relationships between them. AnalyzeEntities uses context aware models to detect entities. This method can only analyze documents written in English.",
       "method": "post",
       "endpoint": "v1beta1/:nlpService:analyzeEntities",
       "responses": [
         {
-          "uuid": "490fe2ce-186c-420a-9ded-685eed26fbfe",
-          "body": "{\n  \"entities\": [\n    {\n      \"entityId\": \"\",\n      \"preferredTerm\": \"\",\n      \"vocabularyCodes\": [\n        \"\"\n      ]\n    }\n  ],\n  \"entityMentions\": [\n    {\n      \"certaintyAssessment\": {\n        \"confidence\": {{faker 'random.float'}},\n        \"value\": \"\"\n      },\n      \"confidence\": {{faker 'random.float'}},\n      \"linkedEntities\": [\n        {\n          \"entityId\": \"\"\n        }\n      ],\n      \"mentionId\": \"\",\n      \"subject\": {\n        \"confidence\": {{faker 'random.float'}},\n        \"value\": \"\"\n      },\n      \"temporalAssessment\": {\n        \"confidence\": {{faker 'random.float'}},\n        \"value\": \"\"\n      },\n      \"text\": {\n        \"beginOffset\": {{faker 'random.number'}},\n        \"content\": \"\"\n      },\n      \"type\": \"\"\n    }\n  ],\n  \"relationships\": [\n    {\n      \"confidence\": {{faker 'random.float'}},\n      \"objectId\": \"\",\n      \"subjectId\": \"\"\n    }\n  ]\n}",
+          "uuid": "e9e75a6c-5fde-4e48-96b6-a80c3bd67216",
+          "body": "{\n  \"entities\": [\n    {\n      \"entityId\": \"\",\n      \"preferredTerm\": \"\",\n      \"vocabularyCodes\": [\n        \"\"\n      ]\n    }\n  ],\n  \"entityMentions\": [\n    {\n      \"certaintyAssessment\": {\n        \"confidence\": {{faker 'datatype.float'}},\n        \"value\": \"\"\n      },\n      \"confidence\": {{faker 'datatype.float'}},\n      \"linkedEntities\": [\n        {\n          \"entityId\": \"\"\n        }\n      ],\n      \"mentionId\": \"\",\n      \"subject\": {\n        \"confidence\": {{faker 'datatype.float'}},\n        \"value\": \"\"\n      },\n      \"temporalAssessment\": {\n        \"confidence\": {{faker 'datatype.float'}},\n        \"value\": \"\"\n      },\n      \"text\": {\n        \"beginOffset\": {{faker 'datatype.number'}},\n        \"content\": \"\"\n      },\n      \"type\": \"\"\n    }\n  ],\n  \"relationships\": [\n    {\n      \"confidence\": {{faker 'datatype.float'}},\n      \"objectId\": \"\",\n      \"subjectId\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -775,26 +825,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "97fc992f-4b57-423f-be96-dd7ad5db3f72",
+      "uuid": "701b3a9a-b0ff-499b-adcb-c698f59d2b08",
       "documentation": "Lists the Annotation stores in the given dataset for a source store.",
       "method": "get",
       "endpoint": "v1beta1/:parent/annotationStores",
       "responses": [
         {
-          "uuid": "90dc32c9-4732-4f59-b5e5-ebd35beb3c30",
+          "uuid": "d88b6127-e912-4a91-aa5b-dbddebb03594",
           "body": "{\n  \"annotationStores\": [\n    {\n      \"labels\": {},\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -805,26 +857,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b3b7f17e-8184-49b1-94af-3a9df93326e4",
+      "uuid": "67459827-899b-4854-891e-730a2b341b86",
       "documentation": "Creates a new Annotation store within the parent dataset.",
       "method": "post",
       "endpoint": "v1beta1/:parent/annotationStores",
       "responses": [
         {
-          "uuid": "34b91a2a-c6b2-42cb-857c-4878f2dca180",
+          "uuid": "f709e4da-8214-42ff-8279-7c2d27d49ce5",
           "body": "{\n  \"labels\": {},\n  \"name\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -835,27 +889,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8d564468-e984-4851-a396-e020b2f371d9",
+      "uuid": "2fb558f3-6669-49d6-9fd2-051667b29e39",
       "documentation": "Lists the Annotations in the given Annotation store for a source resource.",
       "method": "get",
       "endpoint": "v1beta1/:parent/annotations",
       "responses": [
         {
-          "uuid": "80572810-2d92-44bc-9cd1-f310d359792a",
-          "body": "{\n  \"annotations\": [\n    {\n      \"annotationSource\": {\n        \"cloudHealthcareSource\": {\n          \"name\": \"\"\n        }\n      },\n      \"customData\": {},\n      \"imageAnnotation\": {\n        \"boundingPolys\": [\n          {\n            \"label\": \"\",\n            \"vertices\": [\n              {\n                \"x\": {{faker 'random.float'}},\n                \"y\": {{faker 'random.float'}}\n              }\n            ]\n          }\n        ],\n        \"frameIndex\": {{faker 'random.number'}}\n      },\n      \"name\": \"\",\n      \"resourceAnnotation\": {\n        \"label\": \"\"\n      },\n      \"textAnnotation\": {\n        \"details\": {}\n      }\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "uuid": "9c18838e-299d-407d-8a24-64f65122b1eb",
+          "body": "{\n  \"annotations\": [\n    {\n      \"annotationSource\": {\n        \"cloudHealthcareSource\": {\n          \"name\": \"\"\n        }\n      },\n      \"customData\": {},\n      \"imageAnnotation\": {\n        \"boundingPolys\": [\n          {\n            \"label\": \"\",\n            \"vertices\": [\n              {\n                \"x\": {{faker 'datatype.float'}},\n                \"y\": {{faker 'datatype.float'}}\n              }\n            ]\n          }\n        ],\n        \"frameIndex\": {{faker 'datatype.number'}}\n      },\n      \"name\": \"\",\n      \"resourceAnnotation\": {\n        \"label\": \"\"\n      },\n      \"textAnnotation\": {\n        \"details\": {}\n      }\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -865,27 +921,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "7f866b43-fe43-4e3f-8b78-2f615fcd61ea",
+      "uuid": "b6cf84af-f712-41af-be14-7c98c5af67af",
       "documentation": "Creates a new Annotation record. It is valid to create Annotation objects for the same source more than once since a unique ID is assigned to each record by this service.",
       "method": "post",
       "endpoint": "v1beta1/:parent/annotations",
       "responses": [
         {
-          "uuid": "9ea9eb5f-652e-4d9c-872b-434b6765dd9d",
-          "body": "{\n  \"annotationSource\": {\n    \"cloudHealthcareSource\": {\n      \"name\": \"\"\n    }\n  },\n  \"customData\": {},\n  \"imageAnnotation\": {\n    \"boundingPolys\": [\n      {\n        \"label\": \"\",\n        \"vertices\": [\n          {\n            \"x\": {{faker 'random.float'}},\n            \"y\": {{faker 'random.float'}}\n          }\n        ]\n      }\n    ],\n    \"frameIndex\": {{faker 'random.number'}}\n  },\n  \"name\": \"\",\n  \"resourceAnnotation\": {\n    \"label\": \"\"\n  },\n  \"textAnnotation\": {\n    \"details\": {}\n  }\n}",
+          "uuid": "382c9731-4d9c-41b5-a7b4-3069d09a4fec",
+          "body": "{\n  \"annotationSource\": {\n    \"cloudHealthcareSource\": {\n      \"name\": \"\"\n    }\n  },\n  \"customData\": {},\n  \"imageAnnotation\": {\n    \"boundingPolys\": [\n      {\n        \"label\": \"\",\n        \"vertices\": [\n          {\n            \"x\": {{faker 'datatype.float'}},\n            \"y\": {{faker 'datatype.float'}}\n          }\n        ]\n      }\n    ],\n    \"frameIndex\": {{faker 'datatype.number'}}\n  },\n  \"name\": \"\",\n  \"resourceAnnotation\": {\n    \"label\": \"\"\n  },\n  \"textAnnotation\": {\n    \"details\": {}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -895,26 +953,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a68e85f0-c452-465d-8e68-45770a996685",
+      "uuid": "9472bd77-05b3-4006-b371-81bc92a67d18",
       "documentation": "Lists the Attribute definitions in the specified consent store.",
       "method": "get",
       "endpoint": "v1beta1/:parent/attributeDefinitions",
       "responses": [
         {
-          "uuid": "09f85fff-5ffe-4bdd-baf0-1ef0de781338",
+          "uuid": "2809a36e-4df3-427a-80b9-91c5da4fb5dd",
           "body": "{\n  \"attributeDefinitions\": [\n    {\n      \"allowedValues\": [\n        \"\"\n      ],\n      \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'RESOURCE' 'REQUEST')}}\",\n      \"consentDefaultValues\": [\n        \"\"\n      ],\n      \"dataMappingDefaultValue\": \"\",\n      \"description\": \"\",\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -925,26 +985,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "4b65f978-88dc-48d3-9e5b-bbccf86bdaae",
+      "uuid": "487f2b0c-ce4a-4c55-8b1e-cec67fa2e9a8",
       "documentation": "Creates a new Attribute definition in the parent consent store.",
       "method": "post",
       "endpoint": "v1beta1/:parent/attributeDefinitions",
       "responses": [
         {
-          "uuid": "a3ca251d-9063-4217-84c3-632dced92016",
+          "uuid": "93c9f359-c76b-4b9b-9041-5db5b26583b7",
           "body": "{\n  \"allowedValues\": [\n    \"\"\n  ],\n  \"category\": \"{{oneOf (array 'CATEGORY_UNSPECIFIED' 'RESOURCE' 'REQUEST')}}\",\n  \"consentDefaultValues\": [\n    \"\"\n  ],\n  \"dataMappingDefaultValue\": \"\",\n  \"description\": \"\",\n  \"name\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -955,26 +1017,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "bbb8e88e-aa1c-42ee-9e7c-c10e62b052df",
+      "uuid": "1a5c61ea-9f2e-444a-959f-e2b075d5bf6d",
       "documentation": "Lists the Consent artifacts in the specified consent store.",
       "method": "get",
       "endpoint": "v1beta1/:parent/consentArtifacts",
       "responses": [
         {
-          "uuid": "52a45b10-370f-4068-a504-f57d8f57cae2",
+          "uuid": "067855ff-8ff9-449a-8195-d1e88e2aefb2",
           "body": "{\n  \"consentArtifacts\": [\n    {\n      \"consentContentScreenshots\": [\n        {\n          \"gcsUri\": \"\",\n          \"rawBytes\": \"\"\n        }\n      ],\n      \"consentContentVersion\": \"\",\n      \"guardianSignature\": {\n        \"image\": {\n          \"gcsUri\": \"\",\n          \"rawBytes\": \"\"\n        },\n        \"metadata\": {},\n        \"signatureTime\": \"\",\n        \"userId\": \"\"\n      },\n      \"metadata\": {},\n      \"name\": \"\",\n      \"userId\": \"\",\n      \"userSignature\": {\n        \"image\": {\n          \"gcsUri\": \"\",\n          \"rawBytes\": \"\"\n        },\n        \"metadata\": {},\n        \"signatureTime\": \"\",\n        \"userId\": \"\"\n      },\n      \"witnessSignature\": {\n        \"image\": {\n          \"gcsUri\": \"\",\n          \"rawBytes\": \"\"\n        },\n        \"metadata\": {},\n        \"signatureTime\": \"\",\n        \"userId\": \"\"\n      }\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -985,26 +1049,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "3defa8dd-5a94-4520-91f8-777fd6e41d5c",
+      "uuid": "7d523a4a-ac36-4991-951e-c84b7753e097",
       "documentation": "Creates a new Consent artifact in the parent consent store.",
       "method": "post",
       "endpoint": "v1beta1/:parent/consentArtifacts",
       "responses": [
         {
-          "uuid": "7a9723b0-0abe-4938-9e54-08f8607e2cee",
+          "uuid": "e21d3106-1528-49ff-8f62-d36b18d86d9f",
           "body": "{\n  \"consentContentScreenshots\": [\n    {\n      \"gcsUri\": \"\",\n      \"rawBytes\": \"\"\n    }\n  ],\n  \"consentContentVersion\": \"\",\n  \"guardianSignature\": {\n    \"image\": {\n      \"gcsUri\": \"\",\n      \"rawBytes\": \"\"\n    },\n    \"metadata\": {},\n    \"signatureTime\": \"\",\n    \"userId\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"userId\": \"\",\n  \"userSignature\": {\n    \"image\": {\n      \"gcsUri\": \"\",\n      \"rawBytes\": \"\"\n    },\n    \"metadata\": {},\n    \"signatureTime\": \"\",\n    \"userId\": \"\"\n  },\n  \"witnessSignature\": {\n    \"image\": {\n      \"gcsUri\": \"\",\n      \"rawBytes\": \"\"\n    },\n    \"metadata\": {},\n    \"signatureTime\": \"\",\n    \"userId\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1015,27 +1081,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "763f7207-e831-4d87-b493-f258ec145e6e",
+      "uuid": "2f8e58ba-9935-4629-a231-f8871c8355c7",
       "documentation": "Lists the consent stores in the specified dataset.",
       "method": "get",
       "endpoint": "v1beta1/:parent/consentStores",
       "responses": [
         {
-          "uuid": "5515e793-02bc-41e3-aec0-e089878b2ba0",
-          "body": "{\n  \"consentStores\": [\n    {\n      \"defaultConsentTtl\": \"\",\n      \"enableConsentCreateOnUpdate\": {{faker 'random.boolean'}},\n      \"labels\": {},\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "uuid": "e40cb865-560b-411b-9d45-0a5d2f80382e",
+          "body": "{\n  \"consentStores\": [\n    {\n      \"defaultConsentTtl\": \"\",\n      \"enableConsentCreateOnUpdate\": {{faker 'datatype.boolean'}},\n      \"labels\": {},\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -1045,27 +1113,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "bc4374e6-822d-4f8a-994e-78af04278257",
+      "uuid": "1c121019-9ab2-40b3-a79d-89cdcce128dd",
       "documentation": "Creates a new consent store in the parent dataset. Attempting to create a consent store with the same ID as an existing store fails with an ALREADY_EXISTS error.",
       "method": "post",
       "endpoint": "v1beta1/:parent/consentStores",
       "responses": [
         {
-          "uuid": "8cdf6674-6719-4218-9903-a87a2b16c794",
-          "body": "{\n  \"defaultConsentTtl\": \"\",\n  \"enableConsentCreateOnUpdate\": {{faker 'random.boolean'}},\n  \"labels\": {},\n  \"name\": \"\"\n}",
+          "uuid": "a62c6695-53ae-4098-9ae0-ec81add919d2",
+          "body": "{\n  \"defaultConsentTtl\": \"\",\n  \"enableConsentCreateOnUpdate\": {{faker 'datatype.boolean'}},\n  \"labels\": {},\n  \"name\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -1075,26 +1145,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "4d1d8257-814e-4669-8e47-c2d4e3842007",
+      "uuid": "d98fd08f-0550-44f1-b40d-105cea0e01f6",
       "documentation": "Lists the Consent in the given consent store, returning each Consent's latest revision.",
       "method": "get",
       "endpoint": "v1beta1/:parent/consents",
       "responses": [
         {
-          "uuid": "afcf4703-ccc6-4e18-bb49-388392f7c05f",
+          "uuid": "5b48d984-1bc5-4676-80ca-b9d0b1edce45",
           "body": "{\n  \"consents\": [\n    {\n      \"consentArtifact\": \"\",\n      \"expireTime\": \"\",\n      \"metadata\": {},\n      \"name\": \"\",\n      \"policies\": [\n        {\n          \"authorizationRule\": {\n            \"description\": \"\",\n            \"expression\": \"\",\n            \"location\": \"\",\n            \"title\": \"\"\n          },\n          \"resourceAttributes\": [\n            {\n              \"attributeDefinitionId\": \"\",\n              \"values\": [\n                \"\"\n              ]\n            }\n          ]\n        }\n      ],\n      \"revisionCreateTime\": \"\",\n      \"revisionId\": \"\",\n      \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'ARCHIVED' 'REVOKED' 'DRAFT' 'REJECTED')}}\",\n      \"ttl\": \"\",\n      \"userId\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1105,26 +1177,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8a1054dd-bd1c-4bab-a89e-86dbce4d4ba1",
+      "uuid": "4c219300-685c-420f-bc53-86b05ccd05e7",
       "documentation": "Creates a new Consent in the parent consent store.",
       "method": "post",
       "endpoint": "v1beta1/:parent/consents",
       "responses": [
         {
-          "uuid": "c9170233-9f47-4ebd-9426-3118ecac8242",
+          "uuid": "275adf88-8852-49b6-9eeb-9a7101af59ca",
           "body": "{\n  \"consentArtifact\": \"\",\n  \"expireTime\": \"\",\n  \"metadata\": {},\n  \"name\": \"\",\n  \"policies\": [\n    {\n      \"authorizationRule\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"resourceAttributes\": [\n        {\n          \"attributeDefinitionId\": \"\",\n          \"values\": [\n            \"\"\n          ]\n        }\n      ]\n    }\n  ],\n  \"revisionCreateTime\": \"\",\n  \"revisionId\": \"\",\n  \"state\": \"{{oneOf (array 'STATE_UNSPECIFIED' 'ACTIVE' 'ARCHIVED' 'REVOKED' 'DRAFT' 'REJECTED')}}\",\n  \"ttl\": \"\",\n  \"userId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1135,26 +1209,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "7d550aaf-76dc-44d5-810f-01e2a9e6987c",
+      "uuid": "d1bfecb1-3bbe-4c60-bd1e-9b582442d5d5",
       "documentation": "Lists the health datasets in the current project.",
       "method": "get",
       "endpoint": "v1beta1/:parent/datasets",
       "responses": [
         {
-          "uuid": "3c3790be-fad7-4541-8753-de948f860c07",
+          "uuid": "3979b111-fca9-4b63-b5fe-6900a825d30e",
           "body": "{\n  \"datasets\": [\n    {\n      \"name\": \"\",\n      \"timeZone\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1165,27 +1241,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9ed292ec-b207-4bf6-b8b7-089d501b794e",
+      "uuid": "ebc17540-119b-4f26-bbf2-73f9f20da98a",
       "documentation": "Creates a new health dataset. Results are returned through the Operation interface which returns either an `Operation.response` which contains a Dataset or `Operation.error`. The metadata field type is OperationMetadata.",
       "method": "post",
       "endpoint": "v1beta1/:parent/datasets",
       "responses": [
         {
-          "uuid": "00005987-c471-4996-8868-ef763f42d585",
-          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "uuid": "f4d56cc8-6a9a-4152-964d-dbb9a7c52750",
+          "body": "{\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -1195,27 +1273,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "0178c336-488b-4961-96a3-682076769f36",
+      "uuid": "66afa476-1e93-4e0d-84e8-349600a05d2f",
       "documentation": "Lists the DICOM stores in the given dataset.",
       "method": "get",
       "endpoint": "v1beta1/:parent/dicomStores",
       "responses": [
         {
-          "uuid": "f1a1d6b1-b946-404d-9260-78ee288e8f54",
-          "body": "{\n  \"dicomStores\": [\n    {\n      \"labels\": {},\n      \"name\": \"\",\n      \"notificationConfig\": {\n        \"pubsubTopic\": \"\",\n        \"sendForBulkImport\": {{faker 'random.boolean'}}\n      },\n      \"streamConfigs\": [\n        {\n          \"bigqueryDestination\": {\n            \"force\": {{faker 'random.boolean'}},\n            \"tableUri\": \"\",\n            \"writeDisposition\": \"{{oneOf (array 'WRITE_DISPOSITION_UNSPECIFIED' 'WRITE_EMPTY' 'WRITE_TRUNCATE' 'WRITE_APPEND')}}\"\n          }\n        }\n      ]\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "uuid": "f016f515-c345-475d-84e7-c2fb626be6b3",
+          "body": "{\n  \"dicomStores\": [\n    {\n      \"labels\": {},\n      \"name\": \"\",\n      \"notificationConfig\": {\n        \"pubsubTopic\": \"\",\n        \"sendForBulkImport\": {{faker 'datatype.boolean'}}\n      },\n      \"streamConfigs\": [\n        {\n          \"bigqueryDestination\": {\n            \"force\": {{faker 'datatype.boolean'}},\n            \"tableUri\": \"\",\n            \"writeDisposition\": \"{{oneOf (array 'WRITE_DISPOSITION_UNSPECIFIED' 'WRITE_EMPTY' 'WRITE_TRUNCATE' 'WRITE_APPEND')}}\"\n          }\n        }\n      ]\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -1225,27 +1305,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "47f3f575-81f1-4bf4-b0cb-0baaace657da",
+      "uuid": "3ef4a153-2f69-4b80-bd41-6ddd883fbfb1",
       "documentation": "Creates a new DICOM store within the parent dataset.",
       "method": "post",
       "endpoint": "v1beta1/:parent/dicomStores",
       "responses": [
         {
-          "uuid": "54eda29d-6c9a-4462-be23-8ae65d66c19c",
-          "body": "{\n  \"labels\": {},\n  \"name\": \"\",\n  \"notificationConfig\": {\n    \"pubsubTopic\": \"\",\n    \"sendForBulkImport\": {{faker 'random.boolean'}}\n  },\n  \"streamConfigs\": [\n    {\n      \"bigqueryDestination\": {\n        \"force\": {{faker 'random.boolean'}},\n        \"tableUri\": \"\",\n        \"writeDisposition\": \"{{oneOf (array 'WRITE_DISPOSITION_UNSPECIFIED' 'WRITE_EMPTY' 'WRITE_TRUNCATE' 'WRITE_APPEND')}}\"\n      }\n    }\n  ]\n}",
+          "uuid": "3fca83cb-bb16-4fc5-8a0a-9b4957a889dd",
+          "body": "{\n  \"labels\": {},\n  \"name\": \"\",\n  \"notificationConfig\": {\n    \"pubsubTopic\": \"\",\n    \"sendForBulkImport\": {{faker 'datatype.boolean'}}\n  },\n  \"streamConfigs\": [\n    {\n      \"bigqueryDestination\": {\n        \"force\": {{faker 'datatype.boolean'}},\n        \"tableUri\": \"\",\n        \"writeDisposition\": \"{{oneOf (array 'WRITE_DISPOSITION_UNSPECIFIED' 'WRITE_EMPTY' 'WRITE_TRUNCATE' 'WRITE_APPEND')}}\"\n      }\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -1255,26 +1337,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "d92841d6-b558-4130-bb59-589e8d4aee79",
+      "uuid": "7d108b43-2f47-463f-959e-77b5b4f3dbd7",
       "documentation": "DeleteInstance deletes an instance associated with the given study, series, and SOP Instance UID. Delete requests are equivalent to the GET requests specified in the Retrieve transaction. Study and series search results can take a few seconds to be updated after an instance is deleted using DeleteInstance. For samples that show how to call DeleteInstance, see [Deleting a study, series, or instance](https://cloud.google.com/healthcare/docs/how-tos/dicomweb#deleting_a_study_series_or_instance).",
       "method": "delete",
       "endpoint": "v1beta1/:parent/dicomWeb/:dicomWebPath",
       "responses": [
         {
-          "uuid": "56947868-bd3f-425e-b84e-34e1ae5f6d4a",
+          "uuid": "52eb279a-551c-46dc-baac-665dea383b7e",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -1285,26 +1369,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9c1ce4ac-481c-40b7-8ec6-543d472ad51b",
+      "uuid": "3290fc9e-2d1a-4781-846b-0c5c2930c95f",
       "documentation": "RetrieveRenderedFrames returns instances associated with the given study, series, SOP Instance UID and frame numbers in an acceptable Rendered Media Type. See [RetrieveTransaction](http://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_10.4). For details on the implementation of RetrieveRenderedFrames, see [Rendered resources](https://cloud.google.com/healthcare/docs/dicom#rendered_resources) in the Cloud Healthcare API conformance statement. For samples that show how to call RetrieveRenderedFrames, see [Retrieving consumer image formats](https://cloud.google.com/healthcare/docs/how-tos/dicomweb#retrieving_consumer_image_formats).",
       "method": "get",
       "endpoint": "v1beta1/:parent/dicomWeb/:dicomWebPath",
       "responses": [
         {
-          "uuid": "eee3750f-7164-4dc8-99f8-6a3886412434",
+          "uuid": "a445bab3-ee70-4bc6-9051-b8463ec170d2",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1315,26 +1401,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b174e540-6188-41bb-85fd-4a0a038b18c7",
+      "uuid": "7912fda0-d617-4e5e-bf18-377767833efa",
       "documentation": "StoreInstances stores DICOM instances associated with study instance unique identifiers (SUID). See [Store Transaction](http://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_10.5). For details on the implementation of StoreInstances, see [Store transaction](https://cloud.google.com/healthcare/docs/dicom#store_transaction) in the Cloud Healthcare API conformance statement. For samples that show how to call StoreInstances, see [Storing DICOM data](https://cloud.google.com/healthcare/docs/how-tos/dicomweb#storing_dicom_data).",
       "method": "post",
       "endpoint": "v1beta1/:parent/dicomWeb/:dicomWebPath",
       "responses": [
         {
-          "uuid": "a6b79aaf-2528-4b76-a220-51782f6fa315",
+          "uuid": "d28d99b8-19cf-485b-ba92-0c5deaa485d7",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1345,26 +1433,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "1ed55af0-eb2f-4b16-9036-646071b77ede",
-      "documentation": "Executes all the requests in the given Bundle. Implements the FHIR standard batch/transaction interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#transaction), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#transaction), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#transaction)). Supports all interactions within a bundle, except search. This method accepts Bundles of type `batch` and `transaction`, processing them according to the batch processing rules ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#2.1.0.16.1), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#2.21.0.17.1), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#brules)) and transaction processing rules ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#2.1.0.16.2), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#2.21.0.17.2), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#trules)). The request body must contain a JSON-encoded FHIR `Bundle` resource, and the request headers must contain `Content-Type: application/fhir+json`. For a batch bundle or a successful transaction the response body contains a JSON-encoded representation of a `Bundle` resource of type `batch-response` or `transaction-response` containing one entry for each entry in the request, with the outcome of processing the entry. In the case of an error for a transaction bundle, the response body contains a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. This method requires permission for executing the requests in the bundle. The `executeBundle` permission grants permission to execute the request in the bundle but you must grant sufficient permissions to execute the individual requests in the bundle. For example, if the bundle contains a `create` request, you must have permission to execute the `create` request. Logging is available for the `executeBundle` permission. For samples that show how to call `executeBundle`, see [Managing FHIR resources using FHIR bundles](/healthcare/docs/how-tos/fhir-bundles).",
+      "uuid": "15b32189-914a-4c89-a1e2-5fc5e49265a2",
+      "documentation": "Executes all the requests in the given Bundle. Implements the FHIR standard batch/transaction interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#transaction), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#transaction), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#transaction)). Supports all interactions within a bundle, except search. This method accepts Bundles of type `batch` and `transaction`, processing them according to the batch processing rules ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#2.1.0.16.1), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#2.21.0.17.1), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#brules)) and transaction processing rules ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#2.1.0.16.2), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#2.21.0.17.2), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#trules)). The request body must contain a JSON-encoded FHIR `Bundle` resource, and the request headers must contain `Content-Type: application/fhir+json`. For a batch bundle or a successful transaction, the response body contains a JSON-encoded representation of a `Bundle` resource of type `batch-response` or `transaction-response` containing one entry for each entry in the request, with the outcome of processing the entry. In the case of an error for a transaction bundle, the response body contains a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. This method checks permissions for each request in the bundle. The `executeBundle` permission is required to call this method, but you must also grant sufficient permissions to execute the individual requests in the bundle. For example, if the bundle contains a request to create a FHIR resource, the caller must also have been granted the `healthcare.fhirResources.create` permission. You can use audit logs to view the permissions for `executeBundle` and each request in the bundle. For more information, see [Viewing Cloud Audit logs](https://cloud.google.com/healthcare-api/docs/how-tos/audit-logging). For samples that show how to call `executeBundle`, see [Managing FHIR resources using FHIR bundles](https://cloud.google.com/healthcare/docs/how-tos/fhir-bundles).",
       "method": "post",
       "endpoint": "v1beta1/:parent/fhir",
       "responses": [
         {
-          "uuid": "c8605b7e-813b-41cd-9b62-d17546198356",
+          "uuid": "5ca6e913-4ab5-4455-afa1-8573189f798a",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1375,26 +1465,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8a90e3ea-6f66-4bd1-bfd9-05dfe5594a7a",
+      "uuid": "fb23e0ef-729e-4836-a73c-17ff36aa97da",
       "documentation": "Translates a code from one value set to another by searching for appropriate concept maps. Implements the FHIR standard $translate operation ([DSTU2](https://www.hl7.org/fhir/DSTU2/operation-conceptmap-translate.html), [STU3](https://www.hl7.org/fhir/STU3/operation-conceptmap-translate.html), [R4](https://www.hl7.org/fhir/R4/operation-conceptmap-translate.html)). On success, the response body contains a JSON-encoded representation of a FHIR Parameters resource, which includes the translation result. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead.",
       "method": "get",
       "endpoint": "v1beta1/:parent/fhir/ConceptMap/$translate",
       "responses": [
         {
-          "uuid": "5cf482ff-95f1-4273-ae78-4540be752ada",
+          "uuid": "a78d970a-f63a-4de8-b14d-37bbc7790bef",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1405,26 +1497,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9ac946c6-db62-4d88-9122-4a4f017592c8",
+      "uuid": "e8178bb7-7dfb-4a6a-bb05-ffd101cab62f",
       "documentation": "Retrieves the N most recent `Observation` resources for a subject matching search criteria specified as query parameters, grouped by `Observation.code`, sorted from most recent to oldest. Implements the FHIR extended operation Observation-lastn ([STU3](https://hl7.org/implement/standards/fhir/STU3/observation-operations.html#lastn), [R4](https://hl7.org/implement/standards/fhir/R4/observation-operations.html#lastn)). DSTU2 doesn't define the Observation-lastn method, but the server supports it the same way it supports STU3. Search terms are provided as query parameters following the same pattern as the search method. The following search parameters must be provided: - `subject` or `patient` to specify a subject for the Observation. - `code`, `category` or any of the composite parameters that include `code`. Any other valid Observation search parameters can also be provided. This operation accepts an additional query parameter `max`, which specifies N, the maximum number of Observations to return from each group, with a default of 1. Searches with over 1000 results are rejected. Results are counted before grouping and limiting the results with `max`. To stay within the limit, constrain these searches using Observation search parameters such as `_lastUpdated` or `date`. On success, the response body contains a JSON-encoded representation of a `Bundle` resource of type `searchset`, containing the results of the operation. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead.",
       "method": "get",
       "endpoint": "v1beta1/:parent/fhir/Observation/$lastn",
       "responses": [
         {
-          "uuid": "f94b0ca0-9d81-48d0-9cf1-71e9a83ff2b8",
+          "uuid": "4bd11761-af64-4e15-8682-58b4e770c12f",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1435,26 +1529,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "96c2e1a8-54a2-4685-8171-99ff94f9ac77",
-      "documentation": "Searches for resources in the given FHIR store according to criteria specified as query parameters. Implements the FHIR standard search interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#search), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#search), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#search)) using the search semantics described in the FHIR Search specification ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/search.html), [STU3](https://hl7.org/implement/standards/fhir/STU3/search.html), [R4](https://hl7.org/implement/standards/fhir/R4/search.html)). Supports four methods of search defined by the specification: * `GET [base]?[parameters]` to search across all resources. * `GET [base]/[type]?[parameters]` to search resources of a specified type. * `POST [base]/_search?[parameters]` as an alternate form having the same semantics as the `GET` method across all resources. * `POST [base]/[type]/_search?[parameters]` as an alternate form having the same semantics as the `GET` method for the specified type. The `GET` and `POST` methods do not support compartment searches. The `POST` method does not support `application/x-www-form-urlencoded` search parameters. On success, the response body contains a JSON-encoded representation of a `Bundle` resource of type `searchset`, containing the results of the search. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. The server's capability statement, retrieved through capabilities, indicates what search parameters are supported on each FHIR resource. A list of all search parameters defined by the specification can be found in the FHIR Search Parameter Registry ([STU3](https://hl7.org/implement/standards/fhir/STU3/searchparameter-registry.html), [R4](https://hl7.org/implement/standards/fhir/R4/searchparameter-registry.html)). FHIR search parameters for DSTU2 can be found on each resource's definition page. Supported search modifiers: `:missing`, `:exact`, `:contains`, `:text`, `:in`, `:not-in`, `:above`, `:below`, `:[type]`, `:not`, and `:recurse`. Supported search result parameters: `_sort`, `_count`, `_include`, `_revinclude`, `_summary=text`, `_summary=data`, and `_elements`. The maximum number of search results returned defaults to 100, which can be overridden by the `_count` parameter up to a maximum limit of 1000. If there are additional results, the returned `Bundle` contains a link of `relation` \"next\", which has a `_page_token` parameter for an opaque pagination token that can be used to retrieve the next page. Resources with a total size larger than 5MB or a field count larger than 50,000 might not be fully searchable as the server might trim its generated search index in those cases. Note: FHIR resources are indexed asynchronously, so there might be a slight delay between the time a resource is created or changes and when the change is reflected in search results. For samples and detailed information, see [Searching for FHIR resources](/healthcare/docs/how-tos/fhir-search) and [Advanced FHIR search features](/healthcare/docs/how-tos/fhir-advanced-search).",
+      "uuid": "133a2e7e-03a5-4254-9669-675928f14252",
+      "documentation": "Searches for resources in the given FHIR store according to criteria specified as query parameters. Implements the FHIR standard search interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#search), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#search), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#search)) using the search semantics described in the FHIR Search specification ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/search.html), [STU3](https://hl7.org/implement/standards/fhir/STU3/search.html), [R4](https://hl7.org/implement/standards/fhir/R4/search.html)). Supports four methods of search defined by the specification: * `GET [base]?[parameters]` to search across all resources. * `GET [base]/[type]?[parameters]` to search resources of a specified type. * `POST [base]/_search?[parameters]` as an alternate form having the same semantics as the `GET` method across all resources. * `POST [base]/[type]/_search?[parameters]` as an alternate form having the same semantics as the `GET` method for the specified type. The `GET` and `POST` methods do not support compartment searches. The `POST` method does not support `application/x-www-form-urlencoded` search parameters. On success, the response body contains a JSON-encoded representation of a `Bundle` resource of type `searchset`, containing the results of the search. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. The server's capability statement, retrieved through capabilities, indicates what search parameters are supported on each FHIR resource. A list of all search parameters defined by the specification can be found in the FHIR Search Parameter Registry ([STU3](https://hl7.org/implement/standards/fhir/STU3/searchparameter-registry.html), [R4](https://hl7.org/implement/standards/fhir/R4/searchparameter-registry.html)). FHIR search parameters for DSTU2 can be found on each resource's definition page. Supported search modifiers: `:missing`, `:exact`, `:contains`, `:text`, `:in`, `:not-in`, `:above`, `:below`, `:[type]`, `:not`, and `:recurse`. Supported search result parameters: `_sort`, `_count`, `_include`, `_revinclude`, `_summary=text`, `_summary=data`, and `_elements`. The maximum number of search results returned defaults to 100, which can be overridden by the `_count` parameter up to a maximum limit of 1000. If there are additional results, the returned `Bundle` contains a link of `relation` \"next\", which has a `_page_token` parameter for an opaque pagination token that can be used to retrieve the next page. Resources with a total size larger than 5MB or a field count larger than 50,000 might not be fully searchable as the server might trim its generated search index in those cases. Note: FHIR resources are indexed asynchronously, so there might be a slight delay between the time a resource is created or changes and when the change is reflected in search results. For samples and detailed information, see [Searching for FHIR resources](https://cloud.google.com/healthcare/docs/how-tos/fhir-search) and [Advanced FHIR search features](https://cloud.google.com/healthcare/docs/how-tos/fhir-advanced-search).",
       "method": "post",
       "endpoint": "v1beta1/:parent/fhir/_search",
       "responses": [
         {
-          "uuid": "82b3e8eb-25a7-4aa8-ac2f-119bc771e244",
+          "uuid": "5f1992b4-5b9c-43a6-95fe-61c0f042185f",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1465,26 +1561,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "22002d24-64c4-426a-b451-9117ef33d51a",
-      "documentation": "Searches for resources in the given FHIR store according to criteria specified as query parameters. Implements the FHIR standard search interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#search), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#search), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#search)) using the search semantics described in the FHIR Search specification ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/search.html), [STU3](https://hl7.org/implement/standards/fhir/STU3/search.html), [R4](https://hl7.org/implement/standards/fhir/R4/search.html)). Supports four methods of search defined by the specification: * `GET [base]?[parameters]` to search across all resources. * `GET [base]/[type]?[parameters]` to search resources of a specified type. * `POST [base]/_search?[parameters]` as an alternate form having the same semantics as the `GET` method across all resources. * `POST [base]/[type]/_search?[parameters]` as an alternate form having the same semantics as the `GET` method for the specified type. The `GET` and `POST` methods do not support compartment searches. The `POST` method does not support `application/x-www-form-urlencoded` search parameters. On success, the response body contains a JSON-encoded representation of a `Bundle` resource of type `searchset`, containing the results of the search. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. The server's capability statement, retrieved through capabilities, indicates what search parameters are supported on each FHIR resource. A list of all search parameters defined by the specification can be found in the FHIR Search Parameter Registry ([STU3](https://hl7.org/implement/standards/fhir/STU3/searchparameter-registry.html), [R4](https://hl7.org/implement/standards/fhir/R4/searchparameter-registry.html)). FHIR search parameters for DSTU2 can be found on each resource's definition page. Supported search modifiers: `:missing`, `:exact`, `:contains`, `:text`, `:in`, `:not-in`, `:above`, `:below`, `:[type]`, `:not`, and `:recurse`. Supported search result parameters: `_sort`, `_count`, `_include`, `_revinclude`, `_summary=text`, `_summary=data`, and `_elements`. The maximum number of search results returned defaults to 100, which can be overridden by the `_count` parameter up to a maximum limit of 1000. If there are additional results, the returned `Bundle` contains a link of `relation` \"next\", which has a `_page_token` parameter for an opaque pagination token that can be used to retrieve the next page. Resources with a total size larger than 5MB or a field count larger than 50,000 might not be fully searchable as the server might trim its generated search index in those cases. Note: FHIR resources are indexed asynchronously, so there might be a slight delay between the time a resource is created or changes and when the change is reflected in search results. For samples and detailed information, see [Searching for FHIR resources](/healthcare/docs/how-tos/fhir-search) and [Advanced FHIR search features](/healthcare/docs/how-tos/fhir-advanced-search).",
+      "uuid": "c39e80df-661d-4d52-9e25-256c24ce9448",
+      "documentation": "Searches for resources in the given FHIR store according to criteria specified as query parameters. Implements the FHIR standard search interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#search), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#search), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#search)) using the search semantics described in the FHIR Search specification ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/search.html), [STU3](https://hl7.org/implement/standards/fhir/STU3/search.html), [R4](https://hl7.org/implement/standards/fhir/R4/search.html)). Supports four methods of search defined by the specification: * `GET [base]?[parameters]` to search across all resources. * `GET [base]/[type]?[parameters]` to search resources of a specified type. * `POST [base]/_search?[parameters]` as an alternate form having the same semantics as the `GET` method across all resources. * `POST [base]/[type]/_search?[parameters]` as an alternate form having the same semantics as the `GET` method for the specified type. The `GET` and `POST` methods do not support compartment searches. The `POST` method does not support `application/x-www-form-urlencoded` search parameters. On success, the response body contains a JSON-encoded representation of a `Bundle` resource of type `searchset`, containing the results of the search. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. The server's capability statement, retrieved through capabilities, indicates what search parameters are supported on each FHIR resource. A list of all search parameters defined by the specification can be found in the FHIR Search Parameter Registry ([STU3](https://hl7.org/implement/standards/fhir/STU3/searchparameter-registry.html), [R4](https://hl7.org/implement/standards/fhir/R4/searchparameter-registry.html)). FHIR search parameters for DSTU2 can be found on each resource's definition page. Supported search modifiers: `:missing`, `:exact`, `:contains`, `:text`, `:in`, `:not-in`, `:above`, `:below`, `:[type]`, `:not`, and `:recurse`. Supported search result parameters: `_sort`, `_count`, `_include`, `_revinclude`, `_summary=text`, `_summary=data`, and `_elements`. The maximum number of search results returned defaults to 100, which can be overridden by the `_count` parameter up to a maximum limit of 1000. If there are additional results, the returned `Bundle` contains a link of `relation` \"next\", which has a `_page_token` parameter for an opaque pagination token that can be used to retrieve the next page. Resources with a total size larger than 5MB or a field count larger than 50,000 might not be fully searchable as the server might trim its generated search index in those cases. Note: FHIR resources are indexed asynchronously, so there might be a slight delay between the time a resource is created or changes and when the change is reflected in search results. For samples and detailed information, see [Searching for FHIR resources](https://cloud.google.com/healthcare/docs/how-tos/fhir-search) and [Advanced FHIR search features](https://cloud.google.com/healthcare/docs/how-tos/fhir-advanced-search).",
       "method": "post",
       "endpoint": "v1beta1/:parent/fhir/:resourceType/_search",
       "responses": [
         {
-          "uuid": "335e468e-f8db-44ff-82c6-516adfeb9362",
+          "uuid": "988d9b80-0ace-4ad6-b512-d8df4aa02b45",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1495,26 +1593,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "ff7d12a4-565f-49fc-a6f9-6ba2d51d4615",
-      "documentation": "Deletes FHIR resources that match a search query. Implements the FHIR standard conditional delete interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#2.1.0.12.1), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#2.21.0.13.1), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#3.1.0.7.1)). If multiple resources match, all matching resources are deleted. Search terms are provided as query parameters following the same pattern as the search method. Not all FHIR resources that match the search query might be deleted because, by default, a maximum of 100 FHIR resources can be deleted. The number of FHIR resources that can be deleted depends on the page size of the returned resources, which you can control using the `_count` query parameter. Even when using `_count`, you can delete a maximum 1,000 FHIR resources per each call of `conditionalDelete`. Note: Unless resource versioning is disabled by setting the disable_resource_versioning flag on the FHIR store, the deleted resources are moved to a history repository that can still be retrieved through vread and related methods, unless they are removed by the purge method. This method requires the`healthcare.fhirStores.searchResources` and `healthcare.fhirResources.delete` permissions on the parent FHIR store. For samples that show how to call `conditionalDelete`, see [Conditionally deleting a FHIR resource](/healthcare/docs/how-tos/fhir-resources#conditionally_deleting_a_fhir_resource).",
+      "uuid": "426728e9-3888-437a-b69a-12177303a0eb",
+      "documentation": "Deletes FHIR resources that match a search query. Implements the FHIR standard conditional delete interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#2.1.0.12.1), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#2.21.0.13.1), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#3.1.0.7.1)). If multiple resources match, all matching resources are deleted. Search terms are provided as query parameters following the same pattern as the search method. Not all FHIR resources that match the search query might be deleted because, by default, a maximum of 100 FHIR resources can be deleted. The number of FHIR resources that can be deleted depends on the page size of the returned resources, which you can control using the `_count` query parameter. Even when using `_count`, you can delete a maximum 1,000 FHIR resources per each call of `conditionalDelete`. Note: Unless resource versioning is disabled by setting the disable_resource_versioning flag on the FHIR store, the deleted resources are moved to a history repository that can still be retrieved through vread and related methods, unless they are removed by the purge method. This method requires the`healthcare.fhirStores.searchResources` and `healthcare.fhirResources.delete` permissions on the parent FHIR store. For samples that show how to call `conditionalDelete`, see [Conditionally deleting a FHIR resource](https://cloud.google.com/healthcare/docs/how-tos/fhir-resources#conditionally_deleting_a_fhir_resource).",
       "method": "delete",
       "endpoint": "v1beta1/:parent/fhir/:type",
       "responses": [
         {
-          "uuid": "5313c539-4313-4d0a-8bf7-d6f35d20a962",
+          "uuid": "ce467d61-a9c9-42b5-b413-5ee05cbee720",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -1525,26 +1625,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "cebaedd5-a063-4931-a03b-6f2bcdea2a84",
-      "documentation": "If a resource is found based on the search criteria specified in the query parameters, updates part of that resource by applying the operations specified in a [JSON Patch](http://jsonpatch.com/) document. Implements the FHIR standard conditional patch interaction ([STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#patch), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#patch)). DSTU2 doesn't define a conditional patch method, but the server supports it in the same way it supports STU3. Search terms are provided as query parameters following the same pattern as the search method. If the search criteria identify more than one match, the request returns a `412 Precondition Failed` error. The request body must contain a JSON Patch document, and the request headers must contain `Content-Type: application/json-patch+json`. On success, the response body contains a JSON-encoded representation of the updated resource, including the server-assigned version ID. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. This method requires the`healthcare.fhirStores.searchResources` permission on the parent FHIR store and the `healthcare.fhirResources.patch` permission on the requested FHIR store resource. For samples that show how to call `conditionalPatch`, see [Conditionally patching a FHIR resource](/healthcare/docs/how-tos/fhir-resources#conditionally_patching_a_fhir_resource).",
+      "uuid": "7c77d32e-e566-40c7-83f9-8e304fcc5070",
+      "documentation": "If a resource is found based on the search criteria specified in the query parameters, updates part of that resource by applying the operations specified in a [JSON Patch](http://jsonpatch.com/) document. Implements the FHIR standard conditional patch interaction ([STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#patch), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#patch)). DSTU2 doesn't define a conditional patch method, but the server supports it in the same way it supports STU3. Search terms are provided as query parameters following the same pattern as the search method. If the search criteria identify more than one match, the request returns a `412 Precondition Failed` error. The request body must contain a JSON Patch document, and the request headers must contain `Content-Type: application/json-patch+json`. On success, the response body contains a JSON-encoded representation of the updated resource, including the server-assigned version ID. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. This method requires the`healthcare.fhirStores.searchResources` permission on the parent FHIR store and the `healthcare.fhirResources.patch` permission on the requested FHIR store resource. For samples that show how to call `conditionalPatch`, see [Conditionally patching a FHIR resource](https://cloud.google.com/healthcare/docs/how-tos/fhir-resources#conditionally_patching_a_fhir_resource).",
       "method": "patch",
       "endpoint": "v1beta1/:parent/fhir/:type",
       "responses": [
         {
-          "uuid": "0e0065fe-8bb1-43c8-b1fa-47805644084d",
+          "uuid": "216d344d-6f5d-4315-a7a6-2fdaab2a8162",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1555,26 +1657,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "bce437b8-f7c2-4c08-800f-9e074426e64d",
-      "documentation": "Creates a FHIR resource. Implements the FHIR standard create interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#create), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#create), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#create)), which creates a new resource with a server-assigned resource ID. Also supports the FHIR standard conditional create interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#ccreate), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#ccreate), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#ccreate)), specified by supplying an `If-None-Exist` header containing a FHIR search query. If no resources match this search query, the server processes the create operation as normal. The request body must contain a JSON-encoded FHIR resource, and the request headers must contain `Content-Type: application/fhir+json`. On success, the response body contains a JSON-encoded representation of the resource as it was created on the server, including the server-assigned resource ID and version ID. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. For samples that show how to call `create`, see [Creating a FHIR resource](/healthcare/docs/how-tos/fhir-resources#creating_a_fhir_resource).",
+      "uuid": "8555ba09-fb51-4a09-8e97-54e4673af95f",
+      "documentation": "Creates a FHIR resource. Implements the FHIR standard create interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#create), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#create), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#create)), which creates a new resource with a server-assigned resource ID. Also supports the FHIR standard conditional create interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#ccreate), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#ccreate), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#ccreate)), specified by supplying an `If-None-Exist` header containing a FHIR search query. If no resources match this search query, the server processes the create operation as normal. The request body must contain a JSON-encoded FHIR resource, and the request headers must contain `Content-Type: application/fhir+json`. On success, the response body contains a JSON-encoded representation of the resource as it was created on the server, including the server-assigned resource ID and version ID. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. For samples that show how to call `create`, see [Creating a FHIR resource](https://cloud.google.com/healthcare/docs/how-tos/fhir-resources#creating_a_fhir_resource).",
       "method": "post",
       "endpoint": "v1beta1/:parent/fhir/:type",
       "responses": [
         {
-          "uuid": "481a7621-ec4b-4485-82e9-b7ef01044162",
+          "uuid": "8904a069-7b19-4e72-9476-7383df12e314",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1585,26 +1689,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "65cd3ac4-e2cc-43d6-b235-9fcdcda1ec26",
-      "documentation": "If a resource is found based on the search criteria specified in the query parameters, updates the entire contents of that resource. Implements the FHIR standard conditional update interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#2.1.0.10.2), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#cond-update), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#cond-update)). Search terms are provided as query parameters following the same pattern as the search method. If the search criteria identify more than one match, the request returns a `412 Precondition Failed` error. If the search criteria identify zero matches, and the supplied resource body contains an `id`, and the FHIR store has enable_update_create set, creates the resource with the client-specified ID. It is strongly advised not to include or encode any sensitive data such as patient identifiers in client-specified resource IDs. Those IDs are part of the FHIR resource path recorded in Cloud Audit Logs and Pub/Sub notifications. Those IDs can also be contained in reference fields within other resources. If the search criteria identify zero matches, and the supplied resource body does not contain an `id`, the resource is created with a server-assigned ID as per the create method. The request body must contain a JSON-encoded FHIR resource, and the request headers must contain `Content-Type: application/fhir+json`. On success, the response body contains a JSON-encoded representation of the updated resource, including the server-assigned version ID. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. This method requires the`healthcare.fhirStores.searchResources` and `healthcare.fhirResources.update` permissions on the parent FHIR store. For samples that show how to call `conditionalUpdate`, see [Conditionally updating a FHIR resource](/healthcare/docs/how-tos/fhir-resources#conditionally_updating_a_fhir_resource).",
+      "uuid": "f6dea82e-55cf-4af8-bb43-90ba93c5f188",
+      "documentation": "If a resource is found based on the search criteria specified in the query parameters, updates the entire contents of that resource. Implements the FHIR standard conditional update interaction ([DSTU2](https://hl7.org/implement/standards/fhir/DSTU2/http.html#2.1.0.10.2), [STU3](https://hl7.org/implement/standards/fhir/STU3/http.html#cond-update), [R4](https://hl7.org/implement/standards/fhir/R4/http.html#cond-update)). Search terms are provided as query parameters following the same pattern as the search method. If the search criteria identify more than one match, the request returns a `412 Precondition Failed` error. If the search criteria identify zero matches, and the supplied resource body contains an `id`, and the FHIR store has enable_update_create set, creates the resource with the client-specified ID. It is strongly advised not to include or encode any sensitive data such as patient identifiers in client-specified resource IDs. Those IDs are part of the FHIR resource path recorded in Cloud Audit Logs and Pub/Sub notifications. Those IDs can also be contained in reference fields within other resources. If the search criteria identify zero matches, and the supplied resource body does not contain an `id`, the resource is created with a server-assigned ID as per the create method. The request body must contain a JSON-encoded FHIR resource, and the request headers must contain `Content-Type: application/fhir+json`. On success, the response body contains a JSON-encoded representation of the updated resource, including the server-assigned version ID. Errors generated by the FHIR store contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead. This method requires the`healthcare.fhirStores.searchResources` and `healthcare.fhirResources.update` permissions on the parent FHIR store. For samples that show how to call `conditionalUpdate`, see [Conditionally updating a FHIR resource](https://cloud.google.com/healthcare/docs/how-tos/fhir-resources#conditionally_updating_a_fhir_resource).",
       "method": "put",
       "endpoint": "v1beta1/:parent/fhir/:type",
       "responses": [
         {
-          "uuid": "cd9e9a85-1c0b-4770-8047-e6822a3803ad",
+          "uuid": "f1618d23-7983-48ab-a138-4ff71e9425d9",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1615,26 +1721,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "11be40e7-1e72-4473-8498-949ee28e23e7",
+      "uuid": "1c3d5641-2cc2-4e48-acd4-8cca540e1f5d",
       "documentation": "Validates an input FHIR resource's conformance to its profiles and the profiles configured on the FHIR store. Implements the FHIR extended operation $validate ([DSTU2](http://hl7.org/implement/standards/fhir/DSTU2/resource-operations.html#validate), [STU3](http://hl7.org/implement/standards/fhir/STU3/resource-operations.html#validate), or [R4](http://hl7.org/implement/standards/fhir/R4/resource-operation-validate.html)). The request body must contain a JSON-encoded FHIR resource, and the request headers must contain `Content-Type: application/fhir+json`. The `Parameters` input syntax is not supported. The `profile` query parameter can be used to request that the resource only be validated against a specific profile. If a profile with the given URL cannot be found in the FHIR store then an error is returned. Errors generated by validation contain a JSON-encoded `OperationOutcome` resource describing the reason for the error. If the request cannot be mapped to a valid API method on a FHIR store, a generic GCP error might be returned instead.",
       "method": "post",
       "endpoint": "v1beta1/:parent/fhir/:type/$validate",
       "responses": [
         {
-          "uuid": "08d4718b-eea2-421c-9b56-464bc39864ae",
+          "uuid": "47fcad6d-19ff-488e-90af-0d323dcda586",
           "body": "{\n  \"contentType\": \"\",\n  \"data\": \"\",\n  \"extensions\": [\n    {}\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1645,27 +1753,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2624bb13-d549-4b51-8d8f-5cf4b48b2b20",
+      "uuid": "f2da3ec5-ec00-4fbc-a428-f1912775fde8",
       "documentation": "Lists the FHIR stores in the given dataset.",
       "method": "get",
       "endpoint": "v1beta1/:parent/fhirStores",
       "responses": [
         {
-          "uuid": "a5ae1b4e-5657-48d6-a2cc-1317167dcb0c",
-          "body": "{\n  \"fhirStores\": [\n    {\n      \"defaultSearchHandlingStrict\": {{faker 'random.boolean'}},\n      \"disableReferentialIntegrity\": {{faker 'random.boolean'}},\n      \"disableResourceVersioning\": {{faker 'random.boolean'}},\n      \"enableUpdateCreate\": {{faker 'random.boolean'}},\n      \"labels\": {},\n      \"name\": \"\",\n      \"notificationConfig\": {\n        \"pubsubTopic\": \"\",\n        \"sendForBulkImport\": {{faker 'random.boolean'}}\n      },\n      \"searchConfig\": {\n        \"searchParameters\": [\n          {\n            \"canonicalUrl\": \"\",\n            \"parameter\": \"\"\n          }\n        ]\n      },\n      \"streamConfigs\": [\n        {\n          \"bigqueryDestination\": {\n            \"datasetUri\": \"\",\n            \"force\": {{faker 'random.boolean'}},\n            \"schemaConfig\": {\n              \"recursiveStructureDepth\": \"\",\n              \"schemaType\": \"{{oneOf (array 'SCHEMA_TYPE_UNSPECIFIED' 'LOSSLESS' 'ANALYTICS' 'ANALYTICS_V2')}}\"\n            },\n            \"writeDisposition\": \"{{oneOf (array 'WRITE_DISPOSITION_UNSPECIFIED' 'WRITE_EMPTY' 'WRITE_TRUNCATE' 'WRITE_APPEND')}}\"\n          },\n          \"resourceTypes\": [\n            \"\"\n          ]\n        }\n      ],\n      \"validationConfig\": {\n        \"disableFhirpathValidation\": {{faker 'random.boolean'}},\n        \"disableProfileValidation\": {{faker 'random.boolean'}},\n        \"disableReferenceTypeValidation\": {{faker 'random.boolean'}},\n        \"disableRequiredFieldValidation\": {{faker 'random.boolean'}},\n        \"enabledImplementationGuides\": [\n          \"\"\n        ]\n      },\n      \"version\": \"{{oneOf (array 'VERSION_UNSPECIFIED' 'DSTU2' 'STU3' 'R4')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "uuid": "1874d9ef-1975-46ea-b909-9645ca1d77af",
+          "body": "{\n  \"fhirStores\": [\n    {\n      \"complexDataTypeReferenceParsing\": \"{{oneOf (array 'COMPLEX_DATA_TYPE_REFERENCE_PARSING_UNSPECIFIED' 'DISABLED' 'ENABLED')}}\",\n      \"defaultSearchHandlingStrict\": {{faker 'datatype.boolean'}},\n      \"disableReferentialIntegrity\": {{faker 'datatype.boolean'}},\n      \"disableResourceVersioning\": {{faker 'datatype.boolean'}},\n      \"enableUpdateCreate\": {{faker 'datatype.boolean'}},\n      \"labels\": {},\n      \"name\": \"\",\n      \"notificationConfig\": {\n        \"pubsubTopic\": \"\",\n        \"sendForBulkImport\": {{faker 'datatype.boolean'}}\n      },\n      \"notificationConfigs\": [\n        {\n          \"pubsubTopic\": \"\",\n          \"sendFullResource\": {{faker 'datatype.boolean'}}\n        }\n      ],\n      \"searchConfig\": {\n        \"searchParameters\": [\n          {\n            \"canonicalUrl\": \"\",\n            \"parameter\": \"\"\n          }\n        ]\n      },\n      \"streamConfigs\": [\n        {\n          \"bigqueryDestination\": {\n            \"datasetUri\": \"\",\n            \"force\": {{faker 'datatype.boolean'}},\n            \"schemaConfig\": {\n              \"recursiveStructureDepth\": \"\",\n              \"schemaType\": \"{{oneOf (array 'SCHEMA_TYPE_UNSPECIFIED' 'LOSSLESS' 'ANALYTICS' 'ANALYTICS_V2')}}\"\n            },\n            \"writeDisposition\": \"{{oneOf (array 'WRITE_DISPOSITION_UNSPECIFIED' 'WRITE_EMPTY' 'WRITE_TRUNCATE' 'WRITE_APPEND')}}\"\n          },\n          \"deidentifiedStoreDestination\": {\n            \"config\": {\n              \"annotation\": {\n                \"annotationStoreName\": \"\",\n                \"storeQuote\": {{faker 'datatype.boolean'}}\n              },\n              \"dicom\": {\n                \"filterProfile\": \"{{oneOf (array 'TAG_FILTER_PROFILE_UNSPECIFIED' 'MINIMAL_KEEP_LIST_PROFILE' 'ATTRIBUTE_CONFIDENTIALITY_BASIC_PROFILE' 'KEEP_ALL_PROFILE' 'DEIDENTIFY_TAG_CONTENTS')}}\",\n                \"keepList\": {\n                  \"tags\": [\n                    \"\"\n                  ]\n                },\n                \"removeList\": {\n                  \"tags\": [\n                    \"\"\n                  ]\n                },\n                \"skipIdRedaction\": {{faker 'datatype.boolean'}}\n              },\n              \"fhir\": {\n                \"defaultKeepExtensions\": {{faker 'datatype.boolean'}},\n                \"fieldMetadataList\": [\n                  {\n                    \"action\": \"{{oneOf (array 'ACTION_UNSPECIFIED' 'TRANSFORM' 'INSPECT_AND_TRANSFORM' 'DO_NOT_TRANSFORM')}}\",\n                    \"paths\": [\n                      \"\"\n                    ]\n                  }\n                ]\n              },\n              \"image\": {\n                \"textRedactionMode\": \"{{oneOf (array 'TEXT_REDACTION_MODE_UNSPECIFIED' 'REDACT_ALL_TEXT' 'REDACT_SENSITIVE_TEXT' 'REDACT_NO_TEXT')}}\"\n              },\n              \"operationMetadata\": {\n                \"fhirOutput\": {\n                  \"fhirStore\": \"\"\n                }\n              },\n              \"text\": {\n                \"transformations\": [\n                  {\n                    \"characterMaskConfig\": {\n                      \"maskingCharacter\": \"\"\n                    },\n                    \"cryptoHashConfig\": {\n                      \"cryptoKey\": \"\",\n                      \"kmsWrapped\": {\n                        \"cryptoKey\": \"\",\n                        \"wrappedKey\": \"\"\n                      }\n                    },\n                    \"dateShiftConfig\": {\n                      \"cryptoKey\": \"\",\n                      \"kmsWrapped\": {\n                        \"cryptoKey\": \"\",\n                        \"wrappedKey\": \"\"\n                      }\n                    },\n                    \"infoTypes\": [\n                      \"\"\n                    ],\n                    \"redactConfig\": {},\n                    \"replaceWithInfoTypeConfig\": {}\n                  }\n                ]\n              }\n            },\n            \"store\": \"\"\n          },\n          \"resourceTypes\": [\n            \"\"\n          ]\n        }\n      ],\n      \"validationConfig\": {\n        \"disableFhirpathValidation\": {{faker 'datatype.boolean'}},\n        \"disableProfileValidation\": {{faker 'datatype.boolean'}},\n        \"disableReferenceTypeValidation\": {{faker 'datatype.boolean'}},\n        \"disableRequiredFieldValidation\": {{faker 'datatype.boolean'}},\n        \"enabledImplementationGuides\": [\n          \"\"\n        ]\n      },\n      \"version\": \"{{oneOf (array 'VERSION_UNSPECIFIED' 'DSTU2' 'STU3' 'R4')}}\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -1675,27 +1785,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f983ae88-d903-459d-9e91-1ec1aeac3d0d",
+      "uuid": "27c92370-339b-4303-8e37-e120697723b5",
       "documentation": "Creates a new FHIR store within the parent dataset.",
       "method": "post",
       "endpoint": "v1beta1/:parent/fhirStores",
       "responses": [
         {
-          "uuid": "a91ddd42-6c5b-4de3-9588-4cce0e195acb",
-          "body": "{\n  \"defaultSearchHandlingStrict\": {{faker 'random.boolean'}},\n  \"disableReferentialIntegrity\": {{faker 'random.boolean'}},\n  \"disableResourceVersioning\": {{faker 'random.boolean'}},\n  \"enableUpdateCreate\": {{faker 'random.boolean'}},\n  \"labels\": {},\n  \"name\": \"\",\n  \"notificationConfig\": {\n    \"pubsubTopic\": \"\",\n    \"sendForBulkImport\": {{faker 'random.boolean'}}\n  },\n  \"searchConfig\": {\n    \"searchParameters\": [\n      {\n        \"canonicalUrl\": \"\",\n        \"parameter\": \"\"\n      }\n    ]\n  },\n  \"streamConfigs\": [\n    {\n      \"bigqueryDestination\": {\n        \"datasetUri\": \"\",\n        \"force\": {{faker 'random.boolean'}},\n        \"schemaConfig\": {\n          \"recursiveStructureDepth\": \"\",\n          \"schemaType\": \"{{oneOf (array 'SCHEMA_TYPE_UNSPECIFIED' 'LOSSLESS' 'ANALYTICS' 'ANALYTICS_V2')}}\"\n        },\n        \"writeDisposition\": \"{{oneOf (array 'WRITE_DISPOSITION_UNSPECIFIED' 'WRITE_EMPTY' 'WRITE_TRUNCATE' 'WRITE_APPEND')}}\"\n      },\n      \"resourceTypes\": [\n        \"\"\n      ]\n    }\n  ],\n  \"validationConfig\": {\n    \"disableFhirpathValidation\": {{faker 'random.boolean'}},\n    \"disableProfileValidation\": {{faker 'random.boolean'}},\n    \"disableReferenceTypeValidation\": {{faker 'random.boolean'}},\n    \"disableRequiredFieldValidation\": {{faker 'random.boolean'}},\n    \"enabledImplementationGuides\": [\n      \"\"\n    ]\n  },\n  \"version\": \"{{oneOf (array 'VERSION_UNSPECIFIED' 'DSTU2' 'STU3' 'R4')}}\"\n}",
+          "uuid": "15c7c283-08a0-40f0-ac64-b0f23c551e64",
+          "body": "{\n  \"complexDataTypeReferenceParsing\": \"{{oneOf (array 'COMPLEX_DATA_TYPE_REFERENCE_PARSING_UNSPECIFIED' 'DISABLED' 'ENABLED')}}\",\n  \"defaultSearchHandlingStrict\": {{faker 'datatype.boolean'}},\n  \"disableReferentialIntegrity\": {{faker 'datatype.boolean'}},\n  \"disableResourceVersioning\": {{faker 'datatype.boolean'}},\n  \"enableUpdateCreate\": {{faker 'datatype.boolean'}},\n  \"labels\": {},\n  \"name\": \"\",\n  \"notificationConfig\": {\n    \"pubsubTopic\": \"\",\n    \"sendForBulkImport\": {{faker 'datatype.boolean'}}\n  },\n  \"notificationConfigs\": [\n    {\n      \"pubsubTopic\": \"\",\n      \"sendFullResource\": {{faker 'datatype.boolean'}}\n    }\n  ],\n  \"searchConfig\": {\n    \"searchParameters\": [\n      {\n        \"canonicalUrl\": \"\",\n        \"parameter\": \"\"\n      }\n    ]\n  },\n  \"streamConfigs\": [\n    {\n      \"bigqueryDestination\": {\n        \"datasetUri\": \"\",\n        \"force\": {{faker 'datatype.boolean'}},\n        \"schemaConfig\": {\n          \"recursiveStructureDepth\": \"\",\n          \"schemaType\": \"{{oneOf (array 'SCHEMA_TYPE_UNSPECIFIED' 'LOSSLESS' 'ANALYTICS' 'ANALYTICS_V2')}}\"\n        },\n        \"writeDisposition\": \"{{oneOf (array 'WRITE_DISPOSITION_UNSPECIFIED' 'WRITE_EMPTY' 'WRITE_TRUNCATE' 'WRITE_APPEND')}}\"\n      },\n      \"deidentifiedStoreDestination\": {\n        \"config\": {\n          \"annotation\": {\n            \"annotationStoreName\": \"\",\n            \"storeQuote\": {{faker 'datatype.boolean'}}\n          },\n          \"dicom\": {\n            \"filterProfile\": \"{{oneOf (array 'TAG_FILTER_PROFILE_UNSPECIFIED' 'MINIMAL_KEEP_LIST_PROFILE' 'ATTRIBUTE_CONFIDENTIALITY_BASIC_PROFILE' 'KEEP_ALL_PROFILE' 'DEIDENTIFY_TAG_CONTENTS')}}\",\n            \"keepList\": {\n              \"tags\": [\n                \"\"\n              ]\n            },\n            \"removeList\": {\n              \"tags\": [\n                \"\"\n              ]\n            },\n            \"skipIdRedaction\": {{faker 'datatype.boolean'}}\n          },\n          \"fhir\": {\n            \"defaultKeepExtensions\": {{faker 'datatype.boolean'}},\n            \"fieldMetadataList\": [\n              {\n                \"action\": \"{{oneOf (array 'ACTION_UNSPECIFIED' 'TRANSFORM' 'INSPECT_AND_TRANSFORM' 'DO_NOT_TRANSFORM')}}\",\n                \"paths\": [\n                  \"\"\n                ]\n              }\n            ]\n          },\n          \"image\": {\n            \"textRedactionMode\": \"{{oneOf (array 'TEXT_REDACTION_MODE_UNSPECIFIED' 'REDACT_ALL_TEXT' 'REDACT_SENSITIVE_TEXT' 'REDACT_NO_TEXT')}}\"\n          },\n          \"operationMetadata\": {\n            \"fhirOutput\": {\n              \"fhirStore\": \"\"\n            }\n          },\n          \"text\": {\n            \"transformations\": [\n              {\n                \"characterMaskConfig\": {\n                  \"maskingCharacter\": \"\"\n                },\n                \"cryptoHashConfig\": {\n                  \"cryptoKey\": \"\",\n                  \"kmsWrapped\": {\n                    \"cryptoKey\": \"\",\n                    \"wrappedKey\": \"\"\n                  }\n                },\n                \"dateShiftConfig\": {\n                  \"cryptoKey\": \"\",\n                  \"kmsWrapped\": {\n                    \"cryptoKey\": \"\",\n                    \"wrappedKey\": \"\"\n                  }\n                },\n                \"infoTypes\": [\n                  \"\"\n                ],\n                \"redactConfig\": {},\n                \"replaceWithInfoTypeConfig\": {}\n              }\n            ]\n          }\n        },\n        \"store\": \"\"\n      },\n      \"resourceTypes\": [\n        \"\"\n      ]\n    }\n  ],\n  \"validationConfig\": {\n    \"disableFhirpathValidation\": {{faker 'datatype.boolean'}},\n    \"disableProfileValidation\": {{faker 'datatype.boolean'}},\n    \"disableReferenceTypeValidation\": {{faker 'datatype.boolean'}},\n    \"disableRequiredFieldValidation\": {{faker 'datatype.boolean'}},\n    \"enabledImplementationGuides\": [\n      \"\"\n    ]\n  },\n  \"version\": \"{{oneOf (array 'VERSION_UNSPECIFIED' 'DSTU2' 'STU3' 'R4')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -1705,26 +1817,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2645b2dc-f140-4609-a5e9-1e414389b457",
+      "uuid": "b67dca9b-437c-46da-8492-3c2d4984bfcd",
       "documentation": "Lists the HL7v2 stores in the given dataset.",
       "method": "get",
       "endpoint": "v1beta1/:parent/hl7V2Stores",
       "responses": [
         {
-          "uuid": "e95337ec-fa8e-44cb-9428-fa7eac580bc0",
+          "uuid": "1d10945e-8cfa-46d4-9b22-353713221907",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 200,
@@ -1735,26 +1849,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "54408243-e872-428d-8bcd-0f68c5875304",
+      "uuid": "91891b2a-5776-41bd-a671-0a04361eeed6",
       "documentation": "Creates a new HL7v2 store within the parent dataset.",
       "method": "post",
       "endpoint": "v1beta1/:parent/hl7V2Stores",
       "responses": [
         {
-          "uuid": "879c2ad4-4c9b-4879-ad5d-a559aa00301b",
+          "uuid": "bb9a441b-f1f0-4456-be8f-eb36781f2447",
           "body": "\"\"",
           "latency": 0,
           "statusCode": 200,
@@ -1765,26 +1881,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "c76c44c9-e8a5-43ef-b41c-f98b778858e5",
+      "uuid": "f1195b76-fa88-4f16-9e4f-6d5dc67d10b3",
       "documentation": "Lists all the messages in the given HL7v2 store with support for filtering. Note: HL7v2 messages are indexed asynchronously, so there might be a slight delay between the time a message is created and when it can be found through a filter.",
       "method": "get",
       "endpoint": "v1beta1/:parent/messages",
       "responses": [
         {
-          "uuid": "b71f54b4-2acb-4d2d-9dc7-9b297da15f8b",
+          "uuid": "d9d0c5c7-6204-41b6-81e6-d5355a502ad2",
           "body": "{\n  \"hl7V2Messages\": [\n    {\n      \"createTime\": \"\",\n      \"data\": \"\",\n      \"labels\": {},\n      \"messageType\": \"\",\n      \"name\": \"\",\n      \"parsedData\": {\n        \"segments\": [\n          {\n            \"fields\": {},\n            \"segmentId\": \"\",\n            \"setId\": \"\"\n          }\n        ]\n      },\n      \"patientIds\": [\n        {\n          \"type\": \"\",\n          \"value\": \"\"\n        }\n      ],\n      \"schematizedData\": {\n        \"data\": \"\",\n        \"error\": \"\"\n      },\n      \"sendFacility\": \"\",\n      \"sendTime\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1795,26 +1913,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "c244bb2d-ac1b-4691-a074-bf056502a3c8",
+      "uuid": "b6b6199f-5d6d-4531-87ee-2d080db325a5",
       "documentation": "Parses and stores an HL7v2 message. This method triggers an asynchronous notification to any Pub/Sub topic configured in Hl7V2Store.Hl7V2NotificationConfig, if the filtering matches the message. If an MLLP adapter is configured to listen to a Pub/Sub topic, the adapter transmits the message when a notification is received.",
       "method": "post",
       "endpoint": "v1beta1/:parent/messages",
       "responses": [
         {
-          "uuid": "96e73130-42ed-416e-b959-f60a5451cd1b",
+          "uuid": "d468b983-94ac-4dbe-a752-2b6ade24bdf3",
           "body": "{\n  \"createTime\": \"\",\n  \"data\": \"\",\n  \"labels\": {},\n  \"messageType\": \"\",\n  \"name\": \"\",\n  \"parsedData\": {\n    \"segments\": [\n      {\n        \"fields\": {},\n        \"segmentId\": \"\",\n        \"setId\": \"\"\n      }\n    ]\n  },\n  \"patientIds\": [\n    {\n      \"type\": \"\",\n      \"value\": \"\"\n    }\n  ],\n  \"schematizedData\": {\n    \"data\": \"\",\n    \"error\": \"\"\n  },\n  \"sendFacility\": \"\",\n  \"sendTime\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1825,26 +1945,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "3b86dd79-e891-4c4a-8a7f-bb7ebf0848e3",
+      "uuid": "87cdf59d-c498-4d85-907c-ca84fbdabe1c",
       "documentation": "Gets multiple messages in the given HL7v2 store.",
       "method": "get",
       "endpoint": "v1beta1/:parent/messages:batchGet",
       "responses": [
         {
-          "uuid": "08648e9d-83c1-4daa-a0f0-7c0085a61dc6",
+          "uuid": "77cc87fc-032c-4e4e-9655-fb2a10429cdf",
           "body": "{\n  \"messages\": [\n    {\n      \"createTime\": \"\",\n      \"data\": \"\",\n      \"labels\": {},\n      \"messageType\": \"\",\n      \"name\": \"\",\n      \"parsedData\": {\n        \"segments\": [\n          {\n            \"fields\": {},\n            \"segmentId\": \"\",\n            \"setId\": \"\"\n          }\n        ]\n      },\n      \"patientIds\": [\n        {\n          \"type\": \"\",\n          \"value\": \"\"\n        }\n      ],\n      \"schematizedData\": {\n        \"data\": \"\",\n        \"error\": \"\"\n      },\n      \"sendFacility\": \"\",\n      \"sendTime\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1855,26 +1977,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "d3696b55-ad78-4905-bca8-12352f52f5d8",
+      "uuid": "acfc9fa9-9692-4700-9110-c08436bbb170",
       "documentation": "Parses and stores an HL7v2 message. This method triggers an asynchronous notification to any Pub/Sub topic configured in Hl7V2Store.Hl7V2NotificationConfig, if the filtering matches the message. If an MLLP adapter is configured to listen to a Pub/Sub topic, the adapter transmits the message when a notification is received. If the method is successful, it generates a response containing an HL7v2 acknowledgment (`ACK`) message. If the method encounters an error, it returns a negative acknowledgment (`NACK`) message. This behavior is suitable for replying to HL7v2 interface systems that expect these acknowledgments.",
       "method": "post",
       "endpoint": "v1beta1/:parent/messages:ingest",
       "responses": [
         {
-          "uuid": "a764ad72-3dad-4052-ae1b-201b24f65bdd",
+          "uuid": "d53b43da-3489-495b-9853-1bbdff7a7f3e",
           "body": "{\n  \"hl7Ack\": \"\",\n  \"message\": {\n    \"createTime\": \"\",\n    \"data\": \"\",\n    \"labels\": {},\n    \"messageType\": \"\",\n    \"name\": \"\",\n    \"parsedData\": {\n      \"segments\": [\n        {\n          \"fields\": {},\n          \"segmentId\": \"\",\n          \"setId\": \"\"\n        }\n      ]\n    },\n    \"patientIds\": [\n      {\n        \"type\": \"\",\n        \"value\": \"\"\n      }\n    ],\n    \"schematizedData\": {\n      \"data\": \"\",\n      \"error\": \"\"\n    },\n    \"sendFacility\": \"\",\n    \"sendTime\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -1885,27 +2009,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "77c74193-3f21-43b2-b8e4-79087bb8fb94",
+      "uuid": "4d864013-b83f-4d73-9ac0-75efb7627704",
       "documentation": "Lists the User data mappings in the specified consent store.",
       "method": "get",
       "endpoint": "v1beta1/:parent/userDataMappings",
       "responses": [
         {
-          "uuid": "92a17b0e-4787-452b-aacc-d1d93f18d2a8",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"userDataMappings\": [\n    {\n      \"archiveTime\": \"\",\n      \"archived\": {{faker 'random.boolean'}},\n      \"dataId\": \"\",\n      \"name\": \"\",\n      \"resourceAttributes\": [\n        {\n          \"attributeDefinitionId\": \"\",\n          \"values\": [\n            \"\"\n          ]\n        }\n      ],\n      \"userId\": \"\"\n    }\n  ]\n}",
+          "uuid": "3f3b7fd1-08b9-4d77-9e4f-af140dfadeee",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"userDataMappings\": [\n    {\n      \"archiveTime\": \"\",\n      \"archived\": {{faker 'datatype.boolean'}},\n      \"dataId\": \"\",\n      \"name\": \"\",\n      \"resourceAttributes\": [\n        {\n          \"attributeDefinitionId\": \"\",\n          \"values\": [\n            \"\"\n          ]\n        }\n      ],\n      \"userId\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -1915,27 +2041,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "80d6f1e5-9c5d-45ea-bfdf-a380ba4e1bf4",
+      "uuid": "df0e3076-9c57-416a-9d56-2edc4fd2c12e",
       "documentation": "Creates a new User data mapping in the parent consent store.",
       "method": "post",
       "endpoint": "v1beta1/:parent/userDataMappings",
       "responses": [
         {
-          "uuid": "ecffa87c-8b1a-4f64-b995-d88adc4ff3e1",
-          "body": "{\n  \"archiveTime\": \"\",\n  \"archived\": {{faker 'random.boolean'}},\n  \"dataId\": \"\",\n  \"name\": \"\",\n  \"resourceAttributes\": [\n    {\n      \"attributeDefinitionId\": \"\",\n      \"values\": [\n        \"\"\n      ]\n    }\n  ],\n  \"userId\": \"\"\n}",
+          "uuid": "5bb0ef81-3163-4a25-aaf7-1d8e4e93a003",
+          "body": "{\n  \"archiveTime\": \"\",\n  \"archived\": {{faker 'datatype.boolean'}},\n  \"dataId\": \"\",\n  \"name\": \"\",\n  \"resourceAttributes\": [\n    {\n      \"attributeDefinitionId\": \"\",\n      \"values\": [\n        \"\"\n      ]\n    }\n  ],\n  \"userId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -1945,27 +2073,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "160ae07d-c426-4f07-9a06-af7a5961c8f5",
+      "uuid": "bbf917f7-0664-4e74-a88f-996847f14c0a",
       "documentation": "Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.",
       "method": "get",
       "endpoint": "v1beta1/:resource:getIamPolicy",
       "responses": [
         {
-          "uuid": "0680818a-2f53-45ce-ae41-9657ee1d0be3",
-          "body": "{\n  \"auditConfigs\": [\n    {\n      \"auditLogConfigs\": [\n        {\n          \"exemptedMembers\": [\n            \"\"\n          ],\n          \"logType\": \"{{oneOf (array 'LOG_TYPE_UNSPECIFIED' 'ADMIN_READ' 'DATA_WRITE' 'DATA_READ')}}\"\n        }\n      ],\n      \"service\": \"\"\n    }\n  ],\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "uuid": "cae8e6eb-506e-4fbf-8a4c-4efd58532fb9",
+          "body": "{\n  \"auditConfigs\": [\n    {\n      \"auditLogConfigs\": [\n        {\n          \"exemptedMembers\": [\n            \"\"\n          ],\n          \"logType\": \"{{oneOf (array 'LOG_TYPE_UNSPECIFIED' 'ADMIN_READ' 'DATA_WRITE' 'DATA_READ')}}\"\n        }\n      ],\n      \"service\": \"\"\n    }\n  ],\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'datatype.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -1975,27 +2105,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "fef6bc42-1db7-4347-9c6a-b1bee49979fd",
+      "uuid": "77409e10-75d1-4455-9f1e-caab1e046002",
       "documentation": "Sets the access control policy on the specified resource. Replaces any existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.",
       "method": "post",
       "endpoint": "v1beta1/:resource:setIamPolicy",
       "responses": [
         {
-          "uuid": "56b7a9d9-e11f-4e04-9dc5-1a1a22c92f8e",
-          "body": "{\n  \"auditConfigs\": [\n    {\n      \"auditLogConfigs\": [\n        {\n          \"exemptedMembers\": [\n            \"\"\n          ],\n          \"logType\": \"{{oneOf (array 'LOG_TYPE_UNSPECIFIED' 'ADMIN_READ' 'DATA_WRITE' 'DATA_READ')}}\"\n        }\n      ],\n      \"service\": \"\"\n    }\n  ],\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "uuid": "a8849873-16f7-4854-a2a6-d390ce974555",
+          "body": "{\n  \"auditConfigs\": [\n    {\n      \"auditLogConfigs\": [\n        {\n          \"exemptedMembers\": [\n            \"\"\n          ],\n          \"logType\": \"{{oneOf (array 'LOG_TYPE_UNSPECIFIED' 'ADMIN_READ' 'DATA_WRITE' 'DATA_READ')}}\"\n        }\n      ],\n      \"service\": \"\"\n    }\n  ],\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'datatype.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -2005,26 +2137,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "969361c8-a634-4c3f-96f7-b410cb1da95a",
+      "uuid": "35503c05-da8d-412e-bade-010b011859b9",
       "documentation": "Returns permissions that a caller has on the specified resource. If the resource does not exist, this will return an empty set of permissions, not a `NOT_FOUND` error. Note: This operation is designed to be used for building permission-aware UIs and command-line tools, not for authorization checking. This operation may \"fail open\" without warning.",
       "method": "post",
       "endpoint": "v1beta1/:resource:testIamPermissions",
       "responses": [
         {
-          "uuid": "8d805ca6-c073-41fe-b295-d8bb2156fc91",
+          "uuid": "2def2fab-a42a-4ac8-8144-ba238f05e281",
           "body": "{\n  \"permissions\": [\n    \"\"\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -2035,27 +2169,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "914c0856-621d-42a8-befa-c2b36726d296",
+      "uuid": "d5b59203-2969-4ea1-8bcb-221a743f7c5d",
       "documentation": "Creates a new dataset containing de-identified data from the source dataset. The metadata field type is OperationMetadata. If the request is successful, the response field type is DeidentifySummary. The LRO result may still be successful if de-identification fails for some resources. The new de-identified dataset will not contain these failed resources. The number of resources processed are tracked in Operation.metadata. Error details are logged to Cloud Logging. For more information, see [Viewing error logs in Cloud Logging](https://cloud.google.com/healthcare/docs/how-tos/logging).",
       "method": "post",
       "endpoint": "v1beta1/:sourceDataset:deidentify",
       "responses": [
         {
-          "uuid": "b859320a-056d-4621-a550-2215ef24d240",
-          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "uuid": "9dba0db4-ff8c-467f-9089-0495fcc7497f",
+          "body": "{\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -2065,27 +2201,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "559e4765-cf69-41df-a0ca-263451c00121",
+      "uuid": "c08c1598-71bb-4c2b-8054-383a8ad934b5",
       "documentation": "De-identifies data from the source store and writes it to the destination store. The metadata field type is OperationMetadata. If the request is successful, the response field type is DeidentifyFhirStoreSummary. The number of resources processed are tracked in Operation.metadata. Error details are logged to Cloud Logging. For more information, see [Viewing error logs in Cloud Logging](https://cloud.google.com/healthcare/docs/how-tos/logging).",
       "method": "post",
       "endpoint": "v1beta1/:sourceStore:deidentify",
       "responses": [
         {
-          "uuid": "8e0c9a05-bfcd-4414-b511-7173a5f19898",
-          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "uuid": "19bfe2c3-5e2a-460d-9753-5445d5c4b889",
+          "body": "{\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -2095,17 +2233,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -2133,5 +2273,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

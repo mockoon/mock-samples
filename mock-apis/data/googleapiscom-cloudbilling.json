@@ -1,6 +1,6 @@
 {
-  "uuid": "0aba0c04-7966-4821-80e5-6cbbf2cb0a85",
-  "lastMigration": 19,
+  "uuid": "2f755274-8b11-4cb1-a734-20f612fd21f3",
+  "lastMigration": 24,
   "name": "Cloud Billing API",
   "endpointPrefix": "",
   "latency": 0,
@@ -8,44 +8,14 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "a7f619be-294e-453e-a161-dccf53a4571c",
-      "documentation": "Lists the billing accounts that the current authenticated user has permission to [view](https://cloud.google.com/billing/docs/how-to/billing-access).",
-      "method": "get",
-      "endpoint": "v1/billingAccounts",
-      "responses": [
-        {
-          "uuid": "ca4382c1-c1b2-4013-be64-d3e15006c6e3",
-          "body": "{\n  \"billingAccounts\": [\n    {\n      \"displayName\": \"\",\n      \"masterBillingAccount\": \"\",\n      \"name\": \"\",\n      \"open\": {{faker 'random.boolean'}}\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "9c52ec3e-1300-4e3a-b423-eb50e517dd9a",
-      "documentation": "This method creates [billing subaccounts](https://cloud.google.com/billing/docs/concepts#subaccounts). Google Cloud resellers should use the Channel Services APIs, [accounts.customers.create](https://cloud.google.com/channel/docs/reference/rest/v1/accounts.customers/create) and [accounts.customers.entitlements.create](https://cloud.google.com/channel/docs/reference/rest/v1/accounts.customers.entitlements/create). When creating a subaccount, the current authenticated user must have the `billing.accounts.update` IAM permission on the parent account, which is typically given to billing account [administrators](https://cloud.google.com/billing/docs/how-to/billing-access). This method will return an error if the parent account has not been provisioned as a reseller account.",
+      "uuid": "83acc166-55f5-45f1-86fb-ad0277727231",
+      "documentation": "Use custom pricing in the estimate, using a `CostScenario` with a defined `billingAccount`.",
       "method": "post",
-      "endpoint": "v1/billingAccounts",
+      "endpoint": "v1beta/:billingAccount:estimateCostScenario",
       "responses": [
         {
-          "uuid": "ab3a4ec1-7b05-4362-aed1-e7c667cd9bf0",
-          "body": "{\n  \"displayName\": \"\",\n  \"masterBillingAccount\": \"\",\n  \"name\": \"\",\n  \"open\": {{faker 'random.boolean'}}\n}",
+          "uuid": "34a8ba74-2f46-4526-bde4-e0eaada94283",
+          "body": "{\n  \"costEstimationResult\": {\n    \"currencyCode\": \"\",\n    \"segmentCostEstimates\": [\n      {\n        \"commitmentCostEstimates\": [\n          {\n            \"commitmentTotalCostEstimate\": {\n              \"creditEstimates\": [\n                {\n                  \"creditAmount\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  },\n                  \"creditDescription\": \"\",\n                  \"creditType\": \"\"\n                }\n              ],\n              \"netCostEstimate\": {\n                \"currencyCode\": \"\",\n                \"nanos\": {{faker 'datatype.number'}},\n                \"units\": \"\"\n              },\n              \"preCreditCostEstimate\": {\n                \"currencyCode\": \"\",\n                \"nanos\": {{faker 'datatype.number'}},\n                \"units\": \"\"\n              }\n            },\n            \"name\": \"\",\n            \"skuCostEstimates\": [\n              {\n                \"costEstimate\": {\n                  \"creditEstimates\": [\n                    {\n                      \"creditAmount\": {\n                        \"currencyCode\": \"\",\n                        \"nanos\": {{faker 'datatype.number'}},\n                        \"units\": \"\"\n                      },\n                      \"creditDescription\": \"\",\n                      \"creditType\": \"\"\n                    }\n                  ],\n                  \"netCostEstimate\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  },\n                  \"preCreditCostEstimate\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  }\n                },\n                \"sku\": \"\",\n                \"usageAmount\": {{faker 'datatype.float'}},\n                \"usageUnit\": \"\"\n              }\n            ]\n          }\n        ],\n        \"segmentStartTime\": {\n          \"estimationTimeFrameOffset\": \"\"\n        },\n        \"segmentTotalCostEstimate\": {\n          \"creditEstimates\": [\n            {\n              \"creditAmount\": {\n                \"currencyCode\": \"\",\n                \"nanos\": {{faker 'datatype.number'}},\n                \"units\": \"\"\n              },\n              \"creditDescription\": \"\",\n              \"creditType\": \"\"\n            }\n          ],\n          \"netCostEstimate\": {\n            \"currencyCode\": \"\",\n            \"nanos\": {{faker 'datatype.number'}},\n            \"units\": \"\"\n          },\n          \"preCreditCostEstimate\": {\n            \"currencyCode\": \"\",\n            \"nanos\": {{faker 'datatype.number'}},\n            \"units\": \"\"\n          }\n        },\n        \"workloadCostEstimates\": [\n          {\n            \"name\": \"\",\n            \"skuCostEstimates\": [\n              {\n                \"costEstimate\": {\n                  \"creditEstimates\": [\n                    {\n                      \"creditAmount\": {\n                        \"currencyCode\": \"\",\n                        \"nanos\": {{faker 'datatype.number'}},\n                        \"units\": \"\"\n                      },\n                      \"creditDescription\": \"\",\n                      \"creditType\": \"\"\n                    }\n                  ],\n                  \"netCostEstimate\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  },\n                  \"preCreditCostEstimate\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  }\n                },\n                \"sku\": \"\",\n                \"usageAmount\": {{faker 'datatype.float'}},\n                \"usageUnit\": \"\"\n              }\n            ],\n            \"workloadTotalCostEstimate\": {\n              \"creditEstimates\": [\n                {\n                  \"creditAmount\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  },\n                  \"creditDescription\": \"\",\n                  \"creditType\": \"\"\n                }\n              ],\n              \"netCostEstimate\": {\n                \"currencyCode\": \"\",\n                \"nanos\": {{faker 'datatype.number'}},\n                \"units\": \"\"\n              },\n              \"preCreditCostEstimate\": {\n                \"currencyCode\": \"\",\n                \"nanos\": {{faker 'datatype.number'}},\n                \"units\": \"\"\n              }\n            }\n          }\n        ]\n      }\n    ],\n    \"skus\": [\n      {\n        \"displayName\": \"\",\n        \"prices\": [\n          {\n            \"effectiveTime\": {\n              \"estimationTimeFrameOffset\": \"\"\n            },\n            \"priceType\": \"\",\n            \"rate\": {\n              \"tiers\": [\n                {\n                  \"price\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  },\n                  \"startAmount\": {{faker 'datatype.float'}}\n                }\n              ],\n              \"unit\": \"\",\n              \"unitCount\": {{faker 'datatype.float'}}\n            }\n          }\n        ],\n        \"sku\": \"\"\n      }\n    ]\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -55,267 +25,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "012d4694-0692-4807-bdec-87dec075a4ed",
-      "documentation": "Lists all public cloud services.",
-      "method": "get",
-      "endpoint": "v1/services",
-      "responses": [
-        {
-          "uuid": "69670b3f-fa46-438a-a7bc-b246b5ddd857",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"services\": [\n    {\n      \"businessEntityName\": \"\",\n      \"displayName\": \"\",\n      \"name\": \"\",\n      \"serviceId\": \"\"\n    }\n  ]\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "dca61c8c-854d-4866-a4ad-6735236bf319",
-      "documentation": "Gets information about a billing account. The current authenticated user must be a [viewer of the billing account](https://cloud.google.com/billing/docs/how-to/billing-access).",
-      "method": "get",
-      "endpoint": "v1/:name",
-      "responses": [
-        {
-          "uuid": "507829e2-834d-4309-9e4e-7c6b269f0f93",
-          "body": "{\n  \"displayName\": \"\",\n  \"masterBillingAccount\": \"\",\n  \"name\": \"\",\n  \"open\": {{faker 'random.boolean'}}\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "ab2026bd-9438-438f-9e0e-b33eacfbde21",
-      "documentation": "Updates a billing account's fields. Currently the only field that can be edited is `display_name`. The current authenticated user must have the `billing.accounts.update` IAM permission, which is typically given to the [administrator](https://cloud.google.com/billing/docs/how-to/billing-access) of the billing account.",
-      "method": "patch",
-      "endpoint": "v1/:name",
-      "responses": [
-        {
-          "uuid": "6757e254-6510-4cd8-b9bb-c17b3195dba7",
-          "body": "{\n  \"displayName\": \"\",\n  \"masterBillingAccount\": \"\",\n  \"name\": \"\",\n  \"open\": {{faker 'random.boolean'}}\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "f56e7879-b546-4b78-a0b7-36d7178a403a",
-      "documentation": "Gets the billing information for a project. The current authenticated user must have the `resourcemanager.projects.get` permission for the project, which can be granted by assigning the [Project Viewer](https://cloud.google.com/iam/docs/understanding-roles#predefined_roles) role.",
-      "method": "get",
-      "endpoint": "v1/:name/billingInfo",
-      "responses": [
-        {
-          "uuid": "1cb29a28-481f-42fc-894e-6c2b997dfe24",
-          "body": "{\n  \"billingAccountName\": \"\",\n  \"billingEnabled\": {{faker 'random.boolean'}},\n  \"name\": \"\",\n  \"projectId\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "905b5d5a-eb14-454a-8124-718555852e70",
-      "documentation": "Sets or updates the billing account associated with a project. You specify the new billing account by setting the `billing_account_name` in the `ProjectBillingInfo` resource to the resource name of a billing account. Associating a project with an open billing account enables billing on the project and allows charges for resource usage. If the project already had a billing account, this method changes the billing account used for resource usage charges. *Note:* Incurred charges that have not yet been reported in the transaction history of the Google Cloud Console might be billed to the new billing account, even if the charge occurred before the new billing account was assigned to the project. The current authenticated user must have ownership privileges for both the [project](https://cloud.google.com/docs/permissions-overview#h.bgs0oxofvnoo ) and the [billing account](https://cloud.google.com/billing/docs/how-to/billing-access). You can disable billing on the project by setting the `billing_account_name` field to empty. This action disassociates the current billing account from the project. Any billable activity of your in-use services will stop, and your application could stop functioning as expected. Any unbilled charges to date will be billed to the previously associated account. The current authenticated user must be either an owner of the project or an owner of the billing account for the project. Note that associating a project with a *closed* billing account will have much the same effect as disabling billing on the project: any paid resources used by the project will be shut down. Thus, unless you wish to disable billing, you should always call this method with the name of an *open* billing account.",
-      "method": "put",
-      "endpoint": "v1/:name/billingInfo",
-      "responses": [
-        {
-          "uuid": "02a66efc-2d90-45e6-ba4d-7958915abcfb",
-          "body": "{\n  \"billingAccountName\": \"\",\n  \"billingEnabled\": {{faker 'random.boolean'}},\n  \"name\": \"\",\n  \"projectId\": \"\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "c40d6452-35c4-4396-845c-827abf429dea",
-      "documentation": "Lists the projects associated with a billing account. The current authenticated user must have the `billing.resourceAssociations.list` IAM permission, which is often given to billing account [viewers](https://cloud.google.com/billing/docs/how-to/billing-access).",
-      "method": "get",
-      "endpoint": "v1/:name/projects",
-      "responses": [
-        {
-          "uuid": "b7f33656-fab9-4d6f-bb32-4af3c5ba04d0",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"projectBillingInfo\": [\n    {\n      \"billingAccountName\": \"\",\n      \"billingEnabled\": {{faker 'random.boolean'}},\n      \"name\": \"\",\n      \"projectId\": \"\"\n    }\n  ]\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "e408baec-66a3-4bb3-b8ff-98f7b4ecb439",
-      "documentation": "Lists all publicly available SKUs for a given cloud service.",
-      "method": "get",
-      "endpoint": "v1/:parent/skus",
-      "responses": [
-        {
-          "uuid": "870c2988-2488-4257-b7bf-083cfeb6a6c5",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"skus\": [\n    {\n      \"category\": {\n        \"resourceFamily\": \"\",\n        \"resourceGroup\": \"\",\n        \"serviceDisplayName\": \"\",\n        \"usageType\": \"\"\n      },\n      \"description\": \"\",\n      \"geoTaxonomy\": {\n        \"regions\": [\n          \"\"\n        ],\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'GLOBAL' 'REGIONAL' 'MULTI_REGIONAL')}}\"\n      },\n      \"name\": \"\",\n      \"pricingInfo\": [\n        {\n          \"aggregationInfo\": {\n            \"aggregationCount\": {{faker 'random.number'}},\n            \"aggregationInterval\": \"{{oneOf (array 'AGGREGATION_INTERVAL_UNSPECIFIED' 'DAILY' 'MONTHLY')}}\",\n            \"aggregationLevel\": \"{{oneOf (array 'AGGREGATION_LEVEL_UNSPECIFIED' 'ACCOUNT' 'PROJECT')}}\"\n          },\n          \"currencyConversionRate\": {{faker 'random.float'}},\n          \"effectiveTime\": \"\",\n          \"pricingExpression\": {\n            \"baseUnit\": \"\",\n            \"baseUnitConversionFactor\": {{faker 'random.float'}},\n            \"baseUnitDescription\": \"\",\n            \"displayQuantity\": {{faker 'random.float'}},\n            \"tieredRates\": [\n              {\n                \"startUsageAmount\": {{faker 'random.float'}},\n                \"unitPrice\": {\n                  \"currencyCode\": \"\",\n                  \"nanos\": {{faker 'random.number'}},\n                  \"units\": \"\"\n                }\n              }\n            ],\n            \"usageUnit\": \"\",\n            \"usageUnitDescription\": \"\"\n          },\n          \"summary\": \"\"\n        }\n      ],\n      \"serviceProviderName\": \"\",\n      \"serviceRegions\": [\n        \"\"\n      ],\n      \"skuId\": \"\"\n    }\n  ]\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "88e58248-eb92-435a-9b94-cdee1614da85",
-      "documentation": "Gets the access control policy for a billing account. The caller must have the `billing.accounts.getIamPolicy` permission on the account, which is often given to billing account [viewers](https://cloud.google.com/billing/docs/how-to/billing-access).",
-      "method": "get",
-      "endpoint": "v1/:resource:getIamPolicy",
-      "responses": [
-        {
-          "uuid": "5466ad88-a1ce-44cd-9016-28b11ffec0c0",
-          "body": "{\n  \"auditConfigs\": [\n    {\n      \"auditLogConfigs\": [\n        {\n          \"exemptedMembers\": [\n            \"\"\n          ],\n          \"logType\": \"{{oneOf (array 'LOG_TYPE_UNSPECIFIED' 'ADMIN_READ' 'DATA_WRITE' 'DATA_READ')}}\"\n        }\n      ],\n      \"service\": \"\"\n    }\n  ],\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "45a72a9e-91a5-4b77-ae2f-60bdd2be77a3",
-      "documentation": "Sets the access control policy for a billing account. Replaces any existing policy. The caller must have the `billing.accounts.setIamPolicy` permission on the account, which is often given to billing account [administrators](https://cloud.google.com/billing/docs/how-to/billing-access).",
+      "uuid": "d5433ec9-b3ce-4186-9274-6f42d90b8368",
+      "documentation": "Estimate list prices using a `CostScenario` without a defined `billingAccount`.",
       "method": "post",
-      "endpoint": "v1/:resource:setIamPolicy",
+      "endpoint": "v1beta:estimateCostScenario",
       "responses": [
         {
-          "uuid": "b9c8e1a7-5217-438b-9f3b-9354a915a5f5",
-          "body": "{\n  \"auditConfigs\": [\n    {\n      \"auditLogConfigs\": [\n        {\n          \"exemptedMembers\": [\n            \"\"\n          ],\n          \"logType\": \"{{oneOf (array 'LOG_TYPE_UNSPECIFIED' 'ADMIN_READ' 'DATA_WRITE' 'DATA_READ')}}\"\n        }\n      ],\n      \"service\": \"\"\n    }\n  ],\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "uuid": "956b7ae4-2ec4-4711-9e51-7a8feba5393c",
+          "body": "{\n  \"costEstimationResult\": {\n    \"currencyCode\": \"\",\n    \"segmentCostEstimates\": [\n      {\n        \"commitmentCostEstimates\": [\n          {\n            \"commitmentTotalCostEstimate\": {\n              \"creditEstimates\": [\n                {\n                  \"creditAmount\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  },\n                  \"creditDescription\": \"\",\n                  \"creditType\": \"\"\n                }\n              ],\n              \"netCostEstimate\": {\n                \"currencyCode\": \"\",\n                \"nanos\": {{faker 'datatype.number'}},\n                \"units\": \"\"\n              },\n              \"preCreditCostEstimate\": {\n                \"currencyCode\": \"\",\n                \"nanos\": {{faker 'datatype.number'}},\n                \"units\": \"\"\n              }\n            },\n            \"name\": \"\",\n            \"skuCostEstimates\": [\n              {\n                \"costEstimate\": {\n                  \"creditEstimates\": [\n                    {\n                      \"creditAmount\": {\n                        \"currencyCode\": \"\",\n                        \"nanos\": {{faker 'datatype.number'}},\n                        \"units\": \"\"\n                      },\n                      \"creditDescription\": \"\",\n                      \"creditType\": \"\"\n                    }\n                  ],\n                  \"netCostEstimate\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  },\n                  \"preCreditCostEstimate\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  }\n                },\n                \"sku\": \"\",\n                \"usageAmount\": {{faker 'datatype.float'}},\n                \"usageUnit\": \"\"\n              }\n            ]\n          }\n        ],\n        \"segmentStartTime\": {\n          \"estimationTimeFrameOffset\": \"\"\n        },\n        \"segmentTotalCostEstimate\": {\n          \"creditEstimates\": [\n            {\n              \"creditAmount\": {\n                \"currencyCode\": \"\",\n                \"nanos\": {{faker 'datatype.number'}},\n                \"units\": \"\"\n              },\n              \"creditDescription\": \"\",\n              \"creditType\": \"\"\n            }\n          ],\n          \"netCostEstimate\": {\n            \"currencyCode\": \"\",\n            \"nanos\": {{faker 'datatype.number'}},\n            \"units\": \"\"\n          },\n          \"preCreditCostEstimate\": {\n            \"currencyCode\": \"\",\n            \"nanos\": {{faker 'datatype.number'}},\n            \"units\": \"\"\n          }\n        },\n        \"workloadCostEstimates\": [\n          {\n            \"name\": \"\",\n            \"skuCostEstimates\": [\n              {\n                \"costEstimate\": {\n                  \"creditEstimates\": [\n                    {\n                      \"creditAmount\": {\n                        \"currencyCode\": \"\",\n                        \"nanos\": {{faker 'datatype.number'}},\n                        \"units\": \"\"\n                      },\n                      \"creditDescription\": \"\",\n                      \"creditType\": \"\"\n                    }\n                  ],\n                  \"netCostEstimate\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  },\n                  \"preCreditCostEstimate\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  }\n                },\n                \"sku\": \"\",\n                \"usageAmount\": {{faker 'datatype.float'}},\n                \"usageUnit\": \"\"\n              }\n            ],\n            \"workloadTotalCostEstimate\": {\n              \"creditEstimates\": [\n                {\n                  \"creditAmount\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  },\n                  \"creditDescription\": \"\",\n                  \"creditType\": \"\"\n                }\n              ],\n              \"netCostEstimate\": {\n                \"currencyCode\": \"\",\n                \"nanos\": {{faker 'datatype.number'}},\n                \"units\": \"\"\n              },\n              \"preCreditCostEstimate\": {\n                \"currencyCode\": \"\",\n                \"nanos\": {{faker 'datatype.number'}},\n                \"units\": \"\"\n              }\n            }\n          }\n        ]\n      }\n    ],\n    \"skus\": [\n      {\n        \"displayName\": \"\",\n        \"prices\": [\n          {\n            \"effectiveTime\": {\n              \"estimationTimeFrameOffset\": \"\"\n            },\n            \"priceType\": \"\",\n            \"rate\": {\n              \"tiers\": [\n                {\n                  \"price\": {\n                    \"currencyCode\": \"\",\n                    \"nanos\": {{faker 'datatype.number'}},\n                    \"units\": \"\"\n                  },\n                  \"startAmount\": {{faker 'datatype.float'}}\n                }\n              ],\n              \"unit\": \"\",\n              \"unitCount\": {{faker 'datatype.float'}}\n            }\n          }\n        ],\n        \"sku\": \"\"\n      }\n    ]\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -325,47 +57,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
-    },
-    {
-      "uuid": "e0c7a14f-1716-45ca-b038-74de542563d4",
-      "documentation": "Tests the access control policy for a billing account. This method takes the resource and a set of permissions as input and returns the subset of the input permissions that the caller is allowed for that resource.",
-      "method": "post",
-      "endpoint": "v1/:resource:testIamPermissions",
-      "responses": [
-        {
-          "uuid": "5bdb030c-32f2-4f7a-9778-3aae4b046a88",
-          "body": "{\n  \"permissions\": [\n    \"\"\n  ]\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Successful response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false
-        }
-      ],
-      "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -393,5 +97,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

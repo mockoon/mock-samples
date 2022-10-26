@@ -31,6 +31,13 @@ const mockAPIs: { items: MockAPI[]; categories: string[] } = {
 };
 const categories = new Set<string>();
 const slugs = new Set();
+// some APIs are problematic and the swagger parser is taking hours
+const exclusionList = [
+  'bungie.net',
+  'stripe.com',
+  'microsoft.com:graph',
+  'presalytics.io:ooxml'
+];
 
 const capitalize = (text: string) => {
   if (!text) {
@@ -53,7 +60,7 @@ const apiList: any = await response.json();
 writeFileSync(`./tmp/list.json`, JSON.stringify(apiList, null, 2));
 
 for (const apiName in apiList) {
-  if (apiList.hasOwnProperty(apiName)) {
+  if (apiList.hasOwnProperty(apiName) && !exclusionList.includes(apiName)) {
     console.log('Parsing: ' + apiName);
 
     const versionName = Object.keys(apiList[apiName].versions)[0];

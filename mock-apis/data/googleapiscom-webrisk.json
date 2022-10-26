@@ -1,6 +1,6 @@
 {
-  "uuid": "33c98c65-c325-441f-b037-750a416d96b2",
-  "lastMigration": 19,
+  "uuid": "194cb340-d15c-4622-97e4-f688d4d81b47",
+  "lastMigration": 24,
   "name": "Web Risk API",
   "endpointPrefix": "",
   "latency": 0,
@@ -8,14 +8,14 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "33701178-d4a5-4138-a675-c210b5c33a21",
+      "uuid": "85a233b5-bb66-456c-881d-5b9d488c7817",
       "documentation": "Gets the full hashes that match the requested hash prefix. This is used after a hash prefix is looked up in a threatList and there is a match. The client side threatList only holds partial hashes so the client must query this method to determine if there is a full hash match of a threat.",
       "method": "get",
       "endpoint": "v1/hashes:search",
       "responses": [
         {
-          "uuid": "d7649f99-de12-441a-afcf-0c3f4d67c617",
-          "body": "{\n  \"negativeExpireTime\": \"\",\n  \"threats\": [\n    {\n      \"expireTime\": \"\",\n      \"hash\": \"\",\n      \"threatTypes\": [\n        \"{{oneOf (array 'THREAT_TYPE_UNSPECIFIED' 'MALWARE' 'SOCIAL_ENGINEERING' 'UNWANTED_SOFTWARE')}}\"\n      ]\n    }\n  ]\n}",
+          "uuid": "f088d9da-589a-4cfc-8d40-bf180c8e7317",
+          "body": "{\n  \"negativeExpireTime\": \"\",\n  \"threats\": [\n    {\n      \"expireTime\": \"\",\n      \"hash\": \"\",\n      \"threatTypes\": [\n        \"{{oneOf (array 'THREAT_TYPE_UNSPECIFIED' 'MALWARE' 'SOCIAL_ENGINEERING' 'UNWANTED_SOFTWARE' 'SOCIAL_ENGINEERING_EXTENDED_COVERAGE')}}\"\n      ]\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -25,27 +25,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "14ffe766-75c9-49bd-888b-f22696f8bb00",
+      "uuid": "0cc8ba28-a6f9-4f99-b692-00d93fcc930b",
       "documentation": "Gets the most recent threat list diffs. These diffs should be applied to a local database of hashes to keep it up-to-date. If the local database is empty or excessively out-of-date, a complete snapshot of the database will be returned. This Method only updates a single ThreatList at a time. To update multiple ThreatList databases, this method needs to be called once for each list.",
       "method": "get",
       "endpoint": "v1/threatLists:computeDiff",
       "responses": [
         {
-          "uuid": "7f9ee4a3-96b3-403a-8a08-21c553b6b4b0",
-          "body": "{\n  \"additions\": {\n    \"rawHashes\": [\n      {\n        \"prefixSize\": {{faker 'random.number'}},\n        \"rawHashes\": \"\"\n      }\n    ],\n    \"riceHashes\": {\n      \"encodedData\": \"\",\n      \"entryCount\": {{faker 'random.number'}},\n      \"firstValue\": \"\",\n      \"riceParameter\": {{faker 'random.number'}}\n    }\n  },\n  \"checksum\": {\n    \"sha256\": \"\"\n  },\n  \"newVersionToken\": \"\",\n  \"recommendedNextDiff\": \"\",\n  \"removals\": {\n    \"rawIndices\": {\n      \"indices\": [\n        {{faker 'random.number'}}\n      ]\n    },\n    \"riceIndices\": {\n      \"encodedData\": \"\",\n      \"entryCount\": {{faker 'random.number'}},\n      \"firstValue\": \"\",\n      \"riceParameter\": {{faker 'random.number'}}\n    }\n  },\n  \"responseType\": \"{{oneOf (array 'RESPONSE_TYPE_UNSPECIFIED' 'DIFF' 'RESET')}}\"\n}",
+          "uuid": "aa79f664-b9a9-4f3e-bf7f-fcdc6fdab029",
+          "body": "{\n  \"additions\": {\n    \"rawHashes\": [\n      {\n        \"prefixSize\": {{faker 'datatype.number'}},\n        \"rawHashes\": \"\"\n      }\n    ],\n    \"riceHashes\": {\n      \"encodedData\": \"\",\n      \"entryCount\": {{faker 'datatype.number'}},\n      \"firstValue\": \"\",\n      \"riceParameter\": {{faker 'datatype.number'}}\n    }\n  },\n  \"checksum\": {\n    \"sha256\": \"\"\n  },\n  \"newVersionToken\": \"\",\n  \"recommendedNextDiff\": \"\",\n  \"removals\": {\n    \"rawIndices\": {\n      \"indices\": [\n        {{faker 'datatype.number'}}\n      ]\n    },\n    \"riceIndices\": {\n      \"encodedData\": \"\",\n      \"entryCount\": {{faker 'datatype.number'}},\n      \"firstValue\": \"\",\n      \"riceParameter\": {{faker 'datatype.number'}}\n    }\n  },\n  \"responseType\": \"{{oneOf (array 'RESPONSE_TYPE_UNSPECIFIED' 'DIFF' 'RESET')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -55,27 +57,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2ec8cc26-4be9-4991-a126-4b04b295e714",
+      "uuid": "061791cc-5d3f-4d66-84f2-1013ac0f6cd4",
       "documentation": "This method is used to check whether a URI is on a given threatList. Multiple threatLists may be searched in a single query. The response will list all requested threatLists the URI was found to match. If the URI is not found on any of the requested ThreatList an empty response will be returned.",
       "method": "get",
       "endpoint": "v1/uris:search",
       "responses": [
         {
-          "uuid": "6bac5a00-a750-4224-982b-fcab1572de39",
-          "body": "{\n  \"threat\": {\n    \"expireTime\": \"\",\n    \"threatTypes\": [\n      \"{{oneOf (array 'THREAT_TYPE_UNSPECIFIED' 'MALWARE' 'SOCIAL_ENGINEERING' 'UNWANTED_SOFTWARE')}}\"\n    ]\n  }\n}",
+          "uuid": "8199a5d5-bb42-43a1-82c5-377d4a24bed5",
+          "body": "{\n  \"threat\": {\n    \"expireTime\": \"\",\n    \"threatTypes\": [\n      \"{{oneOf (array 'THREAT_TYPE_UNSPECIFIED' 'MALWARE' 'SOCIAL_ENGINEERING' 'UNWANTED_SOFTWARE' 'SOCIAL_ENGINEERING_EXTENDED_COVERAGE')}}\"\n    ]\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -85,26 +89,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "de41aa02-9c6c-4b8e-bcb1-e34783afd084",
+      "uuid": "e2e7dc9e-b864-4ebd-9e50-3c30a7b757ba",
       "documentation": "Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.",
       "method": "delete",
       "endpoint": "v1/:name",
       "responses": [
         {
-          "uuid": "fc32a527-4f29-4c11-a9ef-130b4f3defdf",
+          "uuid": "95c0f4e4-4ea6-4211-ae6d-19b0844be39e",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -115,27 +121,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "12aba43e-b3fa-47b8-b36e-ab765392446c",
+      "uuid": "ecd8b7b4-f560-4dd2-ace3-ba7cd1fc16a5",
       "documentation": "Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.",
       "method": "get",
       "endpoint": "v1/:name",
       "responses": [
         {
-          "uuid": "15f00f93-c120-44db-beaf-ebba3bd2fbba",
-          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "uuid": "d415f2c5-2166-4e6d-8bb4-c12a5c66bb75",
+          "body": "{\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -145,27 +153,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b1b34217-791d-4d2c-8b61-7201973064e0",
+      "uuid": "457f2f6e-31a5-4fbb-a4fd-425027644927",
       "documentation": "Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`. NOTE: the `name` binding allows API services to override the binding to use different resource name schemes, such as `users/*/operations`. To override the binding, API services can add a binding such as `\"/v1/{name=users/*}/operations\"` to their service configuration. For backwards compatibility, the default name includes the operations collection id, however overriding users must ensure the name binding is the parent resource, without the operations collection id.",
       "method": "get",
       "endpoint": "v1/:name/operations",
       "responses": [
         {
-          "uuid": "8ac4b835-0812-4555-83f3-f8aa1cac8259",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"operations\": [\n    {\n      \"done\": {{faker 'random.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'random.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"metadata\": {},\n      \"name\": \"\",\n      \"response\": {}\n    }\n  ]\n}",
+          "uuid": "6909bee0-6380-4221-a130-4922b8988d58",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"operations\": [\n    {\n      \"done\": {{faker 'datatype.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'datatype.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"metadata\": {},\n      \"name\": \"\",\n      \"response\": {}\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -175,26 +185,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "8f781fe0-3e1c-4c44-919a-8e8d9a5463c9",
+      "uuid": "1fc5bdba-8f52-40ef-837f-e1b81f8b76c5",
       "documentation": "Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.",
       "method": "post",
       "endpoint": "v1/:name:cancel",
       "responses": [
         {
-          "uuid": "6777c935-eb81-40f8-baca-6c73f2f9f8d4",
+          "uuid": "580ab51d-d90b-481b-9b9a-b6fefe5704db",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -205,27 +217,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b73667b0-ab10-4057-899f-86a695a1988a",
+      "uuid": "d82e90cb-6654-46b6-bb8b-fc73236b9dd2",
       "documentation": "Creates a Submission of a URI suspected of containing phishing content to be reviewed. If the result verifies the existence of malicious phishing content, the site will be added to the [Google's Social Engineering lists](https://support.google.com/webmasters/answer/6350487/) in order to protect users that could get exposed to this threat in the future. Only allowlisted projects can use this method during Early Access. Please reach out to Sales or your customer engineer to obtain access.",
       "method": "post",
       "endpoint": "v1/:parent/submissions",
       "responses": [
         {
-          "uuid": "78755141-0ba6-48f6-96de-188214e0c656",
-          "body": "{\n  \"threatTypes\": [\n    \"{{oneOf (array 'THREAT_TYPE_UNSPECIFIED' 'MALWARE' 'SOCIAL_ENGINEERING' 'UNWANTED_SOFTWARE')}}\"\n  ],\n  \"uri\": \"\"\n}",
+          "uuid": "47e6138c-6af7-4639-b295-1015186a182d",
+          "body": "{\n  \"threatTypes\": [\n    \"{{oneOf (array 'THREAT_TYPE_UNSPECIFIED' 'MALWARE' 'SOCIAL_ENGINEERING' 'UNWANTED_SOFTWARE' 'SOCIAL_ENGINEERING_EXTENDED_COVERAGE')}}\"\n  ],\n  \"uri\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -235,27 +249,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "7959c1f0-603d-4aca-8c3e-f1347bfb5920",
+      "uuid": "06ca2b39-9c5f-4f47-8502-05a5779e8312",
       "documentation": "Submits a URI suspected of containing malicious content to be reviewed. Returns a google.longrunning.Operation which, once the review is complete, is updated with its result. You can use the [Pub/Sub API] (https://cloud.google.com/pubsub) to receive notifications for the returned Operation. If the result verifies the existence of malicious content, the site will be added to the [Google's Social Engineering lists] (https://support.google.com/webmasters/answer/6350487/) in order to protect users that could get exposed to this threat in the future. Only allowlisted projects can use this method during Early Access. Please reach out to Sales or your customer engineer to obtain access.",
       "method": "post",
       "endpoint": "v1/:parent/uris:submit",
       "responses": [
         {
-          "uuid": "b85bd7ae-2a5e-4acb-b2d7-d3f8d61b6307",
-          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "uuid": "0fc6dc46-a352-4c52-bb41-e1ad14d0a48d",
+          "body": "{\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -265,17 +281,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -303,5 +321,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

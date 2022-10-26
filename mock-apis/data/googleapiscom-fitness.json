@@ -1,6 +1,6 @@
 {
-  "uuid": "63cb439c-ac1c-491a-b7a4-e17888fc629e",
-  "lastMigration": 19,
+  "uuid": "4f857509-b7f2-4c04-ad96-a8fe79671b3a",
+  "lastMigration": 24,
   "name": "Fitness API",
   "endpointPrefix": "fitness/v1/users",
   "latency": 0,
@@ -8,14 +8,14 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "0f0d626f-2cac-4d67-bde1-db134f8b1173",
+      "uuid": "4e7dd635-7f70-4f70-a6dc-39734943bcb5",
       "documentation": "Lists all data sources that are visible to the developer, using the OAuth scopes provided. The list is not exhaustive; the user may have private data sources that are only visible to other developers, or calls using other scopes.",
       "method": "get",
       "endpoint": ":userId/dataSources",
       "responses": [
         {
-          "uuid": "9ac1def4-c621-4a47-8c29-3c433ce4b96f",
-          "body": "{\n  \"dataSource\": [\n    {\n      \"application\": {\n        \"detailsUrl\": \"\",\n        \"name\": \"\",\n        \"packageName\": \"\",\n        \"version\": \"\"\n      },\n      \"dataQualityStandard\": [\n        \"{{oneOf (array 'dataQualityUnknown' 'dataQualityBloodPressureEsh2002' 'dataQualityBloodPressureEsh2010' 'dataQualityBloodPressureAami' 'dataQualityBloodPressureBhsAA' 'dataQualityBloodPressureBhsAB' 'dataQualityBloodPressureBhsBA' 'dataQualityBloodPressureBhsBB' 'dataQualityBloodGlucoseIso151972003' 'dataQualityBloodGlucoseIso151972013')}}\"\n      ],\n      \"dataStreamId\": \"\",\n      \"dataStreamName\": \"\",\n      \"dataType\": {\n        \"field\": [\n          {\n            \"format\": \"{{oneOf (array 'integer' 'floatPoint' 'string' 'map' 'integerList' 'floatList' 'blob')}}\",\n            \"name\": \"\",\n            \"optional\": {{faker 'random.boolean'}}\n          }\n        ],\n        \"name\": \"\"\n      },\n      \"device\": {\n        \"manufacturer\": \"\",\n        \"model\": \"\",\n        \"type\": \"{{oneOf (array 'unknown' 'phone' 'tablet' 'watch' 'chestStrap' 'scale' 'headMounted' 'smartDisplay')}}\",\n        \"uid\": \"\",\n        \"version\": \"\"\n      },\n      \"name\": \"\",\n      \"type\": \"{{oneOf (array 'raw' 'derived')}}\"\n    }\n  ]\n}",
+          "uuid": "2ada3a57-55fb-4131-b050-81c379e383a7",
+          "body": "{\n  \"dataSource\": [\n    {\n      \"application\": {\n        \"detailsUrl\": \"\",\n        \"name\": \"\",\n        \"packageName\": \"\",\n        \"version\": \"\"\n      },\n      \"dataQualityStandard\": [\n        \"{{oneOf (array 'dataQualityUnknown' 'dataQualityBloodPressureEsh2002' 'dataQualityBloodPressureEsh2010' 'dataQualityBloodPressureAami' 'dataQualityBloodPressureBhsAA' 'dataQualityBloodPressureBhsAB' 'dataQualityBloodPressureBhsBA' 'dataQualityBloodPressureBhsBB' 'dataQualityBloodGlucoseIso151972003' 'dataQualityBloodGlucoseIso151972013')}}\"\n      ],\n      \"dataStreamId\": \"\",\n      \"dataStreamName\": \"\",\n      \"dataType\": {\n        \"field\": [\n          {\n            \"format\": \"{{oneOf (array 'integer' 'floatPoint' 'string' 'map' 'integerList' 'floatList' 'blob')}}\",\n            \"name\": \"\",\n            \"optional\": {{faker 'datatype.boolean'}}\n          }\n        ],\n        \"name\": \"\"\n      },\n      \"device\": {\n        \"manufacturer\": \"\",\n        \"model\": \"\",\n        \"type\": \"{{oneOf (array 'unknown' 'phone' 'tablet' 'watch' 'chestStrap' 'scale' 'headMounted' 'smartDisplay')}}\",\n        \"uid\": \"\",\n        \"version\": \"\"\n      },\n      \"name\": \"\",\n      \"type\": \"{{oneOf (array 'raw' 'derived')}}\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -25,27 +25,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "02501611-fe26-47c0-9c98-579c48b37453",
+      "uuid": "fcb1e1e7-a08f-49e5-b6ba-92a44b190cd6",
       "documentation": "Creates a new data source that is unique across all data sources belonging to this user. A data source is a unique source of sensor data. Data sources can expose raw data coming from hardware sensors on local or companion devices. They can also expose derived data, created by transforming or merging other data sources. Multiple data sources can exist for the same data type. Every data point in every dataset inserted into or read from the Fitness API has an associated data source. Each data source produces a unique stream of dataset updates, with a unique data source identifier. Not all changes to data source affect the data stream ID, so that data collected by updated versions of the same application/device can still be considered to belong to the same data source. Data sources are identified using a string generated by the server, based on the contents of the source being created. The dataStreamId field should not be set when invoking this method. It will be automatically generated by the server with the correct format. If a dataStreamId is set, it must match the format that the server would generate. This format is a combination of some fields from the data source, and has a specific order. If it doesn't match, the request will fail with an error. Specifying a DataType which is not a known type (beginning with \"com.google.\") will create a DataSource with a *custom data type*. Custom data types are only readable by the application that created them. Custom data types are *deprecated*; use standard data types instead. In addition to the data source fields included in the data source ID, the developer project number that is authenticated when creating the data source is included. This developer project number is obfuscated when read by any other developer reading public data types.",
       "method": "post",
       "endpoint": ":userId/dataSources",
       "responses": [
         {
-          "uuid": "fb6e4c15-c1f4-4c3b-ba9b-22a7a6d15c09",
-          "body": "{\n  \"application\": {\n    \"detailsUrl\": \"\",\n    \"name\": \"\",\n    \"packageName\": \"\",\n    \"version\": \"\"\n  },\n  \"dataQualityStandard\": [\n    \"{{oneOf (array 'dataQualityUnknown' 'dataQualityBloodPressureEsh2002' 'dataQualityBloodPressureEsh2010' 'dataQualityBloodPressureAami' 'dataQualityBloodPressureBhsAA' 'dataQualityBloodPressureBhsAB' 'dataQualityBloodPressureBhsBA' 'dataQualityBloodPressureBhsBB' 'dataQualityBloodGlucoseIso151972003' 'dataQualityBloodGlucoseIso151972013')}}\"\n  ],\n  \"dataStreamId\": \"\",\n  \"dataStreamName\": \"\",\n  \"dataType\": {\n    \"field\": [\n      {\n        \"format\": \"{{oneOf (array 'integer' 'floatPoint' 'string' 'map' 'integerList' 'floatList' 'blob')}}\",\n        \"name\": \"\",\n        \"optional\": {{faker 'random.boolean'}}\n      }\n    ],\n    \"name\": \"\"\n  },\n  \"device\": {\n    \"manufacturer\": \"\",\n    \"model\": \"\",\n    \"type\": \"{{oneOf (array 'unknown' 'phone' 'tablet' 'watch' 'chestStrap' 'scale' 'headMounted' 'smartDisplay')}}\",\n    \"uid\": \"\",\n    \"version\": \"\"\n  },\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'raw' 'derived')}}\"\n}",
+          "uuid": "5367d2be-1405-46e1-b631-f7f64d5d278e",
+          "body": "{\n  \"application\": {\n    \"detailsUrl\": \"\",\n    \"name\": \"\",\n    \"packageName\": \"\",\n    \"version\": \"\"\n  },\n  \"dataQualityStandard\": [\n    \"{{oneOf (array 'dataQualityUnknown' 'dataQualityBloodPressureEsh2002' 'dataQualityBloodPressureEsh2010' 'dataQualityBloodPressureAami' 'dataQualityBloodPressureBhsAA' 'dataQualityBloodPressureBhsAB' 'dataQualityBloodPressureBhsBA' 'dataQualityBloodPressureBhsBB' 'dataQualityBloodGlucoseIso151972003' 'dataQualityBloodGlucoseIso151972013')}}\"\n  ],\n  \"dataStreamId\": \"\",\n  \"dataStreamName\": \"\",\n  \"dataType\": {\n    \"field\": [\n      {\n        \"format\": \"{{oneOf (array 'integer' 'floatPoint' 'string' 'map' 'integerList' 'floatList' 'blob')}}\",\n        \"name\": \"\",\n        \"optional\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"name\": \"\"\n  },\n  \"device\": {\n    \"manufacturer\": \"\",\n    \"model\": \"\",\n    \"type\": \"{{oneOf (array 'unknown' 'phone' 'tablet' 'watch' 'chestStrap' 'scale' 'headMounted' 'smartDisplay')}}\",\n    \"uid\": \"\",\n    \"version\": \"\"\n  },\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'raw' 'derived')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -55,27 +57,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "cf4950c9-b949-49a0-8999-6274c7c08233",
+      "uuid": "07395b6d-eb41-41f6-b2e4-234a0c13f9c2",
       "documentation": "Deletes the specified data source. The request will fail if the data source contains any data points.",
       "method": "delete",
       "endpoint": ":userId/dataSources/:dataSourceId",
       "responses": [
         {
-          "uuid": "cb76f2bb-671d-416b-814e-38fe79dfb54a",
-          "body": "{\n  \"application\": {\n    \"detailsUrl\": \"\",\n    \"name\": \"\",\n    \"packageName\": \"\",\n    \"version\": \"\"\n  },\n  \"dataQualityStandard\": [\n    \"{{oneOf (array 'dataQualityUnknown' 'dataQualityBloodPressureEsh2002' 'dataQualityBloodPressureEsh2010' 'dataQualityBloodPressureAami' 'dataQualityBloodPressureBhsAA' 'dataQualityBloodPressureBhsAB' 'dataQualityBloodPressureBhsBA' 'dataQualityBloodPressureBhsBB' 'dataQualityBloodGlucoseIso151972003' 'dataQualityBloodGlucoseIso151972013')}}\"\n  ],\n  \"dataStreamId\": \"\",\n  \"dataStreamName\": \"\",\n  \"dataType\": {\n    \"field\": [\n      {\n        \"format\": \"{{oneOf (array 'integer' 'floatPoint' 'string' 'map' 'integerList' 'floatList' 'blob')}}\",\n        \"name\": \"\",\n        \"optional\": {{faker 'random.boolean'}}\n      }\n    ],\n    \"name\": \"\"\n  },\n  \"device\": {\n    \"manufacturer\": \"\",\n    \"model\": \"\",\n    \"type\": \"{{oneOf (array 'unknown' 'phone' 'tablet' 'watch' 'chestStrap' 'scale' 'headMounted' 'smartDisplay')}}\",\n    \"uid\": \"\",\n    \"version\": \"\"\n  },\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'raw' 'derived')}}\"\n}",
+          "uuid": "2b5b99dd-120d-4347-a348-d05b6dea7359",
+          "body": "{\n  \"application\": {\n    \"detailsUrl\": \"\",\n    \"name\": \"\",\n    \"packageName\": \"\",\n    \"version\": \"\"\n  },\n  \"dataQualityStandard\": [\n    \"{{oneOf (array 'dataQualityUnknown' 'dataQualityBloodPressureEsh2002' 'dataQualityBloodPressureEsh2010' 'dataQualityBloodPressureAami' 'dataQualityBloodPressureBhsAA' 'dataQualityBloodPressureBhsAB' 'dataQualityBloodPressureBhsBA' 'dataQualityBloodPressureBhsBB' 'dataQualityBloodGlucoseIso151972003' 'dataQualityBloodGlucoseIso151972013')}}\"\n  ],\n  \"dataStreamId\": \"\",\n  \"dataStreamName\": \"\",\n  \"dataType\": {\n    \"field\": [\n      {\n        \"format\": \"{{oneOf (array 'integer' 'floatPoint' 'string' 'map' 'integerList' 'floatList' 'blob')}}\",\n        \"name\": \"\",\n        \"optional\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"name\": \"\"\n  },\n  \"device\": {\n    \"manufacturer\": \"\",\n    \"model\": \"\",\n    \"type\": \"{{oneOf (array 'unknown' 'phone' 'tablet' 'watch' 'chestStrap' 'scale' 'headMounted' 'smartDisplay')}}\",\n    \"uid\": \"\",\n    \"version\": \"\"\n  },\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'raw' 'derived')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -85,27 +89,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "c48f46f0-5e67-486d-bce4-961a5e65b3ed",
+      "uuid": "be6d16d4-550a-40b9-a606-270544526363",
       "documentation": "Returns the specified data source.",
       "method": "get",
       "endpoint": ":userId/dataSources/:dataSourceId",
       "responses": [
         {
-          "uuid": "b170c424-9a19-4e17-aab1-32d116593e15",
-          "body": "{\n  \"application\": {\n    \"detailsUrl\": \"\",\n    \"name\": \"\",\n    \"packageName\": \"\",\n    \"version\": \"\"\n  },\n  \"dataQualityStandard\": [\n    \"{{oneOf (array 'dataQualityUnknown' 'dataQualityBloodPressureEsh2002' 'dataQualityBloodPressureEsh2010' 'dataQualityBloodPressureAami' 'dataQualityBloodPressureBhsAA' 'dataQualityBloodPressureBhsAB' 'dataQualityBloodPressureBhsBA' 'dataQualityBloodPressureBhsBB' 'dataQualityBloodGlucoseIso151972003' 'dataQualityBloodGlucoseIso151972013')}}\"\n  ],\n  \"dataStreamId\": \"\",\n  \"dataStreamName\": \"\",\n  \"dataType\": {\n    \"field\": [\n      {\n        \"format\": \"{{oneOf (array 'integer' 'floatPoint' 'string' 'map' 'integerList' 'floatList' 'blob')}}\",\n        \"name\": \"\",\n        \"optional\": {{faker 'random.boolean'}}\n      }\n    ],\n    \"name\": \"\"\n  },\n  \"device\": {\n    \"manufacturer\": \"\",\n    \"model\": \"\",\n    \"type\": \"{{oneOf (array 'unknown' 'phone' 'tablet' 'watch' 'chestStrap' 'scale' 'headMounted' 'smartDisplay')}}\",\n    \"uid\": \"\",\n    \"version\": \"\"\n  },\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'raw' 'derived')}}\"\n}",
+          "uuid": "ccad01ae-7067-46b3-a3be-ca836efa53bd",
+          "body": "{\n  \"application\": {\n    \"detailsUrl\": \"\",\n    \"name\": \"\",\n    \"packageName\": \"\",\n    \"version\": \"\"\n  },\n  \"dataQualityStandard\": [\n    \"{{oneOf (array 'dataQualityUnknown' 'dataQualityBloodPressureEsh2002' 'dataQualityBloodPressureEsh2010' 'dataQualityBloodPressureAami' 'dataQualityBloodPressureBhsAA' 'dataQualityBloodPressureBhsAB' 'dataQualityBloodPressureBhsBA' 'dataQualityBloodPressureBhsBB' 'dataQualityBloodGlucoseIso151972003' 'dataQualityBloodGlucoseIso151972013')}}\"\n  ],\n  \"dataStreamId\": \"\",\n  \"dataStreamName\": \"\",\n  \"dataType\": {\n    \"field\": [\n      {\n        \"format\": \"{{oneOf (array 'integer' 'floatPoint' 'string' 'map' 'integerList' 'floatList' 'blob')}}\",\n        \"name\": \"\",\n        \"optional\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"name\": \"\"\n  },\n  \"device\": {\n    \"manufacturer\": \"\",\n    \"model\": \"\",\n    \"type\": \"{{oneOf (array 'unknown' 'phone' 'tablet' 'watch' 'chestStrap' 'scale' 'headMounted' 'smartDisplay')}}\",\n    \"uid\": \"\",\n    \"version\": \"\"\n  },\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'raw' 'derived')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -115,27 +121,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f666ef1c-2dc8-41e5-87b7-f491695ac326",
+      "uuid": "9f9b434e-17f7-482a-8607-d7177131be89",
       "documentation": "Updates the specified data source. The dataStreamId, dataType, type, dataStreamName, and device properties with the exception of version, cannot be modified. Data sources are identified by their dataStreamId.",
       "method": "put",
       "endpoint": ":userId/dataSources/:dataSourceId",
       "responses": [
         {
-          "uuid": "c886027b-0f90-4672-b4af-3498ac0e97a6",
-          "body": "{\n  \"application\": {\n    \"detailsUrl\": \"\",\n    \"name\": \"\",\n    \"packageName\": \"\",\n    \"version\": \"\"\n  },\n  \"dataQualityStandard\": [\n    \"{{oneOf (array 'dataQualityUnknown' 'dataQualityBloodPressureEsh2002' 'dataQualityBloodPressureEsh2010' 'dataQualityBloodPressureAami' 'dataQualityBloodPressureBhsAA' 'dataQualityBloodPressureBhsAB' 'dataQualityBloodPressureBhsBA' 'dataQualityBloodPressureBhsBB' 'dataQualityBloodGlucoseIso151972003' 'dataQualityBloodGlucoseIso151972013')}}\"\n  ],\n  \"dataStreamId\": \"\",\n  \"dataStreamName\": \"\",\n  \"dataType\": {\n    \"field\": [\n      {\n        \"format\": \"{{oneOf (array 'integer' 'floatPoint' 'string' 'map' 'integerList' 'floatList' 'blob')}}\",\n        \"name\": \"\",\n        \"optional\": {{faker 'random.boolean'}}\n      }\n    ],\n    \"name\": \"\"\n  },\n  \"device\": {\n    \"manufacturer\": \"\",\n    \"model\": \"\",\n    \"type\": \"{{oneOf (array 'unknown' 'phone' 'tablet' 'watch' 'chestStrap' 'scale' 'headMounted' 'smartDisplay')}}\",\n    \"uid\": \"\",\n    \"version\": \"\"\n  },\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'raw' 'derived')}}\"\n}",
+          "uuid": "58c95475-8578-4741-9741-2edf21436c88",
+          "body": "{\n  \"application\": {\n    \"detailsUrl\": \"\",\n    \"name\": \"\",\n    \"packageName\": \"\",\n    \"version\": \"\"\n  },\n  \"dataQualityStandard\": [\n    \"{{oneOf (array 'dataQualityUnknown' 'dataQualityBloodPressureEsh2002' 'dataQualityBloodPressureEsh2010' 'dataQualityBloodPressureAami' 'dataQualityBloodPressureBhsAA' 'dataQualityBloodPressureBhsAB' 'dataQualityBloodPressureBhsBA' 'dataQualityBloodPressureBhsBB' 'dataQualityBloodGlucoseIso151972003' 'dataQualityBloodGlucoseIso151972013')}}\"\n  ],\n  \"dataStreamId\": \"\",\n  \"dataStreamName\": \"\",\n  \"dataType\": {\n    \"field\": [\n      {\n        \"format\": \"{{oneOf (array 'integer' 'floatPoint' 'string' 'map' 'integerList' 'floatList' 'blob')}}\",\n        \"name\": \"\",\n        \"optional\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"name\": \"\"\n  },\n  \"device\": {\n    \"manufacturer\": \"\",\n    \"model\": \"\",\n    \"type\": \"{{oneOf (array 'unknown' 'phone' 'tablet' 'watch' 'chestStrap' 'scale' 'headMounted' 'smartDisplay')}}\",\n    \"uid\": \"\",\n    \"version\": \"\"\n  },\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'raw' 'derived')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -145,27 +153,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "59e052f2-2646-48e5-84f9-f0a1e1fc3332",
+      "uuid": "d5156380-e9b0-4a6a-b259-36fe56eea123",
       "documentation": "Queries for user's data point changes for a particular data source.",
       "method": "get",
       "endpoint": ":userId/dataSources/:dataSourceId/dataPointChanges",
       "responses": [
         {
-          "uuid": "1ed83aa5-6165-4f1d-999a-032278ac783f",
-          "body": "{\n  \"dataSourceId\": \"\",\n  \"deletedDataPoint\": [\n    {\n      \"computationTimeMillis\": \"\",\n      \"dataTypeName\": \"\",\n      \"endTimeNanos\": \"\",\n      \"modifiedTimeMillis\": \"\",\n      \"originDataSourceId\": \"\",\n      \"rawTimestampNanos\": \"\",\n      \"startTimeNanos\": \"\",\n      \"value\": [\n        {\n          \"fpVal\": {{faker 'random.float'}},\n          \"intVal\": {{faker 'random.number'}},\n          \"mapVal\": [\n            {\n              \"key\": \"\",\n              \"value\": {\n                \"fpVal\": {{faker 'random.float'}}\n              }\n            }\n          ],\n          \"stringVal\": \"\"\n        }\n      ]\n    }\n  ],\n  \"insertedDataPoint\": [\n    {\n      \"computationTimeMillis\": \"\",\n      \"dataTypeName\": \"\",\n      \"endTimeNanos\": \"\",\n      \"modifiedTimeMillis\": \"\",\n      \"originDataSourceId\": \"\",\n      \"rawTimestampNanos\": \"\",\n      \"startTimeNanos\": \"\",\n      \"value\": [\n        {\n          \"fpVal\": {{faker 'random.float'}},\n          \"intVal\": {{faker 'random.number'}},\n          \"mapVal\": [\n            {\n              \"key\": \"\",\n              \"value\": {\n                \"fpVal\": {{faker 'random.float'}}\n              }\n            }\n          ],\n          \"stringVal\": \"\"\n        }\n      ]\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "uuid": "ac1cbf4c-0867-4ff0-884e-87f9d58a6fff",
+          "body": "{\n  \"dataSourceId\": \"\",\n  \"deletedDataPoint\": [\n    {\n      \"computationTimeMillis\": \"\",\n      \"dataTypeName\": \"\",\n      \"endTimeNanos\": \"\",\n      \"modifiedTimeMillis\": \"\",\n      \"originDataSourceId\": \"\",\n      \"rawTimestampNanos\": \"\",\n      \"startTimeNanos\": \"\",\n      \"value\": [\n        {\n          \"fpVal\": {{faker 'datatype.float'}},\n          \"intVal\": {{faker 'datatype.number'}},\n          \"mapVal\": [\n            {\n              \"key\": \"\",\n              \"value\": {\n                \"fpVal\": {{faker 'datatype.float'}}\n              }\n            }\n          ],\n          \"stringVal\": \"\"\n        }\n      ]\n    }\n  ],\n  \"insertedDataPoint\": [\n    {\n      \"computationTimeMillis\": \"\",\n      \"dataTypeName\": \"\",\n      \"endTimeNanos\": \"\",\n      \"modifiedTimeMillis\": \"\",\n      \"originDataSourceId\": \"\",\n      \"rawTimestampNanos\": \"\",\n      \"startTimeNanos\": \"\",\n      \"value\": [\n        {\n          \"fpVal\": {{faker 'datatype.float'}},\n          \"intVal\": {{faker 'datatype.number'}},\n          \"mapVal\": [\n            {\n              \"key\": \"\",\n              \"value\": {\n                \"fpVal\": {{faker 'datatype.float'}}\n              }\n            }\n          ],\n          \"stringVal\": \"\"\n        }\n      ]\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -175,26 +185,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2ab4e405-0064-407d-8954-eda7f52c2716",
+      "uuid": "c3bce0aa-6708-48ff-bb68-11eb4e3be5dc",
       "documentation": "Performs an inclusive delete of all data points whose start and end times have any overlap with the time range specified by the dataset ID. For most data types, the entire data point will be deleted. For data types where the time span represents a consistent value (such as com.google.activity.segment), and a data point straddles either end point of the dataset, only the overlapping portion of the data point will be deleted.",
       "method": "delete",
       "endpoint": ":userId/dataSources/:dataSourceId/datasets/:datasetId",
       "responses": [
         {
-          "uuid": "aa701d25-f11e-43e3-bb48-4631b284e6ef",
+          "uuid": "29ba056f-5263-43b3-8d66-4c5e7e2950ad",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -205,27 +217,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "1a4c4ac7-1ab2-4d0f-8a4d-608017af23b2",
+      "uuid": "0e79e24c-5b05-4ecc-83cd-e33ddc4c91d6",
       "documentation": "Returns a dataset containing all data points whose start and end times overlap with the specified range of the dataset minimum start time and maximum end time. Specifically, any data point whose start time is less than or equal to the dataset end time and whose end time is greater than or equal to the dataset start time.",
       "method": "get",
       "endpoint": ":userId/dataSources/:dataSourceId/datasets/:datasetId",
       "responses": [
         {
-          "uuid": "b4f75e90-6f76-4a26-99db-ca5f761953b7",
-          "body": "{\n  \"dataSourceId\": \"\",\n  \"maxEndTimeNs\": \"\",\n  \"minStartTimeNs\": \"\",\n  \"nextPageToken\": \"\",\n  \"point\": [\n    {\n      \"computationTimeMillis\": \"\",\n      \"dataTypeName\": \"\",\n      \"endTimeNanos\": \"\",\n      \"modifiedTimeMillis\": \"\",\n      \"originDataSourceId\": \"\",\n      \"rawTimestampNanos\": \"\",\n      \"startTimeNanos\": \"\",\n      \"value\": [\n        {\n          \"fpVal\": {{faker 'random.float'}},\n          \"intVal\": {{faker 'random.number'}},\n          \"mapVal\": [\n            {\n              \"key\": \"\",\n              \"value\": {\n                \"fpVal\": {{faker 'random.float'}}\n              }\n            }\n          ],\n          \"stringVal\": \"\"\n        }\n      ]\n    }\n  ]\n}",
+          "uuid": "1dba0b3b-ca4c-45d1-b702-51a49cdbc607",
+          "body": "{\n  \"dataSourceId\": \"\",\n  \"maxEndTimeNs\": \"\",\n  \"minStartTimeNs\": \"\",\n  \"nextPageToken\": \"\",\n  \"point\": [\n    {\n      \"computationTimeMillis\": \"\",\n      \"dataTypeName\": \"\",\n      \"endTimeNanos\": \"\",\n      \"modifiedTimeMillis\": \"\",\n      \"originDataSourceId\": \"\",\n      \"rawTimestampNanos\": \"\",\n      \"startTimeNanos\": \"\",\n      \"value\": [\n        {\n          \"fpVal\": {{faker 'datatype.float'}},\n          \"intVal\": {{faker 'datatype.number'}},\n          \"mapVal\": [\n            {\n              \"key\": \"\",\n              \"value\": {\n                \"fpVal\": {{faker 'datatype.float'}}\n              }\n            }\n          ],\n          \"stringVal\": \"\"\n        }\n      ]\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -235,27 +249,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "97331d7c-bacc-44b2-b86f-4796e693637e",
+      "uuid": "c1d10249-d2ae-4253-813d-b926ca64b0ca",
       "documentation": "Adds data points to a dataset. The dataset need not be previously created. All points within the given dataset will be returned with subsquent calls to retrieve this dataset. Data points can belong to more than one dataset. This method does not use patch semantics: the data points provided are merely inserted, with no existing data replaced.",
       "method": "patch",
       "endpoint": ":userId/dataSources/:dataSourceId/datasets/:datasetId",
       "responses": [
         {
-          "uuid": "9a7c5cff-98fd-4a78-8ef4-944b039010d0",
-          "body": "{\n  \"dataSourceId\": \"\",\n  \"maxEndTimeNs\": \"\",\n  \"minStartTimeNs\": \"\",\n  \"nextPageToken\": \"\",\n  \"point\": [\n    {\n      \"computationTimeMillis\": \"\",\n      \"dataTypeName\": \"\",\n      \"endTimeNanos\": \"\",\n      \"modifiedTimeMillis\": \"\",\n      \"originDataSourceId\": \"\",\n      \"rawTimestampNanos\": \"\",\n      \"startTimeNanos\": \"\",\n      \"value\": [\n        {\n          \"fpVal\": {{faker 'random.float'}},\n          \"intVal\": {{faker 'random.number'}},\n          \"mapVal\": [\n            {\n              \"key\": \"\",\n              \"value\": {\n                \"fpVal\": {{faker 'random.float'}}\n              }\n            }\n          ],\n          \"stringVal\": \"\"\n        }\n      ]\n    }\n  ]\n}",
+          "uuid": "298a6b75-18bd-4081-9fa1-0189e6e51324",
+          "body": "{\n  \"dataSourceId\": \"\",\n  \"maxEndTimeNs\": \"\",\n  \"minStartTimeNs\": \"\",\n  \"nextPageToken\": \"\",\n  \"point\": [\n    {\n      \"computationTimeMillis\": \"\",\n      \"dataTypeName\": \"\",\n      \"endTimeNanos\": \"\",\n      \"modifiedTimeMillis\": \"\",\n      \"originDataSourceId\": \"\",\n      \"rawTimestampNanos\": \"\",\n      \"startTimeNanos\": \"\",\n      \"value\": [\n        {\n          \"fpVal\": {{faker 'datatype.float'}},\n          \"intVal\": {{faker 'datatype.number'}},\n          \"mapVal\": [\n            {\n              \"key\": \"\",\n              \"value\": {\n                \"fpVal\": {{faker 'datatype.float'}}\n              }\n            }\n          ],\n          \"stringVal\": \"\"\n        }\n      ]\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -265,27 +281,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "3d30a819-3c5b-497e-9dd7-7a6249138700",
+      "uuid": "6ae308b0-b073-46a5-a858-58212f58f1b6",
       "documentation": "Aggregates data of a certain type or stream into buckets divided by a given type of boundary. Multiple data sets of multiple types and from multiple sources can be aggregated into exactly one bucket type per request.",
       "method": "post",
       "endpoint": ":userId/dataset:aggregate",
       "responses": [
         {
-          "uuid": "333ce9ed-5904-4710-adb7-258408df14a5",
-          "body": "{\n  \"bucket\": [\n    {\n      \"activity\": {{faker 'random.number'}},\n      \"dataset\": [\n        {\n          \"dataSourceId\": \"\",\n          \"maxEndTimeNs\": \"\",\n          \"minStartTimeNs\": \"\",\n          \"nextPageToken\": \"\",\n          \"point\": [\n            {\n              \"computationTimeMillis\": \"\",\n              \"dataTypeName\": \"\",\n              \"endTimeNanos\": \"\",\n              \"modifiedTimeMillis\": \"\",\n              \"originDataSourceId\": \"\",\n              \"rawTimestampNanos\": \"\",\n              \"startTimeNanos\": \"\",\n              \"value\": [\n                {\n                  \"fpVal\": {{faker 'random.float'}},\n                  \"intVal\": {{faker 'random.number'}},\n                  \"mapVal\": [\n                    {\n                      \"key\": \"\",\n                      \"value\": {\n                        \"fpVal\": {{faker 'random.float'}}\n                      }\n                    }\n                  ],\n                  \"stringVal\": \"\"\n                }\n              ]\n            }\n          ]\n        }\n      ],\n      \"endTimeMillis\": \"\",\n      \"session\": {\n        \"activeTimeMillis\": \"\",\n        \"activityType\": {{faker 'random.number'}},\n        \"application\": {\n          \"detailsUrl\": \"\",\n          \"name\": \"\",\n          \"packageName\": \"\",\n          \"version\": \"\"\n        },\n        \"description\": \"\",\n        \"endTimeMillis\": \"\",\n        \"id\": \"\",\n        \"modifiedTimeMillis\": \"\",\n        \"name\": \"\",\n        \"startTimeMillis\": \"\"\n      },\n      \"startTimeMillis\": \"\",\n      \"type\": \"{{oneOf (array 'unknown' 'time' 'session' 'activityType' 'activitySegment')}}\"\n    }\n  ]\n}",
+          "uuid": "4b158596-38b1-490d-b7df-d9271b524bc8",
+          "body": "{\n  \"bucket\": [\n    {\n      \"activity\": {{faker 'datatype.number'}},\n      \"dataset\": [\n        {\n          \"dataSourceId\": \"\",\n          \"maxEndTimeNs\": \"\",\n          \"minStartTimeNs\": \"\",\n          \"nextPageToken\": \"\",\n          \"point\": [\n            {\n              \"computationTimeMillis\": \"\",\n              \"dataTypeName\": \"\",\n              \"endTimeNanos\": \"\",\n              \"modifiedTimeMillis\": \"\",\n              \"originDataSourceId\": \"\",\n              \"rawTimestampNanos\": \"\",\n              \"startTimeNanos\": \"\",\n              \"value\": [\n                {\n                  \"fpVal\": {{faker 'datatype.float'}},\n                  \"intVal\": {{faker 'datatype.number'}},\n                  \"mapVal\": [\n                    {\n                      \"key\": \"\",\n                      \"value\": {\n                        \"fpVal\": {{faker 'datatype.float'}}\n                      }\n                    }\n                  ],\n                  \"stringVal\": \"\"\n                }\n              ]\n            }\n          ]\n        }\n      ],\n      \"endTimeMillis\": \"\",\n      \"session\": {\n        \"activeTimeMillis\": \"\",\n        \"activityType\": {{faker 'datatype.number'}},\n        \"application\": {\n          \"detailsUrl\": \"\",\n          \"name\": \"\",\n          \"packageName\": \"\",\n          \"version\": \"\"\n        },\n        \"description\": \"\",\n        \"endTimeMillis\": \"\",\n        \"id\": \"\",\n        \"modifiedTimeMillis\": \"\",\n        \"name\": \"\",\n        \"startTimeMillis\": \"\"\n      },\n      \"startTimeMillis\": \"\",\n      \"type\": \"{{oneOf (array 'unknown' 'time' 'session' 'activityType' 'activitySegment')}}\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -295,27 +313,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "41ce5f42-a7e1-444f-91f6-8b37db7cf799",
+      "uuid": "3b956eb9-cdee-4755-8eb7-cc454f1955e4",
       "documentation": "Lists sessions previously created.",
       "method": "get",
       "endpoint": ":userId/sessions",
       "responses": [
         {
-          "uuid": "eee1b0b2-c6c9-4eb4-a777-0b9382110565",
-          "body": "{\n  \"deletedSession\": [\n    {\n      \"activeTimeMillis\": \"\",\n      \"activityType\": {{faker 'random.number'}},\n      \"application\": {\n        \"detailsUrl\": \"\",\n        \"name\": \"\",\n        \"packageName\": \"\",\n        \"version\": \"\"\n      },\n      \"description\": \"\",\n      \"endTimeMillis\": \"\",\n      \"id\": \"\",\n      \"modifiedTimeMillis\": \"\",\n      \"name\": \"\",\n      \"startTimeMillis\": \"\"\n    }\n  ],\n  \"hasMoreData\": {{faker 'random.boolean'}},\n  \"nextPageToken\": \"\",\n  \"session\": [\n    {\n      \"activeTimeMillis\": \"\",\n      \"activityType\": {{faker 'random.number'}},\n      \"application\": {\n        \"detailsUrl\": \"\",\n        \"name\": \"\",\n        \"packageName\": \"\",\n        \"version\": \"\"\n      },\n      \"description\": \"\",\n      \"endTimeMillis\": \"\",\n      \"id\": \"\",\n      \"modifiedTimeMillis\": \"\",\n      \"name\": \"\",\n      \"startTimeMillis\": \"\"\n    }\n  ]\n}",
+          "uuid": "bfc04e5a-afd9-431b-b535-a71f689822d5",
+          "body": "{\n  \"deletedSession\": [\n    {\n      \"activeTimeMillis\": \"\",\n      \"activityType\": {{faker 'datatype.number'}},\n      \"application\": {\n        \"detailsUrl\": \"\",\n        \"name\": \"\",\n        \"packageName\": \"\",\n        \"version\": \"\"\n      },\n      \"description\": \"\",\n      \"endTimeMillis\": \"\",\n      \"id\": \"\",\n      \"modifiedTimeMillis\": \"\",\n      \"name\": \"\",\n      \"startTimeMillis\": \"\"\n    }\n  ],\n  \"hasMoreData\": {{faker 'datatype.boolean'}},\n  \"nextPageToken\": \"\",\n  \"session\": [\n    {\n      \"activeTimeMillis\": \"\",\n      \"activityType\": {{faker 'datatype.number'}},\n      \"application\": {\n        \"detailsUrl\": \"\",\n        \"name\": \"\",\n        \"packageName\": \"\",\n        \"version\": \"\"\n      },\n      \"description\": \"\",\n      \"endTimeMillis\": \"\",\n      \"id\": \"\",\n      \"modifiedTimeMillis\": \"\",\n      \"name\": \"\",\n      \"startTimeMillis\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -325,26 +345,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f4cb4d62-0eea-4943-b0dd-bc31bc56c409",
+      "uuid": "c04b51be-594f-4881-8a73-15b1fb6c2931",
       "documentation": "Deletes a session specified by the given session ID.",
       "method": "delete",
       "endpoint": ":userId/sessions/:sessionId",
       "responses": [
         {
-          "uuid": "b4e25a81-2a05-4e89-b423-6b0f8facb89c",
+          "uuid": "f2ea7f1b-c312-422e-b07e-b31df044732d",
           "body": "",
           "latency": 0,
           "statusCode": 200,
@@ -355,27 +377,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "eb950272-3d12-490e-839c-f4b8b7ef5262",
+      "uuid": "7e61e63a-61ce-4150-b956-45728277db86",
       "documentation": "Updates or insert a given session.",
       "method": "put",
       "endpoint": ":userId/sessions/:sessionId",
       "responses": [
         {
-          "uuid": "07b63a34-19ca-4d9e-b178-5e728951bf25",
-          "body": "{\n  \"activeTimeMillis\": \"\",\n  \"activityType\": {{faker 'random.number'}},\n  \"application\": {\n    \"detailsUrl\": \"\",\n    \"name\": \"\",\n    \"packageName\": \"\",\n    \"version\": \"\"\n  },\n  \"description\": \"\",\n  \"endTimeMillis\": \"\",\n  \"id\": \"\",\n  \"modifiedTimeMillis\": \"\",\n  \"name\": \"\",\n  \"startTimeMillis\": \"\"\n}",
+          "uuid": "5961504e-0c5d-4a0c-b516-28b06b1590a1",
+          "body": "{\n  \"activeTimeMillis\": \"\",\n  \"activityType\": {{faker 'datatype.number'}},\n  \"application\": {\n    \"detailsUrl\": \"\",\n    \"name\": \"\",\n    \"packageName\": \"\",\n    \"version\": \"\"\n  },\n  \"description\": \"\",\n  \"endTimeMillis\": \"\",\n  \"id\": \"\",\n  \"modifiedTimeMillis\": \"\",\n  \"name\": \"\",\n  \"startTimeMillis\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -385,17 +409,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -423,5 +449,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

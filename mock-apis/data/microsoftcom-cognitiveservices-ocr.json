@@ -1,6 +1,6 @@
 {
-  "uuid": "9110e208-feb9-4bd2-9fdd-d74f3ef4f0af",
-  "lastMigration": 19,
+  "uuid": "54ab5ee3-c03f-4667-95f8-ef52f689f554",
+  "lastMigration": 24,
   "name": "Computer Vision Client",
   "endpointPrefix": "vision/v2.1",
   "latency": 0,
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "f9829245-f89d-43bb-bd44-4fcdfd9ae303",
+      "uuid": "fc80e38e-586c-4669-a3df-64b60804eb06",
       "documentation": "Use this interface to get the result of a Read operation, employing the state-of-the-art Optical Character Recognition (OCR) algorithms optimized for text-heavy documents. When you use the Read File interface, the response contains a field called 'Operation-Location'. The 'Operation-Location' field contains the URL that you must use for your 'GetReadOperationResult' operation to access OCR results.​",
       "method": "post",
       "endpoint": "read/core/asyncBatchAnalyze",
       "responses": [
         {
-          "uuid": "95b43694-a93e-416f-86d0-b6704d77bef3",
+          "uuid": "b3943e1c-5f1e-4825-9bc0-3b4d32374fb4",
           "body": "",
           "latency": 0,
           "statusCode": 202,
@@ -29,15 +29,18 @@
               "value": ""
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "f683bbd0-7321-4a61-b9d0-c36331b65c47",
+          "uuid": "4bcf08f5-5032-45fd-92e4-9deeb286b885",
           "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageFormat' 'UnsupportedMediaType' 'InvalidImageUrl' 'NotSupportedFeature' 'NotSupportedImage' 'Timeout' 'InternalServerError' 'InvalidImageSize' 'BadArgument' 'DetectFaceError' 'NotSupportedLanguage' 'InvalidThumbnailSize' 'InvalidDetails' 'InvalidModel' 'CancelledRequest' 'NotSupportedVisualFeature' 'FailedToProcess' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -48,27 +51,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "0f4375eb-303b-4242-88af-a31c41c048f8",
+      "uuid": "c7bdb353-ea28-43b2-b393-1ddcc301c637",
       "documentation": "This interface is used for getting OCR results of Read operation. The URL to this interface should be retrieved from 'Operation-Location' field returned from Batch Read File interface.",
       "method": "get",
       "endpoint": "read/operations/:operationId",
       "responses": [
         {
-          "uuid": "6449b03a-ebc6-4bb8-9f05-d94542b0ea73",
-          "body": "{\n  \"recognitionResults\": [\n    {\n      \"clockwiseOrientation\": {{faker 'random.number'}},\n      \"height\": {{faker 'random.number'}},\n      \"lines\": [\n        {\n          \"boundingBox\": [\n            {{faker 'random.number'}}\n          ],\n          \"text\": \"\",\n          \"words\": [\n            {\n              \"boundingBox\": [\n                {{faker 'random.number'}}\n              ],\n              \"confidence\": \"{{oneOf (array 'High' 'Low')}}\",\n              \"text\": \"\"\n            }\n          ]\n        }\n      ],\n      \"page\": {{faker 'random.number'}},\n      \"unit\": \"{{oneOf (array 'pixel' 'inch')}}\",\n      \"width\": {{faker 'random.number'}}\n    }\n  ],\n  \"status\": \"{{oneOf (array 'NotStarted' 'Running' 'Failed' 'Succeeded')}}\"\n}",
+          "uuid": "fae4d6f2-c3c8-4bb2-a21f-d5eed9bf7564",
+          "body": "{\n  \"recognitionResults\": [\n    {\n      \"clockwiseOrientation\": {{faker 'datatype.number'}},\n      \"height\": {{faker 'datatype.number'}},\n      \"lines\": [\n        {\n          \"boundingBox\": [\n            {{faker 'datatype.number'}}\n          ],\n          \"text\": \"\",\n          \"words\": [\n            {\n              \"boundingBox\": [\n                {{faker 'datatype.number'}}\n              ],\n              \"confidence\": \"{{oneOf (array 'High' 'Low')}}\",\n              \"text\": \"\"\n            }\n          ]\n        }\n      ],\n      \"page\": {{faker 'datatype.number'}},\n      \"unit\": \"{{oneOf (array 'pixel' 'inch')}}\",\n      \"width\": {{faker 'datatype.number'}}\n    }\n  ],\n  \"status\": \"{{oneOf (array 'NotStarted' 'Running' 'Failed' 'Succeeded')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Returns the read operation status.",
@@ -78,15 +83,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "a7710b25-4601-4c53-949f-58b81b0bb0e7",
+          "uuid": "c425cc0e-f10b-423d-bfc5-ed284c07c586",
           "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageFormat' 'UnsupportedMediaType' 'InvalidImageUrl' 'NotSupportedFeature' 'NotSupportedImage' 'Timeout' 'InternalServerError' 'InvalidImageSize' 'BadArgument' 'DetectFaceError' 'NotSupportedLanguage' 'InvalidThumbnailSize' 'InvalidDetails' 'InvalidModel' 'CancelledRequest' 'NotSupportedVisualFeature' 'FailedToProcess' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -97,26 +105,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "765f08a5-6e6a-401d-ba54-19d4e2bb6458",
+      "uuid": "e594beae-d509-4625-a69c-1a03c11bf3c1",
       "documentation": "Recognize Text operation. When you use the Recognize Text interface, the response contains a field called 'Operation-Location'. The 'Operation-Location' field contains the URL that you must use for your Get Recognize Text Operation Result operation.",
       "method": "post",
       "endpoint": "recognizeText",
       "responses": [
         {
-          "uuid": "1edced95-6679-4708-a9d3-7544269667c6",
+          "uuid": "21bdc15d-8984-4fa4-a57d-067d5746734f",
           "body": "",
           "latency": 0,
           "statusCode": 202,
@@ -131,15 +141,18 @@
               "value": ""
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "961481fc-7e63-4226-8f94-9015df474b4a",
+          "uuid": "3134a5a5-f523-4b33-a823-05ddafccf584",
           "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageFormat' 'UnsupportedMediaType' 'InvalidImageUrl' 'NotSupportedFeature' 'NotSupportedImage' 'Timeout' 'InternalServerError' 'InvalidImageSize' 'BadArgument' 'DetectFaceError' 'NotSupportedLanguage' 'InvalidThumbnailSize' 'InvalidDetails' 'InvalidModel' 'CancelledRequest' 'NotSupportedVisualFeature' 'FailedToProcess' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -150,27 +163,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "39349247-26ac-498c-b4fd-414a6c155dd8",
+      "uuid": "7dc34754-9940-4884-b066-b7351cefecc8",
       "documentation": "This interface is used for getting text operation result. The URL to this interface should be retrieved from 'Operation-Location' field returned from Recognize Text interface.",
       "method": "get",
       "endpoint": "textOperations/:operationId",
       "responses": [
         {
-          "uuid": "a58ce5cb-878a-4eea-ab7a-6976db047dfc",
-          "body": "{\n  \"recognitionResult\": {\n    \"clockwiseOrientation\": {{faker 'random.number'}},\n    \"height\": {{faker 'random.number'}},\n    \"lines\": [\n      {\n        \"boundingBox\": [\n          {{faker 'random.number'}}\n        ],\n        \"text\": \"\",\n        \"words\": [\n          {\n            \"boundingBox\": [\n              {{faker 'random.number'}}\n            ],\n            \"confidence\": \"{{oneOf (array 'High' 'Low')}}\",\n            \"text\": \"\"\n          }\n        ]\n      }\n    ],\n    \"page\": {{faker 'random.number'}},\n    \"unit\": \"{{oneOf (array 'pixel' 'inch')}}\",\n    \"width\": {{faker 'random.number'}}\n  },\n  \"status\": \"{{oneOf (array 'NotStarted' 'Running' 'Failed' 'Succeeded')}}\"\n}",
+          "uuid": "5013bc97-5304-4127-bf8a-5fe2011e598a",
+          "body": "{\n  \"recognitionResult\": {\n    \"clockwiseOrientation\": {{faker 'datatype.number'}},\n    \"height\": {{faker 'datatype.number'}},\n    \"lines\": [\n      {\n        \"boundingBox\": [\n          {{faker 'datatype.number'}}\n        ],\n        \"text\": \"\",\n        \"words\": [\n          {\n            \"boundingBox\": [\n              {{faker 'datatype.number'}}\n            ],\n            \"confidence\": \"{{oneOf (array 'High' 'Low')}}\",\n            \"text\": \"\"\n          }\n        ]\n      }\n    ],\n    \"page\": {{faker 'datatype.number'}},\n    \"unit\": \"{{oneOf (array 'pixel' 'inch')}}\",\n    \"width\": {{faker 'datatype.number'}}\n  },\n  \"status\": \"{{oneOf (array 'NotStarted' 'Running' 'Failed' 'Succeeded')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Returns the operation status.",
@@ -180,15 +195,18 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         },
         {
-          "uuid": "1e5a0aa7-11b1-4e30-bc36-875b90f31653",
+          "uuid": "4574719e-9582-4818-8eb4-6bfbda36b19a",
           "body": "{\n  \"code\": \"{{oneOf (array 'InvalidImageFormat' 'UnsupportedMediaType' 'InvalidImageUrl' 'NotSupportedFeature' 'NotSupportedImage' 'Timeout' 'InternalServerError' 'InvalidImageSize' 'BadArgument' 'DetectFaceError' 'NotSupportedLanguage' 'InvalidThumbnailSize' 'InvalidDetails' 'InvalidModel' 'CancelledRequest' 'NotSupportedVisualFeature' 'FailedToProcess' 'Unspecified' 'StorageException')}}\",\n  \"message\": \"\",\n  \"requestId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -199,17 +217,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -237,5 +257,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

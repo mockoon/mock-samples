@@ -1,6 +1,6 @@
 {
-  "uuid": "77232099-8b49-4fb9-8fe0-023df691d55e",
-  "lastMigration": 19,
+  "uuid": "4b47c16e-6a91-4907-bcc9-5562391f4dc9",
+  "lastMigration": 24,
   "name": "Access Approval API",
   "endpointPrefix": "",
   "latency": 0,
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "52557ce5-37d3-406b-aec8-b405919d29b7",
+      "uuid": "88eccd6e-fc07-43f2-8d93-a3b005298d82",
       "documentation": "Deletes the settings associated with a project, folder, or organization. This will have the effect of disabling Access Approval for the project, folder, or organization, but only if all ancestors also have Access Approval disabled. If Access Approval is enabled at a higher level of the hierarchy, then Access Approval will still be enabled at this level as the settings are inherited.",
       "method": "delete",
       "endpoint": "v1/:name",
       "responses": [
         {
-          "uuid": "a05ced96-0de0-459b-ac07-d84aaae83079",
+          "uuid": "08301885-661c-4f4e-b0b4-7ea1378ae224",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -25,27 +25,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f7dd4d96-3764-4149-870c-0cf8f17376a1",
+      "uuid": "cd9e3e6d-16b0-43ad-b12d-f457dc495fc9",
       "documentation": "Gets an approval request. Returns NOT_FOUND if the request does not exist.",
       "method": "get",
       "endpoint": "v1/:name",
       "responses": [
         {
-          "uuid": "586d8059-9c16-47d1-83d4-b24e7c04d772",
-          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"autoApproved\": {{faker 'random.boolean'}},\n    \"expireTime\": \"\",\n    \"signatureInfo\": {\n      \"customerKmsKeyVersion\": \"\",\n      \"googlePublicKeyPem\": \"\",\n      \"signature\": \"\"\n    }\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'random.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'random.boolean'}}\n  }\n}",
+          "uuid": "24f704fa-b08d-41fa-b346-09eadef0197c",
+          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"autoApproved\": {{faker 'datatype.boolean'}},\n    \"expireTime\": \"\",\n    \"invalidateTime\": \"\",\n    \"signatureInfo\": {\n      \"customerKmsKeyVersion\": \"\",\n      \"googlePublicKeyPem\": \"\",\n      \"signature\": \"\"\n    }\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'datatype.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'datatype.boolean'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -55,27 +57,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "5babb1ce-9831-4892-8b85-598189eaa0e7",
+      "uuid": "181d6fdd-7c3c-4c92-84fb-c3e1dae9c5b3",
       "documentation": "Updates the settings associated with a project, folder, or organization. Settings to update are determined by the value of field_mask.",
       "method": "patch",
       "endpoint": "v1/:name",
       "responses": [
         {
-          "uuid": "d5c9776e-1366-486f-a176-14ed329910a5",
-          "body": "{\n  \"activeKeyVersion\": \"\",\n  \"ancestorHasActiveKeyVersion\": {{faker 'random.boolean'}},\n  \"enrolledAncestor\": {{faker 'random.boolean'}},\n  \"enrolledServices\": [\n    {\n      \"cloudProduct\": \"\",\n      \"enrollmentLevel\": \"{{oneOf (array 'ENROLLMENT_LEVEL_UNSPECIFIED' 'BLOCK_ALL')}}\"\n    }\n  ],\n  \"invalidKeyVersion\": {{faker 'random.boolean'}},\n  \"name\": \"\",\n  \"notificationEmails\": [\n    \"\"\n  ]\n}",
+          "uuid": "a636f6f7-4468-49b4-9bf8-cd16bc1fcf44",
+          "body": "{\n  \"activeKeyVersion\": \"\",\n  \"ancestorHasActiveKeyVersion\": {{faker 'datatype.boolean'}},\n  \"enrolledAncestor\": {{faker 'datatype.boolean'}},\n  \"enrolledServices\": [\n    {\n      \"cloudProduct\": \"\",\n      \"enrollmentLevel\": \"{{oneOf (array 'ENROLLMENT_LEVEL_UNSPECIFIED' 'BLOCK_ALL')}}\"\n    }\n  ],\n  \"invalidKeyVersion\": {{faker 'datatype.boolean'}},\n  \"name\": \"\",\n  \"notificationEmails\": [\n    \"\"\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -85,27 +89,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "b6eec033-ad4a-405b-97d3-fdab6ab8e6dd",
+      "uuid": "f4c00703-ba4c-4913-884d-83e50c544d36",
       "documentation": "Approves a request and returns the updated ApprovalRequest. Returns NOT_FOUND if the request does not exist. Returns FAILED_PRECONDITION if the request exists but is not in a pending state.",
       "method": "post",
       "endpoint": "v1/:name:approve",
       "responses": [
         {
-          "uuid": "f5f1763d-b246-45bf-82c9-d792aa13a2f6",
-          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"autoApproved\": {{faker 'random.boolean'}},\n    \"expireTime\": \"\",\n    \"signatureInfo\": {\n      \"customerKmsKeyVersion\": \"\",\n      \"googlePublicKeyPem\": \"\",\n      \"signature\": \"\"\n    }\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'random.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'random.boolean'}}\n  }\n}",
+          "uuid": "e473921b-0074-4308-a90e-9fe9b38b12f4",
+          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"autoApproved\": {{faker 'datatype.boolean'}},\n    \"expireTime\": \"\",\n    \"invalidateTime\": \"\",\n    \"signatureInfo\": {\n      \"customerKmsKeyVersion\": \"\",\n      \"googlePublicKeyPem\": \"\",\n      \"signature\": \"\"\n    }\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'datatype.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'datatype.boolean'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -115,27 +121,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "5c6e1ea7-f8e4-4d25-8433-377017c1a67a",
+      "uuid": "6fcedfb6-c363-45fe-9f7f-b02f16b99619",
       "documentation": "Dismisses a request. Returns the updated ApprovalRequest. NOTE: This does not deny access to the resource if another request has been made and approved. It is equivalent in effect to ignoring the request altogether. Returns NOT_FOUND if the request does not exist. Returns FAILED_PRECONDITION if the request exists but is not in a pending state.",
       "method": "post",
       "endpoint": "v1/:name:dismiss",
       "responses": [
         {
-          "uuid": "c1208751-1db7-423c-af37-5049b0039a79",
-          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"autoApproved\": {{faker 'random.boolean'}},\n    \"expireTime\": \"\",\n    \"signatureInfo\": {\n      \"customerKmsKeyVersion\": \"\",\n      \"googlePublicKeyPem\": \"\",\n      \"signature\": \"\"\n    }\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'random.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'random.boolean'}}\n  }\n}",
+          "uuid": "8259268c-be33-4195-afc4-94b3121dedc0",
+          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"autoApproved\": {{faker 'datatype.boolean'}},\n    \"expireTime\": \"\",\n    \"invalidateTime\": \"\",\n    \"signatureInfo\": {\n      \"customerKmsKeyVersion\": \"\",\n      \"googlePublicKeyPem\": \"\",\n      \"signature\": \"\"\n    }\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'datatype.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'datatype.boolean'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -145,27 +153,61 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "29630a40-c6ff-4da8-8385-c47a5b186bb6",
+      "uuid": "314e5f06-fe4d-434c-bae0-762ae808effc",
+      "documentation": "Invalidates an existing ApprovalRequest. Returns the updated ApprovalRequest. NOTE: This does not deny access to the resource if another request has been made and approved. It only invalidates a single approval. Returns FAILED_PRECONDITION if the request exists but is not in an approved state.",
+      "method": "post",
+      "endpoint": "v1/:name:invalidate",
+      "responses": [
+        {
+          "uuid": "7ea4813e-5a2e-474e-84d0-8a892cdd5ad9",
+          "body": "{\n  \"approve\": {\n    \"approveTime\": \"\",\n    \"autoApproved\": {{faker 'datatype.boolean'}},\n    \"expireTime\": \"\",\n    \"invalidateTime\": \"\",\n    \"signatureInfo\": {\n      \"customerKmsKeyVersion\": \"\",\n      \"googlePublicKeyPem\": \"\",\n      \"signature\": \"\"\n    }\n  },\n  \"dismiss\": {\n    \"dismissTime\": \"\",\n    \"implicit\": {{faker 'datatype.boolean'}}\n  },\n  \"name\": \"\",\n  \"requestTime\": \"\",\n  \"requestedExpiration\": \"\",\n  \"requestedLocations\": {\n    \"principalOfficeCountry\": \"\",\n    \"principalPhysicalLocationCountry\": \"\"\n  },\n  \"requestedReason\": {\n    \"detail\": \"\",\n    \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n  },\n  \"requestedResourceName\": \"\",\n  \"requestedResourceProperties\": {\n    \"excludesDescendants\": {{faker 'datatype.boolean'}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful response",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "757595b4-8b52-41ad-885d-b019fbbf0eb3",
       "documentation": "Lists approval requests associated with a project, folder, or organization. Approval requests can be filtered by state (pending, active, dismissed). The order is reverse chronological.",
       "method": "get",
       "endpoint": "v1/:parent/approvalRequests",
       "responses": [
         {
-          "uuid": "fe1f46e1-4fe1-47db-b26e-20ecea176079",
-          "body": "{\n  \"approvalRequests\": [\n    {\n      \"approve\": {\n        \"approveTime\": \"\",\n        \"autoApproved\": {{faker 'random.boolean'}},\n        \"expireTime\": \"\",\n        \"signatureInfo\": {\n          \"customerKmsKeyVersion\": \"\",\n          \"googlePublicKeyPem\": \"\",\n          \"signature\": \"\"\n        }\n      },\n      \"dismiss\": {\n        \"dismissTime\": \"\",\n        \"implicit\": {{faker 'random.boolean'}}\n      },\n      \"name\": \"\",\n      \"requestTime\": \"\",\n      \"requestedExpiration\": \"\",\n      \"requestedLocations\": {\n        \"principalOfficeCountry\": \"\",\n        \"principalPhysicalLocationCountry\": \"\"\n      },\n      \"requestedReason\": {\n        \"detail\": \"\",\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n      },\n      \"requestedResourceName\": \"\",\n      \"requestedResourceProperties\": {\n        \"excludesDescendants\": {{faker 'random.boolean'}}\n      }\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
+          "uuid": "4f90b8e0-1e01-4494-bf20-c7c442e3560b",
+          "body": "{\n  \"approvalRequests\": [\n    {\n      \"approve\": {\n        \"approveTime\": \"\",\n        \"autoApproved\": {{faker 'datatype.boolean'}},\n        \"expireTime\": \"\",\n        \"invalidateTime\": \"\",\n        \"signatureInfo\": {\n          \"customerKmsKeyVersion\": \"\",\n          \"googlePublicKeyPem\": \"\",\n          \"signature\": \"\"\n        }\n      },\n      \"dismiss\": {\n        \"dismissTime\": \"\",\n        \"implicit\": {{faker 'datatype.boolean'}}\n      },\n      \"name\": \"\",\n      \"requestTime\": \"\",\n      \"requestedExpiration\": \"\",\n      \"requestedLocations\": {\n        \"principalOfficeCountry\": \"\",\n        \"principalPhysicalLocationCountry\": \"\"\n      },\n      \"requestedReason\": {\n        \"detail\": \"\",\n        \"type\": \"{{oneOf (array 'TYPE_UNSPECIFIED' 'CUSTOMER_INITIATED_SUPPORT' 'GOOGLE_INITIATED_SERVICE' 'GOOGLE_INITIATED_REVIEW' 'THIRD_PARTY_DATA_REQUEST' 'GOOGLE_RESPONSE_TO_PRODUCTION_ALERT')}}\"\n      },\n      \"requestedResourceName\": \"\",\n      \"requestedResourceProperties\": {\n        \"excludesDescendants\": {{faker 'datatype.boolean'}}\n      }\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -175,17 +217,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -213,5 +257,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

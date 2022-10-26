@@ -1,6 +1,6 @@
 {
-  "uuid": "7f4ad9f1-86ac-4f2b-889b-5d56e7483fa7",
-  "lastMigration": 19,
+  "uuid": "817ae597-0ebc-465b-a1ac-faf8fe6b585d",
+  "lastMigration": 24,
   "name": "Cloud Runtime Configuration API",
   "endpointPrefix": "",
   "latency": 0,
@@ -8,13 +8,13 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "c1bccb48-e238-4a18-86ae-f57ff56db63b",
+      "uuid": "c8249a71-3d6d-4bab-b95f-5564d680ba09",
       "documentation": "Deletes the waiter with the specified name.",
       "method": "delete",
       "endpoint": "v1beta1/:name",
       "responses": [
         {
-          "uuid": "ce82bf3d-8aa5-4dd5-a00b-7146daa68c9a",
+          "uuid": "a27b60fc-36f8-4853-87c4-98aeec5c8bfd",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -25,27 +25,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "2396443a-8675-4ab7-bedf-a14a4eeb9c73",
+      "uuid": "e9820f59-e62d-48f5-b3ad-0d5d62ce4bba",
       "documentation": "Gets information about a single waiter.",
       "method": "get",
       "endpoint": "v1beta1/:name",
       "responses": [
         {
-          "uuid": "c9bbdc4c-fab1-4121-94ca-4033517b59f5",
-          "body": "{\n  \"createTime\": \"\",\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"failure\": {\n    \"cardinality\": {\n      \"number\": {{faker 'random.number'}},\n      \"path\": \"\"\n    }\n  },\n  \"name\": \"\",\n  \"success\": {\n    \"cardinality\": {\n      \"number\": {{faker 'random.number'}},\n      \"path\": \"\"\n    }\n  },\n  \"timeout\": \"\"\n}",
+          "uuid": "ebe0eacc-750a-4300-9795-9f97c0534adc",
+          "body": "{\n  \"createTime\": \"\",\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"failure\": {\n    \"cardinality\": {\n      \"number\": {{faker 'datatype.number'}},\n      \"path\": \"\"\n    }\n  },\n  \"name\": \"\",\n  \"success\": {\n    \"cardinality\": {\n      \"number\": {{faker 'datatype.number'}},\n      \"path\": \"\"\n    }\n  },\n  \"timeout\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -55,26 +57,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "9216c21d-b094-427e-ad10-b60b3213db29",
+      "uuid": "c8f0219c-3503-40f2-bb37-69dd30f0f6da",
       "documentation": "Updates an existing variable with a new value.",
       "method": "put",
       "endpoint": "v1beta1/:name",
       "responses": [
         {
-          "uuid": "b21bf940-1c1c-44de-a150-dc57610982a0",
+          "uuid": "a8c3adf2-f468-41fc-81c4-b7ddac3a029d",
           "body": "{\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'VARIABLE_STATE_UNSPECIFIED' 'UPDATED' 'DELETED')}}\",\n  \"text\": \"\",\n  \"updateTime\": \"\",\n  \"value\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -85,26 +89,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "edc17b87-4c20-4d4a-bb99-268363a37cd7",
+      "uuid": "80e735c6-43dd-4c79-880b-61e308e56f07",
       "documentation": "Watches a specific variable and waits for a change in the variable's value. When there is a change, this method returns the new value or times out. If a variable is deleted while being watched, the `variableState` state is set to `DELETED` and the method returns the last known variable `value`. If you set the deadline for watching to a larger value than internal timeout (60 seconds), the current variable value is returned and the `variableState` will be `VARIABLE_STATE_UNSPECIFIED`. To learn more about creating a watcher, read the [Watching a Variable for Changes](/deployment-manager/runtime-configurator/watching-a-variable) documentation.",
       "method": "post",
       "endpoint": "v1beta1/:name:watch",
       "responses": [
         {
-          "uuid": "c9d61728-9cca-4db0-acd8-c4a5eaa6f69a",
+          "uuid": "cde8b44a-14df-4571-9e5e-894f19dea1bc",
           "body": "{\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'VARIABLE_STATE_UNSPECIFIED' 'UPDATED' 'DELETED')}}\",\n  \"text\": \"\",\n  \"updateTime\": \"\",\n  \"value\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -115,26 +121,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "a628cc8c-d862-445c-ad6c-80fac3d0314a",
+      "uuid": "07523abc-e84e-4186-bc65-ada86af9055b",
       "documentation": "Lists all the RuntimeConfig resources within project.",
       "method": "get",
       "endpoint": "v1beta1/:parent/configs",
       "responses": [
         {
-          "uuid": "9ebe3d0a-6b27-4be7-86e5-b274d4ad6286",
+          "uuid": "c93cfff3-69b2-4b5d-9f25-66a24abb86ee",
           "body": "{\n  \"configs\": [\n    {\n      \"description\": \"\",\n      \"name\": \"\"\n    }\n  ],\n  \"nextPageToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -145,26 +153,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "5f1f49f6-16c1-4096-a71c-f709afa19147",
+      "uuid": "ed1883e0-4c50-4a5b-99b5-5e329f67e84a",
       "documentation": "Creates a new RuntimeConfig resource. The configuration name must be unique within project.",
       "method": "post",
       "endpoint": "v1beta1/:parent/configs",
       "responses": [
         {
-          "uuid": "6ec55264-8bc9-4829-9b88-543aaa098082",
+          "uuid": "5bac1023-f9dd-4429-a7e9-bb0ea77b77f1",
           "body": "{\n  \"description\": \"\",\n  \"name\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -175,26 +185,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "7e65d7fd-985f-4c35-b0c7-fac17fbc9a2d",
+      "uuid": "5eb8123e-4ec0-4d46-a14a-30b5559dd3ea",
       "documentation": "Lists variables within given a configuration, matching any provided filters. This only lists variable names, not the values, unless `return_values` is true, in which case only variables that user has IAM permission to GetVariable will be returned.",
       "method": "get",
       "endpoint": "v1beta1/:parent/variables",
       "responses": [
         {
-          "uuid": "4b9aa12d-42cf-4ef0-84c7-0cb05bab77c8",
+          "uuid": "da3f1330-3410-4ea6-aa9c-764f4a46d304",
           "body": "{\n  \"nextPageToken\": \"\",\n  \"variables\": [\n    {\n      \"name\": \"\",\n      \"state\": \"{{oneOf (array 'VARIABLE_STATE_UNSPECIFIED' 'UPDATED' 'DELETED')}}\",\n      \"text\": \"\",\n      \"updateTime\": \"\",\n      \"value\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -205,26 +217,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "13363e94-9ebd-4cef-b153-cd9c9ad54d61",
+      "uuid": "11272469-bad8-4216-927a-45649c5f2eec",
       "documentation": "Creates a variable within the given configuration. You cannot create a variable with a name that is a prefix of an existing variable name, or a name that has an existing variable name as a prefix. To learn more about creating a variable, read the [Setting and Getting Data](/deployment-manager/runtime-configurator/set-and-get-variables) documentation.",
       "method": "post",
       "endpoint": "v1beta1/:parent/variables",
       "responses": [
         {
-          "uuid": "7ab6c16a-f0e3-40b3-b5dd-9812e65c8aea",
+          "uuid": "776771db-dedb-4ba7-a5b8-fdb551f00b89",
           "body": "{\n  \"name\": \"\",\n  \"state\": \"{{oneOf (array 'VARIABLE_STATE_UNSPECIFIED' 'UPDATED' 'DELETED')}}\",\n  \"text\": \"\",\n  \"updateTime\": \"\",\n  \"value\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
@@ -235,27 +249,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "6af251ae-cc9e-42a8-8000-e686fb730331",
+      "uuid": "4dd9a107-f3ec-40e7-844b-fb3a96fff180",
       "documentation": "List waiters within the given configuration.",
       "method": "get",
       "endpoint": "v1beta1/:parent/waiters",
       "responses": [
         {
-          "uuid": "5e4a2194-fa56-44a0-8aba-ce603516297c",
-          "body": "{\n  \"nextPageToken\": \"\",\n  \"waiters\": [\n    {\n      \"createTime\": \"\",\n      \"done\": {{faker 'random.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'random.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"failure\": {\n        \"cardinality\": {\n          \"number\": {{faker 'random.number'}},\n          \"path\": \"\"\n        }\n      },\n      \"name\": \"\",\n      \"success\": {\n        \"cardinality\": {\n          \"number\": {{faker 'random.number'}},\n          \"path\": \"\"\n        }\n      },\n      \"timeout\": \"\"\n    }\n  ]\n}",
+          "uuid": "8b7f18d7-c196-45a7-99c0-e235812f38d0",
+          "body": "{\n  \"nextPageToken\": \"\",\n  \"waiters\": [\n    {\n      \"createTime\": \"\",\n      \"done\": {{faker 'datatype.boolean'}},\n      \"error\": {\n        \"code\": {{faker 'datatype.number'}},\n        \"details\": [\n          {}\n        ],\n        \"message\": \"\"\n      },\n      \"failure\": {\n        \"cardinality\": {\n          \"number\": {{faker 'datatype.number'}},\n          \"path\": \"\"\n        }\n      },\n      \"name\": \"\",\n      \"success\": {\n        \"cardinality\": {\n          \"number\": {{faker 'datatype.number'}},\n          \"path\": \"\"\n        }\n      },\n      \"timeout\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -265,27 +281,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "d7f73c35-a15e-495c-b7df-9016858321e2",
+      "uuid": "59aed449-76d7-48dd-9cdd-f426f4c0d159",
       "documentation": "Creates a Waiter resource. This operation returns a long-running Operation resource which can be polled for completion. However, a waiter with the given name will exist (and can be retrieved) prior to the operation completing. If the operation fails, the failed Waiter resource will still exist and must be deleted prior to subsequent creation attempts.",
       "method": "post",
       "endpoint": "v1beta1/:parent/waiters",
       "responses": [
         {
-          "uuid": "64ea6e8c-d972-4daa-8fde-2417a0a81910",
-          "body": "{\n  \"done\": {{faker 'random.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'random.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
+          "uuid": "a5d0f7f7-3d78-439e-88c3-c2f9ddae3fd6",
+          "body": "{\n  \"done\": {{faker 'datatype.boolean'}},\n  \"error\": {\n    \"code\": {{faker 'datatype.number'}},\n    \"details\": [\n      {}\n    ],\n    \"message\": \"\"\n  },\n  \"metadata\": {},\n  \"name\": \"\",\n  \"response\": {}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -295,27 +313,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "d6b5f720-157d-4ad4-be48-044393213d5d",
+      "uuid": "ad125ccf-2603-46c2-bb15-2733b4f69c94",
       "documentation": "Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.",
       "method": "get",
       "endpoint": "v1beta1/:resource:getIamPolicy",
       "responses": [
         {
-          "uuid": "363f6dcb-525b-4ca3-b39f-ac4444891ca2",
-          "body": "{\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "uuid": "6d9898ce-9cd6-4b54-92f3-45748bbb4619",
+          "body": "{\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'datatype.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -325,27 +345,29 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "f86550b6-0025-403c-84d7-f45fcd976fce",
+      "uuid": "d33807a1-5b16-411e-86d8-6cc0fb2ecf39",
       "documentation": "Sets the access control policy on the specified resource. Replaces any existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.",
       "method": "post",
       "endpoint": "v1beta1/:resource:setIamPolicy",
       "responses": [
         {
-          "uuid": "3108c4a4-6300-4635-80c4-fdffd56cf05d",
-          "body": "{\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'random.number'}}\n}",
+          "uuid": "a21a135a-9fff-42f4-9bb0-138b4cdf108c",
+          "body": "{\n  \"bindings\": [\n    {\n      \"condition\": {\n        \"description\": \"\",\n        \"expression\": \"\",\n        \"location\": \"\",\n        \"title\": \"\"\n      },\n      \"members\": [\n        \"\"\n      ],\n      \"role\": \"\"\n    }\n  ],\n  \"etag\": \"\",\n  \"version\": {{faker 'datatype.number'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Successful response",
@@ -355,26 +377,28 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     },
     {
-      "uuid": "ef83b729-d218-449a-a231-16f8cf10f90c",
+      "uuid": "bf12f453-3cdb-43bb-97f7-57e06c0a20f0",
       "documentation": "Returns permissions that a caller has on the specified resource. If the resource does not exist, this will return an empty set of permissions, not a `NOT_FOUND` error. Note: This operation is designed to be used for building permission-aware UIs and command-line tools, not for authorization checking. This operation may \"fail open\" without warning.",
       "method": "post",
       "endpoint": "v1beta1/:resource:testIamPermissions",
       "responses": [
         {
-          "uuid": "7d5f4dc2-539c-4fe4-b76d-c771ad41f5b8",
+          "uuid": "1afb4df1-7cc8-4e9c-a4e7-f0791d187323",
           "body": "{\n  \"permissions\": [\n    \"\"\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
@@ -385,17 +409,19 @@
               "value": "application/json"
             }
           ],
+          "bodyType": "INLINE",
           "filePath": "",
+          "databucketID": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -423,5 +449,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }
