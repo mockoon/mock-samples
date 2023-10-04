@@ -1,11 +1,11 @@
 {
   "uuid": "6d1b357f-05ab-4e9f-b368-73d7f830547a",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "Statutory Instruments API",
   "endpointPrefix": "",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "e90963d2-d2af-4187-9a35-c1983418e564",
@@ -15,16 +15,11 @@
       "responses": [
         {
           "uuid": "4682566a-e432-44e0-acbd-429502431284",
-          "body": "{\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"value\": {\n    \"houses\": [\n      {\n        \"house\": \"{{oneOf (array 'Commons' 'Lords')}}\",\n        \"name\": \"\"\n      }\n    ],\n    \"id\": \"\",\n    \"itemDate\": \"{{faker 'date.recent' 365}}\",\n    \"laidPaperType\": \"{{oneOf (array 'StatutoryInstrument' 'ProposedNegative')}}\",\n    \"link\": \"\",\n    \"sequence\": {{faker 'datatype.number'}},\n    \"statutoryInstrumentId\": \"\",\n    \"stepName\": \"\"\n  }\n}",
+          "body": "{\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"value\": {\n    \"houses\": [\n      {\n        \"house\": \"{{oneOf (array 'Commons' 'Lords')}}\",\n        \"name\": \"\"\n      }\n    ],\n    \"id\": \"\",\n    \"itemDate\": \"{{faker 'date.recent' 365}}\",\n    \"laidPaperType\": \"{{oneOf (array 'StatutoryInstrument' 'ProposedNegative')}}\",\n    \"link\": \"\",\n    \"sequence\": {{faker 'number.int'}},\n    \"statutoryInstrumentId\": \"\",\n    \"stepName\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "The requested business item",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "862e5bb3-dcaf-44e4-af5d-dfba95ce7c77",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,7 +46,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "600338e4-7435-4a40-bf33-51cc81bd8307",
@@ -63,12 +55,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "If the item doesn't exist",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -77,11 +64,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "f8536316-90a4-4ec4-a1cd-2b027f42d06f",
@@ -91,16 +80,11 @@
       "responses": [
         {
           "uuid": "d9b9b74d-146e-4595-baf7-6dea629e1b19",
-          "body": "{\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"href\": \"\",\n          \"method\": \"\",\n          \"rel\": \"\"\n        }\n      ],\n      \"value\": {\n        \"departmentId\": {{faker 'datatype.number'}},\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"itemsPerPage\": {{faker 'datatype.number'}},\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"href\": \"\",\n          \"method\": \"\",\n          \"rel\": \"\"\n        }\n      ],\n      \"value\": {\n        \"departmentId\": {{faker 'number.int'}},\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"itemsPerPage\": {{faker 'number.int'}},\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -109,11 +93,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "c9ca4a89-5c11-4aaf-8425-ee0666b76809",
@@ -123,16 +109,11 @@
       "responses": [
         {
           "uuid": "1cf6903f-c749-4010-9fba-57b5dc9823fa",
-          "body": "{\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"href\": \"\",\n          \"method\": \"\",\n          \"rel\": \"\"\n        }\n      ],\n      \"value\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"itemsPerPage\": {{faker 'datatype.number'}},\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"href\": \"\",\n          \"method\": \"\",\n          \"rel\": \"\"\n        }\n      ],\n      \"value\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"itemsPerPage\": {{faker 'number.int'}},\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -141,11 +122,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "35655223-7350-483f-bc5d-84bec8e16d30",
@@ -159,12 +142,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -173,7 +151,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "b9c568f7-0070-4ccd-915a-16bffb94de95",
@@ -181,12 +160,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -195,7 +169,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "1b681f46-6d78-4aff-bd1b-a3a3dd804dc2",
@@ -203,12 +178,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "Not Found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -217,11 +187,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "54804b92-41cd-451b-a517-d3a86b621e69",
@@ -231,16 +203,11 @@
       "responses": [
         {
           "uuid": "2fdc38b2-977c-4097-9129-c04b24ab3df7",
-          "body": "{\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"href\": \"\",\n          \"method\": \"\",\n          \"rel\": \"\"\n        }\n      ],\n      \"value\": {\n        \"commonsLayingDate\": \"{{faker 'date.recent' 365}}\",\n        \"id\": \"\",\n        \"layingBodyDepartment\": {\n          \"departmentId\": {{faker 'datatype.number'}},\n          \"id\": \"\",\n          \"name\": \"\"\n        },\n        \"link\": \"\",\n        \"lordsLayingDate\": \"{{faker 'date.recent' 365}}\",\n        \"name\": \"\",\n        \"procedure\": {\n          \"id\": \"\",\n          \"name\": \"\"\n        },\n        \"statutoryInstrument\": {\n          \"id\": \"\",\n          \"name\": \"\"\n        },\n        \"uri\": \"\"\n      }\n    }\n  ],\n  \"itemsPerPage\": {{faker 'datatype.number'}},\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"href\": \"\",\n          \"method\": \"\",\n          \"rel\": \"\"\n        }\n      ],\n      \"value\": {\n        \"commonsLayingDate\": \"{{faker 'date.recent' 365}}\",\n        \"id\": \"\",\n        \"layingBodyDepartment\": {\n          \"departmentId\": {{faker 'number.int'}},\n          \"id\": \"\",\n          \"name\": \"\"\n        },\n        \"link\": \"\",\n        \"lordsLayingDate\": \"{{faker 'date.recent' 365}}\",\n        \"name\": \"\",\n        \"procedure\": {\n          \"id\": \"\",\n          \"name\": \"\"\n        },\n        \"statutoryInstrument\": {\n          \"id\": \"\",\n          \"name\": \"\"\n        },\n        \"uri\": \"\"\n      }\n    }\n  ],\n  \"itemsPerPage\": {{faker 'number.int'}},\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -249,7 +216,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "802b075f-8beb-4c18-a9c4-b1cdc91b02f8",
@@ -257,12 +225,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -271,11 +234,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "82c447bd-8cc9-4dd8-93e7-385924180327",
@@ -285,16 +250,11 @@
       "responses": [
         {
           "uuid": "defc1495-c0ad-4d0c-b32c-31a688718fe8",
-          "body": "{\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"value\": {\n    \"commonsLayingDate\": \"{{faker 'date.recent' 365}}\",\n    \"id\": \"\",\n    \"layingBodyDepartment\": {\n      \"departmentId\": {{faker 'datatype.number'}},\n      \"id\": \"\",\n      \"name\": \"\"\n    },\n    \"link\": \"\",\n    \"lordsLayingDate\": \"{{faker 'date.recent' 365}}\",\n    \"name\": \"\",\n    \"procedure\": {\n      \"id\": \"\",\n      \"name\": \"\"\n    },\n    \"statutoryInstrument\": {\n      \"id\": \"\",\n      \"name\": \"\"\n    },\n    \"uri\": \"\"\n  }\n}",
+          "body": "{\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"value\": {\n    \"commonsLayingDate\": \"{{faker 'date.recent' 365}}\",\n    \"id\": \"\",\n    \"layingBodyDepartment\": {\n      \"departmentId\": {{faker 'number.int'}},\n      \"id\": \"\",\n      \"name\": \"\"\n    },\n    \"link\": \"\",\n    \"lordsLayingDate\": \"{{faker 'date.recent' 365}}\",\n    \"name\": \"\",\n    \"procedure\": {\n      \"id\": \"\",\n      \"name\": \"\"\n    },\n    \"statutoryInstrument\": {\n      \"id\": \"\",\n      \"name\": \"\"\n    },\n    \"uri\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -303,7 +263,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "1154ee6b-0a3c-4126-8b01-76f82103e71c",
@@ -311,12 +272,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -325,7 +281,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "5e7ff37f-e64c-4ea0-bad8-373c943508d6",
@@ -333,12 +290,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "Not Found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -347,11 +299,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "f854851b-8481-4577-bfb6-79fe63f9cab8",
@@ -361,16 +315,11 @@
       "responses": [
         {
           "uuid": "c4bacf1d-2a3b-4570-881e-8f96e6746c1b",
-          "body": "{\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"href\": \"\",\n          \"method\": \"\",\n          \"rel\": \"\"\n        }\n      ],\n      \"value\": {\n        \"houses\": [\n          {\n            \"house\": \"{{oneOf (array 'Commons' 'Lords')}}\",\n            \"name\": \"\"\n          }\n        ],\n        \"id\": \"\",\n        \"itemDate\": \"{{faker 'date.recent' 365}}\",\n        \"laidPaperType\": \"{{oneOf (array 'StatutoryInstrument' 'ProposedNegative')}}\",\n        \"link\": \"\",\n        \"sequence\": {{faker 'datatype.number'}},\n        \"statutoryInstrumentId\": \"\",\n        \"stepName\": \"\"\n      }\n    }\n  ],\n  \"itemsPerPage\": {{faker 'datatype.number'}},\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"href\": \"\",\n          \"method\": \"\",\n          \"rel\": \"\"\n        }\n      ],\n      \"value\": {\n        \"houses\": [\n          {\n            \"house\": \"{{oneOf (array 'Commons' 'Lords')}}\",\n            \"name\": \"\"\n          }\n        ],\n        \"id\": \"\",\n        \"itemDate\": \"{{faker 'date.recent' 365}}\",\n        \"laidPaperType\": \"{{oneOf (array 'StatutoryInstrument' 'ProposedNegative')}}\",\n        \"link\": \"\",\n        \"sequence\": {{faker 'number.int'}},\n        \"statutoryInstrumentId\": \"\",\n        \"stepName\": \"\"\n      }\n    }\n  ],\n  \"itemsPerPage\": {{faker 'number.int'}},\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -379,7 +328,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "d8c2c202-e14b-49e0-afb5-4a57809a3e33",
@@ -387,12 +337,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -401,7 +346,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "d54303a7-232e-4609-9901-2a76c8ac6b27",
@@ -409,12 +355,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "Not Found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -423,11 +364,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "0364e5be-9ca9-47ff-8c8b-2db881a544a6",
@@ -437,16 +380,11 @@
       "responses": [
         {
           "uuid": "dc6f8387-539a-4326-920f-d66cd680a7e3",
-          "body": "{\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"href\": \"\",\n          \"method\": \"\",\n          \"rel\": \"\"\n        }\n      ],\n      \"value\": {\n        \"commonsLayingDate\": \"{{faker 'date.recent' 365}}\",\n        \"id\": \"\",\n        \"layingBodyDepartment\": {\n          \"departmentId\": {{faker 'datatype.number'}},\n          \"id\": \"\",\n          \"name\": \"\"\n        },\n        \"link\": \"\",\n        \"lordsLayingDate\": \"{{faker 'date.recent' 365}}\",\n        \"name\": \"\",\n        \"paperComingIntoForceDate\": \"{{faker 'date.recent' 365}}\",\n        \"paperComingIntoForceNote\": \"\",\n        \"paperMadeDate\": \"{{faker 'date.recent' 365}}\",\n        \"paperNumber\": {{faker 'datatype.number'}},\n        \"paperPrefix\": \"\",\n        \"paperYear\": \"\",\n        \"procedure\": {\n          \"id\": \"\",\n          \"name\": \"\"\n        },\n        \"proposedNegativeStatutoryInstrument\": {\n          \"id\": \"\",\n          \"name\": \"\"\n        },\n        \"uri\": \"\"\n      }\n    }\n  ],\n  \"itemsPerPage\": {{faker 'datatype.number'}},\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"href\": \"\",\n          \"method\": \"\",\n          \"rel\": \"\"\n        }\n      ],\n      \"value\": {\n        \"commonsLayingDate\": \"{{faker 'date.recent' 365}}\",\n        \"id\": \"\",\n        \"layingBodyDepartment\": {\n          \"departmentId\": {{faker 'number.int'}},\n          \"id\": \"\",\n          \"name\": \"\"\n        },\n        \"link\": \"\",\n        \"lordsLayingDate\": \"{{faker 'date.recent' 365}}\",\n        \"name\": \"\",\n        \"paperComingIntoForceDate\": \"{{faker 'date.recent' 365}}\",\n        \"paperComingIntoForceNote\": \"\",\n        \"paperMadeDate\": \"{{faker 'date.recent' 365}}\",\n        \"paperNumber\": {{faker 'number.int'}},\n        \"paperPrefix\": \"\",\n        \"paperYear\": \"\",\n        \"procedure\": {\n          \"id\": \"\",\n          \"name\": \"\"\n        },\n        \"proposedNegativeStatutoryInstrument\": {\n          \"id\": \"\",\n          \"name\": \"\"\n        },\n        \"uri\": \"\"\n      }\n    }\n  ],\n  \"itemsPerPage\": {{faker 'number.int'}},\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -455,7 +393,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "f92f88a9-0c43-49d7-854f-29246b401b55",
@@ -463,12 +402,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -477,11 +411,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ea146d12-e155-4e4e-9808-677629b60f73",
@@ -491,16 +427,11 @@
       "responses": [
         {
           "uuid": "3f87bad2-c0d3-48cf-84ef-40b2d1fcf924",
-          "body": "{\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"value\": {\n    \"commonsLayingDate\": \"{{faker 'date.recent' 365}}\",\n    \"id\": \"\",\n    \"layingBodyDepartment\": {\n      \"departmentId\": {{faker 'datatype.number'}},\n      \"id\": \"\",\n      \"name\": \"\"\n    },\n    \"link\": \"\",\n    \"lordsLayingDate\": \"{{faker 'date.recent' 365}}\",\n    \"name\": \"\",\n    \"paperComingIntoForceDate\": \"{{faker 'date.recent' 365}}\",\n    \"paperComingIntoForceNote\": \"\",\n    \"paperMadeDate\": \"{{faker 'date.recent' 365}}\",\n    \"paperNumber\": {{faker 'datatype.number'}},\n    \"paperPrefix\": \"\",\n    \"paperYear\": \"\",\n    \"procedure\": {\n      \"id\": \"\",\n      \"name\": \"\"\n    },\n    \"proposedNegativeStatutoryInstrument\": {\n      \"id\": \"\",\n      \"name\": \"\"\n    },\n    \"uri\": \"\"\n  }\n}",
+          "body": "{\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"value\": {\n    \"commonsLayingDate\": \"{{faker 'date.recent' 365}}\",\n    \"id\": \"\",\n    \"layingBodyDepartment\": {\n      \"departmentId\": {{faker 'number.int'}},\n      \"id\": \"\",\n      \"name\": \"\"\n    },\n    \"link\": \"\",\n    \"lordsLayingDate\": \"{{faker 'date.recent' 365}}\",\n    \"name\": \"\",\n    \"paperComingIntoForceDate\": \"{{faker 'date.recent' 365}}\",\n    \"paperComingIntoForceNote\": \"\",\n    \"paperMadeDate\": \"{{faker 'date.recent' 365}}\",\n    \"paperNumber\": {{faker 'number.int'}},\n    \"paperPrefix\": \"\",\n    \"paperYear\": \"\",\n    \"procedure\": {\n      \"id\": \"\",\n      \"name\": \"\"\n    },\n    \"proposedNegativeStatutoryInstrument\": {\n      \"id\": \"\",\n      \"name\": \"\"\n    },\n    \"uri\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -509,7 +440,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "02f6af17-12f3-4148-a81d-f17cf042c81a",
@@ -517,12 +449,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -531,7 +458,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "f742e414-f0ad-4b98-8650-c2088b32c9b7",
@@ -539,12 +467,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "Not Found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -553,11 +476,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "3f008d7d-a866-40ed-8761-bf8bc23ae537",
@@ -567,16 +492,11 @@
       "responses": [
         {
           "uuid": "1924f969-a9f2-4034-8ffd-877efb546850",
-          "body": "{\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"href\": \"\",\n          \"method\": \"\",\n          \"rel\": \"\"\n        }\n      ],\n      \"value\": {\n        \"houses\": [\n          {\n            \"house\": \"{{oneOf (array 'Commons' 'Lords')}}\",\n            \"name\": \"\"\n          }\n        ],\n        \"id\": \"\",\n        \"itemDate\": \"{{faker 'date.recent' 365}}\",\n        \"laidPaperType\": \"{{oneOf (array 'StatutoryInstrument' 'ProposedNegative')}}\",\n        \"link\": \"\",\n        \"sequence\": {{faker 'datatype.number'}},\n        \"statutoryInstrumentId\": \"\",\n        \"stepName\": \"\"\n      }\n    }\n  ],\n  \"itemsPerPage\": {{faker 'datatype.number'}},\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"items\": [\n    {\n      \"links\": [\n        {\n          \"href\": \"\",\n          \"method\": \"\",\n          \"rel\": \"\"\n        }\n      ],\n      \"value\": {\n        \"houses\": [\n          {\n            \"house\": \"{{oneOf (array 'Commons' 'Lords')}}\",\n            \"name\": \"\"\n          }\n        ],\n        \"id\": \"\",\n        \"itemDate\": \"{{faker 'date.recent' 365}}\",\n        \"laidPaperType\": \"{{oneOf (array 'StatutoryInstrument' 'ProposedNegative')}}\",\n        \"link\": \"\",\n        \"sequence\": {{faker 'number.int'}},\n        \"statutoryInstrumentId\": \"\",\n        \"stepName\": \"\"\n      }\n    }\n  ],\n  \"itemsPerPage\": {{faker 'number.int'}},\n  \"links\": [\n    {\n      \"href\": \"\",\n      \"method\": \"\",\n      \"rel\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -585,7 +505,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "ef92dc9b-f35c-44ca-b180-11da21624806",
@@ -593,12 +514,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -607,7 +523,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "18c6cf57-9186-4da0-bde2-5ac257ab04ca",
@@ -615,12 +532,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "Not Found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -629,11 +541,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -650,17 +564,20 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "e90963d2-d2af-4187-9a35-c1983418e564" },
+    { "type": "route", "uuid": "f8536316-90a4-4ec4-a1cd-2b027f42d06f" },
+    { "type": "route", "uuid": "c9ca4a89-5c11-4aaf-8425-ee0666b76809" },
+    { "type": "route", "uuid": "35655223-7350-483f-bc5d-84bec8e16d30" },
+    { "type": "route", "uuid": "54804b92-41cd-451b-a517-d3a86b621e69" },
+    { "type": "route", "uuid": "82c447bd-8cc9-4dd8-93e7-385924180327" },
+    { "type": "route", "uuid": "f854851b-8481-4577-bfb6-79fe63f9cab8" },
+    { "type": "route", "uuid": "0364e5be-9ca9-47ff-8c8b-2db881a544a6" },
+    { "type": "route", "uuid": "ea146d12-e155-4e4e-9808-677629b60f73" },
+    { "type": "route", "uuid": "3f008d7d-a866-40ed-8761-bf8bc23ae537" }
+  ]
 }

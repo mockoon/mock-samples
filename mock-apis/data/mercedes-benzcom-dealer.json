@@ -1,11 +1,11 @@
 {
   "uuid": "eb192fc4-185a-454b-8d4e-2fab73961532",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "Dealer",
   "endpointPrefix": "dealer_tryout/v1",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "61da90c5-f2b9-457d-8bcd-fe8aeea0c845",
@@ -19,12 +19,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e9b991dd-180b-41fb-9bb9-6424d8ace700",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Invalid parameter was specified:\n * Page is not valid\n * Page size is not valid",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,7 +46,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "accfc99f-979d-4483-aed5-e99e34cccef3",
@@ -63,12 +55,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Unauthorized:\n  * Failed to resolve API Key query parameter\n  * Invalid API Key",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -77,7 +64,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "e4bb4898-a56a-4fd8-95e9-756f130220dd",
@@ -85,12 +73,7 @@
           "latency": 0,
           "statusCode": 429,
           "label": "Quota limit is exceeded",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -99,7 +82,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "a1e412b2-c9a8-4e86-953b-7ea3ee2e4905",
@@ -107,12 +91,7 @@
           "latency": 0,
           "statusCode": 500,
           "label": "Internal server error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -121,11 +100,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "94c0a8b9-d232-4270-bdd0-7bbc66b18ea5",
@@ -135,16 +116,11 @@
       "responses": [
         {
           "uuid": "e057bc6a-49b7-439f-b481-2fdc4acf05e6",
-          "body": "{\n  \"_links\": {\n    \"next\": {\n      \"href\": \"\"\n    },\n    \"previous\": {\n      \"href\": \"\"\n    },\n    \"self\": {\n      \"href\": \"\"\n    }\n  },\n  \"dealers\": [\n    {\n      \"_links\": {\n        \"self\": {\n          \"href\": \"\"\n        }\n      },\n      \"address\": {\n        \"addressAddition\": \"\",\n        \"city\": \"\",\n        \"countryIsoCode\": \"\",\n        \"district\": \"\",\n        \"street\": \"\",\n        \"zipCode\": \"\"\n      },\n      \"brandCodes\": [\n        {\n          \"brand\": {\n            \"code\": \"\",\n            \"name\": \"\"\n          }\n        }\n      ],\n      \"communication\": {\n        \"general\": {\n          \"email\": \"\",\n          \"facebook\": \"\",\n          \"fax\": \"\",\n          \"googlePlus\": \"\",\n          \"mobile\": \"\",\n          \"phone\": \"\",\n          \"twitter\": \"\",\n          \"website\": \"\"\n        }\n      },\n      \"dealerId\": \"\",\n      \"distance\": {\n        \"unit\": \"{{oneOf (array 'M' 'KM' 'MILE')}}\",\n        \"value\": {{faker 'datatype.float'}}\n      },\n      \"functions\": [\n        {\n          \"activity\": {\n            \"code\": \"\",\n            \"name\": \"\"\n          },\n          \"brand\": {\n            \"code\": \"\",\n            \"name\": \"\"\n          },\n          \"productGroup\": {\n            \"code\": \"\",\n            \"name\": \"\"\n          }\n        }\n      ],\n      \"geoCoordinates\": {\n        \"latitude\": {{faker 'datatype.float'}},\n        \"longitude\": {{faker 'datatype.float'}}\n      },\n      \"legalName\": \"\",\n      \"nameAddition\": \"\",\n      \"openingHours\": [\n        {\n          \"function\": {\n            \"activity\": {\n              \"code\": \"\",\n              \"name\": \"\"\n            },\n            \"brand\": {\n              \"code\": \"\",\n              \"name\": \"\"\n            },\n            \"productGroup\": {\n              \"code\": \"\",\n              \"name\": \"\"\n            }\n          },\n          \"weekdays\": {\n            \"FRIDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            },\n            \"MONDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            },\n            \"SATURDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            },\n            \"SUNDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            },\n            \"THURSDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            },\n            \"TUESDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            },\n            \"WEDNESDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            }\n          }\n        }\n      ],\n      \"region\": {\n        \"region\": \"\",\n        \"subRegion\": \"\"\n      }\n    }\n  ]\n}",
+          "body": "{\n  \"_links\": {\n    \"next\": {\n      \"href\": \"\"\n    },\n    \"previous\": {\n      \"href\": \"\"\n    },\n    \"self\": {\n      \"href\": \"\"\n    }\n  },\n  \"dealers\": [\n    {\n      \"_links\": {\n        \"self\": {\n          \"href\": \"\"\n        }\n      },\n      \"address\": {\n        \"addressAddition\": \"\",\n        \"city\": \"\",\n        \"countryIsoCode\": \"\",\n        \"district\": \"\",\n        \"street\": \"\",\n        \"zipCode\": \"\"\n      },\n      \"brandCodes\": [\n        {\n          \"brand\": {\n            \"code\": \"\",\n            \"name\": \"\"\n          }\n        }\n      ],\n      \"communication\": {\n        \"general\": {\n          \"email\": \"\",\n          \"facebook\": \"\",\n          \"fax\": \"\",\n          \"googlePlus\": \"\",\n          \"mobile\": \"\",\n          \"phone\": \"\",\n          \"twitter\": \"\",\n          \"website\": \"\"\n        }\n      },\n      \"dealerId\": \"\",\n      \"distance\": {\n        \"unit\": \"{{oneOf (array 'M' 'KM' 'MILE')}}\",\n        \"value\": {{faker 'number.float'}}\n      },\n      \"functions\": [\n        {\n          \"activity\": {\n            \"code\": \"\",\n            \"name\": \"\"\n          },\n          \"brand\": {\n            \"code\": \"\",\n            \"name\": \"\"\n          },\n          \"productGroup\": {\n            \"code\": \"\",\n            \"name\": \"\"\n          }\n        }\n      ],\n      \"geoCoordinates\": {\n        \"latitude\": {{faker 'number.float'}},\n        \"longitude\": {{faker 'number.float'}}\n      },\n      \"legalName\": \"\",\n      \"nameAddition\": \"\",\n      \"openingHours\": [\n        {\n          \"function\": {\n            \"activity\": {\n              \"code\": \"\",\n              \"name\": \"\"\n            },\n            \"brand\": {\n              \"code\": \"\",\n              \"name\": \"\"\n            },\n            \"productGroup\": {\n              \"code\": \"\",\n              \"name\": \"\"\n            }\n          },\n          \"weekdays\": {\n            \"FRIDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            },\n            \"MONDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            },\n            \"SATURDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            },\n            \"SUNDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            },\n            \"THURSDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            },\n            \"TUESDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            },\n            \"WEDNESDAY\": {\n              \"periods\": [\n                {\n                  \"from\": \"\",\n                  \"until\": \"\"\n                }\n              ],\n              \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n            }\n          }\n        }\n      ],\n      \"region\": {\n        \"region\": \"\",\n        \"subRegion\": \"\"\n      }\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -153,7 +129,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "7f378522-b18c-4169-baf8-ea2e4170dc50",
@@ -161,12 +138,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "The search did not match any dealers.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -175,7 +147,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "c3503581-bed0-40f3-90ef-c70509a561d3",
@@ -183,12 +156,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Invalid parameter was specified:\n * DealerId is not valid\n * Area search is not valid (latitude or longitude missing or invalid)\n * Country ISO code is not valid\n * Brand code is not valid\n * Product group is not valid\n * Activity is not valid\n * Page is not valid\n * Page size is not valid",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -197,7 +165,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "3889b74d-bf45-43dd-9afa-28df78c4f316",
@@ -205,12 +174,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Unauthorized:\n  * Failed to resolve API Key query parameter\n  * Invalid API Key",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -219,7 +183,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "c7049c0d-bbcb-4f93-936f-efeced106466",
@@ -227,12 +192,7 @@
           "latency": 0,
           "statusCode": 429,
           "label": "Quota limit is exceeded",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -241,7 +201,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "7e49f5ad-c99d-4fb5-8d68-1b386922fc17",
@@ -249,12 +210,7 @@
           "latency": 0,
           "statusCode": 500,
           "label": "Internal server error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -263,11 +219,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "8344332d-f788-4371-a004-f4bf3ee27568",
@@ -277,16 +235,11 @@
       "responses": [
         {
           "uuid": "50cbb3b9-29bf-42b3-b07b-7004bd6c5b2f",
-          "body": "{\n  \"_links\": {\n    \"self\": {\n      \"href\": \"\"\n    }\n  },\n  \"address\": {\n    \"addressAddition\": \"\",\n    \"city\": \"\",\n    \"countryIsoCode\": \"\",\n    \"district\": \"\",\n    \"street\": \"\",\n    \"zipCode\": \"\"\n  },\n  \"brandCodes\": [\n    {\n      \"brand\": {\n        \"code\": \"\",\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"communication\": {\n    \"general\": {\n      \"email\": \"\",\n      \"facebook\": \"\",\n      \"fax\": \"\",\n      \"googlePlus\": \"\",\n      \"mobile\": \"\",\n      \"phone\": \"\",\n      \"twitter\": \"\",\n      \"website\": \"\"\n    }\n  },\n  \"dealerId\": \"\",\n  \"distance\": {\n    \"unit\": \"{{oneOf (array 'M' 'KM' 'MILE')}}\",\n    \"value\": {{faker 'datatype.float'}}\n  },\n  \"functions\": [\n    {\n      \"activity\": {\n        \"code\": \"\",\n        \"name\": \"\"\n      },\n      \"brand\": {\n        \"code\": \"\",\n        \"name\": \"\"\n      },\n      \"productGroup\": {\n        \"code\": \"\",\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"geoCoordinates\": {\n    \"latitude\": {{faker 'datatype.float'}},\n    \"longitude\": {{faker 'datatype.float'}}\n  },\n  \"legalName\": \"\",\n  \"nameAddition\": \"\",\n  \"openingHours\": [\n    {\n      \"function\": {\n        \"activity\": {\n          \"code\": \"\",\n          \"name\": \"\"\n        },\n        \"brand\": {\n          \"code\": \"\",\n          \"name\": \"\"\n        },\n        \"productGroup\": {\n          \"code\": \"\",\n          \"name\": \"\"\n        }\n      },\n      \"weekdays\": {\n        \"FRIDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        },\n        \"MONDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        },\n        \"SATURDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        },\n        \"SUNDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        },\n        \"THURSDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        },\n        \"TUESDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        },\n        \"WEDNESDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        }\n      }\n    }\n  ],\n  \"region\": {\n    \"region\": \"\",\n    \"subRegion\": \"\"\n  }\n}",
+          "body": "{\n  \"_links\": {\n    \"self\": {\n      \"href\": \"\"\n    }\n  },\n  \"address\": {\n    \"addressAddition\": \"\",\n    \"city\": \"\",\n    \"countryIsoCode\": \"\",\n    \"district\": \"\",\n    \"street\": \"\",\n    \"zipCode\": \"\"\n  },\n  \"brandCodes\": [\n    {\n      \"brand\": {\n        \"code\": \"\",\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"communication\": {\n    \"general\": {\n      \"email\": \"\",\n      \"facebook\": \"\",\n      \"fax\": \"\",\n      \"googlePlus\": \"\",\n      \"mobile\": \"\",\n      \"phone\": \"\",\n      \"twitter\": \"\",\n      \"website\": \"\"\n    }\n  },\n  \"dealerId\": \"\",\n  \"distance\": {\n    \"unit\": \"{{oneOf (array 'M' 'KM' 'MILE')}}\",\n    \"value\": {{faker 'number.float'}}\n  },\n  \"functions\": [\n    {\n      \"activity\": {\n        \"code\": \"\",\n        \"name\": \"\"\n      },\n      \"brand\": {\n        \"code\": \"\",\n        \"name\": \"\"\n      },\n      \"productGroup\": {\n        \"code\": \"\",\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"geoCoordinates\": {\n    \"latitude\": {{faker 'number.float'}},\n    \"longitude\": {{faker 'number.float'}}\n  },\n  \"legalName\": \"\",\n  \"nameAddition\": \"\",\n  \"openingHours\": [\n    {\n      \"function\": {\n        \"activity\": {\n          \"code\": \"\",\n          \"name\": \"\"\n        },\n        \"brand\": {\n          \"code\": \"\",\n          \"name\": \"\"\n        },\n        \"productGroup\": {\n          \"code\": \"\",\n          \"name\": \"\"\n        }\n      },\n      \"weekdays\": {\n        \"FRIDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        },\n        \"MONDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        },\n        \"SATURDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        },\n        \"SUNDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        },\n        \"THURSDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        },\n        \"TUESDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        },\n        \"WEDNESDAY\": {\n          \"periods\": [\n            {\n              \"from\": \"\",\n              \"until\": \"\"\n            }\n          ],\n          \"status\": \"{{oneOf (array 'OPEN' 'CLOSED')}}\"\n        }\n      }\n    }\n  ],\n  \"region\": {\n    \"region\": \"\",\n    \"subRegion\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -295,7 +248,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "bc63f8c7-95ac-4b09-a185-6e3cb62b526e",
@@ -303,12 +257,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Invalid format for parameter dealerId was specified",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -317,7 +266,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "3fe831b3-fc87-49ba-b205-be25c2153aa8",
@@ -325,12 +275,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Unauthorized:\n  * Failed to resolve API Key query parameter\n  * Invalid API Key",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -339,7 +284,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "62fea17b-7a7c-4e3e-9d84-5f6eb3aec856",
@@ -347,12 +293,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "Dealer not found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -361,7 +302,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "893d2fec-7ec6-4dc9-b9e7-d065b1db54ce",
@@ -369,12 +311,7 @@
           "latency": 0,
           "statusCode": 429,
           "label": "Quota limit is exceeded",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -383,7 +320,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "d172bfb6-447f-4a0b-b9be-62c5bfee08d3",
@@ -391,12 +329,7 @@
           "latency": 0,
           "statusCode": 500,
           "label": "Internal server error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -405,11 +338,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -426,17 +361,13 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "61da90c5-f2b9-457d-8bcd-fe8aeea0c845" },
+    { "type": "route", "uuid": "94c0a8b9-d232-4270-bdd0-7bbc66b18ea5" },
+    { "type": "route", "uuid": "8344332d-f788-4371-a004-f4bf3ee27568" }
+  ]
 }

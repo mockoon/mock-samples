@@ -1,11 +1,11 @@
 {
   "uuid": "9af2afcf-6aa9-4a19-a699-ff41b664f78b",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "WorkBC Job Posting API",
   "endpointPrefix": "v1",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "a0696fcf-a4cf-4983-9158-f1bb9065166d",
@@ -15,16 +15,11 @@
       "responses": [
         {
           "uuid": "14449d8c-dd0a-420d-8a66-2032a2d36a7f",
-          "body": "[\n  {\n    \"Caption\": \"\",\n    \"ID\": {{faker 'datatype.number'}},\n    \"SubIndustries\": [\n      {\n        \"Caption\": \"\",\n        \"ID\": {{faker 'datatype.number'}}\n      }\n    ]\n  }\n]",
+          "body": "[\n  {\n    \"Caption\": \"\",\n    \"ID\": {{faker 'number.int'}},\n    \"SubIndustries\": [\n      {\n        \"Caption\": \"\",\n        \"ID\": {{faker 'number.int'}}\n      }\n    ]\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "An array of industries and sub industries",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "440a76fd-e5fa-4b17-87a9-6b749e6b6a0c",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,11 +46,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "2c937cab-b631-429b-a4c6-bad9dcb7f2aa",
@@ -73,12 +66,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "An array of job types",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -87,7 +75,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "82cf00be-7447-4b3c-a0c6-0d9d89e10f6d",
@@ -95,12 +84,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -109,11 +93,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "e6f1eabd-aef2-425b-b3f6-e994d570dc98",
@@ -123,16 +109,11 @@
       "responses": [
         {
           "uuid": "9c81b279-eba9-4b5d-86b3-d2ecb76a028c",
-          "body": "{\n  \"Jobs\": [\n    {\n      \"EmployerName\": \"\",\n      \"ExpiryDate\": \"{{faker 'date.recent' 365}}\",\n      \"JobDescription\": \"\",\n      \"JobID\": {{faker 'datatype.number'}},\n      \"JobTitle\": \"\",\n      \"JobTypes\": [\n        {\n          \"Caption\": \"\",\n          \"ID\": \"{{oneOf (array 'Undefined0' 'Full-Time' 'Part-Time' 'Contract' 'Undefined4' 'Undefined5' 'Student' 'Undefined7' 'Undefined8' 'Casual' 'Seasonal' 'Temporary' 'Permanent' 'Co-op' 'Apprenticeship')}}\"\n        }\n      ],\n      \"Locations\": [\n        {\n          \"City\": \"\",\n          \"Province\": \"\",\n          \"RegionID\": {\n            \"Caption\": \"\",\n            \"ID\": \"{{oneOf (array 'Undefined' 'Vancouver Island/Coast' 'Mainland/Southwest' 'Thompson-Okanagan' 'Kootenay' 'Cariboo' 'North Coast' 'Nechako' 'Northeast')}}\"\n          },\n          \"RegionName\": \"\"\n        }\n      ],\n      \"MajorProject\": {\n        \"Caption\": \"\",\n        \"ID\": {{faker 'datatype.number'}}\n      },\n      \"PostedDate\": \"{{faker 'date.recent' 365}}\",\n      \"RecordType\": \"{{oneOf (array 'Undefined' 'Update' 'Delete')}}\",\n      \"SalaryMax\": {{faker 'datatype.float'}},\n      \"SalaryMin\": {{faker 'datatype.float'}},\n      \"SalaryMultiplier\": {{faker 'datatype.number'}},\n      \"SalaryType\": \"\",\n      \"Url\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"Jobs\": [\n    {\n      \"EmployerName\": \"\",\n      \"ExpiryDate\": \"{{faker 'date.recent' 365}}\",\n      \"JobDescription\": \"\",\n      \"JobID\": {{faker 'number.int'}},\n      \"JobTitle\": \"\",\n      \"JobTypes\": [\n        {\n          \"Caption\": \"\",\n          \"ID\": \"{{oneOf (array 'Undefined0' 'Full-Time' 'Part-Time' 'Contract' 'Undefined4' 'Undefined5' 'Student' 'Undefined7' 'Undefined8' 'Casual' 'Seasonal' 'Temporary' 'Permanent' 'Co-op' 'Apprenticeship')}}\"\n        }\n      ],\n      \"Locations\": [\n        {\n          \"City\": \"\",\n          \"Province\": \"\",\n          \"RegionID\": {\n            \"Caption\": \"\",\n            \"ID\": \"{{oneOf (array 'Undefined' 'Vancouver Island/Coast' 'Mainland/Southwest' 'Thompson-Okanagan' 'Kootenay' 'Cariboo' 'North Coast' 'Nechako' 'Northeast')}}\"\n          },\n          \"RegionName\": \"\"\n        }\n      ],\n      \"MajorProject\": {\n        \"Caption\": \"\",\n        \"ID\": {{faker 'number.int'}}\n      },\n      \"PostedDate\": \"{{faker 'date.recent' 365}}\",\n      \"RecordType\": \"{{oneOf (array 'Undefined' 'Update' 'Delete')}}\",\n      \"SalaryMax\": {{faker 'number.float'}},\n      \"SalaryMin\": {{faker 'number.float'}},\n      \"SalaryMultiplier\": {{faker 'number.int'}},\n      \"SalaryType\": \"\",\n      \"Url\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "A set of job records.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -141,7 +122,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "2ad972b0-c0bb-4f84-a4c5-2af00578f308",
@@ -149,12 +131,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -163,11 +140,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ff19d9c1-97e1-4649-b75d-9477dddd1b23",
@@ -177,16 +156,11 @@
       "responses": [
         {
           "uuid": "994a39b2-6a48-48e6-b01b-3df68e0429c0",
-          "body": "[\n  {\n    \"Caption\": \"\",\n    \"ID\": {{faker 'datatype.number'}}\n  }\n]",
+          "body": "[\n  {\n    \"Caption\": \"\",\n    \"ID\": {{faker 'number.int'}}\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "An array of major projects",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -195,7 +169,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "5709c758-a376-42a6-a6f1-83a0d47ba6f8",
@@ -203,12 +178,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -217,11 +187,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "64866c74-5492-4497-a775-bf2fe686a8b3",
@@ -235,12 +207,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "An array of regions",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -249,7 +216,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "07dd917f-cc6f-48f7-9a63-006d7ac8199a",
@@ -257,12 +225,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -271,11 +234,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -292,17 +257,15 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "a0696fcf-a4cf-4983-9158-f1bb9065166d" },
+    { "type": "route", "uuid": "2c937cab-b631-429b-a4c6-bad9dcb7f2aa" },
+    { "type": "route", "uuid": "e6f1eabd-aef2-425b-b3f6-e994d570dc98" },
+    { "type": "route", "uuid": "ff19d9c1-97e1-4649-b75d-9477dddd1b23" },
+    { "type": "route", "uuid": "64866c74-5492-4497-a775-bf2fe686a8b3" }
+  ]
 }

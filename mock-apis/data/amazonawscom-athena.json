@@ -1,11 +1,11 @@
 {
   "uuid": "dbff85d3-8d84-4317-aa2f-c550d54ed092",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "Amazon Athena",
   "endpointPrefix": "",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "fd932f43-631a-4c9e-a125-7c2784cef6d2",
@@ -19,12 +19,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "0200f91f-366a-4af1-84f5-20636a0d787c",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,7 +46,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "b056d688-4bd8-490e-b08c-1f7b5aeb9501",
@@ -63,12 +55,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -77,11 +64,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "21cdbc9f-b636-409b-a27a-0311b63463de",
@@ -91,16 +80,11 @@
       "responses": [
         {
           "uuid": "b294229d-18b5-48ba-bed6-622f50aed97a",
-          "body": "{\n  \"QueryExecutions\": [\n    {\n      \"QueryExecutionId\": \"\",\n      \"Query\": \"\",\n      \"StatementType\": \"\",\n      \"ResultConfiguration\": {\n        \"OutputLocation\": \"\",\n        \"EncryptionConfiguration\": {\n          \"EncryptionOption\": \"\",\n          \"KmsKey\": \"\"\n        }\n      },\n      \"QueryExecutionContext\": {\n        \"Database\": \"\",\n        \"Catalog\": \"\"\n      },\n      \"Status\": {\n        \"State\": \"\",\n        \"StateChangeReason\": \"\",\n        \"SubmissionDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"CompletionDateTime\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"Statistics\": {\n        \"EngineExecutionTimeInMillis\": {{faker 'datatype.number'}},\n        \"DataScannedInBytes\": {{faker 'datatype.number'}},\n        \"DataManifestLocation\": \"\",\n        \"TotalExecutionTimeInMillis\": {{faker 'datatype.number'}},\n        \"QueryQueueTimeInMillis\": {{faker 'datatype.number'}},\n        \"QueryPlanningTimeInMillis\": {{faker 'datatype.number'}},\n        \"ServiceProcessingTimeInMillis\": {{faker 'datatype.number'}}\n      },\n      \"WorkGroup\": \"\",\n      \"EngineVersion\": {\n        \"SelectedEngineVersion\": \"\",\n        \"EffectiveEngineVersion\": \"\"\n      }\n    }\n  ],\n  \"UnprocessedQueryExecutionIds\": [\n    {\n      \"QueryExecutionId\": \"\",\n      \"ErrorCode\": \"\",\n      \"ErrorMessage\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"QueryExecutions\": [\n    {\n      \"QueryExecutionId\": \"\",\n      \"Query\": \"\",\n      \"StatementType\": \"\",\n      \"ResultConfiguration\": {\n        \"OutputLocation\": \"\",\n        \"EncryptionConfiguration\": {\n          \"EncryptionOption\": \"\",\n          \"KmsKey\": \"\"\n        }\n      },\n      \"QueryExecutionContext\": {\n        \"Database\": \"\",\n        \"Catalog\": \"\"\n      },\n      \"Status\": {\n        \"State\": \"\",\n        \"StateChangeReason\": \"\",\n        \"SubmissionDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"CompletionDateTime\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"Statistics\": {\n        \"EngineExecutionTimeInMillis\": {{faker 'number.int'}},\n        \"DataScannedInBytes\": {{faker 'number.int'}},\n        \"DataManifestLocation\": \"\",\n        \"TotalExecutionTimeInMillis\": {{faker 'number.int'}},\n        \"QueryQueueTimeInMillis\": {{faker 'number.int'}},\n        \"QueryPlanningTimeInMillis\": {{faker 'number.int'}},\n        \"ServiceProcessingTimeInMillis\": {{faker 'number.int'}}\n      },\n      \"WorkGroup\": \"\",\n      \"EngineVersion\": {\n        \"SelectedEngineVersion\": \"\",\n        \"EffectiveEngineVersion\": \"\"\n      }\n    }\n  ],\n  \"UnprocessedQueryExecutionIds\": [\n    {\n      \"QueryExecutionId\": \"\",\n      \"ErrorCode\": \"\",\n      \"ErrorMessage\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -109,7 +93,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "cddbe341-2a0a-475e-be3b-dfe1f7f3dbc6",
@@ -117,12 +102,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -131,7 +111,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "3023e68c-0dc9-4674-92b4-0d74ae0f801f",
@@ -139,12 +120,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -153,11 +129,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "8214e8c3-6d0c-4ff7-bf11-921c0493c301",
@@ -171,12 +149,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -185,7 +158,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "257d78c3-a751-4889-bef8-b8b4adb1fc26",
@@ -193,12 +167,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -207,7 +176,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "79008708-98c3-4ded-8735-1291ac8bc5ce",
@@ -215,12 +185,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -229,11 +194,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ed2be15d-16ff-4c47-96e6-c9e76edb6ad3",
@@ -247,12 +214,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -261,7 +223,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "719fef88-68af-4d7a-8619-31bbd2ce150e",
@@ -269,12 +232,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -283,7 +241,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "7bc9a9e5-c842-480e-b117-33c6bbe770c9",
@@ -291,12 +250,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -305,11 +259,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "5843b47a-6cb2-4df2-bfd6-770591992eb8",
@@ -323,12 +279,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -337,7 +288,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "24fe5cd2-c677-48e4-a99a-5a51eab9b3cf",
@@ -345,12 +297,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -359,7 +306,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "bdae1305-6840-47d8-a7f4-d441e87ecddd",
@@ -367,12 +315,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -381,11 +324,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "55ce230e-77d4-41c9-9a41-fa8e1a3ee8a6",
@@ -399,12 +344,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -413,7 +353,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "9af8c082-ff66-46cf-ae4c-c785a3d31c1f",
@@ -421,12 +362,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -435,7 +371,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "6c7c708d-edbd-4076-9d25-dfa14180da4a",
@@ -443,12 +380,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -457,11 +389,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "30ca02c0-a08a-478c-a556-e31de68f6215",
@@ -475,12 +409,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -489,7 +418,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "09b6da5a-6797-450b-a2c1-00e7f1d3c8a7",
@@ -497,12 +427,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -511,7 +436,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "9c0da238-a672-4b63-b400-d28b4c1cb35a",
@@ -519,12 +445,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -533,11 +454,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "e5ffb1cd-43dc-4a12-886e-86ebcbcdfa93",
@@ -551,12 +474,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -565,7 +483,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "0972f3ad-2c41-4be7-984c-1bbbee56ab41",
@@ -573,12 +492,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -587,7 +501,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "a2bb0e93-ea6a-4033-88ff-a016c61b897d",
@@ -595,12 +510,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -609,11 +519,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "858c5759-54ad-4579-81ac-a82e93d6d76f",
@@ -627,12 +539,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -641,7 +548,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "62351b16-5db1-446b-b9c8-4a0d4a6fcf8c",
@@ -649,12 +557,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -663,7 +566,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "ab94648a-78f8-4350-9dcf-bcc5a5acf69d",
@@ -671,12 +575,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -685,7 +584,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "8fa6a9a9-7f40-42ad-a2f7-aabcaef73ef8",
@@ -693,12 +593,7 @@
           "latency": 0,
           "statusCode": 482,
           "label": "ResourceNotFoundException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -707,11 +602,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "52e10eb4-89b8-4b14-8434-21dd8c8c10f8",
@@ -725,12 +622,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -739,7 +631,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e0ee4f17-e071-465e-ac4b-5f5873b66e11",
@@ -747,12 +640,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -761,7 +649,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "cead9f5a-273b-4091-bc42-45bbf67b4f15",
@@ -769,12 +658,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -783,11 +667,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "fbbaf4cd-a3eb-425a-9abd-39311dfc6943",
@@ -801,12 +687,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -815,7 +696,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "6d24c71f-9678-4732-b320-e0398debcb69",
@@ -823,12 +705,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -837,7 +714,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "a8db9fc1-08dc-4c26-8690-c4eb2731846c",
@@ -845,12 +723,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -859,11 +732,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "7b963f56-323b-4d39-b300-3ad41bfc0720",
@@ -877,12 +752,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -891,7 +761,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "1d461b33-316e-445c-a9f1-71d26986d87e",
@@ -899,12 +770,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -913,7 +779,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "f887bda2-25d6-496d-b55f-03616ad5fe1f",
@@ -921,12 +788,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -935,7 +797,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "9986f022-fe17-4193-91d4-65be75a8ab46",
@@ -943,12 +806,7 @@
           "latency": 0,
           "statusCode": 482,
           "label": "MetadataException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -957,11 +815,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ce2f3c23-6285-4220-b4ee-6918da0fc414",
@@ -975,12 +835,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -989,7 +844,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "cfb84a5b-2b2a-4382-947e-b2f610ebf7f6",
@@ -997,12 +853,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1011,7 +862,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "9c5ec6c0-2394-4e01-92bb-9a60ed1ff5fa",
@@ -1019,12 +871,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1033,11 +880,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "085ebe28-810f-4f44-8b96-cc0ff7622ad0",
@@ -1051,12 +900,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1065,7 +909,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "04ea9c15-a628-44b1-98f9-1e776d844165",
@@ -1073,12 +918,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1087,7 +927,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "1ca69ee9-641e-472e-8e56-96a7b211e06f",
@@ -1095,12 +936,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1109,7 +945,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "a2f2fd57-ef04-4020-96ff-8635db2b833c",
@@ -1117,12 +954,7 @@
           "latency": 0,
           "statusCode": 482,
           "label": "ResourceNotFoundException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1131,11 +963,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "2a78d279-2fa7-4d37-82f8-6f1a5e8d24a9",
@@ -1145,16 +979,11 @@
       "responses": [
         {
           "uuid": "445ff6d6-2e27-4e07-aae7-5e10009cf2e9",
-          "body": "{\n  \"QueryExecution\": {\n    \"QueryExecutionId\": \"\",\n    \"Query\": \"\",\n    \"StatementType\": \"\",\n    \"ResultConfiguration\": {\n      \"OutputLocation\": \"\",\n      \"EncryptionConfiguration\": {\n        \"EncryptionOption\": \"\",\n        \"KmsKey\": \"\"\n      }\n    },\n    \"QueryExecutionContext\": {\n      \"Database\": \"\",\n      \"Catalog\": \"\"\n    },\n    \"Status\": {\n      \"State\": \"\",\n      \"StateChangeReason\": \"\",\n      \"SubmissionDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"CompletionDateTime\": \"{{faker 'date.recent' 365}}\"\n    },\n    \"Statistics\": {\n      \"EngineExecutionTimeInMillis\": {{faker 'datatype.number'}},\n      \"DataScannedInBytes\": {{faker 'datatype.number'}},\n      \"DataManifestLocation\": \"\",\n      \"TotalExecutionTimeInMillis\": {{faker 'datatype.number'}},\n      \"QueryQueueTimeInMillis\": {{faker 'datatype.number'}},\n      \"QueryPlanningTimeInMillis\": {{faker 'datatype.number'}},\n      \"ServiceProcessingTimeInMillis\": {{faker 'datatype.number'}}\n    },\n    \"WorkGroup\": \"\",\n    \"EngineVersion\": {\n      \"SelectedEngineVersion\": \"\",\n      \"EffectiveEngineVersion\": \"\"\n    }\n  }\n}",
+          "body": "{\n  \"QueryExecution\": {\n    \"QueryExecutionId\": \"\",\n    \"Query\": \"\",\n    \"StatementType\": \"\",\n    \"ResultConfiguration\": {\n      \"OutputLocation\": \"\",\n      \"EncryptionConfiguration\": {\n        \"EncryptionOption\": \"\",\n        \"KmsKey\": \"\"\n      }\n    },\n    \"QueryExecutionContext\": {\n      \"Database\": \"\",\n      \"Catalog\": \"\"\n    },\n    \"Status\": {\n      \"State\": \"\",\n      \"StateChangeReason\": \"\",\n      \"SubmissionDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"CompletionDateTime\": \"{{faker 'date.recent' 365}}\"\n    },\n    \"Statistics\": {\n      \"EngineExecutionTimeInMillis\": {{faker 'number.int'}},\n      \"DataScannedInBytes\": {{faker 'number.int'}},\n      \"DataManifestLocation\": \"\",\n      \"TotalExecutionTimeInMillis\": {{faker 'number.int'}},\n      \"QueryQueueTimeInMillis\": {{faker 'number.int'}},\n      \"QueryPlanningTimeInMillis\": {{faker 'number.int'}},\n      \"ServiceProcessingTimeInMillis\": {{faker 'number.int'}}\n    },\n    \"WorkGroup\": \"\",\n    \"EngineVersion\": {\n      \"SelectedEngineVersion\": \"\",\n      \"EffectiveEngineVersion\": \"\"\n    }\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1163,7 +992,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "afe16f68-8cf9-44bf-99fe-433773ab1489",
@@ -1171,12 +1001,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1185,7 +1010,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "e9327f78-228f-4a15-84a9-fe668dadcc3c",
@@ -1193,12 +1019,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1207,11 +1028,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "c2cec5fd-6e86-48a8-857e-844eba5192b5",
@@ -1221,16 +1044,11 @@
       "responses": [
         {
           "uuid": "82ab472f-bd81-4bd2-91db-62b0d74aa758",
-          "body": "{\n  \"UpdateCount\": {{faker 'datatype.number'}},\n  \"ResultSet\": {\n    \"Rows\": [\n      {\n        \"Data\": [\n          {\n            \"VarCharValue\": \"\"\n          }\n        ]\n      }\n    ],\n    \"ResultSetMetadata\": {\n      \"ColumnInfo\": [\n        {\n          \"CatalogName\": \"\",\n          \"SchemaName\": \"\",\n          \"TableName\": \"\",\n          \"Name\": \"\",\n          \"Label\": \"\",\n          \"Type\": \"\",\n          \"Precision\": {{faker 'datatype.number'}},\n          \"Scale\": {{faker 'datatype.number'}},\n          \"Nullable\": \"\",\n          \"CaseSensitive\": {{faker 'datatype.boolean'}}\n        }\n      ]\n    }\n  },\n  \"NextToken\": \"\"\n}",
+          "body": "{\n  \"UpdateCount\": {{faker 'number.int'}},\n  \"ResultSet\": {\n    \"Rows\": [\n      {\n        \"Data\": [\n          {\n            \"VarCharValue\": \"\"\n          }\n        ]\n      }\n    ],\n    \"ResultSetMetadata\": {\n      \"ColumnInfo\": [\n        {\n          \"CatalogName\": \"\",\n          \"SchemaName\": \"\",\n          \"TableName\": \"\",\n          \"Name\": \"\",\n          \"Label\": \"\",\n          \"Type\": \"\",\n          \"Precision\": {{faker 'number.int'}},\n          \"Scale\": {{faker 'number.int'}},\n          \"Nullable\": \"\",\n          \"CaseSensitive\": {{faker 'datatype.boolean'}}\n        }\n      ]\n    }\n  },\n  \"NextToken\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1239,7 +1057,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "883b838c-3719-41e2-8938-848fa393f542",
@@ -1247,12 +1066,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1261,7 +1075,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "85c27304-06e0-44fb-b4c4-8a8c4d5216f4",
@@ -1269,12 +1084,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1283,11 +1093,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "23aa4ad0-276e-4681-9357-1f20bee46d43",
@@ -1301,12 +1113,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1315,7 +1122,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "2750189d-6887-4ad7-b32f-4676e24bc997",
@@ -1323,12 +1131,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1337,7 +1140,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "373ca382-0d89-4029-94a8-b36fe03670a8",
@@ -1345,12 +1149,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1359,7 +1158,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "8b4467c8-ca1b-4952-ab0c-6149c14d2edf",
@@ -1367,12 +1167,7 @@
           "latency": 0,
           "statusCode": 482,
           "label": "MetadataException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1381,11 +1176,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "cea8f669-dd6e-4706-ab10-6470ef23c6bd",
@@ -1395,16 +1192,11 @@
       "responses": [
         {
           "uuid": "e769df32-0df7-4498-9cd6-d2cfe25470f7",
-          "body": "{\n  \"WorkGroup\": {\n    \"Name\": \"\",\n    \"State\": \"\",\n    \"Configuration\": {\n      \"ResultConfiguration\": {\n        \"OutputLocation\": \"\",\n        \"EncryptionConfiguration\": {\n          \"EncryptionOption\": \"\",\n          \"KmsKey\": \"\"\n        }\n      },\n      \"EnforceWorkGroupConfiguration\": {{faker 'datatype.boolean'}},\n      \"PublishCloudWatchMetricsEnabled\": {{faker 'datatype.boolean'}},\n      \"BytesScannedCutoffPerQuery\": {{faker 'datatype.number'}},\n      \"RequesterPaysEnabled\": {{faker 'datatype.boolean'}},\n      \"EngineVersion\": {\n        \"SelectedEngineVersion\": \"\",\n        \"EffectiveEngineVersion\": \"\"\n      }\n    },\n    \"Description\": \"\",\n    \"CreationTime\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
+          "body": "{\n  \"WorkGroup\": {\n    \"Name\": \"\",\n    \"State\": \"\",\n    \"Configuration\": {\n      \"ResultConfiguration\": {\n        \"OutputLocation\": \"\",\n        \"EncryptionConfiguration\": {\n          \"EncryptionOption\": \"\",\n          \"KmsKey\": \"\"\n        }\n      },\n      \"EnforceWorkGroupConfiguration\": {{faker 'datatype.boolean'}},\n      \"PublishCloudWatchMetricsEnabled\": {{faker 'datatype.boolean'}},\n      \"BytesScannedCutoffPerQuery\": {{faker 'number.int'}},\n      \"RequesterPaysEnabled\": {{faker 'datatype.boolean'}},\n      \"EngineVersion\": {\n        \"SelectedEngineVersion\": \"\",\n        \"EffectiveEngineVersion\": \"\"\n      }\n    },\n    \"Description\": \"\",\n    \"CreationTime\": \"{{faker 'date.recent' 365}}\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1413,7 +1205,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "1b629a61-4293-46b0-9371-9da27e2b5007",
@@ -1421,12 +1214,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1435,7 +1223,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "7d2ccb05-51bf-4398-919a-bf8a35fffa89",
@@ -1443,12 +1232,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1457,11 +1241,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "b563f793-8006-4048-b0b6-b081d106eb44",
@@ -1475,12 +1261,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1489,7 +1270,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e517f12e-604c-43a1-b053-2b0880bf7c23",
@@ -1497,12 +1279,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1511,7 +1288,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "c05eaac6-71b4-4550-b209-c2389d467227",
@@ -1519,12 +1297,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1533,11 +1306,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "f2ab5992-801b-4b62-bfa4-3bc2cb2d8790",
@@ -1551,12 +1326,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1565,7 +1335,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "bc8bf356-91f2-434d-b525-6c35068aae9e",
@@ -1573,12 +1344,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1587,7 +1353,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "08f72108-1eb6-453e-9430-e81dc7174554",
@@ -1595,12 +1362,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1609,7 +1371,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "54b2e473-4295-4332-9668-41ee4c9c4ee1",
@@ -1617,12 +1380,7 @@
           "latency": 0,
           "statusCode": 482,
           "label": "MetadataException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1631,11 +1389,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "64cd2392-0d39-4229-8e65-5a3d14aeb272",
@@ -1649,12 +1409,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1663,7 +1418,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "158ddc73-d7be-4225-b3f4-59457ac98171",
@@ -1671,12 +1427,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1685,7 +1436,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "50c33d50-24ca-473c-b3fd-ae4245881312",
@@ -1693,12 +1445,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1707,11 +1454,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "cbce30d3-d6ea-4400-acb3-f99ce96d7a38",
@@ -1725,12 +1474,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1739,7 +1483,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "32b2dde8-e294-40b2-b21e-4d4967a083f0",
@@ -1747,12 +1492,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1761,7 +1501,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "acd0fc51-ef42-4366-85b0-6badb6a3cf42",
@@ -1769,12 +1510,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1783,11 +1519,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "254eb6b3-2b34-4df1-8a22-59ca180e8059",
@@ -1801,12 +1539,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1815,7 +1548,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "ff3a3ca2-5d09-4d5a-937c-0b85306a36d6",
@@ -1823,12 +1557,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1837,7 +1566,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "2ed5dc69-a7b4-4bb6-80fa-af061446837d",
@@ -1845,12 +1575,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1859,11 +1584,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "25efe398-c319-4911-919f-f5033459a226",
@@ -1877,12 +1604,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1891,7 +1613,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "578f0564-3386-4aaf-909c-2bb27ac58643",
@@ -1899,12 +1622,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1913,7 +1631,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "312edbe7-4549-4669-ab37-e500022fe9e8",
@@ -1921,12 +1640,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1935,11 +1649,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "5ef01359-a130-44e4-9e3c-2651e422be28",
@@ -1953,12 +1669,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1967,7 +1678,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "17102fb8-30b9-40b4-a2a7-bed21b11ce52",
@@ -1975,12 +1687,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1989,7 +1696,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "2a1717e8-0ed0-4233-bf7b-67296d7b0923",
@@ -1997,12 +1705,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2011,7 +1714,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "cfaad841-9e97-48be-9660-e4a8c8aaa193",
@@ -2019,12 +1723,7 @@
           "latency": 0,
           "statusCode": 482,
           "label": "MetadataException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2033,11 +1732,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "66da76fc-22ab-449a-b2f7-1f408a977380",
@@ -2051,12 +1752,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2065,7 +1761,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "2e1a2dd4-7231-43a6-b38f-d3aecfc825ce",
@@ -2073,12 +1770,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2087,7 +1779,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "9a08c08f-febe-49b3-8873-ce611cd3efd9",
@@ -2095,12 +1788,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2109,7 +1797,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "82457170-bb7e-4ee1-96db-e5b72325e978",
@@ -2117,12 +1806,7 @@
           "latency": 0,
           "statusCode": 482,
           "label": "ResourceNotFoundException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2131,11 +1815,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "bfd28696-2959-4b4a-9dd3-e1a276336d25",
@@ -2149,12 +1835,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2163,7 +1844,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "f6531fda-d7ea-4f36-918a-39c9d7a78bbe",
@@ -2171,12 +1853,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2185,7 +1862,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "b28214bd-ad4f-43e3-8c10-7465c34f3de3",
@@ -2193,12 +1871,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2207,11 +1880,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "be91cd6a-dbfb-478f-85b2-176f85024e54",
@@ -2225,12 +1900,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2239,7 +1909,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c9f7104f-8fbe-47cd-b715-6f75de1574b1",
@@ -2247,12 +1918,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2261,7 +1927,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "8a0198f5-ed16-44c9-b49f-eb07580b1ccf",
@@ -2269,12 +1936,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2283,7 +1945,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "977855d0-7a02-403c-8b15-371dc0a6c208",
@@ -2291,12 +1954,7 @@
           "latency": 0,
           "statusCode": 482,
           "label": "TooManyRequestsException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2305,11 +1963,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "c6e6db70-f0e6-496c-a30f-745dd6e83eca",
@@ -2323,12 +1983,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2337,7 +1992,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "117f61f0-08cc-4cc7-ad60-efea94b7989c",
@@ -2345,12 +2001,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2359,7 +2010,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "8dae427f-cfe4-4c31-87b9-01c9fd829ccb",
@@ -2367,12 +2019,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2381,11 +2028,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "a6aca7d3-b803-4001-847e-8b174392c5e7",
@@ -2399,12 +2048,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2413,7 +2057,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "a35e7ecb-3e25-402d-9c84-5ba699e02609",
@@ -2421,12 +2066,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2435,7 +2075,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "3418e79a-a963-43dc-b508-ec9a5052443b",
@@ -2443,12 +2084,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2457,7 +2093,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "ec03d642-ded8-44ad-bacd-c04472b3bfe7",
@@ -2465,12 +2102,7 @@
           "latency": 0,
           "statusCode": 482,
           "label": "ResourceNotFoundException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2479,11 +2111,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "992c66a9-c0cd-466f-9c3c-6ce82c16cfb7",
@@ -2497,12 +2131,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2511,7 +2140,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "f4a1f7bc-9edb-4958-9d2c-20a0d2ae7d02",
@@ -2519,12 +2149,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2533,7 +2158,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "9327098e-85e6-4a0a-bc52-ab867cbf5425",
@@ -2541,12 +2167,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2555,7 +2176,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "23488d5b-e026-4ed1-aaea-c4e8e62cd02d",
@@ -2563,12 +2185,7 @@
           "latency": 0,
           "statusCode": 482,
           "label": "ResourceNotFoundException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2577,11 +2194,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "3ac1d00b-d3d8-4847-b716-1cd3b9354078",
@@ -2595,12 +2214,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2609,7 +2223,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "40cc0a66-a388-4dbc-b75b-1cae924829ef",
@@ -2617,12 +2232,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2631,7 +2241,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "da060b0e-486d-432b-bb3c-843493910cd1",
@@ -2639,12 +2250,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2653,11 +2259,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "712e51e9-febd-4cd6-9e61-78f4385db6c0",
@@ -2671,12 +2279,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2685,7 +2288,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "da46df92-10b7-448f-9bc5-23164a680df8",
@@ -2693,12 +2297,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2707,7 +2306,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "4550c737-416a-45f9-8424-dc67d42a2a60",
@@ -2715,12 +2315,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2729,7 +2324,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "309d4d33-7b5b-47fd-9722-1d88d992bf6b",
@@ -2737,12 +2333,7 @@
           "latency": 0,
           "statusCode": 482,
           "label": "ResourceNotFoundException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2751,11 +2342,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "380399e0-c4c6-4fac-8349-958c7fa2ed85",
@@ -2769,12 +2362,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2783,7 +2371,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "4ffebb80-5a10-4576-8906-bc0dcf4e9466",
@@ -2791,12 +2380,7 @@
           "latency": 0,
           "statusCode": 480,
           "label": "InternalServerException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2805,7 +2389,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "782f58b9-a1ef-4f21-aa2e-01c4d197c6b1",
@@ -2813,12 +2398,7 @@
           "latency": 0,
           "statusCode": 481,
           "label": "InvalidRequestException",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2827,11 +2407,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -2848,17 +2430,44 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "fd932f43-631a-4c9e-a125-7c2784cef6d2" },
+    { "type": "route", "uuid": "21cdbc9f-b636-409b-a27a-0311b63463de" },
+    { "type": "route", "uuid": "8214e8c3-6d0c-4ff7-bf11-921c0493c301" },
+    { "type": "route", "uuid": "ed2be15d-16ff-4c47-96e6-c9e76edb6ad3" },
+    { "type": "route", "uuid": "5843b47a-6cb2-4df2-bfd6-770591992eb8" },
+    { "type": "route", "uuid": "55ce230e-77d4-41c9-9a41-fa8e1a3ee8a6" },
+    { "type": "route", "uuid": "30ca02c0-a08a-478c-a556-e31de68f6215" },
+    { "type": "route", "uuid": "e5ffb1cd-43dc-4a12-886e-86ebcbcdfa93" },
+    { "type": "route", "uuid": "858c5759-54ad-4579-81ac-a82e93d6d76f" },
+    { "type": "route", "uuid": "52e10eb4-89b8-4b14-8434-21dd8c8c10f8" },
+    { "type": "route", "uuid": "fbbaf4cd-a3eb-425a-9abd-39311dfc6943" },
+    { "type": "route", "uuid": "7b963f56-323b-4d39-b300-3ad41bfc0720" },
+    { "type": "route", "uuid": "ce2f3c23-6285-4220-b4ee-6918da0fc414" },
+    { "type": "route", "uuid": "085ebe28-810f-4f44-8b96-cc0ff7622ad0" },
+    { "type": "route", "uuid": "2a78d279-2fa7-4d37-82f8-6f1a5e8d24a9" },
+    { "type": "route", "uuid": "c2cec5fd-6e86-48a8-857e-844eba5192b5" },
+    { "type": "route", "uuid": "23aa4ad0-276e-4681-9357-1f20bee46d43" },
+    { "type": "route", "uuid": "cea8f669-dd6e-4706-ab10-6470ef23c6bd" },
+    { "type": "route", "uuid": "b563f793-8006-4048-b0b6-b081d106eb44" },
+    { "type": "route", "uuid": "f2ab5992-801b-4b62-bfa4-3bc2cb2d8790" },
+    { "type": "route", "uuid": "64cd2392-0d39-4229-8e65-5a3d14aeb272" },
+    { "type": "route", "uuid": "cbce30d3-d6ea-4400-acb3-f99ce96d7a38" },
+    { "type": "route", "uuid": "254eb6b3-2b34-4df1-8a22-59ca180e8059" },
+    { "type": "route", "uuid": "25efe398-c319-4911-919f-f5033459a226" },
+    { "type": "route", "uuid": "5ef01359-a130-44e4-9e3c-2651e422be28" },
+    { "type": "route", "uuid": "66da76fc-22ab-449a-b2f7-1f408a977380" },
+    { "type": "route", "uuid": "bfd28696-2959-4b4a-9dd3-e1a276336d25" },
+    { "type": "route", "uuid": "be91cd6a-dbfb-478f-85b2-176f85024e54" },
+    { "type": "route", "uuid": "c6e6db70-f0e6-496c-a30f-745dd6e83eca" },
+    { "type": "route", "uuid": "a6aca7d3-b803-4001-847e-8b174392c5e7" },
+    { "type": "route", "uuid": "992c66a9-c0cd-466f-9c3c-6ce82c16cfb7" },
+    { "type": "route", "uuid": "3ac1d00b-d3d8-4847-b716-1cd3b9354078" },
+    { "type": "route", "uuid": "712e51e9-febd-4cd6-9e61-78f4385db6c0" },
+    { "type": "route", "uuid": "380399e0-c4c6-4fac-8349-958c7fa2ed85" }
+  ]
 }

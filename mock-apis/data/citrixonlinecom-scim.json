@@ -1,11 +1,11 @@
 {
   "uuid": "2bc60a54-0535-42bc-8ccf-3d56bb50a67d",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "SCIM",
   "endpointPrefix": "identity/v1",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "c9ea08cc-8825-49ba-81fc-53709ac468df",
@@ -15,16 +15,11 @@
       "responses": [
         {
           "uuid": "d7039053-9f85-4667-9b85-997ec804f71f",
-          "body": "{\n  \"resources\": [\n    {\n      \"displayName\": \"\",\n      \"id\": \"\",\n      \"members\": [\n        {\n          \"type\": \"{{oneOf (array 'group' 'user')}}\",\n          \"value\": \"\"\n        }\n      ],\n      \"meta\": {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"location\": \"\"\n      }\n    }\n  ],\n  \"totalResults\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"resources\": [\n    {\n      \"displayName\": \"\",\n      \"id\": \"\",\n      \"members\": [\n        {\n          \"type\": \"{{oneOf (array 'group' 'user')}}\",\n          \"value\": \"\"\n        }\n      ],\n      \"meta\": {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"location\": \"\"\n      }\n    }\n  ],\n  \"totalResults\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "The request has succeeded",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "82206574-a806-4f0d-afa7-1de2aa18c930",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Invalid filter syntax",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,7 +46,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "fcb435dd-c5fd-43bf-b2ad-6f1edc4ff273",
@@ -63,12 +55,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -77,7 +64,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "c1c232ef-91d9-4185-b448-0e1e555819ad",
@@ -85,12 +73,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -99,7 +82,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "e6f81f8d-8ba7-4344-9456-0a96148f7ae1",
@@ -107,12 +91,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -121,7 +100,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "c9f6d73f-53ab-498b-aae6-a7df074126b8",
@@ -129,12 +109,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -143,11 +118,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "563142f7-44c0-48ef-a7f0-d1c56487eabb",
@@ -161,12 +138,7 @@
           "latency": 0,
           "statusCode": 201,
           "label": "The group has been created",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -175,7 +147,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e7cc4e3c-4d6c-47a2-bfe6-e5a5a09a878a",
@@ -183,12 +156,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Possible reasons are:<br />The displayName field is not set<br />The displayName field is malformed<br />The displayName field exceeds 128 characters<br />The members array exceeds 100 elements<br />",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -197,7 +165,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "03d65bc0-c849-415f-b4e7-bc102291c811",
@@ -205,12 +174,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -219,7 +183,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "eeadb112-a648-4629-85e2-15e6d832473c",
@@ -227,12 +192,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -241,7 +201,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "cd9c52ec-6e01-4bba-a5fc-bc7c18df75b2",
@@ -249,12 +210,7 @@
           "latency": 0,
           "statusCode": 409,
           "label": "The displayName is already in use within the organization",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -263,7 +219,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "89214ee1-dbf6-4a23-a3c4-590314b445b2",
@@ -271,12 +228,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "An authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -285,7 +237,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "16f89d54-ab03-44c7-9a0f-2be519d1dba6",
@@ -293,12 +246,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "An authentication or account, or gateway timeout occurred.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -307,11 +255,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "968fdebb-1f65-44de-8a7a-9d243121a86b",
@@ -325,12 +275,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The request has succeeded",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -339,7 +284,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "2b5f6cee-a12c-4dde-b47d-c7155c632238",
@@ -347,12 +293,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized or group does not exist in organization",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -361,7 +302,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "56ea960c-1fcd-4ed9-a300-b0f6d0de996d",
@@ -369,12 +311,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -383,7 +320,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "0e6c0e81-09b9-4903-a517-92c3ab72cf01",
@@ -391,12 +329,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -405,7 +338,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "e90f9ac9-cc54-40ad-9218-8db33368e707",
@@ -413,12 +347,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -427,11 +356,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "9c5794d8-e054-4b0b-933e-80645f3a9524",
@@ -445,12 +376,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The request has succeeded",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -459,7 +385,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "1b756fa8-d316-474f-887d-2f552ab0d3ac",
@@ -467,12 +394,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized or group does not exist in organization",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -481,7 +403,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "0a6e8052-2f58-42ae-b000-4487707895f5",
@@ -489,12 +412,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -503,7 +421,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "df03cdf9-07e0-4d54-a0d7-9b165f3a3fb3",
@@ -511,12 +430,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -525,7 +439,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "e65a5614-a48c-4823-af4e-60f7da5a3f8b",
@@ -533,12 +448,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -547,11 +457,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "487dec01-a718-47ea-ae04-0c5186856926",
@@ -565,12 +477,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The group has been updated",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -579,7 +486,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "b81de8d3-497c-4d8e-bc08-b9df98dc1a4b",
@@ -587,12 +495,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Possible reasons are:<br />The displayName field is not set<br />The displayName field is malformed<br />The displayName field exceeds 128 characters<br />The members array exceeds 100 elements<br />",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -601,7 +504,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "5346675d-41e9-4a6d-af6e-fd62ecd2ad13",
@@ -609,12 +513,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized or group does not exist in organization",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -623,7 +522,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "5635b1bf-8afe-45c7-bded-4851e7bbf86c",
@@ -631,12 +531,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -645,7 +540,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "80208a0f-318c-4500-8d6c-af4b0acb4b45",
@@ -653,12 +549,7 @@
           "latency": 0,
           "statusCode": 409,
           "label": "The displayName is already in use within the organization",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -667,7 +558,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "6ca1c569-42d3-40d2-962c-a26bda986e7d",
@@ -675,12 +567,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -689,7 +576,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "efaa0058-85fe-4ce0-ad7d-7650d091411d",
@@ -697,12 +585,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -711,11 +594,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "f0337fba-4240-49a4-a7b1-07c81eda8026",
@@ -729,12 +614,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The group has been replaced.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -743,7 +623,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e908c591-c68a-4e8b-8f08-b789fa344c99",
@@ -751,12 +632,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Possible reasons are:<br />The displayName field is not set<br />The displayName field is malformed<br />The displayName field exceeds 128 characters<br />The members array exceeds 100 elements<br />",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -765,7 +641,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "fbe316b2-bb0b-4180-a23d-a96da80d5db3",
@@ -773,12 +650,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized or group does not exist in organization",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -787,7 +659,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "e6dfc00f-1abd-4e92-9bd5-874a91a3ca83",
@@ -795,12 +668,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -809,7 +677,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "51605e0e-2a79-4c76-a42d-5096f7b85071",
@@ -817,12 +686,7 @@
           "latency": 0,
           "statusCode": 409,
           "label": "The displayName is already in use within the organization",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -831,7 +695,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "24c80367-a7c5-49eb-8e34-fade0a775eb3",
@@ -839,12 +704,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -853,7 +713,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "f75e8d3d-7fab-49b0-a026-bb4f36fddfa2",
@@ -861,12 +722,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -875,11 +731,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "fd92738e-0a7f-4b57-9cd8-486666adf297",
@@ -893,12 +751,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The request has succeeded.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -907,7 +760,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "20f3d9c7-c297-406d-8c16-118c7c9b0890",
@@ -915,12 +769,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -929,7 +778,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "004e3ada-2133-43c4-85b8-d835dc7dc745",
@@ -937,12 +787,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -951,7 +796,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "289016fa-4e8b-4c7e-a9c3-249dd1ac77ff",
@@ -959,12 +805,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -973,11 +814,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "611f5e54-7aac-4721-b4b9-e3c5b00fb4fe",
@@ -991,12 +834,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The request has succeeded.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1005,7 +843,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "bc7eacb4-8bb1-42a1-a865-1fc5dd8ba2e6",
@@ -1013,12 +852,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1027,7 +861,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "6a194233-ba7f-4ffc-a70f-b6ca83e4d91b",
@@ -1035,12 +870,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1049,7 +879,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "4be0fd04-a914-4bcd-854a-72ecdc0562c0",
@@ -1057,12 +888,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1071,11 +897,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "7312148e-0782-4a7a-bb0d-cbae1d0261fe",
@@ -1085,16 +913,11 @@
       "responses": [
         {
           "uuid": "99f64db1-2a24-42e2-afa4-0aba8633d2b4",
-          "body": "{\n  \"resources\": [\n    {\n      \"displayName\": \"\",\n      \"id\": \"\",\n      \"locale\": \"\",\n      \"meta\": {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"location\": \"\"\n      },\n      \"name\": {\n        \"familyName\": \"\",\n        \"givenName\": \"\"\n      },\n      \"timezone\": \"\",\n      \"userName\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"resources\": [\n    {\n      \"displayName\": \"\",\n      \"id\": \"\",\n      \"locale\": \"\",\n      \"meta\": {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"location\": \"\"\n      },\n      \"name\": {\n        \"familyName\": \"\",\n        \"givenName\": \"\"\n      },\n      \"timezone\": \"\",\n      \"userName\": \"\"\n    }\n  ],\n  \"totalResults\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "The request has succeeded.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1103,7 +926,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "876a3cfd-5010-4e60-9f7d-1bc00302cbef",
@@ -1111,12 +935,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Invalid filter syntax",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1125,7 +944,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "c1d747e4-64c1-44e3-975b-5632de1aae76",
@@ -1133,12 +953,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1147,7 +962,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "5a6e0b3f-d197-43eb-bd7e-699366336a47",
@@ -1155,12 +971,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1169,7 +980,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "44dd93ee-8e2a-4bfa-bcdc-889c6072fe50",
@@ -1177,12 +989,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1191,7 +998,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "f84722f7-1693-4951-bc45-857dee19051d",
@@ -1199,12 +1007,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1213,11 +1016,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "1ff74d4e-88d3-45f0-a9bd-c8cee6b61af2",
@@ -1231,12 +1036,7 @@
           "latency": 0,
           "statusCode": 201,
           "label": "The user has been created.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1245,7 +1045,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "2e73d401-5efd-4ecc-8003-993027bbf9b6",
@@ -1253,12 +1054,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "One of the following requirements is not met:<br />The userName field is required.<br />The userName field must be non-empty.<br />The userName field cannot exceed 128 characters.<br />The locale field must be composed of 1 or 2 parts.<br />The locale language sub-field must be ISO-639.<br />The locale country sub-field must be ISO-3166.<br />The timezone field must be a valid timezone.<br />The givenName field must not exceed 60 characters.<br />The familyName field must not exceed 60 characters.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1267,7 +1063,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "6c90316d-e6a9-464f-93ed-07119462305e",
@@ -1275,12 +1072,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1289,7 +1081,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "eba1542f-3d83-4870-b999-bf843744b76d",
@@ -1297,12 +1090,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1311,7 +1099,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "c6ed1901-d41c-4696-8531-5c33b19066b3",
@@ -1319,12 +1108,7 @@
           "latency": 0,
           "statusCode": 409,
           "label": "Username is already in use.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1333,7 +1117,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "992664a3-e79f-4b99-97ef-ecd007aa0768",
@@ -1341,12 +1126,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication, account, or email verification gateway error occurred.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1355,7 +1135,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "82436363-3033-42a8-a3b8-285d67e50abb",
@@ -1363,12 +1144,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication, account, or email verification gateway timeout occurred.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1377,11 +1153,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "b50b1a57-bef8-4ede-87b9-22892a26e4c0",
@@ -1395,12 +1173,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The request has succeeded.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1409,7 +1182,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "d939421e-d2fa-4575-8d8a-83feca1aea2a",
@@ -1417,12 +1191,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1431,7 +1200,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "f0b76e28-1c3e-4d54-997b-f6262ab626fa",
@@ -1439,12 +1209,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1453,7 +1218,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "004ac7ba-bd75-49f6-bd15-2c9d65d4a430",
@@ -1461,12 +1227,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "User not found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1475,7 +1236,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "98a1aee1-9a9d-4cab-934d-1a56b60e908a",
@@ -1483,12 +1245,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1497,7 +1254,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "b026d11a-4dca-47da-8c2a-fe61389acbb1",
@@ -1505,12 +1263,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1519,11 +1272,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "a6513179-40a2-47e1-a318-c8a9372fceb3",
@@ -1537,12 +1292,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The current user has been updated.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1551,7 +1301,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "61879d63-295f-40ca-8c9d-e2e40317a63d",
@@ -1559,12 +1310,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "One of the following requirements is not met:<br />The userName field is required.<br />The userName field must be non-empty.<br />The userName field cannot exceed 128 characters.<br />The locale field must be composed of 1 or 2 parts.<br />The locale language sub-field must be ISO-639.<br />The locale country sub-field must be ISO-3166.<br />The timezone field must be a valid timezone.<br />The givenName field must not exceed 60 characters.<br />The familyName field must not exceed 60 characters.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1573,7 +1319,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "99b1f5e1-ceac-4961-a936-603b8e93ad66",
@@ -1581,12 +1328,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1595,7 +1337,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "7a8d9e9a-7289-4754-a17d-3cb99823c65b",
@@ -1603,12 +1346,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1617,7 +1355,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "2d2bdc72-0b91-4221-a829-ddd0194fe2d9",
@@ -1625,12 +1364,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "User not found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1639,7 +1373,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "08a56593-eea8-4e72-82e0-2d555e4c26f3",
@@ -1647,12 +1382,7 @@
           "latency": 0,
           "statusCode": 409,
           "label": "Email address conflict",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1661,7 +1391,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "c27a6233-98b2-448c-b38c-dbeb6f3dff59",
@@ -1669,12 +1400,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1683,7 +1409,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "df99b04c-a1fd-4631-9bcd-8c1dc3e101ba",
@@ -1691,12 +1418,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1705,11 +1427,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "14167623-e27e-44bd-9404-eb99df3e11fd",
@@ -1723,12 +1447,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The current user has been replaced.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1737,7 +1456,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "b1bf0b19-4890-4176-914f-6e88ca680916",
@@ -1745,12 +1465,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "One of the following requirements is not met:<br />The userName field is required.<br />The userName field must be non-empty.<br />The userName field cannot exceed 128 characters.<br />The locale field must be composed of 1 or 2 parts.<br />The locale language sub-field must be ISO-639.<br />The locale country sub-field must be ISO-3166.<br />The timezone field must be a valid timezone.<br />The givenName field must not exceed 60 characters.<br />The familyName field must not exceed 60 characters.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1759,7 +1474,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "de982bf1-f29c-4679-83fc-51f740a311bd",
@@ -1767,12 +1483,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1781,7 +1492,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "6d3ebc80-5ae0-4952-846e-51ce90b71e58",
@@ -1789,12 +1501,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1803,7 +1510,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "26414015-ba8a-4a9e-925c-9d287ed28f11",
@@ -1811,12 +1519,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "User not found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1825,7 +1528,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "0c2c3e10-bf64-45c6-ae09-fa5fe90799d4",
@@ -1833,12 +1537,7 @@
           "latency": 0,
           "statusCode": 409,
           "label": "Email address conflict",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1847,7 +1546,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "07cbb8be-a830-4086-9557-b6cc97f05c32",
@@ -1855,12 +1555,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1869,7 +1564,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "b5b78e6f-0321-431f-98b0-a0fe7ea7220b",
@@ -1877,12 +1573,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1891,11 +1582,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "4d7ff7d9-92a6-4737-8f1a-16109db4a9aa",
@@ -1909,12 +1602,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The request has succeeded.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1923,7 +1611,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "34252fc1-f721-479b-b986-c1a9f03185e1",
@@ -1931,12 +1620,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1945,7 +1629,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "83e718f0-52a3-4d9b-9ac3-3ef02b046e69",
@@ -1953,12 +1638,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1967,7 +1647,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "b8e094ef-d3a9-4802-bff8-9d41432c6445",
@@ -1975,12 +1656,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "User not found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1989,7 +1665,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "88538e16-b46e-40e9-9194-6c03b1a7e9e4",
@@ -1997,12 +1674,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2011,7 +1683,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "a6f77092-a95b-40ac-96f0-243880a0d575",
@@ -2019,12 +1692,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2033,11 +1701,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "a15e4a5f-1514-4ea6-8a19-2297c7bee175",
@@ -2051,12 +1721,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The request has succeeded.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2065,7 +1730,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "ad0ceb94-6333-4281-9442-a1f6a1e8af54",
@@ -2073,12 +1739,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2087,7 +1748,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "18f2d4e1-3247-4b76-ac69-447f46928dd9",
@@ -2095,12 +1757,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2109,7 +1766,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "08c15b97-93d2-44e2-8df6-83845c13be4d",
@@ -2117,12 +1775,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "User not found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2131,7 +1784,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "ae27464a-55bc-47d3-9a04-6346bc048d95",
@@ -2139,12 +1793,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2153,7 +1802,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "6e7ed6fb-c717-42bc-af42-3e3fd68e9ad5",
@@ -2161,12 +1811,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2175,11 +1820,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "524a25b7-08f3-4483-99d0-53569eae3c1a",
@@ -2193,12 +1840,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The user has been updated.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2207,7 +1849,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "a7d76f65-d674-4f9f-a4e7-65118406d21a",
@@ -2215,12 +1858,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "One of the following requirements is not met:<br />The userName field is required.<br />The userName field must be non-empty.<br />The userName field cannot exceed 128 characters.<br />The locale field must be composed of 1 or 2 parts.<br />The locale language sub-field must be ISO-639.<br />The locale country sub-field must be ISO-3166.<br />The timezone field must be a valid timezone.<br />The givenName field must not exceed 60 characters.<br />The familyName field must not exceed 60 characters.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2229,7 +1867,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "f5d59b03-f4e8-48b2-b5fb-f4b397a027d9",
@@ -2237,12 +1876,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2251,7 +1885,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "74c025c5-48d7-4350-a8e7-17c80d644de9",
@@ -2259,12 +1894,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2273,7 +1903,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "58bdae59-388b-42ba-b74c-3ce8c4ebdc41",
@@ -2281,12 +1912,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "User not found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2295,7 +1921,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "c896b6d3-b9a8-490d-9d0e-9548387448a9",
@@ -2303,12 +1930,7 @@
           "latency": 0,
           "statusCode": 409,
           "label": "Email address conflict",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2317,7 +1939,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "1b94d96e-de3d-46c5-9e4e-70e5f5c69e64",
@@ -2325,12 +1948,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2339,7 +1957,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "41d6b17e-07fb-450f-8e80-1ba90cdcb06b",
@@ -2347,12 +1966,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2361,11 +1975,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "cca48e31-3886-4fc8-a01f-c28c5813bc9d",
@@ -2379,12 +1995,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The user has been replaced.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2393,7 +2004,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "55cf34f2-79aa-4da9-a6c5-1aa59c6c23a1",
@@ -2401,12 +2013,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "One of the following requirements is not met:<br />The userName field is required.<br />The userName field must be non-empty.<br />The userName field cannot exceed 128 characters.<br />The locale field must be composed of 1 or 2 parts.<br />The locale language sub-field must be ISO-639.<br />The locale country sub-field must be ISO-3166.<br />The timezone field must be a valid timezone.<br />The givenName field must not exceed 60 characters.<br />The familyName field must not exceed 60 characters.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2415,7 +2022,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "3db7b214-726e-486f-aa1f-c20713fa34a1",
@@ -2423,12 +2031,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "Client is not sufficiently authorized",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2437,7 +2040,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "72b64d0a-8693-4a3d-bb0d-c984d16e9179",
@@ -2445,12 +2049,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Invalid token passed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2459,7 +2058,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "4e5ccf29-3673-4168-bf90-473fffa4c979",
@@ -2467,12 +2067,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "User not found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2481,7 +2076,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "a14989c0-1c59-4763-b269-dc569fe61231",
@@ -2489,12 +2085,7 @@
           "latency": 0,
           "statusCode": 409,
           "label": "Email address conflict",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2503,7 +2094,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "ae0bced8-86fd-47e0-9cce-6a55fd0137cb",
@@ -2511,12 +2103,7 @@
           "latency": 0,
           "statusCode": 502,
           "label": "Authentication or account gateway error occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2525,7 +2112,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "100a608f-7b78-4b8e-a1d7-54393f13981c",
@@ -2533,12 +2121,7 @@
           "latency": 0,
           "statusCode": 504,
           "label": "Authentication or account gateway timeout occurred",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2547,11 +2130,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -2568,17 +2153,27 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "c9ea08cc-8825-49ba-81fc-53709ac468df" },
+    { "type": "route", "uuid": "563142f7-44c0-48ef-a7f0-d1c56487eabb" },
+    { "type": "route", "uuid": "968fdebb-1f65-44de-8a7a-9d243121a86b" },
+    { "type": "route", "uuid": "9c5794d8-e054-4b0b-933e-80645f3a9524" },
+    { "type": "route", "uuid": "487dec01-a718-47ea-ae04-0c5186856926" },
+    { "type": "route", "uuid": "f0337fba-4240-49a4-a7b1-07c81eda8026" },
+    { "type": "route", "uuid": "fd92738e-0a7f-4b57-9cd8-486666adf297" },
+    { "type": "route", "uuid": "611f5e54-7aac-4721-b4b9-e3c5b00fb4fe" },
+    { "type": "route", "uuid": "7312148e-0782-4a7a-bb0d-cbae1d0261fe" },
+    { "type": "route", "uuid": "1ff74d4e-88d3-45f0-a9bd-c8cee6b61af2" },
+    { "type": "route", "uuid": "b50b1a57-bef8-4ede-87b9-22892a26e4c0" },
+    { "type": "route", "uuid": "a6513179-40a2-47e1-a318-c8a9372fceb3" },
+    { "type": "route", "uuid": "14167623-e27e-44bd-9404-eb99df3e11fd" },
+    { "type": "route", "uuid": "4d7ff7d9-92a6-4737-8f1a-16109db4a9aa" },
+    { "type": "route", "uuid": "a15e4a5f-1514-4ea6-8a19-2297c7bee175" },
+    { "type": "route", "uuid": "524a25b7-08f3-4483-99d0-53569eae3c1a" },
+    { "type": "route", "uuid": "cca48e31-3886-4fc8-a01f-c28c5813bc9d" }
+  ]
 }

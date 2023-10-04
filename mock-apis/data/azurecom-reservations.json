@@ -1,11 +1,11 @@
 {
   "uuid": "85d44a71-b1fc-4e02-85a6-82dbf2a11807",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "Azure Reservation",
   "endpointPrefix": "",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "e0fd212e-ab40-4855-9d89-fb17563d7808",
@@ -15,16 +15,11 @@
       "responses": [
         {
           "uuid": "ba27aae3-12ae-4cc6-9030-15c82054f009",
-          "body": "{\n  \"properties\": {\n    \"billingCurrencyTotal\": {\n      \"amount\": {{faker 'datatype.number'}},\n      \"currencyCode\": \"\"\n    },\n    \"isBillingPartnerManaged\": {{faker 'datatype.boolean'}},\n    \"paymentSchedule\": [\n      {\n        \"billingAccount\": \"\",\n        \"billingCurrencyTotal\": {\n          \"amount\": {{faker 'datatype.float'}},\n          \"currencyCode\": \"\"\n        },\n        \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"extendedStatusInfo\": {\n          \"message\": \"\",\n          \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n        },\n        \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"pricingCurrencyTotal\": {\n          \"amount\": {{faker 'datatype.float'}},\n          \"currencyCode\": \"\"\n        },\n        \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n      }\n    ],\n    \"pricingCurrencyTotal\": {\n      \"amount\": {{faker 'datatype.number'}},\n      \"currencyCode\": \"\"\n    },\n    \"reservationOrderId\": \"\",\n    \"skuDescription\": \"\",\n    \"skuTitle\": \"\"\n  }\n}",
+          "body": "{\n  \"properties\": {\n    \"billingCurrencyTotal\": {\n      \"amount\": {{faker 'number.int'}},\n      \"currencyCode\": \"\"\n    },\n    \"isBillingPartnerManaged\": {{faker 'datatype.boolean'}},\n    \"paymentSchedule\": [\n      {\n        \"billingAccount\": \"\",\n        \"billingCurrencyTotal\": {\n          \"amount\": {{faker 'number.float'}},\n          \"currencyCode\": \"\"\n        },\n        \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"extendedStatusInfo\": {\n          \"message\": \"\",\n          \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n        },\n        \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"pricingCurrencyTotal\": {\n          \"amount\": {{faker 'number.float'}},\n          \"currencyCode\": \"\"\n        },\n        \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n      }\n    ],\n    \"pricingCurrencyTotal\": {\n      \"amount\": {{faker 'number.int'}},\n      \"currencyCode\": \"\"\n    },\n    \"reservationOrderId\": \"\",\n    \"skuDescription\": \"\",\n    \"skuTitle\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Detailed price info for purchasing `ReservationOrder`",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "5eb5fe8b-6c18-42f0-80d5-27cd629a9795",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,11 +46,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ad8c2f4b-f716-45b0-8d5b-2d137b3f5c79",
@@ -73,12 +66,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "List all the operations.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -87,7 +75,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "88d09e1a-f1d2-4577-802d-8ab876d2ebe3",
@@ -95,12 +84,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -109,11 +93,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "d2806c72-f0dd-48e5-aadc-55c51c913c9f",
@@ -123,16 +109,11 @@
       "responses": [
         {
           "uuid": "cb43b453-20cd-49b8-bab2-1b3a7255e17f",
-          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"etag\": {{faker 'datatype.number'}},\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n        \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"displayName\": \"\",\n        \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"originalQuantity\": {{faker 'datatype.number'}},\n        \"planInformation\": {\n          \"nextPaymentDueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'datatype.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"startDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"transactions\": [\n            {\n              \"billingAccount\": \"\",\n              \"billingCurrencyTotal\": {\n                \"amount\": {{faker 'datatype.float'}},\n                \"currencyCode\": \"\"\n              },\n              \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n              \"extendedStatusInfo\": {\n                \"message\": \"\",\n                \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n              },\n              \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n              \"pricingCurrencyTotal\": {\n                \"amount\": {{faker 'datatype.float'}},\n                \"currencyCode\": \"\"\n              },\n              \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n            }\n          ]\n        },\n        \"provisioningState\": \"\",\n        \"requestDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"reservations\": [\n          {\n            \"etag\": {{faker 'datatype.number'}},\n            \"id\": \"\",\n            \"location\": \"\",\n            \"name\": \"\",\n            \"properties\": {\n              \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n              \"appliedScopes\": [\n                \"\"\n              ],\n              \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n              \"billingScopeId\": \"\",\n              \"displayName\": \"\",\n              \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n              \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n              \"extendedStatusInfo\": {\n                \"message\": \"\",\n                \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n              },\n              \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n              \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n              \"mergeProperties\": {\n                \"mergeDestination\": \"\",\n                \"mergeSources\": [\n                  \"\"\n                ]\n              },\n              \"provisioningState\": \"\",\n              \"quantity\": {{faker 'datatype.number'}},\n              \"renew\": {{faker 'datatype.boolean'}},\n              \"renewDestination\": \"\",\n              \"renewProperties\": {\n                \"billingCurrencyTotal\": {\n                  \"amount\": {{faker 'datatype.number'}},\n                  \"currencyCode\": \"\"\n                },\n                \"pricingCurrencyTotal\": {\n                  \"amount\": {{faker 'datatype.number'}},\n                  \"currencyCode\": \"\"\n                },\n                \"purchaseProperties\": {\n                  \"location\": \"\",\n                  \"properties\": {\n                    \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n                    \"appliedScopes\": [\n                      \"\"\n                    ],\n                    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n                    \"billingScopeId\": \"\",\n                    \"displayName\": \"\",\n                    \"quantity\": {{faker 'datatype.number'}},\n                    \"renew\": {{faker 'datatype.boolean'}},\n                    \"reservedResourceProperties\": {\n                      \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n                    },\n                    \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n                    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n                  },\n                  \"sku\": {\n                    \"name\": \"\"\n                  }\n                }\n              },\n              \"renewSource\": \"\",\n              \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n              \"skuDescription\": \"\",\n              \"splitProperties\": {\n                \"splitDestinations\": [\n                  \"\"\n                ],\n                \"splitSource\": \"\"\n              },\n              \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n            },\n            \"sku\": {\n              \"name\": \"\"\n            },\n            \"type\": \"\"\n          }\n        ],\n        \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"etag\": {{faker 'number.int'}},\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n        \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"displayName\": \"\",\n        \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"originalQuantity\": {{faker 'number.int'}},\n        \"planInformation\": {\n          \"nextPaymentDueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'number.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"startDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"transactions\": [\n            {\n              \"billingAccount\": \"\",\n              \"billingCurrencyTotal\": {\n                \"amount\": {{faker 'number.float'}},\n                \"currencyCode\": \"\"\n              },\n              \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n              \"extendedStatusInfo\": {\n                \"message\": \"\",\n                \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n              },\n              \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n              \"pricingCurrencyTotal\": {\n                \"amount\": {{faker 'number.float'}},\n                \"currencyCode\": \"\"\n              },\n              \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n            }\n          ]\n        },\n        \"provisioningState\": \"\",\n        \"requestDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"reservations\": [\n          {\n            \"etag\": {{faker 'number.int'}},\n            \"id\": \"\",\n            \"location\": \"\",\n            \"name\": \"\",\n            \"properties\": {\n              \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n              \"appliedScopes\": [\n                \"\"\n              ],\n              \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n              \"billingScopeId\": \"\",\n              \"displayName\": \"\",\n              \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n              \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n              \"extendedStatusInfo\": {\n                \"message\": \"\",\n                \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n              },\n              \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n              \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n              \"mergeProperties\": {\n                \"mergeDestination\": \"\",\n                \"mergeSources\": [\n                  \"\"\n                ]\n              },\n              \"provisioningState\": \"\",\n              \"quantity\": {{faker 'number.int'}},\n              \"renew\": {{faker 'datatype.boolean'}},\n              \"renewDestination\": \"\",\n              \"renewProperties\": {\n                \"billingCurrencyTotal\": {\n                  \"amount\": {{faker 'number.int'}},\n                  \"currencyCode\": \"\"\n                },\n                \"pricingCurrencyTotal\": {\n                  \"amount\": {{faker 'number.int'}},\n                  \"currencyCode\": \"\"\n                },\n                \"purchaseProperties\": {\n                  \"location\": \"\",\n                  \"properties\": {\n                    \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n                    \"appliedScopes\": [\n                      \"\"\n                    ],\n                    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n                    \"billingScopeId\": \"\",\n                    \"displayName\": \"\",\n                    \"quantity\": {{faker 'number.int'}},\n                    \"renew\": {{faker 'datatype.boolean'}},\n                    \"reservedResourceProperties\": {\n                      \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n                    },\n                    \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n                    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n                  },\n                  \"sku\": {\n                    \"name\": \"\"\n                  }\n                }\n              },\n              \"renewSource\": \"\",\n              \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n              \"skuDescription\": \"\",\n              \"splitProperties\": {\n                \"splitDestinations\": [\n                  \"\"\n                ],\n                \"splitSource\": \"\"\n              },\n              \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n            },\n            \"sku\": {\n              \"name\": \"\"\n            },\n            \"type\": \"\"\n          }\n        ],\n        \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "List of `ReservationOrder`s",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -141,7 +122,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "3c2ec64b-9767-4169-a34f-b6497e6ae8d3",
@@ -149,12 +131,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -163,11 +140,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "f376e6f4-3bd4-4d16-b80a-60ff5243d753",
@@ -177,16 +156,11 @@
       "responses": [
         {
           "uuid": "78031876-67f7-493f-809b-3b4a56e0b57b",
-          "body": "{\n  \"etag\": {{faker 'datatype.number'}},\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"displayName\": \"\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"originalQuantity\": {{faker 'datatype.number'}},\n    \"planInformation\": {\n      \"nextPaymentDueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'datatype.float'}},\n        \"currencyCode\": \"\"\n      },\n      \"startDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"transactions\": [\n        {\n          \"billingAccount\": \"\",\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'datatype.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'datatype.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n        }\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"requestDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"reservations\": [\n      {\n        \"etag\": {{faker 'datatype.number'}},\n        \"id\": \"\",\n        \"location\": \"\",\n        \"name\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n          \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"mergeProperties\": {\n            \"mergeDestination\": \"\",\n            \"mergeSources\": [\n              \"\"\n            ]\n          },\n          \"provisioningState\": \"\",\n          \"quantity\": {{faker 'datatype.number'}},\n          \"renew\": {{faker 'datatype.boolean'}},\n          \"renewDestination\": \"\",\n          \"renewProperties\": {\n            \"billingCurrencyTotal\": {\n              \"amount\": {{faker 'datatype.number'}},\n              \"currencyCode\": \"\"\n            },\n            \"pricingCurrencyTotal\": {\n              \"amount\": {{faker 'datatype.number'}},\n              \"currencyCode\": \"\"\n            },\n            \"purchaseProperties\": {\n              \"location\": \"\",\n              \"properties\": {\n                \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n                \"appliedScopes\": [\n                  \"\"\n                ],\n                \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n                \"billingScopeId\": \"\",\n                \"displayName\": \"\",\n                \"quantity\": {{faker 'datatype.number'}},\n                \"renew\": {{faker 'datatype.boolean'}},\n                \"reservedResourceProperties\": {\n                  \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n                },\n                \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n                \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n              },\n              \"sku\": {\n                \"name\": \"\"\n              }\n            }\n          },\n          \"renewSource\": \"\",\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"skuDescription\": \"\",\n          \"splitProperties\": {\n            \"splitDestinations\": [\n              \"\"\n            ],\n            \"splitSource\": \"\"\n          },\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        },\n        \"type\": \"\"\n      }\n    ],\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"etag\": {{faker 'number.int'}},\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"displayName\": \"\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"originalQuantity\": {{faker 'number.int'}},\n    \"planInformation\": {\n      \"nextPaymentDueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'number.float'}},\n        \"currencyCode\": \"\"\n      },\n      \"startDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"transactions\": [\n        {\n          \"billingAccount\": \"\",\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'number.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'number.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n        }\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"requestDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"reservations\": [\n      {\n        \"etag\": {{faker 'number.int'}},\n        \"id\": \"\",\n        \"location\": \"\",\n        \"name\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n          \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"mergeProperties\": {\n            \"mergeDestination\": \"\",\n            \"mergeSources\": [\n              \"\"\n            ]\n          },\n          \"provisioningState\": \"\",\n          \"quantity\": {{faker 'number.int'}},\n          \"renew\": {{faker 'datatype.boolean'}},\n          \"renewDestination\": \"\",\n          \"renewProperties\": {\n            \"billingCurrencyTotal\": {\n              \"amount\": {{faker 'number.int'}},\n              \"currencyCode\": \"\"\n            },\n            \"pricingCurrencyTotal\": {\n              \"amount\": {{faker 'number.int'}},\n              \"currencyCode\": \"\"\n            },\n            \"purchaseProperties\": {\n              \"location\": \"\",\n              \"properties\": {\n                \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n                \"appliedScopes\": [\n                  \"\"\n                ],\n                \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n                \"billingScopeId\": \"\",\n                \"displayName\": \"\",\n                \"quantity\": {{faker 'number.int'}},\n                \"renew\": {{faker 'datatype.boolean'}},\n                \"reservedResourceProperties\": {\n                  \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n                },\n                \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n                \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n              },\n              \"sku\": {\n                \"name\": \"\"\n              }\n            }\n          },\n          \"renewSource\": \"\",\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"skuDescription\": \"\",\n          \"splitProperties\": {\n            \"splitDestinations\": [\n              \"\"\n            ],\n            \"splitSource\": \"\"\n          },\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        },\n        \"type\": \"\"\n      }\n    ],\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Get the details of the `ReservationOrder`.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -195,7 +169,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "5a5e89b1-7c1c-4b9e-b99b-1084c16b57c6",
@@ -203,12 +178,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -217,11 +187,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "d5f5cd67-3e05-4f0f-8b86-da0e7eb3b6fc",
@@ -231,16 +203,11 @@
       "responses": [
         {
           "uuid": "d2bb62df-1db8-4318-a477-a7fb2e8a1d5c",
-          "body": "{\n  \"etag\": {{faker 'datatype.number'}},\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"displayName\": \"\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"originalQuantity\": {{faker 'datatype.number'}},\n    \"planInformation\": {\n      \"nextPaymentDueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'datatype.float'}},\n        \"currencyCode\": \"\"\n      },\n      \"startDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"transactions\": [\n        {\n          \"billingAccount\": \"\",\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'datatype.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'datatype.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n        }\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"requestDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"reservations\": [\n      {\n        \"etag\": {{faker 'datatype.number'}},\n        \"id\": \"\",\n        \"location\": \"\",\n        \"name\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n          \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"mergeProperties\": {\n            \"mergeDestination\": \"\",\n            \"mergeSources\": [\n              \"\"\n            ]\n          },\n          \"provisioningState\": \"\",\n          \"quantity\": {{faker 'datatype.number'}},\n          \"renew\": {{faker 'datatype.boolean'}},\n          \"renewDestination\": \"\",\n          \"renewProperties\": {\n            \"billingCurrencyTotal\": {\n              \"amount\": {{faker 'datatype.number'}},\n              \"currencyCode\": \"\"\n            },\n            \"pricingCurrencyTotal\": {\n              \"amount\": {{faker 'datatype.number'}},\n              \"currencyCode\": \"\"\n            },\n            \"purchaseProperties\": {\n              \"location\": \"\",\n              \"properties\": {\n                \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n                \"appliedScopes\": [\n                  \"\"\n                ],\n                \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n                \"billingScopeId\": \"\",\n                \"displayName\": \"\",\n                \"quantity\": {{faker 'datatype.number'}},\n                \"renew\": {{faker 'datatype.boolean'}},\n                \"reservedResourceProperties\": {\n                  \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n                },\n                \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n                \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n              },\n              \"sku\": {\n                \"name\": \"\"\n              }\n            }\n          },\n          \"renewSource\": \"\",\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"skuDescription\": \"\",\n          \"splitProperties\": {\n            \"splitDestinations\": [\n              \"\"\n            ],\n            \"splitSource\": \"\"\n          },\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        },\n        \"type\": \"\"\n      }\n    ],\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"etag\": {{faker 'number.int'}},\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"displayName\": \"\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"originalQuantity\": {{faker 'number.int'}},\n    \"planInformation\": {\n      \"nextPaymentDueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'number.float'}},\n        \"currencyCode\": \"\"\n      },\n      \"startDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"transactions\": [\n        {\n          \"billingAccount\": \"\",\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'number.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'number.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n        }\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"requestDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"reservations\": [\n      {\n        \"etag\": {{faker 'number.int'}},\n        \"id\": \"\",\n        \"location\": \"\",\n        \"name\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n          \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"mergeProperties\": {\n            \"mergeDestination\": \"\",\n            \"mergeSources\": [\n              \"\"\n            ]\n          },\n          \"provisioningState\": \"\",\n          \"quantity\": {{faker 'number.int'}},\n          \"renew\": {{faker 'datatype.boolean'}},\n          \"renewDestination\": \"\",\n          \"renewProperties\": {\n            \"billingCurrencyTotal\": {\n              \"amount\": {{faker 'number.int'}},\n              \"currencyCode\": \"\"\n            },\n            \"pricingCurrencyTotal\": {\n              \"amount\": {{faker 'number.int'}},\n              \"currencyCode\": \"\"\n            },\n            \"purchaseProperties\": {\n              \"location\": \"\",\n              \"properties\": {\n                \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n                \"appliedScopes\": [\n                  \"\"\n                ],\n                \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n                \"billingScopeId\": \"\",\n                \"displayName\": \"\",\n                \"quantity\": {{faker 'number.int'}},\n                \"renew\": {{faker 'datatype.boolean'}},\n                \"reservedResourceProperties\": {\n                  \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n                },\n                \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n                \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n              },\n              \"sku\": {\n                \"name\": \"\"\n              }\n            }\n          },\n          \"renewSource\": \"\",\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"skuDescription\": \"\",\n          \"splitProperties\": {\n            \"splitDestinations\": [\n              \"\"\n            ],\n            \"splitSource\": \"\"\n          },\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        },\n        \"type\": \"\"\n      }\n    ],\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "The resource has been created",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -249,20 +216,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "5be2d509-2c53-4109-a344-ea177de94be1",
-          "body": "{\n  \"etag\": {{faker 'datatype.number'}},\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"displayName\": \"\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"originalQuantity\": {{faker 'datatype.number'}},\n    \"planInformation\": {\n      \"nextPaymentDueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'datatype.float'}},\n        \"currencyCode\": \"\"\n      },\n      \"startDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"transactions\": [\n        {\n          \"billingAccount\": \"\",\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'datatype.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'datatype.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n        }\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"requestDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"reservations\": [\n      {\n        \"etag\": {{faker 'datatype.number'}},\n        \"id\": \"\",\n        \"location\": \"\",\n        \"name\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n          \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"mergeProperties\": {\n            \"mergeDestination\": \"\",\n            \"mergeSources\": [\n              \"\"\n            ]\n          },\n          \"provisioningState\": \"\",\n          \"quantity\": {{faker 'datatype.number'}},\n          \"renew\": {{faker 'datatype.boolean'}},\n          \"renewDestination\": \"\",\n          \"renewProperties\": {\n            \"billingCurrencyTotal\": {\n              \"amount\": {{faker 'datatype.number'}},\n              \"currencyCode\": \"\"\n            },\n            \"pricingCurrencyTotal\": {\n              \"amount\": {{faker 'datatype.number'}},\n              \"currencyCode\": \"\"\n            },\n            \"purchaseProperties\": {\n              \"location\": \"\",\n              \"properties\": {\n                \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n                \"appliedScopes\": [\n                  \"\"\n                ],\n                \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n                \"billingScopeId\": \"\",\n                \"displayName\": \"\",\n                \"quantity\": {{faker 'datatype.number'}},\n                \"renew\": {{faker 'datatype.boolean'}},\n                \"reservedResourceProperties\": {\n                  \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n                },\n                \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n                \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n              },\n              \"sku\": {\n                \"name\": \"\"\n              }\n            }\n          },\n          \"renewSource\": \"\",\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"skuDescription\": \"\",\n          \"splitProperties\": {\n            \"splitDestinations\": [\n              \"\"\n            ],\n            \"splitSource\": \"\"\n          },\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        },\n        \"type\": \"\"\n      }\n    ],\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"etag\": {{faker 'number.int'}},\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"displayName\": \"\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"originalQuantity\": {{faker 'number.int'}},\n    \"planInformation\": {\n      \"nextPaymentDueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'number.float'}},\n        \"currencyCode\": \"\"\n      },\n      \"startDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"transactions\": [\n        {\n          \"billingAccount\": \"\",\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'number.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"dueDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"paymentDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'number.float'}},\n            \"currencyCode\": \"\"\n          },\n          \"status\": \"{{oneOf (array 'Succeeded' 'Failed' 'Scheduled' 'Cancelled')}}\"\n        }\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"requestDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"reservations\": [\n      {\n        \"etag\": {{faker 'number.int'}},\n        \"id\": \"\",\n        \"location\": \"\",\n        \"name\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n          \"extendedStatusInfo\": {\n            \"message\": \"\",\n            \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n          },\n          \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n          \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n          \"mergeProperties\": {\n            \"mergeDestination\": \"\",\n            \"mergeSources\": [\n              \"\"\n            ]\n          },\n          \"provisioningState\": \"\",\n          \"quantity\": {{faker 'number.int'}},\n          \"renew\": {{faker 'datatype.boolean'}},\n          \"renewDestination\": \"\",\n          \"renewProperties\": {\n            \"billingCurrencyTotal\": {\n              \"amount\": {{faker 'number.int'}},\n              \"currencyCode\": \"\"\n            },\n            \"pricingCurrencyTotal\": {\n              \"amount\": {{faker 'number.int'}},\n              \"currencyCode\": \"\"\n            },\n            \"purchaseProperties\": {\n              \"location\": \"\",\n              \"properties\": {\n                \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n                \"appliedScopes\": [\n                  \"\"\n                ],\n                \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n                \"billingScopeId\": \"\",\n                \"displayName\": \"\",\n                \"quantity\": {{faker 'number.int'}},\n                \"renew\": {{faker 'datatype.boolean'}},\n                \"reservedResourceProperties\": {\n                  \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n                },\n                \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n                \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n              },\n              \"sku\": {\n                \"name\": \"\"\n              }\n            }\n          },\n          \"renewSource\": \"\",\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"skuDescription\": \"\",\n          \"splitProperties\": {\n            \"splitDestinations\": [\n              \"\"\n            ],\n            \"splitSource\": \"\"\n          },\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        },\n        \"type\": \"\"\n      }\n    ],\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 202,
           "label": "The request is accepted and is being processed. Operation result link is in location header.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -271,7 +234,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "6ea80cef-5da1-4d62-bbf1-2770e920dee6",
@@ -279,12 +243,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -293,11 +252,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "c028ef37-585c-4c64-978c-0b210eb0a1d6",
@@ -307,16 +268,11 @@
       "responses": [
         {
           "uuid": "e1373c08-647c-4d94-b2fe-e8a8f57e851b",
-          "body": "[\n  {\n    \"etag\": {{faker 'datatype.number'}},\n    \"id\": \"\",\n    \"location\": \"\",\n    \"name\": \"\",\n    \"properties\": {\n      \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n      \"appliedScopes\": [\n        \"\"\n      ],\n      \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n      \"billingScopeId\": \"\",\n      \"displayName\": \"\",\n      \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"extendedStatusInfo\": {\n        \"message\": \"\",\n        \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n      },\n      \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n      \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"mergeProperties\": {\n        \"mergeDestination\": \"\",\n        \"mergeSources\": [\n          \"\"\n        ]\n      },\n      \"provisioningState\": \"\",\n      \"quantity\": {{faker 'datatype.number'}},\n      \"renew\": {{faker 'datatype.boolean'}},\n      \"renewDestination\": \"\",\n      \"renewProperties\": {\n        \"billingCurrencyTotal\": {\n          \"amount\": {{faker 'datatype.number'}},\n          \"currencyCode\": \"\"\n        },\n        \"pricingCurrencyTotal\": {\n          \"amount\": {{faker 'datatype.number'}},\n          \"currencyCode\": \"\"\n        },\n        \"purchaseProperties\": {\n          \"location\": \"\",\n          \"properties\": {\n            \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n            \"appliedScopes\": [\n              \"\"\n            ],\n            \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n            \"billingScopeId\": \"\",\n            \"displayName\": \"\",\n            \"quantity\": {{faker 'datatype.number'}},\n            \"renew\": {{faker 'datatype.boolean'}},\n            \"reservedResourceProperties\": {\n              \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n            },\n            \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n            \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n          },\n          \"sku\": {\n            \"name\": \"\"\n          }\n        }\n      },\n      \"renewSource\": \"\",\n      \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n      \"skuDescription\": \"\",\n      \"splitProperties\": {\n        \"splitDestinations\": [\n          \"\"\n        ],\n        \"splitSource\": \"\"\n      },\n      \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n    },\n    \"sku\": {\n      \"name\": \"\"\n    },\n    \"type\": \"\"\n  }\n]",
+          "body": "[\n  {\n    \"etag\": {{faker 'number.int'}},\n    \"id\": \"\",\n    \"location\": \"\",\n    \"name\": \"\",\n    \"properties\": {\n      \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n      \"appliedScopes\": [\n        \"\"\n      ],\n      \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n      \"billingScopeId\": \"\",\n      \"displayName\": \"\",\n      \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"extendedStatusInfo\": {\n        \"message\": \"\",\n        \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n      },\n      \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n      \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"mergeProperties\": {\n        \"mergeDestination\": \"\",\n        \"mergeSources\": [\n          \"\"\n        ]\n      },\n      \"provisioningState\": \"\",\n      \"quantity\": {{faker 'number.int'}},\n      \"renew\": {{faker 'datatype.boolean'}},\n      \"renewDestination\": \"\",\n      \"renewProperties\": {\n        \"billingCurrencyTotal\": {\n          \"amount\": {{faker 'number.int'}},\n          \"currencyCode\": \"\"\n        },\n        \"pricingCurrencyTotal\": {\n          \"amount\": {{faker 'number.int'}},\n          \"currencyCode\": \"\"\n        },\n        \"purchaseProperties\": {\n          \"location\": \"\",\n          \"properties\": {\n            \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n            \"appliedScopes\": [\n              \"\"\n            ],\n            \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n            \"billingScopeId\": \"\",\n            \"displayName\": \"\",\n            \"quantity\": {{faker 'number.int'}},\n            \"renew\": {{faker 'datatype.boolean'}},\n            \"reservedResourceProperties\": {\n              \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n            },\n            \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n            \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n          },\n          \"sku\": {\n            \"name\": \"\"\n          }\n        }\n      },\n      \"renewSource\": \"\",\n      \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n      \"skuDescription\": \"\",\n      \"splitProperties\": {\n        \"splitDestinations\": [\n          \"\"\n        ],\n        \"splitSource\": \"\"\n      },\n      \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n    },\n    \"sku\": {\n      \"name\": \"\"\n    },\n    \"type\": \"\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "Returns the `Reservation` created after the merge.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -325,7 +281,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "1a4bcaa6-11e3-4398-bd58-bd11c86e0b76",
@@ -333,12 +290,7 @@
           "latency": 0,
           "statusCode": 202,
           "label": "The request is accepted and is being processed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -347,7 +299,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "43664183-5430-461a-b963-d1fb2960964f",
@@ -355,12 +308,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -369,11 +317,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "68c24e80-a1d6-4614-af12-694ea8cb5f42",
@@ -383,16 +333,11 @@
       "responses": [
         {
           "uuid": "c599fc73-8121-4ce3-aa9e-4821d0abb8ff",
-          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"etag\": {{faker 'datatype.number'}},\n      \"id\": \"\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n        \"appliedScopes\": [\n          \"\"\n        ],\n        \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n        \"billingScopeId\": \"\",\n        \"displayName\": \"\",\n        \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"extendedStatusInfo\": {\n          \"message\": \"\",\n          \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n        },\n        \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n        \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"mergeProperties\": {\n          \"mergeDestination\": \"\",\n          \"mergeSources\": [\n            \"\"\n          ]\n        },\n        \"provisioningState\": \"\",\n        \"quantity\": {{faker 'datatype.number'}},\n        \"renew\": {{faker 'datatype.boolean'}},\n        \"renewDestination\": \"\",\n        \"renewProperties\": {\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'datatype.number'}},\n            \"currencyCode\": \"\"\n          },\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'datatype.number'}},\n            \"currencyCode\": \"\"\n          },\n          \"purchaseProperties\": {\n            \"location\": \"\",\n            \"properties\": {\n              \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n              \"appliedScopes\": [\n                \"\"\n              ],\n              \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n              \"billingScopeId\": \"\",\n              \"displayName\": \"\",\n              \"quantity\": {{faker 'datatype.number'}},\n              \"renew\": {{faker 'datatype.boolean'}},\n              \"reservedResourceProperties\": {\n                \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n              },\n              \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n              \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n            },\n            \"sku\": {\n              \"name\": \"\"\n            }\n          }\n        },\n        \"renewSource\": \"\",\n        \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n        \"skuDescription\": \"\",\n        \"splitProperties\": {\n          \"splitDestinations\": [\n            \"\"\n          ],\n          \"splitSource\": \"\"\n        },\n        \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n      },\n      \"sku\": {\n        \"name\": \"\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"etag\": {{faker 'number.int'}},\n      \"id\": \"\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n        \"appliedScopes\": [\n          \"\"\n        ],\n        \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n        \"billingScopeId\": \"\",\n        \"displayName\": \"\",\n        \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"extendedStatusInfo\": {\n          \"message\": \"\",\n          \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n        },\n        \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n        \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"mergeProperties\": {\n          \"mergeDestination\": \"\",\n          \"mergeSources\": [\n            \"\"\n          ]\n        },\n        \"provisioningState\": \"\",\n        \"quantity\": {{faker 'number.int'}},\n        \"renew\": {{faker 'datatype.boolean'}},\n        \"renewDestination\": \"\",\n        \"renewProperties\": {\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'number.int'}},\n            \"currencyCode\": \"\"\n          },\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'number.int'}},\n            \"currencyCode\": \"\"\n          },\n          \"purchaseProperties\": {\n            \"location\": \"\",\n            \"properties\": {\n              \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n              \"appliedScopes\": [\n                \"\"\n              ],\n              \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n              \"billingScopeId\": \"\",\n              \"displayName\": \"\",\n              \"quantity\": {{faker 'number.int'}},\n              \"renew\": {{faker 'datatype.boolean'}},\n              \"reservedResourceProperties\": {\n                \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n              },\n              \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n              \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n            },\n            \"sku\": {\n              \"name\": \"\"\n            }\n          }\n        },\n        \"renewSource\": \"\",\n        \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n        \"skuDescription\": \"\",\n        \"splitProperties\": {\n          \"splitDestinations\": [\n            \"\"\n          ],\n          \"splitSource\": \"\"\n        },\n        \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n      },\n      \"sku\": {\n        \"name\": \"\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "List `Reservation`s within a single `ReservationOrder`.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -401,7 +346,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "911414b5-2404-4b27-8230-40c46b01dcec",
@@ -409,12 +355,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -423,11 +364,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "abe94641-c83b-4674-9589-0c34fa704147",
@@ -437,16 +380,11 @@
       "responses": [
         {
           "uuid": "f2d39e3e-9e67-448b-aa6f-869e3277c130",
-          "body": "{\n  \"etag\": {{faker 'datatype.number'}},\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n    \"appliedScopes\": [\n      \"\"\n    ],\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"billingScopeId\": \"\",\n    \"displayName\": \"\",\n    \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"extendedStatusInfo\": {\n      \"message\": \"\",\n      \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n    },\n    \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n    \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"mergeProperties\": {\n      \"mergeDestination\": \"\",\n      \"mergeSources\": [\n        \"\"\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"quantity\": {{faker 'datatype.number'}},\n    \"renew\": {{faker 'datatype.boolean'}},\n    \"renewDestination\": \"\",\n    \"renewProperties\": {\n      \"billingCurrencyTotal\": {\n        \"amount\": {{faker 'datatype.number'}},\n        \"currencyCode\": \"\"\n      },\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'datatype.number'}},\n        \"currencyCode\": \"\"\n      },\n      \"purchaseProperties\": {\n        \"location\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"quantity\": {{faker 'datatype.number'}},\n          \"renew\": {{faker 'datatype.boolean'}},\n          \"reservedResourceProperties\": {\n            \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n          },\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        }\n      }\n    },\n    \"renewSource\": \"\",\n    \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n    \"skuDescription\": \"\",\n    \"splitProperties\": {\n      \"splitDestinations\": [\n        \"\"\n      ],\n      \"splitSource\": \"\"\n    },\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"sku\": {\n    \"name\": \"\"\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"etag\": {{faker 'number.int'}},\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n    \"appliedScopes\": [\n      \"\"\n    ],\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"billingScopeId\": \"\",\n    \"displayName\": \"\",\n    \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"extendedStatusInfo\": {\n      \"message\": \"\",\n      \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n    },\n    \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n    \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"mergeProperties\": {\n      \"mergeDestination\": \"\",\n      \"mergeSources\": [\n        \"\"\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"quantity\": {{faker 'number.int'}},\n    \"renew\": {{faker 'datatype.boolean'}},\n    \"renewDestination\": \"\",\n    \"renewProperties\": {\n      \"billingCurrencyTotal\": {\n        \"amount\": {{faker 'number.int'}},\n        \"currencyCode\": \"\"\n      },\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'number.int'}},\n        \"currencyCode\": \"\"\n      },\n      \"purchaseProperties\": {\n        \"location\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"quantity\": {{faker 'number.int'}},\n          \"renew\": {{faker 'datatype.boolean'}},\n          \"reservedResourceProperties\": {\n            \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n          },\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        }\n      }\n    },\n    \"renewSource\": \"\",\n    \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n    \"skuDescription\": \"\",\n    \"splitProperties\": {\n      \"splitDestinations\": [\n        \"\"\n      ],\n      \"splitSource\": \"\"\n    },\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"sku\": {\n    \"name\": \"\"\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Get `Reservation` details.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -455,7 +393,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "2897fbe3-7d72-4382-9d14-3370d9121a10",
@@ -463,12 +402,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -477,11 +411,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "2344777d-5f23-448b-bf80-c11a09fa5885",
@@ -491,16 +427,11 @@
       "responses": [
         {
           "uuid": "0ee95d9e-670d-4c4b-acc7-e0bb0c26af91",
-          "body": "{\n  \"etag\": {{faker 'datatype.number'}},\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n    \"appliedScopes\": [\n      \"\"\n    ],\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"billingScopeId\": \"\",\n    \"displayName\": \"\",\n    \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"extendedStatusInfo\": {\n      \"message\": \"\",\n      \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n    },\n    \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n    \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"mergeProperties\": {\n      \"mergeDestination\": \"\",\n      \"mergeSources\": [\n        \"\"\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"quantity\": {{faker 'datatype.number'}},\n    \"renew\": {{faker 'datatype.boolean'}},\n    \"renewDestination\": \"\",\n    \"renewProperties\": {\n      \"billingCurrencyTotal\": {\n        \"amount\": {{faker 'datatype.number'}},\n        \"currencyCode\": \"\"\n      },\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'datatype.number'}},\n        \"currencyCode\": \"\"\n      },\n      \"purchaseProperties\": {\n        \"location\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"quantity\": {{faker 'datatype.number'}},\n          \"renew\": {{faker 'datatype.boolean'}},\n          \"reservedResourceProperties\": {\n            \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n          },\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        }\n      }\n    },\n    \"renewSource\": \"\",\n    \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n    \"skuDescription\": \"\",\n    \"splitProperties\": {\n      \"splitDestinations\": [\n        \"\"\n      ],\n      \"splitSource\": \"\"\n    },\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"sku\": {\n    \"name\": \"\"\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"etag\": {{faker 'number.int'}},\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n    \"appliedScopes\": [\n      \"\"\n    ],\n    \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n    \"billingScopeId\": \"\",\n    \"displayName\": \"\",\n    \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n    \"extendedStatusInfo\": {\n      \"message\": \"\",\n      \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n    },\n    \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n    \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"mergeProperties\": {\n      \"mergeDestination\": \"\",\n      \"mergeSources\": [\n        \"\"\n      ]\n    },\n    \"provisioningState\": \"\",\n    \"quantity\": {{faker 'number.int'}},\n    \"renew\": {{faker 'datatype.boolean'}},\n    \"renewDestination\": \"\",\n    \"renewProperties\": {\n      \"billingCurrencyTotal\": {\n        \"amount\": {{faker 'number.int'}},\n        \"currencyCode\": \"\"\n      },\n      \"pricingCurrencyTotal\": {\n        \"amount\": {{faker 'number.int'}},\n        \"currencyCode\": \"\"\n      },\n      \"purchaseProperties\": {\n        \"location\": \"\",\n        \"properties\": {\n          \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n          \"appliedScopes\": [\n            \"\"\n          ],\n          \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n          \"billingScopeId\": \"\",\n          \"displayName\": \"\",\n          \"quantity\": {{faker 'number.int'}},\n          \"renew\": {{faker 'datatype.boolean'}},\n          \"reservedResourceProperties\": {\n            \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n          },\n          \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n          \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n        },\n        \"sku\": {\n          \"name\": \"\"\n        }\n      }\n    },\n    \"renewSource\": \"\",\n    \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n    \"skuDescription\": \"\",\n    \"splitProperties\": {\n      \"splitDestinations\": [\n        \"\"\n      ],\n      \"splitSource\": \"\"\n    },\n    \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n  },\n  \"sku\": {\n    \"name\": \"\"\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Returns the updated `Reservation`.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -509,7 +440,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "eaf499c3-8680-4c99-b24a-53eccc24478f",
@@ -517,12 +449,7 @@
           "latency": 0,
           "statusCode": 202,
           "label": "The request is accepted and is being processed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -531,7 +458,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "373f9cc1-84fe-457f-85be-cc0bd1b6fa1c",
@@ -539,12 +467,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -553,11 +476,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "28ce1d7b-0ad4-41fc-995a-4c18da261e6a",
@@ -571,12 +496,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "List of `Subscription`s created after the filter.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -585,7 +505,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "a159e50c-c4a0-47df-893f-696fb2777a14",
@@ -593,12 +514,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -607,11 +523,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "a928dda9-7ada-4965-b9f6-5a7ef6654a91",
@@ -621,16 +539,11 @@
       "responses": [
         {
           "uuid": "01d47d5b-f0b7-48cb-bfc2-3e3b80484e54",
-          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"etag\": {{faker 'datatype.number'}},\n      \"id\": \"\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n        \"appliedScopes\": [\n          \"\"\n        ],\n        \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n        \"billingScopeId\": \"\",\n        \"displayName\": \"\",\n        \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"extendedStatusInfo\": {\n          \"message\": \"\",\n          \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n        },\n        \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n        \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"mergeProperties\": {\n          \"mergeDestination\": \"\",\n          \"mergeSources\": [\n            \"\"\n          ]\n        },\n        \"provisioningState\": \"\",\n        \"quantity\": {{faker 'datatype.number'}},\n        \"renew\": {{faker 'datatype.boolean'}},\n        \"renewDestination\": \"\",\n        \"renewProperties\": {\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'datatype.number'}},\n            \"currencyCode\": \"\"\n          },\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'datatype.number'}},\n            \"currencyCode\": \"\"\n          },\n          \"purchaseProperties\": {\n            \"location\": \"\",\n            \"properties\": {\n              \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n              \"appliedScopes\": [\n                \"\"\n              ],\n              \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n              \"billingScopeId\": \"\",\n              \"displayName\": \"\",\n              \"quantity\": {{faker 'datatype.number'}},\n              \"renew\": {{faker 'datatype.boolean'}},\n              \"reservedResourceProperties\": {\n                \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n              },\n              \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n              \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n            },\n            \"sku\": {\n              \"name\": \"\"\n            }\n          }\n        },\n        \"renewSource\": \"\",\n        \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n        \"skuDescription\": \"\",\n        \"splitProperties\": {\n          \"splitDestinations\": [\n            \"\"\n          ],\n          \"splitSource\": \"\"\n        },\n        \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n      },\n      \"sku\": {\n        \"name\": \"\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"etag\": {{faker 'number.int'}},\n      \"id\": \"\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n        \"appliedScopes\": [\n          \"\"\n        ],\n        \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n        \"billingScopeId\": \"\",\n        \"displayName\": \"\",\n        \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n        \"extendedStatusInfo\": {\n          \"message\": \"\",\n          \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n        },\n        \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n        \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n        \"mergeProperties\": {\n          \"mergeDestination\": \"\",\n          \"mergeSources\": [\n            \"\"\n          ]\n        },\n        \"provisioningState\": \"\",\n        \"quantity\": {{faker 'number.int'}},\n        \"renew\": {{faker 'datatype.boolean'}},\n        \"renewDestination\": \"\",\n        \"renewProperties\": {\n          \"billingCurrencyTotal\": {\n            \"amount\": {{faker 'number.int'}},\n            \"currencyCode\": \"\"\n          },\n          \"pricingCurrencyTotal\": {\n            \"amount\": {{faker 'number.int'}},\n            \"currencyCode\": \"\"\n          },\n          \"purchaseProperties\": {\n            \"location\": \"\",\n            \"properties\": {\n              \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n              \"appliedScopes\": [\n                \"\"\n              ],\n              \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n              \"billingScopeId\": \"\",\n              \"displayName\": \"\",\n              \"quantity\": {{faker 'number.int'}},\n              \"renew\": {{faker 'datatype.boolean'}},\n              \"reservedResourceProperties\": {\n                \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n              },\n              \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n              \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n            },\n            \"sku\": {\n              \"name\": \"\"\n            }\n          }\n        },\n        \"renewSource\": \"\",\n        \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n        \"skuDescription\": \"\",\n        \"splitProperties\": {\n          \"splitDestinations\": [\n            \"\"\n          ],\n          \"splitSource\": \"\"\n        },\n        \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n      },\n      \"sku\": {\n        \"name\": \"\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "List of all the revisions for the `Reservation`.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -639,7 +552,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "55889f96-73ad-484b-a63f-804f962acdcc",
@@ -647,12 +561,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -661,11 +570,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "cccc8936-77f2-43c4-a749-1079dc8a3257",
@@ -675,16 +586,11 @@
       "responses": [
         {
           "uuid": "9d2808a0-fee9-4bda-928d-3107c1fafd39",
-          "body": "[\n  {\n    \"etag\": {{faker 'datatype.number'}},\n    \"id\": \"\",\n    \"location\": \"\",\n    \"name\": \"\",\n    \"properties\": {\n      \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n      \"appliedScopes\": [\n        \"\"\n      ],\n      \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n      \"billingScopeId\": \"\",\n      \"displayName\": \"\",\n      \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"extendedStatusInfo\": {\n        \"message\": \"\",\n        \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n      },\n      \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n      \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"mergeProperties\": {\n        \"mergeDestination\": \"\",\n        \"mergeSources\": [\n          \"\"\n        ]\n      },\n      \"provisioningState\": \"\",\n      \"quantity\": {{faker 'datatype.number'}},\n      \"renew\": {{faker 'datatype.boolean'}},\n      \"renewDestination\": \"\",\n      \"renewProperties\": {\n        \"billingCurrencyTotal\": {\n          \"amount\": {{faker 'datatype.number'}},\n          \"currencyCode\": \"\"\n        },\n        \"pricingCurrencyTotal\": {\n          \"amount\": {{faker 'datatype.number'}},\n          \"currencyCode\": \"\"\n        },\n        \"purchaseProperties\": {\n          \"location\": \"\",\n          \"properties\": {\n            \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n            \"appliedScopes\": [\n              \"\"\n            ],\n            \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n            \"billingScopeId\": \"\",\n            \"displayName\": \"\",\n            \"quantity\": {{faker 'datatype.number'}},\n            \"renew\": {{faker 'datatype.boolean'}},\n            \"reservedResourceProperties\": {\n              \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n            },\n            \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n            \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n          },\n          \"sku\": {\n            \"name\": \"\"\n          }\n        }\n      },\n      \"renewSource\": \"\",\n      \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n      \"skuDescription\": \"\",\n      \"splitProperties\": {\n        \"splitDestinations\": [\n          \"\"\n        ],\n        \"splitSource\": \"\"\n      },\n      \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n    },\n    \"sku\": {\n      \"name\": \"\"\n    },\n    \"type\": \"\"\n  }\n]",
+          "body": "[\n  {\n    \"etag\": {{faker 'number.int'}},\n    \"id\": \"\",\n    \"location\": \"\",\n    \"name\": \"\",\n    \"properties\": {\n      \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n      \"appliedScopes\": [\n        \"\"\n      ],\n      \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n      \"billingScopeId\": \"\",\n      \"displayName\": \"\",\n      \"effectiveDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"expiryDate\": \"{{date '2019' (now) 'yyyy-MM-dd'}}\",\n      \"extendedStatusInfo\": {\n        \"message\": \"\",\n        \"statusCode\": \"{{oneOf (array 'None' 'Pending' 'Active' 'PurchaseError' 'PaymentInstrumentError' 'Split' 'Merged' 'Expired' 'Succeeded')}}\"\n      },\n      \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\",\n      \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"mergeProperties\": {\n        \"mergeDestination\": \"\",\n        \"mergeSources\": [\n          \"\"\n        ]\n      },\n      \"provisioningState\": \"\",\n      \"quantity\": {{faker 'number.int'}},\n      \"renew\": {{faker 'datatype.boolean'}},\n      \"renewDestination\": \"\",\n      \"renewProperties\": {\n        \"billingCurrencyTotal\": {\n          \"amount\": {{faker 'number.int'}},\n          \"currencyCode\": \"\"\n        },\n        \"pricingCurrencyTotal\": {\n          \"amount\": {{faker 'number.int'}},\n          \"currencyCode\": \"\"\n        },\n        \"purchaseProperties\": {\n          \"location\": \"\",\n          \"properties\": {\n            \"appliedScopeType\": \"{{oneOf (array 'Single' 'Shared')}}\",\n            \"appliedScopes\": [\n              \"\"\n            ],\n            \"billingPlan\": \"{{oneOf (array 'Upfront' 'Monthly')}}\",\n            \"billingScopeId\": \"\",\n            \"displayName\": \"\",\n            \"quantity\": {{faker 'number.int'}},\n            \"renew\": {{faker 'datatype.boolean'}},\n            \"reservedResourceProperties\": {\n              \"instanceFlexibility\": \"{{oneOf (array 'On' 'Off')}}\"\n            },\n            \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n            \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n          },\n          \"sku\": {\n            \"name\": \"\"\n          }\n        }\n      },\n      \"renewSource\": \"\",\n      \"reservedResourceType\": \"{{oneOf (array 'VirtualMachines' 'SqlDatabases' 'SuseLinux' 'CosmosDb' 'RedHat' 'SqlDataWarehouse' 'VMwareCloudSimple' 'RedHatOsa')}}\",\n      \"skuDescription\": \"\",\n      \"splitProperties\": {\n        \"splitDestinations\": [\n          \"\"\n        ],\n        \"splitSource\": \"\"\n      },\n      \"term\": \"{{oneOf (array 'P1Y' 'P3Y')}}\"\n    },\n    \"sku\": {\n      \"name\": \"\"\n    },\n    \"type\": \"\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "List of `Reservation`s created after the split operation.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -693,7 +599,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c39ba7f9-cd97-4fd7-970a-a8d0771f7f64",
@@ -701,12 +608,7 @@
           "latency": 0,
           "statusCode": 202,
           "label": "The request is accepted and is being processed",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -715,7 +617,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "1bfefc5d-8a4a-41a7-b758-c08e8b8bd4ba",
@@ -723,12 +626,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -737,11 +635,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "aad16feb-ff2b-40ad-8e9c-8fcc93756e72",
@@ -755,12 +655,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Applicable `Reservation`s.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -769,7 +664,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "17b5f7df-6ef5-4228-b87e-b897ec569663",
@@ -777,12 +673,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -791,11 +682,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "618b7cb1-a3c3-4c6e-8212-622ac19715eb",
@@ -809,12 +702,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "List of available resources",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -823,7 +711,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "737a7128-8fc7-4de0-8da4-67a37a7f9240",
@@ -831,12 +720,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Unexpected error",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -845,11 +729,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -866,17 +752,24 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "e0fd212e-ab40-4855-9d89-fb17563d7808" },
+    { "type": "route", "uuid": "ad8c2f4b-f716-45b0-8d5b-2d137b3f5c79" },
+    { "type": "route", "uuid": "d2806c72-f0dd-48e5-aadc-55c51c913c9f" },
+    { "type": "route", "uuid": "f376e6f4-3bd4-4d16-b80a-60ff5243d753" },
+    { "type": "route", "uuid": "d5f5cd67-3e05-4f0f-8b86-da0e7eb3b6fc" },
+    { "type": "route", "uuid": "c028ef37-585c-4c64-978c-0b210eb0a1d6" },
+    { "type": "route", "uuid": "68c24e80-a1d6-4614-af12-694ea8cb5f42" },
+    { "type": "route", "uuid": "abe94641-c83b-4674-9589-0c34fa704147" },
+    { "type": "route", "uuid": "2344777d-5f23-448b-bf80-c11a09fa5885" },
+    { "type": "route", "uuid": "28ce1d7b-0ad4-41fc-995a-4c18da261e6a" },
+    { "type": "route", "uuid": "a928dda9-7ada-4965-b9f6-5a7ef6654a91" },
+    { "type": "route", "uuid": "cccc8936-77f2-43c4-a749-1079dc8a3257" },
+    { "type": "route", "uuid": "aad16feb-ff2b-40ad-8e9c-8fcc93756e72" },
+    { "type": "route", "uuid": "618b7cb1-a3c3-4c6e-8212-622ac19715eb" }
+  ]
 }

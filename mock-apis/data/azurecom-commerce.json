@@ -1,11 +1,11 @@
 {
   "uuid": "ecc2ceb1-da65-498e-adf6-632b6e9067b9",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "UsageManagementClient",
   "endpointPrefix": "",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "e0cfde58-1453-4e6e-8b4b-dc549fe82cc3",
@@ -15,16 +15,11 @@
       "responses": [
         {
           "uuid": "0f489d23-2da9-4db0-a954-840306bf2460",
-          "body": "{\n  \"Currency\": \"\",\n  \"IsTaxIncluded\": {{faker 'datatype.boolean'}},\n  \"Locale\": \"\",\n  \"Meters\": [\n    {\n      \"EffectiveDate\": \"{{faker 'date.recent' 365}}\",\n      \"IncludedQuantity\": {{faker 'datatype.float'}},\n      \"MeterCategory\": \"\",\n      \"MeterId\": \"{{faker 'datatype.uuid'}}\",\n      \"MeterName\": \"\",\n      \"MeterRates\": {},\n      \"MeterRegion\": \"\",\n      \"MeterSubCategory\": \"\",\n      \"MeterTags\": [\n        \"\"\n      ],\n      \"Unit\": \"\"\n    }\n  ],\n  \"OfferTerms\": [\n    {\n      \"EffectiveDate\": \"{{faker 'date.recent' 365}}\",\n      \"Name\": \"{{oneOf (array 'Recurring Charge' 'Monetary Commitment' 'Monetary Credit')}}\"\n    }\n  ]\n}",
+          "body": "{\n  \"Currency\": \"\",\n  \"IsTaxIncluded\": {{faker 'datatype.boolean'}},\n  \"Locale\": \"\",\n  \"Meters\": [\n    {\n      \"EffectiveDate\": \"{{faker 'date.recent' 365}}\",\n      \"IncludedQuantity\": {{faker 'number.float'}},\n      \"MeterCategory\": \"\",\n      \"MeterId\": \"{{faker 'string.uuid'}}\",\n      \"MeterName\": \"\",\n      \"MeterRates\": {},\n      \"MeterRegion\": \"\",\n      \"MeterSubCategory\": \"\",\n      \"MeterTags\": [\n        \"\"\n      ],\n      \"Unit\": \"\"\n    }\n  ],\n  \"OfferTerms\": [\n    {\n      \"EffectiveDate\": \"{{faker 'date.recent' 365}}\",\n      \"Name\": \"{{oneOf (array 'Recurring Charge' 'Monetary Commitment' 'Monetary Credit')}}\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Normal response for a successful query. The response body will contain the data that matches the filters specified in the query parameters.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "7ff6fd29-aba0-4f89-913e-57fffad0c839",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,11 +46,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "3a04aa60-f25d-43a3-8b8f-b2a7b5a08d3d",
@@ -69,16 +62,11 @@
       "responses": [
         {
           "uuid": "5cec9b2f-5085-45f9-9a99-d01c3476b1b7",
-          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"infoFields\": {\n          \"project\": \"\"\n        },\n        \"instanceData\": \"\",\n        \"meterCategory\": \"\",\n        \"meterId\": \"\",\n        \"meterName\": \"\",\n        \"meterRegion\": \"\",\n        \"meterSubCategory\": \"\",\n        \"quantity\": {{faker 'datatype.float'}},\n        \"subscriptionId\": \"{{faker 'datatype.uuid'}}\",\n        \"unit\": \"\",\n        \"usageEndTime\": \"{{faker 'date.recent' 365}}\",\n        \"usageStartTime\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"infoFields\": {\n          \"project\": \"\"\n        },\n        \"instanceData\": \"\",\n        \"meterCategory\": \"\",\n        \"meterId\": \"\",\n        \"meterName\": \"\",\n        \"meterRegion\": \"\",\n        \"meterSubCategory\": \"\",\n        \"quantity\": {{faker 'number.float'}},\n        \"subscriptionId\": \"{{faker 'string.uuid'}}\",\n        \"unit\": \"\",\n        \"usageEndTime\": \"{{faker 'date.recent' 365}}\",\n        \"usageStartTime\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Normal response for a successful query. The response body will contain the data that matches the filters specified in the query parameters.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -87,7 +75,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c4f2f583-4668-43db-a589-5700739b8159",
@@ -95,12 +84,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -109,11 +93,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -130,17 +116,12 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "e0cfde58-1453-4e6e-8b4b-dc549fe82cc3" },
+    { "type": "route", "uuid": "3a04aa60-f25d-43a3-8b8f-b2a7b5a08d3d" }
+  ]
 }

@@ -1,11 +1,11 @@
 {
   "uuid": "54ab5ee3-c03f-4667-95f8-ef52f689f554",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "Computer Vision Client",
   "endpointPrefix": "vision/v2.1",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "fc80e38e-586c-4669-a3df-64b60804eb06",
@@ -20,14 +20,8 @@
           "statusCode": 202,
           "label": "The service has accepted the request and will start processing later.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Operation-Location",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "Operation-Location", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -37,7 +31,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "4bcf08f5-5032-45fd-92e4-9deeb286b885",
@@ -45,12 +40,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -59,11 +49,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "c7bdb353-ea28-43b2-b393-1ddcc301c637",
@@ -73,16 +65,11 @@
       "responses": [
         {
           "uuid": "fae4d6f2-c3c8-4bb2-a21f-d5eed9bf7564",
-          "body": "{\n  \"recognitionResults\": [\n    {\n      \"clockwiseOrientation\": {{faker 'datatype.number'}},\n      \"height\": {{faker 'datatype.number'}},\n      \"lines\": [\n        {\n          \"boundingBox\": [\n            {{faker 'datatype.number'}}\n          ],\n          \"text\": \"\",\n          \"words\": [\n            {\n              \"boundingBox\": [\n                {{faker 'datatype.number'}}\n              ],\n              \"confidence\": \"{{oneOf (array 'High' 'Low')}}\",\n              \"text\": \"\"\n            }\n          ]\n        }\n      ],\n      \"page\": {{faker 'datatype.number'}},\n      \"unit\": \"{{oneOf (array 'pixel' 'inch')}}\",\n      \"width\": {{faker 'datatype.number'}}\n    }\n  ],\n  \"status\": \"{{oneOf (array 'NotStarted' 'Running' 'Failed' 'Succeeded')}}\"\n}",
+          "body": "{\n  \"recognitionResults\": [\n    {\n      \"clockwiseOrientation\": {{faker 'number.int'}},\n      \"height\": {{faker 'number.int'}},\n      \"lines\": [\n        {\n          \"boundingBox\": [\n            {{faker 'number.int'}}\n          ],\n          \"text\": \"\",\n          \"words\": [\n            {\n              \"boundingBox\": [\n                {{faker 'number.int'}}\n              ],\n              \"confidence\": \"{{oneOf (array 'High' 'Low')}}\",\n              \"text\": \"\"\n            }\n          ]\n        }\n      ],\n      \"page\": {{faker 'number.int'}},\n      \"unit\": \"{{oneOf (array 'pixel' 'inch')}}\",\n      \"width\": {{faker 'number.int'}}\n    }\n  ],\n  \"status\": \"{{oneOf (array 'NotStarted' 'Running' 'Failed' 'Succeeded')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Returns the read operation status.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -91,7 +78,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c425cc0e-f10b-423d-bfc5-ed284c07c586",
@@ -99,12 +87,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -113,11 +96,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "e594beae-d509-4625-a69c-1a03c11bf3c1",
@@ -132,14 +117,8 @@
           "statusCode": 202,
           "label": "The service has accepted the request and will start processing later. It will return Accepted immediately and include an 'Operation-Location' header. Client side should further query the operation status using the URL specified in this header. The operation ID will expire in 48 hours.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Operation-Location",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "Operation-Location", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -149,7 +128,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "3134a5a5-f523-4b33-a823-05ddafccf584",
@@ -157,12 +137,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -171,11 +146,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "7dc34754-9940-4884-b066-b7351cefecc8",
@@ -185,16 +162,11 @@
       "responses": [
         {
           "uuid": "5013bc97-5304-4127-bf8a-5fe2011e598a",
-          "body": "{\n  \"recognitionResult\": {\n    \"clockwiseOrientation\": {{faker 'datatype.number'}},\n    \"height\": {{faker 'datatype.number'}},\n    \"lines\": [\n      {\n        \"boundingBox\": [\n          {{faker 'datatype.number'}}\n        ],\n        \"text\": \"\",\n        \"words\": [\n          {\n            \"boundingBox\": [\n              {{faker 'datatype.number'}}\n            ],\n            \"confidence\": \"{{oneOf (array 'High' 'Low')}}\",\n            \"text\": \"\"\n          }\n        ]\n      }\n    ],\n    \"page\": {{faker 'datatype.number'}},\n    \"unit\": \"{{oneOf (array 'pixel' 'inch')}}\",\n    \"width\": {{faker 'datatype.number'}}\n  },\n  \"status\": \"{{oneOf (array 'NotStarted' 'Running' 'Failed' 'Succeeded')}}\"\n}",
+          "body": "{\n  \"recognitionResult\": {\n    \"clockwiseOrientation\": {{faker 'number.int'}},\n    \"height\": {{faker 'number.int'}},\n    \"lines\": [\n      {\n        \"boundingBox\": [\n          {{faker 'number.int'}}\n        ],\n        \"text\": \"\",\n        \"words\": [\n          {\n            \"boundingBox\": [\n              {{faker 'number.int'}}\n            ],\n            \"confidence\": \"{{oneOf (array 'High' 'Low')}}\",\n            \"text\": \"\"\n          }\n        ]\n      }\n    ],\n    \"page\": {{faker 'number.int'}},\n    \"unit\": \"{{oneOf (array 'pixel' 'inch')}}\",\n    \"width\": {{faker 'number.int'}}\n  },\n  \"status\": \"{{oneOf (array 'NotStarted' 'Running' 'Failed' 'Succeeded')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Returns the operation status.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -203,7 +175,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "4574719e-9582-4818-8eb4-6bfbda36b19a",
@@ -211,12 +184,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -225,11 +193,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -246,17 +216,14 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "fc80e38e-586c-4669-a3df-64b60804eb06" },
+    { "type": "route", "uuid": "c7bdb353-ea28-43b2-b393-1ddcc301c637" },
+    { "type": "route", "uuid": "e594beae-d509-4625-a69c-1a03c11bf3c1" },
+    { "type": "route", "uuid": "7dc34754-9940-4884-b066-b7351cefecc8" }
+  ]
 }
