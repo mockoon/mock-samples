@@ -1,11 +1,11 @@
 {
   "uuid": "90fc48f4-242b-4544-b689-0a28d7f1327f",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "Custom Vision Training Client",
   "endpointPrefix": "customvision/v3.2/training",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "38b45acd-c60e-4f9f-b95a-d463a9c396ed",
@@ -15,16 +15,11 @@
       "responses": [
         {
           "uuid": "a20c752e-df00-49b7-8e19-1120d9ae5b07",
-          "body": "[\n  {\n    \"enabled\": {{faker 'datatype.boolean'}},\n    \"exportable\": {{faker 'datatype.boolean'}},\n    \"id\": \"{{faker 'datatype.uuid'}}\",\n    \"name\": \"\",\n    \"type\": \"{{oneOf (array 'Classification' 'ObjectDetection')}}\"\n  }\n]",
+          "body": "[\n  {\n    \"enabled\": {{faker 'datatype.boolean'}},\n    \"exportable\": {{faker 'datatype.boolean'}},\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"name\": \"\",\n    \"type\": \"{{oneOf (array 'Classification' 'ObjectDetection')}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "1b803110-0ee5-48ff-9745-12cfb49c1886",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,11 +46,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "e6506fad-eaea-4ac7-856e-66bc714ac175",
@@ -69,16 +62,11 @@
       "responses": [
         {
           "uuid": "3cb9dd10-4623-40ca-883c-5a9aa6a98cf6",
-          "body": "{\n  \"enabled\": {{faker 'datatype.boolean'}},\n  \"exportable\": {{faker 'datatype.boolean'}},\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'Classification' 'ObjectDetection')}}\"\n}",
+          "body": "{\n  \"enabled\": {{faker 'datatype.boolean'}},\n  \"exportable\": {{faker 'datatype.boolean'}},\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'Classification' 'ObjectDetection')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -87,7 +75,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "9f244831-e03f-4a78-9a2f-c881dbcaac23",
@@ -95,12 +84,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -109,11 +93,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "d491ce80-b201-4881-a7d9-339db9f33367",
@@ -123,16 +109,11 @@
       "responses": [
         {
           "uuid": "acfece72-212e-4f6a-bd90-7f2cf8a4da82",
-          "body": "[\n  {\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"description\": \"\",\n    \"drModeEnabled\": {{faker 'datatype.boolean'}},\n    \"id\": \"{{faker 'datatype.uuid'}}\",\n    \"lastModified\": \"{{faker 'date.recent' 365}}\",\n    \"name\": \"\",\n    \"settings\": {\n      \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n      \"detectionParameters\": \"\",\n      \"domainId\": \"{{faker 'datatype.uuid'}}\",\n      \"imageProcessingSettings\": {\n        \"augmentationMethods\": {}\n      },\n      \"targetExportPlatforms\": [\n        \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n      ],\n      \"useNegativeSet\": {{faker 'datatype.boolean'}}\n    },\n    \"status\": \"{{oneOf (array 'Succeeded' 'Importing' 'Failed')}}\",\n    \"thumbnailUri\": \"\"\n  }\n]",
+          "body": "[\n  {\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"description\": \"\",\n    \"drModeEnabled\": {{faker 'datatype.boolean'}},\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"lastModified\": \"{{faker 'date.recent' 365}}\",\n    \"name\": \"\",\n    \"settings\": {\n      \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n      \"detectionParameters\": \"\",\n      \"domainId\": \"{{faker 'string.uuid'}}\",\n      \"imageProcessingSettings\": {\n        \"augmentationMethods\": {}\n      },\n      \"targetExportPlatforms\": [\n        \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n      ],\n      \"useNegativeSet\": {{faker 'datatype.boolean'}}\n    },\n    \"status\": \"{{oneOf (array 'Succeeded' 'Importing' 'Failed')}}\",\n    \"thumbnailUri\": \"\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -141,7 +122,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "396fdd24-ae04-4b66-873f-b586c2453a5d",
@@ -149,12 +131,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -163,11 +140,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "036d2aab-7158-4c94-b6db-29fabd116447",
@@ -177,16 +156,11 @@
       "responses": [
         {
           "uuid": "18560807-c874-4fea-a63c-d4bc34ff035e",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"description\": \"\",\n  \"drModeEnabled\": {{faker 'datatype.boolean'}},\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"settings\": {\n    \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n    \"detectionParameters\": \"\",\n    \"domainId\": \"{{faker 'datatype.uuid'}}\",\n    \"imageProcessingSettings\": {\n      \"augmentationMethods\": {}\n    },\n    \"targetExportPlatforms\": [\n      \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n    ],\n    \"useNegativeSet\": {{faker 'datatype.boolean'}}\n  },\n  \"status\": \"{{oneOf (array 'Succeeded' 'Importing' 'Failed')}}\",\n  \"thumbnailUri\": \"\"\n}",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"description\": \"\",\n  \"drModeEnabled\": {{faker 'datatype.boolean'}},\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"settings\": {\n    \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n    \"detectionParameters\": \"\",\n    \"domainId\": \"{{faker 'string.uuid'}}\",\n    \"imageProcessingSettings\": {\n      \"augmentationMethods\": {}\n    },\n    \"targetExportPlatforms\": [\n      \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n    ],\n    \"useNegativeSet\": {{faker 'datatype.boolean'}}\n  },\n  \"status\": \"{{oneOf (array 'Succeeded' 'Importing' 'Failed')}}\",\n  \"thumbnailUri\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -195,7 +169,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "0d4a9c3b-2484-423e-a573-ced37a48bd8d",
@@ -203,12 +178,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -217,11 +187,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "bedb853c-abbf-4109-915e-b02be3f33375",
@@ -231,16 +203,11 @@
       "responses": [
         {
           "uuid": "9b340c61-82f7-44b0-a119-9b0ec879e620",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"description\": \"\",\n  \"drModeEnabled\": {{faker 'datatype.boolean'}},\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"settings\": {\n    \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n    \"detectionParameters\": \"\",\n    \"domainId\": \"{{faker 'datatype.uuid'}}\",\n    \"imageProcessingSettings\": {\n      \"augmentationMethods\": {}\n    },\n    \"targetExportPlatforms\": [\n      \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n    ],\n    \"useNegativeSet\": {{faker 'datatype.boolean'}}\n  },\n  \"status\": \"{{oneOf (array 'Succeeded' 'Importing' 'Failed')}}\",\n  \"thumbnailUri\": \"\"\n}",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"description\": \"\",\n  \"drModeEnabled\": {{faker 'datatype.boolean'}},\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"settings\": {\n    \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n    \"detectionParameters\": \"\",\n    \"domainId\": \"{{faker 'string.uuid'}}\",\n    \"imageProcessingSettings\": {\n      \"augmentationMethods\": {}\n    },\n    \"targetExportPlatforms\": [\n      \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n    ],\n    \"useNegativeSet\": {{faker 'datatype.boolean'}}\n  },\n  \"status\": \"{{oneOf (array 'Succeeded' 'Importing' 'Failed')}}\",\n  \"thumbnailUri\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -249,7 +216,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c20b8be9-49cd-46e8-b943-533de27b1614",
@@ -257,12 +225,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -271,11 +234,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "9a377abe-cc63-46a2-9f11-230825ca1aa7",
@@ -289,12 +254,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No Content",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -303,7 +263,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "ab551b1f-2754-462b-9747-f115dd6e48ad",
@@ -311,12 +272,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "*/*"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "*/*" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -325,11 +281,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "09b8cbdd-21f9-476c-a117-47b9ccc1143f",
@@ -339,16 +297,11 @@
       "responses": [
         {
           "uuid": "67003a5b-c0ac-43d6-aff2-bf0f2ecaa04f",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"description\": \"\",\n  \"drModeEnabled\": {{faker 'datatype.boolean'}},\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"settings\": {\n    \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n    \"detectionParameters\": \"\",\n    \"domainId\": \"{{faker 'datatype.uuid'}}\",\n    \"imageProcessingSettings\": {\n      \"augmentationMethods\": {}\n    },\n    \"targetExportPlatforms\": [\n      \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n    ],\n    \"useNegativeSet\": {{faker 'datatype.boolean'}}\n  },\n  \"status\": \"{{oneOf (array 'Succeeded' 'Importing' 'Failed')}}\",\n  \"thumbnailUri\": \"\"\n}",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"description\": \"\",\n  \"drModeEnabled\": {{faker 'datatype.boolean'}},\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"settings\": {\n    \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n    \"detectionParameters\": \"\",\n    \"domainId\": \"{{faker 'string.uuid'}}\",\n    \"imageProcessingSettings\": {\n      \"augmentationMethods\": {}\n    },\n    \"targetExportPlatforms\": [\n      \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n    ],\n    \"useNegativeSet\": {{faker 'datatype.boolean'}}\n  },\n  \"status\": \"{{oneOf (array 'Succeeded' 'Importing' 'Failed')}}\",\n  \"thumbnailUri\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -357,7 +310,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "baed70a0-1189-4c42-ac7f-3e263fd51d03",
@@ -365,12 +319,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -379,11 +328,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "89ad0399-7b36-480a-a717-2c44e85a275b",
@@ -393,16 +344,11 @@
       "responses": [
         {
           "uuid": "ffc10eab-1631-40f4-af29-38ab828f1e91",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"description\": \"\",\n  \"drModeEnabled\": {{faker 'datatype.boolean'}},\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"settings\": {\n    \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n    \"detectionParameters\": \"\",\n    \"domainId\": \"{{faker 'datatype.uuid'}}\",\n    \"imageProcessingSettings\": {\n      \"augmentationMethods\": {}\n    },\n    \"targetExportPlatforms\": [\n      \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n    ],\n    \"useNegativeSet\": {{faker 'datatype.boolean'}}\n  },\n  \"status\": \"{{oneOf (array 'Succeeded' 'Importing' 'Failed')}}\",\n  \"thumbnailUri\": \"\"\n}",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"description\": \"\",\n  \"drModeEnabled\": {{faker 'datatype.boolean'}},\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"settings\": {\n    \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n    \"detectionParameters\": \"\",\n    \"domainId\": \"{{faker 'string.uuid'}}\",\n    \"imageProcessingSettings\": {\n      \"augmentationMethods\": {}\n    },\n    \"targetExportPlatforms\": [\n      \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n    ],\n    \"useNegativeSet\": {{faker 'datatype.boolean'}}\n  },\n  \"status\": \"{{oneOf (array 'Succeeded' 'Importing' 'Failed')}}\",\n  \"thumbnailUri\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -411,7 +357,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "4c72e5e6-c8f8-4633-9412-ba95940bcf0a",
@@ -419,12 +366,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -433,11 +375,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "bc389cbb-f47f-4f75-b92a-8073f7df4515",
@@ -447,16 +391,11 @@
       "responses": [
         {
           "uuid": "3e4febbd-35ab-4596-8c6a-cee534b3dcd0",
-          "body": "{\n  \"estimatedImportTimeInMS\": {{faker 'datatype.number'}},\n  \"imageCount\": {{faker 'datatype.number'}},\n  \"iterationCount\": {{faker 'datatype.number'}},\n  \"regionCount\": {{faker 'datatype.number'}},\n  \"tagCount\": {{faker 'datatype.number'}},\n  \"token\": \"\"\n}",
+          "body": "{\n  \"estimatedImportTimeInMS\": {{faker 'number.int'}},\n  \"imageCount\": {{faker 'number.int'}},\n  \"iterationCount\": {{faker 'number.int'}},\n  \"regionCount\": {{faker 'number.int'}},\n  \"tagCount\": {{faker 'number.int'}},\n  \"token\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -465,7 +404,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "bbfc7f3f-6c22-4ce8-9cd7-f5477c284828",
@@ -473,12 +413,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -487,11 +422,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "b47355da-46c2-4490-af4c-06ee3d1bd013",
@@ -505,12 +442,7 @@
           "latency": 0,
           "statusCode": 202,
           "label": "Accepted",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -519,7 +451,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c409d7d1-613e-4f41-9e47-e40fbb4c6a8f",
@@ -527,12 +460,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No Content",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -541,7 +469,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "103ec8cf-2537-49e7-a436-e98b6acd42da",
@@ -549,12 +478,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -563,11 +487,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "1441a6d5-7aeb-451c-b9b2-3bea3dea98d7",
@@ -577,16 +503,11 @@
       "responses": [
         {
           "uuid": "ca597181-e0c4-447f-b598-115b12d289d1",
-          "body": "{\n  \"images\": [\n    {\n      \"image\": {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'datatype.number'}},\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"originalImageUri\": \"\",\n        \"regions\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"height\": {{faker 'datatype.float'}},\n            \"left\": {{faker 'datatype.float'}},\n            \"regionId\": \"{{faker 'datatype.uuid'}}\",\n            \"tagId\": \"{{faker 'datatype.uuid'}}\",\n            \"tagName\": \"\",\n            \"top\": {{faker 'datatype.float'}},\n            \"width\": {{faker 'datatype.float'}}\n          }\n        ],\n        \"resizedImageUri\": \"\",\n        \"tags\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"tagId\": \"{{faker 'datatype.uuid'}}\",\n            \"tagName\": \"\"\n          }\n        ],\n        \"thumbnailUri\": \"\",\n        \"width\": {{faker 'datatype.number'}}\n      },\n      \"sourceUrl\": \"\",\n      \"status\": \"{{oneOf (array 'OK' 'OKDuplicate' 'ErrorSource' 'ErrorImageFormat' 'ErrorImageSize' 'ErrorStorage' 'ErrorLimitExceed' 'ErrorTagLimitExceed' 'ErrorRegionLimitExceed' 'ErrorUnknown' 'ErrorNegativeAndRegularTagOnSameImage')}}\"\n    }\n  ],\n  \"isBatchSuccessful\": {{faker 'datatype.boolean'}}\n}",
+          "body": "{\n  \"images\": [\n    {\n      \"image\": {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'number.int'}},\n        \"id\": \"{{faker 'string.uuid'}}\",\n        \"originalImageUri\": \"\",\n        \"regions\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"height\": {{faker 'number.float'}},\n            \"left\": {{faker 'number.float'}},\n            \"regionId\": \"{{faker 'string.uuid'}}\",\n            \"tagId\": \"{{faker 'string.uuid'}}\",\n            \"tagName\": \"\",\n            \"top\": {{faker 'number.float'}},\n            \"width\": {{faker 'number.float'}}\n          }\n        ],\n        \"resizedImageUri\": \"\",\n        \"tags\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"tagId\": \"{{faker 'string.uuid'}}\",\n            \"tagName\": \"\"\n          }\n        ],\n        \"thumbnailUri\": \"\",\n        \"width\": {{faker 'number.int'}}\n      },\n      \"sourceUrl\": \"\",\n      \"status\": \"{{oneOf (array 'OK' 'OKDuplicate' 'ErrorSource' 'ErrorImageFormat' 'ErrorImageSize' 'ErrorStorage' 'ErrorLimitExceed' 'ErrorTagLimitExceed' 'ErrorRegionLimitExceed' 'ErrorUnknown' 'ErrorNegativeAndRegularTagOnSameImage')}}\"\n    }\n  ],\n  \"isBatchSuccessful\": {{faker 'datatype.boolean'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -595,7 +516,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "39728490-54aa-475b-9f79-a71537d4487d",
@@ -603,12 +525,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -617,11 +534,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "bde55f9b-2ff1-455c-8d5d-9adb831de51a",
@@ -631,16 +550,11 @@
       "responses": [
         {
           "uuid": "58ccb66c-5660-4980-b42e-aacefbe28077",
-          "body": "{\n  \"images\": [\n    {\n      \"image\": {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'datatype.number'}},\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"originalImageUri\": \"\",\n        \"regions\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"height\": {{faker 'datatype.float'}},\n            \"left\": {{faker 'datatype.float'}},\n            \"regionId\": \"{{faker 'datatype.uuid'}}\",\n            \"tagId\": \"{{faker 'datatype.uuid'}}\",\n            \"tagName\": \"\",\n            \"top\": {{faker 'datatype.float'}},\n            \"width\": {{faker 'datatype.float'}}\n          }\n        ],\n        \"resizedImageUri\": \"\",\n        \"tags\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"tagId\": \"{{faker 'datatype.uuid'}}\",\n            \"tagName\": \"\"\n          }\n        ],\n        \"thumbnailUri\": \"\",\n        \"width\": {{faker 'datatype.number'}}\n      },\n      \"sourceUrl\": \"\",\n      \"status\": \"{{oneOf (array 'OK' 'OKDuplicate' 'ErrorSource' 'ErrorImageFormat' 'ErrorImageSize' 'ErrorStorage' 'ErrorLimitExceed' 'ErrorTagLimitExceed' 'ErrorRegionLimitExceed' 'ErrorUnknown' 'ErrorNegativeAndRegularTagOnSameImage')}}\"\n    }\n  ],\n  \"isBatchSuccessful\": {{faker 'datatype.boolean'}}\n}",
+          "body": "{\n  \"images\": [\n    {\n      \"image\": {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'number.int'}},\n        \"id\": \"{{faker 'string.uuid'}}\",\n        \"originalImageUri\": \"\",\n        \"regions\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"height\": {{faker 'number.float'}},\n            \"left\": {{faker 'number.float'}},\n            \"regionId\": \"{{faker 'string.uuid'}}\",\n            \"tagId\": \"{{faker 'string.uuid'}}\",\n            \"tagName\": \"\",\n            \"top\": {{faker 'number.float'}},\n            \"width\": {{faker 'number.float'}}\n          }\n        ],\n        \"resizedImageUri\": \"\",\n        \"tags\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"tagId\": \"{{faker 'string.uuid'}}\",\n            \"tagName\": \"\"\n          }\n        ],\n        \"thumbnailUri\": \"\",\n        \"width\": {{faker 'number.int'}}\n      },\n      \"sourceUrl\": \"\",\n      \"status\": \"{{oneOf (array 'OK' 'OKDuplicate' 'ErrorSource' 'ErrorImageFormat' 'ErrorImageSize' 'ErrorStorage' 'ErrorLimitExceed' 'ErrorTagLimitExceed' 'ErrorRegionLimitExceed' 'ErrorUnknown' 'ErrorNegativeAndRegularTagOnSameImage')}}\"\n    }\n  ],\n  \"isBatchSuccessful\": {{faker 'datatype.boolean'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -649,7 +563,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "753f380e-98d7-4b94-8053-79110fc323b4",
@@ -657,12 +572,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -671,11 +581,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ab9271cb-07d2-4d4a-81be-0a3fd5938c73",
@@ -685,16 +597,11 @@
       "responses": [
         {
           "uuid": "e43b9a6b-02f7-4c64-9d03-a92a0edfa262",
-          "body": "[\n  {\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"height\": {{faker 'datatype.number'}},\n    \"id\": \"{{faker 'datatype.uuid'}}\",\n    \"originalImageUri\": \"\",\n    \"regions\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"regionId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagName\": \"\",\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      }\n    ],\n    \"resizedImageUri\": \"\",\n    \"tags\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"tagId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagName\": \"\"\n      }\n    ],\n    \"thumbnailUri\": \"\",\n    \"width\": {{faker 'datatype.number'}}\n  }\n]",
+          "body": "[\n  {\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"height\": {{faker 'number.int'}},\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"originalImageUri\": \"\",\n    \"regions\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'number.float'}},\n        \"left\": {{faker 'number.float'}},\n        \"regionId\": \"{{faker 'string.uuid'}}\",\n        \"tagId\": \"{{faker 'string.uuid'}}\",\n        \"tagName\": \"\",\n        \"top\": {{faker 'number.float'}},\n        \"width\": {{faker 'number.float'}}\n      }\n    ],\n    \"resizedImageUri\": \"\",\n    \"tags\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"tagId\": \"{{faker 'string.uuid'}}\",\n        \"tagName\": \"\"\n      }\n    ],\n    \"thumbnailUri\": \"\",\n    \"width\": {{faker 'number.int'}}\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -703,7 +610,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "dcc05cd8-0046-4f69-9516-511812e67a18",
@@ -711,12 +619,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -725,11 +628,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "15a0da58-b0da-4971-a9d3-6ca8c4181f5d",
@@ -739,16 +644,11 @@
       "responses": [
         {
           "uuid": "f31d1236-6f84-4564-b6cf-0f5435bb92fe",
-          "body": "{\n  \"images\": [\n    {\n      \"image\": {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'datatype.number'}},\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"originalImageUri\": \"\",\n        \"regions\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"height\": {{faker 'datatype.float'}},\n            \"left\": {{faker 'datatype.float'}},\n            \"regionId\": \"{{faker 'datatype.uuid'}}\",\n            \"tagId\": \"{{faker 'datatype.uuid'}}\",\n            \"tagName\": \"\",\n            \"top\": {{faker 'datatype.float'}},\n            \"width\": {{faker 'datatype.float'}}\n          }\n        ],\n        \"resizedImageUri\": \"\",\n        \"tags\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"tagId\": \"{{faker 'datatype.uuid'}}\",\n            \"tagName\": \"\"\n          }\n        ],\n        \"thumbnailUri\": \"\",\n        \"width\": {{faker 'datatype.number'}}\n      },\n      \"sourceUrl\": \"\",\n      \"status\": \"{{oneOf (array 'OK' 'OKDuplicate' 'ErrorSource' 'ErrorImageFormat' 'ErrorImageSize' 'ErrorStorage' 'ErrorLimitExceed' 'ErrorTagLimitExceed' 'ErrorRegionLimitExceed' 'ErrorUnknown' 'ErrorNegativeAndRegularTagOnSameImage')}}\"\n    }\n  ],\n  \"isBatchSuccessful\": {{faker 'datatype.boolean'}}\n}",
+          "body": "{\n  \"images\": [\n    {\n      \"image\": {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'number.int'}},\n        \"id\": \"{{faker 'string.uuid'}}\",\n        \"originalImageUri\": \"\",\n        \"regions\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"height\": {{faker 'number.float'}},\n            \"left\": {{faker 'number.float'}},\n            \"regionId\": \"{{faker 'string.uuid'}}\",\n            \"tagId\": \"{{faker 'string.uuid'}}\",\n            \"tagName\": \"\",\n            \"top\": {{faker 'number.float'}},\n            \"width\": {{faker 'number.float'}}\n          }\n        ],\n        \"resizedImageUri\": \"\",\n        \"tags\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"tagId\": \"{{faker 'string.uuid'}}\",\n            \"tagName\": \"\"\n          }\n        ],\n        \"thumbnailUri\": \"\",\n        \"width\": {{faker 'number.int'}}\n      },\n      \"sourceUrl\": \"\",\n      \"status\": \"{{oneOf (array 'OK' 'OKDuplicate' 'ErrorSource' 'ErrorImageFormat' 'ErrorImageSize' 'ErrorStorage' 'ErrorLimitExceed' 'ErrorTagLimitExceed' 'ErrorRegionLimitExceed' 'ErrorUnknown' 'ErrorNegativeAndRegularTagOnSameImage')}}\"\n    }\n  ],\n  \"isBatchSuccessful\": {{faker 'datatype.boolean'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -757,7 +657,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "99fc06a9-67f9-424b-9ad8-7a61dc9426b0",
@@ -765,12 +666,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -779,11 +675,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "44988d6e-9089-418d-b552-b3ccd30ef454",
@@ -797,12 +695,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No Content",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -811,7 +704,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "d774b854-0c33-451b-975f-340f529e78ff",
@@ -819,12 +713,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "*/*"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "*/*" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -833,11 +722,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "41c3d40c-8aeb-44a8-b542-22ca91da5a60",
@@ -847,16 +738,11 @@
       "responses": [
         {
           "uuid": "04fdc298-8546-4b77-bdb6-3d33c036ba92",
-          "body": "{\n  \"created\": [\n    {\n      \"created\": \"{{faker 'date.recent' 365}}\",\n      \"height\": {{faker 'datatype.float'}},\n      \"imageId\": \"{{faker 'datatype.uuid'}}\",\n      \"left\": {{faker 'datatype.float'}},\n      \"regionId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagName\": \"\",\n      \"top\": {{faker 'datatype.float'}},\n      \"width\": {{faker 'datatype.float'}}\n    }\n  ],\n  \"duplicated\": [\n    {\n      \"height\": {{faker 'datatype.float'}},\n      \"imageId\": \"{{faker 'datatype.uuid'}}\",\n      \"left\": {{faker 'datatype.float'}},\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"top\": {{faker 'datatype.float'}},\n      \"width\": {{faker 'datatype.float'}}\n    }\n  ],\n  \"exceeded\": [\n    {\n      \"height\": {{faker 'datatype.float'}},\n      \"imageId\": \"{{faker 'datatype.uuid'}}\",\n      \"left\": {{faker 'datatype.float'}},\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"top\": {{faker 'datatype.float'}},\n      \"width\": {{faker 'datatype.float'}}\n    }\n  ]\n}",
+          "body": "{\n  \"created\": [\n    {\n      \"created\": \"{{faker 'date.recent' 365}}\",\n      \"height\": {{faker 'number.float'}},\n      \"imageId\": \"{{faker 'string.uuid'}}\",\n      \"left\": {{faker 'number.float'}},\n      \"regionId\": \"{{faker 'string.uuid'}}\",\n      \"tagId\": \"{{faker 'string.uuid'}}\",\n      \"tagName\": \"\",\n      \"top\": {{faker 'number.float'}},\n      \"width\": {{faker 'number.float'}}\n    }\n  ],\n  \"duplicated\": [\n    {\n      \"height\": {{faker 'number.float'}},\n      \"imageId\": \"{{faker 'string.uuid'}}\",\n      \"left\": {{faker 'number.float'}},\n      \"tagId\": \"{{faker 'string.uuid'}}\",\n      \"top\": {{faker 'number.float'}},\n      \"width\": {{faker 'number.float'}}\n    }\n  ],\n  \"exceeded\": [\n    {\n      \"height\": {{faker 'number.float'}},\n      \"imageId\": \"{{faker 'string.uuid'}}\",\n      \"left\": {{faker 'number.float'}},\n      \"tagId\": \"{{faker 'string.uuid'}}\",\n      \"top\": {{faker 'number.float'}},\n      \"width\": {{faker 'number.float'}}\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -865,7 +751,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "ab84cc9b-5e63-4cb1-82e2-bb7a0a834de0",
@@ -873,12 +760,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -887,11 +769,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "958fdb17-f07f-440e-96c5-4f42a60e61b0",
@@ -901,16 +785,11 @@
       "responses": [
         {
           "uuid": "06cbac66-9687-4808-bf2c-e663f20b9b7a",
-          "body": "{\n  \"results\": [\n    {\n      \"created\": \"{{faker 'date.recent' 365}}\",\n      \"domain\": \"{{faker 'datatype.uuid'}}\",\n      \"height\": {{faker 'datatype.number'}},\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"iteration\": \"{{faker 'datatype.uuid'}}\",\n      \"originalImageUri\": \"\",\n      \"predictionUncertainty\": {{faker 'datatype.float'}},\n      \"predictions\": [\n        {\n          \"boundingBox\": {\n            \"height\": {{faker 'datatype.float'}},\n            \"left\": {{faker 'datatype.float'}},\n            \"top\": {{faker 'datatype.float'}},\n            \"width\": {{faker 'datatype.float'}}\n          },\n          \"probability\": {{faker 'datatype.float'}},\n          \"tagId\": \"{{faker 'datatype.uuid'}}\",\n          \"tagName\": \"\"\n        }\n      ],\n      \"project\": \"{{faker 'datatype.uuid'}}\",\n      \"resizedImageUri\": \"\",\n      \"thumbnailUri\": \"\",\n      \"width\": {{faker 'datatype.number'}}\n    }\n  ],\n  \"token\": {\n    \"continuation\": \"\",\n    \"maxCount\": {{faker 'datatype.number'}},\n    \"session\": \"\",\n    \"sortBy\": \"{{oneOf (array 'UncertaintyAscending' 'UncertaintyDescending')}}\",\n    \"tagIds\": [\n      \"{{faker 'datatype.uuid'}}\"\n    ],\n    \"threshold\": {{faker 'datatype.float'}}\n  }\n}",
+          "body": "{\n  \"results\": [\n    {\n      \"created\": \"{{faker 'date.recent' 365}}\",\n      \"domain\": \"{{faker 'string.uuid'}}\",\n      \"height\": {{faker 'number.int'}},\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"iteration\": \"{{faker 'string.uuid'}}\",\n      \"originalImageUri\": \"\",\n      \"predictionUncertainty\": {{faker 'number.float'}},\n      \"predictions\": [\n        {\n          \"boundingBox\": {\n            \"height\": {{faker 'number.float'}},\n            \"left\": {{faker 'number.float'}},\n            \"top\": {{faker 'number.float'}},\n            \"width\": {{faker 'number.float'}}\n          },\n          \"probability\": {{faker 'number.float'}},\n          \"tagId\": \"{{faker 'string.uuid'}}\",\n          \"tagName\": \"\"\n        }\n      ],\n      \"project\": \"{{faker 'string.uuid'}}\",\n      \"resizedImageUri\": \"\",\n      \"thumbnailUri\": \"\",\n      \"width\": {{faker 'number.int'}}\n    }\n  ],\n  \"token\": {\n    \"continuation\": \"\",\n    \"maxCount\": {{faker 'number.int'}},\n    \"session\": \"\",\n    \"sortBy\": \"{{oneOf (array 'UncertaintyAscending' 'UncertaintyDescending')}}\",\n    \"tagIds\": [\n      \"{{faker 'string.uuid'}}\"\n    ],\n    \"threshold\": {{faker 'number.float'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -919,7 +798,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "453a8b65-6f71-46ee-943b-ea465ed3c045",
@@ -927,12 +807,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -941,11 +816,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "f212e98d-7a62-4d51-8286-6e6d227df181",
@@ -959,12 +836,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -973,7 +845,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "460dde94-2585-47ec-b8ea-d97d922de295",
@@ -981,12 +854,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -995,11 +863,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "d24d7dd1-1aed-41d0-a912-85e491847114",
@@ -1009,16 +879,11 @@
       "responses": [
         {
           "uuid": "7e929594-a660-452a-a100-1f58101179a7",
-          "body": "[\n  {\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"height\": {{faker 'datatype.number'}},\n    \"id\": \"{{faker 'datatype.uuid'}}\",\n    \"originalImageUri\": \"\",\n    \"regions\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"regionId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagName\": \"\",\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      }\n    ],\n    \"resizedImageUri\": \"\",\n    \"tags\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"tagId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagName\": \"\"\n      }\n    ],\n    \"thumbnailUri\": \"\",\n    \"width\": {{faker 'datatype.number'}}\n  }\n]",
+          "body": "[\n  {\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"height\": {{faker 'number.int'}},\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"originalImageUri\": \"\",\n    \"regions\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'number.float'}},\n        \"left\": {{faker 'number.float'}},\n        \"regionId\": \"{{faker 'string.uuid'}}\",\n        \"tagId\": \"{{faker 'string.uuid'}}\",\n        \"tagName\": \"\",\n        \"top\": {{faker 'number.float'}},\n        \"width\": {{faker 'number.float'}}\n      }\n    ],\n    \"resizedImageUri\": \"\",\n    \"tags\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"tagId\": \"{{faker 'string.uuid'}}\",\n        \"tagName\": \"\"\n      }\n    ],\n    \"thumbnailUri\": \"\",\n    \"width\": {{faker 'number.int'}}\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1027,7 +892,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "6be96091-0119-4373-8d03-615dfc92dc8f",
@@ -1035,12 +901,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1049,11 +910,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "b30275d3-1143-4bc5-b36c-08ba1dd323bf",
@@ -1063,16 +926,11 @@
       "responses": [
         {
           "uuid": "495c3f4f-0666-4b4f-a8d4-e280bbb458d4",
-          "body": "{{faker 'datatype.number'}}",
+          "body": "{{faker 'number.int'}}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1081,7 +939,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "4a825f0c-b50b-4e99-b2b3-7950b6b48fbc",
@@ -1089,12 +948,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1103,11 +957,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "772f8966-1525-4da8-83b1-0a38bfe83599",
@@ -1121,12 +977,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No Content",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1135,7 +986,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e02a72eb-7abd-4324-a4dc-49340c216220",
@@ -1143,12 +995,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "*/*"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "*/*" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1157,11 +1004,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "9d1ad868-6e82-49ec-aa79-d332ec56ce90",
@@ -1171,16 +1020,11 @@
       "responses": [
         {
           "uuid": "14b54916-6160-488e-80f9-e5f52923d5a9",
-          "body": "{\n  \"created\": [\n    {\n      \"imageId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagId\": \"{{faker 'datatype.uuid'}}\"\n    }\n  ],\n  \"duplicated\": [\n    {\n      \"imageId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagId\": \"{{faker 'datatype.uuid'}}\"\n    }\n  ],\n  \"exceeded\": [\n    {\n      \"imageId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagId\": \"{{faker 'datatype.uuid'}}\"\n    }\n  ]\n}",
+          "body": "{\n  \"created\": [\n    {\n      \"imageId\": \"{{faker 'string.uuid'}}\",\n      \"tagId\": \"{{faker 'string.uuid'}}\"\n    }\n  ],\n  \"duplicated\": [\n    {\n      \"imageId\": \"{{faker 'string.uuid'}}\",\n      \"tagId\": \"{{faker 'string.uuid'}}\"\n    }\n  ],\n  \"exceeded\": [\n    {\n      \"imageId\": \"{{faker 'string.uuid'}}\",\n      \"tagId\": \"{{faker 'string.uuid'}}\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1189,7 +1033,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "a54ef880-1f52-426c-8aae-7d324d88ec0f",
@@ -1197,12 +1042,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1211,11 +1051,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "89c85b7c-a6cb-4273-b038-319f530962ee",
@@ -1225,16 +1067,11 @@
       "responses": [
         {
           "uuid": "700856c8-3517-470b-8fda-ea1baf259dfe",
-          "body": "[\n  {\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"height\": {{faker 'datatype.number'}},\n    \"id\": \"{{faker 'datatype.uuid'}}\",\n    \"originalImageUri\": \"\",\n    \"regions\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"regionId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagName\": \"\",\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      }\n    ],\n    \"resizedImageUri\": \"\",\n    \"tags\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"tagId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagName\": \"\"\n      }\n    ],\n    \"thumbnailUri\": \"\",\n    \"width\": {{faker 'datatype.number'}}\n  }\n]",
+          "body": "[\n  {\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"height\": {{faker 'number.int'}},\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"originalImageUri\": \"\",\n    \"regions\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'number.float'}},\n        \"left\": {{faker 'number.float'}},\n        \"regionId\": \"{{faker 'string.uuid'}}\",\n        \"tagId\": \"{{faker 'string.uuid'}}\",\n        \"tagName\": \"\",\n        \"top\": {{faker 'number.float'}},\n        \"width\": {{faker 'number.float'}}\n      }\n    ],\n    \"resizedImageUri\": \"\",\n    \"tags\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"tagId\": \"{{faker 'string.uuid'}}\",\n        \"tagName\": \"\"\n      }\n    ],\n    \"thumbnailUri\": \"\",\n    \"width\": {{faker 'number.int'}}\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1243,7 +1080,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "93f0c640-4c6c-4d7e-818e-d307f9181ced",
@@ -1251,12 +1089,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1265,11 +1098,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "3c214fa2-9662-47bc-a774-10f8a3c05a9b",
@@ -1279,16 +1114,11 @@
       "responses": [
         {
           "uuid": "2896860f-f744-4f39-8b2a-811730be2b10",
-          "body": "{{faker 'datatype.number'}}",
+          "body": "{{faker 'number.int'}}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1297,7 +1127,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c1c188f6-b6bf-4fb5-996e-273612981806",
@@ -1305,12 +1136,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1319,11 +1145,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "5fb8a1b9-9520-40cc-8dbd-d73edf4b2007",
@@ -1333,16 +1161,11 @@
       "responses": [
         {
           "uuid": "3b295f2a-856f-44af-b4cc-67d1568a19aa",
-          "body": "{\n  \"images\": [\n    {\n      \"image\": {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'datatype.number'}},\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"originalImageUri\": \"\",\n        \"regions\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"height\": {{faker 'datatype.float'}},\n            \"left\": {{faker 'datatype.float'}},\n            \"regionId\": \"{{faker 'datatype.uuid'}}\",\n            \"tagId\": \"{{faker 'datatype.uuid'}}\",\n            \"tagName\": \"\",\n            \"top\": {{faker 'datatype.float'}},\n            \"width\": {{faker 'datatype.float'}}\n          }\n        ],\n        \"resizedImageUri\": \"\",\n        \"tags\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"tagId\": \"{{faker 'datatype.uuid'}}\",\n            \"tagName\": \"\"\n          }\n        ],\n        \"thumbnailUri\": \"\",\n        \"width\": {{faker 'datatype.number'}}\n      },\n      \"sourceUrl\": \"\",\n      \"status\": \"{{oneOf (array 'OK' 'OKDuplicate' 'ErrorSource' 'ErrorImageFormat' 'ErrorImageSize' 'ErrorStorage' 'ErrorLimitExceed' 'ErrorTagLimitExceed' 'ErrorRegionLimitExceed' 'ErrorUnknown' 'ErrorNegativeAndRegularTagOnSameImage')}}\"\n    }\n  ],\n  \"isBatchSuccessful\": {{faker 'datatype.boolean'}}\n}",
+          "body": "{\n  \"images\": [\n    {\n      \"image\": {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'number.int'}},\n        \"id\": \"{{faker 'string.uuid'}}\",\n        \"originalImageUri\": \"\",\n        \"regions\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"height\": {{faker 'number.float'}},\n            \"left\": {{faker 'number.float'}},\n            \"regionId\": \"{{faker 'string.uuid'}}\",\n            \"tagId\": \"{{faker 'string.uuid'}}\",\n            \"tagName\": \"\",\n            \"top\": {{faker 'number.float'}},\n            \"width\": {{faker 'number.float'}}\n          }\n        ],\n        \"resizedImageUri\": \"\",\n        \"tags\": [\n          {\n            \"created\": \"{{faker 'date.recent' 365}}\",\n            \"tagId\": \"{{faker 'string.uuid'}}\",\n            \"tagName\": \"\"\n          }\n        ],\n        \"thumbnailUri\": \"\",\n        \"width\": {{faker 'number.int'}}\n      },\n      \"sourceUrl\": \"\",\n      \"status\": \"{{oneOf (array 'OK' 'OKDuplicate' 'ErrorSource' 'ErrorImageFormat' 'ErrorImageSize' 'ErrorStorage' 'ErrorLimitExceed' 'ErrorTagLimitExceed' 'ErrorRegionLimitExceed' 'ErrorUnknown' 'ErrorNegativeAndRegularTagOnSameImage')}}\"\n    }\n  ],\n  \"isBatchSuccessful\": {{faker 'datatype.boolean'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1351,7 +1174,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "84db2efc-10ab-40a4-9d5e-962206651019",
@@ -1359,12 +1183,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1373,11 +1192,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "0328f37e-0d3d-48c2-ac60-a87826c2b524",
@@ -1387,16 +1208,11 @@
       "responses": [
         {
           "uuid": "29f8fe5f-48e8-4cc8-a476-5a0c285ea535",
-          "body": "{\n  \"imageId\": \"{{faker 'datatype.uuid'}}\",\n  \"projectId\": \"{{faker 'datatype.uuid'}}\",\n  \"proposals\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      },\n      \"confidence\": {{faker 'datatype.float'}}\n    }\n  ]\n}",
+          "body": "{\n  \"imageId\": \"{{faker 'string.uuid'}}\",\n  \"projectId\": \"{{faker 'string.uuid'}}\",\n  \"proposals\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'number.float'}},\n        \"left\": {{faker 'number.float'}},\n        \"top\": {{faker 'number.float'}},\n        \"width\": {{faker 'number.float'}}\n      },\n      \"confidence\": {{faker 'number.float'}}\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1405,7 +1221,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "f84cd9d8-a1d1-4df4-93a0-73c92fbb1bbe",
@@ -1413,12 +1230,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1427,11 +1239,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "8e930fb4-34c3-4223-9a0a-f9c699553608",
@@ -1441,16 +1255,11 @@
       "responses": [
         {
           "uuid": "116e0b19-ce86-4154-83b7-15cf4435d889",
-          "body": "[\n  {\n    \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"domainId\": \"{{faker 'datatype.uuid'}}\",\n    \"exportable\": {{faker 'datatype.boolean'}},\n    \"exportableTo\": [\n      \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n    ],\n    \"id\": \"{{faker 'datatype.uuid'}}\",\n    \"lastModified\": \"{{faker 'date.recent' 365}}\",\n    \"name\": \"\",\n    \"originalPublishResourceId\": \"\",\n    \"projectId\": \"{{faker 'datatype.uuid'}}\",\n    \"publishName\": \"\",\n    \"reservedBudgetInHours\": {{faker 'datatype.number'}},\n    \"status\": \"\",\n    \"trainedAt\": \"{{faker 'date.recent' 365}}\",\n    \"trainingTimeInMinutes\": {{faker 'datatype.number'}},\n    \"trainingType\": \"{{oneOf (array 'Regular' 'Advanced')}}\"\n  }\n]",
+          "body": "[\n  {\n    \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"domainId\": \"{{faker 'string.uuid'}}\",\n    \"exportable\": {{faker 'datatype.boolean'}},\n    \"exportableTo\": [\n      \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n    ],\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"lastModified\": \"{{faker 'date.recent' 365}}\",\n    \"name\": \"\",\n    \"originalPublishResourceId\": \"\",\n    \"projectId\": \"{{faker 'string.uuid'}}\",\n    \"publishName\": \"\",\n    \"reservedBudgetInHours\": {{faker 'number.int'}},\n    \"status\": \"\",\n    \"trainedAt\": \"{{faker 'date.recent' 365}}\",\n    \"trainingTimeInMinutes\": {{faker 'number.int'}},\n    \"trainingType\": \"{{oneOf (array 'Regular' 'Advanced')}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1459,7 +1268,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "1f619adb-de0f-4838-9d52-cb9593919727",
@@ -1467,12 +1277,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1481,11 +1286,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "05e409e3-9c3e-478f-8733-aa55df74cf9c",
@@ -1499,12 +1306,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No Content",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1513,7 +1315,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "392738aa-e0dd-466a-bbc8-6e09b7e78559",
@@ -1521,12 +1324,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "*/*"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "*/*" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1535,11 +1333,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "cfdc1036-8974-4aa7-812f-0fbd0ff09f2c",
@@ -1549,16 +1349,11 @@
       "responses": [
         {
           "uuid": "ff8232b3-4133-4c23-b6ec-0afbda83b37f",
-          "body": "{\n  \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"domainId\": \"{{faker 'datatype.uuid'}}\",\n  \"exportable\": {{faker 'datatype.boolean'}},\n  \"exportableTo\": [\n    \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n  ],\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"originalPublishResourceId\": \"\",\n  \"projectId\": \"{{faker 'datatype.uuid'}}\",\n  \"publishName\": \"\",\n  \"reservedBudgetInHours\": {{faker 'datatype.number'}},\n  \"status\": \"\",\n  \"trainedAt\": \"{{faker 'date.recent' 365}}\",\n  \"trainingTimeInMinutes\": {{faker 'datatype.number'}},\n  \"trainingType\": \"{{oneOf (array 'Regular' 'Advanced')}}\"\n}",
+          "body": "{\n  \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"domainId\": \"{{faker 'string.uuid'}}\",\n  \"exportable\": {{faker 'datatype.boolean'}},\n  \"exportableTo\": [\n    \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n  ],\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"originalPublishResourceId\": \"\",\n  \"projectId\": \"{{faker 'string.uuid'}}\",\n  \"publishName\": \"\",\n  \"reservedBudgetInHours\": {{faker 'number.int'}},\n  \"status\": \"\",\n  \"trainedAt\": \"{{faker 'date.recent' 365}}\",\n  \"trainingTimeInMinutes\": {{faker 'number.int'}},\n  \"trainingType\": \"{{oneOf (array 'Regular' 'Advanced')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1567,7 +1362,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "008cce36-6e3b-4647-a972-ec91253de33e",
@@ -1575,12 +1371,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1589,11 +1380,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "7a51e5a8-36ec-4ab5-bb2d-5ab8ef7d3b0b",
@@ -1603,16 +1396,11 @@
       "responses": [
         {
           "uuid": "c3221ea9-ad5e-428d-bc78-cf284d86af88",
-          "body": "{\n  \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"domainId\": \"{{faker 'datatype.uuid'}}\",\n  \"exportable\": {{faker 'datatype.boolean'}},\n  \"exportableTo\": [\n    \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n  ],\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"originalPublishResourceId\": \"\",\n  \"projectId\": \"{{faker 'datatype.uuid'}}\",\n  \"publishName\": \"\",\n  \"reservedBudgetInHours\": {{faker 'datatype.number'}},\n  \"status\": \"\",\n  \"trainedAt\": \"{{faker 'date.recent' 365}}\",\n  \"trainingTimeInMinutes\": {{faker 'datatype.number'}},\n  \"trainingType\": \"{{oneOf (array 'Regular' 'Advanced')}}\"\n}",
+          "body": "{\n  \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"domainId\": \"{{faker 'string.uuid'}}\",\n  \"exportable\": {{faker 'datatype.boolean'}},\n  \"exportableTo\": [\n    \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n  ],\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"originalPublishResourceId\": \"\",\n  \"projectId\": \"{{faker 'string.uuid'}}\",\n  \"publishName\": \"\",\n  \"reservedBudgetInHours\": {{faker 'number.int'}},\n  \"status\": \"\",\n  \"trainedAt\": \"{{faker 'date.recent' 365}}\",\n  \"trainingTimeInMinutes\": {{faker 'number.int'}},\n  \"trainingType\": \"{{oneOf (array 'Regular' 'Advanced')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1621,7 +1409,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "15a0a365-a153-4d7a-b965-cf477ecb35cf",
@@ -1629,12 +1418,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1643,11 +1427,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "79ae9a35-78e3-4f18-991f-0c4820792e37",
@@ -1661,12 +1447,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1675,7 +1456,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "b8346023-e4d8-4255-9fff-22efecf387f2",
@@ -1683,12 +1465,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1697,11 +1474,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "51e4b72d-2630-4462-a7a1-5e27652c5d59",
@@ -1715,12 +1494,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1729,7 +1503,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "10b6a2c0-8062-46f0-8a23-973782a00947",
@@ -1737,12 +1512,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1751,11 +1521,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "aeeed3a2-3d83-4dbb-8cf3-76ad2cca6076",
@@ -1765,16 +1537,11 @@
       "responses": [
         {
           "uuid": "1c5f8d25-9a71-48e5-a949-79f7a77bde9b",
-          "body": "{\n  \"averagePrecision\": {{faker 'datatype.float'}},\n  \"perTagPerformance\": [\n    {\n      \"averagePrecision\": {{faker 'datatype.float'}},\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"name\": \"\",\n      \"precision\": {{faker 'datatype.float'}},\n      \"precisionStdDeviation\": {{faker 'datatype.float'}},\n      \"recall\": {{faker 'datatype.float'}},\n      \"recallStdDeviation\": {{faker 'datatype.float'}}\n    }\n  ],\n  \"precision\": {{faker 'datatype.float'}},\n  \"precisionStdDeviation\": {{faker 'datatype.float'}},\n  \"recall\": {{faker 'datatype.float'}},\n  \"recallStdDeviation\": {{faker 'datatype.float'}}\n}",
+          "body": "{\n  \"averagePrecision\": {{faker 'number.float'}},\n  \"perTagPerformance\": [\n    {\n      \"averagePrecision\": {{faker 'number.float'}},\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"name\": \"\",\n      \"precision\": {{faker 'number.float'}},\n      \"precisionStdDeviation\": {{faker 'number.float'}},\n      \"recall\": {{faker 'number.float'}},\n      \"recallStdDeviation\": {{faker 'number.float'}}\n    }\n  ],\n  \"precision\": {{faker 'number.float'}},\n  \"precisionStdDeviation\": {{faker 'number.float'}},\n  \"recall\": {{faker 'number.float'}},\n  \"recallStdDeviation\": {{faker 'number.float'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1783,7 +1550,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "b24d6faa-3cad-44e0-b5c0-1adbddd967f1",
@@ -1791,12 +1559,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1805,11 +1568,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ec3de1c2-2462-47e9-924e-decec1016e49",
@@ -1819,16 +1584,11 @@
       "responses": [
         {
           "uuid": "4a305415-bf28-4650-97be-8b4f0f2a4ee4",
-          "body": "[\n  {\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"height\": {{faker 'datatype.number'}},\n    \"id\": \"{{faker 'datatype.uuid'}}\",\n    \"imageUri\": \"\",\n    \"predictions\": [\n      {\n        \"boundingBox\": {\n          \"height\": {{faker 'datatype.float'}},\n          \"left\": {{faker 'datatype.float'}},\n          \"top\": {{faker 'datatype.float'}},\n          \"width\": {{faker 'datatype.float'}}\n        },\n        \"probability\": {{faker 'datatype.float'}},\n        \"tagId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagName\": \"\"\n      }\n    ],\n    \"regions\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"regionId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagName\": \"\",\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      }\n    ],\n    \"tags\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"tagId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagName\": \"\"\n      }\n    ],\n    \"thumbnailUri\": \"\",\n    \"width\": {{faker 'datatype.number'}}\n  }\n]",
+          "body": "[\n  {\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"height\": {{faker 'number.int'}},\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"imageUri\": \"\",\n    \"predictions\": [\n      {\n        \"boundingBox\": {\n          \"height\": {{faker 'number.float'}},\n          \"left\": {{faker 'number.float'}},\n          \"top\": {{faker 'number.float'}},\n          \"width\": {{faker 'number.float'}}\n        },\n        \"probability\": {{faker 'number.float'}},\n        \"tagId\": \"{{faker 'string.uuid'}}\",\n        \"tagName\": \"\"\n      }\n    ],\n    \"regions\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"height\": {{faker 'number.float'}},\n        \"left\": {{faker 'number.float'}},\n        \"regionId\": \"{{faker 'string.uuid'}}\",\n        \"tagId\": \"{{faker 'string.uuid'}}\",\n        \"tagName\": \"\",\n        \"top\": {{faker 'number.float'}},\n        \"width\": {{faker 'number.float'}}\n      }\n    ],\n    \"tags\": [\n      {\n        \"created\": \"{{faker 'date.recent' 365}}\",\n        \"tagId\": \"{{faker 'string.uuid'}}\",\n        \"tagName\": \"\"\n      }\n    ],\n    \"thumbnailUri\": \"\",\n    \"width\": {{faker 'number.int'}}\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1837,7 +1597,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "d8c9eed0-a5f4-4600-b1be-87733e4e93b0",
@@ -1845,12 +1606,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1859,11 +1615,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "7c12e3dd-af19-4937-a753-b271a704ff4b",
@@ -1873,16 +1631,11 @@
       "responses": [
         {
           "uuid": "613b78de-a153-4f3c-836d-a52eeda34e68",
-          "body": "{{faker 'datatype.number'}}",
+          "body": "{{faker 'number.int'}}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1891,7 +1644,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "af46e982-60dd-49f6-997c-2def3c0dd434",
@@ -1899,12 +1653,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1913,11 +1662,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "2c346ddf-7276-47b7-80ac-4bdc897b2639",
@@ -1931,12 +1682,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No Content",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1945,7 +1691,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "7aa63c7b-7c0d-448a-b19e-8bcb24275f2e",
@@ -1953,12 +1700,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "*/*"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "*/*" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1967,11 +1709,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "0c1da32c-564d-4f39-8bb5-dbb32938886b",
@@ -1985,12 +1729,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1999,7 +1738,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "bd72269c-51d5-488e-bbd6-2bbcd7374d83",
@@ -2007,12 +1747,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2021,11 +1756,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "fc2da50b-909f-4d1e-8dec-aced1d96f6f5",
@@ -2039,12 +1776,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No Content",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2053,7 +1785,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "9f21c020-12de-4b4a-b823-f4528cef7ed5",
@@ -2061,12 +1794,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "*/*"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "*/*" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2075,11 +1803,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "5b15f038-80cc-4fda-9df7-abbb08b3179c",
@@ -2089,16 +1819,11 @@
       "responses": [
         {
           "uuid": "436cea18-77f1-4f0e-acc8-bba71651aebf",
-          "body": "{\n  \"results\": [\n    {\n      \"created\": \"{{faker 'date.recent' 365}}\",\n      \"domain\": \"{{faker 'datatype.uuid'}}\",\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"iteration\": \"{{faker 'datatype.uuid'}}\",\n      \"originalImageUri\": \"\",\n      \"predictions\": [\n        {\n          \"boundingBox\": {\n            \"height\": {{faker 'datatype.float'}},\n            \"left\": {{faker 'datatype.float'}},\n            \"top\": {{faker 'datatype.float'}},\n            \"width\": {{faker 'datatype.float'}}\n          },\n          \"probability\": {{faker 'datatype.float'}},\n          \"tagId\": \"{{faker 'datatype.uuid'}}\",\n          \"tagName\": \"\"\n        }\n      ],\n      \"project\": \"{{faker 'datatype.uuid'}}\",\n      \"resizedImageUri\": \"\",\n      \"thumbnailUri\": \"\"\n    }\n  ],\n  \"token\": {\n    \"application\": \"\",\n    \"continuation\": \"\",\n    \"endTime\": \"{{faker 'date.recent' 365}}\",\n    \"iterationId\": \"{{faker 'datatype.uuid'}}\",\n    \"maxCount\": {{faker 'datatype.number'}},\n    \"orderBy\": \"{{oneOf (array 'Newest' 'Oldest' 'Suggested')}}\",\n    \"session\": \"\",\n    \"startTime\": \"{{faker 'date.recent' 365}}\",\n    \"tags\": [\n      {\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"maxThreshold\": {{faker 'datatype.float'}},\n        \"minThreshold\": {{faker 'datatype.float'}}\n      }\n    ]\n  }\n}",
+          "body": "{\n  \"results\": [\n    {\n      \"created\": \"{{faker 'date.recent' 365}}\",\n      \"domain\": \"{{faker 'string.uuid'}}\",\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"iteration\": \"{{faker 'string.uuid'}}\",\n      \"originalImageUri\": \"\",\n      \"predictions\": [\n        {\n          \"boundingBox\": {\n            \"height\": {{faker 'number.float'}},\n            \"left\": {{faker 'number.float'}},\n            \"top\": {{faker 'number.float'}},\n            \"width\": {{faker 'number.float'}}\n          },\n          \"probability\": {{faker 'number.float'}},\n          \"tagId\": \"{{faker 'string.uuid'}}\",\n          \"tagName\": \"\"\n        }\n      ],\n      \"project\": \"{{faker 'string.uuid'}}\",\n      \"resizedImageUri\": \"\",\n      \"thumbnailUri\": \"\"\n    }\n  ],\n  \"token\": {\n    \"application\": \"\",\n    \"continuation\": \"\",\n    \"endTime\": \"{{faker 'date.recent' 365}}\",\n    \"iterationId\": \"{{faker 'string.uuid'}}\",\n    \"maxCount\": {{faker 'number.int'}},\n    \"orderBy\": \"{{oneOf (array 'Newest' 'Oldest' 'Suggested')}}\",\n    \"session\": \"\",\n    \"startTime\": \"{{faker 'date.recent' 365}}\",\n    \"tags\": [\n      {\n        \"id\": \"{{faker 'string.uuid'}}\",\n        \"maxThreshold\": {{faker 'number.float'}},\n        \"minThreshold\": {{faker 'number.float'}}\n      }\n    ]\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2107,7 +1832,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "a0c9fbc4-3f91-4b0a-b827-4e1ffff94744",
@@ -2115,12 +1841,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2129,11 +1850,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "85f3cdcc-e7d9-4a0a-a036-4c5e616f2f9d",
@@ -2143,16 +1866,11 @@
       "responses": [
         {
           "uuid": "6f44dbcb-847d-4698-bf20-eaa3d8ab91be",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"iteration\": \"{{faker 'datatype.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      },\n      \"probability\": {{faker 'datatype.float'}},\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'datatype.uuid'}}\"\n}",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"iteration\": \"{{faker 'string.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'number.float'}},\n        \"left\": {{faker 'number.float'}},\n        \"top\": {{faker 'number.float'}},\n        \"width\": {{faker 'number.float'}}\n      },\n      \"probability\": {{faker 'number.float'}},\n      \"tagId\": \"{{faker 'string.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'string.uuid'}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2161,7 +1879,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "83822c20-48d2-4ba0-bb13-00abf5446362",
@@ -2169,12 +1888,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2183,11 +1897,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "5e6c5c7b-822b-4acb-953b-dcd7b830b0db",
@@ -2197,16 +1913,11 @@
       "responses": [
         {
           "uuid": "ea777ea7-75c0-4e23-8635-5276d47b712f",
-          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"iteration\": \"{{faker 'datatype.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'datatype.float'}},\n        \"left\": {{faker 'datatype.float'}},\n        \"top\": {{faker 'datatype.float'}},\n        \"width\": {{faker 'datatype.float'}}\n      },\n      \"probability\": {{faker 'datatype.float'}},\n      \"tagId\": \"{{faker 'datatype.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'datatype.uuid'}}\"\n}",
+          "body": "{\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"iteration\": \"{{faker 'string.uuid'}}\",\n  \"predictions\": [\n    {\n      \"boundingBox\": {\n        \"height\": {{faker 'number.float'}},\n        \"left\": {{faker 'number.float'}},\n        \"top\": {{faker 'number.float'}},\n        \"width\": {{faker 'number.float'}}\n      },\n      \"probability\": {{faker 'number.float'}},\n      \"tagId\": \"{{faker 'string.uuid'}}\",\n      \"tagName\": \"\"\n    }\n  ],\n  \"project\": \"{{faker 'string.uuid'}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2215,7 +1926,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "8ac69d48-1d46-400b-b7c0-d13770fd6a75",
@@ -2223,12 +1935,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2237,11 +1944,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "33bafccd-c3b6-46b2-a1e8-8614a8a80ddb",
@@ -2251,16 +1960,11 @@
       "responses": [
         {
           "uuid": "37468f34-368a-46b8-bbf2-95ac09ace4eb",
-          "body": "[\n  {\n    \"description\": \"\",\n    \"id\": \"{{faker 'datatype.uuid'}}\",\n    \"imageCount\": {{faker 'datatype.number'}},\n    \"name\": \"\",\n    \"type\": \"{{oneOf (array 'Regular' 'Negative')}}\"\n  }\n]",
+          "body": "[\n  {\n    \"description\": \"\",\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"imageCount\": {{faker 'number.int'}},\n    \"name\": \"\",\n    \"type\": \"{{oneOf (array 'Regular' 'Negative')}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2269,7 +1973,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c9a3dc89-2150-4947-9b5f-083da6dee5b7",
@@ -2277,12 +1982,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2291,11 +1991,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "55f6faeb-000f-4fd8-8804-da804234bc14",
@@ -2305,16 +2007,11 @@
       "responses": [
         {
           "uuid": "b20d71e3-a52b-4b78-8d55-31bf18185e59",
-          "body": "{\n  \"description\": \"\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"imageCount\": {{faker 'datatype.number'}},\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'Regular' 'Negative')}}\"\n}",
+          "body": "{\n  \"description\": \"\",\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"imageCount\": {{faker 'number.int'}},\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'Regular' 'Negative')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2323,7 +2020,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "02f09b76-fed3-4ad4-b3d3-052230e531a2",
@@ -2331,12 +2029,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2345,11 +2038,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ed3357ea-435f-4ce2-8a79-bedbcea372a5",
@@ -2363,12 +2058,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No Content",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2377,7 +2067,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "d8d55ed4-bfda-47c6-b362-535f6c17c7c9",
@@ -2385,12 +2076,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "*/*"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "*/*" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2399,11 +2085,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "3fa4cd84-e01a-454f-b526-58445e82fa9a",
@@ -2413,16 +2101,11 @@
       "responses": [
         {
           "uuid": "3785639a-2143-4b71-b2f8-a509fddae931",
-          "body": "{\n  \"description\": \"\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"imageCount\": {{faker 'datatype.number'}},\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'Regular' 'Negative')}}\"\n}",
+          "body": "{\n  \"description\": \"\",\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"imageCount\": {{faker 'number.int'}},\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'Regular' 'Negative')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2431,7 +2114,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "3acc9091-57ed-4098-affa-d2d8dbfff069",
@@ -2439,12 +2123,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2453,11 +2132,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "e94c81ad-999b-464f-b9de-461a2754229c",
@@ -2467,16 +2148,11 @@
       "responses": [
         {
           "uuid": "04e7a590-bb10-4d19-80d5-7b8793f91c49",
-          "body": "{\n  \"description\": \"\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"imageCount\": {{faker 'datatype.number'}},\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'Regular' 'Negative')}}\"\n}",
+          "body": "{\n  \"description\": \"\",\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"imageCount\": {{faker 'number.int'}},\n  \"name\": \"\",\n  \"type\": \"{{oneOf (array 'Regular' 'Negative')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2485,7 +2161,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c59520de-4dfd-48af-ae80-96bee69b88f0",
@@ -2493,12 +2170,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2507,11 +2179,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "e4f17134-4dde-4869-b0fe-1aae4ae0bfe8",
@@ -2521,16 +2195,11 @@
       "responses": [
         {
           "uuid": "1496dfad-530a-454a-9199-a47c17383bb6",
-          "body": "[\n  {\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"id\": \"{{faker 'datatype.uuid'}}\",\n    \"iteration\": \"{{faker 'datatype.uuid'}}\",\n    \"predictionUncertainty\": {{faker 'datatype.float'}},\n    \"predictions\": [\n      {\n        \"boundingBox\": {\n          \"height\": {{faker 'datatype.float'}},\n          \"left\": {{faker 'datatype.float'}},\n          \"top\": {{faker 'datatype.float'}},\n          \"width\": {{faker 'datatype.float'}}\n        },\n        \"probability\": {{faker 'datatype.float'}},\n        \"tagId\": \"{{faker 'datatype.uuid'}}\",\n        \"tagName\": \"\"\n      }\n    ],\n    \"project\": \"{{faker 'datatype.uuid'}}\"\n  }\n]",
+          "body": "[\n  {\n    \"created\": \"{{faker 'date.recent' 365}}\",\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"iteration\": \"{{faker 'string.uuid'}}\",\n    \"predictionUncertainty\": {{faker 'number.float'}},\n    \"predictions\": [\n      {\n        \"boundingBox\": {\n          \"height\": {{faker 'number.float'}},\n          \"left\": {{faker 'number.float'}},\n          \"top\": {{faker 'number.float'}},\n          \"width\": {{faker 'number.float'}}\n        },\n        \"probability\": {{faker 'number.float'}},\n        \"tagId\": \"{{faker 'string.uuid'}}\",\n        \"tagName\": \"\"\n      }\n    ],\n    \"project\": \"{{faker 'string.uuid'}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2539,7 +2208,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "0c3e563e-a4d3-4f48-982e-30b3f95243d0",
@@ -2547,12 +2217,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2561,11 +2226,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "c735d457-3e18-47c6-bdff-58591197f094",
@@ -2575,16 +2242,11 @@
       "responses": [
         {
           "uuid": "b394fabb-e50e-4373-a76f-84c0816922ce",
-          "body": "{\n  \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"domainId\": \"{{faker 'datatype.uuid'}}\",\n  \"exportable\": {{faker 'datatype.boolean'}},\n  \"exportableTo\": [\n    \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n  ],\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"originalPublishResourceId\": \"\",\n  \"projectId\": \"{{faker 'datatype.uuid'}}\",\n  \"publishName\": \"\",\n  \"reservedBudgetInHours\": {{faker 'datatype.number'}},\n  \"status\": \"\",\n  \"trainedAt\": \"{{faker 'date.recent' 365}}\",\n  \"trainingTimeInMinutes\": {{faker 'datatype.number'}},\n  \"trainingType\": \"{{oneOf (array 'Regular' 'Advanced')}}\"\n}",
+          "body": "{\n  \"classificationType\": \"{{oneOf (array 'Multiclass' 'Multilabel')}}\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"domainId\": \"{{faker 'string.uuid'}}\",\n  \"exportable\": {{faker 'datatype.boolean'}},\n  \"exportableTo\": [\n    \"{{oneOf (array 'CoreML' 'TensorFlow' 'DockerFile' 'ONNX' 'VAIDK')}}\"\n  ],\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"lastModified\": \"{{faker 'date.recent' 365}}\",\n  \"name\": \"\",\n  \"originalPublishResourceId\": \"\",\n  \"projectId\": \"{{faker 'string.uuid'}}\",\n  \"publishName\": \"\",\n  \"reservedBudgetInHours\": {{faker 'number.int'}},\n  \"status\": \"\",\n  \"trainedAt\": \"{{faker 'date.recent' 365}}\",\n  \"trainingTimeInMinutes\": {{faker 'number.int'}},\n  \"trainingType\": \"{{oneOf (array 'Regular' 'Advanced')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2593,7 +2255,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "ffc30b1e-756e-40a3-aa5a-69091fd206c1",
@@ -2601,12 +2264,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2615,11 +2273,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -2636,17 +2296,58 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "38b45acd-c60e-4f9f-b95a-d463a9c396ed" },
+    { "type": "route", "uuid": "e6506fad-eaea-4ac7-856e-66bc714ac175" },
+    { "type": "route", "uuid": "d491ce80-b201-4881-a7d9-339db9f33367" },
+    { "type": "route", "uuid": "036d2aab-7158-4c94-b6db-29fabd116447" },
+    { "type": "route", "uuid": "bedb853c-abbf-4109-915e-b02be3f33375" },
+    { "type": "route", "uuid": "9a377abe-cc63-46a2-9f11-230825ca1aa7" },
+    { "type": "route", "uuid": "09b8cbdd-21f9-476c-a117-47b9ccc1143f" },
+    { "type": "route", "uuid": "89ad0399-7b36-480a-a717-2c44e85a275b" },
+    { "type": "route", "uuid": "bc389cbb-f47f-4f75-b92a-8073f7df4515" },
+    { "type": "route", "uuid": "b47355da-46c2-4490-af4c-06ee3d1bd013" },
+    { "type": "route", "uuid": "1441a6d5-7aeb-451c-b9b2-3bea3dea98d7" },
+    { "type": "route", "uuid": "bde55f9b-2ff1-455c-8d5d-9adb831de51a" },
+    { "type": "route", "uuid": "ab9271cb-07d2-4d4a-81be-0a3fd5938c73" },
+    { "type": "route", "uuid": "15a0da58-b0da-4971-a9d3-6ca8c4181f5d" },
+    { "type": "route", "uuid": "44988d6e-9089-418d-b552-b3ccd30ef454" },
+    { "type": "route", "uuid": "41c3d40c-8aeb-44a8-b542-22ca91da5a60" },
+    { "type": "route", "uuid": "958fdb17-f07f-440e-96c5-4f42a60e61b0" },
+    { "type": "route", "uuid": "f212e98d-7a62-4d51-8286-6e6d227df181" },
+    { "type": "route", "uuid": "d24d7dd1-1aed-41d0-a912-85e491847114" },
+    { "type": "route", "uuid": "b30275d3-1143-4bc5-b36c-08ba1dd323bf" },
+    { "type": "route", "uuid": "772f8966-1525-4da8-83b1-0a38bfe83599" },
+    { "type": "route", "uuid": "9d1ad868-6e82-49ec-aa79-d332ec56ce90" },
+    { "type": "route", "uuid": "89c85b7c-a6cb-4273-b038-319f530962ee" },
+    { "type": "route", "uuid": "3c214fa2-9662-47bc-a774-10f8a3c05a9b" },
+    { "type": "route", "uuid": "5fb8a1b9-9520-40cc-8dbd-d73edf4b2007" },
+    { "type": "route", "uuid": "0328f37e-0d3d-48c2-ac60-a87826c2b524" },
+    { "type": "route", "uuid": "8e930fb4-34c3-4223-9a0a-f9c699553608" },
+    { "type": "route", "uuid": "05e409e3-9c3e-478f-8733-aa55df74cf9c" },
+    { "type": "route", "uuid": "cfdc1036-8974-4aa7-812f-0fbd0ff09f2c" },
+    { "type": "route", "uuid": "7a51e5a8-36ec-4ab5-bb2d-5ab8ef7d3b0b" },
+    { "type": "route", "uuid": "79ae9a35-78e3-4f18-991f-0c4820792e37" },
+    { "type": "route", "uuid": "51e4b72d-2630-4462-a7a1-5e27652c5d59" },
+    { "type": "route", "uuid": "aeeed3a2-3d83-4dbb-8cf3-76ad2cca6076" },
+    { "type": "route", "uuid": "ec3de1c2-2462-47e9-924e-decec1016e49" },
+    { "type": "route", "uuid": "7c12e3dd-af19-4937-a753-b271a704ff4b" },
+    { "type": "route", "uuid": "2c346ddf-7276-47b7-80ac-4bdc897b2639" },
+    { "type": "route", "uuid": "0c1da32c-564d-4f39-8bb5-dbb32938886b" },
+    { "type": "route", "uuid": "fc2da50b-909f-4d1e-8dec-aced1d96f6f5" },
+    { "type": "route", "uuid": "5b15f038-80cc-4fda-9df7-abbb08b3179c" },
+    { "type": "route", "uuid": "85f3cdcc-e7d9-4a0a-a036-4c5e616f2f9d" },
+    { "type": "route", "uuid": "5e6c5c7b-822b-4acb-953b-dcd7b830b0db" },
+    { "type": "route", "uuid": "33bafccd-c3b6-46b2-a1e8-8614a8a80ddb" },
+    { "type": "route", "uuid": "55f6faeb-000f-4fd8-8804-da804234bc14" },
+    { "type": "route", "uuid": "ed3357ea-435f-4ce2-8a79-bedbcea372a5" },
+    { "type": "route", "uuid": "3fa4cd84-e01a-454f-b526-58445e82fa9a" },
+    { "type": "route", "uuid": "e94c81ad-999b-464f-b9de-461a2754229c" },
+    { "type": "route", "uuid": "e4f17134-4dde-4869-b0fe-1aae4ae0bfe8" },
+    { "type": "route", "uuid": "c735d457-3e18-47c6-bdff-58591197f094" }
+  ]
 }

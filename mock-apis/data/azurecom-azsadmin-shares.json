@@ -1,11 +1,11 @@
 {
   "uuid": "f11c0093-a780-42e5-81e2-02c48efeaece",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "StorageManagementClient",
   "endpointPrefix": "",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "61ed0bf0-cc8e-437e-99fa-546d0596dd38",
@@ -19,12 +19,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "OK -- The list of storage shares has been returned.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "fb30ce08-d1bb-4ea2-9c97-2d7c59d5f75e",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "NOT FOUND -- The farm cannot be found.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,11 +46,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "d07eeb87-78cf-497d-bd8b-97b89634954e",
@@ -73,12 +66,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "OK -- The storage share has been returned.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -87,7 +75,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "28b3004a-95e5-4d4c-9318-adaf498337c5",
@@ -95,12 +84,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "NOT FOUND -- The farm or storage share cannot be found.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -109,11 +93,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "a80a0cbf-4e86-45f8-8c33-6126385d7113",
@@ -127,12 +113,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "OK -- The list of metric definitions has been returned.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -141,7 +122,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "1bab412e-3142-4b3c-b57d-276081b2ba93",
@@ -149,12 +131,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "NOT FOUND -- The farm cannot be found.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -163,11 +140,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "2090c70f-ee7e-4a57-a329-019f875b5c34",
@@ -177,16 +156,11 @@
       "responses": [
         {
           "uuid": "d8575cac-3c87-43d9-a572-bc6539b01095",
-          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"endTime\": \"{{faker 'date.recent' 365}}\",\n      \"metricUnit\": \"{{oneOf (array 'Count' 'Bytes' 'Seconds' 'CountPerSecond' 'BytesPerSecond')}}\",\n      \"metricValues\": [\n        {\n          \"average\": {{faker 'datatype.float'}},\n          \"count\": {{faker 'datatype.number'}},\n          \"maximum\": {{faker 'datatype.float'}},\n          \"minimum\": {{faker 'datatype.float'}},\n          \"properties\": \"\",\n          \"timeStamp\": \"{{faker 'date.recent' 365}}\",\n          \"total\": {{faker 'datatype.float'}}\n        }\n      ],\n      \"name\": {\n        \"localizedValue\": \"\",\n        \"value\": \"\"\n      },\n      \"startTime\": \"{{faker 'date.recent' 365}}\",\n      \"timeGrain\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"endTime\": \"{{faker 'date.recent' 365}}\",\n      \"metricUnit\": \"{{oneOf (array 'Count' 'Bytes' 'Seconds' 'CountPerSecond' 'BytesPerSecond')}}\",\n      \"metricValues\": [\n        {\n          \"average\": {{faker 'number.float'}},\n          \"count\": {{faker 'number.int'}},\n          \"maximum\": {{faker 'number.float'}},\n          \"minimum\": {{faker 'number.float'}},\n          \"properties\": \"\",\n          \"timeStamp\": \"{{faker 'date.recent' 365}}\",\n          \"total\": {{faker 'number.float'}}\n        }\n      ],\n      \"name\": {\n        \"localizedValue\": \"\",\n        \"value\": \"\"\n      },\n      \"startTime\": \"{{faker 'date.recent' 365}}\",\n      \"timeGrain\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK -- The list of metrics has been returned.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -195,7 +169,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "168302c1-9662-4760-987d-385477a33d8d",
@@ -203,12 +178,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "NOT FOUND -- The farm or share cannot be found.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -217,11 +187,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -238,17 +210,14 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "61ed0bf0-cc8e-437e-99fa-546d0596dd38" },
+    { "type": "route", "uuid": "d07eeb87-78cf-497d-bd8b-97b89634954e" },
+    { "type": "route", "uuid": "a80a0cbf-4e86-45f8-8c33-6126385d7113" },
+    { "type": "route", "uuid": "2090c70f-ee7e-4a57-a329-019f875b5c34" }
+  ]
 }

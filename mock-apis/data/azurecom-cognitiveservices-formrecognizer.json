@@ -1,11 +1,11 @@
 {
   "uuid": "51dca38a-3eda-4c13-9354-a0184fade69f",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "Form Recognizer Client",
   "endpointPrefix": "",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "06ebde62-c453-4d85-920a-02cf73f2576e",
@@ -15,16 +15,11 @@
       "responses": [
         {
           "uuid": "3253a893-0ca2-4fa0-9d38-ffba6c29d5c8",
-          "body": "{\n  \"modelList\": [\n    {\n      \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"modelId\": \"{{faker 'datatype.uuid'}}\",\n      \"status\": \"{{oneOf (array 'creating' 'ready' 'invalid')}}\"\n    }\n  ],\n  \"nextLink\": \"\",\n  \"summary\": {\n    \"count\": {{faker 'datatype.number'}},\n    \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"limit\": {{faker 'datatype.number'}}\n  }\n}",
+          "body": "{\n  \"modelList\": [\n    {\n      \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n      \"modelId\": \"{{faker 'string.uuid'}}\",\n      \"status\": \"{{oneOf (array 'creating' 'ready' 'invalid')}}\"\n    }\n  ],\n  \"nextLink\": \"\",\n  \"summary\": {\n    \"count\": {{faker 'number.int'}},\n    \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"limit\": {{faker 'number.int'}}\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "6df75be9-4694-494f-8b44-2a1012f55b49",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Response entity accompanying non-successful responses containing additional details about the error.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,11 +46,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "7e8c55b3-66f9-44fc-8267-cf5545c34c8b",
@@ -74,14 +67,8 @@
           "statusCode": 201,
           "label": "Request is queued successfully.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Location",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "Location", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -91,7 +78,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e06386ff-c5e5-4e61-9847-61e2914e4e40",
@@ -99,12 +87,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Response entity accompanying non-successful responses containing additional details about the error.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -113,11 +96,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "f5ddfeae-6955-4dae-97e8-9670fc771b89",
@@ -131,12 +116,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "Successfully marked model for deletion. Model artifacts will be removed within a predefined time period.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -145,7 +125,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "04a9f146-35d6-4f0b-a97b-57e819eba37e",
@@ -153,12 +134,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Response entity accompanying non-successful responses containing additional details about the error.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -167,11 +143,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "1d6a74c7-ed60-408f-8ace-6873b5a3bae7",
@@ -181,16 +159,11 @@
       "responses": [
         {
           "uuid": "f1387543-dc86-405b-8f2d-1c7d04df7d5d",
-          "body": "{\n  \"keys\": {\n    \"clusters\": {}\n  },\n  \"modelInfo\": {\n    \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"modelId\": \"{{faker 'datatype.uuid'}}\",\n    \"status\": \"{{oneOf (array 'creating' 'ready' 'invalid')}}\"\n  },\n  \"trainResult\": {\n    \"averageModelAccuracy\": {{faker 'datatype.number'}},\n    \"errors\": [\n      {\n        \"code\": \"\",\n        \"message\": \"\"\n      }\n    ],\n    \"fields\": [\n      {\n        \"accuracy\": {{faker 'datatype.number'}},\n        \"fieldName\": \"\"\n      }\n    ],\n    \"trainingDocuments\": [\n      {\n        \"documentName\": \"\",\n        \"errors\": [\n          {\n            \"code\": \"\",\n            \"message\": \"\"\n          }\n        ],\n        \"pages\": {{faker 'datatype.number'}},\n        \"status\": \"{{oneOf (array 'succeeded' 'partiallySucceeded' 'failed')}}\"\n      }\n    ]\n  }\n}",
+          "body": "{\n  \"keys\": {\n    \"clusters\": {}\n  },\n  \"modelInfo\": {\n    \"createdDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"lastUpdatedDateTime\": \"{{faker 'date.recent' 365}}\",\n    \"modelId\": \"{{faker 'string.uuid'}}\",\n    \"status\": \"{{oneOf (array 'creating' 'ready' 'invalid')}}\"\n  },\n  \"trainResult\": {\n    \"averageModelAccuracy\": {{faker 'number.int'}},\n    \"errors\": [\n      {\n        \"code\": \"\",\n        \"message\": \"\"\n      }\n    ],\n    \"fields\": [\n      {\n        \"accuracy\": {{faker 'number.int'}},\n        \"fieldName\": \"\"\n      }\n    ],\n    \"trainingDocuments\": [\n      {\n        \"documentName\": \"\",\n        \"errors\": [\n          {\n            \"code\": \"\",\n            \"message\": \"\"\n          }\n        ],\n        \"pages\": {{faker 'number.int'}},\n        \"status\": \"{{oneOf (array 'succeeded' 'partiallySucceeded' 'failed')}}\"\n      }\n    ]\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -199,7 +172,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "33c58342-19aa-4cf2-bd50-c37ac8792599",
@@ -207,12 +181,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Response entity accompanying non-successful responses containing additional details about the error.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -221,11 +190,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "9309121e-ae7d-4892-879a-3b28ca6b3caf",
@@ -240,14 +211,8 @@
           "statusCode": 202,
           "label": "Request is queued successfully.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Operation-Location",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "Operation-Location", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -257,7 +222,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e5734734-6a01-4176-82bf-df8ff8c89b8a",
@@ -265,12 +231,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Response entity accompanying non-successful responses containing additional details about the error.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -279,11 +240,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "a4f44b69-c0ea-4102-9cbf-c2308ef01edf",
@@ -297,12 +260,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -311,7 +269,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "dcdd01aa-576f-4444-8711-42bc4a9f1ce9",
@@ -319,12 +278,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Response entity accompanying non-successful responses containing additional details about the error.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -333,11 +287,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "0bb02c49-c2a0-433d-8acb-480c4dfd7e23",
@@ -352,14 +308,8 @@
           "statusCode": 202,
           "label": "Request is queued successfully.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Operation-Location",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "Operation-Location", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -369,7 +319,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "344a64eb-a8b4-412b-bf5a-b17c58dc209f",
@@ -377,12 +328,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Response entity accompanying non-successful responses containing additional details about the error.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -391,11 +337,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ed9436f8-babc-4116-a0a2-27828cb7b40b",
@@ -409,12 +357,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -423,7 +366,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "4c934fc7-02bc-409c-a717-56149542ecf2",
@@ -431,12 +375,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Response entity accompanying non-successful responses containing additional details about the error.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -445,11 +384,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "c8086ed9-bdd2-4d9c-9cf4-0e57ce447dd7",
@@ -464,14 +405,8 @@
           "statusCode": 202,
           "label": "Request is queued successfully.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Operation-Location",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "Operation-Location", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -481,7 +416,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "66abfce8-ef87-48ff-b469-4382a8aede58",
@@ -489,12 +425,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Response entity accompanying non-successful responses containing additional details about the error.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -503,11 +434,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "6e22c924-cb0c-4027-a497-96aa03b065f8",
@@ -521,12 +454,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -535,7 +463,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "06787b08-a9cc-48be-88b7-ffd21937f8cb",
@@ -543,12 +472,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Response entity accompanying non-successful responses containing additional details about the error.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -557,11 +481,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -578,17 +504,20 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "06ebde62-c453-4d85-920a-02cf73f2576e" },
+    { "type": "route", "uuid": "7e8c55b3-66f9-44fc-8267-cf5545c34c8b" },
+    { "type": "route", "uuid": "f5ddfeae-6955-4dae-97e8-9670fc771b89" },
+    { "type": "route", "uuid": "1d6a74c7-ed60-408f-8ace-6873b5a3bae7" },
+    { "type": "route", "uuid": "9309121e-ae7d-4892-879a-3b28ca6b3caf" },
+    { "type": "route", "uuid": "a4f44b69-c0ea-4102-9cbf-c2308ef01edf" },
+    { "type": "route", "uuid": "0bb02c49-c2a0-433d-8acb-480c4dfd7e23" },
+    { "type": "route", "uuid": "ed9436f8-babc-4116-a0a2-27828cb7b40b" },
+    { "type": "route", "uuid": "c8086ed9-bdd2-4d9c-9cf4-0e57ce447dd7" },
+    { "type": "route", "uuid": "6e22c924-cb0c-4027-a497-96aa03b065f8" }
+  ]
 }

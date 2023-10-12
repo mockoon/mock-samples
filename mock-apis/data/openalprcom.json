@@ -1,11 +1,11 @@
 {
   "uuid": "32ca2377-a0fb-46e3-8cd4-850182d11e50",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "OpenALPR CarCheck API",
   "endpointPrefix": "v3",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "4a1cb185-52e0-4238-9c10-41e9f3a31299",
@@ -19,12 +19,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "ok",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,11 +28,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "2b46555e-35b1-4bc1-8c2c-a479441475db",
@@ -47,27 +44,15 @@
       "responses": [
         {
           "uuid": "115c5e83-59fd-45de-9d04-ce6e6b4f3795",
-          "body": "{\n  \"credit_cost\": {{faker 'datatype.number'}},\n  \"credits_monthly_total\": {{faker 'datatype.number'}},\n  \"credits_monthly_used\": {{faker 'datatype.number'}},\n  \"data_type\": \"{{oneOf (array 'alpr_results' 'alpr_group' 'heartbeat')}}\",\n  \"epoch_time\": {{faker 'datatype.number'}},\n  \"img_height\": {{faker 'datatype.number'}},\n  \"img_width\": {{faker 'datatype.number'}},\n  \"processing_time\": {\n    \"plates\": {{faker 'datatype.number'}},\n    \"total\": {{faker 'datatype.number'}},\n    \"vehicles\": {{faker 'datatype.number'}}\n  },\n  \"regions_of_interest\": [\n    {\n      \"height\": {{faker 'datatype.number'}},\n      \"width\": {{faker 'datatype.number'}},\n      \"x\": {{faker 'datatype.number'}},\n      \"y\": {{faker 'datatype.number'}}\n    }\n  ],\n  \"results\": [\n    {\n      \"candidates\": [\n        {\n          \"confidence\": {{faker 'datatype.number'}},\n          \"matches_template\": {{faker 'datatype.number'}},\n          \"plate\": \"\"\n        }\n      ],\n      \"confidence\": {{faker 'datatype.number'}},\n      \"coordinates\": [\n        {\n          \"x\": {{faker 'datatype.number'}},\n          \"y\": {{faker 'datatype.number'}}\n        }\n      ],\n      \"matches_template\": {{faker 'datatype.number'}},\n      \"plate\": \"\",\n      \"processing_time_ms\": {{faker 'datatype.number'}},\n      \"region\": \"\",\n      \"region_confidence\": {{faker 'datatype.number'}},\n      \"requested_topn\": {{faker 'datatype.number'}},\n      \"vehicle\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"vehicle_region\": {\n        \"height\": {{faker 'datatype.number'}},\n        \"width\": {{faker 'datatype.number'}},\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      }\n    }\n  ],\n  \"vehicles\": [\n    {\n      \"details\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"height\": {{faker 'datatype.number'}},\n      \"width\": {{faker 'datatype.number'}},\n      \"x\": {{faker 'datatype.number'}},\n      \"y\": {{faker 'datatype.number'}}\n    }\n  ],\n  \"version\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"credit_cost\": {{faker 'number.int'}},\n  \"credits_monthly_total\": {{faker 'number.int'}},\n  \"credits_monthly_used\": {{faker 'number.int'}},\n  \"data_type\": \"{{oneOf (array 'alpr_results' 'alpr_group' 'heartbeat')}}\",\n  \"epoch_time\": {{faker 'number.int'}},\n  \"img_height\": {{faker 'number.int'}},\n  \"img_width\": {{faker 'number.int'}},\n  \"processing_time\": {\n    \"plates\": {{faker 'number.int'}},\n    \"total\": {{faker 'number.int'}},\n    \"vehicles\": {{faker 'number.int'}}\n  },\n  \"regions_of_interest\": [\n    {\n      \"height\": {{faker 'number.int'}},\n      \"width\": {{faker 'number.int'}},\n      \"x\": {{faker 'number.int'}},\n      \"y\": {{faker 'number.int'}}\n    }\n  ],\n  \"results\": [\n    {\n      \"candidates\": [\n        {\n          \"confidence\": {{faker 'number.int'}},\n          \"matches_template\": {{faker 'number.int'}},\n          \"plate\": \"\"\n        }\n      ],\n      \"confidence\": {{faker 'number.int'}},\n      \"coordinates\": [\n        {\n          \"x\": {{faker 'number.int'}},\n          \"y\": {{faker 'number.int'}}\n        }\n      ],\n      \"matches_template\": {{faker 'number.int'}},\n      \"plate\": \"\",\n      \"processing_time_ms\": {{faker 'number.int'}},\n      \"region\": \"\",\n      \"region_confidence\": {{faker 'number.int'}},\n      \"requested_topn\": {{faker 'number.int'}},\n      \"vehicle\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"vehicle_region\": {\n        \"height\": {{faker 'number.int'}},\n        \"width\": {{faker 'number.int'}},\n        \"x\": {{faker 'number.int'}},\n        \"y\": {{faker 'number.int'}}\n      }\n    }\n  ],\n  \"vehicles\": [\n    {\n      \"details\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"height\": {{faker 'number.int'}},\n      \"width\": {{faker 'number.int'}},\n      \"x\": {{faker 'number.int'}},\n      \"y\": {{faker 'number.int'}}\n    }\n  ],\n  \"version\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "X-RateLimit-Limit",
-              "value": ""
-            },
-            {
-              "key": "X-Ratelimit-Remaining",
-              "value": ""
-            },
-            {
-              "key": "X-Ratelimit-Reset",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "X-RateLimit-Limit", "value": "" },
+            { "key": "X-Ratelimit-Remaining", "value": "" },
+            { "key": "X-Ratelimit-Reset", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -77,7 +62,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "d5d98bb3-acc9-4a03-8829-8f3d4411585e",
@@ -85,12 +71,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Parameter is invalid",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -99,7 +80,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "d15b3b18-70bd-4003-b75e-e729e3922cfa",
@@ -107,12 +89,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "User not authorized or invalid secret_key",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -121,7 +98,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "e552863e-a44a-47aa-991a-c652d40c4304",
@@ -129,12 +107,7 @@
           "latency": 0,
           "statusCode": 402,
           "label": "Monthly usage limit exceeded",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -143,7 +116,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "77e55e9b-5820-41fc-9f77-9b251c6f6457",
@@ -151,12 +125,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Temporary rate-limit exceeded",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -165,11 +134,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "e515b87d-a52a-456e-8b6a-b69d9e842bca",
@@ -179,27 +150,15 @@
       "responses": [
         {
           "uuid": "37b265dc-4100-49ab-acac-68467030ac5c",
-          "body": "{\n  \"credit_cost\": {{faker 'datatype.number'}},\n  \"credits_monthly_total\": {{faker 'datatype.number'}},\n  \"credits_monthly_used\": {{faker 'datatype.number'}},\n  \"data_type\": \"{{oneOf (array 'alpr_results' 'alpr_group' 'heartbeat')}}\",\n  \"epoch_time\": {{faker 'datatype.number'}},\n  \"img_height\": {{faker 'datatype.number'}},\n  \"img_width\": {{faker 'datatype.number'}},\n  \"processing_time\": {\n    \"plates\": {{faker 'datatype.number'}},\n    \"total\": {{faker 'datatype.number'}},\n    \"vehicles\": {{faker 'datatype.number'}}\n  },\n  \"regions_of_interest\": [\n    {\n      \"height\": {{faker 'datatype.number'}},\n      \"width\": {{faker 'datatype.number'}},\n      \"x\": {{faker 'datatype.number'}},\n      \"y\": {{faker 'datatype.number'}}\n    }\n  ],\n  \"results\": [\n    {\n      \"candidates\": [\n        {\n          \"confidence\": {{faker 'datatype.number'}},\n          \"matches_template\": {{faker 'datatype.number'}},\n          \"plate\": \"\"\n        }\n      ],\n      \"confidence\": {{faker 'datatype.number'}},\n      \"coordinates\": [\n        {\n          \"x\": {{faker 'datatype.number'}},\n          \"y\": {{faker 'datatype.number'}}\n        }\n      ],\n      \"matches_template\": {{faker 'datatype.number'}},\n      \"plate\": \"\",\n      \"processing_time_ms\": {{faker 'datatype.number'}},\n      \"region\": \"\",\n      \"region_confidence\": {{faker 'datatype.number'}},\n      \"requested_topn\": {{faker 'datatype.number'}},\n      \"vehicle\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"vehicle_region\": {\n        \"height\": {{faker 'datatype.number'}},\n        \"width\": {{faker 'datatype.number'}},\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      }\n    }\n  ],\n  \"vehicles\": [\n    {\n      \"details\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"height\": {{faker 'datatype.number'}},\n      \"width\": {{faker 'datatype.number'}},\n      \"x\": {{faker 'datatype.number'}},\n      \"y\": {{faker 'datatype.number'}}\n    }\n  ],\n  \"version\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"credit_cost\": {{faker 'number.int'}},\n  \"credits_monthly_total\": {{faker 'number.int'}},\n  \"credits_monthly_used\": {{faker 'number.int'}},\n  \"data_type\": \"{{oneOf (array 'alpr_results' 'alpr_group' 'heartbeat')}}\",\n  \"epoch_time\": {{faker 'number.int'}},\n  \"img_height\": {{faker 'number.int'}},\n  \"img_width\": {{faker 'number.int'}},\n  \"processing_time\": {\n    \"plates\": {{faker 'number.int'}},\n    \"total\": {{faker 'number.int'}},\n    \"vehicles\": {{faker 'number.int'}}\n  },\n  \"regions_of_interest\": [\n    {\n      \"height\": {{faker 'number.int'}},\n      \"width\": {{faker 'number.int'}},\n      \"x\": {{faker 'number.int'}},\n      \"y\": {{faker 'number.int'}}\n    }\n  ],\n  \"results\": [\n    {\n      \"candidates\": [\n        {\n          \"confidence\": {{faker 'number.int'}},\n          \"matches_template\": {{faker 'number.int'}},\n          \"plate\": \"\"\n        }\n      ],\n      \"confidence\": {{faker 'number.int'}},\n      \"coordinates\": [\n        {\n          \"x\": {{faker 'number.int'}},\n          \"y\": {{faker 'number.int'}}\n        }\n      ],\n      \"matches_template\": {{faker 'number.int'}},\n      \"plate\": \"\",\n      \"processing_time_ms\": {{faker 'number.int'}},\n      \"region\": \"\",\n      \"region_confidence\": {{faker 'number.int'}},\n      \"requested_topn\": {{faker 'number.int'}},\n      \"vehicle\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"vehicle_region\": {\n        \"height\": {{faker 'number.int'}},\n        \"width\": {{faker 'number.int'}},\n        \"x\": {{faker 'number.int'}},\n        \"y\": {{faker 'number.int'}}\n      }\n    }\n  ],\n  \"vehicles\": [\n    {\n      \"details\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"height\": {{faker 'number.int'}},\n      \"width\": {{faker 'number.int'}},\n      \"x\": {{faker 'number.int'}},\n      \"y\": {{faker 'number.int'}}\n    }\n  ],\n  \"version\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "X-RateLimit-Limit",
-              "value": ""
-            },
-            {
-              "key": "X-Ratelimit-Remaining",
-              "value": ""
-            },
-            {
-              "key": "X-Ratelimit-Reset",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "X-RateLimit-Limit", "value": "" },
+            { "key": "X-Ratelimit-Remaining", "value": "" },
+            { "key": "X-Ratelimit-Reset", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -209,7 +168,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "733ea9d4-d3b3-4f1b-8237-58e1d003e956",
@@ -217,12 +177,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Parameter is invalid",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -231,7 +186,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "25c0e431-7622-43f9-b5ca-ed61e631c668",
@@ -239,12 +195,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "User not authorized or invalid secret_key",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -253,7 +204,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "e1d59a07-2e4d-4188-95e0-7f89e79ac958",
@@ -261,12 +213,7 @@
           "latency": 0,
           "statusCode": 402,
           "label": "Monthly usage limit exceeded",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -275,7 +222,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "3d50f40c-7033-4e48-adfd-61de1e8bb44d",
@@ -283,12 +231,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Temporary rate-limit exceeded",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -297,11 +240,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "220fe985-ac25-4014-b97f-e5a16d8da4c1",
@@ -311,27 +256,15 @@
       "responses": [
         {
           "uuid": "4376085b-4575-4a14-9095-5922eccd56da",
-          "body": "{\n  \"credit_cost\": {{faker 'datatype.number'}},\n  \"credits_monthly_total\": {{faker 'datatype.number'}},\n  \"credits_monthly_used\": {{faker 'datatype.number'}},\n  \"data_type\": \"{{oneOf (array 'alpr_results' 'alpr_group' 'heartbeat')}}\",\n  \"epoch_time\": {{faker 'datatype.number'}},\n  \"img_height\": {{faker 'datatype.number'}},\n  \"img_width\": {{faker 'datatype.number'}},\n  \"processing_time\": {\n    \"plates\": {{faker 'datatype.number'}},\n    \"total\": {{faker 'datatype.number'}},\n    \"vehicles\": {{faker 'datatype.number'}}\n  },\n  \"regions_of_interest\": [\n    {\n      \"height\": {{faker 'datatype.number'}},\n      \"width\": {{faker 'datatype.number'}},\n      \"x\": {{faker 'datatype.number'}},\n      \"y\": {{faker 'datatype.number'}}\n    }\n  ],\n  \"results\": [\n    {\n      \"candidates\": [\n        {\n          \"confidence\": {{faker 'datatype.number'}},\n          \"matches_template\": {{faker 'datatype.number'}},\n          \"plate\": \"\"\n        }\n      ],\n      \"confidence\": {{faker 'datatype.number'}},\n      \"coordinates\": [\n        {\n          \"x\": {{faker 'datatype.number'}},\n          \"y\": {{faker 'datatype.number'}}\n        }\n      ],\n      \"matches_template\": {{faker 'datatype.number'}},\n      \"plate\": \"\",\n      \"processing_time_ms\": {{faker 'datatype.number'}},\n      \"region\": \"\",\n      \"region_confidence\": {{faker 'datatype.number'}},\n      \"requested_topn\": {{faker 'datatype.number'}},\n      \"vehicle\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"vehicle_region\": {\n        \"height\": {{faker 'datatype.number'}},\n        \"width\": {{faker 'datatype.number'}},\n        \"x\": {{faker 'datatype.number'}},\n        \"y\": {{faker 'datatype.number'}}\n      }\n    }\n  ],\n  \"vehicles\": [\n    {\n      \"details\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'datatype.number'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"height\": {{faker 'datatype.number'}},\n      \"width\": {{faker 'datatype.number'}},\n      \"x\": {{faker 'datatype.number'}},\n      \"y\": {{faker 'datatype.number'}}\n    }\n  ],\n  \"version\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"credit_cost\": {{faker 'number.int'}},\n  \"credits_monthly_total\": {{faker 'number.int'}},\n  \"credits_monthly_used\": {{faker 'number.int'}},\n  \"data_type\": \"{{oneOf (array 'alpr_results' 'alpr_group' 'heartbeat')}}\",\n  \"epoch_time\": {{faker 'number.int'}},\n  \"img_height\": {{faker 'number.int'}},\n  \"img_width\": {{faker 'number.int'}},\n  \"processing_time\": {\n    \"plates\": {{faker 'number.int'}},\n    \"total\": {{faker 'number.int'}},\n    \"vehicles\": {{faker 'number.int'}}\n  },\n  \"regions_of_interest\": [\n    {\n      \"height\": {{faker 'number.int'}},\n      \"width\": {{faker 'number.int'}},\n      \"x\": {{faker 'number.int'}},\n      \"y\": {{faker 'number.int'}}\n    }\n  ],\n  \"results\": [\n    {\n      \"candidates\": [\n        {\n          \"confidence\": {{faker 'number.int'}},\n          \"matches_template\": {{faker 'number.int'}},\n          \"plate\": \"\"\n        }\n      ],\n      \"confidence\": {{faker 'number.int'}},\n      \"coordinates\": [\n        {\n          \"x\": {{faker 'number.int'}},\n          \"y\": {{faker 'number.int'}}\n        }\n      ],\n      \"matches_template\": {{faker 'number.int'}},\n      \"plate\": \"\",\n      \"processing_time_ms\": {{faker 'number.int'}},\n      \"region\": \"\",\n      \"region_confidence\": {{faker 'number.int'}},\n      \"requested_topn\": {{faker 'number.int'}},\n      \"vehicle\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"vehicle_region\": {\n        \"height\": {{faker 'number.int'}},\n        \"width\": {{faker 'number.int'}},\n        \"x\": {{faker 'number.int'}},\n        \"y\": {{faker 'number.int'}}\n      }\n    }\n  ],\n  \"vehicles\": [\n    {\n      \"details\": {\n        \"body_type\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"color\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"make_model\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"orientation\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ],\n        \"year\": [\n          {\n            \"confidence\": {{faker 'number.int'}},\n            \"name\": \"\"\n          }\n        ]\n      },\n      \"height\": {{faker 'number.int'}},\n      \"width\": {{faker 'number.int'}},\n      \"x\": {{faker 'number.int'}},\n      \"y\": {{faker 'number.int'}}\n    }\n  ],\n  \"version\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "X-RateLimit-Limit",
-              "value": ""
-            },
-            {
-              "key": "X-Ratelimit-Remaining",
-              "value": ""
-            },
-            {
-              "key": "X-Ratelimit-Reset",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "X-RateLimit-Limit", "value": "" },
+            { "key": "X-Ratelimit-Remaining", "value": "" },
+            { "key": "X-Ratelimit-Reset", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -341,7 +274,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "7e5ca183-f001-408a-8c7f-4d4b3f602349",
@@ -349,12 +283,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Parameter is invalid",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -363,7 +292,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "96e66124-3ff4-4ddd-9bb0-9afb0e2b1ec7",
@@ -371,12 +301,7 @@
           "latency": 0,
           "statusCode": 401,
           "label": "User not authorized or invalid secret_key",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -385,7 +310,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "21b1b7b5-2eb7-4aa1-a020-6dfa6db08e39",
@@ -393,12 +319,7 @@
           "latency": 0,
           "statusCode": 402,
           "label": "Monthly usage limit exceeded",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -407,7 +328,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "b1f4887b-61e1-408a-b438-bad2d904a811",
@@ -415,12 +337,7 @@
           "latency": 0,
           "statusCode": 403,
           "label": "Temporary rate-limit exceeded",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -429,11 +346,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -450,17 +369,14 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "4a1cb185-52e0-4238-9c10-41e9f3a31299" },
+    { "type": "route", "uuid": "2b46555e-35b1-4bc1-8c2c-a479441475db" },
+    { "type": "route", "uuid": "e515b87d-a52a-456e-8b6a-b69d9e842bca" },
+    { "type": "route", "uuid": "220fe985-ac25-4014-b97f-e5a16d8da4c1" }
+  ]
 }

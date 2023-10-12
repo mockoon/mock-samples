@@ -1,11 +1,11 @@
 {
   "uuid": "cafc2828-e048-4d1f-9983-37446cae28a9",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "Nordigen Account Information Services API",
   "endpointPrefix": "",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "855d4726-a6d1-4e1a-a7d8-a2cbf01165f0",
@@ -15,16 +15,11 @@
       "responses": [
         {
           "uuid": "381e8200-ca3f-44bd-81ac-cbcefd348cb2",
-          "body": "{\n  \"aspsp_identifier\": \"\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"iban\": \"\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"last_accessed\": \"{{faker 'date.recent' 365}}\",\n  \"status\": \"\"\n}",
+          "body": "{\n  \"aspsp_identifier\": \"\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"iban\": \"\",\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"last_accessed\": \"{{faker 'date.recent' 365}}\",\n  \"status\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "sample account metadata",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,11 +28,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "50817531-42ff-4e2c-94ab-e008f1ec2081",
@@ -51,12 +48,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "sample account balances",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -65,11 +57,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "fbc3bc1d-62d7-4937-a2c0-40b1eb4ea26d",
@@ -83,12 +77,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "sample account details",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -97,11 +86,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "602d71f2-3f1b-47a8-ae8e-61caada830a2",
@@ -115,12 +106,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "sample transaction data",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -129,7 +115,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e5e58c04-2e68-4c35-87d3-cce33c7c780b",
@@ -137,12 +124,7 @@
           "latency": 0,
           "statusCode": 409,
           "label": "Account state does not support this operation",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -151,11 +133,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "dcd46cb1-bbd8-4d45-8ae5-6d8bbcdf8ce1",
@@ -165,16 +149,11 @@
       "responses": [
         {
           "uuid": "70d0df91-6d6c-47f1-87cc-607ff28f62c8",
-          "body": "{\n  \"count\": 123,\n  \"next\": \"http://api.example.org/accounts/?offset=400&limit=100\",\n  \"previous\": \"http://api.example.org/accounts/?offset=200&limit=100\",\n  \"results\": [\n    {\n      \"accepted\": \"{{faker 'date.recent' 365}}\",\n      \"access_scope\": [\n        \"balances\",\n        \"details\",\n        \"transactions\"\n      ],\n      \"access_valid_for_days\": 90,\n      \"aspsp_id\": \"\",\n      \"created\": \"{{faker 'date.recent' 365}}\",\n      \"enduser_id\": \"\",\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"max_historical_days\": 90\n    }\n  ]\n}",
+          "body": "{\n  \"count\": 123,\n  \"next\": \"http://api.example.org/accounts/?offset=400&limit=100\",\n  \"previous\": \"http://api.example.org/accounts/?offset=200&limit=100\",\n  \"results\": [\n    {\n      \"accepted\": \"{{faker 'date.recent' 365}}\",\n      \"access_scope\": [\n        \"balances\",\n        \"details\",\n        \"transactions\"\n      ],\n      \"access_valid_for_days\": 90,\n      \"aspsp_id\": \"\",\n      \"created\": \"{{faker 'date.recent' 365}}\",\n      \"enduser_id\": \"\",\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"max_historical_days\": 90\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -183,11 +162,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "0efffb84-8df6-4461-8cca-51d48d42cc6c",
@@ -197,16 +178,11 @@
       "responses": [
         {
           "uuid": "88c5be1f-bb8f-4d6f-9f95-3ce3fd4445cb",
-          "body": "{\n  \"accepted\": \"{{faker 'date.recent' 365}}\",\n  \"access_scope\": [\n    \"balances\",\n    \"details\",\n    \"transactions\"\n  ],\n  \"access_valid_for_days\": 90,\n  \"aspsp_id\": \"\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"enduser_id\": \"\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"max_historical_days\": 90\n}",
+          "body": "{\n  \"accepted\": \"{{faker 'date.recent' 365}}\",\n  \"access_scope\": [\n    \"balances\",\n    \"details\",\n    \"transactions\"\n  ],\n  \"access_valid_for_days\": 90,\n  \"aspsp_id\": \"\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"enduser_id\": \"\",\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"max_historical_days\": 90\n}",
           "latency": 0,
           "statusCode": 201,
           "label": "",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -215,11 +191,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "61490bca-af08-4157-885f-fcbc7ad34a36",
@@ -233,12 +211,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No response body",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -247,11 +220,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "a5da6003-c60e-421a-9464-35cce6012c37",
@@ -261,16 +236,11 @@
       "responses": [
         {
           "uuid": "0fe65539-83b2-430e-ac1a-1e4a9741da01",
-          "body": "{\n  \"accepted\": \"{{faker 'date.recent' 365}}\",\n  \"access_scope\": [\n    \"balances\",\n    \"details\",\n    \"transactions\"\n  ],\n  \"access_valid_for_days\": 90,\n  \"aspsp_id\": \"\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"enduser_id\": \"\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"max_historical_days\": 90\n}",
+          "body": "{\n  \"accepted\": \"{{faker 'date.recent' 365}}\",\n  \"access_scope\": [\n    \"balances\",\n    \"details\",\n    \"transactions\"\n  ],\n  \"access_valid_for_days\": 90,\n  \"aspsp_id\": \"\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"enduser_id\": \"\",\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"max_historical_days\": 90\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "EUA",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -279,11 +249,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "03a32598-cc62-4e65-97e3-7c831e660668",
@@ -293,16 +265,11 @@
       "responses": [
         {
           "uuid": "b7572ab5-6267-491f-9eb5-7cc9b71cee70",
-          "body": "{\n  \"accepted\": \"{{faker 'date.recent' 365}}\",\n  \"access_scope\": [\n    \"balances\",\n    \"details\",\n    \"transactions\"\n  ],\n  \"access_valid_for_days\": 90,\n  \"aspsp_id\": \"\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"enduser_id\": \"\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"max_historical_days\": 90\n}",
+          "body": "{\n  \"accepted\": \"{{faker 'date.recent' 365}}\",\n  \"access_scope\": [\n    \"balances\",\n    \"details\",\n    \"transactions\"\n  ],\n  \"access_valid_for_days\": 90,\n  \"aspsp_id\": \"\",\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"enduser_id\": \"\",\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"max_historical_days\": 90\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "EUA",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -311,11 +278,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "b74e671a-9c2c-4e61-9c22-832b2d9af472",
@@ -329,12 +298,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "EUA Text",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -343,11 +307,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "e38fe73b-0b6b-4ed7-9d0a-bda12bc24449",
@@ -361,12 +327,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "list of supported ASPSPs in the country",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -375,11 +336,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "756cd720-1203-4bf0-92fd-0ed8c3acde5f",
@@ -393,12 +356,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "ASPSP Representation",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -407,11 +365,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "e24114cb-f3c4-492b-92cd-86b6585624a5",
@@ -421,16 +381,11 @@
       "responses": [
         {
           "uuid": "1fd22763-be87-4b90-8d28-3728b3a814b7",
-          "body": "{\n  \"count\": 123,\n  \"next\": \"http://api.example.org/accounts/?offset=400&limit=100\",\n  \"previous\": \"http://api.example.org/accounts/?offset=200&limit=100\",\n  \"results\": [\n    {\n      \"accounts\": [\n        \"{{faker 'datatype.uuid'}}\"\n      ],\n      \"agreements\": [\n        \"{{faker 'datatype.uuid'}}\"\n      ],\n      \"enduser_id\": \"\",\n      \"id\": \"{{faker 'datatype.uuid'}}\",\n      \"redirect\": \"\",\n      \"reference\": \"\",\n      \"status\": \"\",\n      \"user_language\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"count\": 123,\n  \"next\": \"http://api.example.org/accounts/?offset=400&limit=100\",\n  \"previous\": \"http://api.example.org/accounts/?offset=200&limit=100\",\n  \"results\": [\n    {\n      \"accounts\": [\n        \"{{faker 'string.uuid'}}\"\n      ],\n      \"agreements\": [\n        \"{{faker 'string.uuid'}}\"\n      ],\n      \"enduser_id\": \"\",\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"redirect\": \"\",\n      \"reference\": \"\",\n      \"status\": \"\",\n      \"user_language\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -439,11 +394,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "7ccc6175-15b1-44b4-b055-1f37e7476c81",
@@ -453,16 +410,11 @@
       "responses": [
         {
           "uuid": "48fae813-08fd-4ad6-a5a4-73c416b6bbd9",
-          "body": "{\n  \"accounts\": [\n    \"{{faker 'datatype.uuid'}}\"\n  ],\n  \"agreements\": [\n    \"{{faker 'datatype.uuid'}}\"\n  ],\n  \"enduser_id\": \"\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"redirect\": \"\",\n  \"reference\": \"\",\n  \"status\": \"\",\n  \"user_language\": \"\"\n}",
+          "body": "{\n  \"accounts\": [\n    \"{{faker 'string.uuid'}}\"\n  ],\n  \"agreements\": [\n    \"{{faker 'string.uuid'}}\"\n  ],\n  \"enduser_id\": \"\",\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"redirect\": \"\",\n  \"reference\": \"\",\n  \"status\": \"\",\n  \"user_language\": \"\"\n}",
           "latency": 0,
           "statusCode": 201,
           "label": "requisition",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -471,11 +423,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "2a3decdf-e519-4785-97f6-ea207946e277",
@@ -489,12 +443,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No response body",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -503,11 +452,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "d5cc5fb6-9180-41de-ae31-b3913bbd535f",
@@ -517,16 +468,11 @@
       "responses": [
         {
           "uuid": "ceb457a0-e88b-4eb4-9182-4ca345cc1c8f",
-          "body": "{\n  \"accounts\": [\n    \"{{faker 'datatype.uuid'}}\"\n  ],\n  \"agreements\": [\n    \"{{faker 'datatype.uuid'}}\"\n  ],\n  \"enduser_id\": \"\",\n  \"id\": \"{{faker 'datatype.uuid'}}\",\n  \"redirect\": \"\",\n  \"reference\": \"\",\n  \"status\": \"\",\n  \"user_language\": \"\"\n}",
+          "body": "{\n  \"accounts\": [\n    \"{{faker 'string.uuid'}}\"\n  ],\n  \"agreements\": [\n    \"{{faker 'string.uuid'}}\"\n  ],\n  \"enduser_id\": \"\",\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"redirect\": \"\",\n  \"reference\": \"\",\n  \"status\": \"\",\n  \"user_language\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "requisition",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -535,11 +481,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "38899ba4-bae8-48df-a287-bca562850e49",
@@ -553,12 +501,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "link to initiate authorization with ASPSP",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -567,11 +510,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -588,17 +533,27 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "855d4726-a6d1-4e1a-a7d8-a2cbf01165f0" },
+    { "type": "route", "uuid": "50817531-42ff-4e2c-94ab-e008f1ec2081" },
+    { "type": "route", "uuid": "fbc3bc1d-62d7-4937-a2c0-40b1eb4ea26d" },
+    { "type": "route", "uuid": "602d71f2-3f1b-47a8-ae8e-61caada830a2" },
+    { "type": "route", "uuid": "dcd46cb1-bbd8-4d45-8ae5-6d8bbcdf8ce1" },
+    { "type": "route", "uuid": "0efffb84-8df6-4461-8cca-51d48d42cc6c" },
+    { "type": "route", "uuid": "61490bca-af08-4157-885f-fcbc7ad34a36" },
+    { "type": "route", "uuid": "a5da6003-c60e-421a-9464-35cce6012c37" },
+    { "type": "route", "uuid": "03a32598-cc62-4e65-97e3-7c831e660668" },
+    { "type": "route", "uuid": "b74e671a-9c2c-4e61-9c22-832b2d9af472" },
+    { "type": "route", "uuid": "e38fe73b-0b6b-4ed7-9d0a-bda12bc24449" },
+    { "type": "route", "uuid": "756cd720-1203-4bf0-92fd-0ed8c3acde5f" },
+    { "type": "route", "uuid": "e24114cb-f3c4-492b-92cd-86b6585624a5" },
+    { "type": "route", "uuid": "7ccc6175-15b1-44b4-b055-1f37e7476c81" },
+    { "type": "route", "uuid": "2a3decdf-e519-4785-97f6-ea207946e277" },
+    { "type": "route", "uuid": "d5cc5fb6-9180-41de-ae31-b3913bbd535f" },
+    { "type": "route", "uuid": "38899ba4-bae8-48df-a287-bca562850e49" }
+  ]
 }

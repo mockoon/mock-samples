@@ -1,11 +1,11 @@
 {
   "uuid": "ba2dedcf-ecf5-48ed-b77d-1e01d12ca5cf",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "Xero Assets API",
   "endpointPrefix": "assets.xro/1.0",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "44b64b8e-5172-4e4e-bc08-b4819ce88f94",
@@ -19,12 +19,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "search results matching criteria",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "73e5f79e-fcdc-4839-b541-5bd1f04e4c20",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "bad input parameter",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,11 +46,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "9c359e0a-648c-441e-9728-1b902460173a",
@@ -73,12 +66,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "results single object -  created fixed type",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -87,7 +75,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "6fae75aa-fa80-407a-bc10-3de2f463496e",
@@ -95,12 +84,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "invalid input, object invalid",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -109,7 +93,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "5ea6459d-e2e3-470f-8d81-ef7daccc18b8",
@@ -117,12 +102,7 @@
           "latency": 0,
           "statusCode": 409,
           "label": "a type already exists",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -131,11 +111,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "0abc125c-4b8f-4c3c-bb00-44138c2d611a",
@@ -145,16 +127,11 @@
       "responses": [
         {
           "uuid": "6f7e5eb1-61b9-48cd-9b3d-8b8af48fc123",
-          "body": "{\n  \"items\": [\n    {\n      \"accountingBookValue\": {{faker 'datatype.float'}},\n      \"assetId\": \"3b5b3a38-5649-495f-87a1-14a4e5918634\",\n      \"assetName\": \"Awesome Truck 3\",\n      \"assetNumber\": \"FA-0013\",\n      \"assetStatus\": \"{{oneOf (array 'Draft' 'Registered' 'Disposed')}}\",\n      \"assetTypeId\": \"3b5b3a38-5649-495f-87a1-14a4e5918634\",\n      \"bookDepreciationDetail\": {\n        \"costLimit\": 9000,\n        \"currentAccumDepreciationAmount\": 5,\n        \"currentCapitalGain\": 5.25,\n        \"currentGainLoss\": 10.5,\n        \"depreciationStartDate\": \"2015-07-01T00:00:00\",\n        \"priorAccumDepreciationAmount\": 0.45,\n        \"residualValue\": 10000\n      },\n      \"bookDepreciationSetting\": {\n        \"averagingMethod\": \"{{oneOf (array 'FullMonth' 'ActualDays')}}\",\n        \"bookEffectiveDateOfChangeId\": \"68f17094-af97-4f1b-b36b-013b45b6ad3c\",\n        \"depreciableObjectId\": \"68f17094-af97-4f1b-b36b-013b45b6ad3c\",\n        \"depreciableObjectType\": \"Asset\",\n        \"depreciationCalculationMethod\": \"{{oneOf (array 'Rate' 'Life' 'None')}}\",\n        \"depreciationMethod\": \"{{oneOf (array 'NoDepreciation' 'StraightLine' 'DiminishingValue100' 'DiminishingValue150' 'DiminishingValue200' 'FullDepreciation')}}\",\n        \"depreciationRate\": 0.05,\n        \"effectiveLifeYears\": 5\n      },\n      \"canRollback\": true,\n      \"disposalDate\": \"2020-07-01T00:00:00\",\n      \"disposalPrice\": \"1.0000\",\n      \"isDeleteEnabledForDate\": true,\n      \"purchaseDate\": \"2015-07-01T00:00:00\",\n      \"purchasePrice\": \"1000.0000\",\n      \"serialNumber\": \"ca4c6b39-4f4f-43e8-98da-5e1f350a6694\",\n      \"warrantyExpiryDate\": \"ca4c6b39-4f4f-43e8-98da-5e1f350a6694\"\n    }\n  ],\n  \"pagination\": {\n    \"itemCount\": 2,\n    \"page\": 1,\n    \"pageCount\": 1,\n    \"pageSize\": 10\n  }\n}",
+          "body": "{\n  \"items\": [\n    {\n      \"accountingBookValue\": {{faker 'number.float'}},\n      \"assetId\": \"3b5b3a38-5649-495f-87a1-14a4e5918634\",\n      \"assetName\": \"Awesome Truck 3\",\n      \"assetNumber\": \"FA-0013\",\n      \"assetStatus\": \"{{oneOf (array 'Draft' 'Registered' 'Disposed')}}\",\n      \"assetTypeId\": \"3b5b3a38-5649-495f-87a1-14a4e5918634\",\n      \"bookDepreciationDetail\": {\n        \"costLimit\": 9000,\n        \"currentAccumDepreciationAmount\": 5,\n        \"currentCapitalGain\": 5.25,\n        \"currentGainLoss\": 10.5,\n        \"depreciationStartDate\": \"2015-07-01T00:00:00\",\n        \"priorAccumDepreciationAmount\": 0.45,\n        \"residualValue\": 10000\n      },\n      \"bookDepreciationSetting\": {\n        \"averagingMethod\": \"{{oneOf (array 'FullMonth' 'ActualDays')}}\",\n        \"bookEffectiveDateOfChangeId\": \"68f17094-af97-4f1b-b36b-013b45b6ad3c\",\n        \"depreciableObjectId\": \"68f17094-af97-4f1b-b36b-013b45b6ad3c\",\n        \"depreciableObjectType\": \"Asset\",\n        \"depreciationCalculationMethod\": \"{{oneOf (array 'Rate' 'Life' 'None')}}\",\n        \"depreciationMethod\": \"{{oneOf (array 'NoDepreciation' 'StraightLine' 'DiminishingValue100' 'DiminishingValue150' 'DiminishingValue200' 'FullDepreciation')}}\",\n        \"depreciationRate\": 0.05,\n        \"effectiveLifeYears\": 5\n      },\n      \"canRollback\": true,\n      \"disposalDate\": \"2020-07-01T00:00:00\",\n      \"disposalPrice\": \"1.0000\",\n      \"isDeleteEnabledForDate\": true,\n      \"purchaseDate\": \"2015-07-01T00:00:00\",\n      \"purchasePrice\": \"1000.0000\",\n      \"serialNumber\": \"ca4c6b39-4f4f-43e8-98da-5e1f350a6694\",\n      \"warrantyExpiryDate\": \"ca4c6b39-4f4f-43e8-98da-5e1f350a6694\"\n    }\n  ],\n  \"pagination\": {\n    \"itemCount\": 2,\n    \"page\": 1,\n    \"pageCount\": 1,\n    \"pageSize\": 10\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "search results matching criteria",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -163,7 +140,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "1f58cec2-a6c6-4302-a948-7183aa7f7d1d",
@@ -171,12 +149,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "bad input parameter",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -185,11 +158,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "415e24d0-3b35-4a64-9dcc-b69a3e3215cb",
@@ -199,16 +174,11 @@
       "responses": [
         {
           "uuid": "eb593b05-de93-44c3-bd2f-717d13a8ef9b",
-          "body": "{\n  \"accountingBookValue\": {{faker 'datatype.float'}},\n  \"assetId\": \"3b5b3a38-5649-495f-87a1-14a4e5918634\",\n  \"assetName\": \"Awesome Truck 3\",\n  \"assetNumber\": \"FA-0013\",\n  \"assetStatus\": \"{{oneOf (array 'Draft' 'Registered' 'Disposed')}}\",\n  \"assetTypeId\": \"3b5b3a38-5649-495f-87a1-14a4e5918634\",\n  \"bookDepreciationDetail\": {\n    \"costLimit\": 9000,\n    \"currentAccumDepreciationAmount\": 5,\n    \"currentCapitalGain\": 5.25,\n    \"currentGainLoss\": 10.5,\n    \"depreciationStartDate\": \"2015-07-01T00:00:00\",\n    \"priorAccumDepreciationAmount\": 0.45,\n    \"residualValue\": 10000\n  },\n  \"bookDepreciationSetting\": {\n    \"averagingMethod\": \"{{oneOf (array 'FullMonth' 'ActualDays')}}\",\n    \"bookEffectiveDateOfChangeId\": \"68f17094-af97-4f1b-b36b-013b45b6ad3c\",\n    \"depreciableObjectId\": \"68f17094-af97-4f1b-b36b-013b45b6ad3c\",\n    \"depreciableObjectType\": \"Asset\",\n    \"depreciationCalculationMethod\": \"{{oneOf (array 'Rate' 'Life' 'None')}}\",\n    \"depreciationMethod\": \"{{oneOf (array 'NoDepreciation' 'StraightLine' 'DiminishingValue100' 'DiminishingValue150' 'DiminishingValue200' 'FullDepreciation')}}\",\n    \"depreciationRate\": 0.05,\n    \"effectiveLifeYears\": 5\n  },\n  \"canRollback\": true,\n  \"disposalDate\": \"2020-07-01T00:00:00\",\n  \"disposalPrice\": \"1.0000\",\n  \"isDeleteEnabledForDate\": true,\n  \"purchaseDate\": \"2015-07-01T00:00:00\",\n  \"purchasePrice\": \"1000.0000\",\n  \"serialNumber\": \"ca4c6b39-4f4f-43e8-98da-5e1f350a6694\",\n  \"warrantyExpiryDate\": \"ca4c6b39-4f4f-43e8-98da-5e1f350a6694\"\n}",
+          "body": "{\n  \"accountingBookValue\": {{faker 'number.float'}},\n  \"assetId\": \"3b5b3a38-5649-495f-87a1-14a4e5918634\",\n  \"assetName\": \"Awesome Truck 3\",\n  \"assetNumber\": \"FA-0013\",\n  \"assetStatus\": \"{{oneOf (array 'Draft' 'Registered' 'Disposed')}}\",\n  \"assetTypeId\": \"3b5b3a38-5649-495f-87a1-14a4e5918634\",\n  \"bookDepreciationDetail\": {\n    \"costLimit\": 9000,\n    \"currentAccumDepreciationAmount\": 5,\n    \"currentCapitalGain\": 5.25,\n    \"currentGainLoss\": 10.5,\n    \"depreciationStartDate\": \"2015-07-01T00:00:00\",\n    \"priorAccumDepreciationAmount\": 0.45,\n    \"residualValue\": 10000\n  },\n  \"bookDepreciationSetting\": {\n    \"averagingMethod\": \"{{oneOf (array 'FullMonth' 'ActualDays')}}\",\n    \"bookEffectiveDateOfChangeId\": \"68f17094-af97-4f1b-b36b-013b45b6ad3c\",\n    \"depreciableObjectId\": \"68f17094-af97-4f1b-b36b-013b45b6ad3c\",\n    \"depreciableObjectType\": \"Asset\",\n    \"depreciationCalculationMethod\": \"{{oneOf (array 'Rate' 'Life' 'None')}}\",\n    \"depreciationMethod\": \"{{oneOf (array 'NoDepreciation' 'StraightLine' 'DiminishingValue100' 'DiminishingValue150' 'DiminishingValue200' 'FullDepreciation')}}\",\n    \"depreciationRate\": 0.05,\n    \"effectiveLifeYears\": 5\n  },\n  \"canRollback\": true,\n  \"disposalDate\": \"2020-07-01T00:00:00\",\n  \"disposalPrice\": \"1.0000\",\n  \"isDeleteEnabledForDate\": true,\n  \"purchaseDate\": \"2015-07-01T00:00:00\",\n  \"purchasePrice\": \"1000.0000\",\n  \"serialNumber\": \"ca4c6b39-4f4f-43e8-98da-5e1f350a6694\",\n  \"warrantyExpiryDate\": \"ca4c6b39-4f4f-43e8-98da-5e1f350a6694\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "return single object - create new asset",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -217,7 +187,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "beb191fc-6109-4848-9ca3-95177b4687ba",
@@ -225,12 +196,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "invalid input, object invalid",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -239,11 +205,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "1cd7f055-4f37-4c5e-9d2f-1b89e19ac9b6",
@@ -253,16 +221,11 @@
       "responses": [
         {
           "uuid": "30c2b956-26a0-4e30-9829-7f9fbf5a8583",
-          "body": "{\n  \"accountingBookValue\": {{faker 'datatype.float'}},\n  \"assetId\": \"3b5b3a38-5649-495f-87a1-14a4e5918634\",\n  \"assetName\": \"Awesome Truck 3\",\n  \"assetNumber\": \"FA-0013\",\n  \"assetStatus\": \"{{oneOf (array 'Draft' 'Registered' 'Disposed')}}\",\n  \"assetTypeId\": \"3b5b3a38-5649-495f-87a1-14a4e5918634\",\n  \"bookDepreciationDetail\": {\n    \"costLimit\": 9000,\n    \"currentAccumDepreciationAmount\": 5,\n    \"currentCapitalGain\": 5.25,\n    \"currentGainLoss\": 10.5,\n    \"depreciationStartDate\": \"2015-07-01T00:00:00\",\n    \"priorAccumDepreciationAmount\": 0.45,\n    \"residualValue\": 10000\n  },\n  \"bookDepreciationSetting\": {\n    \"averagingMethod\": \"{{oneOf (array 'FullMonth' 'ActualDays')}}\",\n    \"bookEffectiveDateOfChangeId\": \"68f17094-af97-4f1b-b36b-013b45b6ad3c\",\n    \"depreciableObjectId\": \"68f17094-af97-4f1b-b36b-013b45b6ad3c\",\n    \"depreciableObjectType\": \"Asset\",\n    \"depreciationCalculationMethod\": \"{{oneOf (array 'Rate' 'Life' 'None')}}\",\n    \"depreciationMethod\": \"{{oneOf (array 'NoDepreciation' 'StraightLine' 'DiminishingValue100' 'DiminishingValue150' 'DiminishingValue200' 'FullDepreciation')}}\",\n    \"depreciationRate\": 0.05,\n    \"effectiveLifeYears\": 5\n  },\n  \"canRollback\": true,\n  \"disposalDate\": \"2020-07-01T00:00:00\",\n  \"disposalPrice\": \"1.0000\",\n  \"isDeleteEnabledForDate\": true,\n  \"purchaseDate\": \"2015-07-01T00:00:00\",\n  \"purchasePrice\": \"1000.0000\",\n  \"serialNumber\": \"ca4c6b39-4f4f-43e8-98da-5e1f350a6694\",\n  \"warrantyExpiryDate\": \"ca4c6b39-4f4f-43e8-98da-5e1f350a6694\"\n}",
+          "body": "{\n  \"accountingBookValue\": {{faker 'number.float'}},\n  \"assetId\": \"3b5b3a38-5649-495f-87a1-14a4e5918634\",\n  \"assetName\": \"Awesome Truck 3\",\n  \"assetNumber\": \"FA-0013\",\n  \"assetStatus\": \"{{oneOf (array 'Draft' 'Registered' 'Disposed')}}\",\n  \"assetTypeId\": \"3b5b3a38-5649-495f-87a1-14a4e5918634\",\n  \"bookDepreciationDetail\": {\n    \"costLimit\": 9000,\n    \"currentAccumDepreciationAmount\": 5,\n    \"currentCapitalGain\": 5.25,\n    \"currentGainLoss\": 10.5,\n    \"depreciationStartDate\": \"2015-07-01T00:00:00\",\n    \"priorAccumDepreciationAmount\": 0.45,\n    \"residualValue\": 10000\n  },\n  \"bookDepreciationSetting\": {\n    \"averagingMethod\": \"{{oneOf (array 'FullMonth' 'ActualDays')}}\",\n    \"bookEffectiveDateOfChangeId\": \"68f17094-af97-4f1b-b36b-013b45b6ad3c\",\n    \"depreciableObjectId\": \"68f17094-af97-4f1b-b36b-013b45b6ad3c\",\n    \"depreciableObjectType\": \"Asset\",\n    \"depreciationCalculationMethod\": \"{{oneOf (array 'Rate' 'Life' 'None')}}\",\n    \"depreciationMethod\": \"{{oneOf (array 'NoDepreciation' 'StraightLine' 'DiminishingValue100' 'DiminishingValue150' 'DiminishingValue200' 'FullDepreciation')}}\",\n    \"depreciationRate\": 0.05,\n    \"effectiveLifeYears\": 5\n  },\n  \"canRollback\": true,\n  \"disposalDate\": \"2020-07-01T00:00:00\",\n  \"disposalPrice\": \"1.0000\",\n  \"isDeleteEnabledForDate\": true,\n  \"purchaseDate\": \"2015-07-01T00:00:00\",\n  \"purchasePrice\": \"1000.0000\",\n  \"serialNumber\": \"ca4c6b39-4f4f-43e8-98da-5e1f350a6694\",\n  \"warrantyExpiryDate\": \"ca4c6b39-4f4f-43e8-98da-5e1f350a6694\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "search results matching criteria",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -271,7 +234,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "cded82b6-146b-4f41-a9ad-1166d04f8321",
@@ -279,12 +243,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "bad input parameter",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -293,11 +252,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "615cc81d-f553-448b-8038-0952dececc7b",
@@ -311,12 +272,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "search results matching criteria",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -325,7 +281,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "af5837ee-9435-407b-a384-9f336b181f09",
@@ -333,12 +290,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "bad input parameter",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -347,11 +299,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -368,17 +322,16 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "44b64b8e-5172-4e4e-bc08-b4819ce88f94" },
+    { "type": "route", "uuid": "9c359e0a-648c-441e-9728-1b902460173a" },
+    { "type": "route", "uuid": "0abc125c-4b8f-4c3c-bb00-44138c2d611a" },
+    { "type": "route", "uuid": "415e24d0-3b35-4a64-9dcc-b69a3e3215cb" },
+    { "type": "route", "uuid": "1cd7f055-4f37-4c5e-9d2f-1b89e19ac9b6" },
+    { "type": "route", "uuid": "615cc81d-f553-448b-8038-0952dececc7b" }
+  ]
 }

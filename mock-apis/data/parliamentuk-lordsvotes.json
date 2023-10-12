@@ -1,11 +1,11 @@
 {
   "uuid": "8078b22c-3981-4fd5-89a3-00b9e7273e09",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "Lords Votes API",
   "endpointPrefix": "",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "6ee5e424-6c44-4545-936b-1f66dca87a32",
@@ -15,16 +15,11 @@
       "responses": [
         {
           "uuid": "3161f219-1800-47be-943a-aa5d713e88f0",
-          "body": "{\n  \"content\": [\n    {\n      \"partyName\": \"\",\n      \"voteCount\": {{faker 'datatype.number'}}\n    }\n  ],\n  \"contentCount\": {{faker 'datatype.number'}},\n  \"date\": \"{{faker 'date.recent' 365}}\",\n  \"divisionId\": {{faker 'datatype.number'}},\n  \"notContent\": [\n    {\n      \"partyName\": \"\",\n      \"voteCount\": {{faker 'datatype.number'}}\n    }\n  ],\n  \"notContentCount\": {{faker 'datatype.number'}},\n  \"number\": {{faker 'datatype.number'}},\n  \"title\": \"\"\n}",
+          "body": "{\n  \"content\": [\n    {\n      \"partyName\": \"\",\n      \"voteCount\": {{faker 'number.int'}}\n    }\n  ],\n  \"contentCount\": {{faker 'number.int'}},\n  \"date\": \"{{faker 'date.recent' 365}}\",\n  \"divisionId\": {{faker 'number.int'}},\n  \"notContent\": [\n    {\n      \"partyName\": \"\",\n      \"voteCount\": {{faker 'number.int'}}\n    }\n  ],\n  \"notContentCount\": {{faker 'number.int'}},\n  \"number\": {{faker 'number.int'}},\n  \"title\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "List of divisions with votes grouped by party",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "30f39bf7-2177-4972-be7b-5c7d0eb7f82d",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "A parameter was not valid",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,11 +46,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "b8dd09a9-746b-437a-b5b5-9d6535c3c88b",
@@ -69,16 +62,11 @@
       "responses": [
         {
           "uuid": "33cd1d43-f308-466c-89c1-8444e6685a6f",
-          "body": "{\n  \"memberId\": {{faker 'datatype.number'}},\n  \"memberWasContent\": {{faker 'datatype.boolean'}},\n  \"memberWasTeller\": {{faker 'datatype.boolean'}},\n  \"publishedDivision\": {\n    \"amendmentMotionNotes\": \"\",\n    \"contentTellers\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'datatype.number'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"contents\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'datatype.number'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"date\": \"{{faker 'date.recent' 365}}\",\n    \"divisionId\": {{faker 'datatype.number'}},\n    \"isGovernmentContent\": {{faker 'datatype.boolean'}},\n    \"isGovernmentWin\": {{faker 'datatype.boolean'}},\n    \"isHouse\": {{faker 'datatype.boolean'}},\n    \"isWhipped\": {{faker 'datatype.boolean'}},\n    \"notContentTellers\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'datatype.number'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"notContents\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'datatype.number'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"notes\": \"\",\n    \"number\": {{faker 'datatype.number'}},\n    \"remoteVotingEnd\": \"{{faker 'date.recent' 365}}\",\n    \"remoteVotingStart\": \"{{faker 'date.recent' 365}}\",\n    \"sponsoringMemberId\": {{faker 'datatype.number'}},\n    \"tellerContentCount\": {{faker 'datatype.number'}},\n    \"tellerNotContentCount\": {{faker 'datatype.number'}},\n    \"title\": \"\"\n  }\n}",
+          "body": "{\n  \"memberId\": {{faker 'number.int'}},\n  \"memberWasContent\": {{faker 'datatype.boolean'}},\n  \"memberWasTeller\": {{faker 'datatype.boolean'}},\n  \"publishedDivision\": {\n    \"amendmentMotionNotes\": \"\",\n    \"contentTellers\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'number.int'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"contents\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'number.int'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"date\": \"{{faker 'date.recent' 365}}\",\n    \"divisionId\": {{faker 'number.int'}},\n    \"isGovernmentContent\": {{faker 'datatype.boolean'}},\n    \"isGovernmentWin\": {{faker 'datatype.boolean'}},\n    \"isHouse\": {{faker 'datatype.boolean'}},\n    \"isWhipped\": {{faker 'datatype.boolean'}},\n    \"notContentTellers\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'number.int'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"notContents\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'number.int'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"notes\": \"\",\n    \"number\": {{faker 'number.int'}},\n    \"remoteVotingEnd\": \"{{faker 'date.recent' 365}}\",\n    \"remoteVotingStart\": \"{{faker 'date.recent' 365}}\",\n    \"sponsoringMemberId\": {{faker 'number.int'}},\n    \"tellerContentCount\": {{faker 'number.int'}},\n    \"tellerNotContentCount\": {{faker 'number.int'}},\n    \"title\": \"\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "List of voting records for a member",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -87,7 +75,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "506d0b5f-2055-4f5e-bdb8-512c3bf6a8a0",
@@ -95,12 +84,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "A parameter was not valid",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -109,7 +93,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "cb3b72ca-061a-4f25-8a46-34b2588cb761",
@@ -117,12 +102,7 @@
           "latency": 0,
           "statusCode": 503,
           "label": "Temporary error occured when trying to get division",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -131,11 +111,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "027dbe65-26af-4a5e-9e69-f0cd371abd31",
@@ -145,16 +127,11 @@
       "responses": [
         {
           "uuid": "94c33d0e-0746-439c-8ad5-f5b5e9cd347a",
-          "body": "[\n  {\n    \"amendmentMotionNotes\": \"\",\n    \"contentTellers\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'datatype.number'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"contents\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'datatype.number'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"date\": \"{{faker 'date.recent' 365}}\",\n    \"divisionId\": {{faker 'datatype.number'}},\n    \"isGovernmentContent\": {{faker 'datatype.boolean'}},\n    \"isGovernmentWin\": {{faker 'datatype.boolean'}},\n    \"isHouse\": {{faker 'datatype.boolean'}},\n    \"isWhipped\": {{faker 'datatype.boolean'}},\n    \"notContentTellers\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'datatype.number'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"notContents\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'datatype.number'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"notes\": \"\",\n    \"number\": {{faker 'datatype.number'}},\n    \"remoteVotingEnd\": \"{{faker 'date.recent' 365}}\",\n    \"remoteVotingStart\": \"{{faker 'date.recent' 365}}\",\n    \"sponsoringMemberId\": {{faker 'datatype.number'}},\n    \"tellerContentCount\": {{faker 'datatype.number'}},\n    \"tellerNotContentCount\": {{faker 'datatype.number'}},\n    \"title\": \"\"\n  }\n]",
+          "body": "[\n  {\n    \"amendmentMotionNotes\": \"\",\n    \"contentTellers\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'number.int'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"contents\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'number.int'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"date\": \"{{faker 'date.recent' 365}}\",\n    \"divisionId\": {{faker 'number.int'}},\n    \"isGovernmentContent\": {{faker 'datatype.boolean'}},\n    \"isGovernmentWin\": {{faker 'datatype.boolean'}},\n    \"isHouse\": {{faker 'datatype.boolean'}},\n    \"isWhipped\": {{faker 'datatype.boolean'}},\n    \"notContentTellers\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'number.int'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"notContents\": [\n      {\n        \"listAs\": \"\",\n        \"memberFrom\": \"\",\n        \"memberId\": {{faker 'number.int'}},\n        \"name\": \"\",\n        \"party\": \"\",\n        \"partyAbbreviation\": \"\",\n        \"partyColour\": \"\",\n        \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n      }\n    ],\n    \"notes\": \"\",\n    \"number\": {{faker 'number.int'}},\n    \"remoteVotingEnd\": \"{{faker 'date.recent' 365}}\",\n    \"remoteVotingStart\": \"{{faker 'date.recent' 365}}\",\n    \"sponsoringMemberId\": {{faker 'number.int'}},\n    \"tellerContentCount\": {{faker 'number.int'}},\n    \"tellerNotContentCount\": {{faker 'number.int'}},\n    \"title\": \"\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "List of divisions matching specified parameters",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -163,7 +140,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "8d72874d-440b-4480-a95c-be57de87d876",
@@ -171,12 +149,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "A parameter was not valid",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -185,7 +158,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "1d391075-f576-4253-8e55-e7ee40f8bfb5",
@@ -193,12 +167,7 @@
           "latency": 0,
           "statusCode": 503,
           "label": "Temporary error occured when trying to get division",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -207,11 +176,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "0a469cf2-bec8-443b-ad23-cd2713c97c8b",
@@ -221,16 +192,11 @@
       "responses": [
         {
           "uuid": "a5e29154-5baf-4062-a344-e76b9447f9d5",
-          "body": "{{faker 'datatype.number'}}",
+          "body": "{{faker 'number.int'}}",
           "latency": 0,
           "statusCode": 200,
           "label": "Division with id matching given divisionId",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -239,7 +205,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "59a9495b-b039-430e-ac79-c3595e572a82",
@@ -247,12 +214,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "divisionId was not valid",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -261,11 +223,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "d024770a-33fc-4176-a7c8-2a4ae6d6397a",
@@ -275,16 +239,11 @@
       "responses": [
         {
           "uuid": "83745af9-86db-4d2f-964a-989a084548e3",
-          "body": "{\n  \"amendmentMotionNotes\": \"\",\n  \"contentTellers\": [\n    {\n      \"listAs\": \"\",\n      \"memberFrom\": \"\",\n      \"memberId\": {{faker 'datatype.number'}},\n      \"name\": \"\",\n      \"party\": \"\",\n      \"partyAbbreviation\": \"\",\n      \"partyColour\": \"\",\n      \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n    }\n  ],\n  \"contents\": [\n    {\n      \"listAs\": \"\",\n      \"memberFrom\": \"\",\n      \"memberId\": {{faker 'datatype.number'}},\n      \"name\": \"\",\n      \"party\": \"\",\n      \"partyAbbreviation\": \"\",\n      \"partyColour\": \"\",\n      \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n    }\n  ],\n  \"date\": \"{{faker 'date.recent' 365}}\",\n  \"divisionId\": {{faker 'datatype.number'}},\n  \"isGovernmentContent\": {{faker 'datatype.boolean'}},\n  \"isGovernmentWin\": {{faker 'datatype.boolean'}},\n  \"isHouse\": {{faker 'datatype.boolean'}},\n  \"isWhipped\": {{faker 'datatype.boolean'}},\n  \"notContentTellers\": [\n    {\n      \"listAs\": \"\",\n      \"memberFrom\": \"\",\n      \"memberId\": {{faker 'datatype.number'}},\n      \"name\": \"\",\n      \"party\": \"\",\n      \"partyAbbreviation\": \"\",\n      \"partyColour\": \"\",\n      \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n    }\n  ],\n  \"notContents\": [\n    {\n      \"listAs\": \"\",\n      \"memberFrom\": \"\",\n      \"memberId\": {{faker 'datatype.number'}},\n      \"name\": \"\",\n      \"party\": \"\",\n      \"partyAbbreviation\": \"\",\n      \"partyColour\": \"\",\n      \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n    }\n  ],\n  \"notes\": \"\",\n  \"number\": {{faker 'datatype.number'}},\n  \"remoteVotingEnd\": \"{{faker 'date.recent' 365}}\",\n  \"remoteVotingStart\": \"{{faker 'date.recent' 365}}\",\n  \"sponsoringMemberId\": {{faker 'datatype.number'}},\n  \"tellerContentCount\": {{faker 'datatype.number'}},\n  \"tellerNotContentCount\": {{faker 'datatype.number'}},\n  \"title\": \"\"\n}",
+          "body": "{\n  \"amendmentMotionNotes\": \"\",\n  \"contentTellers\": [\n    {\n      \"listAs\": \"\",\n      \"memberFrom\": \"\",\n      \"memberId\": {{faker 'number.int'}},\n      \"name\": \"\",\n      \"party\": \"\",\n      \"partyAbbreviation\": \"\",\n      \"partyColour\": \"\",\n      \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n    }\n  ],\n  \"contents\": [\n    {\n      \"listAs\": \"\",\n      \"memberFrom\": \"\",\n      \"memberId\": {{faker 'number.int'}},\n      \"name\": \"\",\n      \"party\": \"\",\n      \"partyAbbreviation\": \"\",\n      \"partyColour\": \"\",\n      \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n    }\n  ],\n  \"date\": \"{{faker 'date.recent' 365}}\",\n  \"divisionId\": {{faker 'number.int'}},\n  \"isGovernmentContent\": {{faker 'datatype.boolean'}},\n  \"isGovernmentWin\": {{faker 'datatype.boolean'}},\n  \"isHouse\": {{faker 'datatype.boolean'}},\n  \"isWhipped\": {{faker 'datatype.boolean'}},\n  \"notContentTellers\": [\n    {\n      \"listAs\": \"\",\n      \"memberFrom\": \"\",\n      \"memberId\": {{faker 'number.int'}},\n      \"name\": \"\",\n      \"party\": \"\",\n      \"partyAbbreviation\": \"\",\n      \"partyColour\": \"\",\n      \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n    }\n  ],\n  \"notContents\": [\n    {\n      \"listAs\": \"\",\n      \"memberFrom\": \"\",\n      \"memberId\": {{faker 'number.int'}},\n      \"name\": \"\",\n      \"party\": \"\",\n      \"partyAbbreviation\": \"\",\n      \"partyColour\": \"\",\n      \"partyIsMainParty\": {{faker 'datatype.boolean'}}\n    }\n  ],\n  \"notes\": \"\",\n  \"number\": {{faker 'number.int'}},\n  \"remoteVotingEnd\": \"{{faker 'date.recent' 365}}\",\n  \"remoteVotingStart\": \"{{faker 'date.recent' 365}}\",\n  \"sponsoringMemberId\": {{faker 'number.int'}},\n  \"tellerContentCount\": {{faker 'number.int'}},\n  \"tellerNotContentCount\": {{faker 'number.int'}},\n  \"title\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Division with id matching given divisionId",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -293,7 +252,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "d627fd58-c010-4316-8351-14b6b26532b5",
@@ -301,12 +261,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "divisionId was not valid",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -315,7 +270,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "dd1da74a-565a-4b77-99e4-06df948632c3",
@@ -323,12 +279,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "Division with given divisionId was not found",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -337,7 +288,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "4edf4224-2618-45c6-85f2-812a8d15a800",
@@ -345,12 +297,7 @@
           "latency": 0,
           "statusCode": 503,
           "label": "Temporary error occured when trying to get division",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -359,11 +306,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -380,17 +329,15 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "6ee5e424-6c44-4545-936b-1f66dca87a32" },
+    { "type": "route", "uuid": "b8dd09a9-746b-437a-b5b5-9d6535c3c88b" },
+    { "type": "route", "uuid": "027dbe65-26af-4a5e-9e69-f0cd371abd31" },
+    { "type": "route", "uuid": "0a469cf2-bec8-443b-ad23-cd2713c97c8b" },
+    { "type": "route", "uuid": "d024770a-33fc-4176-a7c8-2a4ae6d6397a" }
+  ]
 }

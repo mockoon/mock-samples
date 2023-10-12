@@ -1,11 +1,11 @@
 {
   "uuid": "e4ba794a-40e1-4235-891e-8ee9ba0292d2",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "BulkSMS JSON REST API",
   "endpointPrefix": "v1",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "1f93e86e-6804-4814-98cb-bd5a06c76813",
@@ -19,12 +19,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "A list of BlockedNumber objects",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,11 +28,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "9ded045f-6dec-4e53-bd19-569f6026ead1",
@@ -51,12 +48,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Empty body upon success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -65,11 +57,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "0cef3ae6-4219-4d40-be1f-80e127b8cde9",
@@ -79,16 +73,11 @@
       "responses": [
         {
           "uuid": "ad26d637-f00b-4768-a633-e4703f4f1147",
-          "body": "[\n  {\n    \"body\": \"\",\n    \"creditCost\": {{faker 'datatype.float'}},\n    \"encoding\": \"{{oneOf (array 'TEXT' 'UNICODE' 'BINARY')}}\",\n    \"from\": \"\",\n    \"id\": \"\",\n    \"messageClass\": {{faker 'datatype.number'}},\n    \"numberOfParts\": {{faker 'datatype.number'}},\n    \"protocolId\": {{faker 'datatype.number'}},\n    \"relatedSentMessageId\": \"\",\n    \"status\": {\n      \"id\": \"\",\n      \"subtype\": \"{{oneOf (array 'EXPIRED' 'HANDSET_ERROR' 'BLOCKED' 'NOT_SENT')}}\",\n      \"type\": \"{{oneOf (array 'ACCEPTED' 'SCHEDULED' 'SENT' 'DELIVERED' 'UNKNOWN' 'FAILED')}}\"\n    },\n    \"submission\": {\n      \"date\": \"{{faker 'date.recent' 365}}\",\n      \"id\": \"\"\n    },\n    \"to\": \"\",\n    \"type\": \"{{oneOf (array 'SENT' 'RECEIVED')}}\",\n    \"userSuppliedId\": \"\"\n  }\n]",
+          "body": "[\n  {\n    \"body\": \"\",\n    \"creditCost\": {{faker 'number.float'}},\n    \"encoding\": \"{{oneOf (array 'TEXT' 'UNICODE' 'BINARY')}}\",\n    \"from\": \"\",\n    \"id\": \"\",\n    \"messageClass\": {{faker 'number.int'}},\n    \"numberOfParts\": {{faker 'number.int'}},\n    \"protocolId\": {{faker 'number.int'}},\n    \"relatedSentMessageId\": \"\",\n    \"status\": {\n      \"id\": \"\",\n      \"subtype\": \"{{oneOf (array 'EXPIRED' 'HANDSET_ERROR' 'BLOCKED' 'NOT_SENT')}}\",\n      \"type\": \"{{oneOf (array 'ACCEPTED' 'SCHEDULED' 'SENT' 'DELIVERED' 'UNKNOWN' 'FAILED')}}\"\n    },\n    \"submission\": {\n      \"date\": \"{{faker 'date.recent' 365}}\",\n      \"id\": \"\"\n    },\n    \"to\": \"\",\n    \"type\": \"{{oneOf (array 'SENT' 'RECEIVED')}}\",\n    \"userSuppliedId\": \"\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "Contains the requested array of messages",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -97,20 +86,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "43e6bba2-837b-46f6-b998-ef96055e2a00",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request. The content or structure of your submission, or a parameter, was found to be invalid.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -119,11 +104,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "f021cfe1-a019-4946-b6c8-80781e2055c8",
@@ -133,16 +120,11 @@
       "responses": [
         {
           "uuid": "fd92795e-fcad-407c-b5c4-21018dda8736",
-          "body": "[\n  {\n    \"body\": \"\",\n    \"creditCost\": {{faker 'datatype.float'}},\n    \"encoding\": \"{{oneOf (array 'TEXT' 'UNICODE' 'BINARY')}}\",\n    \"from\": \"\",\n    \"id\": \"\",\n    \"messageClass\": {{faker 'datatype.number'}},\n    \"numberOfParts\": {{faker 'datatype.number'}},\n    \"protocolId\": {{faker 'datatype.number'}},\n    \"relatedSentMessageId\": \"\",\n    \"status\": {\n      \"id\": \"\",\n      \"subtype\": \"{{oneOf (array 'EXPIRED' 'HANDSET_ERROR' 'BLOCKED' 'NOT_SENT')}}\",\n      \"type\": \"{{oneOf (array 'ACCEPTED' 'SCHEDULED' 'SENT' 'DELIVERED' 'UNKNOWN' 'FAILED')}}\"\n    },\n    \"submission\": {\n      \"date\": \"{{faker 'date.recent' 365}}\",\n      \"id\": \"\"\n    },\n    \"to\": \"\",\n    \"type\": \"{{oneOf (array 'SENT' 'RECEIVED')}}\",\n    \"userSuppliedId\": \"\"\n  }\n]",
+          "body": "[\n  {\n    \"body\": \"\",\n    \"creditCost\": {{faker 'number.float'}},\n    \"encoding\": \"{{oneOf (array 'TEXT' 'UNICODE' 'BINARY')}}\",\n    \"from\": \"\",\n    \"id\": \"\",\n    \"messageClass\": {{faker 'number.int'}},\n    \"numberOfParts\": {{faker 'number.int'}},\n    \"protocolId\": {{faker 'number.int'}},\n    \"relatedSentMessageId\": \"\",\n    \"status\": {\n      \"id\": \"\",\n      \"subtype\": \"{{oneOf (array 'EXPIRED' 'HANDSET_ERROR' 'BLOCKED' 'NOT_SENT')}}\",\n      \"type\": \"{{oneOf (array 'ACCEPTED' 'SCHEDULED' 'SENT' 'DELIVERED' 'UNKNOWN' 'FAILED')}}\"\n    },\n    \"submission\": {\n      \"date\": \"{{faker 'date.recent' 365}}\",\n      \"id\": \"\"\n    },\n    \"to\": \"\",\n    \"type\": \"{{oneOf (array 'SENT' 'RECEIVED')}}\",\n    \"userSuppliedId\": \"\"\n  }\n]",
           "latency": 0,
           "statusCode": 201,
           "label": "An array of the messages that were created from the request",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -151,20 +133,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "14cb2930-294c-4d3d-8695-fd891f29a758",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request. The content or structure of your submission, or a parameter, was found to be invalid.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -173,20 +151,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "b234632e-7691-4645-959f-8d4ffc1e1b13",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 403,
           "label": "Forbidden.  Inspect the body of the response for further details - for example, you may have insufficient credits remaining",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -195,11 +169,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "7801efbc-be59-43d3-ad42-5a1f56e8e775",
@@ -209,16 +185,11 @@
       "responses": [
         {
           "uuid": "ca58f783-128d-4726-9d42-fbdccbe3bf33",
-          "body": "[\n  {\n    \"body\": \"\",\n    \"creditCost\": {{faker 'datatype.float'}},\n    \"encoding\": \"{{oneOf (array 'TEXT' 'UNICODE' 'BINARY')}}\",\n    \"from\": \"\",\n    \"id\": \"\",\n    \"messageClass\": {{faker 'datatype.number'}},\n    \"numberOfParts\": {{faker 'datatype.number'}},\n    \"protocolId\": {{faker 'datatype.number'}},\n    \"relatedSentMessageId\": \"\",\n    \"status\": {\n      \"id\": \"\",\n      \"subtype\": \"{{oneOf (array 'EXPIRED' 'HANDSET_ERROR' 'BLOCKED' 'NOT_SENT')}}\",\n      \"type\": \"{{oneOf (array 'ACCEPTED' 'SCHEDULED' 'SENT' 'DELIVERED' 'UNKNOWN' 'FAILED')}}\"\n    },\n    \"submission\": {\n      \"date\": \"{{faker 'date.recent' 365}}\",\n      \"id\": \"\"\n    },\n    \"to\": \"\",\n    \"type\": \"{{oneOf (array 'SENT' 'RECEIVED')}}\",\n    \"userSuppliedId\": \"\"\n  }\n]",
+          "body": "[\n  {\n    \"body\": \"\",\n    \"creditCost\": {{faker 'number.float'}},\n    \"encoding\": \"{{oneOf (array 'TEXT' 'UNICODE' 'BINARY')}}\",\n    \"from\": \"\",\n    \"id\": \"\",\n    \"messageClass\": {{faker 'number.int'}},\n    \"numberOfParts\": {{faker 'number.int'}},\n    \"protocolId\": {{faker 'number.int'}},\n    \"relatedSentMessageId\": \"\",\n    \"status\": {\n      \"id\": \"\",\n      \"subtype\": \"{{oneOf (array 'EXPIRED' 'HANDSET_ERROR' 'BLOCKED' 'NOT_SENT')}}\",\n      \"type\": \"{{oneOf (array 'ACCEPTED' 'SCHEDULED' 'SENT' 'DELIVERED' 'UNKNOWN' 'FAILED')}}\"\n    },\n    \"submission\": {\n      \"date\": \"{{faker 'date.recent' 365}}\",\n      \"id\": \"\"\n    },\n    \"to\": \"\",\n    \"type\": \"{{oneOf (array 'SENT' 'RECEIVED')}}\",\n    \"userSuppliedId\": \"\"\n  }\n]",
           "latency": 0,
           "statusCode": 201,
           "label": "An array of messages",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -227,20 +198,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "a6b38390-0f8c-467c-b6ae-d97966f10668",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request. The content or structure of your submission, or a parameter, was found to be invalid.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -249,20 +216,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "4072c9b3-4059-41a5-a6c4-4ab643a02959",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 403,
           "label": "Forbidden.  Inspect the body of the response for further details - for example, you may have insufficient credits remaining",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -271,11 +234,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "e96350e7-c07d-4096-9a7a-148a8646789c",
@@ -285,16 +250,11 @@
       "responses": [
         {
           "uuid": "3dbc035c-a9f0-43e6-baa4-6a4a0fe43844",
-          "body": "{\n  \"body\": \"\",\n  \"creditCost\": {{faker 'datatype.float'}},\n  \"encoding\": \"{{oneOf (array 'TEXT' 'UNICODE' 'BINARY')}}\",\n  \"from\": \"\",\n  \"id\": \"\",\n  \"messageClass\": {{faker 'datatype.number'}},\n  \"numberOfParts\": {{faker 'datatype.number'}},\n  \"protocolId\": {{faker 'datatype.number'}},\n  \"relatedSentMessageId\": \"\",\n  \"status\": {\n    \"id\": \"\",\n    \"subtype\": \"{{oneOf (array 'EXPIRED' 'HANDSET_ERROR' 'BLOCKED' 'NOT_SENT')}}\",\n    \"type\": \"{{oneOf (array 'ACCEPTED' 'SCHEDULED' 'SENT' 'DELIVERED' 'UNKNOWN' 'FAILED')}}\"\n  },\n  \"submission\": {\n    \"date\": \"{{faker 'date.recent' 365}}\",\n    \"id\": \"\"\n  },\n  \"to\": \"\",\n  \"type\": \"{{oneOf (array 'SENT' 'RECEIVED')}}\",\n  \"userSuppliedId\": \"\"\n}",
+          "body": "{\n  \"body\": \"\",\n  \"creditCost\": {{faker 'number.float'}},\n  \"encoding\": \"{{oneOf (array 'TEXT' 'UNICODE' 'BINARY')}}\",\n  \"from\": \"\",\n  \"id\": \"\",\n  \"messageClass\": {{faker 'number.int'}},\n  \"numberOfParts\": {{faker 'number.int'}},\n  \"protocolId\": {{faker 'number.int'}},\n  \"relatedSentMessageId\": \"\",\n  \"status\": {\n    \"id\": \"\",\n    \"subtype\": \"{{oneOf (array 'EXPIRED' 'HANDSET_ERROR' 'BLOCKED' 'NOT_SENT')}}\",\n    \"type\": \"{{oneOf (array 'ACCEPTED' 'SCHEDULED' 'SENT' 'DELIVERED' 'UNKNOWN' 'FAILED')}}\"\n  },\n  \"submission\": {\n    \"date\": \"{{faker 'date.recent' 365}}\",\n    \"id\": \"\"\n  },\n  \"to\": \"\",\n  \"type\": \"{{oneOf (array 'SENT' 'RECEIVED')}}\",\n  \"userSuppliedId\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "The message detail",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -303,20 +263,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "a791c3e7-f9a8-4895-a9a9-172c5d98d7f8",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request. The content or structure of your submission, or a parameter, was found to be invalid.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -325,20 +281,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "e46770a3-5e57-47dc-ab9a-a25b6180de02",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 404,
           "label": "A [not-found error](errors/#not-found) if the message cannot be found.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -347,11 +299,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "5f55c8ce-2f4e-43ca-ab43-8c5be3db9dfb",
@@ -361,16 +315,11 @@
       "responses": [
         {
           "uuid": "913a53d6-5aa6-4af3-b7e4-5369af7b0c30",
-          "body": "[\n  {\n    \"body\": \"\",\n    \"creditCost\": {{faker 'datatype.float'}},\n    \"encoding\": \"{{oneOf (array 'TEXT' 'UNICODE' 'BINARY')}}\",\n    \"from\": \"\",\n    \"id\": \"\",\n    \"messageClass\": {{faker 'datatype.number'}},\n    \"numberOfParts\": {{faker 'datatype.number'}},\n    \"protocolId\": {{faker 'datatype.number'}},\n    \"relatedSentMessageId\": \"\",\n    \"status\": {\n      \"id\": \"\",\n      \"subtype\": \"{{oneOf (array 'EXPIRED' 'HANDSET_ERROR' 'BLOCKED' 'NOT_SENT')}}\",\n      \"type\": \"{{oneOf (array 'ACCEPTED' 'SCHEDULED' 'SENT' 'DELIVERED' 'UNKNOWN' 'FAILED')}}\"\n    },\n    \"submission\": {\n      \"date\": \"{{faker 'date.recent' 365}}\",\n      \"id\": \"\"\n    },\n    \"to\": \"\",\n    \"type\": \"{{oneOf (array 'SENT' 'RECEIVED')}}\",\n    \"userSuppliedId\": \"\"\n  }\n]",
+          "body": "[\n  {\n    \"body\": \"\",\n    \"creditCost\": {{faker 'number.float'}},\n    \"encoding\": \"{{oneOf (array 'TEXT' 'UNICODE' 'BINARY')}}\",\n    \"from\": \"\",\n    \"id\": \"\",\n    \"messageClass\": {{faker 'number.int'}},\n    \"numberOfParts\": {{faker 'number.int'}},\n    \"protocolId\": {{faker 'number.int'}},\n    \"relatedSentMessageId\": \"\",\n    \"status\": {\n      \"id\": \"\",\n      \"subtype\": \"{{oneOf (array 'EXPIRED' 'HANDSET_ERROR' 'BLOCKED' 'NOT_SENT')}}\",\n      \"type\": \"{{oneOf (array 'ACCEPTED' 'SCHEDULED' 'SENT' 'DELIVERED' 'UNKNOWN' 'FAILED')}}\"\n    },\n    \"submission\": {\n      \"date\": \"{{faker 'date.recent' 365}}\",\n      \"id\": \"\"\n    },\n    \"to\": \"\",\n    \"type\": \"{{oneOf (array 'SENT' 'RECEIVED')}}\",\n    \"userSuppliedId\": \"\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "An array of related messages.  If the `id` is not a sent message, the array will be empty.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -379,20 +328,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "2e355811-551a-404d-9b79-500352856b57",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "Bad Request. The content or structure of your submission, or a parameter, was found to be invalid.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -401,11 +346,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "6cd08e28-dcee-44ae-b20b-6073370d09c2",
@@ -415,16 +362,11 @@
       "responses": [
         {
           "uuid": "1ec4a2de-d209-476e-9792-0437bea49a2a",
-          "body": "{\n  \"commerce\": {\n    \"address\": {\n      \"city\": \"\",\n      \"country\": \"\",\n      \"postalCode\": \"\",\n      \"region\": \"\",\n      \"street\": [\n        \"\"\n      ]\n    },\n    \"bankPaymentReference\": \"\"\n  },\n  \"company\": {\n    \"name\": \"\",\n    \"taxReference\": \"\"\n  },\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"credits\": {\n    \"balance\": {{faker 'datatype.float'}},\n    \"isTransferAllowed\": {{faker 'datatype.boolean'}},\n    \"limit\": {{faker 'datatype.number'}}\n  },\n  \"id\": \"\",\n  \"originAddresses\": {\n    \"allowed\": [\n      \"\"\n    ],\n    \"isFullControlAllowed\": {{faker 'datatype.boolean'}}\n  },\n  \"quota\": {\n    \"remaining\": {{faker 'datatype.number'}},\n    \"size\": {{faker 'datatype.number'}}\n  },\n  \"username\": \"\"\n}",
+          "body": "{\n  \"commerce\": {\n    \"address\": {\n      \"city\": \"\",\n      \"country\": \"\",\n      \"postalCode\": \"\",\n      \"region\": \"\",\n      \"street\": [\n        \"\"\n      ]\n    },\n    \"bankPaymentReference\": \"\"\n  },\n  \"company\": {\n    \"name\": \"\",\n    \"taxReference\": \"\"\n  },\n  \"created\": \"{{faker 'date.recent' 365}}\",\n  \"credits\": {\n    \"balance\": {{faker 'number.float'}},\n    \"isTransferAllowed\": {{faker 'datatype.boolean'}},\n    \"limit\": {{faker 'number.int'}}\n  },\n  \"id\": \"\",\n  \"originAddresses\": {\n    \"allowed\": [\n      \"\"\n    ],\n    \"isFullControlAllowed\": {{faker 'datatype.boolean'}}\n  },\n  \"quota\": {\n    \"remaining\": {{faker 'number.int'}},\n    \"size\": {{faker 'number.int'}}\n  },\n  \"username\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "A Profile object",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -433,11 +375,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "32f9cb0f-fc84-4179-89e9-940d7234d460",
@@ -451,12 +395,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "A PreSignInfo object",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -465,11 +404,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "f6dc87c2-6c9d-4032-8b41-9cc3209f32f7",
@@ -483,12 +424,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Array of Webhooks",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -497,11 +433,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ba60a3d8-01fe-4d6a-a50c-5730c3f53c3d",
@@ -515,12 +453,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Contains the webhook you created",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -529,20 +462,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "6493117a-45a0-47f6-b619-1a84f5583da9",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "The url given for the webhook is not callable",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -551,11 +480,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "9b8523c3-f7e8-4de7-afec-0db3d4cf0d88",
@@ -569,12 +500,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The webhook was deleted successfully",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -583,20 +509,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "656ade18-b22a-4e63-bbdc-3906d8d4a4c1",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 404,
           "label": "A webhook with the given id does not exit",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -605,11 +527,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "f65a1b85-3520-4b88-9b26-8b02374c8050",
@@ -623,12 +547,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The properties of a specific webhook",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -637,20 +556,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c882edf8-c57e-4001-bf67-7fb22e1843c2",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "The url given for the webhook is not callable",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -659,20 +574,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "b596fb60-8e64-4705-9cb7-f66c4ec1e9ba",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 404,
           "label": "A webhook with the given id does not exit",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -681,11 +592,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "f2ce4fdc-3689-4ff5-9566-38c4c5d79c4a",
@@ -699,12 +612,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "The properties of the updated webhook",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -713,20 +621,16 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "f5a15e8c-3579-4d34-bc75-5f2029d27ee0",
-          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'datatype.number'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
+          "body": "{\n  \"detail\": \"\",\n  \"status\": {{faker 'number.int'}},\n  \"title\": \"\",\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 404,
           "label": "A webhook with the given id does not exit",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -735,11 +639,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -756,17 +662,24 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "1f93e86e-6804-4814-98cb-bd5a06c76813" },
+    { "type": "route", "uuid": "9ded045f-6dec-4e53-bd19-569f6026ead1" },
+    { "type": "route", "uuid": "0cef3ae6-4219-4d40-be1f-80e127b8cde9" },
+    { "type": "route", "uuid": "f021cfe1-a019-4946-b6c8-80781e2055c8" },
+    { "type": "route", "uuid": "7801efbc-be59-43d3-ad42-5a1f56e8e775" },
+    { "type": "route", "uuid": "e96350e7-c07d-4096-9a7a-148a8646789c" },
+    { "type": "route", "uuid": "5f55c8ce-2f4e-43ca-ab43-8c5be3db9dfb" },
+    { "type": "route", "uuid": "6cd08e28-dcee-44ae-b20b-6073370d09c2" },
+    { "type": "route", "uuid": "32f9cb0f-fc84-4179-89e9-940d7234d460" },
+    { "type": "route", "uuid": "f6dc87c2-6c9d-4032-8b41-9cc3209f32f7" },
+    { "type": "route", "uuid": "ba60a3d8-01fe-4d6a-a50c-5730c3f53c3d" },
+    { "type": "route", "uuid": "9b8523c3-f7e8-4de7-afec-0db3d4cf0d88" },
+    { "type": "route", "uuid": "f65a1b85-3520-4b88-9b26-8b02374c8050" },
+    { "type": "route", "uuid": "f2ce4fdc-3689-4ff5-9566-38c4c5d79c4a" }
+  ]
 }

@@ -1,11 +1,11 @@
 {
   "uuid": "d61d66f5-710c-415c-8e66-0890dff42d5c",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "SqlManagementClient",
   "endpointPrefix": "",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "46868e96-bc68-4632-b929-c00b711fe41d",
@@ -19,12 +19,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Successfully retrieved the failover groups.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "44de6499-70c1-4133-bedd-a26b90ff2f08",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "*** Error Responses: ***\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidPartner - The given partners field in create or update instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestDuplicatePartner - One or more of the provided partner servers are already part of the instance failover group. Please make sure the primary server and all of the given partner servers are unique.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidManagedInstanceRegion - The provided partner managed instance region in the instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestUnsupportedPartnerCount - Only one partner region is supported.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestUnsupportedPairCount - Only one managed instance pair is supported.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpoint - The readWriteEndpoint field is required for create or update requests.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalid - The create or update instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupUpdateOrDeleteRequestOnSecondary - Modifications to the instance failover group are not allowed on a secondary server. Execute the request on the primary server.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestNegativeGracePeriodValues - Grace period value for the read-write endpoint must be non-negative.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpointFields - The property failoverWithDataLossGracePeriodMinutes must be provided when failover policy Automatic is selected for the read-write endpoint.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteFailoverPolicy - The failoverPolicy field for the read-write endpoint is required for create or update requests.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpointFieldsForManualPolicy - Grace period value should not be provided when failover policy Manual is selected for the read-write endpoint.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestReadOnlyPropertyModified - The create or update instance failover group request body should not modify the read-only property '{0}'.\n\n * 400 InstanceFailoverGroupFailoverRequestOnPrimary - The failover request should be initiated on the secondary server of instance failover group.\n\n * 400 InstanceFailoverGroupPartnerManagedInstanceFromDifferentSubscription - Primary server and the partner server of failover group are from different subscriptions. Cross subscription for servers of failover group is not allowed.\n\n * 400 InvalidAddSecondaryPermission - User does not have sufficient permission to add secondary on the specified server.\n\n * 400 InvalidSku - The user specified an invalid sku.\n\n * 400 ServerNotFound - The requested server was not found.\n\n * 400 FeatureDisabledOnSelectedEdition - User attempted to use a feature which is disabled on current database edition.\n\n * 400 TokenTooLong - The provided token is too long.\n\n * 400 InvalidTargetSubregion - The target server of a non-readable secondary is not in a DR paired Azure region.\n\n * 400 IncorrectReplicationLinkState - The operation expects the database to be in an expected state on the replication link.\n\n * 400 PlannedFailoverTimedOutForDatabase - User invoked planned failover, it timed out, and a specific database appears to be to blame.\n\n * 400 PlannedFailoverTimedOut - User invoked planned failover, and it timed out while trying to contact the partner management service.\n\n * 400 CannotUseReservedDatabaseName - Cannot use reserved database name in this operation.\n\n * 400 InvalidFailoverGroupRegion - Servers specified in an Instance Failover Group need to reside in different regions to provide isolation.\n\n * 400 InstanceFailoverGroupDoesNotExist - Failover group does not exist on a server.\n\n * 400 InstanceFailoverGroupNotSecondary - Failover cannot be initiated from the primary server in a instance failover group.\n\n * 400 InvalidServerName - Invalid server name specified.\n\n * 400 InvalidIdentifier - The identifier contains NULL or an invalid unicode character.\n\n * 400 GeoReplicationDatabaseNotSecondary - The operation expects the database to be a replication target.\n\n * 400 UnableToResolveRemoteServer - The remote partner server name could not be resolved due to an invalid server name or DNS connectivity issues.\n\n * 400 RemoteDatabaseCopyPermission - User does not have sufficient permission to create a database copy on the specified server.\n\n * 404 ResourceNotFound - The requested resource was not found.\n\n * 404 ServerNotInSubscriptionResourceGroup - Specified server does not exist in the specified resource group and subscription.\n\n * 404 ServerNotInSubscription - Specified server does not exist on the specified subscription.\n\n * 404 SourceDatabaseNotFound - The source database does not exist.\n\n * 405 UnsupportedReplicationOperation - An unsupported replication operation was initiated on the database.\n\n * 409 ConflictingServerOperation - An operation is currently in progress for the server.\n\n * 409 SubscriptionDisabled - Subscription is disabled.\n\n * 409 ConflictingSystemOperationInProgress - A system maintenance operation is in progress on the database and further operations need to wait until it is completed.\n\n * 409 GeoReplicationCannotBecomePrimaryDuringUndo - User attempted to failover or force-terminate a geo-link while the secondary is in a state where it may not be physically consistent and so cannot enter the primary role.\n\n * 409 UpdateSloInProgress - User tried to initiate an incompatible operation while a SLO update was in progress.\n\n * 409 InstanceFailoverGroupAlreadyExists - Failover group already exists on a given server.\n\n * 409 InstanceFailoverGroupBusy - Instance failover group is busy with another operation.\n\n * 409 InstanceFailoverGroupDnsRecordInUse - A duplicate DNS record exists for the requested endpoint.\n\n * 409 InvalidFailoverGroupName - Invalid Instance Failover Group name was supplied.\n\n * 409 InvalidOperationForDatabaseNotInReplicationRelationship - A replication seeding operation was performed on a database that is already in a replication relationship.\n\n * 409 InvalidDatabaseStateForOperation - The operation is not allowed on the database in its current replication state.\n\n * 409 DuplicateGeoDrRelation - The databases are already in a replication relation. This is a duplicate request.\n\n * 409 RemoteDatabaseExists - The destination database name already exists on the destination server.\n\n * 429 SubscriptionTooManyCreateUpdateRequests - Requests beyond max requests that can be processed by available resources.\n\n * 429 SubscriptionTooManyRequests - Requests beyond max requests that can be processed by available resources.\n\n * 503 TooManyRequests - Requests beyond max requests that can be processed by available resources.\n\n * 504 RequestTimeout - Service request exceeded the allowed timeout.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,11 +46,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "941a2e00-984c-491c-b3a7-ea89366cdf1d",
@@ -73,12 +66,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Successfully deleted the failover group.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -87,7 +75,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "da290f0e-3408-4a0b-b75f-d582eab452c8",
@@ -95,12 +84,7 @@
           "latency": 0,
           "statusCode": 202,
           "label": "Accepted",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -109,7 +93,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "3ac4a6f5-e2ad-42de-acc3-d5429ed9c9d4",
@@ -117,12 +102,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "The specified failover group does not exist.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -131,7 +111,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "e7d9f40e-d356-4502-8009-721348e9e1bd",
@@ -139,12 +120,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "*** Error Responses: ***\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidPartner - The given partners field in create or update instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestDuplicatePartner - One or more of the provided partner servers are already part of the instance failover group. Please make sure the primary server and all of the given partner servers are unique.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidManagedInstanceRegion - The provided partner managed instance region in the instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestUnsupportedPartnerCount - Only one partner region is supported.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestUnsupportedPairCount - Only one managed instance pair is supported.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpoint - The readWriteEndpoint field is required for create or update requests.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalid - The create or update instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupUpdateOrDeleteRequestOnSecondary - Modifications to the instance failover group are not allowed on a secondary server. Execute the request on the primary server.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestNegativeGracePeriodValues - Grace period value for the read-write endpoint must be non-negative.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpointFields - The property failoverWithDataLossGracePeriodMinutes must be provided when failover policy Automatic is selected for the read-write endpoint.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteFailoverPolicy - The failoverPolicy field for the read-write endpoint is required for create or update requests.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpointFieldsForManualPolicy - Grace period value should not be provided when failover policy Manual is selected for the read-write endpoint.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestReadOnlyPropertyModified - The create or update instance failover group request body should not modify the read-only property '{0}'.\n\n * 400 InstanceFailoverGroupFailoverRequestOnPrimary - The failover request should be initiated on the secondary server of instance failover group.\n\n * 400 InstanceFailoverGroupPartnerManagedInstanceFromDifferentSubscription - Primary server and the partner server of failover group are from different subscriptions. Cross subscription for servers of failover group is not allowed.\n\n * 400 InvalidAddSecondaryPermission - User does not have sufficient permission to add secondary on the specified server.\n\n * 400 InvalidSku - The user specified an invalid sku.\n\n * 400 ServerNotFound - The requested server was not found.\n\n * 400 FeatureDisabledOnSelectedEdition - User attempted to use a feature which is disabled on current database edition.\n\n * 400 TokenTooLong - The provided token is too long.\n\n * 400 InvalidTargetSubregion - The target server of a non-readable secondary is not in a DR paired Azure region.\n\n * 400 IncorrectReplicationLinkState - The operation expects the database to be in an expected state on the replication link.\n\n * 400 PlannedFailoverTimedOutForDatabase - User invoked planned failover, it timed out, and a specific database appears to be to blame.\n\n * 400 PlannedFailoverTimedOut - User invoked planned failover, and it timed out while trying to contact the partner management service.\n\n * 400 CannotUseReservedDatabaseName - Cannot use reserved database name in this operation.\n\n * 400 InvalidFailoverGroupRegion - Servers specified in an Instance Failover Group need to reside in different regions to provide isolation.\n\n * 400 InstanceFailoverGroupDoesNotExist - Failover group does not exist on a server.\n\n * 400 InstanceFailoverGroupNotSecondary - Failover cannot be initiated from the primary server in a instance failover group.\n\n * 400 InvalidServerName - Invalid server name specified.\n\n * 400 InvalidIdentifier - The identifier contains NULL or an invalid unicode character.\n\n * 400 GeoReplicationDatabaseNotSecondary - The operation expects the database to be a replication target.\n\n * 400 UnableToResolveRemoteServer - The remote partner server name could not be resolved due to an invalid server name or DNS connectivity issues.\n\n * 400 RemoteDatabaseCopyPermission - User does not have sufficient permission to create a database copy on the specified server.\n\n * 404 OperationIdNotFound - The operation with Id does not exist.\n\n * 404 ResourceNotFound - The requested resource was not found.\n\n * 404 OperationIdNotFound - The operation with Id does not exist.\n\n * 404 ServerNotInSubscriptionResourceGroup - Specified server does not exist in the specified resource group and subscription.\n\n * 404 ServerNotInSubscription - Specified server does not exist on the specified subscription.\n\n * 404 SourceDatabaseNotFound - The source database does not exist.\n\n * 405 UnsupportedReplicationOperation - An unsupported replication operation was initiated on the database.\n\n * 409 OperationCancelled - The operation has been cancelled by user.\n\n * 409 OperationInterrupted - The operation on the resource could not be completed because it was interrupted by another operation on the same resource.\n\n * 409 ConflictingServerOperation - An operation is currently in progress for the server.\n\n * 409 SubscriptionDisabled - Subscription is disabled.\n\n * 409 ConflictingSystemOperationInProgress - A system maintenance operation is in progress on the database and further operations need to wait until it is completed.\n\n * 409 GeoReplicationCannotBecomePrimaryDuringUndo - User attempted to failover or force-terminate a geo-link while the secondary is in a state where it may not be physically consistent and so cannot enter the primary role.\n\n * 409 UpdateSloInProgress - User tried to initiate an incompatible operation while a SLO update was in progress.\n\n * 409 InstanceFailoverGroupAlreadyExists - Failover group already exists on a given server.\n\n * 409 InstanceFailoverGroupBusy - Instance failover group is busy with another operation.\n\n * 409 InstanceFailoverGroupDnsRecordInUse - A duplicate DNS record exists for the requested endpoint.\n\n * 409 InvalidFailoverGroupName - Invalid Instance Failover Group name was supplied.\n\n * 409 InvalidOperationForDatabaseNotInReplicationRelationship - A replication seeding operation was performed on a database that is already in a replication relationship.\n\n * 409 InvalidDatabaseStateForOperation - The operation is not allowed on the database in its current replication state.\n\n * 409 DuplicateGeoDrRelation - The databases are already in a replication relation. This is a duplicate request.\n\n * 409 RemoteDatabaseExists - The destination database name already exists on the destination server.\n\n * 429 SubscriptionTooManyCreateUpdateRequests - Requests beyond max requests that can be processed by available resources.\n\n * 429 SubscriptionTooManyRequests - Requests beyond max requests that can be processed by available resources.\n\n * 500 OperationTimedOut - The operation timed out and automatically rolled back. Please retry the operation.\n\n * 503 TooManyRequests - Requests beyond max requests that can be processed by available resources.\n\n * 504 RequestTimeout - Service request exceeded the allowed timeout.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -153,11 +129,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "c7ae28c9-54f0-44df-8aab-48b7a68f23e5",
@@ -171,12 +149,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Successfully retrieved the specified failover group.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -185,7 +158,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e1fae011-1c3d-4b8f-9788-6efb6723cc05",
@@ -193,12 +167,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "*** Error Responses: ***\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidPartner - The given partners field in create or update instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestDuplicatePartner - One or more of the provided partner servers are already part of the instance failover group. Please make sure the primary server and all of the given partner servers are unique.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidManagedInstanceRegion - The provided partner managed instance region in the instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestUnsupportedPartnerCount - Only one partner region is supported.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestUnsupportedPairCount - Only one managed instance pair is supported.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpoint - The readWriteEndpoint field is required for create or update requests.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalid - The create or update instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupUpdateOrDeleteRequestOnSecondary - Modifications to the instance failover group are not allowed on a secondary server. Execute the request on the primary server.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestNegativeGracePeriodValues - Grace period value for the read-write endpoint must be non-negative.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpointFields - The property failoverWithDataLossGracePeriodMinutes must be provided when failover policy Automatic is selected for the read-write endpoint.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteFailoverPolicy - The failoverPolicy field for the read-write endpoint is required for create or update requests.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpointFieldsForManualPolicy - Grace period value should not be provided when failover policy Manual is selected for the read-write endpoint.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestReadOnlyPropertyModified - The create or update instance failover group request body should not modify the read-only property '{0}'.\n\n * 400 InstanceFailoverGroupFailoverRequestOnPrimary - The failover request should be initiated on the secondary server of instance failover group.\n\n * 400 InstanceFailoverGroupPartnerManagedInstanceFromDifferentSubscription - Primary server and the partner server of failover group are from different subscriptions. Cross subscription for servers of failover group is not allowed.\n\n * 400 InvalidAddSecondaryPermission - User does not have sufficient permission to add secondary on the specified server.\n\n * 400 InvalidSku - The user specified an invalid sku.\n\n * 400 ServerNotFound - The requested server was not found.\n\n * 400 FeatureDisabledOnSelectedEdition - User attempted to use a feature which is disabled on current database edition.\n\n * 400 TokenTooLong - The provided token is too long.\n\n * 400 InvalidTargetSubregion - The target server of a non-readable secondary is not in a DR paired Azure region.\n\n * 400 IncorrectReplicationLinkState - The operation expects the database to be in an expected state on the replication link.\n\n * 400 PlannedFailoverTimedOutForDatabase - User invoked planned failover, it timed out, and a specific database appears to be to blame.\n\n * 400 PlannedFailoverTimedOut - User invoked planned failover, and it timed out while trying to contact the partner management service.\n\n * 400 CannotUseReservedDatabaseName - Cannot use reserved database name in this operation.\n\n * 400 InvalidFailoverGroupRegion - Servers specified in an Instance Failover Group need to reside in different regions to provide isolation.\n\n * 400 InstanceFailoverGroupDoesNotExist - Failover group does not exist on a server.\n\n * 400 InstanceFailoverGroupNotSecondary - Failover cannot be initiated from the primary server in a instance failover group.\n\n * 400 InvalidServerName - Invalid server name specified.\n\n * 400 InvalidIdentifier - The identifier contains NULL or an invalid unicode character.\n\n * 400 GeoReplicationDatabaseNotSecondary - The operation expects the database to be a replication target.\n\n * 400 UnableToResolveRemoteServer - The remote partner server name could not be resolved due to an invalid server name or DNS connectivity issues.\n\n * 400 RemoteDatabaseCopyPermission - User does not have sufficient permission to create a database copy on the specified server.\n\n * 404 ResourceNotFound - The requested resource was not found.\n\n * 404 ServerNotInSubscriptionResourceGroup - Specified server does not exist in the specified resource group and subscription.\n\n * 404 ServerNotInSubscription - Specified server does not exist on the specified subscription.\n\n * 404 SourceDatabaseNotFound - The source database does not exist.\n\n * 405 UnsupportedReplicationOperation - An unsupported replication operation was initiated on the database.\n\n * 409 ConflictingServerOperation - An operation is currently in progress for the server.\n\n * 409 SubscriptionDisabled - Subscription is disabled.\n\n * 409 ConflictingSystemOperationInProgress - A system maintenance operation is in progress on the database and further operations need to wait until it is completed.\n\n * 409 GeoReplicationCannotBecomePrimaryDuringUndo - User attempted to failover or force-terminate a geo-link while the secondary is in a state where it may not be physically consistent and so cannot enter the primary role.\n\n * 409 UpdateSloInProgress - User tried to initiate an incompatible operation while a SLO update was in progress.\n\n * 409 InstanceFailoverGroupAlreadyExists - Failover group already exists on a given server.\n\n * 409 InstanceFailoverGroupBusy - Instance failover group is busy with another operation.\n\n * 409 InstanceFailoverGroupDnsRecordInUse - A duplicate DNS record exists for the requested endpoint.\n\n * 409 InvalidFailoverGroupName - Invalid Instance Failover Group name was supplied.\n\n * 409 InvalidOperationForDatabaseNotInReplicationRelationship - A replication seeding operation was performed on a database that is already in a replication relationship.\n\n * 409 InvalidDatabaseStateForOperation - The operation is not allowed on the database in its current replication state.\n\n * 409 DuplicateGeoDrRelation - The databases are already in a replication relation. This is a duplicate request.\n\n * 409 RemoteDatabaseExists - The destination database name already exists on the destination server.\n\n * 429 SubscriptionTooManyCreateUpdateRequests - Requests beyond max requests that can be processed by available resources.\n\n * 429 SubscriptionTooManyRequests - Requests beyond max requests that can be processed by available resources.\n\n * 503 TooManyRequests - Requests beyond max requests that can be processed by available resources.\n\n * 504 RequestTimeout - Service request exceeded the allowed timeout.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -207,11 +176,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "4d799b34-fa8b-450b-886c-c8359c851f9e",
@@ -225,12 +196,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Successfully updated the failover group.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -239,7 +205,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "a9c7f6ae-cadc-4a5b-a8a4-747a89d478ac",
@@ -247,12 +214,7 @@
           "latency": 0,
           "statusCode": 201,
           "label": "Successfully created the failover group.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -261,7 +223,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "e4b80580-8cb7-4d91-b4e3-680797b6186b",
@@ -269,12 +232,7 @@
           "latency": 0,
           "statusCode": 202,
           "label": "Accepted",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -283,7 +241,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "4a187e91-8c73-4fd6-9344-1a96689f3bde",
@@ -291,12 +250,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "*** Error Responses: ***\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidPartner - The given partners field in create or update instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestDuplicatePartner - One or more of the provided partner servers are already part of the instance failover group. Please make sure the primary server and all of the given partner servers are unique.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidManagedInstanceRegion - The provided partner managed instance region in the instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestUnsupportedPartnerCount - Only one partner region is supported.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestUnsupportedPairCount - Only one managed instance pair is supported.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpoint - The readWriteEndpoint field is required for create or update requests.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalid - The create or update instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupUpdateOrDeleteRequestOnSecondary - Modifications to the instance failover group are not allowed on a secondary server. Execute the request on the primary server.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestNegativeGracePeriodValues - Grace period value for the read-write endpoint must be non-negative.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpointFields - The property failoverWithDataLossGracePeriodMinutes must be provided when failover policy Automatic is selected for the read-write endpoint.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteFailoverPolicy - The failoverPolicy field for the read-write endpoint is required for create or update requests.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpointFieldsForManualPolicy - Grace period value should not be provided when failover policy Manual is selected for the read-write endpoint.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestReadOnlyPropertyModified - The create or update instance failover group request body should not modify the read-only property '{0}'.\n\n * 400 InstanceFailoverGroupFailoverRequestOnPrimary - The failover request should be initiated on the secondary server of instance failover group.\n\n * 400 InstanceFailoverGroupPartnerManagedInstanceFromDifferentSubscription - Primary server and the partner server of failover group are from different subscriptions. Cross subscription for servers of failover group is not allowed.\n\n * 400 InvalidAddSecondaryPermission - User does not have sufficient permission to add secondary on the specified server.\n\n * 400 InvalidSku - The user specified an invalid sku.\n\n * 400 ServerNotFound - The requested server was not found.\n\n * 400 FeatureDisabledOnSelectedEdition - User attempted to use a feature which is disabled on current database edition.\n\n * 400 TokenTooLong - The provided token is too long.\n\n * 400 InvalidTargetSubregion - The target server of a non-readable secondary is not in a DR paired Azure region.\n\n * 400 IncorrectReplicationLinkState - The operation expects the database to be in an expected state on the replication link.\n\n * 400 PlannedFailoverTimedOutForDatabase - User invoked planned failover, it timed out, and a specific database appears to be to blame.\n\n * 400 PlannedFailoverTimedOut - User invoked planned failover, and it timed out while trying to contact the partner management service.\n\n * 400 CannotUseReservedDatabaseName - Cannot use reserved database name in this operation.\n\n * 400 InvalidFailoverGroupRegion - Servers specified in an Instance Failover Group need to reside in different regions to provide isolation.\n\n * 400 InstanceFailoverGroupDoesNotExist - Failover group does not exist on a server.\n\n * 400 InstanceFailoverGroupNotSecondary - Failover cannot be initiated from the primary server in a instance failover group.\n\n * 400 InvalidServerName - Invalid server name specified.\n\n * 400 InvalidIdentifier - The identifier contains NULL or an invalid unicode character.\n\n * 400 GeoReplicationDatabaseNotSecondary - The operation expects the database to be a replication target.\n\n * 400 UnableToResolveRemoteServer - The remote partner server name could not be resolved due to an invalid server name or DNS connectivity issues.\n\n * 400 RemoteDatabaseCopyPermission - User does not have sufficient permission to create a database copy on the specified server.\n\n * 404 OperationIdNotFound - The operation with Id does not exist.\n\n * 404 ResourceNotFound - The requested resource was not found.\n\n * 404 OperationIdNotFound - The operation with Id does not exist.\n\n * 404 ServerNotInSubscriptionResourceGroup - Specified server does not exist in the specified resource group and subscription.\n\n * 404 ServerNotInSubscription - Specified server does not exist on the specified subscription.\n\n * 404 SourceDatabaseNotFound - The source database does not exist.\n\n * 405 UnsupportedReplicationOperation - An unsupported replication operation was initiated on the database.\n\n * 409 OperationCancelled - The operation has been cancelled by user.\n\n * 409 OperationInterrupted - The operation on the resource could not be completed because it was interrupted by another operation on the same resource.\n\n * 409 ConflictingServerOperation - An operation is currently in progress for the server.\n\n * 409 SubscriptionDisabled - Subscription is disabled.\n\n * 409 ConflictingSystemOperationInProgress - A system maintenance operation is in progress on the database and further operations need to wait until it is completed.\n\n * 409 GeoReplicationCannotBecomePrimaryDuringUndo - User attempted to failover or force-terminate a geo-link while the secondary is in a state where it may not be physically consistent and so cannot enter the primary role.\n\n * 409 UpdateSloInProgress - User tried to initiate an incompatible operation while a SLO update was in progress.\n\n * 409 InstanceFailoverGroupAlreadyExists - Failover group already exists on a given server.\n\n * 409 InstanceFailoverGroupBusy - Instance failover group is busy with another operation.\n\n * 409 InstanceFailoverGroupDnsRecordInUse - A duplicate DNS record exists for the requested endpoint.\n\n * 409 InvalidFailoverGroupName - Invalid Instance Failover Group name was supplied.\n\n * 409 InvalidOperationForDatabaseNotInReplicationRelationship - A replication seeding operation was performed on a database that is already in a replication relationship.\n\n * 409 InvalidDatabaseStateForOperation - The operation is not allowed on the database in its current replication state.\n\n * 409 DuplicateGeoDrRelation - The databases are already in a replication relation. This is a duplicate request.\n\n * 409 RemoteDatabaseExists - The destination database name already exists on the destination server.\n\n * 429 SubscriptionTooManyCreateUpdateRequests - Requests beyond max requests that can be processed by available resources.\n\n * 429 SubscriptionTooManyRequests - Requests beyond max requests that can be processed by available resources.\n\n * 500 OperationTimedOut - The operation timed out and automatically rolled back. Please retry the operation.\n\n * 503 TooManyRequests - Requests beyond max requests that can be processed by available resources.\n\n * 504 RequestTimeout - Service request exceeded the allowed timeout.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -305,11 +259,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "f7b14710-b42b-4516-9a1a-f1514710a6a5",
@@ -323,12 +279,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Successfully failed over.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -337,7 +288,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "33034103-e046-4c24-b83f-13869903936f",
@@ -345,12 +297,7 @@
           "latency": 0,
           "statusCode": 202,
           "label": "Accepted",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -359,7 +306,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "5709d56c-491d-4737-b596-9aeac1c2876e",
@@ -367,12 +315,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "*** Error Responses: ***\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidPartner - The given partners field in create or update instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestDuplicatePartner - One or more of the provided partner servers are already part of the instance failover group. Please make sure the primary server and all of the given partner servers are unique.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidManagedInstanceRegion - The provided partner managed instance region in the instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestUnsupportedPartnerCount - Only one partner region is supported.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestUnsupportedPairCount - Only one managed instance pair is supported.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpoint - The readWriteEndpoint field is required for create or update requests.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalid - The create or update instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupUpdateOrDeleteRequestOnSecondary - Modifications to the instance failover group are not allowed on a secondary server. Execute the request on the primary server.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestNegativeGracePeriodValues - Grace period value for the read-write endpoint must be non-negative.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpointFields - The property failoverWithDataLossGracePeriodMinutes must be provided when failover policy Automatic is selected for the read-write endpoint.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteFailoverPolicy - The failoverPolicy field for the read-write endpoint is required for create or update requests.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpointFieldsForManualPolicy - Grace period value should not be provided when failover policy Manual is selected for the read-write endpoint.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestReadOnlyPropertyModified - The create or update instance failover group request body should not modify the read-only property '{0}'.\n\n * 400 InstanceFailoverGroupFailoverRequestOnPrimary - The failover request should be initiated on the secondary server of instance failover group.\n\n * 400 InstanceFailoverGroupPartnerManagedInstanceFromDifferentSubscription - Primary server and the partner server of failover group are from different subscriptions. Cross subscription for servers of failover group is not allowed.\n\n * 400 InvalidAddSecondaryPermission - User does not have sufficient permission to add secondary on the specified server.\n\n * 400 InvalidSku - The user specified an invalid sku.\n\n * 400 ServerNotFound - The requested server was not found.\n\n * 400 FeatureDisabledOnSelectedEdition - User attempted to use a feature which is disabled on current database edition.\n\n * 400 TokenTooLong - The provided token is too long.\n\n * 400 InvalidTargetSubregion - The target server of a non-readable secondary is not in a DR paired Azure region.\n\n * 400 IncorrectReplicationLinkState - The operation expects the database to be in an expected state on the replication link.\n\n * 400 PlannedFailoverTimedOutForDatabase - User invoked planned failover, it timed out, and a specific database appears to be to blame.\n\n * 400 PlannedFailoverTimedOut - User invoked planned failover, and it timed out while trying to contact the partner management service.\n\n * 400 CannotUseReservedDatabaseName - Cannot use reserved database name in this operation.\n\n * 400 InvalidFailoverGroupRegion - Servers specified in an Instance Failover Group need to reside in different regions to provide isolation.\n\n * 400 InstanceFailoverGroupDoesNotExist - Failover group does not exist on a server.\n\n * 400 InstanceFailoverGroupNotSecondary - Failover cannot be initiated from the primary server in a instance failover group.\n\n * 400 InvalidServerName - Invalid server name specified.\n\n * 400 InvalidIdentifier - The identifier contains NULL or an invalid unicode character.\n\n * 400 GeoReplicationDatabaseNotSecondary - The operation expects the database to be a replication target.\n\n * 400 UnableToResolveRemoteServer - The remote partner server name could not be resolved due to an invalid server name or DNS connectivity issues.\n\n * 400 RemoteDatabaseCopyPermission - User does not have sufficient permission to create a database copy on the specified server.\n\n * 404 OperationIdNotFound - The operation with Id does not exist.\n\n * 404 ResourceNotFound - The requested resource was not found.\n\n * 404 OperationIdNotFound - The operation with Id does not exist.\n\n * 404 ServerNotInSubscriptionResourceGroup - Specified server does not exist in the specified resource group and subscription.\n\n * 404 ServerNotInSubscription - Specified server does not exist on the specified subscription.\n\n * 404 SourceDatabaseNotFound - The source database does not exist.\n\n * 405 UnsupportedReplicationOperation - An unsupported replication operation was initiated on the database.\n\n * 409 OperationCancelled - The operation has been cancelled by user.\n\n * 409 OperationInterrupted - The operation on the resource could not be completed because it was interrupted by another operation on the same resource.\n\n * 409 ConflictingServerOperation - An operation is currently in progress for the server.\n\n * 409 SubscriptionDisabled - Subscription is disabled.\n\n * 409 ConflictingSystemOperationInProgress - A system maintenance operation is in progress on the database and further operations need to wait until it is completed.\n\n * 409 GeoReplicationCannotBecomePrimaryDuringUndo - User attempted to failover or force-terminate a geo-link while the secondary is in a state where it may not be physically consistent and so cannot enter the primary role.\n\n * 409 UpdateSloInProgress - User tried to initiate an incompatible operation while a SLO update was in progress.\n\n * 409 InstanceFailoverGroupAlreadyExists - Failover group already exists on a given server.\n\n * 409 InstanceFailoverGroupBusy - Instance failover group is busy with another operation.\n\n * 409 InstanceFailoverGroupDnsRecordInUse - A duplicate DNS record exists for the requested endpoint.\n\n * 409 InvalidFailoverGroupName - Invalid Instance Failover Group name was supplied.\n\n * 409 InvalidOperationForDatabaseNotInReplicationRelationship - A replication seeding operation was performed on a database that is already in a replication relationship.\n\n * 409 InvalidDatabaseStateForOperation - The operation is not allowed on the database in its current replication state.\n\n * 409 DuplicateGeoDrRelation - The databases are already in a replication relation. This is a duplicate request.\n\n * 409 RemoteDatabaseExists - The destination database name already exists on the destination server.\n\n * 429 SubscriptionTooManyCreateUpdateRequests - Requests beyond max requests that can be processed by available resources.\n\n * 429 SubscriptionTooManyRequests - Requests beyond max requests that can be processed by available resources.\n\n * 500 OperationTimedOut - The operation timed out and automatically rolled back. Please retry the operation.\n\n * 503 TooManyRequests - Requests beyond max requests that can be processed by available resources.\n\n * 504 RequestTimeout - Service request exceeded the allowed timeout.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -381,11 +324,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "6b864d34-74cf-402c-862a-d3c977f67260",
@@ -399,12 +344,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Successfully failed over.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -413,7 +353,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "91790ac4-18c5-4384-a9f6-9b7634cc97b1",
@@ -421,12 +362,7 @@
           "latency": 0,
           "statusCode": 202,
           "label": "Accepted",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -435,7 +371,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "0fb3927b-80de-4dbb-a4d5-dc8ef58ac40a",
@@ -443,12 +380,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "*** Error Responses: ***\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidPartner - The given partners field in create or update instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestDuplicatePartner - One or more of the provided partner servers are already part of the instance failover group. Please make sure the primary server and all of the given partner servers are unique.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidManagedInstanceRegion - The provided partner managed instance region in the instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestUnsupportedPartnerCount - Only one partner region is supported.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestUnsupportedPairCount - Only one managed instance pair is supported.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpoint - The readWriteEndpoint field is required for create or update requests.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalid - The create or update instance failover group request body is empty or invalid.\n\n * 400 InstanceFailoverGroupUpdateOrDeleteRequestOnSecondary - Modifications to the instance failover group are not allowed on a secondary server. Execute the request on the primary server.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestNegativeGracePeriodValues - Grace period value for the read-write endpoint must be non-negative.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpointFields - The property failoverWithDataLossGracePeriodMinutes must be provided when failover policy Automatic is selected for the read-write endpoint.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteFailoverPolicy - The failoverPolicy field for the read-write endpoint is required for create or update requests.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestInvalidReadWriteEndpointFieldsForManualPolicy - Grace period value should not be provided when failover policy Manual is selected for the read-write endpoint.\n\n * 400 InstanceFailoverGroupCreateOrUpdateRequestReadOnlyPropertyModified - The create or update instance failover group request body should not modify the read-only property '{0}'.\n\n * 400 InstanceFailoverGroupFailoverRequestOnPrimary - The failover request should be initiated on the secondary server of instance failover group.\n\n * 400 InstanceFailoverGroupPartnerManagedInstanceFromDifferentSubscription - Primary server and the partner server of failover group are from different subscriptions. Cross subscription for servers of failover group is not allowed.\n\n * 400 InvalidAddSecondaryPermission - User does not have sufficient permission to add secondary on the specified server.\n\n * 400 InvalidSku - The user specified an invalid sku.\n\n * 400 ServerNotFound - The requested server was not found.\n\n * 400 FeatureDisabledOnSelectedEdition - User attempted to use a feature which is disabled on current database edition.\n\n * 400 TokenTooLong - The provided token is too long.\n\n * 400 InvalidTargetSubregion - The target server of a non-readable secondary is not in a DR paired Azure region.\n\n * 400 IncorrectReplicationLinkState - The operation expects the database to be in an expected state on the replication link.\n\n * 400 PlannedFailoverTimedOutForDatabase - User invoked planned failover, it timed out, and a specific database appears to be to blame.\n\n * 400 PlannedFailoverTimedOut - User invoked planned failover, and it timed out while trying to contact the partner management service.\n\n * 400 CannotUseReservedDatabaseName - Cannot use reserved database name in this operation.\n\n * 400 InvalidFailoverGroupRegion - Servers specified in an Instance Failover Group need to reside in different regions to provide isolation.\n\n * 400 InstanceFailoverGroupDoesNotExist - Failover group does not exist on a server.\n\n * 400 InstanceFailoverGroupNotSecondary - Failover cannot be initiated from the primary server in a instance failover group.\n\n * 400 InvalidServerName - Invalid server name specified.\n\n * 400 InvalidIdentifier - The identifier contains NULL or an invalid unicode character.\n\n * 400 GeoReplicationDatabaseNotSecondary - The operation expects the database to be a replication target.\n\n * 400 UnableToResolveRemoteServer - The remote partner server name could not be resolved due to an invalid server name or DNS connectivity issues.\n\n * 400 RemoteDatabaseCopyPermission - User does not have sufficient permission to create a database copy on the specified server.\n\n * 404 OperationIdNotFound - The operation with Id does not exist.\n\n * 404 ResourceNotFound - The requested resource was not found.\n\n * 404 OperationIdNotFound - The operation with Id does not exist.\n\n * 404 ServerNotInSubscriptionResourceGroup - Specified server does not exist in the specified resource group and subscription.\n\n * 404 ServerNotInSubscription - Specified server does not exist on the specified subscription.\n\n * 404 SourceDatabaseNotFound - The source database does not exist.\n\n * 405 UnsupportedReplicationOperation - An unsupported replication operation was initiated on the database.\n\n * 409 OperationCancelled - The operation has been cancelled by user.\n\n * 409 OperationInterrupted - The operation on the resource could not be completed because it was interrupted by another operation on the same resource.\n\n * 409 ConflictingServerOperation - An operation is currently in progress for the server.\n\n * 409 SubscriptionDisabled - Subscription is disabled.\n\n * 409 ConflictingSystemOperationInProgress - A system maintenance operation is in progress on the database and further operations need to wait until it is completed.\n\n * 409 GeoReplicationCannotBecomePrimaryDuringUndo - User attempted to failover or force-terminate a geo-link while the secondary is in a state where it may not be physically consistent and so cannot enter the primary role.\n\n * 409 UpdateSloInProgress - User tried to initiate an incompatible operation while a SLO update was in progress.\n\n * 409 InstanceFailoverGroupAlreadyExists - Failover group already exists on a given server.\n\n * 409 InstanceFailoverGroupBusy - Instance failover group is busy with another operation.\n\n * 409 InstanceFailoverGroupDnsRecordInUse - A duplicate DNS record exists for the requested endpoint.\n\n * 409 InvalidFailoverGroupName - Invalid Instance Failover Group name was supplied.\n\n * 409 InvalidOperationForDatabaseNotInReplicationRelationship - A replication seeding operation was performed on a database that is already in a replication relationship.\n\n * 409 InvalidDatabaseStateForOperation - The operation is not allowed on the database in its current replication state.\n\n * 409 DuplicateGeoDrRelation - The databases are already in a replication relation. This is a duplicate request.\n\n * 409 RemoteDatabaseExists - The destination database name already exists on the destination server.\n\n * 429 SubscriptionTooManyCreateUpdateRequests - Requests beyond max requests that can be processed by available resources.\n\n * 429 SubscriptionTooManyRequests - Requests beyond max requests that can be processed by available resources.\n\n * 500 OperationTimedOut - The operation timed out and automatically rolled back. Please retry the operation.\n\n * 503 TooManyRequests - Requests beyond max requests that can be processed by available resources.\n\n * 504 RequestTimeout - Service request exceeded the allowed timeout.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -457,11 +389,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -478,17 +412,16 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "46868e96-bc68-4632-b929-c00b711fe41d" },
+    { "type": "route", "uuid": "941a2e00-984c-491c-b3a7-ea89366cdf1d" },
+    { "type": "route", "uuid": "c7ae28c9-54f0-44df-8aab-48b7a68f23e5" },
+    { "type": "route", "uuid": "4d799b34-fa8b-450b-886c-c8359c851f9e" },
+    { "type": "route", "uuid": "f7b14710-b42b-4516-9a1a-f1514710a6a5" },
+    { "type": "route", "uuid": "6b864d34-74cf-402c-862a-d3c977f67260" }
+  ]
 }

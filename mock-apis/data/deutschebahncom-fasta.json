@@ -1,11 +1,11 @@
 {
   "uuid": "50e0a5ef-dac3-48cd-8fe7-998e270818f4",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "FaSta - Station Facilities Status",
   "endpointPrefix": "fasta/v2",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "91cb9edd-fe2f-400e-92ae-67db0e3ec6db",
@@ -15,16 +15,11 @@
       "responses": [
         {
           "uuid": "b265c78e-49d7-4e0c-ac02-a2921e82c2f1",
-          "body": "[\n  {\n    \"description\": \"\",\n    \"equipmentnumber\": {{faker 'datatype.number'}},\n    \"geocoordX\": {{faker 'datatype.float'}},\n    \"geocoordY\": {{faker 'datatype.float'}},\n    \"operatorname\": \"\",\n    \"state\": \"{{oneOf (array 'ACTIVE' 'INACTIVE' 'UNKNOWN')}}\",\n    \"stateExplanation\": \"\",\n    \"stationnumber\": {{faker 'datatype.number'}},\n    \"type\": \"{{oneOf (array 'ESCALATOR' 'ELEVATOR')}}\"\n  }\n]",
+          "body": "[\n  {\n    \"description\": \"\",\n    \"equipmentnumber\": {{faker 'number.int'}},\n    \"geocoordX\": {{faker 'number.float'}},\n    \"geocoordY\": {{faker 'number.float'}},\n    \"operatorname\": \"\",\n    \"state\": \"{{oneOf (array 'ACTIVE' 'INACTIVE' 'UNKNOWN')}}\",\n    \"stateExplanation\": \"\",\n    \"stationnumber\": {{faker 'number.int'}},\n    \"type\": \"{{oneOf (array 'ESCALATOR' 'ELEVATOR')}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "facility data",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,7 +28,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "4d7c8dca-9ea3-4212-9502-cfba0c54f7dd",
@@ -41,12 +37,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "The given filters contained invalid values.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -55,7 +46,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "6d2054f9-288b-4cde-a13a-ac0a5a1c8087",
@@ -63,12 +55,7 @@
           "latency": 0,
           "statusCode": 406,
           "label": "The requested representation format is not available.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -77,7 +64,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "449fd7b0-423a-4f03-89ff-a44dafbaec6d",
@@ -85,12 +73,7 @@
           "latency": 0,
           "statusCode": 500,
           "label": "A processing error has occurred.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -99,7 +82,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "0232070e-c5c1-4127-b95c-0a8c9bfe8e56",
@@ -107,12 +91,7 @@
           "latency": 0,
           "statusCode": 503,
           "label": "The service has been disabled temporarily.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -121,11 +100,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "993c3ad7-aeed-4191-99e8-8a75febadc5a",
@@ -135,16 +116,11 @@
       "responses": [
         {
           "uuid": "2611825b-7304-4f71-b3be-7b3b4eeed7e6",
-          "body": "{\n  \"description\": \"\",\n  \"equipmentnumber\": {{faker 'datatype.number'}},\n  \"geocoordX\": {{faker 'datatype.float'}},\n  \"geocoordY\": {{faker 'datatype.float'}},\n  \"operatorname\": \"\",\n  \"state\": \"{{oneOf (array 'ACTIVE' 'INACTIVE' 'UNKNOWN')}}\",\n  \"stateExplanation\": \"\",\n  \"stationnumber\": {{faker 'datatype.number'}},\n  \"type\": \"{{oneOf (array 'ESCALATOR' 'ELEVATOR')}}\"\n}",
+          "body": "{\n  \"description\": \"\",\n  \"equipmentnumber\": {{faker 'number.int'}},\n  \"geocoordX\": {{faker 'number.float'}},\n  \"geocoordY\": {{faker 'number.float'}},\n  \"operatorname\": \"\",\n  \"state\": \"{{oneOf (array 'ACTIVE' 'INACTIVE' 'UNKNOWN')}}\",\n  \"stateExplanation\": \"\",\n  \"stationnumber\": {{faker 'number.int'}},\n  \"type\": \"{{oneOf (array 'ESCALATOR' 'ELEVATOR')}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Facility data",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -153,7 +129,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "f06806ad-97d5-413b-a5e3-11a278fdc504",
@@ -161,12 +138,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "The requested facility could not be found.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -175,7 +147,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "7a8e7015-e8a8-4a93-9e1c-5bc7265afd97",
@@ -183,12 +156,7 @@
           "latency": 0,
           "statusCode": 406,
           "label": "The requested representation format is not available.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -197,7 +165,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "dc51f543-29ae-4a98-8d4f-ff5d79bbc262",
@@ -205,12 +174,7 @@
           "latency": 0,
           "statusCode": 500,
           "label": "A processing error has occurred.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -219,7 +183,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "a034925a-45fd-4749-ba41-189dd1209518",
@@ -227,12 +192,7 @@
           "latency": 0,
           "statusCode": 503,
           "label": "The service has been disabled temporarily.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -241,11 +201,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "9c4be972-86ac-4ee0-94c3-c23c2dca27d4",
@@ -255,16 +217,11 @@
       "responses": [
         {
           "uuid": "08909775-35b7-4a25-ace4-f12188ecb3ad",
-          "body": "{\n  \"facilities\": [\n    {\n      \"description\": \"\",\n      \"equipmentnumber\": {{faker 'datatype.number'}},\n      \"geocoordX\": {{faker 'datatype.float'}},\n      \"geocoordY\": {{faker 'datatype.float'}},\n      \"operatorname\": \"\",\n      \"state\": \"{{oneOf (array 'ACTIVE' 'INACTIVE' 'UNKNOWN')}}\",\n      \"stateExplanation\": \"\",\n      \"stationnumber\": {{faker 'datatype.number'}},\n      \"type\": \"{{oneOf (array 'ESCALATOR' 'ELEVATOR')}}\"\n    }\n  ],\n  \"name\": \"\",\n  \"stationnumber\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"facilities\": [\n    {\n      \"description\": \"\",\n      \"equipmentnumber\": {{faker 'number.int'}},\n      \"geocoordX\": {{faker 'number.float'}},\n      \"geocoordY\": {{faker 'number.float'}},\n      \"operatorname\": \"\",\n      \"state\": \"{{oneOf (array 'ACTIVE' 'INACTIVE' 'UNKNOWN')}}\",\n      \"stateExplanation\": \"\",\n      \"stationnumber\": {{faker 'number.int'}},\n      \"type\": \"{{oneOf (array 'ESCALATOR' 'ELEVATOR')}}\"\n    }\n  ],\n  \"name\": \"\",\n  \"stationnumber\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "station data",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -273,7 +230,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "9c1faeb0-e940-4e74-9990-e71c3217ab08",
@@ -281,12 +239,7 @@
           "latency": 0,
           "statusCode": 404,
           "label": "The requested station could not be found.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -295,7 +248,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "9258138e-22cc-4125-8e7d-d5cdbf22d280",
@@ -303,12 +257,7 @@
           "latency": 0,
           "statusCode": 406,
           "label": "Requested representation format is not available.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -317,7 +266,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "981aa033-79d4-460c-8df1-88d1de5ce902",
@@ -325,12 +275,7 @@
           "latency": 0,
           "statusCode": 500,
           "label": "A processing error has occurred.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -339,7 +284,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "a808a3de-381f-411b-989e-85e34a9319d8",
@@ -347,12 +293,7 @@
           "latency": 0,
           "statusCode": 503,
           "label": "The service has been disabled temporarily.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -361,11 +302,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -382,17 +325,13 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "91cb9edd-fe2f-400e-92ae-67db0e3ec6db" },
+    { "type": "route", "uuid": "993c3ad7-aeed-4191-99e8-8a75febadc5a" },
+    { "type": "route", "uuid": "9c4be972-86ac-4ee0-94c3-c23c2dca27d4" }
+  ]
 }

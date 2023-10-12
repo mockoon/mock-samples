@@ -1,11 +1,11 @@
 {
   "uuid": "774b6dd9-3230-4061-92c6-36820119cf66",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "Call Control API",
   "endpointPrefix": "",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "effa852d-dc38-4962-8506-62fe4f59c057",
@@ -15,16 +15,11 @@
       "responses": [
         {
           "uuid": "2a553a42-00e5-47ec-b82f-5c4c5a6275c0",
-          "body": "{\n  \"ComplaintsByEntity\": {},\n  \"LastComplaintDate\": \"{{faker 'date.recent' 365}}\",\n  \"ReportedCallerName\": \"\",\n  \"Tags\": [\n    \"\"\n  ],\n  \"TotalNumberOfComplaints\": {{faker 'datatype.number'}}\n}",
+          "body": "{\n  \"ComplaintsByEntity\": {},\n  \"LastComplaintDate\": \"{{faker 'date.recent' 365}}\",\n  \"ReportedCallerName\": \"\",\n  \"Tags\": [\n    \"\"\n  ],\n  \"TotalNumberOfComplaints\": {{faker 'number.int'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,11 +28,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "5c53e1bf-995d-4888-adbf-0ae64eed66ba",
@@ -47,16 +44,11 @@
       "responses": [
         {
           "uuid": "bae52e1f-0a89-4149-8b0e-b5bd70c60db2",
-          "body": "{\n  \"Age\": {{faker 'datatype.number'}},\n  \"BlackList\": [\n    \"\"\n  ],\n  \"BlockBehavior\": \"{{oneOf (array 'allow' 'voiceMail' 'block')}}\",\n  \"BreakThroughQhWithMultipleCalls\": {{faker 'datatype.boolean'}},\n  \"Email\": \"\",\n  \"FirstName\": \"\",\n  \"Gender\": \"\",\n  \"LastName\": \"\",\n  \"MiddleName\": \"\",\n  \"PhoneNumbeRegion\": \"\",\n  \"PhoneNumber\": \"\",\n  \"QuietHourList\": [\n    {\n      \"DayOfWeekList\": [\n        \"{{oneOf (array 'Sunday' 'Monday' 'Tuesday' 'Wednesday' 'Thursday' 'Friday' 'Saturday')}}\"\n      ],\n      \"DurationMin\": {{faker 'datatype.number'}},\n      \"StartHourLocal\": {{faker 'datatype.number'}},\n      \"StartMinLocal\": {{faker 'datatype.number'}},\n      \"TimeZoneName\": \"\"\n    }\n  ],\n  \"Salutation\": \"\",\n  \"Suffix\": \"\",\n  \"UseCommunityBlacklist\": {{faker 'datatype.boolean'}},\n  \"WhiteList\": [\n    \"\"\n  ],\n  \"WhiteListBreaksQh\": {{faker 'datatype.boolean'}}\n}",
+          "body": "{\n  \"Age\": {{faker 'number.int'}},\n  \"BlackList\": [\n    \"\"\n  ],\n  \"BlockBehavior\": \"{{oneOf (array 'allow' 'voiceMail' 'block')}}\",\n  \"BreakThroughQhWithMultipleCalls\": {{faker 'datatype.boolean'}},\n  \"Email\": \"\",\n  \"FirstName\": \"\",\n  \"Gender\": \"\",\n  \"LastName\": \"\",\n  \"MiddleName\": \"\",\n  \"PhoneNumbeRegion\": \"\",\n  \"PhoneNumber\": \"\",\n  \"QuietHourList\": [\n    {\n      \"DayOfWeekList\": [\n        \"{{oneOf (array 'Sunday' 'Monday' 'Tuesday' 'Wednesday' 'Thursday' 'Friday' 'Saturday')}}\"\n      ],\n      \"DurationMin\": {{faker 'number.int'}},\n      \"StartHourLocal\": {{faker 'number.int'}},\n      \"StartMinLocal\": {{faker 'number.int'}},\n      \"TimeZoneName\": \"\"\n    }\n  ],\n  \"Salutation\": \"\",\n  \"Suffix\": \"\",\n  \"UseCommunityBlacklist\": {{faker 'datatype.boolean'}},\n  \"WhiteList\": [\n    \"\"\n  ],\n  \"WhiteListBreaksQh\": {{faker 'datatype.boolean'}}\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "User Object",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -65,7 +57,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "19001c53-782d-4b53-a16b-591b942fa3ff",
@@ -73,12 +66,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad request (invalid phone number)",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -87,11 +75,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "cc57f40d-57a6-47f6-b188-bc5dfd82709e",
@@ -105,12 +95,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "true(block) false (no block)",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -119,7 +104,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "202106f5-0f2e-44c8-ae38-cee3a5dbae33",
@@ -127,12 +113,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad request (invalid phone number)",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -141,11 +122,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ad187334-c2a3-4bff-a7c2-a04ab0333a1f",
@@ -159,12 +142,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Ok",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -173,7 +151,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "ef88b1c9-e50f-418e-bdba-0886fe31b183",
@@ -181,12 +160,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad request (eg. invalid phone nubmer)",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -195,11 +169,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "35edb9e7-0ac2-48f3-8e34-14f29f8ea7d6",
@@ -213,12 +189,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad request (eg. invalid phone nubmer)",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -227,11 +198,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "da28a600-7c04-4b52-9dd9-f4e44108eb6b",
@@ -241,16 +214,11 @@
       "responses": [
         {
           "uuid": "9df42d7b-886e-418b-bf69-36178d3f7680",
-          "body": "{\n  \"CallType\": \"\",\n  \"Confidence\": {{faker 'datatype.number'}},\n  \"IsSpam\": {{faker 'datatype.boolean'}},\n  \"LastComplaintDate\": \"{{faker 'date.recent' 365}}\",\n  \"ReportedCallerName\": \"\",\n  \"Tags\": [\n    \"\"\n  ]\n}",
+          "body": "{\n  \"CallType\": \"\",\n  \"Confidence\": {{faker 'number.int'}},\n  \"IsSpam\": {{faker 'datatype.boolean'}},\n  \"LastComplaintDate\": \"{{faker 'date.recent' 365}}\",\n  \"ReportedCallerName\": \"\",\n  \"Tags\": [\n    \"\"\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "Reputation information",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -259,7 +227,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c932d200-65df-45c4-ab9f-b4a302f65442",
@@ -267,12 +236,7 @@
           "latency": 0,
           "statusCode": 400,
           "label": "Bad request (invalid phone number)",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -281,11 +245,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -302,17 +268,16 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "effa852d-dc38-4962-8506-62fe4f59c057" },
+    { "type": "route", "uuid": "5c53e1bf-995d-4888-adbf-0ae64eed66ba" },
+    { "type": "route", "uuid": "cc57f40d-57a6-47f6-b188-bc5dfd82709e" },
+    { "type": "route", "uuid": "ad187334-c2a3-4bff-a7c2-a04ab0333a1f" },
+    { "type": "route", "uuid": "35edb9e7-0ac2-48f3-8e34-14f29f8ea7d6" },
+    { "type": "route", "uuid": "da28a600-7c04-4b52-9dd9-f4e44108eb6b" }
+  ]
 }

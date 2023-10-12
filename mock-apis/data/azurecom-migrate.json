@@ -1,11 +1,11 @@
 {
   "uuid": "bf93eab8-5179-4a32-adea-57c4f1ded342",
-  "lastMigration": 24,
+  "lastMigration": 29,
   "name": "Azure Migrate V2",
   "endpointPrefix": "",
   "latency": 0,
   "port": 3000,
-  "hostname": "0.0.0.0",
+  "hostname": "",
   "routes": [
     {
       "uuid": "e5188edf-c92a-4ce6-8c18-91729eaaa3a4",
@@ -19,12 +19,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Returns list of operations.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -33,11 +28,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "5ec84715-6c95-4172-8d8c-5b281ae0914a",
@@ -47,19 +44,13 @@
       "responses": [
         {
           "uuid": "8055070c-e258-4045-a24a-e54b89306c08",
-          "body": "{\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"assessmentSolutionId\": \"\",\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"customerWorkspaceId\": \"\",\n        \"customerWorkspaceLocation\": \"\",\n        \"lastAssessmentTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"numberOfAssessments\": {{faker 'datatype.number'}},\n        \"numberOfGroups\": {{faker 'datatype.number'}},\n        \"numberOfMachines\": {{faker 'datatype.number'}},\n        \"projectStatus\": \"{{oneOf (array 'Active' 'Inactive')}}\",\n        \"provisioningState\": \"{{oneOf (array 'Accepted' 'Creating' 'Deleting' 'Failed' 'Moving' 'Succeeded')}}\",\n        \"serviceEndpoint\": \"\",\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"tags\": {},\n      \"type\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"assessmentSolutionId\": \"\",\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"customerWorkspaceId\": \"\",\n        \"customerWorkspaceLocation\": \"\",\n        \"lastAssessmentTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"numberOfAssessments\": {{faker 'number.int'}},\n        \"numberOfGroups\": {{faker 'number.int'}},\n        \"numberOfMachines\": {{faker 'number.int'}},\n        \"projectStatus\": \"{{oneOf (array 'Active' 'Inactive')}}\",\n        \"provisioningState\": \"{{oneOf (array 'Accepted' 'Creating' 'Deleting' 'Failed' 'Moving' 'Succeeded')}}\",\n        \"serviceEndpoint\": \"\",\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"tags\": {},\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -69,7 +60,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "9dfe1a08-3ffa-4ec4-85f1-11e189358704",
@@ -77,12 +69,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -91,11 +78,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "2cdaa160-427d-43e3-a393-e8966e17596d",
@@ -105,19 +94,13 @@
       "responses": [
         {
           "uuid": "c47c8f39-2d7e-4438-b482-55e67bfb13fb",
-          "body": "{\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"azureDiskType\": \"{{oneOf (array 'Unknown' 'Standard' 'Premium' 'StandardSSD' 'StandardOrPremium')}}\",\n        \"azureHybridUseBenefit\": \"{{oneOf (array 'Unknown' 'Yes' 'No')}}\",\n        \"azureLocation\": \"{{oneOf (array 'Unknown' 'EastAsia' 'SoutheastAsia' 'AustraliaEast' 'AustraliaSoutheast' 'BrazilSouth' 'CanadaCentral' 'CanadaEast' 'WestEurope' 'NorthEurope' 'CentralIndia' 'SouthIndia' 'WestIndia' 'JapanEast' 'JapanWest' 'KoreaCentral' 'KoreaSouth' 'UkWest' 'UkSouth' 'NorthCentralUs' 'EastUs' 'WestUs2' 'SouthCentralUs' 'CentralUs' 'EastUs2' 'WestUs' 'WestCentralUs' 'GermanyCentral' 'GermanyNortheast' 'ChinaNorth' 'ChinaEast' 'USGovArizona' 'USGovTexas' 'USGovIowa' 'USGovVirginia' 'USDoDCentral' 'USDoDEast')}}\",\n        \"azureOfferCode\": \"{{oneOf (array 'Unknown' 'MSAZR0003P' 'MSAZR0044P' 'MSAZR0059P' 'MSAZR0060P' 'MSAZR0062P' 'MSAZR0063P' 'MSAZR0064P' 'MSAZR0029P' 'MSAZR0022P' 'MSAZR0023P' 'MSAZR0148P' 'MSAZR0025P' 'MSAZR0036P' 'MSAZR0120P' 'MSAZR0121P' 'MSAZR0122P' 'MSAZR0123P' 'MSAZR0124P' 'MSAZR0125P' 'MSAZR0126P' 'MSAZR0127P' 'MSAZR0128P' 'MSAZR0129P' 'MSAZR0130P' 'MSAZR0111P' 'MSAZR0144P' 'MSAZR0149P' 'MSMCAZR0044P' 'MSMCAZR0059P' 'MSMCAZR0060P' 'MSMCAZR0063P' 'MSMCAZR0120P' 'MSMCAZR0121P' 'MSMCAZR0125P' 'MSMCAZR0128P' 'MSAZRDE0003P' 'MSAZRDE0044P' 'MSAZRUSGOV0003P' 'EA')}}\",\n        \"azurePricingTier\": \"{{oneOf (array 'Standard' 'Basic')}}\",\n        \"azureStorageRedundancy\": \"{{oneOf (array 'Unknown' 'LocallyRedundant' 'ZoneRedundant' 'GeoRedundant' 'ReadAccessGeoRedundant')}}\",\n        \"azureVmFamilies\": [\n          \"{{oneOf (array 'Unknown' 'Basic_A0_A4' 'Standard_A0_A7' 'Standard_A8_A11' 'Av2_series' 'D_series' 'Dv2_series' 'DS_series' 'DSv2_series' 'F_series' 'Fs_series' 'G_series' 'GS_series' 'H_series' 'Ls_series' 'Dsv3_series' 'Dv3_series' 'Fsv2_series' 'Ev3_series' 'Esv3_series' 'M_series' 'DC_Series')}}\"\n        ],\n        \"confidenceRatingInPercentage\": {{faker 'datatype.float'}},\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"currency\": \"{{oneOf (array 'Unknown' 'USD' 'DKK' 'CAD' 'IDR' 'JPY' 'KRW' 'NZD' 'NOK' 'RUB' 'SAR' 'ZAR' 'SEK' 'TRY' 'GBP' 'MXN' 'MYR' 'INR' 'HKD' 'BRL' 'TWD' 'EUR' 'CHF' 'ARS' 'AUD' 'CNY')}}\",\n        \"discountPercentage\": {{faker 'datatype.float'}},\n        \"eaSubscriptionId\": \"\",\n        \"monthlyBandwidthCost\": {{faker 'datatype.float'}},\n        \"monthlyComputeCost\": {{faker 'datatype.float'}},\n        \"monthlyPremiumStorageCost\": {{faker 'datatype.float'}},\n        \"monthlyStandardSSDStorageCost\": {{faker 'datatype.float'}},\n        \"monthlyStorageCost\": {{faker 'datatype.float'}},\n        \"numberOfMachines\": {{faker 'datatype.number'}},\n        \"percentile\": \"{{oneOf (array 'Percentile50' 'Percentile90' 'Percentile95' 'Percentile99')}}\",\n        \"perfDataEndTime\": \"{{faker 'date.recent' 365}}\",\n        \"perfDataStartTime\": \"{{faker 'date.recent' 365}}\",\n        \"pricesTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"reservedInstance\": \"{{oneOf (array 'None' 'RI1Year' 'RI3Year')}}\",\n        \"scalingFactor\": {{faker 'datatype.float'}},\n        \"sizingCriterion\": \"{{oneOf (array 'PerformanceBased' 'AsOnPremises')}}\",\n        \"stage\": \"{{oneOf (array 'InProgress' 'UnderReview' 'Approved')}}\",\n        \"status\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid' 'OutOfSync' 'OutDated')}}\",\n        \"timeRange\": \"{{oneOf (array 'Day' 'Week' 'Month' 'Custom')}}\",\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"vmUptime\": {\n          \"daysPerMonth\": {{faker 'datatype.number'}},\n          \"hoursPerDay\": {{faker 'datatype.number'}}\n        }\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"azureDiskType\": \"{{oneOf (array 'Unknown' 'Standard' 'Premium' 'StandardSSD' 'StandardOrPremium')}}\",\n        \"azureHybridUseBenefit\": \"{{oneOf (array 'Unknown' 'Yes' 'No')}}\",\n        \"azureLocation\": \"{{oneOf (array 'Unknown' 'EastAsia' 'SoutheastAsia' 'AustraliaEast' 'AustraliaSoutheast' 'BrazilSouth' 'CanadaCentral' 'CanadaEast' 'WestEurope' 'NorthEurope' 'CentralIndia' 'SouthIndia' 'WestIndia' 'JapanEast' 'JapanWest' 'KoreaCentral' 'KoreaSouth' 'UkWest' 'UkSouth' 'NorthCentralUs' 'EastUs' 'WestUs2' 'SouthCentralUs' 'CentralUs' 'EastUs2' 'WestUs' 'WestCentralUs' 'GermanyCentral' 'GermanyNortheast' 'ChinaNorth' 'ChinaEast' 'USGovArizona' 'USGovTexas' 'USGovIowa' 'USGovVirginia' 'USDoDCentral' 'USDoDEast')}}\",\n        \"azureOfferCode\": \"{{oneOf (array 'Unknown' 'MSAZR0003P' 'MSAZR0044P' 'MSAZR0059P' 'MSAZR0060P' 'MSAZR0062P' 'MSAZR0063P' 'MSAZR0064P' 'MSAZR0029P' 'MSAZR0022P' 'MSAZR0023P' 'MSAZR0148P' 'MSAZR0025P' 'MSAZR0036P' 'MSAZR0120P' 'MSAZR0121P' 'MSAZR0122P' 'MSAZR0123P' 'MSAZR0124P' 'MSAZR0125P' 'MSAZR0126P' 'MSAZR0127P' 'MSAZR0128P' 'MSAZR0129P' 'MSAZR0130P' 'MSAZR0111P' 'MSAZR0144P' 'MSAZR0149P' 'MSMCAZR0044P' 'MSMCAZR0059P' 'MSMCAZR0060P' 'MSMCAZR0063P' 'MSMCAZR0120P' 'MSMCAZR0121P' 'MSMCAZR0125P' 'MSMCAZR0128P' 'MSAZRDE0003P' 'MSAZRDE0044P' 'MSAZRUSGOV0003P' 'EA')}}\",\n        \"azurePricingTier\": \"{{oneOf (array 'Standard' 'Basic')}}\",\n        \"azureStorageRedundancy\": \"{{oneOf (array 'Unknown' 'LocallyRedundant' 'ZoneRedundant' 'GeoRedundant' 'ReadAccessGeoRedundant')}}\",\n        \"azureVmFamilies\": [\n          \"{{oneOf (array 'Unknown' 'Basic_A0_A4' 'Standard_A0_A7' 'Standard_A8_A11' 'Av2_series' 'D_series' 'Dv2_series' 'DS_series' 'DSv2_series' 'F_series' 'Fs_series' 'G_series' 'GS_series' 'H_series' 'Ls_series' 'Dsv3_series' 'Dv3_series' 'Fsv2_series' 'Ev3_series' 'Esv3_series' 'M_series' 'DC_Series')}}\"\n        ],\n        \"confidenceRatingInPercentage\": {{faker 'number.float'}},\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"currency\": \"{{oneOf (array 'Unknown' 'USD' 'DKK' 'CAD' 'IDR' 'JPY' 'KRW' 'NZD' 'NOK' 'RUB' 'SAR' 'ZAR' 'SEK' 'TRY' 'GBP' 'MXN' 'MYR' 'INR' 'HKD' 'BRL' 'TWD' 'EUR' 'CHF' 'ARS' 'AUD' 'CNY')}}\",\n        \"discountPercentage\": {{faker 'number.float'}},\n        \"eaSubscriptionId\": \"\",\n        \"monthlyBandwidthCost\": {{faker 'number.float'}},\n        \"monthlyComputeCost\": {{faker 'number.float'}},\n        \"monthlyPremiumStorageCost\": {{faker 'number.float'}},\n        \"monthlyStandardSSDStorageCost\": {{faker 'number.float'}},\n        \"monthlyStorageCost\": {{faker 'number.float'}},\n        \"numberOfMachines\": {{faker 'number.int'}},\n        \"percentile\": \"{{oneOf (array 'Percentile50' 'Percentile90' 'Percentile95' 'Percentile99')}}\",\n        \"perfDataEndTime\": \"{{faker 'date.recent' 365}}\",\n        \"perfDataStartTime\": \"{{faker 'date.recent' 365}}\",\n        \"pricesTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"reservedInstance\": \"{{oneOf (array 'None' 'RI1Year' 'RI3Year')}}\",\n        \"scalingFactor\": {{faker 'number.float'}},\n        \"sizingCriterion\": \"{{oneOf (array 'PerformanceBased' 'AsOnPremises')}}\",\n        \"stage\": \"{{oneOf (array 'InProgress' 'UnderReview' 'Approved')}}\",\n        \"status\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid' 'OutOfSync' 'OutDated')}}\",\n        \"timeRange\": \"{{oneOf (array 'Day' 'Week' 'Month' 'Custom')}}\",\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"vmUptime\": {\n          \"daysPerMonth\": {{faker 'number.int'}},\n          \"hoursPerDay\": {{faker 'number.int'}}\n        }\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Returns list of Assessment objects.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -127,7 +110,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c3f984e4-9e2f-4bec-9e06-cf22de6e12bc",
@@ -135,12 +119,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -149,11 +128,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "da05c082-13d1-4ea5-bf37-692674bfe82e",
@@ -163,19 +144,13 @@
       "responses": [
         {
           "uuid": "9e0a161e-d5b8-47bf-97cc-86385a246782",
-          "body": "{\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"areAssessmentsRunning\": {{faker 'datatype.boolean'}},\n        \"assessments\": [\n          \"\"\n        ],\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"groupStatus\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid')}}\",\n        \"machineCount\": {{faker 'datatype.number'}},\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"areAssessmentsRunning\": {{faker 'datatype.boolean'}},\n        \"assessments\": [\n          \"\"\n        ],\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"groupStatus\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid')}}\",\n        \"machineCount\": {{faker 'number.int'}},\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Returns list of groups.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -185,7 +160,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "94b6aa90-900a-41a8-b21a-e9dba7e87186",
@@ -193,12 +169,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -207,11 +178,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "323338e7-fc5b-41e9-831a-8b19e7ee5918",
@@ -226,14 +199,8 @@
           "statusCode": 200,
           "label": "OK. Deleted the group.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -243,7 +210,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "b5dd5eb5-cbbc-4b48-b093-2aa1a9d97dc9",
@@ -251,12 +219,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No content. No group with specified name was found.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -265,7 +228,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "02529db7-b422-48b0-8537-f47c065e8ee6",
@@ -273,12 +237,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -287,11 +246,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "22b4959e-92e6-4e45-b168-e0f64f14f70d",
@@ -301,19 +262,13 @@
       "responses": [
         {
           "uuid": "6734f6b5-4797-4664-ad31-09940df853b0",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"areAssessmentsRunning\": {{faker 'datatype.boolean'}},\n    \"assessments\": [\n      \"\"\n    ],\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"groupStatus\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid')}}\",\n    \"machineCount\": {{faker 'datatype.number'}},\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"areAssessmentsRunning\": {{faker 'datatype.boolean'}},\n    \"assessments\": [\n      \"\"\n    ],\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"groupStatus\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid')}}\",\n    \"machineCount\": {{faker 'number.int'}},\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Returns the group with the specified name.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -323,7 +278,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e82454ce-f3cd-4f58-84f6-6cdbbe85ed64",
@@ -331,12 +287,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -345,11 +296,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "c96c2438-469a-4d7a-95c6-7cf00bb47c61",
@@ -359,19 +312,13 @@
       "responses": [
         {
           "uuid": "4a1abe73-2065-4a24-8eba-14d9cab2d9ce",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"areAssessmentsRunning\": {{faker 'datatype.boolean'}},\n    \"assessments\": [\n      \"\"\n    ],\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"groupStatus\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid')}}\",\n    \"machineCount\": {{faker 'datatype.number'}},\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"areAssessmentsRunning\": {{faker 'datatype.boolean'}},\n    \"assessments\": [\n      \"\"\n    ],\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"groupStatus\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid')}}\",\n    \"machineCount\": {{faker 'number.int'}},\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Existing group updated.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -381,23 +328,18 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c7b54115-17d8-4fa6-bd52-8929cc4ca97c",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"areAssessmentsRunning\": {{faker 'datatype.boolean'}},\n    \"assessments\": [\n      \"\"\n    ],\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"groupStatus\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid')}}\",\n    \"machineCount\": {{faker 'datatype.number'}},\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"areAssessmentsRunning\": {{faker 'datatype.boolean'}},\n    \"assessments\": [\n      \"\"\n    ],\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"groupStatus\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid')}}\",\n    \"machineCount\": {{faker 'number.int'}},\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 201,
           "label": "Created. New group was created.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -407,7 +349,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "69044cba-a237-4d13-b4b7-5458d36dc5f4",
@@ -415,12 +358,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -429,11 +367,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "2f2499f5-ffaf-47cc-9546-04f370ecb414",
@@ -443,19 +383,13 @@
       "responses": [
         {
           "uuid": "51b0dffb-d253-4e10-8233-51b49797ddee",
-          "body": "{\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"azureDiskType\": \"{{oneOf (array 'Unknown' 'Standard' 'Premium' 'StandardSSD' 'StandardOrPremium')}}\",\n        \"azureHybridUseBenefit\": \"{{oneOf (array 'Unknown' 'Yes' 'No')}}\",\n        \"azureLocation\": \"{{oneOf (array 'Unknown' 'EastAsia' 'SoutheastAsia' 'AustraliaEast' 'AustraliaSoutheast' 'BrazilSouth' 'CanadaCentral' 'CanadaEast' 'WestEurope' 'NorthEurope' 'CentralIndia' 'SouthIndia' 'WestIndia' 'JapanEast' 'JapanWest' 'KoreaCentral' 'KoreaSouth' 'UkWest' 'UkSouth' 'NorthCentralUs' 'EastUs' 'WestUs2' 'SouthCentralUs' 'CentralUs' 'EastUs2' 'WestUs' 'WestCentralUs' 'GermanyCentral' 'GermanyNortheast' 'ChinaNorth' 'ChinaEast' 'USGovArizona' 'USGovTexas' 'USGovIowa' 'USGovVirginia' 'USDoDCentral' 'USDoDEast')}}\",\n        \"azureOfferCode\": \"{{oneOf (array 'Unknown' 'MSAZR0003P' 'MSAZR0044P' 'MSAZR0059P' 'MSAZR0060P' 'MSAZR0062P' 'MSAZR0063P' 'MSAZR0064P' 'MSAZR0029P' 'MSAZR0022P' 'MSAZR0023P' 'MSAZR0148P' 'MSAZR0025P' 'MSAZR0036P' 'MSAZR0120P' 'MSAZR0121P' 'MSAZR0122P' 'MSAZR0123P' 'MSAZR0124P' 'MSAZR0125P' 'MSAZR0126P' 'MSAZR0127P' 'MSAZR0128P' 'MSAZR0129P' 'MSAZR0130P' 'MSAZR0111P' 'MSAZR0144P' 'MSAZR0149P' 'MSMCAZR0044P' 'MSMCAZR0059P' 'MSMCAZR0060P' 'MSMCAZR0063P' 'MSMCAZR0120P' 'MSMCAZR0121P' 'MSMCAZR0125P' 'MSMCAZR0128P' 'MSAZRDE0003P' 'MSAZRDE0044P' 'MSAZRUSGOV0003P' 'EA')}}\",\n        \"azurePricingTier\": \"{{oneOf (array 'Standard' 'Basic')}}\",\n        \"azureStorageRedundancy\": \"{{oneOf (array 'Unknown' 'LocallyRedundant' 'ZoneRedundant' 'GeoRedundant' 'ReadAccessGeoRedundant')}}\",\n        \"azureVmFamilies\": [\n          \"{{oneOf (array 'Unknown' 'Basic_A0_A4' 'Standard_A0_A7' 'Standard_A8_A11' 'Av2_series' 'D_series' 'Dv2_series' 'DS_series' 'DSv2_series' 'F_series' 'Fs_series' 'G_series' 'GS_series' 'H_series' 'Ls_series' 'Dsv3_series' 'Dv3_series' 'Fsv2_series' 'Ev3_series' 'Esv3_series' 'M_series' 'DC_Series')}}\"\n        ],\n        \"confidenceRatingInPercentage\": {{faker 'datatype.float'}},\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"currency\": \"{{oneOf (array 'Unknown' 'USD' 'DKK' 'CAD' 'IDR' 'JPY' 'KRW' 'NZD' 'NOK' 'RUB' 'SAR' 'ZAR' 'SEK' 'TRY' 'GBP' 'MXN' 'MYR' 'INR' 'HKD' 'BRL' 'TWD' 'EUR' 'CHF' 'ARS' 'AUD' 'CNY')}}\",\n        \"discountPercentage\": {{faker 'datatype.float'}},\n        \"eaSubscriptionId\": \"\",\n        \"monthlyBandwidthCost\": {{faker 'datatype.float'}},\n        \"monthlyComputeCost\": {{faker 'datatype.float'}},\n        \"monthlyPremiumStorageCost\": {{faker 'datatype.float'}},\n        \"monthlyStandardSSDStorageCost\": {{faker 'datatype.float'}},\n        \"monthlyStorageCost\": {{faker 'datatype.float'}},\n        \"numberOfMachines\": {{faker 'datatype.number'}},\n        \"percentile\": \"{{oneOf (array 'Percentile50' 'Percentile90' 'Percentile95' 'Percentile99')}}\",\n        \"perfDataEndTime\": \"{{faker 'date.recent' 365}}\",\n        \"perfDataStartTime\": \"{{faker 'date.recent' 365}}\",\n        \"pricesTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"reservedInstance\": \"{{oneOf (array 'None' 'RI1Year' 'RI3Year')}}\",\n        \"scalingFactor\": {{faker 'datatype.float'}},\n        \"sizingCriterion\": \"{{oneOf (array 'PerformanceBased' 'AsOnPremises')}}\",\n        \"stage\": \"{{oneOf (array 'InProgress' 'UnderReview' 'Approved')}}\",\n        \"status\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid' 'OutOfSync' 'OutDated')}}\",\n        \"timeRange\": \"{{oneOf (array 'Day' 'Week' 'Month' 'Custom')}}\",\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"vmUptime\": {\n          \"daysPerMonth\": {{faker 'datatype.number'}},\n          \"hoursPerDay\": {{faker 'datatype.number'}}\n        }\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"azureDiskType\": \"{{oneOf (array 'Unknown' 'Standard' 'Premium' 'StandardSSD' 'StandardOrPremium')}}\",\n        \"azureHybridUseBenefit\": \"{{oneOf (array 'Unknown' 'Yes' 'No')}}\",\n        \"azureLocation\": \"{{oneOf (array 'Unknown' 'EastAsia' 'SoutheastAsia' 'AustraliaEast' 'AustraliaSoutheast' 'BrazilSouth' 'CanadaCentral' 'CanadaEast' 'WestEurope' 'NorthEurope' 'CentralIndia' 'SouthIndia' 'WestIndia' 'JapanEast' 'JapanWest' 'KoreaCentral' 'KoreaSouth' 'UkWest' 'UkSouth' 'NorthCentralUs' 'EastUs' 'WestUs2' 'SouthCentralUs' 'CentralUs' 'EastUs2' 'WestUs' 'WestCentralUs' 'GermanyCentral' 'GermanyNortheast' 'ChinaNorth' 'ChinaEast' 'USGovArizona' 'USGovTexas' 'USGovIowa' 'USGovVirginia' 'USDoDCentral' 'USDoDEast')}}\",\n        \"azureOfferCode\": \"{{oneOf (array 'Unknown' 'MSAZR0003P' 'MSAZR0044P' 'MSAZR0059P' 'MSAZR0060P' 'MSAZR0062P' 'MSAZR0063P' 'MSAZR0064P' 'MSAZR0029P' 'MSAZR0022P' 'MSAZR0023P' 'MSAZR0148P' 'MSAZR0025P' 'MSAZR0036P' 'MSAZR0120P' 'MSAZR0121P' 'MSAZR0122P' 'MSAZR0123P' 'MSAZR0124P' 'MSAZR0125P' 'MSAZR0126P' 'MSAZR0127P' 'MSAZR0128P' 'MSAZR0129P' 'MSAZR0130P' 'MSAZR0111P' 'MSAZR0144P' 'MSAZR0149P' 'MSMCAZR0044P' 'MSMCAZR0059P' 'MSMCAZR0060P' 'MSMCAZR0063P' 'MSMCAZR0120P' 'MSMCAZR0121P' 'MSMCAZR0125P' 'MSMCAZR0128P' 'MSAZRDE0003P' 'MSAZRDE0044P' 'MSAZRUSGOV0003P' 'EA')}}\",\n        \"azurePricingTier\": \"{{oneOf (array 'Standard' 'Basic')}}\",\n        \"azureStorageRedundancy\": \"{{oneOf (array 'Unknown' 'LocallyRedundant' 'ZoneRedundant' 'GeoRedundant' 'ReadAccessGeoRedundant')}}\",\n        \"azureVmFamilies\": [\n          \"{{oneOf (array 'Unknown' 'Basic_A0_A4' 'Standard_A0_A7' 'Standard_A8_A11' 'Av2_series' 'D_series' 'Dv2_series' 'DS_series' 'DSv2_series' 'F_series' 'Fs_series' 'G_series' 'GS_series' 'H_series' 'Ls_series' 'Dsv3_series' 'Dv3_series' 'Fsv2_series' 'Ev3_series' 'Esv3_series' 'M_series' 'DC_Series')}}\"\n        ],\n        \"confidenceRatingInPercentage\": {{faker 'number.float'}},\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"currency\": \"{{oneOf (array 'Unknown' 'USD' 'DKK' 'CAD' 'IDR' 'JPY' 'KRW' 'NZD' 'NOK' 'RUB' 'SAR' 'ZAR' 'SEK' 'TRY' 'GBP' 'MXN' 'MYR' 'INR' 'HKD' 'BRL' 'TWD' 'EUR' 'CHF' 'ARS' 'AUD' 'CNY')}}\",\n        \"discountPercentage\": {{faker 'number.float'}},\n        \"eaSubscriptionId\": \"\",\n        \"monthlyBandwidthCost\": {{faker 'number.float'}},\n        \"monthlyComputeCost\": {{faker 'number.float'}},\n        \"monthlyPremiumStorageCost\": {{faker 'number.float'}},\n        \"monthlyStandardSSDStorageCost\": {{faker 'number.float'}},\n        \"monthlyStorageCost\": {{faker 'number.float'}},\n        \"numberOfMachines\": {{faker 'number.int'}},\n        \"percentile\": \"{{oneOf (array 'Percentile50' 'Percentile90' 'Percentile95' 'Percentile99')}}\",\n        \"perfDataEndTime\": \"{{faker 'date.recent' 365}}\",\n        \"perfDataStartTime\": \"{{faker 'date.recent' 365}}\",\n        \"pricesTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"reservedInstance\": \"{{oneOf (array 'None' 'RI1Year' 'RI3Year')}}\",\n        \"scalingFactor\": {{faker 'number.float'}},\n        \"sizingCriterion\": \"{{oneOf (array 'PerformanceBased' 'AsOnPremises')}}\",\n        \"stage\": \"{{oneOf (array 'InProgress' 'UnderReview' 'Approved')}}\",\n        \"status\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid' 'OutOfSync' 'OutDated')}}\",\n        \"timeRange\": \"{{oneOf (array 'Day' 'Week' 'Month' 'Custom')}}\",\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"vmUptime\": {\n          \"daysPerMonth\": {{faker 'number.int'}},\n          \"hoursPerDay\": {{faker 'number.int'}}\n        }\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Returns list of Assessment objects.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -465,7 +399,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "4580a991-6f75-4f90-97f2-5f5dde766ce2",
@@ -473,12 +408,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -487,11 +417,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "d3c29faa-2271-484c-9180-a371e41c47d5",
@@ -506,14 +438,8 @@
           "statusCode": 200,
           "label": "OK. Deleted the assessment.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -523,7 +449,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "cf29e7ae-b413-4812-ad59-fa37580d2215",
@@ -531,12 +458,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No content. No assessment with specified name was found.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -545,7 +467,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "f4224097-765f-4964-aa77-b19aed188435",
@@ -553,12 +476,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -567,11 +485,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "5fa91ad6-313b-47d5-b4f4-3a087aa4955e",
@@ -581,19 +501,13 @@
       "responses": [
         {
           "uuid": "2518582c-6e0c-4554-89c7-8fdefb51cc80",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"azureDiskType\": \"{{oneOf (array 'Unknown' 'Standard' 'Premium' 'StandardSSD' 'StandardOrPremium')}}\",\n    \"azureHybridUseBenefit\": \"{{oneOf (array 'Unknown' 'Yes' 'No')}}\",\n    \"azureLocation\": \"{{oneOf (array 'Unknown' 'EastAsia' 'SoutheastAsia' 'AustraliaEast' 'AustraliaSoutheast' 'BrazilSouth' 'CanadaCentral' 'CanadaEast' 'WestEurope' 'NorthEurope' 'CentralIndia' 'SouthIndia' 'WestIndia' 'JapanEast' 'JapanWest' 'KoreaCentral' 'KoreaSouth' 'UkWest' 'UkSouth' 'NorthCentralUs' 'EastUs' 'WestUs2' 'SouthCentralUs' 'CentralUs' 'EastUs2' 'WestUs' 'WestCentralUs' 'GermanyCentral' 'GermanyNortheast' 'ChinaNorth' 'ChinaEast' 'USGovArizona' 'USGovTexas' 'USGovIowa' 'USGovVirginia' 'USDoDCentral' 'USDoDEast')}}\",\n    \"azureOfferCode\": \"{{oneOf (array 'Unknown' 'MSAZR0003P' 'MSAZR0044P' 'MSAZR0059P' 'MSAZR0060P' 'MSAZR0062P' 'MSAZR0063P' 'MSAZR0064P' 'MSAZR0029P' 'MSAZR0022P' 'MSAZR0023P' 'MSAZR0148P' 'MSAZR0025P' 'MSAZR0036P' 'MSAZR0120P' 'MSAZR0121P' 'MSAZR0122P' 'MSAZR0123P' 'MSAZR0124P' 'MSAZR0125P' 'MSAZR0126P' 'MSAZR0127P' 'MSAZR0128P' 'MSAZR0129P' 'MSAZR0130P' 'MSAZR0111P' 'MSAZR0144P' 'MSAZR0149P' 'MSMCAZR0044P' 'MSMCAZR0059P' 'MSMCAZR0060P' 'MSMCAZR0063P' 'MSMCAZR0120P' 'MSMCAZR0121P' 'MSMCAZR0125P' 'MSMCAZR0128P' 'MSAZRDE0003P' 'MSAZRDE0044P' 'MSAZRUSGOV0003P' 'EA')}}\",\n    \"azurePricingTier\": \"{{oneOf (array 'Standard' 'Basic')}}\",\n    \"azureStorageRedundancy\": \"{{oneOf (array 'Unknown' 'LocallyRedundant' 'ZoneRedundant' 'GeoRedundant' 'ReadAccessGeoRedundant')}}\",\n    \"azureVmFamilies\": [\n      \"{{oneOf (array 'Unknown' 'Basic_A0_A4' 'Standard_A0_A7' 'Standard_A8_A11' 'Av2_series' 'D_series' 'Dv2_series' 'DS_series' 'DSv2_series' 'F_series' 'Fs_series' 'G_series' 'GS_series' 'H_series' 'Ls_series' 'Dsv3_series' 'Dv3_series' 'Fsv2_series' 'Ev3_series' 'Esv3_series' 'M_series' 'DC_Series')}}\"\n    ],\n    \"confidenceRatingInPercentage\": {{faker 'datatype.float'}},\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"currency\": \"{{oneOf (array 'Unknown' 'USD' 'DKK' 'CAD' 'IDR' 'JPY' 'KRW' 'NZD' 'NOK' 'RUB' 'SAR' 'ZAR' 'SEK' 'TRY' 'GBP' 'MXN' 'MYR' 'INR' 'HKD' 'BRL' 'TWD' 'EUR' 'CHF' 'ARS' 'AUD' 'CNY')}}\",\n    \"discountPercentage\": {{faker 'datatype.float'}},\n    \"eaSubscriptionId\": \"\",\n    \"monthlyBandwidthCost\": {{faker 'datatype.float'}},\n    \"monthlyComputeCost\": {{faker 'datatype.float'}},\n    \"monthlyPremiumStorageCost\": {{faker 'datatype.float'}},\n    \"monthlyStandardSSDStorageCost\": {{faker 'datatype.float'}},\n    \"monthlyStorageCost\": {{faker 'datatype.float'}},\n    \"numberOfMachines\": {{faker 'datatype.number'}},\n    \"percentile\": \"{{oneOf (array 'Percentile50' 'Percentile90' 'Percentile95' 'Percentile99')}}\",\n    \"perfDataEndTime\": \"{{faker 'date.recent' 365}}\",\n    \"perfDataStartTime\": \"{{faker 'date.recent' 365}}\",\n    \"pricesTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"reservedInstance\": \"{{oneOf (array 'None' 'RI1Year' 'RI3Year')}}\",\n    \"scalingFactor\": {{faker 'datatype.float'}},\n    \"sizingCriterion\": \"{{oneOf (array 'PerformanceBased' 'AsOnPremises')}}\",\n    \"stage\": \"{{oneOf (array 'InProgress' 'UnderReview' 'Approved')}}\",\n    \"status\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid' 'OutOfSync' 'OutDated')}}\",\n    \"timeRange\": \"{{oneOf (array 'Day' 'Week' 'Month' 'Custom')}}\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"vmUptime\": {\n      \"daysPerMonth\": {{faker 'datatype.number'}},\n      \"hoursPerDay\": {{faker 'datatype.number'}}\n    }\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"azureDiskType\": \"{{oneOf (array 'Unknown' 'Standard' 'Premium' 'StandardSSD' 'StandardOrPremium')}}\",\n    \"azureHybridUseBenefit\": \"{{oneOf (array 'Unknown' 'Yes' 'No')}}\",\n    \"azureLocation\": \"{{oneOf (array 'Unknown' 'EastAsia' 'SoutheastAsia' 'AustraliaEast' 'AustraliaSoutheast' 'BrazilSouth' 'CanadaCentral' 'CanadaEast' 'WestEurope' 'NorthEurope' 'CentralIndia' 'SouthIndia' 'WestIndia' 'JapanEast' 'JapanWest' 'KoreaCentral' 'KoreaSouth' 'UkWest' 'UkSouth' 'NorthCentralUs' 'EastUs' 'WestUs2' 'SouthCentralUs' 'CentralUs' 'EastUs2' 'WestUs' 'WestCentralUs' 'GermanyCentral' 'GermanyNortheast' 'ChinaNorth' 'ChinaEast' 'USGovArizona' 'USGovTexas' 'USGovIowa' 'USGovVirginia' 'USDoDCentral' 'USDoDEast')}}\",\n    \"azureOfferCode\": \"{{oneOf (array 'Unknown' 'MSAZR0003P' 'MSAZR0044P' 'MSAZR0059P' 'MSAZR0060P' 'MSAZR0062P' 'MSAZR0063P' 'MSAZR0064P' 'MSAZR0029P' 'MSAZR0022P' 'MSAZR0023P' 'MSAZR0148P' 'MSAZR0025P' 'MSAZR0036P' 'MSAZR0120P' 'MSAZR0121P' 'MSAZR0122P' 'MSAZR0123P' 'MSAZR0124P' 'MSAZR0125P' 'MSAZR0126P' 'MSAZR0127P' 'MSAZR0128P' 'MSAZR0129P' 'MSAZR0130P' 'MSAZR0111P' 'MSAZR0144P' 'MSAZR0149P' 'MSMCAZR0044P' 'MSMCAZR0059P' 'MSMCAZR0060P' 'MSMCAZR0063P' 'MSMCAZR0120P' 'MSMCAZR0121P' 'MSMCAZR0125P' 'MSMCAZR0128P' 'MSAZRDE0003P' 'MSAZRDE0044P' 'MSAZRUSGOV0003P' 'EA')}}\",\n    \"azurePricingTier\": \"{{oneOf (array 'Standard' 'Basic')}}\",\n    \"azureStorageRedundancy\": \"{{oneOf (array 'Unknown' 'LocallyRedundant' 'ZoneRedundant' 'GeoRedundant' 'ReadAccessGeoRedundant')}}\",\n    \"azureVmFamilies\": [\n      \"{{oneOf (array 'Unknown' 'Basic_A0_A4' 'Standard_A0_A7' 'Standard_A8_A11' 'Av2_series' 'D_series' 'Dv2_series' 'DS_series' 'DSv2_series' 'F_series' 'Fs_series' 'G_series' 'GS_series' 'H_series' 'Ls_series' 'Dsv3_series' 'Dv3_series' 'Fsv2_series' 'Ev3_series' 'Esv3_series' 'M_series' 'DC_Series')}}\"\n    ],\n    \"confidenceRatingInPercentage\": {{faker 'number.float'}},\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"currency\": \"{{oneOf (array 'Unknown' 'USD' 'DKK' 'CAD' 'IDR' 'JPY' 'KRW' 'NZD' 'NOK' 'RUB' 'SAR' 'ZAR' 'SEK' 'TRY' 'GBP' 'MXN' 'MYR' 'INR' 'HKD' 'BRL' 'TWD' 'EUR' 'CHF' 'ARS' 'AUD' 'CNY')}}\",\n    \"discountPercentage\": {{faker 'number.float'}},\n    \"eaSubscriptionId\": \"\",\n    \"monthlyBandwidthCost\": {{faker 'number.float'}},\n    \"monthlyComputeCost\": {{faker 'number.float'}},\n    \"monthlyPremiumStorageCost\": {{faker 'number.float'}},\n    \"monthlyStandardSSDStorageCost\": {{faker 'number.float'}},\n    \"monthlyStorageCost\": {{faker 'number.float'}},\n    \"numberOfMachines\": {{faker 'number.int'}},\n    \"percentile\": \"{{oneOf (array 'Percentile50' 'Percentile90' 'Percentile95' 'Percentile99')}}\",\n    \"perfDataEndTime\": \"{{faker 'date.recent' 365}}\",\n    \"perfDataStartTime\": \"{{faker 'date.recent' 365}}\",\n    \"pricesTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"reservedInstance\": \"{{oneOf (array 'None' 'RI1Year' 'RI3Year')}}\",\n    \"scalingFactor\": {{faker 'number.float'}},\n    \"sizingCriterion\": \"{{oneOf (array 'PerformanceBased' 'AsOnPremises')}}\",\n    \"stage\": \"{{oneOf (array 'InProgress' 'UnderReview' 'Approved')}}\",\n    \"status\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid' 'OutOfSync' 'OutDated')}}\",\n    \"timeRange\": \"{{oneOf (array 'Day' 'Week' 'Month' 'Custom')}}\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"vmUptime\": {\n      \"daysPerMonth\": {{faker 'number.int'}},\n      \"hoursPerDay\": {{faker 'number.int'}}\n    }\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Returns Assessment object.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -603,7 +517,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "87f0d4b0-67ae-4f5e-a3a4-211e7fa9cc22",
@@ -611,12 +526,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -625,11 +535,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "5d2e524a-edd7-4915-88da-bfe8018a8e10",
@@ -639,19 +551,13 @@
       "responses": [
         {
           "uuid": "52452520-4121-48a9-9769-e12ef50ad755",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"azureDiskType\": \"{{oneOf (array 'Unknown' 'Standard' 'Premium' 'StandardSSD' 'StandardOrPremium')}}\",\n    \"azureHybridUseBenefit\": \"{{oneOf (array 'Unknown' 'Yes' 'No')}}\",\n    \"azureLocation\": \"{{oneOf (array 'Unknown' 'EastAsia' 'SoutheastAsia' 'AustraliaEast' 'AustraliaSoutheast' 'BrazilSouth' 'CanadaCentral' 'CanadaEast' 'WestEurope' 'NorthEurope' 'CentralIndia' 'SouthIndia' 'WestIndia' 'JapanEast' 'JapanWest' 'KoreaCentral' 'KoreaSouth' 'UkWest' 'UkSouth' 'NorthCentralUs' 'EastUs' 'WestUs2' 'SouthCentralUs' 'CentralUs' 'EastUs2' 'WestUs' 'WestCentralUs' 'GermanyCentral' 'GermanyNortheast' 'ChinaNorth' 'ChinaEast' 'USGovArizona' 'USGovTexas' 'USGovIowa' 'USGovVirginia' 'USDoDCentral' 'USDoDEast')}}\",\n    \"azureOfferCode\": \"{{oneOf (array 'Unknown' 'MSAZR0003P' 'MSAZR0044P' 'MSAZR0059P' 'MSAZR0060P' 'MSAZR0062P' 'MSAZR0063P' 'MSAZR0064P' 'MSAZR0029P' 'MSAZR0022P' 'MSAZR0023P' 'MSAZR0148P' 'MSAZR0025P' 'MSAZR0036P' 'MSAZR0120P' 'MSAZR0121P' 'MSAZR0122P' 'MSAZR0123P' 'MSAZR0124P' 'MSAZR0125P' 'MSAZR0126P' 'MSAZR0127P' 'MSAZR0128P' 'MSAZR0129P' 'MSAZR0130P' 'MSAZR0111P' 'MSAZR0144P' 'MSAZR0149P' 'MSMCAZR0044P' 'MSMCAZR0059P' 'MSMCAZR0060P' 'MSMCAZR0063P' 'MSMCAZR0120P' 'MSMCAZR0121P' 'MSMCAZR0125P' 'MSMCAZR0128P' 'MSAZRDE0003P' 'MSAZRDE0044P' 'MSAZRUSGOV0003P' 'EA')}}\",\n    \"azurePricingTier\": \"{{oneOf (array 'Standard' 'Basic')}}\",\n    \"azureStorageRedundancy\": \"{{oneOf (array 'Unknown' 'LocallyRedundant' 'ZoneRedundant' 'GeoRedundant' 'ReadAccessGeoRedundant')}}\",\n    \"azureVmFamilies\": [\n      \"{{oneOf (array 'Unknown' 'Basic_A0_A4' 'Standard_A0_A7' 'Standard_A8_A11' 'Av2_series' 'D_series' 'Dv2_series' 'DS_series' 'DSv2_series' 'F_series' 'Fs_series' 'G_series' 'GS_series' 'H_series' 'Ls_series' 'Dsv3_series' 'Dv3_series' 'Fsv2_series' 'Ev3_series' 'Esv3_series' 'M_series' 'DC_Series')}}\"\n    ],\n    \"confidenceRatingInPercentage\": {{faker 'datatype.float'}},\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"currency\": \"{{oneOf (array 'Unknown' 'USD' 'DKK' 'CAD' 'IDR' 'JPY' 'KRW' 'NZD' 'NOK' 'RUB' 'SAR' 'ZAR' 'SEK' 'TRY' 'GBP' 'MXN' 'MYR' 'INR' 'HKD' 'BRL' 'TWD' 'EUR' 'CHF' 'ARS' 'AUD' 'CNY')}}\",\n    \"discountPercentage\": {{faker 'datatype.float'}},\n    \"eaSubscriptionId\": \"\",\n    \"monthlyBandwidthCost\": {{faker 'datatype.float'}},\n    \"monthlyComputeCost\": {{faker 'datatype.float'}},\n    \"monthlyPremiumStorageCost\": {{faker 'datatype.float'}},\n    \"monthlyStandardSSDStorageCost\": {{faker 'datatype.float'}},\n    \"monthlyStorageCost\": {{faker 'datatype.float'}},\n    \"numberOfMachines\": {{faker 'datatype.number'}},\n    \"percentile\": \"{{oneOf (array 'Percentile50' 'Percentile90' 'Percentile95' 'Percentile99')}}\",\n    \"perfDataEndTime\": \"{{faker 'date.recent' 365}}\",\n    \"perfDataStartTime\": \"{{faker 'date.recent' 365}}\",\n    \"pricesTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"reservedInstance\": \"{{oneOf (array 'None' 'RI1Year' 'RI3Year')}}\",\n    \"scalingFactor\": {{faker 'datatype.float'}},\n    \"sizingCriterion\": \"{{oneOf (array 'PerformanceBased' 'AsOnPremises')}}\",\n    \"stage\": \"{{oneOf (array 'InProgress' 'UnderReview' 'Approved')}}\",\n    \"status\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid' 'OutOfSync' 'OutDated')}}\",\n    \"timeRange\": \"{{oneOf (array 'Day' 'Week' 'Month' 'Custom')}}\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"vmUptime\": {\n      \"daysPerMonth\": {{faker 'datatype.number'}},\n      \"hoursPerDay\": {{faker 'datatype.number'}}\n    }\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"azureDiskType\": \"{{oneOf (array 'Unknown' 'Standard' 'Premium' 'StandardSSD' 'StandardOrPremium')}}\",\n    \"azureHybridUseBenefit\": \"{{oneOf (array 'Unknown' 'Yes' 'No')}}\",\n    \"azureLocation\": \"{{oneOf (array 'Unknown' 'EastAsia' 'SoutheastAsia' 'AustraliaEast' 'AustraliaSoutheast' 'BrazilSouth' 'CanadaCentral' 'CanadaEast' 'WestEurope' 'NorthEurope' 'CentralIndia' 'SouthIndia' 'WestIndia' 'JapanEast' 'JapanWest' 'KoreaCentral' 'KoreaSouth' 'UkWest' 'UkSouth' 'NorthCentralUs' 'EastUs' 'WestUs2' 'SouthCentralUs' 'CentralUs' 'EastUs2' 'WestUs' 'WestCentralUs' 'GermanyCentral' 'GermanyNortheast' 'ChinaNorth' 'ChinaEast' 'USGovArizona' 'USGovTexas' 'USGovIowa' 'USGovVirginia' 'USDoDCentral' 'USDoDEast')}}\",\n    \"azureOfferCode\": \"{{oneOf (array 'Unknown' 'MSAZR0003P' 'MSAZR0044P' 'MSAZR0059P' 'MSAZR0060P' 'MSAZR0062P' 'MSAZR0063P' 'MSAZR0064P' 'MSAZR0029P' 'MSAZR0022P' 'MSAZR0023P' 'MSAZR0148P' 'MSAZR0025P' 'MSAZR0036P' 'MSAZR0120P' 'MSAZR0121P' 'MSAZR0122P' 'MSAZR0123P' 'MSAZR0124P' 'MSAZR0125P' 'MSAZR0126P' 'MSAZR0127P' 'MSAZR0128P' 'MSAZR0129P' 'MSAZR0130P' 'MSAZR0111P' 'MSAZR0144P' 'MSAZR0149P' 'MSMCAZR0044P' 'MSMCAZR0059P' 'MSMCAZR0060P' 'MSMCAZR0063P' 'MSMCAZR0120P' 'MSMCAZR0121P' 'MSMCAZR0125P' 'MSMCAZR0128P' 'MSAZRDE0003P' 'MSAZRDE0044P' 'MSAZRUSGOV0003P' 'EA')}}\",\n    \"azurePricingTier\": \"{{oneOf (array 'Standard' 'Basic')}}\",\n    \"azureStorageRedundancy\": \"{{oneOf (array 'Unknown' 'LocallyRedundant' 'ZoneRedundant' 'GeoRedundant' 'ReadAccessGeoRedundant')}}\",\n    \"azureVmFamilies\": [\n      \"{{oneOf (array 'Unknown' 'Basic_A0_A4' 'Standard_A0_A7' 'Standard_A8_A11' 'Av2_series' 'D_series' 'Dv2_series' 'DS_series' 'DSv2_series' 'F_series' 'Fs_series' 'G_series' 'GS_series' 'H_series' 'Ls_series' 'Dsv3_series' 'Dv3_series' 'Fsv2_series' 'Ev3_series' 'Esv3_series' 'M_series' 'DC_Series')}}\"\n    ],\n    \"confidenceRatingInPercentage\": {{faker 'number.float'}},\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"currency\": \"{{oneOf (array 'Unknown' 'USD' 'DKK' 'CAD' 'IDR' 'JPY' 'KRW' 'NZD' 'NOK' 'RUB' 'SAR' 'ZAR' 'SEK' 'TRY' 'GBP' 'MXN' 'MYR' 'INR' 'HKD' 'BRL' 'TWD' 'EUR' 'CHF' 'ARS' 'AUD' 'CNY')}}\",\n    \"discountPercentage\": {{faker 'number.float'}},\n    \"eaSubscriptionId\": \"\",\n    \"monthlyBandwidthCost\": {{faker 'number.float'}},\n    \"monthlyComputeCost\": {{faker 'number.float'}},\n    \"monthlyPremiumStorageCost\": {{faker 'number.float'}},\n    \"monthlyStandardSSDStorageCost\": {{faker 'number.float'}},\n    \"monthlyStorageCost\": {{faker 'number.float'}},\n    \"numberOfMachines\": {{faker 'number.int'}},\n    \"percentile\": \"{{oneOf (array 'Percentile50' 'Percentile90' 'Percentile95' 'Percentile99')}}\",\n    \"perfDataEndTime\": \"{{faker 'date.recent' 365}}\",\n    \"perfDataStartTime\": \"{{faker 'date.recent' 365}}\",\n    \"pricesTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"reservedInstance\": \"{{oneOf (array 'None' 'RI1Year' 'RI3Year')}}\",\n    \"scalingFactor\": {{faker 'number.float'}},\n    \"sizingCriterion\": \"{{oneOf (array 'PerformanceBased' 'AsOnPremises')}}\",\n    \"stage\": \"{{oneOf (array 'InProgress' 'UnderReview' 'Approved')}}\",\n    \"status\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid' 'OutOfSync' 'OutDated')}}\",\n    \"timeRange\": \"{{oneOf (array 'Day' 'Week' 'Month' 'Custom')}}\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"vmUptime\": {\n      \"daysPerMonth\": {{faker 'number.int'}},\n      \"hoursPerDay\": {{faker 'number.int'}}\n    }\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Existing assessment updated.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -661,23 +567,18 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "3053e34a-52cf-42a7-8652-15d19545fc0d",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"azureDiskType\": \"{{oneOf (array 'Unknown' 'Standard' 'Premium' 'StandardSSD' 'StandardOrPremium')}}\",\n    \"azureHybridUseBenefit\": \"{{oneOf (array 'Unknown' 'Yes' 'No')}}\",\n    \"azureLocation\": \"{{oneOf (array 'Unknown' 'EastAsia' 'SoutheastAsia' 'AustraliaEast' 'AustraliaSoutheast' 'BrazilSouth' 'CanadaCentral' 'CanadaEast' 'WestEurope' 'NorthEurope' 'CentralIndia' 'SouthIndia' 'WestIndia' 'JapanEast' 'JapanWest' 'KoreaCentral' 'KoreaSouth' 'UkWest' 'UkSouth' 'NorthCentralUs' 'EastUs' 'WestUs2' 'SouthCentralUs' 'CentralUs' 'EastUs2' 'WestUs' 'WestCentralUs' 'GermanyCentral' 'GermanyNortheast' 'ChinaNorth' 'ChinaEast' 'USGovArizona' 'USGovTexas' 'USGovIowa' 'USGovVirginia' 'USDoDCentral' 'USDoDEast')}}\",\n    \"azureOfferCode\": \"{{oneOf (array 'Unknown' 'MSAZR0003P' 'MSAZR0044P' 'MSAZR0059P' 'MSAZR0060P' 'MSAZR0062P' 'MSAZR0063P' 'MSAZR0064P' 'MSAZR0029P' 'MSAZR0022P' 'MSAZR0023P' 'MSAZR0148P' 'MSAZR0025P' 'MSAZR0036P' 'MSAZR0120P' 'MSAZR0121P' 'MSAZR0122P' 'MSAZR0123P' 'MSAZR0124P' 'MSAZR0125P' 'MSAZR0126P' 'MSAZR0127P' 'MSAZR0128P' 'MSAZR0129P' 'MSAZR0130P' 'MSAZR0111P' 'MSAZR0144P' 'MSAZR0149P' 'MSMCAZR0044P' 'MSMCAZR0059P' 'MSMCAZR0060P' 'MSMCAZR0063P' 'MSMCAZR0120P' 'MSMCAZR0121P' 'MSMCAZR0125P' 'MSMCAZR0128P' 'MSAZRDE0003P' 'MSAZRDE0044P' 'MSAZRUSGOV0003P' 'EA')}}\",\n    \"azurePricingTier\": \"{{oneOf (array 'Standard' 'Basic')}}\",\n    \"azureStorageRedundancy\": \"{{oneOf (array 'Unknown' 'LocallyRedundant' 'ZoneRedundant' 'GeoRedundant' 'ReadAccessGeoRedundant')}}\",\n    \"azureVmFamilies\": [\n      \"{{oneOf (array 'Unknown' 'Basic_A0_A4' 'Standard_A0_A7' 'Standard_A8_A11' 'Av2_series' 'D_series' 'Dv2_series' 'DS_series' 'DSv2_series' 'F_series' 'Fs_series' 'G_series' 'GS_series' 'H_series' 'Ls_series' 'Dsv3_series' 'Dv3_series' 'Fsv2_series' 'Ev3_series' 'Esv3_series' 'M_series' 'DC_Series')}}\"\n    ],\n    \"confidenceRatingInPercentage\": {{faker 'datatype.float'}},\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"currency\": \"{{oneOf (array 'Unknown' 'USD' 'DKK' 'CAD' 'IDR' 'JPY' 'KRW' 'NZD' 'NOK' 'RUB' 'SAR' 'ZAR' 'SEK' 'TRY' 'GBP' 'MXN' 'MYR' 'INR' 'HKD' 'BRL' 'TWD' 'EUR' 'CHF' 'ARS' 'AUD' 'CNY')}}\",\n    \"discountPercentage\": {{faker 'datatype.float'}},\n    \"eaSubscriptionId\": \"\",\n    \"monthlyBandwidthCost\": {{faker 'datatype.float'}},\n    \"monthlyComputeCost\": {{faker 'datatype.float'}},\n    \"monthlyPremiumStorageCost\": {{faker 'datatype.float'}},\n    \"monthlyStandardSSDStorageCost\": {{faker 'datatype.float'}},\n    \"monthlyStorageCost\": {{faker 'datatype.float'}},\n    \"numberOfMachines\": {{faker 'datatype.number'}},\n    \"percentile\": \"{{oneOf (array 'Percentile50' 'Percentile90' 'Percentile95' 'Percentile99')}}\",\n    \"perfDataEndTime\": \"{{faker 'date.recent' 365}}\",\n    \"perfDataStartTime\": \"{{faker 'date.recent' 365}}\",\n    \"pricesTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"reservedInstance\": \"{{oneOf (array 'None' 'RI1Year' 'RI3Year')}}\",\n    \"scalingFactor\": {{faker 'datatype.float'}},\n    \"sizingCriterion\": \"{{oneOf (array 'PerformanceBased' 'AsOnPremises')}}\",\n    \"stage\": \"{{oneOf (array 'InProgress' 'UnderReview' 'Approved')}}\",\n    \"status\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid' 'OutOfSync' 'OutDated')}}\",\n    \"timeRange\": \"{{oneOf (array 'Day' 'Week' 'Month' 'Custom')}}\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"vmUptime\": {\n      \"daysPerMonth\": {{faker 'datatype.number'}},\n      \"hoursPerDay\": {{faker 'datatype.number'}}\n    }\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"azureDiskType\": \"{{oneOf (array 'Unknown' 'Standard' 'Premium' 'StandardSSD' 'StandardOrPremium')}}\",\n    \"azureHybridUseBenefit\": \"{{oneOf (array 'Unknown' 'Yes' 'No')}}\",\n    \"azureLocation\": \"{{oneOf (array 'Unknown' 'EastAsia' 'SoutheastAsia' 'AustraliaEast' 'AustraliaSoutheast' 'BrazilSouth' 'CanadaCentral' 'CanadaEast' 'WestEurope' 'NorthEurope' 'CentralIndia' 'SouthIndia' 'WestIndia' 'JapanEast' 'JapanWest' 'KoreaCentral' 'KoreaSouth' 'UkWest' 'UkSouth' 'NorthCentralUs' 'EastUs' 'WestUs2' 'SouthCentralUs' 'CentralUs' 'EastUs2' 'WestUs' 'WestCentralUs' 'GermanyCentral' 'GermanyNortheast' 'ChinaNorth' 'ChinaEast' 'USGovArizona' 'USGovTexas' 'USGovIowa' 'USGovVirginia' 'USDoDCentral' 'USDoDEast')}}\",\n    \"azureOfferCode\": \"{{oneOf (array 'Unknown' 'MSAZR0003P' 'MSAZR0044P' 'MSAZR0059P' 'MSAZR0060P' 'MSAZR0062P' 'MSAZR0063P' 'MSAZR0064P' 'MSAZR0029P' 'MSAZR0022P' 'MSAZR0023P' 'MSAZR0148P' 'MSAZR0025P' 'MSAZR0036P' 'MSAZR0120P' 'MSAZR0121P' 'MSAZR0122P' 'MSAZR0123P' 'MSAZR0124P' 'MSAZR0125P' 'MSAZR0126P' 'MSAZR0127P' 'MSAZR0128P' 'MSAZR0129P' 'MSAZR0130P' 'MSAZR0111P' 'MSAZR0144P' 'MSAZR0149P' 'MSMCAZR0044P' 'MSMCAZR0059P' 'MSMCAZR0060P' 'MSMCAZR0063P' 'MSMCAZR0120P' 'MSMCAZR0121P' 'MSMCAZR0125P' 'MSMCAZR0128P' 'MSAZRDE0003P' 'MSAZRDE0044P' 'MSAZRUSGOV0003P' 'EA')}}\",\n    \"azurePricingTier\": \"{{oneOf (array 'Standard' 'Basic')}}\",\n    \"azureStorageRedundancy\": \"{{oneOf (array 'Unknown' 'LocallyRedundant' 'ZoneRedundant' 'GeoRedundant' 'ReadAccessGeoRedundant')}}\",\n    \"azureVmFamilies\": [\n      \"{{oneOf (array 'Unknown' 'Basic_A0_A4' 'Standard_A0_A7' 'Standard_A8_A11' 'Av2_series' 'D_series' 'Dv2_series' 'DS_series' 'DSv2_series' 'F_series' 'Fs_series' 'G_series' 'GS_series' 'H_series' 'Ls_series' 'Dsv3_series' 'Dv3_series' 'Fsv2_series' 'Ev3_series' 'Esv3_series' 'M_series' 'DC_Series')}}\"\n    ],\n    \"confidenceRatingInPercentage\": {{faker 'number.float'}},\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"currency\": \"{{oneOf (array 'Unknown' 'USD' 'DKK' 'CAD' 'IDR' 'JPY' 'KRW' 'NZD' 'NOK' 'RUB' 'SAR' 'ZAR' 'SEK' 'TRY' 'GBP' 'MXN' 'MYR' 'INR' 'HKD' 'BRL' 'TWD' 'EUR' 'CHF' 'ARS' 'AUD' 'CNY')}}\",\n    \"discountPercentage\": {{faker 'number.float'}},\n    \"eaSubscriptionId\": \"\",\n    \"monthlyBandwidthCost\": {{faker 'number.float'}},\n    \"monthlyComputeCost\": {{faker 'number.float'}},\n    \"monthlyPremiumStorageCost\": {{faker 'number.float'}},\n    \"monthlyStandardSSDStorageCost\": {{faker 'number.float'}},\n    \"monthlyStorageCost\": {{faker 'number.float'}},\n    \"numberOfMachines\": {{faker 'number.int'}},\n    \"percentile\": \"{{oneOf (array 'Percentile50' 'Percentile90' 'Percentile95' 'Percentile99')}}\",\n    \"perfDataEndTime\": \"{{faker 'date.recent' 365}}\",\n    \"perfDataStartTime\": \"{{faker 'date.recent' 365}}\",\n    \"pricesTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"reservedInstance\": \"{{oneOf (array 'None' 'RI1Year' 'RI3Year')}}\",\n    \"scalingFactor\": {{faker 'number.float'}},\n    \"sizingCriterion\": \"{{oneOf (array 'PerformanceBased' 'AsOnPremises')}}\",\n    \"stage\": \"{{oneOf (array 'InProgress' 'UnderReview' 'Approved')}}\",\n    \"status\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid' 'OutOfSync' 'OutDated')}}\",\n    \"timeRange\": \"{{oneOf (array 'Day' 'Week' 'Month' 'Custom')}}\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"vmUptime\": {\n      \"daysPerMonth\": {{faker 'number.int'}},\n      \"hoursPerDay\": {{faker 'number.int'}}\n    }\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 201,
           "label": "Created. New assessment was created.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -687,7 +588,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "fc00b414-972c-4202-bb9d-bf4dd3cce06f",
@@ -695,12 +597,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -709,11 +606,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "a2a68cd0-a471-4524-a57c-84e800675c73",
@@ -723,19 +622,13 @@
       "responses": [
         {
           "uuid": "439af8e3-085b-4867-8064-27d3389d131d",
-          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"bootType\": \"{{oneOf (array 'Unknown' 'EFI' 'BIOS')}}\",\n        \"confidenceRatingInPercentage\": {{faker 'datatype.float'}},\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"datacenterMachineArmId\": \"\",\n        \"datacenterManagementServerArmId\": \"\",\n        \"datacenterManagementServerName\": \"\",\n        \"description\": \"\",\n        \"disks\": {},\n        \"displayName\": \"\",\n        \"megabytesOfMemory\": {{faker 'datatype.float'}},\n        \"megabytesOfMemoryForRecommendedSize\": {{faker 'datatype.float'}},\n        \"monthlyBandwidthCost\": {{faker 'datatype.float'}},\n        \"monthlyComputeCostForRecommendedSize\": {{faker 'datatype.float'}},\n        \"monthlyPremiumStorageCost\": {{faker 'datatype.float'}},\n        \"monthlyStandardSSDStorageCost\": {{faker 'datatype.float'}},\n        \"monthlyStorageCost\": {{faker 'datatype.float'}},\n        \"networkAdapters\": {},\n        \"numberOfCores\": {{faker 'datatype.number'}},\n        \"numberOfCoresForRecommendedSize\": {{faker 'datatype.number'}},\n        \"operatingSystemName\": \"\",\n        \"operatingSystemType\": \"\",\n        \"operatingSystemVersion\": \"\",\n        \"percentageCoresUtilization\": {{faker 'datatype.float'}},\n        \"percentageMemoryUtilization\": {{faker 'datatype.float'}},\n        \"recommendedSize\": \"{{oneOf (array 'Unknown' 'Basic_A0' 'Basic_A1' 'Basic_A2' 'Basic_A3' 'Basic_A4' 'Standard_A0' 'Standard_A1' 'Standard_A2' 'Standard_A3' 'Standard_A4' 'Standard_A5' 'Standard_A6' 'Standard_A7' 'Standard_A8' 'Standard_A9' 'Standard_A10' 'Standard_A11' 'Standard_A1_v2' 'Standard_A2_v2' 'Standard_A4_v2' 'Standard_A8_v2' 'Standard_A2m_v2' 'Standard_A4m_v2' 'Standard_A8m_v2' 'Standard_D1' 'Standard_D2' 'Standard_D3' 'Standard_D4' 'Standard_D11' 'Standard_D12' 'Standard_D13' 'Standard_D14' 'Standard_D1_v2' 'Standard_D2_v2' 'Standard_D3_v2' 'Standard_D4_v2' 'Standard_D5_v2' 'Standard_D11_v2' 'Standard_D12_v2' 'Standard_D13_v2' 'Standard_D14_v2' 'Standard_D15_v2' 'Standard_DS1' 'Standard_DS2' 'Standard_DS3' 'Standard_DS4' 'Standard_DS11' 'Standard_DS12' 'Standard_DS13' 'Standard_DS14' 'Standard_DS1_v2' 'Standard_DS2_v2' 'Standard_DS3_v2' 'Standard_DS4_v2' 'Standard_DS5_v2' 'Standard_DS11_v2' 'Standard_DS12_v2' 'Standard_DS13_v2' 'Standard_DS14_v2' 'Standard_DS15_v2' 'Standard_F1' 'Standard_F2' 'Standard_F4' 'Standard_F8' 'Standard_F16' 'Standard_F1s' 'Standard_F2s' 'Standard_F4s' 'Standard_F8s' 'Standard_F16s' 'Standard_G1' 'Standard_G2' 'Standard_G3' 'Standard_G4' 'Standard_G5' 'Standard_GS1' 'Standard_GS2' 'Standard_GS3' 'Standard_GS4' 'Standard_GS5' 'Standard_H8' 'Standard_H16' 'Standard_H8m' 'Standard_H16m' 'Standard_H16r' 'Standard_H16mr' 'Standard_L4s' 'Standard_L8s' 'Standard_L16s' 'Standard_L32s' 'Standard_D2s_v3' 'Standard_D4s_v3' 'Standard_D8s_v3' 'Standard_D16s_v3' 'Standard_D32s_v3' 'Standard_D64s_v3' 'Standard_D2_v3' 'Standard_D4_v3' 'Standard_D8_v3' 'Standard_D16_v3' 'Standard_D32_v3' 'Standard_D64_v3' 'Standard_F2s_v2' 'Standard_F4s_v2' 'Standard_F8s_v2' 'Standard_F16s_v2' 'Standard_F32s_v2' 'Standard_F64s_v2' 'Standard_F72s_v2' 'Standard_E2_v3' 'Standard_E4_v3' 'Standard_E8_v3' 'Standard_E16_v3' 'Standard_E32_v3' 'Standard_E64_v3' 'Standard_E2s_v3' 'Standard_E4s_v3' 'Standard_E8s_v3' 'Standard_E16s_v3' 'Standard_E32s_v3' 'Standard_E64s_v3' 'Standard_M64s' 'Standard_M64ms' 'Standard_M128s' 'Standard_M128ms')}}\",\n        \"suitability\": \"{{oneOf (array 'Unknown' 'NotSuitable' 'Suitable' 'ConditionallySuitable' 'ReadinessUnknown')}}\",\n        \"suitabilityDetail\": \"{{oneOf (array 'None' 'RecommendedSizeHasLessNetworkAdapters' 'CannotReportComputeCost' 'CannotReportStorageCost' 'CannotReportBandwidthCosts' 'PercentageOfCoresUtilizedMissing' 'PercentageOfMemoryUtilizedMissing' 'PercentageOfCoresUtilizedOutOfRange' 'PercentageOfMemoryUtilizedOutOfRange')}}\",\n        \"suitabilityExplanation\": \"{{oneOf (array 'Unknown' 'NotApplicable' 'GuestOperatingSystemArchitectureNotSupported' 'GuestOperatingSystemNotSupported' 'BootTypeNotSupported' 'MoreDisksThanSupported' 'NoSuitableVmSizeFound' 'OneOrMoreDisksNotSuitable' 'OneOrMoreAdaptersNotSuitable' 'InternalErrorOccurredDuringComputeEvaluation' 'InternalErrorOccurredDuringStorageEvaluation' 'InternalErrorOccurredDuringNetworkEvaluation' 'NoVmSizeSupportsStoragePerformance' 'NoVmSizeSupportsNetworkPerformance' 'NoVmSizeForSelectedPricingTier' 'NoVmSizeForSelectedAzureLocation' 'CheckRedHatLinuxVersion' 'CheckOpenSuseLinuxVersion' 'CheckWindowsServer2008R2Version' 'CheckCentOsVersion' 'CheckDebianLinuxVersion' 'CheckSuseLinuxVersion' 'CheckOracleLinuxVersion' 'CheckUbuntuLinuxVersion' 'CheckCoreOsLinuxVersion' 'WindowsServerVersionConditionallySupported' 'NoGuestOperatingSystemConditionallySupported' 'WindowsClientVersionsConditionallySupported' 'BootTypeUnknown' 'GuestOperatingSystemUnknown' 'WindowsServerVersionsSupportedWithCaveat' 'WindowsOSNoLongerUnderMSSupport' 'EndorsedWithConditionsLinuxDistributions' 'UnendorsedLinuxDistributions' 'NoVmSizeForStandardPricingTier' 'NoVmSizeForBasicPricingTier')}}\",\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"bootType\": \"{{oneOf (array 'Unknown' 'EFI' 'BIOS')}}\",\n        \"confidenceRatingInPercentage\": {{faker 'number.float'}},\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"datacenterMachineArmId\": \"\",\n        \"datacenterManagementServerArmId\": \"\",\n        \"datacenterManagementServerName\": \"\",\n        \"description\": \"\",\n        \"disks\": {},\n        \"displayName\": \"\",\n        \"megabytesOfMemory\": {{faker 'number.float'}},\n        \"megabytesOfMemoryForRecommendedSize\": {{faker 'number.float'}},\n        \"monthlyBandwidthCost\": {{faker 'number.float'}},\n        \"monthlyComputeCostForRecommendedSize\": {{faker 'number.float'}},\n        \"monthlyPremiumStorageCost\": {{faker 'number.float'}},\n        \"monthlyStandardSSDStorageCost\": {{faker 'number.float'}},\n        \"monthlyStorageCost\": {{faker 'number.float'}},\n        \"networkAdapters\": {},\n        \"numberOfCores\": {{faker 'number.int'}},\n        \"numberOfCoresForRecommendedSize\": {{faker 'number.int'}},\n        \"operatingSystemName\": \"\",\n        \"operatingSystemType\": \"\",\n        \"operatingSystemVersion\": \"\",\n        \"percentageCoresUtilization\": {{faker 'number.float'}},\n        \"percentageMemoryUtilization\": {{faker 'number.float'}},\n        \"recommendedSize\": \"{{oneOf (array 'Unknown' 'Basic_A0' 'Basic_A1' 'Basic_A2' 'Basic_A3' 'Basic_A4' 'Standard_A0' 'Standard_A1' 'Standard_A2' 'Standard_A3' 'Standard_A4' 'Standard_A5' 'Standard_A6' 'Standard_A7' 'Standard_A8' 'Standard_A9' 'Standard_A10' 'Standard_A11' 'Standard_A1_v2' 'Standard_A2_v2' 'Standard_A4_v2' 'Standard_A8_v2' 'Standard_A2m_v2' 'Standard_A4m_v2' 'Standard_A8m_v2' 'Standard_D1' 'Standard_D2' 'Standard_D3' 'Standard_D4' 'Standard_D11' 'Standard_D12' 'Standard_D13' 'Standard_D14' 'Standard_D1_v2' 'Standard_D2_v2' 'Standard_D3_v2' 'Standard_D4_v2' 'Standard_D5_v2' 'Standard_D11_v2' 'Standard_D12_v2' 'Standard_D13_v2' 'Standard_D14_v2' 'Standard_D15_v2' 'Standard_DS1' 'Standard_DS2' 'Standard_DS3' 'Standard_DS4' 'Standard_DS11' 'Standard_DS12' 'Standard_DS13' 'Standard_DS14' 'Standard_DS1_v2' 'Standard_DS2_v2' 'Standard_DS3_v2' 'Standard_DS4_v2' 'Standard_DS5_v2' 'Standard_DS11_v2' 'Standard_DS12_v2' 'Standard_DS13_v2' 'Standard_DS14_v2' 'Standard_DS15_v2' 'Standard_F1' 'Standard_F2' 'Standard_F4' 'Standard_F8' 'Standard_F16' 'Standard_F1s' 'Standard_F2s' 'Standard_F4s' 'Standard_F8s' 'Standard_F16s' 'Standard_G1' 'Standard_G2' 'Standard_G3' 'Standard_G4' 'Standard_G5' 'Standard_GS1' 'Standard_GS2' 'Standard_GS3' 'Standard_GS4' 'Standard_GS5' 'Standard_H8' 'Standard_H16' 'Standard_H8m' 'Standard_H16m' 'Standard_H16r' 'Standard_H16mr' 'Standard_L4s' 'Standard_L8s' 'Standard_L16s' 'Standard_L32s' 'Standard_D2s_v3' 'Standard_D4s_v3' 'Standard_D8s_v3' 'Standard_D16s_v3' 'Standard_D32s_v3' 'Standard_D64s_v3' 'Standard_D2_v3' 'Standard_D4_v3' 'Standard_D8_v3' 'Standard_D16_v3' 'Standard_D32_v3' 'Standard_D64_v3' 'Standard_F2s_v2' 'Standard_F4s_v2' 'Standard_F8s_v2' 'Standard_F16s_v2' 'Standard_F32s_v2' 'Standard_F64s_v2' 'Standard_F72s_v2' 'Standard_E2_v3' 'Standard_E4_v3' 'Standard_E8_v3' 'Standard_E16_v3' 'Standard_E32_v3' 'Standard_E64_v3' 'Standard_E2s_v3' 'Standard_E4s_v3' 'Standard_E8s_v3' 'Standard_E16s_v3' 'Standard_E32s_v3' 'Standard_E64s_v3' 'Standard_M64s' 'Standard_M64ms' 'Standard_M128s' 'Standard_M128ms')}}\",\n        \"suitability\": \"{{oneOf (array 'Unknown' 'NotSuitable' 'Suitable' 'ConditionallySuitable' 'ReadinessUnknown')}}\",\n        \"suitabilityDetail\": \"{{oneOf (array 'None' 'RecommendedSizeHasLessNetworkAdapters' 'CannotReportComputeCost' 'CannotReportStorageCost' 'CannotReportBandwidthCosts' 'PercentageOfCoresUtilizedMissing' 'PercentageOfMemoryUtilizedMissing' 'PercentageOfCoresUtilizedOutOfRange' 'PercentageOfMemoryUtilizedOutOfRange')}}\",\n        \"suitabilityExplanation\": \"{{oneOf (array 'Unknown' 'NotApplicable' 'GuestOperatingSystemArchitectureNotSupported' 'GuestOperatingSystemNotSupported' 'BootTypeNotSupported' 'MoreDisksThanSupported' 'NoSuitableVmSizeFound' 'OneOrMoreDisksNotSuitable' 'OneOrMoreAdaptersNotSuitable' 'InternalErrorOccurredDuringComputeEvaluation' 'InternalErrorOccurredDuringStorageEvaluation' 'InternalErrorOccurredDuringNetworkEvaluation' 'NoVmSizeSupportsStoragePerformance' 'NoVmSizeSupportsNetworkPerformance' 'NoVmSizeForSelectedPricingTier' 'NoVmSizeForSelectedAzureLocation' 'CheckRedHatLinuxVersion' 'CheckOpenSuseLinuxVersion' 'CheckWindowsServer2008R2Version' 'CheckCentOsVersion' 'CheckDebianLinuxVersion' 'CheckSuseLinuxVersion' 'CheckOracleLinuxVersion' 'CheckUbuntuLinuxVersion' 'CheckCoreOsLinuxVersion' 'WindowsServerVersionConditionallySupported' 'NoGuestOperatingSystemConditionallySupported' 'WindowsClientVersionsConditionallySupported' 'BootTypeUnknown' 'GuestOperatingSystemUnknown' 'WindowsServerVersionsSupportedWithCaveat' 'WindowsOSNoLongerUnderMSSupport' 'EndorsedWithConditionsLinuxDistributions' 'UnendorsedLinuxDistributions' 'NoVmSizeForStandardPricingTier' 'NoVmSizeForBasicPricingTier')}}\",\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Returns list of machines with their assessment data in the assessment.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -745,7 +638,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "4a56889c-2ed7-436b-a4ac-fa956016f272",
@@ -753,12 +647,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -767,11 +656,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "0f6b053f-8b90-4a90-8f7b-b3003a850b23",
@@ -781,19 +672,13 @@
       "responses": [
         {
           "uuid": "617a9acb-d044-4e4e-9680-8a879dcfc9aa",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"bootType\": \"{{oneOf (array 'Unknown' 'EFI' 'BIOS')}}\",\n    \"confidenceRatingInPercentage\": {{faker 'datatype.float'}},\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"datacenterMachineArmId\": \"\",\n    \"datacenterManagementServerArmId\": \"\",\n    \"datacenterManagementServerName\": \"\",\n    \"description\": \"\",\n    \"disks\": {},\n    \"displayName\": \"\",\n    \"megabytesOfMemory\": {{faker 'datatype.float'}},\n    \"megabytesOfMemoryForRecommendedSize\": {{faker 'datatype.float'}},\n    \"monthlyBandwidthCost\": {{faker 'datatype.float'}},\n    \"monthlyComputeCostForRecommendedSize\": {{faker 'datatype.float'}},\n    \"monthlyPremiumStorageCost\": {{faker 'datatype.float'}},\n    \"monthlyStandardSSDStorageCost\": {{faker 'datatype.float'}},\n    \"monthlyStorageCost\": {{faker 'datatype.float'}},\n    \"networkAdapters\": {},\n    \"numberOfCores\": {{faker 'datatype.number'}},\n    \"numberOfCoresForRecommendedSize\": {{faker 'datatype.number'}},\n    \"operatingSystemName\": \"\",\n    \"operatingSystemType\": \"\",\n    \"operatingSystemVersion\": \"\",\n    \"percentageCoresUtilization\": {{faker 'datatype.float'}},\n    \"percentageMemoryUtilization\": {{faker 'datatype.float'}},\n    \"recommendedSize\": \"{{oneOf (array 'Unknown' 'Basic_A0' 'Basic_A1' 'Basic_A2' 'Basic_A3' 'Basic_A4' 'Standard_A0' 'Standard_A1' 'Standard_A2' 'Standard_A3' 'Standard_A4' 'Standard_A5' 'Standard_A6' 'Standard_A7' 'Standard_A8' 'Standard_A9' 'Standard_A10' 'Standard_A11' 'Standard_A1_v2' 'Standard_A2_v2' 'Standard_A4_v2' 'Standard_A8_v2' 'Standard_A2m_v2' 'Standard_A4m_v2' 'Standard_A8m_v2' 'Standard_D1' 'Standard_D2' 'Standard_D3' 'Standard_D4' 'Standard_D11' 'Standard_D12' 'Standard_D13' 'Standard_D14' 'Standard_D1_v2' 'Standard_D2_v2' 'Standard_D3_v2' 'Standard_D4_v2' 'Standard_D5_v2' 'Standard_D11_v2' 'Standard_D12_v2' 'Standard_D13_v2' 'Standard_D14_v2' 'Standard_D15_v2' 'Standard_DS1' 'Standard_DS2' 'Standard_DS3' 'Standard_DS4' 'Standard_DS11' 'Standard_DS12' 'Standard_DS13' 'Standard_DS14' 'Standard_DS1_v2' 'Standard_DS2_v2' 'Standard_DS3_v2' 'Standard_DS4_v2' 'Standard_DS5_v2' 'Standard_DS11_v2' 'Standard_DS12_v2' 'Standard_DS13_v2' 'Standard_DS14_v2' 'Standard_DS15_v2' 'Standard_F1' 'Standard_F2' 'Standard_F4' 'Standard_F8' 'Standard_F16' 'Standard_F1s' 'Standard_F2s' 'Standard_F4s' 'Standard_F8s' 'Standard_F16s' 'Standard_G1' 'Standard_G2' 'Standard_G3' 'Standard_G4' 'Standard_G5' 'Standard_GS1' 'Standard_GS2' 'Standard_GS3' 'Standard_GS4' 'Standard_GS5' 'Standard_H8' 'Standard_H16' 'Standard_H8m' 'Standard_H16m' 'Standard_H16r' 'Standard_H16mr' 'Standard_L4s' 'Standard_L8s' 'Standard_L16s' 'Standard_L32s' 'Standard_D2s_v3' 'Standard_D4s_v3' 'Standard_D8s_v3' 'Standard_D16s_v3' 'Standard_D32s_v3' 'Standard_D64s_v3' 'Standard_D2_v3' 'Standard_D4_v3' 'Standard_D8_v3' 'Standard_D16_v3' 'Standard_D32_v3' 'Standard_D64_v3' 'Standard_F2s_v2' 'Standard_F4s_v2' 'Standard_F8s_v2' 'Standard_F16s_v2' 'Standard_F32s_v2' 'Standard_F64s_v2' 'Standard_F72s_v2' 'Standard_E2_v3' 'Standard_E4_v3' 'Standard_E8_v3' 'Standard_E16_v3' 'Standard_E32_v3' 'Standard_E64_v3' 'Standard_E2s_v3' 'Standard_E4s_v3' 'Standard_E8s_v3' 'Standard_E16s_v3' 'Standard_E32s_v3' 'Standard_E64s_v3' 'Standard_M64s' 'Standard_M64ms' 'Standard_M128s' 'Standard_M128ms')}}\",\n    \"suitability\": \"{{oneOf (array 'Unknown' 'NotSuitable' 'Suitable' 'ConditionallySuitable' 'ReadinessUnknown')}}\",\n    \"suitabilityDetail\": \"{{oneOf (array 'None' 'RecommendedSizeHasLessNetworkAdapters' 'CannotReportComputeCost' 'CannotReportStorageCost' 'CannotReportBandwidthCosts' 'PercentageOfCoresUtilizedMissing' 'PercentageOfMemoryUtilizedMissing' 'PercentageOfCoresUtilizedOutOfRange' 'PercentageOfMemoryUtilizedOutOfRange')}}\",\n    \"suitabilityExplanation\": \"{{oneOf (array 'Unknown' 'NotApplicable' 'GuestOperatingSystemArchitectureNotSupported' 'GuestOperatingSystemNotSupported' 'BootTypeNotSupported' 'MoreDisksThanSupported' 'NoSuitableVmSizeFound' 'OneOrMoreDisksNotSuitable' 'OneOrMoreAdaptersNotSuitable' 'InternalErrorOccurredDuringComputeEvaluation' 'InternalErrorOccurredDuringStorageEvaluation' 'InternalErrorOccurredDuringNetworkEvaluation' 'NoVmSizeSupportsStoragePerformance' 'NoVmSizeSupportsNetworkPerformance' 'NoVmSizeForSelectedPricingTier' 'NoVmSizeForSelectedAzureLocation' 'CheckRedHatLinuxVersion' 'CheckOpenSuseLinuxVersion' 'CheckWindowsServer2008R2Version' 'CheckCentOsVersion' 'CheckDebianLinuxVersion' 'CheckSuseLinuxVersion' 'CheckOracleLinuxVersion' 'CheckUbuntuLinuxVersion' 'CheckCoreOsLinuxVersion' 'WindowsServerVersionConditionallySupported' 'NoGuestOperatingSystemConditionallySupported' 'WindowsClientVersionsConditionallySupported' 'BootTypeUnknown' 'GuestOperatingSystemUnknown' 'WindowsServerVersionsSupportedWithCaveat' 'WindowsOSNoLongerUnderMSSupport' 'EndorsedWithConditionsLinuxDistributions' 'UnendorsedLinuxDistributions' 'NoVmSizeForStandardPricingTier' 'NoVmSizeForBasicPricingTier')}}\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"bootType\": \"{{oneOf (array 'Unknown' 'EFI' 'BIOS')}}\",\n    \"confidenceRatingInPercentage\": {{faker 'number.float'}},\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"datacenterMachineArmId\": \"\",\n    \"datacenterManagementServerArmId\": \"\",\n    \"datacenterManagementServerName\": \"\",\n    \"description\": \"\",\n    \"disks\": {},\n    \"displayName\": \"\",\n    \"megabytesOfMemory\": {{faker 'number.float'}},\n    \"megabytesOfMemoryForRecommendedSize\": {{faker 'number.float'}},\n    \"monthlyBandwidthCost\": {{faker 'number.float'}},\n    \"monthlyComputeCostForRecommendedSize\": {{faker 'number.float'}},\n    \"monthlyPremiumStorageCost\": {{faker 'number.float'}},\n    \"monthlyStandardSSDStorageCost\": {{faker 'number.float'}},\n    \"monthlyStorageCost\": {{faker 'number.float'}},\n    \"networkAdapters\": {},\n    \"numberOfCores\": {{faker 'number.int'}},\n    \"numberOfCoresForRecommendedSize\": {{faker 'number.int'}},\n    \"operatingSystemName\": \"\",\n    \"operatingSystemType\": \"\",\n    \"operatingSystemVersion\": \"\",\n    \"percentageCoresUtilization\": {{faker 'number.float'}},\n    \"percentageMemoryUtilization\": {{faker 'number.float'}},\n    \"recommendedSize\": \"{{oneOf (array 'Unknown' 'Basic_A0' 'Basic_A1' 'Basic_A2' 'Basic_A3' 'Basic_A4' 'Standard_A0' 'Standard_A1' 'Standard_A2' 'Standard_A3' 'Standard_A4' 'Standard_A5' 'Standard_A6' 'Standard_A7' 'Standard_A8' 'Standard_A9' 'Standard_A10' 'Standard_A11' 'Standard_A1_v2' 'Standard_A2_v2' 'Standard_A4_v2' 'Standard_A8_v2' 'Standard_A2m_v2' 'Standard_A4m_v2' 'Standard_A8m_v2' 'Standard_D1' 'Standard_D2' 'Standard_D3' 'Standard_D4' 'Standard_D11' 'Standard_D12' 'Standard_D13' 'Standard_D14' 'Standard_D1_v2' 'Standard_D2_v2' 'Standard_D3_v2' 'Standard_D4_v2' 'Standard_D5_v2' 'Standard_D11_v2' 'Standard_D12_v2' 'Standard_D13_v2' 'Standard_D14_v2' 'Standard_D15_v2' 'Standard_DS1' 'Standard_DS2' 'Standard_DS3' 'Standard_DS4' 'Standard_DS11' 'Standard_DS12' 'Standard_DS13' 'Standard_DS14' 'Standard_DS1_v2' 'Standard_DS2_v2' 'Standard_DS3_v2' 'Standard_DS4_v2' 'Standard_DS5_v2' 'Standard_DS11_v2' 'Standard_DS12_v2' 'Standard_DS13_v2' 'Standard_DS14_v2' 'Standard_DS15_v2' 'Standard_F1' 'Standard_F2' 'Standard_F4' 'Standard_F8' 'Standard_F16' 'Standard_F1s' 'Standard_F2s' 'Standard_F4s' 'Standard_F8s' 'Standard_F16s' 'Standard_G1' 'Standard_G2' 'Standard_G3' 'Standard_G4' 'Standard_G5' 'Standard_GS1' 'Standard_GS2' 'Standard_GS3' 'Standard_GS4' 'Standard_GS5' 'Standard_H8' 'Standard_H16' 'Standard_H8m' 'Standard_H16m' 'Standard_H16r' 'Standard_H16mr' 'Standard_L4s' 'Standard_L8s' 'Standard_L16s' 'Standard_L32s' 'Standard_D2s_v3' 'Standard_D4s_v3' 'Standard_D8s_v3' 'Standard_D16s_v3' 'Standard_D32s_v3' 'Standard_D64s_v3' 'Standard_D2_v3' 'Standard_D4_v3' 'Standard_D8_v3' 'Standard_D16_v3' 'Standard_D32_v3' 'Standard_D64_v3' 'Standard_F2s_v2' 'Standard_F4s_v2' 'Standard_F8s_v2' 'Standard_F16s_v2' 'Standard_F32s_v2' 'Standard_F64s_v2' 'Standard_F72s_v2' 'Standard_E2_v3' 'Standard_E4_v3' 'Standard_E8_v3' 'Standard_E16_v3' 'Standard_E32_v3' 'Standard_E64_v3' 'Standard_E2s_v3' 'Standard_E4s_v3' 'Standard_E8s_v3' 'Standard_E16s_v3' 'Standard_E32s_v3' 'Standard_E64s_v3' 'Standard_M64s' 'Standard_M64ms' 'Standard_M128s' 'Standard_M128ms')}}\",\n    \"suitability\": \"{{oneOf (array 'Unknown' 'NotSuitable' 'Suitable' 'ConditionallySuitable' 'ReadinessUnknown')}}\",\n    \"suitabilityDetail\": \"{{oneOf (array 'None' 'RecommendedSizeHasLessNetworkAdapters' 'CannotReportComputeCost' 'CannotReportStorageCost' 'CannotReportBandwidthCosts' 'PercentageOfCoresUtilizedMissing' 'PercentageOfMemoryUtilizedMissing' 'PercentageOfCoresUtilizedOutOfRange' 'PercentageOfMemoryUtilizedOutOfRange')}}\",\n    \"suitabilityExplanation\": \"{{oneOf (array 'Unknown' 'NotApplicable' 'GuestOperatingSystemArchitectureNotSupported' 'GuestOperatingSystemNotSupported' 'BootTypeNotSupported' 'MoreDisksThanSupported' 'NoSuitableVmSizeFound' 'OneOrMoreDisksNotSuitable' 'OneOrMoreAdaptersNotSuitable' 'InternalErrorOccurredDuringComputeEvaluation' 'InternalErrorOccurredDuringStorageEvaluation' 'InternalErrorOccurredDuringNetworkEvaluation' 'NoVmSizeSupportsStoragePerformance' 'NoVmSizeSupportsNetworkPerformance' 'NoVmSizeForSelectedPricingTier' 'NoVmSizeForSelectedAzureLocation' 'CheckRedHatLinuxVersion' 'CheckOpenSuseLinuxVersion' 'CheckWindowsServer2008R2Version' 'CheckCentOsVersion' 'CheckDebianLinuxVersion' 'CheckSuseLinuxVersion' 'CheckOracleLinuxVersion' 'CheckUbuntuLinuxVersion' 'CheckCoreOsLinuxVersion' 'WindowsServerVersionConditionallySupported' 'NoGuestOperatingSystemConditionallySupported' 'WindowsClientVersionsConditionallySupported' 'BootTypeUnknown' 'GuestOperatingSystemUnknown' 'WindowsServerVersionsSupportedWithCaveat' 'WindowsOSNoLongerUnderMSSupport' 'EndorsedWithConditionsLinuxDistributions' 'UnendorsedLinuxDistributions' 'NoVmSizeForStandardPricingTier' 'NoVmSizeForBasicPricingTier')}}\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Returns a specific assessed machine.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -803,7 +688,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "c1583ada-369c-42b9-b152-ac3641456949",
@@ -811,12 +697,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -825,11 +706,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ded23d86-9360-4fbd-9b8c-fcf0589e74b8",
@@ -844,14 +727,8 @@
           "statusCode": 200,
           "label": "OK.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -861,7 +738,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "410b7472-b35c-4ee9-a2af-927ff7dc0f20",
@@ -869,12 +747,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -883,11 +756,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ad76c75d-3f46-4203-960a-e80605ef178f",
@@ -897,19 +772,13 @@
       "responses": [
         {
           "uuid": "c4e91baa-c371-4829-bdf7-2a9619e6340b",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"areAssessmentsRunning\": {{faker 'datatype.boolean'}},\n    \"assessments\": [\n      \"\"\n    ],\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"groupStatus\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid')}}\",\n    \"machineCount\": {{faker 'datatype.number'}},\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"areAssessmentsRunning\": {{faker 'datatype.boolean'}},\n    \"assessments\": [\n      \"\"\n    ],\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"groupStatus\": \"{{oneOf (array 'Created' 'Updated' 'Running' 'Completed' 'Invalid')}}\",\n    \"machineCount\": {{faker 'number.int'}},\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Existing group updated.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -919,7 +788,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "a1565e36-50aa-481f-8679-57c3874962de",
@@ -927,12 +797,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -941,11 +806,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "2b3b35f1-ff4b-4310-b84f-1c636478de8e",
@@ -960,14 +827,8 @@
           "statusCode": 200,
           "label": "OK. Returns list of Hyper-V collectors.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -977,7 +838,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "4a42d6d1-7b17-4e4b-b9f4-c7570bab1922",
@@ -985,12 +847,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -999,11 +856,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "6ee379da-e215-4810-9be0-1a662919dbab",
@@ -1018,14 +877,8 @@
           "statusCode": 200,
           "label": "OK. Deleted the Hyper-V collector.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1035,7 +888,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "85876890-b062-4c02-bb84-662c5ceb3138",
@@ -1043,12 +897,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No content. No Hyper-V collector with specified name was found.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1057,7 +906,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "4f3e5a57-1ae4-4e2a-aa8e-79d20f294180",
@@ -1065,12 +915,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1079,11 +924,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "1b541578-fbe4-4309-b384-8dfe0e104cd5",
@@ -1098,14 +945,8 @@
           "statusCode": 200,
           "label": "OK. Returns the specific Hyper-V collector.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1115,7 +956,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "130ba850-4735-497c-ba4b-b5334f4aa6a6",
@@ -1123,12 +965,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1137,11 +974,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "2f3d1129-0279-4ee8-b3c6-934b80a7dee3",
@@ -1156,14 +995,8 @@
           "statusCode": 200,
           "label": "OK. Existing Hyper-V collector.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1173,7 +1006,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "17d8e400-a002-4079-9adc-2cdf27e0145b",
@@ -1182,14 +1016,8 @@
           "statusCode": 201,
           "label": "Created. New Hyper-V collector was created.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1199,7 +1027,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "12bd0827-7acb-48b1-9be8-aca9fd3e0e47",
@@ -1207,12 +1036,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1221,11 +1045,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "69c4e30a-7a82-423d-9aaf-13d2ed21234b",
@@ -1235,19 +1061,13 @@
       "responses": [
         {
           "uuid": "32dde1ba-b655-46c2-9b6d-561496c0434c",
-          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"bootType\": \"{{oneOf (array 'Unknown' 'EFI' 'BIOS')}}\",\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"datacenterManagementServerArmId\": \"\",\n        \"datacenterManagementServerName\": \"\",\n        \"description\": \"\",\n        \"discoveryMachineArmId\": \"\",\n        \"disks\": {},\n        \"displayName\": \"\",\n        \"groups\": [\n          \"\"\n        ],\n        \"megabytesOfMemory\": {{faker 'datatype.number'}},\n        \"networkAdapters\": {},\n        \"numberOfCores\": {{faker 'datatype.number'}},\n        \"operatingSystemName\": \"\",\n        \"operatingSystemType\": \"\",\n        \"operatingSystemVersion\": \"\",\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"nextLink\": \"\",\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"bootType\": \"{{oneOf (array 'Unknown' 'EFI' 'BIOS')}}\",\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"datacenterManagementServerArmId\": \"\",\n        \"datacenterManagementServerName\": \"\",\n        \"description\": \"\",\n        \"discoveryMachineArmId\": \"\",\n        \"disks\": {},\n        \"displayName\": \"\",\n        \"groups\": [\n          \"\"\n        ],\n        \"megabytesOfMemory\": {{faker 'number.int'}},\n        \"networkAdapters\": {},\n        \"numberOfCores\": {{faker 'number.int'}},\n        \"operatingSystemName\": \"\",\n        \"operatingSystemType\": \"\",\n        \"operatingSystemVersion\": \"\",\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Returns list of all machine objects.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1257,7 +1077,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "b81f21cd-fc04-4523-912c-06aa2486cb6d",
@@ -1265,12 +1086,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1279,11 +1095,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "9b9b406d-6d66-4ebb-9c96-03b9c7d2ddd7",
@@ -1293,19 +1111,13 @@
       "responses": [
         {
           "uuid": "44e5f8b5-8abe-456e-a3b1-21ed615062b6",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"bootType\": \"{{oneOf (array 'Unknown' 'EFI' 'BIOS')}}\",\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"datacenterManagementServerArmId\": \"\",\n    \"datacenterManagementServerName\": \"\",\n    \"description\": \"\",\n    \"discoveryMachineArmId\": \"\",\n    \"disks\": {},\n    \"displayName\": \"\",\n    \"groups\": [\n      \"\"\n    ],\n    \"megabytesOfMemory\": {{faker 'datatype.number'}},\n    \"networkAdapters\": {},\n    \"numberOfCores\": {{faker 'datatype.number'}},\n    \"operatingSystemName\": \"\",\n    \"operatingSystemType\": \"\",\n    \"operatingSystemVersion\": \"\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"bootType\": \"{{oneOf (array 'Unknown' 'EFI' 'BIOS')}}\",\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"datacenterManagementServerArmId\": \"\",\n    \"datacenterManagementServerName\": \"\",\n    \"description\": \"\",\n    \"discoveryMachineArmId\": \"\",\n    \"disks\": {},\n    \"displayName\": \"\",\n    \"groups\": [\n      \"\"\n    ],\n    \"megabytesOfMemory\": {{faker 'number.int'}},\n    \"networkAdapters\": {},\n    \"numberOfCores\": {{faker 'number.int'}},\n    \"operatingSystemName\": \"\",\n    \"operatingSystemType\": \"\",\n    \"operatingSystemVersion\": \"\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Returns the machine with the specified name.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1315,7 +1127,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "3f21a60f-771c-4612-b2ea-3076819aad57",
@@ -1323,12 +1136,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1337,11 +1145,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "439711e1-7617-42d8-8716-dd12d8fd9c49",
@@ -1356,14 +1166,8 @@
           "statusCode": 200,
           "label": "OK. Returns list of VMware collectors.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1373,7 +1177,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "0eb7dfaa-3499-4d48-97e0-9ffc771666e6",
@@ -1381,12 +1186,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1395,11 +1195,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "d41dfbe2-76f3-4dbf-9878-970729e887c3",
@@ -1414,14 +1216,8 @@
           "statusCode": 200,
           "label": "OK. Deleted the VMware collector.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1431,7 +1227,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e4fb9fb1-c26e-49b8-b2e7-988f7ef1c9cb",
@@ -1439,12 +1236,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No content. No VMware collector with specified name was found.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1453,7 +1245,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "2d4c37e8-4696-4570-91d6-89e04fea7c25",
@@ -1461,12 +1254,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1475,11 +1263,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "3be409ae-1c65-48f9-b626-c623c970bab2",
@@ -1494,14 +1284,8 @@
           "statusCode": 200,
           "label": "OK. Returns the specific VMware collector.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1511,7 +1295,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "45d84709-bc29-47a2-bf33-303efd0da00f",
@@ -1519,12 +1304,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1533,11 +1313,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "bc0de110-94e7-4568-b455-88099709405c",
@@ -1552,14 +1334,8 @@
           "statusCode": 200,
           "label": "OK. Existing VMware collector.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1569,7 +1345,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "f2386349-50c0-442f-b979-3dd439a6197a",
@@ -1578,14 +1355,8 @@
           "statusCode": 201,
           "label": "Created. New VMware collector was created.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1595,7 +1366,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "4c2902c1-6a38-4c54-af4e-b8f87bd33254",
@@ -1603,12 +1375,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1617,11 +1384,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "d04daa95-a67a-4819-90ee-43e47d4ef2f3",
@@ -1631,19 +1400,13 @@
       "responses": [
         {
           "uuid": "b7b15059-03ad-48e2-a161-172971888bb2",
-          "body": "{\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"assessmentSolutionId\": \"\",\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"customerWorkspaceId\": \"\",\n        \"customerWorkspaceLocation\": \"\",\n        \"lastAssessmentTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"numberOfAssessments\": {{faker 'datatype.number'}},\n        \"numberOfGroups\": {{faker 'datatype.number'}},\n        \"numberOfMachines\": {{faker 'datatype.number'}},\n        \"projectStatus\": \"{{oneOf (array 'Active' 'Inactive')}}\",\n        \"provisioningState\": \"{{oneOf (array 'Accepted' 'Creating' 'Deleting' 'Failed' 'Moving' 'Succeeded')}}\",\n        \"serviceEndpoint\": \"\",\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"tags\": {},\n      \"type\": \"\"\n    }\n  ]\n}",
+          "body": "{\n  \"value\": [\n    {\n      \"eTag\": \"\",\n      \"id\": \"\",\n      \"location\": \"\",\n      \"name\": \"\",\n      \"properties\": {\n        \"assessmentSolutionId\": \"\",\n        \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"customerWorkspaceId\": \"\",\n        \"customerWorkspaceLocation\": \"\",\n        \"lastAssessmentTimestamp\": \"{{faker 'date.recent' 365}}\",\n        \"numberOfAssessments\": {{faker 'number.int'}},\n        \"numberOfGroups\": {{faker 'number.int'}},\n        \"numberOfMachines\": {{faker 'number.int'}},\n        \"projectStatus\": \"{{oneOf (array 'Active' 'Inactive')}}\",\n        \"provisioningState\": \"{{oneOf (array 'Accepted' 'Creating' 'Deleting' 'Failed' 'Moving' 'Succeeded')}}\",\n        \"serviceEndpoint\": \"\",\n        \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n      },\n      \"tags\": {},\n      \"type\": \"\"\n    }\n  ]\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1653,7 +1416,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e483232b-307c-4107-99ab-a3a5477abe81",
@@ -1661,12 +1425,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1675,11 +1434,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "ba7fed9b-eead-412e-bec4-7cf86e9daaa9",
@@ -1694,14 +1455,8 @@
           "statusCode": 200,
           "label": "OK. Deleted the group.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1711,7 +1466,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "7397f760-7239-4e8e-909c-163b34f94f0c",
@@ -1719,12 +1475,7 @@
           "latency": 0,
           "statusCode": 204,
           "label": "No content. No project with specified name was found.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1733,7 +1484,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "0d816a0f-4385-4000-b50f-88669d43aef2",
@@ -1741,12 +1493,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1755,11 +1502,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "6eac6648-be4a-485a-aadb-3df0ec7fc7c8",
@@ -1769,19 +1518,13 @@
       "responses": [
         {
           "uuid": "21cafa20-9af8-4c2d-8603-25b5bb5619a9",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"assessmentSolutionId\": \"\",\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"customerWorkspaceId\": \"\",\n    \"customerWorkspaceLocation\": \"\",\n    \"lastAssessmentTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"numberOfAssessments\": {{faker 'datatype.number'}},\n    \"numberOfGroups\": {{faker 'datatype.number'}},\n    \"numberOfMachines\": {{faker 'datatype.number'}},\n    \"projectStatus\": \"{{oneOf (array 'Active' 'Inactive')}}\",\n    \"provisioningState\": \"{{oneOf (array 'Accepted' 'Creating' 'Deleting' 'Failed' 'Moving' 'Succeeded')}}\",\n    \"serviceEndpoint\": \"\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"assessmentSolutionId\": \"\",\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"customerWorkspaceId\": \"\",\n    \"customerWorkspaceLocation\": \"\",\n    \"lastAssessmentTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"numberOfAssessments\": {{faker 'number.int'}},\n    \"numberOfGroups\": {{faker 'number.int'}},\n    \"numberOfMachines\": {{faker 'number.int'}},\n    \"projectStatus\": \"{{oneOf (array 'Active' 'Inactive')}}\",\n    \"provisioningState\": \"{{oneOf (array 'Accepted' 'Creating' 'Deleting' 'Failed' 'Moving' 'Succeeded')}}\",\n    \"serviceEndpoint\": \"\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"tags\": {},\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1791,7 +1534,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "68762f5e-df7d-4e57-b866-f01dc1e02695",
@@ -1799,12 +1543,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1813,11 +1552,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "a348180f-1fb7-4d77-8560-f21ca6d2d838",
@@ -1827,19 +1568,13 @@
       "responses": [
         {
           "uuid": "5b7198f1-3be2-4365-84ab-5e7f488fa1e9",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"assessmentSolutionId\": \"\",\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"customerWorkspaceId\": \"\",\n    \"customerWorkspaceLocation\": \"\",\n    \"lastAssessmentTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"numberOfAssessments\": {{faker 'datatype.number'}},\n    \"numberOfGroups\": {{faker 'datatype.number'}},\n    \"numberOfMachines\": {{faker 'datatype.number'}},\n    \"projectStatus\": \"{{oneOf (array 'Active' 'Inactive')}}\",\n    \"provisioningState\": \"{{oneOf (array 'Accepted' 'Creating' 'Deleting' 'Failed' 'Moving' 'Succeeded')}}\",\n    \"serviceEndpoint\": \"\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"assessmentSolutionId\": \"\",\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"customerWorkspaceId\": \"\",\n    \"customerWorkspaceLocation\": \"\",\n    \"lastAssessmentTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"numberOfAssessments\": {{faker 'number.int'}},\n    \"numberOfGroups\": {{faker 'number.int'}},\n    \"numberOfMachines\": {{faker 'number.int'}},\n    \"projectStatus\": \"{{oneOf (array 'Active' 'Inactive')}}\",\n    \"provisioningState\": \"{{oneOf (array 'Accepted' 'Creating' 'Deleting' 'Failed' 'Moving' 'Succeeded')}}\",\n    \"serviceEndpoint\": \"\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"tags\": {},\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Existing project updated.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1849,7 +1584,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "a14f4b17-4632-4d2c-9079-3cabb5821140",
@@ -1857,12 +1593,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1871,11 +1602,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "c3215b7f-23a3-4f79-9398-53c0d4844ca3",
@@ -1885,19 +1618,13 @@
       "responses": [
         {
           "uuid": "6e8476df-2e7d-41f6-a0f5-1e1cd8c0ea1c",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"assessmentSolutionId\": \"\",\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"customerWorkspaceId\": \"\",\n    \"customerWorkspaceLocation\": \"\",\n    \"lastAssessmentTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"numberOfAssessments\": {{faker 'datatype.number'}},\n    \"numberOfGroups\": {{faker 'datatype.number'}},\n    \"numberOfMachines\": {{faker 'datatype.number'}},\n    \"projectStatus\": \"{{oneOf (array 'Active' 'Inactive')}}\",\n    \"provisioningState\": \"{{oneOf (array 'Accepted' 'Creating' 'Deleting' 'Failed' 'Moving' 'Succeeded')}}\",\n    \"serviceEndpoint\": \"\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"assessmentSolutionId\": \"\",\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"customerWorkspaceId\": \"\",\n    \"customerWorkspaceLocation\": \"\",\n    \"lastAssessmentTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"numberOfAssessments\": {{faker 'number.int'}},\n    \"numberOfGroups\": {{faker 'number.int'}},\n    \"numberOfMachines\": {{faker 'number.int'}},\n    \"projectStatus\": \"{{oneOf (array 'Active' 'Inactive')}}\",\n    \"provisioningState\": \"{{oneOf (array 'Accepted' 'Creating' 'Deleting' 'Failed' 'Moving' 'Succeeded')}}\",\n    \"serviceEndpoint\": \"\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"tags\": {},\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "OK. Existing project updated.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1907,23 +1634,18 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "62cee08a-30b0-459c-b13f-af3c970e5fdf",
-          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"assessmentSolutionId\": \"\",\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"customerWorkspaceId\": \"\",\n    \"customerWorkspaceLocation\": \"\",\n    \"lastAssessmentTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"numberOfAssessments\": {{faker 'datatype.number'}},\n    \"numberOfGroups\": {{faker 'datatype.number'}},\n    \"numberOfMachines\": {{faker 'datatype.number'}},\n    \"projectStatus\": \"{{oneOf (array 'Active' 'Inactive')}}\",\n    \"provisioningState\": \"{{oneOf (array 'Accepted' 'Creating' 'Deleting' 'Failed' 'Moving' 'Succeeded')}}\",\n    \"serviceEndpoint\": \"\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"tags\": {},\n  \"type\": \"\"\n}",
+          "body": "{\n  \"eTag\": \"\",\n  \"id\": \"\",\n  \"location\": \"\",\n  \"name\": \"\",\n  \"properties\": {\n    \"assessmentSolutionId\": \"\",\n    \"createdTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"customerWorkspaceId\": \"\",\n    \"customerWorkspaceLocation\": \"\",\n    \"lastAssessmentTimestamp\": \"{{faker 'date.recent' 365}}\",\n    \"numberOfAssessments\": {{faker 'number.int'}},\n    \"numberOfGroups\": {{faker 'number.int'}},\n    \"numberOfMachines\": {{faker 'number.int'}},\n    \"projectStatus\": \"{{oneOf (array 'Active' 'Inactive')}}\",\n    \"provisioningState\": \"{{oneOf (array 'Accepted' 'Creating' 'Deleting' 'Failed' 'Moving' 'Succeeded')}}\",\n    \"serviceEndpoint\": \"\",\n    \"updatedTimestamp\": \"{{faker 'date.recent' 365}}\"\n  },\n  \"tags\": {},\n  \"type\": \"\"\n}",
           "latency": 0,
           "statusCode": 201,
           "label": "Created. New project was created.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1933,7 +1655,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         },
         {
           "uuid": "df698ed6-4904-4a4b-87dd-f7f02c87e684",
@@ -1941,12 +1664,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -1955,11 +1673,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "0ac737e1-fe56-47c7-a7f8-a640f2c741d8",
@@ -1974,14 +1694,8 @@
           "statusCode": 200,
           "label": "OK.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -1991,7 +1705,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "e8816d8a-2c02-485a-a7d6-af1b32282081",
@@ -1999,12 +1714,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2013,11 +1723,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "8c99a64d-f371-48b6-967e-c80053e9451e",
@@ -2032,14 +1744,8 @@
           "statusCode": 200,
           "label": "OK.",
           "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "x-ms-request-id",
-              "value": ""
-            }
+            { "key": "Content-Type", "value": "application/json" },
+            { "key": "x-ms-request-id", "value": "" }
           ],
           "bodyType": "INLINE",
           "filePath": "",
@@ -2049,7 +1755,8 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "crudKey": "id"
         },
         {
           "uuid": "6975b7c6-65e9-4209-8f98-250a9c481f63",
@@ -2057,12 +1764,7 @@
           "latency": 0,
           "statusCode": 200,
           "label": "Error response describing why the operation failed.",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/json" }],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
@@ -2071,11 +1773,13 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "responseMode": null
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -2092,17 +1796,42 @@
   },
   "cors": true,
   "headers": [],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "data": []
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "e5188edf-c92a-4ce6-8c18-91729eaaa3a4" },
+    { "type": "route", "uuid": "5ec84715-6c95-4172-8d8c-5b281ae0914a" },
+    { "type": "route", "uuid": "2cdaa160-427d-43e3-a393-e8966e17596d" },
+    { "type": "route", "uuid": "da05c082-13d1-4ea5-bf37-692674bfe82e" },
+    { "type": "route", "uuid": "323338e7-fc5b-41e9-831a-8b19e7ee5918" },
+    { "type": "route", "uuid": "22b4959e-92e6-4e45-b168-e0f64f14f70d" },
+    { "type": "route", "uuid": "c96c2438-469a-4d7a-95c6-7cf00bb47c61" },
+    { "type": "route", "uuid": "2f2499f5-ffaf-47cc-9546-04f370ecb414" },
+    { "type": "route", "uuid": "d3c29faa-2271-484c-9180-a371e41c47d5" },
+    { "type": "route", "uuid": "5fa91ad6-313b-47d5-b4f4-3a087aa4955e" },
+    { "type": "route", "uuid": "5d2e524a-edd7-4915-88da-bfe8018a8e10" },
+    { "type": "route", "uuid": "a2a68cd0-a471-4524-a57c-84e800675c73" },
+    { "type": "route", "uuid": "0f6b053f-8b90-4a90-8f7b-b3003a850b23" },
+    { "type": "route", "uuid": "ded23d86-9360-4fbd-9b8c-fcf0589e74b8" },
+    { "type": "route", "uuid": "ad76c75d-3f46-4203-960a-e80605ef178f" },
+    { "type": "route", "uuid": "2b3b35f1-ff4b-4310-b84f-1c636478de8e" },
+    { "type": "route", "uuid": "6ee379da-e215-4810-9be0-1a662919dbab" },
+    { "type": "route", "uuid": "1b541578-fbe4-4309-b384-8dfe0e104cd5" },
+    { "type": "route", "uuid": "2f3d1129-0279-4ee8-b3c6-934b80a7dee3" },
+    { "type": "route", "uuid": "69c4e30a-7a82-423d-9aaf-13d2ed21234b" },
+    { "type": "route", "uuid": "9b9b406d-6d66-4ebb-9c96-03b9c7d2ddd7" },
+    { "type": "route", "uuid": "439711e1-7617-42d8-8716-dd12d8fd9c49" },
+    { "type": "route", "uuid": "d41dfbe2-76f3-4dbf-9878-970729e887c3" },
+    { "type": "route", "uuid": "3be409ae-1c65-48f9-b626-c623c970bab2" },
+    { "type": "route", "uuid": "bc0de110-94e7-4568-b455-88099709405c" },
+    { "type": "route", "uuid": "d04daa95-a67a-4819-90ee-43e47d4ef2f3" },
+    { "type": "route", "uuid": "ba7fed9b-eead-412e-bec4-7cf86e9daaa9" },
+    { "type": "route", "uuid": "6eac6648-be4a-485a-aadb-3df0ec7fc7c8" },
+    { "type": "route", "uuid": "a348180f-1fb7-4d77-8560-f21ca6d2d838" },
+    { "type": "route", "uuid": "c3215b7f-23a3-4f79-9398-53c0d4844ca3" },
+    { "type": "route", "uuid": "0ac737e1-fe56-47c7-a7f8-a640f2c741d8" },
+    { "type": "route", "uuid": "8c99a64d-f371-48b6-967e-c80053e9451e" }
+  ]
 }

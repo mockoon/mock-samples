@@ -1,6 +1,6 @@
 {
   "uuid": "",
-  "lastMigration": 13,
+  "lastMigration": 29,
   "name": "Tutorial - Generate mock data",
   "endpointPrefix": "",
   "latency": 0,
@@ -14,25 +14,26 @@
       "responses": [
         {
           "uuid": "",
-          "body": "[\r\n  {{#repeat (queryParam 'total' '3')}}\r\n  {\r\n    \"id\": {{@index}},\r\n    \"title\": \"{{faker 'lorem.sentence'}}\",\r\n    \"content\": \"{{faker 'lorem.sentences'}}\",\r\n    \"media\": \"{{faker 'image.nature'}}\",\r\n    \"author\": {\r\n      \"name\": \"{{faker 'name.firstName'}} {{faker 'name.lastName'}}\",\r\n      \"avatar\": \"{{faker 'image.avatar'}}\"\r\n    },\r\n    \"comments\": [\r\n      {{#repeat (faker 'random.numeric' 1)}}\r\n      {\r\n        \"id\": \"{{faker 'datatype.uuid'}}\",\r\n        \"content\": \"{{faker 'lorem.sentence'}}\",\r\n        \"author\": {\r\n          \"name\": \"{{faker 'name.firstName'}} {{faker 'name.firstName'}}\",\r\n          \"avatar\": \"{{faker 'image.avatar'}}\"\r\n        }\r\n      }\r\n      {{/repeat}}\r\n    ],\r\n    \"likes\": {{faker 'random.numeric' 100}},\r\n    \"shares\": {{faker 'random.numeric' 100}},\r\n    \"location\": {\r\n      \"lat\": {{faker 'address.latitude'}},\r\n      \"long\": {{faker 'address.longitude'}}\r\n    },\r\n    \"archived\": {{faker 'datatype.boolean'}}\r\n  }\r\n  {{/repeat}}\r\n]",
+          "body": "[\r\n  {{#repeat (queryParam 'total' '3')}}\r\n  {\r\n    \"id\": {{@index}},\r\n    \"title\": \"{{faker 'lorem.sentence'}}\",\r\n    \"content\": \"{{faker 'lorem.sentences'}}\",\r\n    \"media\": \"{{faker 'image.urlLoremFlickr'category=\"nature\"}}\",\r\n    \"author\": {\r\n      \"name\": \"{{faker 'person.firstName'}} {{faker 'person.lastName'}}\",\r\n      \"avatar\": \"{{faker 'image.avatar'}}\"\r\n    },\r\n    \"comments\": [\r\n      {{#repeat (faker 'string.numeric' 1)}}\r\n      {\r\n        \"id\": \"{{faker 'string.uuid'}}\",\r\n        \"content\": \"{{faker 'lorem.sentence'}}\",\r\n        \"author\": {\r\n          \"name\": \"{{faker 'person.firstName'}} {{faker 'person.firstName'}}\",\r\n          \"avatar\": \"{{faker 'image.avatar'}}\"\r\n        }\r\n      }\r\n      {{/repeat}}\r\n    ],\r\n    \"likes\": {{faker 'string.numeric' 100}},\r\n    \"shares\": {{faker 'string.numeric' 100}},\r\n    \"location\": {\r\n      \"lat\": {{faker 'location.latitude'}},\r\n      \"long\": {{faker 'location.longitude'}}\r\n    },\r\n    \"archived\": {{faker 'datatype.boolean'}}\r\n  }\r\n  {{/repeat}}\r\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "",
-              "value": ""
-            }
-          ],
+          "headers": [{ "key": "", "value": "" }],
           "filePath": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
-          "disableTemplating": false
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE",
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "randomResponse": false
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "",
@@ -42,25 +43,26 @@
       "responses": [
         {
           "uuid": "",
-          "body": "city,state,address,latitude,longitude,timezone\r\n{{#repeat 5000}}\r\n{{faker 'address.city'}},{{faker 'address.stateAbbr'}},{{faker 'address.streetAddress'}},{{faker 'address.latitude'}},{{faker 'address.longitude'}},{{faker 'address.timeZone'}}\r\n{{/repeat}}",
+          "body": "city,state,address,latitude,longitude,timezone\r\n{{#repeat 5000}}\r\n{{faker 'location.city'}},{{faker 'location.stateAbbr'}},{{faker 'location.streetAddress'}},{{faker 'location.latitude'}},{{faker 'location.longitude'}},{{faker 'location.timeZone'}}\r\n{{/repeat}}",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "text/csv"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "text/csv" }],
           "filePath": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
-          "disableTemplating": false
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE",
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "randomResponse": false
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "",
@@ -70,25 +72,26 @@
       "responses": [
         {
           "uuid": "",
-          "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<PRODUCTS>\r\n  {{# repeat 50}}\r\n  <PRODUCT>\r\n    <UUID>{{faker 'datatype.uuid'}}</UUID>\r\n    <NAME>{{faker 'commerce.product'}}</NAME>\r\n    <PRICE>{{faker 'commerce.price'}}</PRICE>\r\n    <COLOR>{{faker 'color.human'}}</COLOR>\r\n    <INVENTORY>{{faker 'random.numeric' 50}}</INVENTORY>\r\n  </PRODUCT>\r\n  {{/ repeat}}\r\n</PRODUCTS>",
+          "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<PRODUCTS>\r\n  {{# repeat 50}}\r\n  <PRODUCT>\r\n    <UUID>{{faker 'string.uuid'}}</UUID>\r\n    <NAME>{{faker 'commerce.product'}}</NAME>\r\n    <PRICE>{{faker 'commerce.price'}}</PRICE>\r\n    <COLOR>{{faker 'color.human'}}</COLOR>\r\n    <INVENTORY>{{faker 'string.numeric' 50}}</INVENTORY>\r\n  </PRODUCT>\r\n  {{/ repeat}}\r\n</PRODUCTS>",
           "latency": 0,
           "statusCode": 200,
           "label": "",
-          "headers": [
-            {
-              "key": "Content-Type",
-              "value": "application/xml"
-            }
-          ],
+          "headers": [{ "key": "Content-Type", "value": "application/xml" }],
           "filePath": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
-          "disableTemplating": false
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE",
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "randomResponse": false
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "",
@@ -98,25 +101,26 @@
       "responses": [
         {
           "uuid": "",
-          "body": "{\r\n  \"id\": \"{{faker 'datatype.uuid'}}\",\r\n  \"firstname\": \"{{body 'firstname'}}\",\r\n  \"lastname\": \"{{body 'lastname'}}\",\r\n  \"birthdate\": \"{{body 'birthdate'}}\",\r\n  \"email\": \"{{body 'email'}}\",\r\n  \"createdAt\": \"{{now}}\"\r\n}",
+          "body": "{\r\n  \"id\": \"{{faker 'string.uuid'}}\",\r\n  \"firstname\": \"{{body 'firstname'}}\",\r\n  \"lastname\": \"{{body 'lastname'}}\",\r\n  \"birthdate\": \"{{body 'birthdate'}}\",\r\n  \"email\": \"{{body 'email'}}\",\r\n  \"createdAt\": \"{{now}}\"\r\n}",
           "latency": 0,
           "statusCode": 201,
           "label": "Created",
-          "headers": [
-            {
-              "key": "",
-              "value": ""
-            }
-          ],
+          "headers": [{ "key": "", "value": "" }],
           "filePath": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
-          "disableTemplating": false
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE",
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "randomResponse": false
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "",
@@ -126,47 +130,52 @@
       "responses": [
         {
           "uuid": "",
-          "body": "[\r\n  {{#repeat (queryParam 'total' '5')}}\r\n  {\r\n    \"id\": \"{{faker 'datatype.uuid'}}\",\r\n    {{# switch (urlParam 'type')}}\r\n    {{# case 'products'}}\r\n    \"name\": \"{{faker 'commerce.product'}}\",\r\n    \"price\": \"{{faker 'commerce.price'}} EUR\"\r\n    {{/ case}}\r\n    {{# case 'materials'}}\r\n    \"name\": \"{{faker 'commerce.productMaterial'}}\",\r\n    \"quantity\": \"{{faker 'random.numeric' 50}}\"\r\n    {{/ case}}\r\n    {{/ switch}}\r\n  }\r\n  {{/repeat}}\r\n]",
+          "body": "[\r\n  {{#repeat (queryParam 'total' '5')}}\r\n  {\r\n    \"id\": \"{{faker 'string.uuid'}}\",\r\n    {{# switch (urlParam 'type')}}\r\n    {{# case 'products'}}\r\n    \"name\": \"{{faker 'commerce.product'}}\",\r\n    \"price\": \"{{faker 'commerce.price'}} EUR\"\r\n    {{/ case}}\r\n    {{# case 'materials'}}\r\n    \"name\": \"{{faker 'commerce.productMaterial'}}\",\r\n    \"quantity\": \"{{faker 'string.numeric' 50}}\"\r\n    {{/ case}}\r\n    {{/ switch}}\r\n  }\r\n  {{/repeat}}\r\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "Success",
-          "headers": [
-            {
-              "key": "",
-              "value": ""
-            }
-          ],
+          "headers": [{ "key": "", "value": "" }],
           "filePath": "",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
-          "disableTemplating": false
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE",
+          "crudKey": "id"
         }
       ],
       "enabled": true,
-      "randomResponse": false
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
   "proxyHost": "",
-  "https": false,
   "cors": true,
-  "headers": [
-    {
-      "key": "Content-Type",
-      "value": "application/json"
-    }
-  ],
-  "proxyReqHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
-  ],
-  "proxyResHeaders": [
-    {
-      "key": "",
-      "value": ""
-    }
+  "headers": [{ "key": "Content-Type", "value": "application/json" }],
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "proxyRemovePrefix": false,
+  "hostname": "",
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    { "type": "route", "uuid": "" },
+    { "type": "route", "uuid": "" },
+    { "type": "route", "uuid": "" },
+    { "type": "route", "uuid": "" },
+    { "type": "route", "uuid": "" }
   ]
 }
