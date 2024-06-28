@@ -13,7 +13,7 @@
   <h1>Mockoon's mock samples</h1>
 </div>
 
-Welcome to Mockoon's mock API samples repository. You will find in the [`apis`](/apis) folder many mock samples from popular APIs (Open Weather, Giphy, etc.). We will be adding more samples from time to time.
+Welcome to Mockoon's mock API samples repository. You will find in the [`apis`](/mock-apis) folder many mock samples from popular APIs (Open Weather, Giphy, etc.). We will be adding more samples from time to time.
 
 You will find the full list of sample mock APIs on our website too: https://mockoon.com/mock-samples/
 
