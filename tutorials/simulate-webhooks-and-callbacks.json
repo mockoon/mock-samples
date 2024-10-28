@@ -1,0 +1,192 @@
+{
+  "uuid": "1fe22148-65b8-4c7d-ba28-1e567696cef0",
+  "lastMigration": 33,
+  "name": "Simulate Webhook Tutorial",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "b6e676ae-4bde-4988-aac7-664afdccf740",
+      "type": "http",
+      "documentation": "Create an order",
+      "method": "post",
+      "endpoint": "orders",
+      "responses": [
+        {
+          "uuid": "c2116747-38d2-449e-913b-a8787211edb8",
+          "body": "{{setData 'push' 'orders' null (object orderId='123456' status='pending')}}\r\n\r\n{\r\n  \"orderId\": \"123456\",\r\n  \"status\": \"pending\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": [
+            {
+              "uuid": "d9efda74-16ed-462e-843c-f1d718356640",
+              "latency": 10000
+            }
+          ]
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "f472515e-d63a-47a5-9367-0764675921a2",
+      "type": "http",
+      "documentation": "Get all orders",
+      "method": "get",
+      "endpoint": "orders",
+      "responses": [
+        {
+          "uuid": "21a31486-9037-4563-8f33-cddccd2d2cb0",
+          "body": "{{data 'orders'}}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "83edb0fb-4af3-4557-9a10-e779011ae448",
+      "type": "http",
+      "documentation": "Update orders",
+      "method": "post",
+      "endpoint": "webhook",
+      "responses": [
+        {
+          "uuid": "ee0d6359-c656-4585-9d95-7c166c868ac6",
+          "body": "{{setData 'set' 'orders' '0.status' 'paid'}}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "b6e676ae-4bde-4988-aac7-664afdccf740"
+    },
+    {
+      "type": "route",
+      "uuid": "f472515e-d63a-47a5-9367-0764675921a2"
+    },
+    {
+      "type": "route",
+      "uuid": "83edb0fb-4af3-4557-9a10-e779011ae448"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [
+    {
+      "uuid": "05966275-3dab-4d54-9499-5885e97b1c7a",
+      "id": "ah7p",
+      "name": "orders",
+      "documentation": "",
+      "value": "[\n]"
+    }
+  ],
+  "callbacks": [
+    {
+      "uuid": "d9efda74-16ed-462e-843c-f1d718356640",
+      "id": "940q",
+      "uri": "http://localhost:3006/webhook",
+      "name": "Payment processing",
+      "documentation": "",
+      "method": "post",
+      "headers": [],
+      "bodyType": "INLINE",
+      "body": "",
+      "databucketID": "",
+      "filePath": "",
+      "sendFileAsBody": true
+    }
+  ]
+}
