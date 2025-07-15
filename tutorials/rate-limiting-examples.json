@@ -1,0 +1,199 @@
+{
+  "uuid": "e97f6a04-538a-4263-9725-3ddf280fb7e4",
+  "lastMigration": 33,
+  "name": "Rate limiting examples",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3005,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "b18ba203-52b8-4e86-8bf8-69f23ddbbde0",
+      "type": "http",
+      "documentation": "Rate limiting with a simple template",
+      "method": "get",
+      "endpoint": "rate-limited",
+      "responses": [
+        {
+          "uuid": "33e495d8-a1f9-4bbb-aeac-c9f3e8f84839",
+          "body": "{{#if (lt (subtract (now 'T') (getGlobalVar 'lastCall')) 500)}}\r\n  {{status 429}}\r\n  { \"error\": \"Rate limit exceeded\", \"message\": \"Please wait at least 500ms between requests\", \"retry_after\": 500 }\r\n{{else}}\r\n  { \"success\": true, \"message\": \"Request processed successfully\", \"timestamp\":\r\n  {{now 'T'}}\r\n  }\r\n{{/if}}\r\n\r\n{{setGlobalVar 'lastCall' (now 'T')}}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "dfefab29-72e4-4919-b910-80ee34e54f46",
+      "type": "http",
+      "documentation": "Rate limiting using rules",
+      "method": "get",
+      "endpoint": "rate-limited-rules",
+      "responses": [
+        {
+          "uuid": "853a2260-d9b3-445a-b2b7-fc9dfab4304a",
+          "body": "{\r\n  \"error\": \"Rate limit exceeded\",\r\n  \"message\": \"Too many requests.\",\r\n  \"retry_after\": 500\r\n}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "7b00e263-ad23-4571-b4e0-5eef1389d418",
+          "body": "{\r\n  \"success\": true,\r\n  \"message\": \"Request processed successfully\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "templating",
+              "modifier": "{{gte (subtract (now 'T') (getGlobalVar 'lastCall')) 500}}{{setGlobalVar 'lastCall' (now 'T')}}",
+              "value": "true",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "c2466619-0117-42c3-81fc-009b92317748",
+      "type": "http",
+      "documentation": "Rate limiting with an advanced template",
+      "method": "get",
+      "endpoint": "quota-limited",
+      "responses": [
+        {
+          "uuid": "05658220-ff9a-45ff-98a2-da256c44092d",
+          "body": "{{setVar 'currentTime' (now 'T')}}\n{{setVar 'previousRequests' (dataRaw 'rate_config' 'last_request_timestamps')}}\n{{setVar 'maxRequests' (dataRaw 'rate_config' 'max_requests_per_seconds')}}\n\n{{setVar 'filteredTimestamps' (jmesPath (getVar 'previousRequests') (concat '[?to_number(@) > `' (subtract (getVar 'currentTime') 1000) '`]'))}}\n\n{{#if (gte (len (getVar 'filteredTimestamps')) (getVar 'maxRequests'))}}\n  {{status 429}}\n  { \"error\": \"Quota exceeded\", \"message\": \"You have exceeded the rate limit of {{getVar 'maxRequests'}} per second.\" }\n{{else}}\n  { \"success\": true, \"message\": \"Request processed successfully\"  }\n{{/if}}\n\n{{setData 'push' 'rate_config' 'last_request_timestamps' (now 'T')}}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "b18ba203-52b8-4e86-8bf8-69f23ddbbde0"
+    },
+    {
+      "type": "route",
+      "uuid": "dfefab29-72e4-4919-b910-80ee34e54f46"
+    },
+    {
+      "type": "route",
+      "uuid": "c2466619-0117-42c3-81fc-009b92317748"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [
+    {
+      "uuid": "e2290512-52f2-4785-8d23-13139eef0812",
+      "id": "yprd",
+      "name": "rate_config",
+      "documentation": "Store the last request timestamps",
+      "value": "{\n  \"last_request_timestamps\":[],\n  \"max_requests_per_seconds\": 4\n}"
+    }
+  ],
+  "callbacks": []
+}
