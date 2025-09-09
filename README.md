@@ -47,7 +47,7 @@ You can discuss all things related to Mockoon, and ask for help, on the [officia
 
 If you are interested in contributing to Mockoon website and documentation, please take a look at the [contributing guidelines](https://github.com/mockoon/mockoon.com/blob/main/CONTRIBUTING.md).
 
-Please also take a look at our [Code of Conduct](https://github.com/mockoon/mockoon.com/blob/main/CODE_OF_CONDUCT.md).
+Please also take a look at our [Code of Conduct](https://github.com/mockoon/.github/blob/main/CODE_OF_CONDUCT.md).
 
 ## Documentation
 
