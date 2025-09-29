@@ -8,7 +8,7 @@
   <a href="https://mockoon.com/newsletter/"><img src="https://img.shields.io/badge/Newsletter-Subscribe-green.svg?style=flat-square"/></a>
   <br>
   <br>
-  <h1>Mockoon's moc samples</h1>
+  <h1>Mockoon's mock samples</h1>
 </div>
 
 Welcome to Mockoon's mock API samples repository. You will find in the [`apis`](/mock-apis) folder many mock samples from popular APIs (Open Weather, Giphy, etc.). We will be adding more samples from time to time.
