@@ -1,0 +1,295 @@
+{
+  "uuid": "e50d44eb-4925-4344-96b0-72cf405902df",
+  "lastMigration": 33,
+  "name": "Advanced data bucket manipulation tutorial",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "ad077192-c81c-4c0c-8466-abd71ec1c414",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "admin/api-key/rotate",
+      "responses": [
+        {
+          "uuid": "a0b259c9-1029-4f26-8329-abc1a33c00dd",
+          "body": "{{setData 'set' 'apiState' 'lastGeneratedKey' (faker 'string.uuid')}}\r\n{{setData 'push' 'apiState' 'revokedKeys' (dataRaw 'apiState' 'currentKey')}}\r\n{{setData 'set' 'apiState' 'currentKey' (dataRaw 'apiState' 'lastGeneratedKey')}}\r\n{{setData 'set' 'apiState' 'usageCount' 0}}\r\n{{setData 'push' 'apiState' 'auditLog' (object event='rotate' source='admin-route')}}\r\n{ \"message\": \"API key rotated\" }",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "cbd92542-6bd7-4b11-ae35-6cdfe30629de",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "private/products",
+      "responses": [
+        {
+          "uuid": "b2c66f78-0297-4dd4-8ea2-51d00159fc7d",
+          "body": "{\r\n  \"error\": \"Missing or invalid API key\"\r\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "153ce76e-0d24-4ce0-8266-e4c292abdc26",
+          "body": "{{setData 'inc' 'apiState' 'usageCount' 1}}\r\n{{setData 'push' 'apiState' 'auditLog' (object event='access' source='private-products')}}\r\n[ { \"id\": 1, \"name\": \"Keyboard\" }, { \"id\": 2, \"name\": \"Mouse\" } ]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "X-Api-Key",
+              "value": "{{data 'apiState' 'currentKey'}}",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "7a89400f-17ce-4cc3-98c6-50be64b7234b",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "auth/login",
+      "responses": [
+        {
+          "uuid": "384bac27-f379-447a-b520-945a59b9496f",
+          "body": "{{setData 'inc' 'loginState' 'users.demoUser.failedAttempts' 1}}\r\n{{setData 'push' 'loginState' 'loginEvents' (object type='failed-login' user='demoUser')}}\r\n{ \"message\": \"Invalid credentials\" }",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "5e0493a4-3102-457e-9638-ff021430ceb2",
+          "body": "{{setData 'set' 'loginState' 'users.demoUser.failedAttempts' 0}}\r\n{{setData 'set' 'loginState' 'users.demoUser.token' (faker 'string.uuid')}}\r\n{{setData 'set' 'loginState' 'users.demoUser.lastLoginAt' (faker 'date.recent')}}\r\n{{setData 'push' 'loginState' 'loginEvents' (object type='login-success' user='demoUser')}}\r\n{ \"message\": \"Login successful\", \"token\": \"{{data 'loginState' 'users.demoUser.token'}}\" }",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "{{data 'loginState' 'users.demoUser.password'}}",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "46fe67a3-8069-4a37-9b4d-9a58ac1c1d7e",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "auth/me",
+      "responses": [
+        {
+          "uuid": "4868e5a4-95ca-44b0-b95e-36151608a663",
+          "body": "{\r\n  \"error\": \"Unauthorized\"\r\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "23e8bf7a-662c-4198-afdd-c470151def3c",
+          "body": "{\r\n  \"email\": \"{{dataRaw 'loginState' 'users.demoUser.email'}}\",\r\n  \"lastLoginAt\": \"{{dataRaw 'loginState' 'users.demoUser.lastLoginAt'}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "Bearer {{data 'loginState' 'users.demoUser.token'}}",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "ad077192-c81c-4c0c-8466-abd71ec1c414"
+    },
+    {
+      "type": "route",
+      "uuid": "cbd92542-6bd7-4b11-ae35-6cdfe30629de"
+    },
+    {
+      "type": "route",
+      "uuid": "7a89400f-17ce-4cc3-98c6-50be64b7234b"
+    },
+    {
+      "type": "route",
+      "uuid": "46fe67a3-8069-4a37-9b4d-9a58ac1c1d7e"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [
+    {
+      "uuid": "7989e032-c952-4f59-b87e-2d351e3b6865",
+      "id": "wgaa",
+      "name": "apiState",
+      "documentation": "",
+      "value": "{\r\n  \"currentKey\": \"sk_test_initial\",\r\n  \"lastGeneratedKey\": null,\r\n  \"enabled\": true,\r\n  \"usageCount\": 0,\r\n  \"revokedKeys\": [],\r\n  \"auditLog\": []\r\n}"
+    },
+    {
+      "uuid": "f81881c0-f0d8-4007-bb66-9fb303c8554c",
+      "id": "4rpl",
+      "name": "loginState",
+      "documentation": "",
+      "value": "{\r\n  \"users\": {\r\n    \"demoUser\": {\r\n      \"email\": \"demo@acme.com\",\r\n      \"password\": \"pa55word\",\r\n      \"token\": null,\r\n      \"failedAttempts\": 0,\r\n      \"lastLoginAt\": null\r\n    }\r\n  },\r\n  \"loginEvents\": []\r\n}"
+    }
+  ],
+  "callbacks": []
+}
