@@ -1,0 +1,242 @@
+{
+  "uuid": "e618b2e5-80ef-4788-8988-58f96206b175",
+  "lastMigration": 33,
+  "name": "Create ab testing checkout experiment",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "331439a1-0522-42aa-a05f-6cff09d8a17f",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "marketing/checkout/assign",
+      "responses": [
+        {
+          "uuid": "9b89d3ec-a2b9-492a-8104-3d0e5fdbe095",
+          "body": "{{setData 'set' 'abTests' (concat 'checkoutPromo.assignments.' (queryParam 'visitorId')) (oneOf 'A' 'B')}}\r\n{ \"ok\": true }",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "7332e5f1-2349-47be-837b-cd1c629c327d",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "marketing/checkout/promo",
+      "responses": [
+        {
+          "uuid": "bb133f79-c7b4-48d4-92bd-a36169d564bc",
+          "body": "{{setData 'inc' 'abTests' 'checkoutPromo.variants.A.views' 1}}\r\n{ \"variant\": \"A\", \"message\": \"{{data 'abTests' 'checkoutPromo.variants.A.message'}}\" }",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Variant A",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "data_bucket",
+              "modifier": "{{concat 'abTests.checkoutPromo.assignments.' (queryParam 'visitorId')}}",
+              "value": "A",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "5dec2fdc-3144-4546-8e46-3e650ce2e6b5",
+          "body": "{{setData 'inc' 'abTests' 'checkoutPromo.variants.B.views' 1}}\r\n{ \"variant\": \"B\", \"message\": \"{{data 'abTests' 'checkoutPromo.variants.B.message'}}\" }",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Variant B",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "data_bucket",
+              "modifier": "{{concat 'abTests.checkoutPromo.assignments.' (queryParam 'visitorId')}}",
+              "value": "B",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "a25a61c2-a2a9-4dd7-b629-99fb46064bd5",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "marketing/checkout/convert",
+      "responses": [
+        {
+          "uuid": "cd52d4d5-5bd8-477d-9882-f9a01472a062",
+          "body": "{{setData 'inc' 'abTests' 'checkoutPromo.variants.A.conversions' 1}}\r\n{ \"recorded\": true, \"variant\": \"A\" }",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Variant A",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "data_bucket",
+              "modifier": "{{concat 'abTests.checkoutPromo.assignments.' (queryParam 'visitorId')}}",
+              "value": "A",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "d983d103-cfa7-4de3-aaa8-250521c9fbdc",
+          "body": "{{setData 'inc' 'abTests' 'checkoutPromo.variants.B.conversions' 1}}\r\n{ \"recorded\": true, \"variant\": \"B\" }",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Variant B",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "data_bucket",
+              "modifier": "{{concat 'abTests.checkoutPromo.assignments.' (queryParam 'visitorId')}}",
+              "value": "B",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "331439a1-0522-42aa-a05f-6cff09d8a17f"
+    },
+    {
+      "type": "route",
+      "uuid": "7332e5f1-2349-47be-837b-cd1c629c327d"
+    },
+    {
+      "type": "route",
+      "uuid": "a25a61c2-a2a9-4dd7-b629-99fb46064bd5"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [
+    {
+      "uuid": "a08dc326-cebc-4c75-98f2-5ffbf3223fab",
+      "id": "ikd4",
+      "name": "abTests",
+      "documentation": "",
+      "value": "{\r\n  \"checkoutPromo\": {\r\n    \"assignments\": {},\r\n    \"variants\": {\r\n      \"A\": {\r\n        \"message\": \"Free shipping over $50\",\r\n        \"views\": 0,\r\n        \"conversions\": 0\r\n      },\r\n      \"B\": {\r\n        \"message\": \"10% off your first order\",\r\n        \"views\": 0,\r\n        \"conversions\": 0\r\n      }\r\n    }\r\n  }\r\n}"
+    }
+  ],
+  "callbacks": []
+}
